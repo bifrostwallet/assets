@@ -1,0 +1,9 @@
+{
+  "name": "Revolution Populi",
+  "symbol": "RVP",
+  "decimals": 18,
+  "address": "0x17ef75aa22dd5f6c2763b8304ab24f40ee54d48a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x17ef75aa22dd5f6c2763b8304ab24f40ee54d48a/logo.webp",
+  "logoHash": "04fe20ea7b13068b86b4ffec9b3ac0e10325d9225754c064429c7da92c484ba0"
+}

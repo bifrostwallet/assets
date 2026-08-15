@@ -1,0 +1,9 @@
+{
+  "name": "DeversiFi",
+  "symbol": "DVF",
+  "decimals": 18,
+  "address": "0xa7aa2921618e3d63da433829d448b58c9445a4c3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0xa7aa2921618e3d63da433829d448b58c9445a4c3/logo.webp",
+  "logoHash": "ede9388a85897a651888925528e7346e9a3534eaebf25be97d7c7ae86b724577"
+}

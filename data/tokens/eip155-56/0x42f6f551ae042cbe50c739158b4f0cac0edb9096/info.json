@@ -1,0 +1,9 @@
+{
+  "name": "Nerve Finance",
+  "symbol": "NRV",
+  "decimals": 18,
+  "address": "0x42f6f551ae042cbe50c739158b4f0cac0edb9096",
+  "coingeckoId": "nerve-finance",
+  "logoURL": "tokens/eip155-56/0x42f6f551ae042cbe50c739158b4f0cac0edb9096/logo.webp",
+  "logoHash": "c6a63602280b3525755826ed44d832ac8565bd02ffac02df447dfe101332d6c8"
+}

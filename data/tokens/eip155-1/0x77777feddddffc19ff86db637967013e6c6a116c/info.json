@@ -1,0 +1,9 @@
+{
+  "name": "Tornado Cash",
+  "symbol": "TORN",
+  "decimals": 18,
+  "address": "0x77777feddddffc19ff86db637967013e6c6a116c",
+  "coingeckoId": "tornado-cash",
+  "logoURL": "tokens/eip155-1/0x77777feddddffc19ff86db637967013e6c6a116c/logo.webp",
+  "logoHash": "9675df01a6acb09d0bb044636d5309923fb6565aa7bacbf93de4a2ac280bff72"
+}

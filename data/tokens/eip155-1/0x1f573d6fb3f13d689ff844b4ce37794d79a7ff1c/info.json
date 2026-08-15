@@ -1,0 +1,9 @@
+{
+  "name": "Bancor",
+  "symbol": "BNT",
+  "decimals": 18,
+  "address": "0x1f573d6fb3f13d689ff844b4ce37794d79a7ff1c",
+  "coingeckoId": "bancor",
+  "logoURL": "tokens/eip155-1/0x1f573d6fb3f13d689ff844b4ce37794d79a7ff1c/logo.webp",
+  "logoHash": "1eacda85305a70e6c9c8866df28220359076576682a843fafd0db5681dde4436"
+}

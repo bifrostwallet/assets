@@ -1,0 +1,9 @@
+{
+  "name": "Aavegotchi",
+  "symbol": "GHST",
+  "decimals": 18,
+  "address": "0x3f382dbd960e3a9bbceae22651e88158d2791550",
+  "coingeckoId": "aavegotchi",
+  "logoURL": "tokens/eip155-1/0x3f382dbd960e3a9bbceae22651e88158d2791550/logo.webp",
+  "logoHash": "75c5256aa01d8329be629c71a8ec274f8afee802273e81b23bd0bb25a10313e9"
+}

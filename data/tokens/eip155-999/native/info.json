@@ -1,0 +1,9 @@
+{
+  "name": "Hyperliquid",
+  "symbol": "HYPE",
+  "decimals": 18,
+  "address": null,
+  "coingeckoId": "hyperliquid",
+  "logoURL": "tokens/eip155-999/native/logo.webp",
+  "logoHash": "9b637cd2c31884b9c033d3213e8cc40f457b98f2ee49d0e33c01af364983e3e5"
+}

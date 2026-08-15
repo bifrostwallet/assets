@@ -1,0 +1,9 @@
+{
+  "name": "Velo",
+  "symbol": "VELO",
+  "decimals": 18,
+  "address": "0xf486ad071f3bee968384d2e39e2d8af0fcf6fd46",
+  "coingeckoId": "velo",
+  "logoURL": "tokens/eip155-56/0xf486ad071f3bee968384d2e39e2d8af0fcf6fd46/logo.webp",
+  "logoHash": "b361ba161c94c864dded9a5da4fca9a87155490e08678a79f16261eec8dc41c8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Tadpole",
+  "symbol": "TAD",
+  "decimals": 18,
+  "address": "0x55027a5b06f4340cc4c82dcc74c90ca93dcb173e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-8453/0x55027a5b06f4340cc4c82dcc74c90ca93dcb173e/logo.webp",
+  "logoHash": "766286924af9dddd3e39ebadad1dad1e9b8afcdbdab321b52b3d1b06af7abc74"
+}

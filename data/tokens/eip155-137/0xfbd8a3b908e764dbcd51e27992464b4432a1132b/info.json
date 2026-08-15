@@ -1,0 +1,9 @@
+{
+  "name": "Index Cooperative",
+  "symbol": "INDEX",
+  "decimals": 18,
+  "address": "0xfbd8a3b908e764dbcd51e27992464b4432a1132b",
+  "coingeckoId": "index-cooperative",
+  "logoURL": "tokens/eip155-137/0xfbd8a3b908e764dbcd51e27992464b4432a1132b/logo.webp",
+  "logoHash": "c45592128aea8094071d31f33cd48c4b614dc076909956ca47091933139f8ef0"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Chainbase Staking",
+  "description": "Chainbase staking is not just a validator provider, we are your powerful ecosystem collaborator.",
+  "logoURL": "providers/eip155-14/0x568a27b3770b6ea514c2008d8f6a3fddf61ff017/logo.webp",
+  "logoHash": "39249c1a72f99a78afd61c5932ed6f46497a0a898e360ee642139f5269a0a9d0",
+  "websiteURL": "https://staking.chainbase.com",
+  "links": {},
+  "identityAddress": "0x568a27b3770b6ea514c2008d8f6a3fddf61ff017",
+  "delegationAddress": "0x6434b1ed626585d3e58e995ad3c2cc0d6718755c",
+  "signingPolicyAddress": "0xb9fcb4aa4c78b0c9885610dabc95359de77a4e3c",
+  "submitAddress": "0xdc12432b3d1b8f0a7c9c77d80f20f54132970c73",
+  "submitSignaturesAddress": "0x14dfad2ab9339b595116d387b8ef07377554c2bb",
+  "publicKey": "0x0520a2de5be3a7a2821fe0575796e597e149079721e1a7be695da87596729c0012dbd795da9ae391372b7928699317e745356b358b014563e6685be194ed7377",
+  "validators": [
+    "NodeID-7HLcuEFt7c1qTggK8AkLim9ekhPu2NYLM",
+    "NodeID-7iiWBpS5GSwZHGLqibPxnU388hyXjCKHs",
+    "NodeID-81YSLP3x2DBCmkTJsxaytopnELkfopijP"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf8f78acebe5fd931077d03ea46bdc1a5e5b36f25f6055660e7ee3eca5a42e5db",
+    "blockNumber": 15909521,
+    "timestamp": "2023-11-27T12:20:52.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Railgun",
+  "symbol": "RAIL",
+  "decimals": 18,
+  "address": "0xe76c6c83af64e4c60245d8c7de953df673a7a33d",
+  "coingeckoId": "railgun",
+  "logoURL": "tokens/eip155-1/0xe76c6c83af64e4c60245d8c7de953df673a7a33d/logo.webp",
+  "logoHash": "0e06ef5793dc3f31a460278b25fb9aa4e2a527859ea76b24e4af4dfaed874df7"
+}

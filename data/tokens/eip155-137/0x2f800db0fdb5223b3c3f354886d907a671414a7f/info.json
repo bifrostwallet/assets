@@ -1,0 +1,9 @@
+{
+  "name": "Toucan Protocol: Base Carbon Tonne",
+  "symbol": "BCT",
+  "decimals": 18,
+  "address": "0x2f800db0fdb5223b3c3f354886d907a671414a7f",
+  "coingeckoId": "toucan-protocol-base-carbon-tonne",
+  "logoURL": "tokens/eip155-137/0x2f800db0fdb5223b3c3f354886d907a671414a7f/logo.webp",
+  "logoHash": "f757216741e1a9ae029f01da07338b408a30cd5dc200054cea3958676f9153e8"
+}

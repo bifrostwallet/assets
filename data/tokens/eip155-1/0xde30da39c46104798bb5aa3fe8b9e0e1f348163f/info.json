@@ -1,0 +1,9 @@
+{
+  "name": "Gitcoin",
+  "symbol": "GTC",
+  "decimals": 18,
+  "address": "0xde30da39c46104798bb5aa3fe8b9e0e1f348163f",
+  "coingeckoId": "gitcoin",
+  "logoURL": "tokens/eip155-1/0xde30da39c46104798bb5aa3fe8b9e0e1f348163f/logo.webp",
+  "logoHash": "5b4bcd9029d5e4565cf46892313746ad4d72b511ca443a0ec12cf69caf4847bc"
+}

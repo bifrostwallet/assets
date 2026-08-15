@@ -1,0 +1,9 @@
+{
+  "name": "Voxies",
+  "symbol": "VOXEL",
+  "decimals": 18,
+  "address": "0xd0258a3fd00f38aa8090dfee343f10a9d4d30d3f",
+  "coingeckoId": "voxies",
+  "logoURL": "tokens/eip155-137/0xd0258a3fd00f38aa8090dfee343f10a9d4d30d3f/logo.webp",
+  "logoHash": "9cff8fad7f4beb06b9935382a055fc4f016991ebbbd514d7ab5b51c384ba7810"
+}

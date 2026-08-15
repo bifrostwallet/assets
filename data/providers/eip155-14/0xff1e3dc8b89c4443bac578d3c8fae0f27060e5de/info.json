@@ -1,0 +1,29 @@
+{
+  "name": "Flare.Space",
+  "description": "Your most convenient and efficient Flare network data provider and validator. Visit us to get access to information, tools and components for integration with Flare network.",
+  "logoURL": "providers/eip155-14/0xff1e3dc8b89c4443bac578d3c8fae0f27060e5de/logo.webp",
+  "logoHash": "2986dc75b3f806b5babc43e5c9aaf6db8194b00bb3f1b2c70610392d96173b11",
+  "websiteURL": "https://flare.space",
+  "links": {},
+  "identityAddress": "0xff1e3dc8b89c4443bac578d3c8fae0f27060e5de",
+  "delegationAddress": "0x111246f191a2a20012723369d3cec77777e774e9",
+  "signingPolicyAddress": "0xf750f8af5b29019aac70897f47c61482d5d57442",
+  "submitAddress": "0x51ed08ad4c57ad29d951a0ece9bb1a750deeaa2c",
+  "submitSignaturesAddress": "0x79448d3bed0989ea768c9deeaf3ac9ef3f5cb38e",
+  "publicKey": "0x24fc3dd65d29b98317d6c05adb088642e909b9ce27a74f2fe2de9410fdbfce4700492806c036e99f83d38bd8cde28b1464e176bb697346121f30819d2ad70d4c",
+  "validators": [
+    "NodeID-7vz3A92AkLi9YRYTauPgvkdiMmhnuDRzj",
+    "NodeID-ECqqsWu9jpUvZgPyf9yPZZcyWmJjWyN1T",
+    "NodeID-FXL1XNt7FFvenb5wTh7EH4Yg8AivHXqF4",
+    "NodeID-Nu9TxjdXxGLzokgz4vT8xNx6DpW1DGsN7"
+  ],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x75a20211503f9d18fcecead159881afd8876701179985f975742ca0fccbfcfbe",
+    "blockNumber": 98987,
+    "timestamp": "2022-07-28T13:48:34.000Z"
+  }
+}

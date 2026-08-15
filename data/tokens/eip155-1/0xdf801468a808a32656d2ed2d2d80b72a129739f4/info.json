@@ -1,0 +1,9 @@
+{
+  "name": "Somnium Space CUBEs",
+  "symbol": "CUBE",
+  "decimals": 8,
+  "address": "0xdf801468a808a32656d2ed2d2d80b72a129739f4",
+  "coingeckoId": "somnium-space-cubes",
+  "logoURL": "tokens/eip155-1/0xdf801468a808a32656d2ed2d2d80b72a129739f4/logo.webp",
+  "logoHash": "41a0d9fd00cc7a2a6e00c11c93276acf01e2f6fdfa3827b08054b6809c3d8825"
+}

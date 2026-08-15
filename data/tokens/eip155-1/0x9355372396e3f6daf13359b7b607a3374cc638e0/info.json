@@ -1,0 +1,9 @@
+{
+  "name": "WHALE",
+  "symbol": "WHALE",
+  "decimals": 4,
+  "address": "0x9355372396e3f6daf13359b7b607a3374cc638e0",
+  "coingeckoId": "whale",
+  "logoURL": "tokens/eip155-1/0x9355372396e3f6daf13359b7b607a3374cc638e0/logo.webp",
+  "logoHash": "e52dd7c57ef079ebf1542cb6ce77675170c1b87ff87f82d8eb44a2793c2c4972"
+}

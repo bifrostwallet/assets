@@ -1,0 +1,9 @@
+{
+  "name": "Compound 0x",
+  "symbol": "CZRX",
+  "decimals": 8,
+  "address": "0xb3319f5d18bc0d84dd1b4825dcde5d5f7266d407",
+  "coingeckoId": "compound-0x",
+  "logoURL": "tokens/eip155-1/0xb3319f5d18bc0d84dd1b4825dcde5d5f7266d407/logo.webp",
+  "logoHash": "95b5398d3480cbebb0d52e3d414bfb0290fa1c5e8641cf057f27f8e8bd2938eb"
+}

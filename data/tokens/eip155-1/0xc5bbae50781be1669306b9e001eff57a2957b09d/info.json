@@ -1,0 +1,9 @@
+{
+  "name": "Gifto",
+  "symbol": "GTO",
+  "decimals": 5,
+  "address": "0xc5bbae50781be1669306b9e001eff57a2957b09d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc5bbae50781be1669306b9e001eff57a2957b09d/logo.webp",
+  "logoHash": "951e11ae2d5b5f024a53b9c587481f37eceb74a6aab1746682f89881dc946437"
+}

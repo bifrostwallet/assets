@@ -1,0 +1,9 @@
+{
+  "name": "League of Kingdoms",
+  "symbol": "LOKA",
+  "decimals": 18,
+  "address": "0x61e90a50137e1f645c9ef4a0d3a4f01477738406",
+  "coingeckoId": "league-of-kingdoms",
+  "logoURL": "tokens/eip155-1/0x61e90a50137e1f645c9ef4a0d3a4f01477738406/logo.webp",
+  "logoHash": "9ecccc54a8efca8a55465d6ac1ab36c820f4d39ea0f751bc925e45386e755311"
+}

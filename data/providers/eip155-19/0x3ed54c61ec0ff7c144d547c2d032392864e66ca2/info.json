@@ -1,0 +1,24 @@
+{
+  "name": "NORTSO",
+  "description": "NORTSO is a Norwegian-based data provider aiming to provide the most accurate price signals on the network.",
+  "logoURL": "providers/eip155-19/0x3ed54c61ec0ff7c144d547c2d032392864e66ca2/logo.webp",
+  "logoHash": "387e073b89e25708ec9190e97c2d4b1a81db8858924d9a83f048d1860752efce",
+  "websiteURL": "https://nortso.xyz",
+  "links": {},
+  "identityAddress": "0x3ed54c61ec0ff7c144d547c2d032392864e66ca2",
+  "delegationAddress": "0x04a8b3171fbbfe4554b55190b43e709c4b672030",
+  "signingPolicyAddress": "0xf0c331bdcf75295a726834194178c951d2281799",
+  "submitAddress": "0x0bf38d9067a250c0f470ddbd123c4210270ea710",
+  "submitSignaturesAddress": "0xac9cbd0f0b6ccc7ef984981f4c4d8a6a858fc79f",
+  "publicKey": "0x017d5ddba0bccf8b1f245efa0bbc6d44eae746ee72028fc9175ba0c054c4d0d605fdb63cbcfe808e40c5697942b7d12418711054a60e80fc39e5d1948d9f11ba",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x125203b37b8baeebd2ed2bd4c56583166238ae41d1ee820d15603e89133ffbbc",
+    "blockNumber": 14141111,
+    "timestamp": "2022-04-09T15:44:24.000Z"
+  }
+}

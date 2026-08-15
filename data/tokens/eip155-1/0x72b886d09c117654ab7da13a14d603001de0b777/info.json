@@ -1,0 +1,9 @@
+{
+  "name": "XDEFI",
+  "symbol": "XDEFI",
+  "decimals": 18,
+  "address": "0x72b886d09c117654ab7da13a14d603001de0b777",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x72b886d09c117654ab7da13a14d603001de0b777/logo.webp",
+  "logoHash": "dcecd652fa151d4b65326cfa29816d88bd4532046c860eecc85a3ba6adfec72b"
+}

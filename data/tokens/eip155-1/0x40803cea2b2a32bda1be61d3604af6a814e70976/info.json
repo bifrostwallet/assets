@@ -1,0 +1,9 @@
+{
+  "name": "Spool DAO Token",
+  "symbol": "SPOOL",
+  "decimals": 18,
+  "address": "0x40803cea2b2a32bda1be61d3604af6a814e70976",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x40803cea2b2a32bda1be61d3604af6a814e70976/logo.webp",
+  "logoHash": "36a4fa147c72fea391f3f80ad8872ba3c5bb1738bf23eeb501f4a7695bb34a58"
+}

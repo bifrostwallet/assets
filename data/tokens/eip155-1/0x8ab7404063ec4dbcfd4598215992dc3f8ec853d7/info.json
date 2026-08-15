@@ -1,0 +1,9 @@
+{
+  "name": "Akropolis",
+  "symbol": "AKRO",
+  "decimals": 18,
+  "address": "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7",
+  "coingeckoId": "akropolis",
+  "logoURL": "tokens/eip155-1/0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7/logo.webp",
+  "logoHash": "6712360e94c198a3ae9d823e89cab0efde6a2959aac1a2ff694ab1b3f00aed4f"
+}

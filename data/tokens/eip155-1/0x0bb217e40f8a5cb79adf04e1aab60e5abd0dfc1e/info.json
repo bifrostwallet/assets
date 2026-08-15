@@ -1,0 +1,9 @@
+{
+  "name": "SWFTCOIN",
+  "symbol": "SWFTC",
+  "decimals": 8,
+  "address": "0x0bb217e40f8a5cb79adf04e1aab60e5abd0dfc1e",
+  "coingeckoId": "swftcoin",
+  "logoURL": "tokens/eip155-1/0x0bb217e40f8a5cb79adf04e1aab60e5abd0dfc1e/logo.webp",
+  "logoHash": "71ba889e476e608f96613dc76d85c0ce6941bdbcae423350ff3b6e1c6d1fcbf4"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "LORDS",
+  "symbol": "LORDS",
+  "decimals": 18,
+  "address": "0x686f2404e77ab0d9070a46cdfb0b7fecdd2318b0",
+  "coingeckoId": "lords",
+  "logoURL": "tokens/eip155-1/0x686f2404e77ab0d9070a46cdfb0b7fecdd2318b0/logo.webp",
+  "logoHash": "098c18a3277a1e335bb0dadc4c1c2310fd90449879db0b5ef1af847423d98a29"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Orion Protocol",
+  "symbol": "ORN",
+  "decimals": 8,
+  "address": "0x0258f474786ddfd37abce6df6bbb1dd5dfc4434a",
+  "coingeckoId": "orion-protocol",
+  "logoURL": "tokens/eip155-1/0x0258f474786ddfd37abce6df6bbb1dd5dfc4434a/logo.webp",
+  "logoHash": "e3663acae8df732f4f16682a441dc86458d8872f6fb5b0e9c3431cd26c5249e3"
+}

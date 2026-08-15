@@ -1,0 +1,9 @@
+{
+  "name": "Compound Dai",
+  "symbol": "CDAI",
+  "decimals": 8,
+  "address": "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643",
+  "coingeckoId": "cdai",
+  "logoURL": "tokens/eip155-1/0x5d3a536e4d6dbd6114cc1ead35777bab948e3643/logo.webp",
+  "logoHash": "0c2e99ca1023968c0367350adc6a15ea1233d0574832c6d5eaf5b9c7e2345df2"
+}

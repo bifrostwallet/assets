@@ -1,0 +1,9 @@
+{
+  "name": "Astral Credits",
+  "symbol": "XAC",
+  "decimals": 18,
+  "address": "0x61b64c643fccd6ff34fc58c8ddff4579a89e2723",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x61b64c643fccd6ff34fc58c8ddff4579a89e2723/logo.webp",
+  "logoHash": "34912ab16ff79ee0db0a422d174e2964e1373eb973ba543d044373e67716e0dd"
+}

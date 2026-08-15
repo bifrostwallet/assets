@@ -1,0 +1,9 @@
+{
+  "name": "Origin Protocol",
+  "symbol": "OGN",
+  "decimals": 18,
+  "address": "0x8207c1ffc5b6804f6024322ccf34f29c3541ae26",
+  "coingeckoId": "origin-protocol",
+  "logoURL": "tokens/eip155-1/0x8207c1ffc5b6804f6024322ccf34f29c3541ae26/logo.webp",
+  "logoHash": "6a9d79594dcdd0bb24b3f5273c17faaf89b73e176b30a0deefeef48dd9635026"
+}

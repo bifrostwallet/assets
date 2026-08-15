@@ -1,0 +1,9 @@
+{
+  "name": "Staked HYPE",
+  "symbol": "stHYPE",
+  "decimals": 18,
+  "address": "0xffaa4a3d97fe9107cef8a3f48c069f577ff76cc1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0xffaa4a3d97fe9107cef8a3f48c069f577ff76cc1/logo.webp",
+  "logoHash": "806b2a2bca9cc7e0083fc77d96f1d1604d77fe35b8e9f9f32eda69c79a7a7b35"
+}

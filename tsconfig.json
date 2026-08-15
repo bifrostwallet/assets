@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "outDir": "./build",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules", "apps", "src copy", "test copy"]
+}

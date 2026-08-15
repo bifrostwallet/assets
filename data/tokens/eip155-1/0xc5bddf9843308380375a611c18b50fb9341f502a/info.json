@@ -1,0 +1,9 @@
+{
+  "name": "veCRV-DAO yVault",
+  "symbol": "YVE-CRVDAO",
+  "decimals": 18,
+  "address": "0xc5bddf9843308380375a611c18b50fb9341f502a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc5bddf9843308380375a611c18b50fb9341f502a/logo.webp",
+  "logoHash": "9f85b19c4d30f29fb0841814d94790565bf0ae01d0416f07198e83c8ea972f13"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Sylo",
+  "symbol": "SYLO",
+  "decimals": 18,
+  "address": "0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4",
+  "coingeckoId": "sylo",
+  "logoURL": "tokens/eip155-1/0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4/logo.webp",
+  "logoHash": "f0ea7d19395d4c0ccefc3392d8eb70f15f5a60bd1dea936b567283358f4041ac"
+}

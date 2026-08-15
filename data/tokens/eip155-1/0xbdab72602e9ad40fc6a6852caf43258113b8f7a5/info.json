@@ -1,0 +1,9 @@
+{
+  "name": "Sovryn",
+  "symbol": "SOV",
+  "decimals": 18,
+  "address": "0xbdab72602e9ad40fc6a6852caf43258113b8f7a5",
+  "coingeckoId": "sovryn",
+  "logoURL": "tokens/eip155-1/0xbdab72602e9ad40fc6a6852caf43258113b8f7a5/logo.webp",
+  "logoHash": "ccc29cb69d468b1f225c4d1710c7cecf3c2300971b36b09e0b403ce560796dd4"
+}

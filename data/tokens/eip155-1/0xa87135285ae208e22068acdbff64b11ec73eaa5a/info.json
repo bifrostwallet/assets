@@ -1,0 +1,9 @@
+{
+  "name": "Lunr Token",
+  "symbol": "LUNR",
+  "decimals": 4,
+  "address": "0xa87135285ae208e22068acdbff64b11ec73eaa5a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa87135285ae208e22068acdbff64b11ec73eaa5a/logo.webp",
+  "logoHash": "6b38dc0e5cbeb715f46bfc4ffa36c022657da15c76946995970645115104552d"
+}

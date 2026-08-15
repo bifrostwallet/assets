@@ -1,0 +1,9 @@
+{
+  "name": "Swap",
+  "symbol": "SWAP",
+  "decimals": 18,
+  "address": "0x03832767bdf9a8ef007449942125ad605acfadb8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x03832767bdf9a8ef007449942125ad605acfadb8/logo.webp",
+  "logoHash": "d31dad09cdff453b19675d7338797a69e085b3d4141b601517eabbb31fb8b930"
+}

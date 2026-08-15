@@ -1,0 +1,24 @@
+{
+  "name": "HEWG",
+  "description": "HEWG strikes to provide best FTSO price data.",
+  "logoURL": "providers/eip155-19/0x4ddd9f80f88f53c730ce7c6041f17583447dd968/logo.webp",
+  "logoHash": "38cd71e542dbf4082e0b94c12f08b4a6e91af326707c9bd58569fa962a6e21f5",
+  "websiteURL": "https://hewg.org",
+  "links": {},
+  "identityAddress": "0x4ddd9f80f88f53c730ce7c6041f17583447dd968",
+  "delegationAddress": "0x819eab111bd9a6e595187a914240529d2efff21f",
+  "signingPolicyAddress": "0x1c884cf954ec8f15d7bf16b9d50402cc5c94b5fd",
+  "submitAddress": "0xc58b13d32dcf08eb23d2105159982377982b2777",
+  "submitSignaturesAddress": "0x099ae1a237a4a7696672986c2155fe8b80abe906",
+  "publicKey": "0x097b88396d0d61f660834184551f26f88aa9aab5b5c14fe4834e0c6a98dfee041bb72537f20333ac48bac2fc86d360de9a3f6c46af0899f7c835969ec5670661",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xca9d8715c59774d033da2edb4d454c476cc7a78fe23085d1551b9b99e78a0da2",
+    "blockNumber": 459988,
+    "timestamp": "2021-10-06T21:09:33.000Z"
+  }
+}

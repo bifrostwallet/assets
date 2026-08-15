@@ -1,0 +1,9 @@
+{
+  "name": "USDP Stablecoin",
+  "symbol": "USDP",
+  "decimals": 18,
+  "address": "0x1456688345527be1f37e9e627da0837d6f08c925",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x1456688345527be1f37e9e627da0837d6f08c925/logo.webp",
+  "logoHash": "6aca5c1023da7bb0d71617eac0fd5644a6d6881e340ec91012934c1e17a1c19d"
+}

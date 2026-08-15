@@ -1,0 +1,9 @@
+{
+  "name": "Finu",
+  "symbol": "FINU",
+  "decimals": 18,
+  "address": "0x282b88514a52fcadcd92b742745398f3574697d4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x282b88514a52fcadcd92b742745398f3574697d4/logo.webp",
+  "logoHash": "5ad40f8d685ba40f4dbbcac3a5ca39d1140d5bde720d878f7ed4a95778d64f45"
+}

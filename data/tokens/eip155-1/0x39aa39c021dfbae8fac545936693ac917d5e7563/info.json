@@ -1,0 +1,9 @@
+{
+  "name": "Compound USD Coin",
+  "symbol": "CUSDC",
+  "decimals": 8,
+  "address": "0x39aa39c021dfbae8fac545936693ac917d5e7563",
+  "coingeckoId": "compound-usd-coin",
+  "logoURL": "tokens/eip155-1/0x39aa39c021dfbae8fac545936693ac917d5e7563/logo.webp",
+  "logoHash": "fc9e901db9972746bfd5e67671146b2cca48f16f28a2a274a473f18b32a3e383"
+}

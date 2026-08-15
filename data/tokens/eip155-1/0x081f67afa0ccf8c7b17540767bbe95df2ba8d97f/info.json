@@ -1,0 +1,9 @@
+{
+  "name": "CoinEx Token",
+  "symbol": "CET",
+  "decimals": 18,
+  "address": "0x081f67afa0ccf8c7b17540767bbe95df2ba8d97f",
+  "coingeckoId": "coinex-token",
+  "logoURL": "tokens/eip155-1/0x081f67afa0ccf8c7b17540767bbe95df2ba8d97f/logo.webp",
+  "logoHash": "1077bd71945ce643987d053c2e83b10b39fd8f79f232382b66ef778a25485812"
+}

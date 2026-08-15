@@ -1,0 +1,9 @@
+{
+  "name": "ERC20",
+  "symbol": "ERC20",
+  "decimals": 18,
+  "address": "0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea/logo.webp",
+  "logoHash": "ef3eee91ea2dbe4f822149ab02eca450712f889482ad251be607a4185f778b6c"
+}

@@ -1,0 +1,5 @@
+# Yarn Zero-Installs / vendored binary — treat as binary for diffs and LFS-unfriendly tools.
+/.yarn/releases/** binary
+/.yarn/cache/** binary
+.pnp.cjs linguist-generated=true
+.pnp.loader.mjs linguist-generated=true

@@ -1,0 +1,9 @@
+{
+  "name": "Honey Stick",
+  "symbol": "HS",
+  "decimals": 18,
+  "address": "0x9dc8639bff70b019088f0b7d960561654269b5be",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x9dc8639bff70b019088f0b7d960561654269b5be/logo.webp",
+  "logoHash": "4ae289ba86134fb801b6f852c39396a10003a50f0b054f99856d82912f13b33d"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Compound Ether",
+  "symbol": "CETH",
+  "decimals": 8,
+  "address": "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5",
+  "coingeckoId": "compound-ether",
+  "logoURL": "tokens/eip155-1/0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5/logo.webp",
+  "logoHash": "3e07ff1e78defeb5f0159e731b4c8e66b8798368e8ecab9a3646318d4c48d291"
+}

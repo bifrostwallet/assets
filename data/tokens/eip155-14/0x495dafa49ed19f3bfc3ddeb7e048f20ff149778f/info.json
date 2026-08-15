@@ -1,0 +1,9 @@
+{
+  "name": "SeagullCoin",
+  "symbol": "SGLCN",
+  "decimals": 18,
+  "address": "0x495dafa49ed19f3bfc3ddeb7e048f20ff149778f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x495dafa49ed19f3bfc3ddeb7e048f20ff149778f/logo.webp",
+  "logoHash": "02a051f98e3aa349a4526e5ecb8bad1dae1d661e473837a5124e45c8f080f19b"
+}

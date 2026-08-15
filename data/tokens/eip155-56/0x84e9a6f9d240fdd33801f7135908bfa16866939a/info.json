@@ -1,0 +1,9 @@
+{
+  "name": "GAMEE",
+  "symbol": "GMEE",
+  "decimals": 18,
+  "address": "0x84e9a6f9d240fdd33801f7135908bfa16866939a",
+  "coingeckoId": "gamee",
+  "logoURL": "tokens/eip155-56/0x84e9a6f9d240fdd33801f7135908bfa16866939a/logo.webp",
+  "logoHash": "2d93db17be061b978826ca096038a9254bf2c1eca0ce15048093b8a3b6aaef41"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "LCX",
+  "symbol": "LCX",
+  "decimals": 18,
+  "address": "0x037a54aab062628c9bbae1fdb1583c195585fe41",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x037a54aab062628c9bbae1fdb1583c195585fe41/logo.webp",
+  "logoHash": "d8110183c03260188400be56b162c8b926a4ceddf0c08ca946e68ee024bcca67"
+}

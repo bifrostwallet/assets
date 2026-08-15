@@ -1,0 +1,9 @@
+{
+  "name": "Test EUR",
+  "symbol": "testEUR",
+  "decimals": 6,
+  "address": "0xda501af976af8dbf24a1545803f04f508f1bf2ae",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0xda501af976af8dbf24a1545803f04f508f1bf2ae/logo.webp",
+  "logoHash": "8a7f7d6c86d06f73e1ae698dac770c504e58d3a795f51bbb49e082aca8db06f1"
+}

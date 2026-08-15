@@ -1,0 +1,9 @@
+{
+  "name": "DoodCats",
+  "symbol": "DOOD",
+  "decimals": 18,
+  "address": "0x612c20d14493dc6a389603aef56006ad6a09a76f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x612c20d14493dc6a389603aef56006ad6a09a76f/logo.webp",
+  "logoHash": "1ea836d0fe6bd9986f1afe67443b26f9fe41df5ca01f54f075969cf9a1412442"
+}

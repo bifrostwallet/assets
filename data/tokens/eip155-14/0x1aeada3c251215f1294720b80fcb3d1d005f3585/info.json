@@ -1,0 +1,9 @@
+{
+  "name": "Core wFLR",
+  "symbol": "COREWFLR",
+  "decimals": 18,
+  "address": "0x1aeada3c251215f1294720b80fcb3d1d005f3585",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x1aeada3c251215f1294720b80fcb3d1d005f3585/logo.webp",
+  "logoHash": "d48435128aff38106f62e75be847734deb98bb1c04fb69250fde26520cdac011"
+}

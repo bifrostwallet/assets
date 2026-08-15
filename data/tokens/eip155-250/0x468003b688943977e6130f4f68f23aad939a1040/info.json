@@ -1,0 +1,9 @@
+{
+  "name": "Spell",
+  "symbol": "SPELL",
+  "decimals": 18,
+  "address": "0x468003b688943977e6130f4f68f23aad939a1040",
+  "coingeckoId": "spell-token",
+  "logoURL": "tokens/eip155-250/0x468003b688943977e6130f4f68f23aad939a1040/logo.webp",
+  "logoHash": "4d94afc63b38f2bbbc935e7c3fa6b3100d1cd398431226a5d8f170db8f5e237d"
+}

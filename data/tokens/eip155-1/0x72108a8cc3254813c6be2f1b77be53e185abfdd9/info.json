@@ -1,0 +1,9 @@
+{
+  "name": "Era Swap Token",
+  "symbol": "ES",
+  "decimals": 18,
+  "address": "0x72108a8cc3254813c6be2f1b77be53e185abfdd9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x72108a8cc3254813c6be2f1b77be53e185abfdd9/logo.webp",
+  "logoHash": "a006126925cf3bd4df8946bb7ad37ce38cc756a2ca1ca2b9d9b2f1762820f0dd"
+}

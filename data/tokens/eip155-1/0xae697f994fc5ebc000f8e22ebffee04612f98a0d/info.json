@@ -1,0 +1,9 @@
+{
+  "name": "LGCY Network",
+  "symbol": "LGCY",
+  "decimals": 18,
+  "address": "0xae697f994fc5ebc000f8e22ebffee04612f98a0d",
+  "coingeckoId": "lgcy-network",
+  "logoURL": "tokens/eip155-1/0xae697f994fc5ebc000f8e22ebffee04612f98a0d/logo.webp",
+  "logoHash": "1a47cff263e7e2a58c181aba9103b1d9f44330b80c6dd2ef9bbaa48d2a101765"
+}

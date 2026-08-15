@@ -1,0 +1,9 @@
+{
+  "name": "Test USDC",
+  "symbol": "testUSDC",
+  "decimals": 6,
+  "address": "0xd20d9284e8b43c60365bca90662c67b5a0b91dd6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0xd20d9284e8b43c60365bca90662c67b5a0b91dd6/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

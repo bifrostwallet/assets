@@ -1,0 +1,9 @@
+{
+  "name": "Feather",
+  "symbol": "FTHR",
+  "decimals": 18,
+  "address": "0x19ea65e3f8fc8f61743d137b5107172f849d8eb3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x19ea65e3f8fc8f61743d137b5107172f849d8eb3/logo.webp",
+  "logoHash": "f662b15c6452c796e85a6fbc469df53cad2d07940e1227a75243fe8adf081e00"
+}

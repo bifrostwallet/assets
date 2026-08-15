@@ -1,0 +1,9 @@
+{
+  "name": "Rainicorn",
+  "symbol": "RAINI",
+  "decimals": 18,
+  "address": "0xe83dfaaafd3310474d917583ae9633b4f68fb036",
+  "coingeckoId": "rainicorn",
+  "logoURL": "tokens/eip155-250/0xe83dfaaafd3310474d917583ae9633b4f68fb036/logo.webp",
+  "logoHash": "329344426db2fa41f0a858bfaf48820848a5b1f30a43e8d0e9a5443a81ec35d0"
+}

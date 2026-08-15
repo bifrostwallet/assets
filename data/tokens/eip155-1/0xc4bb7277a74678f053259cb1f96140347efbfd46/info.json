@@ -1,0 +1,9 @@
+{
+  "name": "Coin of the champions",
+  "symbol": "COC",
+  "decimals": 18,
+  "address": "0xc4bb7277a74678f053259cb1f96140347efbfd46",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc4bb7277a74678f053259cb1f96140347efbfd46/logo.webp",
+  "logoHash": "ed295ac7d2a3a2abd3a2e8021daf7076bd3a46a0cb9703cbd862753139c579e6"
+}

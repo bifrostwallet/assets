@@ -1,0 +1,9 @@
+{
+  "name": "Huobi BTC",
+  "symbol": "HBTC",
+  "decimals": 18,
+  "address": "0x0316eb71485b0ab14103307bf65a021042c6d380",
+  "coingeckoId": "huobi-btc",
+  "logoURL": "tokens/eip155-1/0x0316eb71485b0ab14103307bf65a021042c6d380/logo.webp",
+  "logoHash": "e7fbc0626cd0552077b9b397de229ac0268e337dfbb6ccba629c1ed33ebb479c"
+}

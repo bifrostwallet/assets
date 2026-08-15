@@ -1,0 +1,9 @@
+{
+  "name": "Ankr Reward-Bearing Staked ETH",
+  "symbol": "AETHC",
+  "decimals": 18,
+  "address": "0xe95a203b1a91a908f9b9ce46459d101078c2c3cb",
+  "coingeckoId": "ankreth",
+  "logoURL": "tokens/eip155-1/0xe95a203b1a91a908f9b9ce46459d101078c2c3cb/logo.webp",
+  "logoHash": "07c37147d616356e9cebca3977f61d58f4c4a7435c5a6ce51c24676787912eff"
+}

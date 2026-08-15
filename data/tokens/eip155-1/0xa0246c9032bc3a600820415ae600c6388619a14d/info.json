@@ -1,0 +1,9 @@
+{
+  "name": "Harvest Finance",
+  "symbol": "FARM",
+  "decimals": 18,
+  "address": "0xa0246c9032bc3a600820415ae600c6388619a14d",
+  "coingeckoId": "harvest-finance",
+  "logoURL": "tokens/eip155-1/0xa0246c9032bc3a600820415ae600c6388619a14d/logo.webp",
+  "logoHash": "61585d91dcc6d1fa39976c48181f7b9113fe66d6e593a0a916798840ef19a823"
+}

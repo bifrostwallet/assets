@@ -1,0 +1,9 @@
+{
+  "name": "PEAKDEFI",
+  "symbol": "PEAK",
+  "decimals": 8,
+  "address": "0x630d98424efe0ea27fb1b3ab7741907dffeaad78",
+  "coingeckoId": "marketpeak",
+  "logoURL": "tokens/eip155-1/0x630d98424efe0ea27fb1b3ab7741907dffeaad78/logo.webp",
+  "logoHash": "17592e08e1b541937876ad55b868cec2e795316fd30463c7ae291830b535bd20"
+}

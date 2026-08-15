@@ -1,0 +1,27 @@
+{
+  "name": "FTSOBest",
+  "description": "The name is our mission: We are a data provider that enables the community to participate directly in the project's success through utility NFTs",
+  "logoURL": "providers/eip155-14/0x05d8f084bf6ac2267a5ca699740e9236db6e2bdb/logo.webp",
+  "logoHash": "d9f7b0b5dbd1dc82ea0d56c67896511a45d4c2f2a02ea9b9024e8e750cd7e0bd",
+  "websiteURL": "https://ftso.best",
+  "links": {},
+  "identityAddress": "0x05d8f084bf6ac2267a5ca699740e9236db6e2bdb",
+  "delegationAddress": "0xc396b6f023f3a1c894a20fba08432e847c05c7f9",
+  "signingPolicyAddress": "0xe78b600d8daec600c6ff98a1e6a22f28022830fc",
+  "submitAddress": "0xc967d1fd27a94e4fc5c085c0adfa9bcd2418d1a0",
+  "submitSignaturesAddress": "0xc877be63b032ec7a4116192c94fdf4a1b2e6c422",
+  "publicKey": "0x1b85a11256d8ff69c610c6e7fcddb03626dfa7f169035fa67dda7d8825527e251b3b15f4afffffeeabcd4e18a69c0685d958b96472d4ba983bfb06dc03d75574",
+  "validators": [
+    "NodeID-4qa2aH7gEksskHU2nYna1mNX37U1yfdAp",
+    "NodeID-FFDXvxz7zusH2wec4DM5eKPT4gxfJKSDe"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x2d937b363351ec6e097f28aced801a53b35650a2d5071081a6353d9ef458dbcf",
+    "blockNumber": 30582012,
+    "timestamp": "2024-09-30T22:13:53.000Z"
+  }
+}

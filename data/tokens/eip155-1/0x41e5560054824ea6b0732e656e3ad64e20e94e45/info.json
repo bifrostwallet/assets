@@ -1,0 +1,9 @@
+{
+  "name": "Civic",
+  "symbol": "CVC",
+  "decimals": 8,
+  "address": "0x41e5560054824ea6b0732e656e3ad64e20e94e45",
+  "coingeckoId": "civic",
+  "logoURL": "tokens/eip155-1/0x41e5560054824ea6b0732e656e3ad64e20e94e45/logo.webp",
+  "logoHash": "bf541e431e99b99dbdcd5a0e2ecb398d2284bdf085fc9e39177e179d82c14f1a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Aragon",
+  "symbol": "ANT",
+  "decimals": 18,
+  "address": "0xa117000000f279d81a1d3cc75430faa017fa5a2e",
+  "coingeckoId": "aragon",
+  "logoURL": "tokens/eip155-1/0xa117000000f279d81a1d3cc75430faa017fa5a2e/logo.webp",
+  "logoHash": "9c412c4a883ac6dac58906066f28bc14010076a6af5508b16e543823181650f7"
+}

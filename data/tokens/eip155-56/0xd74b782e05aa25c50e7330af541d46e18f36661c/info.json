@@ -1,0 +1,9 @@
+{
+  "name": "Rich Quack",
+  "symbol": "QUACK",
+  "decimals": 9,
+  "address": "0xd74b782e05aa25c50e7330af541d46e18f36661c",
+  "coingeckoId": "richquack",
+  "logoURL": "tokens/eip155-56/0xd74b782e05aa25c50e7330af541d46e18f36661c/logo.webp",
+  "logoHash": "cbb094dec84869d950705717267c3731adab93b438c3574aabfe21a9ea823d40"
+}

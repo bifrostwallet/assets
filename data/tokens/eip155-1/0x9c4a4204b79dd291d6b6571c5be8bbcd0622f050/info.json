@@ -1,0 +1,9 @@
+{
+  "name": "Tracer DAO",
+  "symbol": "TCR",
+  "decimals": 18,
+  "address": "0x9c4a4204b79dd291d6b6571c5be8bbcd0622f050",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x9c4a4204b79dd291d6b6571c5be8bbcd0622f050/logo.webp",
+  "logoHash": "ffda571e2f226d1a52f69aca98bd84a6ba7b831e4e1799a4256d61bcd92d247e"
+}

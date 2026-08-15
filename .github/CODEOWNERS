@@ -1,0 +1,15 @@
+# Supply-chain sensitive paths require review from @RareData (Code Owners).
+# Enable in GitHub: Settings → Branches → branch protection →
+# "Require a pull request before merging" + "Require review from Code Owners".
+
+/package.json @RareData
+/yarn.lock @RareData
+/.yarnrc.yml @RareData
+/.yarn/ @RareData
+/yarn @RareData
+/.node-version @RareData
+/.nvmrc @RareData
+/.git-hooks/ @RareData
+/scripts/security/ @RareData
+/.github/dependabot.yml @RareData
+/patches/ @RareData

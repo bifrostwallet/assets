@@ -1,0 +1,24 @@
+{
+  "name": "Envision",
+  "description": "Providing reliable data feeds to the Songbird Network",
+  "logoURL": "providers/eip155-19/0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e/logo.webp",
+  "logoHash": "7d60eaa31227b9d7ff500f4ed0130b3086936b2917f009670930e2ffa15784b1",
+  "websiteURL": "https://www.envisionftso.com",
+  "links": {},
+  "identityAddress": "0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e",
+  "delegationAddress": "0x58cd43e9fcdbd4d0f507ab4f6029db8032746da8",
+  "signingPolicyAddress": "0xb25f584a52cc31541f6d783abe700c078f618bb4",
+  "submitAddress": "0xeb431aca7d7b626c8635de8842a8ca4a25c53ab1",
+  "submitSignaturesAddress": "0xdf4a3adb26d23cf51380b31d5ffc3c94d06697b7",
+  "publicKey": "0x0e7a4499d35d90c55a060f7e6b9e5a0c9d04e5154b7fa049e75ded80cc15b58305e5acbbb75a703cd424266f6ff2ac9bbc39a1ee881fdd1e3ec91869f8f9bf89",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x7404e00d1c81789709d7d246b8e12442ab13daeffaf6656a91659d8f5a3281f9",
+    "blockNumber": 22542434,
+    "timestamp": "2022-09-08T07:40:27.000Z"
+  }
+}

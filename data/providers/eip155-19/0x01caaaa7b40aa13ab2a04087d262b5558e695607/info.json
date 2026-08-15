@@ -1,0 +1,24 @@
+{
+  "name": "Ugly Kitty",
+  "description": "We are a Flare and Songbird blockchain networks data signals provider based in the USA.",
+  "logoURL": "providers/eip155-19/0x01caaaa7b40aa13ab2a04087d262b5558e695607/logo.webp",
+  "logoHash": "480ac2bcb730cdb3e9044412f01314431b9aff2e3bbba59a16432091a379d025",
+  "websiteURL": "https://uglykitty.xyz",
+  "links": {},
+  "identityAddress": "0x01caaaa7b40aa13ab2a04087d262b5558e695607",
+  "delegationAddress": "0x35149714467f2fe71b46eeb4d11689ed8728bd25",
+  "signingPolicyAddress": "0x338119f38fc07f29aa96449251353d9e4684da6d",
+  "submitAddress": "0xbe9f00d70c357c663b63cf5972d4c59c851a7618",
+  "submitSignaturesAddress": "0x7e5a5371517f855e10d27394483dbab123da5d9d",
+  "publicKey": "0x1ec9ba90b04ed361a44ef0b46cc173f423c6a95f9d86688553d16780eae163de182db0c31609bbdd2fb5c9b29dbaca96c0ee2c9cd6885d71b3c20a7d7bd279ee",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xdaac93bdc38f7bb9258da07ae129312fda4e7f54c433811fdbd24649f77a24cb",
+    "blockNumber": 17319133,
+    "timestamp": "2022-06-09T02:41:39.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Binance XRP",
+  "symbol": "XRP",
+  "decimals": 18,
+  "address": "0x1d2f0da169ceb9fc7b3144628db156f3f6c60dbe",
+  "coingeckoId": "binance-peg-xrp",
+  "logoURL": "tokens/eip155-56/0x1d2f0da169ceb9fc7b3144628db156f3f6c60dbe/logo.webp",
+  "logoHash": "bcace5e5a2e6d9b4d4620bd60ef1c2ac7e31d5b1dc2cfe34023451a4f188db19"
+}

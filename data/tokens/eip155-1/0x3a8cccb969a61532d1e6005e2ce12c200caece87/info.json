@@ -1,0 +1,9 @@
+{
+  "name": "TitanSwap",
+  "symbol": "TITAN",
+  "decimals": 18,
+  "address": "0x3a8cccb969a61532d1e6005e2ce12c200caece87",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3a8cccb969a61532d1e6005e2ce12c200caece87/logo.webp",
+  "logoHash": "c68dda7253747e0af675215373afdcbae1cfd6b60adc8bd2bfe764ce0be44066"
+}

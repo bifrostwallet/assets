@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Coston Flare",
+  "symbol": "WCFLR",
+  "decimals": 18,
+  "address": "0x767b25a658e8fc8ab6ebbd52043495db61b4ea91",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x767b25a658e8fc8ab6ebbd52043495db61b4ea91/logo.webp",
+  "logoHash": "f8edcaa3b8a00e2d01ff266478f4cf02ecc8f568689fba91ec04231407262dd7"
+}

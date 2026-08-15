@@ -1,0 +1,9 @@
+{
+  "name": "xSUSHI",
+  "symbol": "XSUSHI",
+  "decimals": 18,
+  "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+  "coingeckoId": "xsushi",
+  "logoURL": "tokens/eip155-1/0x8798249c2e607446efb7ad49ec89dd1865ff4272/logo.webp",
+  "logoHash": "64f59a5708f48cb5faa0bd13e1ed64d6c8c3dd8b9ade19f421ea3a60f76f998e"
+}

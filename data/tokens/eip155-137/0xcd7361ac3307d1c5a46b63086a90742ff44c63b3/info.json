@@ -1,0 +1,9 @@
+{
+  "name": "Crypto Raiders",
+  "symbol": "RAIDER",
+  "decimals": 18,
+  "address": "0xcd7361ac3307d1c5a46b63086a90742ff44c63b3",
+  "coingeckoId": "crypto-raiders",
+  "logoURL": "tokens/eip155-137/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/logo.webp",
+  "logoHash": "2445ee3c6d784497e696206ddfbd997d7491f8e47d200f6af576565987c29b28"
+}

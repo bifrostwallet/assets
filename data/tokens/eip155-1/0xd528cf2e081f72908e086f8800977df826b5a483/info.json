@@ -1,0 +1,9 @@
+{
+  "name": "Paribus",
+  "symbol": "PBX",
+  "decimals": 18,
+  "address": "0xd528cf2e081f72908e086f8800977df826b5a483",
+  "coingeckoId": "paribus",
+  "logoURL": "tokens/eip155-1/0xd528cf2e081f72908e086f8800977df826b5a483/logo.webp",
+  "logoHash": "7865998145deab5ae9e8adc88add25f62b83792664e969ee322c0c5ba8f8c312"
+}

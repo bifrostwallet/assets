@@ -1,0 +1,9 @@
+{
+  "name": "Muse DAO",
+  "symbol": "MUSE",
+  "decimals": 18,
+  "address": "0xb6ca7399b4f9ca56fc27cbff44f4d2e4eef1fc81",
+  "coingeckoId": "muse-2",
+  "logoURL": "tokens/eip155-1/0xb6ca7399b4f9ca56fc27cbff44f4d2e4eef1fc81/logo.webp",
+  "logoHash": "064d57b3a3276fbb9c78370d246b7a7afd0e4155be118a192cceab2f77808661"
+}

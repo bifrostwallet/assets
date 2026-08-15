@@ -1,0 +1,9 @@
+{
+  "name": "Synth USD",
+  "symbol": "SUSD",
+  "decimals": 18,
+  "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x57ab1ec28d129707052df4df418d58a2d46d5f51/logo.webp",
+  "logoHash": "594c15bfc312af428db74064367ff3274a4a3909113d7d8864e15bf3fe0e520a"
+}

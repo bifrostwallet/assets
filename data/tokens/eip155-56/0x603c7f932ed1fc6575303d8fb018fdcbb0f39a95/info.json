@@ -1,0 +1,9 @@
+{
+  "name": "ApeSwap Finance",
+  "symbol": "BANANA",
+  "decimals": 18,
+  "address": "0x603c7f932ed1fc6575303d8fb018fdcbb0f39a95",
+  "coingeckoId": "apeswap-finance",
+  "logoURL": "tokens/eip155-56/0x603c7f932ed1fc6575303d8fb018fdcbb0f39a95/logo.webp",
+  "logoHash": "306b42cf50d237a7b396eba5987016404f09536b11edc1ed7d6275131886b392"
+}

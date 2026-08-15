@@ -1,0 +1,9 @@
+{
+  "name": "ECOMI",
+  "symbol": "OMI",
+  "decimals": 18,
+  "address": "0xed35af169af46a02ee13b9d79eb57d6d68c1749e",
+  "coingeckoId": "ecomi",
+  "logoURL": "tokens/eip155-1/0xed35af169af46a02ee13b9d79eb57d6d68c1749e/logo.webp",
+  "logoHash": "3aac82bbe3be893d64e72f401dfa214328f996adcc1cadd9efeb721283b03a06"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Binance Ethereum",
+  "symbol": "ETH",
+  "decimals": 18,
+  "address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+  "coingeckoId": "binance-peg-weth",
+  "logoURL": "tokens/eip155-56/0x2170ed0880ac9a755fd29b2688956bd959f933f8/logo.webp",
+  "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+}

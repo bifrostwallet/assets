@@ -1,0 +1,9 @@
+{
+  "name": "Compound SAI",
+  "symbol": "CSAI",
+  "decimals": 8,
+  "address": "0xf5dce57282a584d2746faf1593d3121fcac444dc",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf5dce57282a584d2746faf1593d3121fcac444dc/logo.webp",
+  "logoHash": "5d13ae1f9aaa0156b9bf07e1b7ab7455710fd241ba15cb9229149c1f4d73274d"
+}

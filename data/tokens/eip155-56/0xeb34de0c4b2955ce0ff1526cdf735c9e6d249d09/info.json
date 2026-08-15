@@ -1,0 +1,9 @@
+{
+  "name": "Obyte",
+  "symbol": "GBYTE",
+  "decimals": 18,
+  "address": "0xeb34de0c4b2955ce0ff1526cdf735c9e6d249d09",
+  "coingeckoId": "byteball",
+  "logoURL": "tokens/eip155-56/0xeb34de0c4b2955ce0ff1526cdf735c9e6d249d09/logo.webp",
+  "logoHash": "f9356c14049a0aaa8313012fc3bdcf8164eef8d361994e1865f8309f784d28f7"
+}

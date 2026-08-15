@@ -1,0 +1,9 @@
+{
+  "name": "Coinbase Wrapped XRP",
+  "symbol": "cbXRP",
+  "decimals": 6,
+  "address": "0xcb585250f852c6c6bf90434ab21a00f02833a4af",
+  "coingeckoId": "coinbase-wrapped-xrp",
+  "logoURL": "tokens/eip155-8453/0xcb585250f852c6c6bf90434ab21a00f02833a4af/logo.webp",
+  "logoHash": "5db03513be2509cb23213b31048a0731c02e07a5aa2130f287c52e533b935b37"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "GamerCoin",
+  "symbol": "GHX",
+  "decimals": 18,
+  "address": "0xbd7b8e4de08d9b01938f7ff2058f110ee1e0e8d4",
+  "coingeckoId": "gamercoin",
+  "logoURL": "tokens/eip155-56/0xbd7b8e4de08d9b01938f7ff2058f110ee1e0e8d4/logo.webp",
+  "logoHash": "f27391d813aa4659f8c617402462174f3b654c66758e245b2714dff99cae184c"
+}

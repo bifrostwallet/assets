@@ -1,0 +1,9 @@
+{
+  "name": "Stratis",
+  "symbol": "STRAX",
+  "decimals": 18,
+  "address": "0xa3c22370de5f9544f0c4de126b1e46ceadf0a51b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa3c22370de5f9544f0c4de126b1e46ceadf0a51b/logo.webp",
+  "logoHash": "955f2905ef7e558a8ba31055ac20f7d2aa5c05b98433820d4143fd3ea6ee4797"
+}

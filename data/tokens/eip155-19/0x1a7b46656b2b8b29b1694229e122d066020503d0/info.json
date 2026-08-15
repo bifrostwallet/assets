@@ -1,0 +1,9 @@
+{
+  "name": "Experimental USDT",
+  "symbol": "exUSDT",
+  "decimals": 6,
+  "address": "0x1a7b46656b2b8b29b1694229e122d066020503d0",
+  "coingeckoId": "enosys-usdt",
+  "logoURL": "tokens/eip155-19/0x1a7b46656b2b8b29b1694229e122d066020503d0/logo.webp",
+  "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+}

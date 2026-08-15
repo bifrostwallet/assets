@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Centrifuge",
+  "symbol": "WCFG",
+  "decimals": 18,
+  "address": "0xc221b7e65ffc80de234bbb6667abdd46593d34f0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc221b7e65ffc80de234bbb6667abdd46593d34f0/logo.webp",
+  "logoHash": "ae402326e514b12fbf1adf2170afbf5a43523ddbd5814d98045e56d9d0071946"
+}

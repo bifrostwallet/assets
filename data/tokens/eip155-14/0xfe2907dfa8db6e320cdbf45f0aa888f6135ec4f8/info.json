@@ -1,0 +1,9 @@
+{
+  "name": "USDX T-Pool",
+  "symbol": "cUSDX",
+  "decimals": 6,
+  "address": "0xfe2907dfa8db6e320cdbf45f0aa888f6135ec4f8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xfe2907dfa8db6e320cdbf45f0aa888f6135ec4f8/logo.webp",
+  "logoHash": "cb2c049216173b7ae64e829fbb8e4993d5308585ee6a1d2fa53112908b443a33"
+}

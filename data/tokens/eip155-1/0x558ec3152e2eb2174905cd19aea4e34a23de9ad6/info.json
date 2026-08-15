@@ -1,0 +1,9 @@
+{
+  "name": "Bread",
+  "symbol": "BRD",
+  "decimals": 18,
+  "address": "0x558ec3152e2eb2174905cd19aea4e34a23de9ad6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x558ec3152e2eb2174905cd19aea4e34a23de9ad6/logo.webp",
+  "logoHash": "b282c1c053ca25a97b28f0f33e3114360d9a83d3156d7bbdf38040a484fac5c7"
+}

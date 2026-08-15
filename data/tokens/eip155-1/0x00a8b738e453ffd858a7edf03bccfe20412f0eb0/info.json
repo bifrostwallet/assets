@@ -1,0 +1,9 @@
+{
+  "name": "AllianceBlock Legacy",
+  "symbol": "ALBT",
+  "decimals": 18,
+  "address": "0x00a8b738e453ffd858a7edf03bccfe20412f0eb0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x00a8b738e453ffd858a7edf03bccfe20412f0eb0/logo.webp",
+  "logoHash": "e7323d5c0985fc2bdf33285458c1d12f8133b4efee76b741fb7fdcfb2db8515e"
+}

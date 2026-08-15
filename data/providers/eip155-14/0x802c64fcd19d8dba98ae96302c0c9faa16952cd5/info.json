@@ -1,0 +1,29 @@
+{
+  "name": "Griffwn",
+  "description": "",
+  "logoURL": "providers/eip155-14/0x802c64fcd19d8dba98ae96302c0c9faa16952cd5/logo.webp",
+  "logoHash": "7f842db5326be1c870039392c2137a53a6730583dbc1e5a75dc10ae6737a8c18",
+  "websiteURL": "",
+  "links": {},
+  "identityAddress": "0x802c64fcd19d8dba98ae96302c0c9faa16952cd5",
+  "delegationAddress": "0xe35800fe5785f60c216bd9e667f106a42dc2c042",
+  "signingPolicyAddress": "0x14cf47ea046930a64e71cf2ffa79aef16aa911b0",
+  "submitAddress": "0x6e6bca42a3a82adad355703abc201a6619ad0a58",
+  "submitSignaturesAddress": "0xf889004a86cf0b8389cff01f2d69072b5f88bbbe",
+  "publicKey": "0x1a2e7e864d0c7eb466d42cc20e2319b2a79bfa53166055b1a15f0ebea52e73da2f5da8cda412ca87e0643680d616911be059cceda9d70fdf27999a82ba3a963c",
+  "validators": [
+    "NodeID-5akjQVNKt8uEqWGyUoszCrKFWFVSegVN1",
+    "NodeID-97tdK5LmgQHcrud4n7BjserKwiDa2QPFY",
+    "NodeID-Foimk2gQaUs4DD3K6Jan8x8kSonGxzT9P",
+    "NodeID-LbGaxB3u2JbUSCk4SKH7yZrFzwFg1guoL"
+  ],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf40284744fa4299378d8064207c1ef1213e495974d75b57b480eedab094451f6",
+    "blockNumber": 62591031,
+    "timestamp": "2026-06-09T19:32:43.000Z"
+  }
+}

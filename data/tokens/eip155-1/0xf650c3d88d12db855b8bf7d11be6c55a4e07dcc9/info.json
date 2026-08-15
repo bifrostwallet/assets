@@ -1,0 +1,9 @@
+{
+  "name": "Compound USDT",
+  "symbol": "CUSDT",
+  "decimals": 8,
+  "address": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9/logo.webp",
+  "logoHash": "f42ea44061f671f27c78633ed9e9ddacc84c28d313ab71889a2b9dc81fcebdc4"
+}

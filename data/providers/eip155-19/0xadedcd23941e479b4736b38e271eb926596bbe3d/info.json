@@ -1,0 +1,24 @@
+{
+  "name": "Oracle Daemon",
+  "description": "Oracle Daemon is a team of dedicated professionals designing the best data provider.",
+  "logoURL": "providers/eip155-19/0xadedcd23941e479b4736b38e271eb926596bbe3d/logo.webp",
+  "logoHash": "0916a175fe63e7eedb0ecc687bb7c9c492212d0c9a2d81d2ad0096723eb2912a",
+  "websiteURL": "https://www.oracle-daemon.com",
+  "links": {},
+  "identityAddress": "0xadedcd23941e479b4736b38e271eb926596bbe3d",
+  "delegationAddress": "0x92d6c2e99d5959f2e9c0a7aba5149d8a5ef22f23",
+  "signingPolicyAddress": "0xee02d89fbc7c61b0f6b0ce6bc20acc3522f66295",
+  "submitAddress": "0x70e0c2e0831b135a62dec08a32a4e99f64433541",
+  "submitSignaturesAddress": "0x29f140350a8bf591f1a813f389c3ccd7882a4a25",
+  "publicKey": "0x2f5325c7ec031d8cbfe08e7d93a7138c9370f63321e802b38f194fd9643a443e058b2ebfe67d0687a2c3a3514eb0961d8a1cb46b0e0995b70120e33ff11b77a0",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5b8d1de60495e4de902125086e41f7a9c0b70b274d9d94dd563ab79409007f42",
+    "blockNumber": 413150,
+    "timestamp": "2021-10-05T08:18:26.000Z"
+  }
+}

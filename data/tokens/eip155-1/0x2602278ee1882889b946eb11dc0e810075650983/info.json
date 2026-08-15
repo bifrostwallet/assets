@@ -1,0 +1,9 @@
+{
+  "name": "Vader Protocol",
+  "symbol": "VADER",
+  "decimals": 18,
+  "address": "0x2602278ee1882889b946eb11dc0e810075650983",
+  "coingeckoId": "vader-protocol",
+  "logoURL": "tokens/eip155-1/0x2602278ee1882889b946eb11dc0e810075650983/logo.webp",
+  "logoHash": "8b14cf553bfcc3744094a84a0c24394199f9506444f6b054f7239c9c55306a34"
+}

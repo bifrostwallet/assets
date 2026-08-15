@@ -1,0 +1,28 @@
+{
+  "name": "NORTSO",
+  "description": "NORTSO is a Norwegian-based data provider aiming to provide the most accurate price signals on the network.",
+  "logoURL": "providers/eip155-14/0x6241834cd0a3ae76b7eb07b32ee9f0a3219fa6d5/logo.webp",
+  "logoHash": "387e073b89e25708ec9190e97c2d4b1a81db8858924d9a83f048d1860752efce",
+  "websiteURL": "https://nortso.xyz",
+  "links": {},
+  "identityAddress": "0x6241834cd0a3ae76b7eb07b32ee9f0a3219fa6d5",
+  "delegationAddress": "0x00c0ffef480e392f5fe7af592214855ff872fa80",
+  "signingPolicyAddress": "0xac30f31806e290782293f6e3d30cb5f46fb337ab",
+  "submitAddress": "0x749eb1ab531d79413761381f776ef8bb9ff216e1",
+  "submitSignaturesAddress": "0xcf46c8f4efc869f0d3a4b7c19367af3205f9b526",
+  "publicKey": "0x20e35660ddabfec766ea13063241ebb8b2854280e2812fda500e6665c6a9d7e82f7fd273394d1a4b271dbb5aca2ae5b08a1c75471dc7a1e24e77294161b9e650",
+  "validators": [
+    "NodeID-3RJrjDMzeZQVDyHDjZ6u1X3Y3WCKY5nbb",
+    "NodeID-9so5xxbAxuoqz5MANESDbLEQKetKP7AiW",
+    "NodeID-K4iQCzQ6VSYUchEFNBSvQwhWaunb7sZe5"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xa7c61638e9845da24df7d40ae41fde1d753fe972da0affb2199e1a52a54233c3",
+    "blockNumber": 20459,
+    "timestamp": "2022-07-23T10:29:05.000Z"
+  }
+}

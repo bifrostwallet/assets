@@ -1,0 +1,9 @@
+{
+  "name": "Experimental Finance Token",
+  "symbol": "EXFI",
+  "decimals": 18,
+  "address": "0xc348f894d0e939fe72c467156e6d7dcbd6f16e21",
+  "coingeckoId": "flare-finance",
+  "logoURL": "tokens/eip155-19/0xc348f894d0e939fe72c467156e6d7dcbd6f16e21/logo.webp",
+  "logoHash": "242c5cfc39e236422cd26d4ad31f0a04cf590976d3cba2ea4a7ab10189b6fc99"
+}

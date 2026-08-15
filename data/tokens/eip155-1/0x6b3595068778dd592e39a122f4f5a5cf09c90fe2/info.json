@@ -1,0 +1,9 @@
+{
+  "name": "SushiSwap",
+  "symbol": "SUSHI",
+  "decimals": 18,
+  "address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
+  "coingeckoId": "sushi",
+  "logoURL": "tokens/eip155-1/0x6b3595068778dd592e39a122f4f5a5cf09c90fe2/logo.webp",
+  "logoHash": "4b5864ed55d8bd7d8229d87de976bad42ebeeb483a69e4c4c6135f5e2ac31972"
+}

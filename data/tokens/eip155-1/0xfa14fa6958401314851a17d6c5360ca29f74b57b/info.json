@@ -1,0 +1,9 @@
+{
+  "name": "Saito",
+  "symbol": "SAITO",
+  "decimals": 18,
+  "address": "0xfa14fa6958401314851a17d6c5360ca29f74b57b",
+  "coingeckoId": "saito",
+  "logoURL": "tokens/eip155-1/0xfa14fa6958401314851a17d6c5360ca29f74b57b/logo.webp",
+  "logoHash": "2c4c79681348da082a08c28f2ca5d9198e0f5800025eaa6e979f5d4ca0b0493e"
+}

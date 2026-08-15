@@ -1,0 +1,9 @@
+{
+  "name": "LiquidDriver",
+  "symbol": "LQDR",
+  "decimals": 18,
+  "address": "0x10b620b2dbac4faa7d7ffd71da486f5d44cd86f9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0x10b620b2dbac4faa7d7ffd71da486f5d44cd86f9/logo.webp",
+  "logoHash": "62a37aa6deff07ef696c9e3b480a19440ff9d2b77724a5bd2e80fa1050372c0f"
+}

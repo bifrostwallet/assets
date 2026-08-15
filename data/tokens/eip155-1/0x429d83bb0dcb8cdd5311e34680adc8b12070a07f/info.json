@@ -1,0 +1,9 @@
+{
+  "name": "PlatonCoin",
+  "symbol": "PLTC",
+  "decimals": 18,
+  "address": "0x429d83bb0dcb8cdd5311e34680adc8b12070a07f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x429d83bb0dcb8cdd5311e34680adc8b12070a07f/logo.webp",
+  "logoHash": "d82a074357e768eb976750e7bea13541a68f182c0359494fc150e2af4b924507"
+}

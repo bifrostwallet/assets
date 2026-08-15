@@ -1,0 +1,24 @@
+{
+  "name": "A-FTSO",
+  "description": "The first indie FTSO provider, run as a professional one. No frills, low fees.",
+  "logoURL": "providers/eip155-14/0xed077a4ab0864bf5b3b56caacbb3e41633acf52f/logo.webp",
+  "logoHash": "28a13b1348973d2c4fc9e7981dede7584720507bb73c5920b8bb557370f4106d",
+  "websiteURL": "https://ftso.alexdupre.com",
+  "links": {},
+  "identityAddress": "0xed077a4ab0864bf5b3b56caacbb3e41633acf52f",
+  "delegationAddress": "0xaf7504242064532cbd3370ad7591452b1d09bbdc",
+  "signingPolicyAddress": "0x680cb53763d589b2835ff522cbeea507dba9f74c",
+  "submitAddress": "0x85be5ecda6b130ed06de1f79d5f1d3ba88a4577f",
+  "submitSignaturesAddress": "0x732d031eddea4b28b3860962cb30d451eb562502",
+  "publicKey": "0x1ceba7e9204ab56e64a834b6b9a933a713c43ecc38c37561702de6425f7c1518050098010ff9f9887f543cf217a4886c58dde743302f07003aa57f4732156417",
+  "validators": ["NodeID-6cnsMcUNTJwCcDuAyPwJqEaVa6yMrk8eq"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x9c57fa95a82c389c72ee5c86828c9ec3e606672270318b9ca8cb8ef211bf43b0",
+    "blockNumber": 16960,
+    "timestamp": "2022-07-22T19:05:06.000Z"
+  }
+}

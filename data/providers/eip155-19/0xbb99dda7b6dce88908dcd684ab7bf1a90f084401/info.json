@@ -1,0 +1,24 @@
+{
+  "name": "FTSO EU",
+  "description": "Ftso.eu is one of the oldest signal providers building on Flare, with a strong community and presence. Our signals are weighted, dynamic, resilient, processed with an innovative approach on a distributed P2P network to guarantee their accuracy.",
+  "logoURL": "providers/eip155-19/0xbb99dda7b6dce88908dcd684ab7bf1a90f084401/logo.webp",
+  "logoHash": "9b1e915b791c9c53641826a5ac2f1f7cb9e57a9aac0fc6e2232b852e30bd83e9",
+  "websiteURL": "https://www.ftso.eu",
+  "links": {},
+  "identityAddress": "0xbb99dda7b6dce88908dcd684ab7bf1a90f084401",
+  "delegationAddress": "0x010a16c53f33e4d93892f00897965578b55a8cfc",
+  "signingPolicyAddress": "0x8481da9fb718e36121d67be580531fac1ef1349f",
+  "submitAddress": "0x41c2c30b9bd902ce3710903f27f5024da49c509e",
+  "submitSignaturesAddress": "0x9be9e883fdaa4cf0353bd5677e2d27973e9cee82",
+  "publicKey": "0x22206bab9c235f82ad230aa2a69cb3aac02507fe40e8c8451f918dd8175f6ba12f0a19f8fc166486c0edda4ba51ac9ad8f31917a2522a2c4737ca3edaa743995",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xbdaf5ae659c9f6f038f738e8bf81956c4aa6208365ab636bb87f015f6e8b03c7",
+    "blockNumber": 14226,
+    "timestamp": "2021-09-21T07:19:46.000Z"
+  }
+}

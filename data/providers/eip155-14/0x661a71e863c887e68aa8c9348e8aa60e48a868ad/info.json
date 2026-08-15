@@ -1,0 +1,24 @@
+{
+  "name": "Use Your Spark",
+  "description": "Global Signal Provider for the Flare Time Series Oracle (FTSO), offering vote delegation services to Spark (FLR) token holders. Start earning risk-free rewards today!",
+  "logoURL": "providers/eip155-14/0x661a71e863c887e68aa8c9348e8aa60e48a868ad/logo.webp",
+  "logoHash": "00e68eb31f6d11c109003bf0a10b19372a80af7f4883c6b7d91beba2c50abe73",
+  "websiteURL": "https://www.useyourspark.com",
+  "links": {},
+  "identityAddress": "0x661a71e863c887e68aa8c9348e8aa60e48a868ad",
+  "delegationAddress": "0xa288054b230dcbb8689ac229d6dbd7df39203181",
+  "signingPolicyAddress": "0x0c88a5cd336a2b2a81f16e09a23582300489f4de",
+  "submitAddress": "0x6ee543bd1cf7afa237233c29e7562665c82b89ed",
+  "submitSignaturesAddress": "0xc9852851b353900647246edcb8162227dadf8373",
+  "publicKey": "0x0cfa9f1092d8f1fc832c09290f7487a64ba5e6af06ffda2995332629b6cc4cd214a7f03ec75504640b019bd34a18f647edd49a14adda989cebc2f7d742f67a9a",
+  "validators": ["NodeID-MzMscku8ayAd2pBEmH8xWiAXBwtPgS2S5"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xb32bd457d3a0781350aafd437f8faab7b340796079913001f52639a2d5f71f36",
+    "blockNumber": 22030,
+    "timestamp": "2022-07-23T14:21:50.000Z"
+  }
+}

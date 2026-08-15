@@ -1,0 +1,9 @@
+{
+  "name": "Swarm",
+  "symbol": "BZZ",
+  "decimals": 16,
+  "address": "0x19062190b1925b5b6689d7073fdfc8c2976ef8cb",
+  "coingeckoId": "swarm-bzz",
+  "logoURL": "tokens/eip155-1/0x19062190b1925b5b6689d7073fdfc8c2976ef8cb/logo.webp",
+  "logoHash": "6a7fd08d2de0f0e607d38193f03907491e9b0a100420ce2f8757496439db9f9d"
+}

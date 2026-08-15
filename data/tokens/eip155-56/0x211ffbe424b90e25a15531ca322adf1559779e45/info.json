@@ -1,0 +1,9 @@
+{
+  "name": "BUX Token",
+  "symbol": "BUX",
+  "decimals": 18,
+  "address": "0x211ffbe424b90e25a15531ca322adf1559779e45",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x211ffbe424b90e25a15531ca322adf1559779e45/logo.webp",
+  "logoHash": "0b59c55210ef3897206c8c01f0f7b7a137643447f4c829b9f6f285a6b894a599"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Bonez",
+  "symbol": "BNZ",
+  "decimals": 18,
+  "address": "0xfd3449e8ee31117a848d41ee20f497a9bcb53164",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xfd3449e8ee31117a848d41ee20f497a9bcb53164/logo.webp",
+  "logoHash": "53b9c8408289bdc74e126c80acb2061df4377416ba1b8d41eddb9b7648271a8c"
+}

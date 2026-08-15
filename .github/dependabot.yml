@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    # Security updates only; scheduled version-bump PRs stay disabled.
+    open-pull-requests-limit: 0
+  # Actions: keep SHA-pinned workflows current. Review/merge these PRs — not noise.
+  # Grouped weekly so one PR updates all Actions instead of N separate bumps.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+

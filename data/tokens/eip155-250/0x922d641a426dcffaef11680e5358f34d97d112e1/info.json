@@ -1,0 +1,9 @@
+{
+  "name": "Vivid Labs",
+  "symbol": "VID",
+  "decimals": 18,
+  "address": "0x922d641a426dcffaef11680e5358f34d97d112e1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0x922d641a426dcffaef11680e5358f34d97d112e1/logo.webp",
+  "logoHash": "65ffe07f6e831f2c7545f92d5c357a00d3bf7da2b31492cc74251f3fdbd94752"
+}

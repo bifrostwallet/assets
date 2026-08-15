@@ -1,0 +1,35 @@
+{
+  "name": "Bifrost Wallet",
+  "description": "Bifrost Wallet runs a competitive, accurate and reliable oracle service since 2021. Developed by Towo Labs a Flare Network development partner.",
+  "logoURL": "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+  "logoHash": "c61db8ffb2f428b0bb346e3334de605e6b6ff969b07ed834240535f8708c4dd2",
+  "websiteURL": "https://bifrostwallet.com",
+  "links": {
+    "github": "https://github.com/bifrostwallet",
+    "x": "https://x.com/bifrostwallet",
+    "telegram": "https://t.me/+-hjtOruBWYg2ZmQ8",
+    "youtube": "https://www.youtube.com/@bifrostwallet-com",
+    "reddit": "https://www.reddit.com/r/Bifrost/"
+  },
+  "identityAddress": "0x1650d2760baee638c034200dedcbe17b050d0364",
+  "delegationAddress": "0x9a46864a3b0a7805b266c445289c3fad1e48f18e",
+  "signingPolicyAddress": "0x05ca60d45584358d999f39bb62be1835ad50b742",
+  "submitAddress": "0x09981b26225021baf22ad86c952f1aadbac609f6",
+  "submitSignaturesAddress": "0x51374b34b916faf91726f64a6c78cf089c51d81f",
+  "publicKey": "0x2b6ea241cc890321a3611254cb42bb544a56aeddc451f1011671c049743218521b4948baddc3525cd870a276948aa0bf4a5f4008c03448b4c7003b2e486a8879",
+  "validators": [
+    "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+    "NodeID-BeE5PDQkbtgbeDsxJMc2diKWyE95HtuHR",
+    "NodeID-GZEWkCpn852hwKhbGNJgZvbjtvEfU6Ktg",
+    "NodeID-MKeSBNK4dMPNnvPPxb2xEjbeyyJMc9tfc"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": true,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x27e68d2e096f8335aa642a3fdead0d1fac2ae1985e82732f740440567004dfdd",
+    "blockNumber": 14899,
+    "timestamp": "2022-07-21T10:00:08.000Z"
+  }
+}

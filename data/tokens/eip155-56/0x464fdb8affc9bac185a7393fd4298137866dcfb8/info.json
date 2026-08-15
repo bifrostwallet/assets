@@ -1,0 +1,9 @@
+{
+  "name": "Realm",
+  "symbol": "REALM",
+  "decimals": 18,
+  "address": "0x464fdb8affc9bac185a7393fd4298137866dcfb8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x464fdb8affc9bac185a7393fd4298137866dcfb8/logo.webp",
+  "logoHash": "a8849ed31553a0f5a2cb8247220f040f3fa61512f235e759e3ffd194494f1b69"
+}

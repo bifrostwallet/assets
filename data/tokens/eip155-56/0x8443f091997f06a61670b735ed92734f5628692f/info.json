@@ -1,0 +1,9 @@
+{
+  "name": "Bella Protocol",
+  "symbol": "BEL",
+  "decimals": 18,
+  "address": "0x8443f091997f06a61670b735ed92734f5628692f",
+  "coingeckoId": "bella-protocol",
+  "logoURL": "tokens/eip155-56/0x8443f091997f06a61670b735ed92734f5628692f/logo.webp",
+  "logoHash": "dbdc1b31962a1812cc76939627532f183fdf8e5d7377e67e78aeaba44e189494"
+}

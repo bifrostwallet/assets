@@ -1,0 +1,9 @@
+{
+  "name": "Offshift",
+  "symbol": "XFT",
+  "decimals": 18,
+  "address": "0xe138c66982fd5c890c60b94fdba1747faf092c20",
+  "coingeckoId": "offshift",
+  "logoURL": "tokens/eip155-56/0xe138c66982fd5c890c60b94fdba1747faf092c20/logo.webp",
+  "logoHash": "b6a7724739c0d1c4a1d3307bcb6960d041b577abe1ee1f00aa572069e48e2afe"
+}

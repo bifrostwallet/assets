@@ -1,0 +1,9 @@
+{
+  "name": "Enosys ETH",
+  "symbol": "eETH",
+  "decimals": 18,
+  "address": "0xa76dcddce60a442d69bac7158f3660f50921b122",
+  "coingeckoId": "ethereum",
+  "logoURL": "tokens/eip155-14/0xa76dcddce60a442d69bac7158f3660f50921b122/logo.webp",
+  "logoHash": "42deb13bc0df4f7719f11c718aac699a1caa3d6302046aaf1c12f65077a3fba5"
+}

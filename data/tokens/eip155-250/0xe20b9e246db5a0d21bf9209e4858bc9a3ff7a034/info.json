@@ -1,0 +1,9 @@
+{
+  "name": "Banano",
+  "symbol": "BAN",
+  "decimals": 18,
+  "address": "0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034",
+  "coingeckoId": "wrapped-banano",
+  "logoURL": "tokens/eip155-250/0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034/logo.webp",
+  "logoHash": "d2bf0558f582ee062d57b117067be7a2a89b661132f3c15d5f4521bbaaa63cec"
+}

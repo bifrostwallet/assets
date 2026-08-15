@@ -1,0 +1,9 @@
+{
+  "name": "Proton",
+  "symbol": "XPR",
+  "decimals": 4,
+  "address": "0x5de3939b2f811a61d830e6f52d13b066881412ab",
+  "coingeckoId": "proton",
+  "logoURL": "tokens/eip155-56/0x5de3939b2f811a61d830e6f52d13b066881412ab/logo.webp",
+  "logoHash": "8d0fd6f2b5fc7049b8bee9382b6c30d62bbce21046ea5ba28022adfde83833c8"
+}

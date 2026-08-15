@@ -1,0 +1,9 @@
+{
+  "name": "Kyber Network Crystal",
+  "symbol": "KNC",
+  "decimals": 18,
+  "address": "0xfe56d5892bdffc7bf58f2e84be1b2c32d21c308b",
+  "coingeckoId": "kyber-network-crystal",
+  "logoURL": "tokens/eip155-56/0xfe56d5892bdffc7bf58f2e84be1b2c32d21c308b/logo.webp",
+  "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
+}

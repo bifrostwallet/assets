@@ -1,0 +1,9 @@
+{
+  "name": "Test USD",
+  "symbol": "testUSD",
+  "decimals": 6,
+  "address": "0x6623c0bb56adb150dc9c6bdb8682521354c2bf73",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0x6623c0bb56adb150dc9c6bdb8682521354c2bf73/logo.webp",
+  "logoHash": "baa755af6ded6999823e23834daedac0a73896fae6f16c682034496b764f9780"
+}

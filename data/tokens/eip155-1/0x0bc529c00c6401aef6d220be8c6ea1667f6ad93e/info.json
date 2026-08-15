@@ -1,0 +1,9 @@
+{
+  "name": "yearn.finance",
+  "symbol": "YFI",
+  "decimals": 18,
+  "address": "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e",
+  "coingeckoId": "yearn-finance",
+  "logoURL": "tokens/eip155-1/0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e/logo.webp",
+  "logoHash": "e1ef5d85df17eabeb7ce32078afde59381e786a414f276349eee063c3a5b9805"
+}

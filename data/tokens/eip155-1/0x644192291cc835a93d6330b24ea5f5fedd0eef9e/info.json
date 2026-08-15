@@ -1,0 +1,9 @@
+{
+  "name": "AllianceBlock Nexera",
+  "symbol": "NXRA",
+  "decimals": 18,
+  "address": "0x644192291cc835a93d6330b24ea5f5fedd0eef9e",
+  "coingeckoId": "allianceblock-nexera",
+  "logoURL": "tokens/eip155-1/0x644192291cc835a93d6330b24ea5f5fedd0eef9e/logo.webp",
+  "logoHash": "9e54da310f52872b8e89a0991bd2deea6546a7b8aeece7002cd00b89e3d94cf0"
+}

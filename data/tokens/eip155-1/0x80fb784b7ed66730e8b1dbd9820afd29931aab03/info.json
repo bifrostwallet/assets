@@ -1,0 +1,9 @@
+{
+  "name": "Aave Legacy",
+  "symbol": "LEND",
+  "decimals": 18,
+  "address": "0x80fb784b7ed66730e8b1dbd9820afd29931aab03",
+  "coingeckoId": "ethlend",
+  "logoURL": "tokens/eip155-1/0x80fb784b7ed66730e8b1dbd9820afd29931aab03/logo.webp",
+  "logoHash": "8069bf579277b8e4ca01f8fffc81d377f9aa2b7c4810231f7fe25dce398c2b1b"
+}

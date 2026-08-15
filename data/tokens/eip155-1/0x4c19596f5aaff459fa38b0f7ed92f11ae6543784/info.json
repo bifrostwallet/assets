@@ -1,0 +1,9 @@
+{
+  "name": "TrueFi",
+  "symbol": "TRU",
+  "decimals": 8,
+  "address": "0x4c19596f5aaff459fa38b0f7ed92f11ae6543784",
+  "coingeckoId": "truefi",
+  "logoURL": "tokens/eip155-1/0x4c19596f5aaff459fa38b0f7ed92f11ae6543784/logo.webp",
+  "logoHash": "6a933dd34ee84e63a39acb0946e24588208d1cbfad0b963fbc6295706b98883e"
+}

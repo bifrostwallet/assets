@@ -1,0 +1,9 @@
+{
+  "name": "Vulcan Forged",
+  "symbol": "PYR",
+  "decimals": 18,
+  "address": "0x430ef9263e76dae63c84292c3409d61c598e9682",
+  "coingeckoId": "vulcan-forged",
+  "logoURL": "tokens/eip155-137/0x430ef9263e76dae63c84292c3409d61c598e9682/logo.webp",
+  "logoHash": "05501be69a476a340797141ee9dcac8799d2f005219569fb6de487050346b168"
+}

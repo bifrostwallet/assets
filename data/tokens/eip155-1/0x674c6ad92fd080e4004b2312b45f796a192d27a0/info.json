@@ -1,0 +1,9 @@
+{
+  "name": "Neutrino USD",
+  "symbol": "USDN",
+  "decimals": 18,
+  "address": "0x674c6ad92fd080e4004b2312b45f796a192d27a0",
+  "coingeckoId": "neutrino",
+  "logoURL": "tokens/eip155-1/0x674c6ad92fd080e4004b2312b45f796a192d27a0/logo.webp",
+  "logoHash": "b77e6e183914eedd34cdc071e12e86c7d6b228f451990ba7b2f886d1b98f9530"
+}

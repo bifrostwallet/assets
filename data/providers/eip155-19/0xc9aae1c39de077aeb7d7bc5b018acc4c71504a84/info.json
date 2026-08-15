@@ -1,0 +1,24 @@
+{
+  "name": "Aimlezz",
+  "description": "Aimlezzly providing the best prices.",
+  "logoURL": "providers/eip155-19/0xc9aae1c39de077aeb7d7bc5b018acc4c71504a84/logo.webp",
+  "logoHash": "07482001f93e465ddc1845ad9b3c90b7eae9cb085f56096612b482b7993683b1",
+  "websiteURL": "https://www.aimlezz.com",
+  "links": {},
+  "identityAddress": "0xc9aae1c39de077aeb7d7bc5b018acc4c71504a84",
+  "delegationAddress": "0x0501b6306b03a9eede8165d4b9abcb4915937b89",
+  "signingPolicyAddress": "0xea851ec9ba36f1741c4acdde72f5b41b1903af57",
+  "submitAddress": "0x1037187c620b36e8c19ea1bd134f1c79417c3798",
+  "submitSignaturesAddress": "0x31f99aa33a86bb5dec2362ffadde8e1a7d07e830",
+  "publicKey": "0x0d0d139c45d0d594631b054fefa16c3a9e387f206adb4fcd3a9eda151fb083de10720a497dcf2a23db2f4d927e0d9057d7604e5e762a57db6f8fcfd01ecc3b66",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc07cac807945203e1c1855730bd4658aa1fd907d9cc6229baa0aaa9a3af240be",
+    "blockNumber": 9173697,
+    "timestamp": "2022-02-02T09:39:21.000Z"
+  }
+}

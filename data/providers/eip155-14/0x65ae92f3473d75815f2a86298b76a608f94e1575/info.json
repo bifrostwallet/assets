@@ -1,0 +1,24 @@
+{
+  "name": "Mickey B Fresh",
+  "description": "We provide a hub of resources revolving around everything build on the XRP, SGB and Flare networks. We pride ourselves on transparency and evidence-based content. The group behind this site are long term holders of XRP and researching this digital asset for years. The focus of the site will mainly be on the XRP, Flare and Songbird Networks.",
+  "logoURL": "providers/eip155-14/0x65ae92f3473d75815f2a86298b76a608f94e1575/logo.webp",
+  "logoHash": "800b444fd3ae11528d20b06359bb9623a358a09426b159e2a5710e3bfaba3aae",
+  "websiteURL": "https://www.mickeybfresh.com",
+  "links": {},
+  "identityAddress": "0x65ae92f3473d75815f2a86298b76a608f94e1575",
+  "delegationAddress": "0x4e94dbff86b7f1f5ac9fd849e8101a4d52e947ec",
+  "signingPolicyAddress": "0xfd9abd602150d39d819eb71ee8d6809c157d9a82",
+  "submitAddress": "0x8982e007397edc5e6efe3978fa5ee2e19ec62070",
+  "submitSignaturesAddress": "0x094d9cf2c4474a3680363e7c1d1b1c4bffbd0b2a",
+  "publicKey": "0x2306ca26bf0184bf84e5218a35046f163aa554fd3e18a4e9379a1aea799cecd60bbbab4f62d39206b3f795c6faa59641a9f8bab769309053c3923f7c696fb45a",
+  "validators": ["NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x9bec29b3afebd1dde93bbe2983f819547cbccf718979e0efd4802156fb3333fa",
+    "blockNumber": 2091981,
+    "timestamp": "2022-10-28T22:39:28.000Z"
+  }
+}

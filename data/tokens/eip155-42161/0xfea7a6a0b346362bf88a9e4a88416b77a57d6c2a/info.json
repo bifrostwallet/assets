@@ -1,0 +1,9 @@
+{
+  "name": "Magic Internet Money",
+  "symbol": "MIM",
+  "decimals": 18,
+  "address": "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a",
+  "coingeckoId": "magic-internet-money-arbitrum",
+  "logoURL": "tokens/eip155-42161/0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a/logo.webp",
+  "logoHash": "1a41631432da553f3ebc95a0fbfa9861a97397b3e1361c73d2796c08e2c9bcc8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "MixMarvel",
+  "symbol": "MIX",
+  "decimals": 18,
+  "address": "0x5d285f735998f36631f678ff41fb56a10a4d0429",
+  "coingeckoId": "mixmarvel",
+  "logoURL": "tokens/eip155-1/0x5d285f735998f36631f678ff41fb56a10a4d0429/logo.webp",
+  "logoHash": "4a28bea844350c9f1b503530e3d8d475e1341d4c24726d9899090d7029f41396"
+}

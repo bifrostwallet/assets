@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Brian",
+    "symbol": "BRIAN",
+    "decimals": 18,
+    "address": "0x3ecced5b416e58664f04a39dd18935eb71d33b15",
+    "coingeckoId": "brian",
+    "logoURL": "tokens/eip155-8453/0x3ecced5b416e58664f04a39dd18935eb71d33b15/logo.webp",
+    "logoHash": "a69e369fc6562da83acfb9b591379a5f09146b7c5a9d5c3b0029a0ea9bb6f6b9"
+  },
+  {
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "decimals": 18,
+    "address": "0x4200000000000000000000000000000000000006",
+    "coingeckoId": "l2-standard-bridged-weth-base",
+    "logoURL": "tokens/eip155-8453/0x4200000000000000000000000000000000000006/logo.webp",
+    "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
+  },
+  {
+    "name": "Degen",
+    "symbol": "DEGEN",
+    "decimals": 18,
+    "address": "0x4ed4e862860bed51a9570b96d89af5e1b0efefed",
+    "coingeckoId": "degen-base",
+    "logoURL": "tokens/eip155-8453/0x4ed4e862860bed51a9570b96d89af5e1b0efefed/logo.webp",
+    "logoHash": "17179204fefae59f4bce485e6e37e934aaa2b08cc9e92cb863e6b0f704246aba"
+  },
+  {
+    "name": "Dai",
+    "symbol": "DAI",
+    "decimals": 18,
+    "address": "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
+    "coingeckoId": "l2-standard-bridged-dai-base",
+    "logoURL": "tokens/eip155-8453/0x50c5725949a6f0c72e6c4a641f24049a917db0cb/logo.webp",
+    "logoHash": "695e4c377c15616af7c18c6d69b8c9aacf1581b4dfde08c6ea662c81c94dfd3b"
+  },
+  {
+    "name": "Tadpole",
+    "symbol": "TAD",
+    "decimals": 18,
+    "address": "0x55027a5b06f4340cc4c82dcc74c90ca93dcb173e",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-8453/0x55027a5b06f4340cc4c82dcc74c90ca93dcb173e/logo.webp",
+    "logoHash": "766286924af9dddd3e39ebadad1dad1e9b8afcdbdab321b52b3d1b06af7abc74"
+  },
+  {
+    "name": "Savings USDS",
+    "symbol": "sUSDS",
+    "decimals": 18,
+    "address": "0x5875eee11cf8398102fdad704c9e96607675467a",
+    "coingeckoId": "susds",
+    "logoURL": "tokens/eip155-8453/0x5875eee11cf8398102fdad704c9e96607675467a/logo.webp",
+    "logoHash": "7466190679bae687c2da9cab0f832978d1f6367a4e5cf09e1f6e99eaf4e1cb25"
+  },
+  {
+    "name": "EURC",
+    "symbol": "EURC",
+    "decimals": 6,
+    "address": "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42",
+    "coingeckoId": "euro-coin",
+    "logoURL": "tokens/eip155-8453/0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42/logo.webp",
+    "logoHash": "1c2b9985fdbf60b1a70ddca3552c6cc927abdde1945697a5588eed186e4fa42e"
+  },
+  {
+    "name": "LayerZero",
+    "symbol": "ZRO",
+    "decimals": 18,
+    "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+    "coingeckoId": "layerzero",
+    "logoURL": "tokens/eip155-8453/0x6985884c4392d348587b19cb9eaaf157f13271cd/logo.webp",
+    "logoHash": "f14480ff39adf664071b8e0156d00355a56fcbd76003cce8896e7e4d667eaeea"
+  },
+  {
+    "name": "Weirdo",
+    "symbol": "WEIRDO",
+    "decimals": 8,
+    "address": "0x76734b57dfe834f102fb61e1ebf844adf8dd931e",
+    "coingeckoId": "weirdo-2",
+    "logoURL": "tokens/eip155-8453/0x76734b57dfe834f102fb61e1ebf844adf8dd931e/logo.webp",
+    "logoHash": "4ec2161861d37fba8e4e76dbde770d2ee6bf28111a5cad1fdc7248c97f6dbda7"
+  },
+  {
+    "name": "USDS",
+    "symbol": "USDS",
+    "decimals": 18,
+    "address": "0x820c137fa70c8691f0e44dc420a5e53c168921dc",
+    "coingeckoId": "usds",
+    "logoURL": "tokens/eip155-8453/0x820c137fa70c8691f0e44dc420a5e53c168921dc/logo.webp",
+    "logoHash": "617e7fac2005e2897e54fe9ce38cabfd907acc24868a7693fd74d73b04ed67a3"
+  },
+  {
+    "name": "USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    "coingeckoId": "usd-coin",
+    "logoURL": "tokens/eip155-8453/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913/logo.webp",
+    "logoHash": "49975447c37decacd306a99aed58330b45fef3d96642dab826ce64859f6f617a"
+  },
+  {
+    "name": "Wrapped Liquid Staked Ether 2.0",
+    "symbol": "wstETH",
+    "decimals": 18,
+    "address": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452",
+    "coingeckoId": "superbridge-bridged-wsteth-base",
+    "logoURL": "tokens/eip155-8453/0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452/logo.webp",
+    "logoHash": "bd19e7738e5916abb435be45bd8e074fb5c811511f4125c16b6550d15700aa28"
+  },
+  {
+    "name": "Coinbase Wrapped XRP",
+    "symbol": "cbXRP",
+    "decimals": 6,
+    "address": "0xcb585250f852c6c6bf90434ab21a00f02833a4af",
+    "coingeckoId": "coinbase-wrapped-xrp",
+    "logoURL": "tokens/eip155-8453/0xcb585250f852c6c6bf90434ab21a00f02833a4af/logo.webp",
+    "logoHash": "5db03513be2509cb23213b31048a0731c02e07a5aa2130f287c52e533b935b37"
+  },
+  {
+    "name": "Stargate Finance",
+    "symbol": "STG",
+    "decimals": 18,
+    "address": "0xe3b53af74a4bf62ae5511055290838050bf764df",
+    "coingeckoId": "stargate-finance",
+    "logoURL": "tokens/eip155-8453/0xe3b53af74a4bf62ae5511055290838050bf764df/logo.webp",
+    "logoHash": "07b140fdc0899f4070ff9fa0fde26bf161dc62be1d0337fb355aeb0d4a9ff3a3"
+  },
+  {
+    "name": "Base Ethereum",
+    "symbol": "ETH",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": "ethereum",
+    "logoURL": "tokens/eip155-8453/native/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  }
+]

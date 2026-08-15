@@ -1,0 +1,9 @@
+{
+  "name": "TRONPAD",
+  "symbol": "TRONPAD",
+  "decimals": 18,
+  "address": "0x1bf7aedec439d6bfe38f8f9b20cf3dc99e3571c4",
+  "coingeckoId": "tronpad",
+  "logoURL": "tokens/eip155-56/0x1bf7aedec439d6bfe38f8f9b20cf3dc99e3571c4/logo.webp",
+  "logoHash": "302740ce9b1847c0a94f9f6d9f2e982cb6f7d708ba143fe858bba4a7d8e03e2c"
+}

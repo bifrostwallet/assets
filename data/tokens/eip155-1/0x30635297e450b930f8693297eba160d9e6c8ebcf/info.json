@@ -1,0 +1,9 @@
+{
+  "name": "Synth Uniswap",
+  "symbol": "SUNI",
+  "decimals": 18,
+  "address": "0x30635297e450b930f8693297eba160d9e6c8ebcf",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x30635297e450b930f8693297eba160d9e6c8ebcf/logo.webp",
+  "logoHash": "cfe1088395707fd4570fc27a7163a981aa7e6fb733b9f8efaad871a515c3bd35"
+}

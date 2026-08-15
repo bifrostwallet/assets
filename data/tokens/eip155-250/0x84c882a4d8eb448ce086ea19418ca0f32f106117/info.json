@@ -1,0 +1,9 @@
+{
+  "name": "Bifrost",
+  "symbol": "BFC",
+  "decimals": 18,
+  "address": "0x84c882a4d8eb448ce086ea19418ca0f32f106117",
+  "coingeckoId": "bifrost",
+  "logoURL": "tokens/eip155-250/0x84c882a4d8eb448ce086ea19418ca0f32f106117/logo.webp",
+  "logoHash": "38c4b83d6301a510e605752703600a507e2dd8c706356943226068768e611ddc"
+}

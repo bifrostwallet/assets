@@ -1,0 +1,9 @@
+{
+  "name": "sDOOD Token",
+  "symbol": "sDOOD",
+  "decimals": 18,
+  "address": "0x697bb3b5e1ecf4febe6016321b0648d3d6c270b6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x697bb3b5e1ecf4febe6016321b0648d3d6c270b6/logo.webp",
+  "logoHash": "6ee161b71a30176a6ab2b9801540b75bc4ffe6d49c33dc91eaa54ee75f825a82"
+}

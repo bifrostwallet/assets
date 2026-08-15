@@ -1,0 +1,9 @@
+{
+  "name": "LIT",
+  "symbol": "LIT",
+  "decimals": 18,
+  "address": "0xc5b3d3231001a776123194cf1290068e8b0c783b",
+  "coingeckoId": "lit",
+  "logoURL": "tokens/eip155-1/0xc5b3d3231001a776123194cf1290068e8b0c783b/logo.webp",
+  "logoHash": "503d0f59ac581e435d38ce740a96f369d377eed67cd75b17890350b644e30301"
+}

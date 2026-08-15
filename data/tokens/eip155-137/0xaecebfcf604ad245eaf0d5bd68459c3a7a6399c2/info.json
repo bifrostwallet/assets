@@ -1,0 +1,9 @@
+{
+  "name": "RAMP",
+  "symbol": "RAMP",
+  "decimals": 18,
+  "address": "0xaecebfcf604ad245eaf0d5bd68459c3a7a6399c2",
+  "coingeckoId": "ramp",
+  "logoURL": "tokens/eip155-137/0xaecebfcf604ad245eaf0d5bd68459c3a7a6399c2/logo.webp",
+  "logoHash": "72eafcc9b85dd52fdbf55a78c7caf0198b6f8c94b31b9f20e107bf0fd9181eb4"
+}

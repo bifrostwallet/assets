@@ -1,0 +1,9 @@
+{
+  "name": "Synth XRP",
+  "symbol": "SXRP",
+  "decimals": 18,
+  "address": "0xa2b0fde6d710e201d0d608e924a484d1a5fed57c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa2b0fde6d710e201d0d608e924a484d1a5fed57c/logo.webp",
+  "logoHash": "eadf51e7cd59a2c2f4ad174730603c9e4faaa38596c864967a80054a74200bbc"
+}

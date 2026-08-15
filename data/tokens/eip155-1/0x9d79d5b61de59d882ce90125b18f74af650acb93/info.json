@@ -1,0 +1,9 @@
+{
+  "name": "Neutrino Token",
+  "symbol": "NSBT",
+  "decimals": 6,
+  "address": "0x9d79d5b61de59d882ce90125b18f74af650acb93",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x9d79d5b61de59d882ce90125b18f74af650acb93/logo.webp",
+  "logoHash": "6061a20e286c5d3e4bef49ed2309500a3a048eff8bb6b019197d0217c561e37e"
+}

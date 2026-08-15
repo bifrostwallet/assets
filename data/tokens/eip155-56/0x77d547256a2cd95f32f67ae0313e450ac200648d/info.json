@@ -1,0 +1,9 @@
+{
+  "name": "Lazio Fan Token",
+  "symbol": "LAZIO",
+  "decimals": 8,
+  "address": "0x77d547256a2cd95f32f67ae0313e450ac200648d",
+  "coingeckoId": "lazio-fan-token",
+  "logoURL": "tokens/eip155-56/0x77d547256a2cd95f32f67ae0313e450ac200648d/logo.webp",
+  "logoHash": "1091b183dbe64f69377d99c4551e5c7976d8737efee3acbaa60c01f45adc02b3"
+}

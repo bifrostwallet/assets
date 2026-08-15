@@ -1,0 +1,9 @@
+{
+  "name": "ParagonsDAO",
+  "symbol": "PDT",
+  "decimals": 18,
+  "address": "0x375abb85c329753b1ba849a601438ae77eec9893",
+  "coingeckoId": "paragonsdao",
+  "logoURL": "tokens/eip155-1/0x375abb85c329753b1ba849a601438ae77eec9893/logo.webp",
+  "logoHash": "f2ef669d23b3694dfbc4a64c6d9553063898e4c26b19c939cca545ea63dc93cd"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Reserve",
+  "symbol": "RSV",
+  "decimals": 18,
+  "address": "0x196f4727526ea7fb1e17b2071b3d8eaa38486988",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x196f4727526ea7fb1e17b2071b3d8eaa38486988/logo.webp",
+  "logoHash": "340d30068418c6a875ca1a7667aeef5d1ba2a1f4715fd0a86740be7f994b5311"
+}

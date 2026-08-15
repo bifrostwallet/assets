@@ -1,0 +1,29 @@
+{
+  "name": "Last Oracle",
+  "description": "Infrastructure services for Web3 and beyond.",
+  "logoURL": "providers/eip155-14/0x7596fcdc437840d5befad5af8c831698a29c5b58/logo.webp",
+  "logoHash": "e1671ad865fdb1bb646f316938468a5a5c594c0ebf715e5212e386201110ceb6",
+  "websiteURL": "https://lastoracle.xyz",
+  "links": {},
+  "identityAddress": "0x7596fcdc437840d5befad5af8c831698a29c5b58",
+  "delegationAddress": "0x535268cb19f2cc0c65d463be6ab7751ff4e9fc07",
+  "signingPolicyAddress": "0x39a9f3fb7b24d627c732e341472da13ea36252e7",
+  "submitAddress": "0x1553e985748bdffccf2c1946db37a67dcfeca3dc",
+  "submitSignaturesAddress": "0xb314c6a5bcf8959f34b7205ec5dbd5e03ae9b0cd",
+  "publicKey": "0x0b09f7b7078eb13552b2d05976df239b57000df6e51433f1009924079e987ea8296e81ed4c0711d407d557cb1dc9417aea89a28b1c49d696a75417c68f8c6f43",
+  "validators": [
+    "NodeID-GGnTyHtMF7b8CELtUgFGTEHjEcjNF7RZ",
+    "NodeID-K9g6YJEhWiN2TF1RsFTA8SEXFAJWvikhu",
+    "NodeID-KH2o8xGFLYtCwseWgRbpDAf1n4zAcMNfN",
+    "NodeID-Q3WJQcoixGGKnFs41B18rnJB9PS54M5oF"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf6d32e02fe230e5a51bd51c3aadcc3182dda3ec1b7159211d00f6855f2c4ffdf",
+    "blockNumber": 3649510,
+    "timestamp": "2022-12-30T00:46:47.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "USDC",
+  "symbol": "USDC",
+  "decimals": 6,
+  "address": "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
+  "coingeckoId": "multichain-bridged-usdc-fantom",
+  "logoURL": "tokens/eip155-250/0x04068da6c83afcfa0e13ba15a6696662335d5b75/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

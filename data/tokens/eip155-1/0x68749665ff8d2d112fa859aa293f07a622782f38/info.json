@@ -1,0 +1,9 @@
+{
+  "name": "Tether Gold",
+  "symbol": "XAUT",
+  "decimals": 6,
+  "address": "0x68749665ff8d2d112fa859aa293f07a622782f38",
+  "coingeckoId": "tether-gold",
+  "logoURL": "tokens/eip155-1/0x68749665ff8d2d112fa859aa293f07a622782f38/logo.webp",
+  "logoHash": "91bb9c402a964de9be6c0fc8099ca5dc1bbd16cc4d53a28a8057ef8bedde3db2"
+}

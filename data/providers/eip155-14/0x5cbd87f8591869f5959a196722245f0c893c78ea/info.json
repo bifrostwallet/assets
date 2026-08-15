@@ -1,0 +1,24 @@
+{
+  "name": "ITB Validator",
+  "description": "ITB runs DeFi strategies for the largest institutions in the crypto space. It also provides protocol-level risk signals for the top DeFi protocols in the market.",
+  "logoURL": "providers/eip155-14/0x5cbd87f8591869f5959a196722245f0c893c78ea/logo.webp",
+  "logoHash": "3b27b9f7cb35d2001a1705c3b657a28100956667d13afb93cda6acf8d6922fa1",
+  "websiteURL": "https://www.intotheblock.com",
+  "links": {},
+  "identityAddress": "0x5cbd87f8591869f5959a196722245f0c893c78ea",
+  "delegationAddress": "0x2e8320b92b640cf8cbdeaffbe70d4bc407303b9f",
+  "signingPolicyAddress": "0x60dd33ee053504e6033d89e74cf49b46b4d9f140",
+  "submitAddress": "0x8234e63a20191770085ed1772292fd4ededc6a7b",
+  "submitSignaturesAddress": "0xf18acf875ac58d6411b35260ba33c6df113e4621",
+  "publicKey": "0x02004958020c8feb107d60f0d4137cce33f3c45316350fb0b2a4eb27a630c09109393bef21a4a64a4638b45ee682612852035ff3ac3f241a0cd9399ac3fd5c0d",
+  "validators": ["NodeID-8v2bk2uFqkmh7bhWQy8k8sfD4BGLsR7Fa"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x956ba2fb60bdcbe44f369367b5b747e8c6c05472bcb38af2d2bf84839bf44273",
+    "blockNumber": 12782905,
+    "timestamp": "2023-09-15T17:44:24.000Z"
+  }
+}

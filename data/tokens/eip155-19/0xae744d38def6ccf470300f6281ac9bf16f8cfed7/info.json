@@ -1,0 +1,9 @@
+{
+  "name": "Xenos Finance",
+  "symbol": "XNF",
+  "decimals": 18,
+  "address": "0xae744d38def6ccf470300f6281ac9bf16f8cfed7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xae744d38def6ccf470300f6281ac9bf16f8cfed7/logo.webp",
+  "logoHash": "d278751ceeeb91190e907eca9880525bdc0673d2b348a8915df36198746101b3"
+}

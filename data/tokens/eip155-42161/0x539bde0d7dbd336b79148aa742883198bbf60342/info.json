@@ -1,0 +1,9 @@
+{
+  "name": "Magic",
+  "symbol": "MAGIC",
+  "decimals": 18,
+  "address": "0x539bde0d7dbd336b79148aa742883198bbf60342",
+  "coingeckoId": "magic",
+  "logoURL": "tokens/eip155-42161/0x539bde0d7dbd336b79148aa742883198bbf60342/logo.webp",
+  "logoHash": "ee65dc48a38921fa7bca5dbc8500ef6d976f41b88ebe259f421ea7032ffc12d9"
+}

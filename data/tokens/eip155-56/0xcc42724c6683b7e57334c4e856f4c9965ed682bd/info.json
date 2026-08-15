@@ -1,0 +1,9 @@
+{
+  "name": "Polygon",
+  "symbol": "MATIC",
+  "decimals": 18,
+  "address": "0xcc42724c6683b7e57334c4e856f4c9965ed682bd",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xcc42724c6683b7e57334c4e856f4c9965ed682bd/logo.webp",
+  "logoHash": "7ddaeddf4296b0676d44682bde4ef6e9eb6ec1922e97a28dabeb3b6a3e3ac662"
+}

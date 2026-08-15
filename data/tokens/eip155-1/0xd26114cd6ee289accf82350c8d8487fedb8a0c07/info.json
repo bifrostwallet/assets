@@ -1,0 +1,9 @@
+{
+  "name": "OMG Network",
+  "symbol": "OMG",
+  "decimals": 18,
+  "address": "0xd26114cd6ee289accf82350c8d8487fedb8a0c07",
+  "coingeckoId": "omisego",
+  "logoURL": "tokens/eip155-1/0xd26114cd6ee289accf82350c8d8487fedb8a0c07/logo.webp",
+  "logoHash": "00db650f96e66d7676ca9fe103faef669b4121904aca9bf89b8b6d694dd05c39"
+}

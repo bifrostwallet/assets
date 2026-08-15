@@ -1,0 +1,9 @@
+{
+  "name": "Floki Inu",
+  "symbol": "FLOKI",
+  "decimals": 9,
+  "address": "0xfb5b838b6cfeedc2873ab27866079ac55363d37e",
+  "coingeckoId": "floki",
+  "logoURL": "tokens/eip155-56/0xfb5b838b6cfeedc2873ab27866079ac55363d37e/logo.webp",
+  "logoHash": "fb94ca69f60d293d42c919ac0c1ee07efe5b20e04cba39465b6ea6d32232c9d8"
+}

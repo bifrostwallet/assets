@@ -1,0 +1,9 @@
+{
+  "name": "Aventus",
+  "symbol": "AVT",
+  "decimals": 18,
+  "address": "0x0d88ed6e74bbfd96b831231638b66c05571e824f",
+  "coingeckoId": "aventus",
+  "logoURL": "tokens/eip155-1/0x0d88ed6e74bbfd96b831231638b66c05571e824f/logo.webp",
+  "logoHash": "84041d32bec3afd0bfeef107d17390dd050b09accc6319e1c0c9f913342f99ae"
+}

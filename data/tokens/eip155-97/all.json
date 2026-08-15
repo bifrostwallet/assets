@@ -1,0 +1,11 @@
+[
+  {
+    "name": "BNB",
+    "symbol": "BNB",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-97/native/logo.webp",
+    "logoHash": "ef582e6a8c2a95b3db2ae03803304c422a63aaf38a40914fbb809d625a39c461"
+  }
+]

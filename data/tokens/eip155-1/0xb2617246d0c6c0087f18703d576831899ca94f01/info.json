@@ -1,0 +1,9 @@
+{
+  "name": "Zignaly",
+  "symbol": "ZIG",
+  "decimals": 18,
+  "address": "0xb2617246d0c6c0087f18703d576831899ca94f01",
+  "coingeckoId": "zignaly",
+  "logoURL": "tokens/eip155-1/0xb2617246d0c6c0087f18703d576831899ca94f01/logo.webp",
+  "logoHash": "fde451f10433871204ad363cd2f336f25bcd553c6785e4b6b8dbfac0005679ec"
+}

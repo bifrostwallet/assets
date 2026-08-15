@@ -1,0 +1,9 @@
+{
+  "name": "OccamFi",
+  "symbol": "OCC",
+  "decimals": 18,
+  "address": "0x2f109021afe75b949429fe30523ee7c0d5b27207",
+  "coingeckoId": "occamfi",
+  "logoURL": "tokens/eip155-1/0x2f109021afe75b949429fe30523ee7c0d5b27207/logo.webp",
+  "logoHash": "174e064b05cc2e097761f61c5f36bf788329523e4f5c4c7b798d0fe1c490b8b3"
+}

@@ -1,0 +1,551 @@
+[
+  {
+    "name": "USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
+    "coingeckoId": "multichain-bridged-usdc-fantom",
+    "logoURL": "tokens/eip155-250/0x04068da6c83afcfa0e13ba15a6696662335d5b75/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "Tether",
+    "symbol": "USDT",
+    "decimals": 6,
+    "address": "0x049d68029688eabf473097a2fc38ef61633a3c7a",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x049d68029688eabf473097a2fc38ef61633a3c7a/logo.webp",
+    "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+  },
+  {
+    "name": "EverRise",
+    "symbol": "RISE",
+    "decimals": 18,
+    "address": "0x0cd022dde27169b20895e0e2b2b8a33b25e63579",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x0cd022dde27169b20895e0e2b2b8a33b25e63579/logo.webp",
+    "logoHash": "6e5eea2434e70f02e0f22170ff6e709627b2cd8f5f74e867369a2296d402eac8"
+  },
+  {
+    "name": "Synth USD",
+    "symbol": "SUSD",
+    "decimals": 18,
+    "address": "0x0e1694483ebb3b74d3054e383840c6cf011e518e",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x0e1694483ebb3b74d3054e383840c6cf011e518e/logo.webp",
+    "logoHash": "58bb6e67cfd7cde74d516fd1c29d387ba33d3835ff68e8c44dfe95dbffce8e80"
+  },
+  {
+    "name": "LiquidDriver",
+    "symbol": "LQDR",
+    "decimals": 18,
+    "address": "0x10b620b2dbac4faa7d7ffd71da486f5d44cd86f9",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x10b620b2dbac4faa7d7ffd71da486f5d44cd86f9/logo.webp",
+    "logoHash": "62a37aa6deff07ef696c9e3b480a19440ff9d2b77724a5bd2e80fa1050372c0f"
+  },
+  {
+    "name": "Mimo Governance Token",
+    "symbol": "MIMO",
+    "decimals": 18,
+    "address": "0x1d1764f04de29da6b90ffbef372d1a45596c4855",
+    "coingeckoId": "mimo-parallel-governance-token",
+    "logoURL": "tokens/eip155-250/0x1d1764f04de29da6b90ffbef372d1a45596c4855/logo.webp",
+    "logoHash": "ec308cac3de01ea753dcb771203395ecbaa7e5404d11785fa35c98160978e1cb"
+  },
+  {
+    "name": "Kyber Network Crystal",
+    "symbol": "KNC",
+    "decimals": 18,
+    "address": "0x1e1085efaa63edfe74aad7c05a28eae4ef917c3f",
+    "coingeckoId": "kyber-network-crystal",
+    "logoURL": "tokens/eip155-250/0x1e1085efaa63edfe74aad7c05a28eae4ef917c3f/logo.webp",
+    "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
+  },
+  {
+    "name": "Curve DAO",
+    "symbol": "CRV",
+    "decimals": 18,
+    "address": "0x1e4f97b9f9f913c46f1632781732927b9019c68b",
+    "coingeckoId": "curve-dao-token",
+    "logoURL": "tokens/eip155-250/0x1e4f97b9f9f913c46f1632781732927b9019c68b/logo.webp",
+    "logoHash": "1da7fbf1cd6ad0722a9c661285d79c4ce647cf9629d074a9a2c1536da886bdb6"
+  },
+  {
+    "name": "yearn.finance",
+    "symbol": "YFI",
+    "decimals": 18,
+    "address": "0x29b0da86e484e1c0029b56e817912d778ac0ec69",
+    "coingeckoId": "yearn-finance",
+    "logoURL": "tokens/eip155-250/0x29b0da86e484e1c0029b56e817912d778ac0ec69/logo.webp",
+    "logoHash": "51efcb62f508379461e8381061560188a0df50b332641093848e8320cc020c0c"
+  },
+  {
+    "name": "Keep3rV1",
+    "symbol": "KP3R",
+    "decimals": 18,
+    "address": "0x2a5062d22adcfaafbd5c541d4da82e4b450d4212",
+    "coingeckoId": "keep3rv1",
+    "logoURL": "tokens/eip155-250/0x2a5062d22adcfaafbd5c541d4da82e4b450d4212/logo.webp",
+    "logoHash": "9f48825b529b164bef32215a9ce9b1671fd6505f50eb02a2d02c5069f9714d24"
+  },
+  {
+    "name": "Celsius Network",
+    "symbol": "CEL",
+    "decimals": 4,
+    "address": "0x2c78f1b70ccf63cdee49f9233e9faa99d43aa07e",
+    "coingeckoId": "celsius-degree-token",
+    "logoURL": "tokens/eip155-250/0x2c78f1b70ccf63cdee49f9233e9faa99d43aa07e/logo.webp",
+    "logoHash": "13c0efdf8a53708b8835b6d4765f9376404c1eee9ee92d47beaa94fdcea67987"
+  },
+  {
+    "name": "Premia",
+    "symbol": "PREMIA",
+    "decimals": 18,
+    "address": "0x3028b4395f98777123c7da327010c40f3c7cc4ef",
+    "coingeckoId": "premia",
+    "logoURL": "tokens/eip155-250/0x3028b4395f98777123c7da327010c40f3c7cc4ef/logo.webp",
+    "logoHash": "d9b1efea4a835868132629aa357dad2a333d9ce4d14bead292d8b12cf6e90370"
+  },
+  {
+    "name": "Wrapped Bitcoin",
+    "symbol": "WBTC",
+    "decimals": 8,
+    "address": "0x321162cd933e2be498cd2267a90534a804051b11",
+    "coingeckoId": "fantom-bridged-wbtc-fantom",
+    "logoURL": "tokens/eip155-250/0x321162cd933e2be498cd2267a90534a804051b11/logo.webp",
+    "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
+  },
+  {
+    "name": "Yoshi.exchange",
+    "symbol": "YOSHI",
+    "decimals": 18,
+    "address": "0x3dc57b391262e3aae37a08d91241f9ba9d58b570",
+    "coingeckoId": "yoshi-exchange",
+    "logoURL": "tokens/eip155-250/0x3dc57b391262e3aae37a08d91241f9ba9d58b570/logo.webp",
+    "logoHash": "be42d42635f7fbbaa13e1dc6d6b9fe1f8c63ec8cad6448e54a066082f7da03cc"
+  },
+  {
+    "name": "Hegic",
+    "symbol": "HEGIC",
+    "decimals": 18,
+    "address": "0x44b26e839eb3572c5e959f994804a5de66600349",
+    "coingeckoId": "hegic",
+    "logoURL": "tokens/eip155-250/0x44b26e839eb3572c5e959f994804a5de66600349/logo.webp",
+    "logoHash": "4966d05c6f66abffc372d4ec891d4c2474ebb11b4476bc072e86c103129a5ddd"
+  },
+  {
+    "name": "Vesper Finance",
+    "symbol": "VSP",
+    "decimals": 18,
+    "address": "0x461d52769884ca6235b685ef2040f47d30c94eb5",
+    "coingeckoId": "vesper-finance",
+    "logoURL": "tokens/eip155-250/0x461d52769884ca6235b685ef2040f47d30c94eb5/logo.webp",
+    "logoHash": "b1cf9986f0c8b80258ab0ecc2b30a732d1fa639aa8579baafe755413e4e6f427"
+  },
+  {
+    "name": "Spell",
+    "symbol": "SPELL",
+    "decimals": 18,
+    "address": "0x468003b688943977e6130f4f68f23aad939a1040",
+    "coingeckoId": "spell-token",
+    "logoURL": "tokens/eip155-250/0x468003b688943977e6130f4f68f23aad939a1040/logo.webp",
+    "logoHash": "4d94afc63b38f2bbbc935e7c3fa6b3100d1cd398431226a5d8f170db8f5e237d"
+  },
+  {
+    "name": "Band Protocol",
+    "symbol": "BAND",
+    "decimals": 18,
+    "address": "0x46e7628e8b4350b2716ab470ee0ba1fa9e76c6c5",
+    "coingeckoId": "band-protocol",
+    "logoURL": "tokens/eip155-250/0x46e7628e8b4350b2716ab470ee0ba1fa9e76c6c5/logo.webp",
+    "logoHash": "2bed2c5556f4c94b3b8be70ab7dd63761b809a7a2af6e775f67629280cb8e432"
+  },
+  {
+    "name": "Tomb Shares",
+    "symbol": "TSHARE",
+    "decimals": 18,
+    "address": "0x4cdf39285d7ca8eb3f090fda0c069ba5f4145b37",
+    "coingeckoId": "tomb-shares",
+    "logoURL": "tokens/eip155-250/0x4cdf39285d7ca8eb3f090fda0c069ba5f4145b37/logo.webp",
+    "logoHash": "886011522053cde3002ab1916eff282fffc2ccf9712211a2e11c1fc6b0ccd606"
+  },
+  {
+    "name": "FUSION",
+    "symbol": "FSN",
+    "decimals": 18,
+    "address": "0x50eb82cc284e3d35936827023b048106aaecfc5f",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x50eb82cc284e3d35936827023b048106aaecfc5f/logo.webp",
+    "logoHash": "5cfd81250a557a0712e51aa5084f36c82100892b8da4fcf62bcde3b936f4fa9c"
+  },
+  {
+    "name": "Synthetix",
+    "symbol": "SNX",
+    "decimals": 18,
+    "address": "0x56ee926bd8c72b2d5fa1af4d9e4cbb515a1e3adc",
+    "coingeckoId": "havven",
+    "logoURL": "tokens/eip155-250/0x56ee926bd8c72b2d5fa1af4d9e4cbb515a1e3adc/logo.webp",
+    "logoHash": "ecc3f37c59e4e980f9c26eb7797f68668cde24a7ebfad46373d447a1b3841174"
+  },
+  {
+    "name": "Hector Finance",
+    "symbol": "HEC",
+    "decimals": 9,
+    "address": "0x5c4fdfc5233f935f20d2adba572f770c2e377ab0",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x5c4fdfc5233f935f20d2adba572f770c2e377ab0/logo.webp",
+    "logoHash": "b9391b75102437ffd0e6293adc1988c7abc94e3f0666ea71c458aedc34a32036"
+  },
+  {
+    "name": "SpiritSwap",
+    "symbol": "SPIRIT",
+    "decimals": 18,
+    "address": "0x5cc61a78f164885776aa610fb0fe1257df78e59b",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x5cc61a78f164885776aa610fb0fe1257df78e59b/logo.webp",
+    "logoHash": "43555fa4ef1c5ecf42e722926e1bf39ec8de95de3f14a3d98e9a2e972c8d1998"
+  },
+  {
+    "name": "Cream",
+    "symbol": "CREAM",
+    "decimals": 18,
+    "address": "0x657a1861c15a3ded9af0b6799a195a249ebdcbc6",
+    "coingeckoId": "cream-2",
+    "logoURL": "tokens/eip155-250/0x657a1861c15a3ded9af0b6799a195a249ebdcbc6/logo.webp",
+    "logoHash": "8cdd6f5527b5c43573e09f6828c245748a1c4d3dd246a58ee7b58ef0e0a430b1"
+  },
+  {
+    "name": "WOO",
+    "symbol": "WOO",
+    "decimals": 18,
+    "address": "0x6626c47c00f1d87902fc13eecfac3ed06d5e8d8a",
+    "coingeckoId": "woo-network",
+    "logoURL": "tokens/eip155-250/0x6626c47c00f1d87902fc13eecfac3ed06d5e8d8a/logo.webp",
+    "logoHash": "6b9b069f242a28609c9d5fe1a6626b66458c13fcfc795bcf6ec3f6fe1526e23e"
+  },
+  {
+    "name": "Aave",
+    "symbol": "AAVE",
+    "decimals": 18,
+    "address": "0x6a07a792ab2965c72a5b8088d3a069a7ac3a993b",
+    "coingeckoId": "aave",
+    "logoURL": "tokens/eip155-250/0x6a07a792ab2965c72a5b8088d3a069a7ac3a993b/logo.webp",
+    "logoHash": "da72af6dd2d673bea75b8e770c5518ada4e80244acc8e330efed95e64715175f"
+  },
+  {
+    "name": "Tomb",
+    "symbol": "TOMB",
+    "decimals": 18,
+    "address": "0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x6c021ae822bea943b2e66552bde1d2696a53fbb7/logo.webp",
+    "logoHash": "02ac41eecb95e5db637644bf08b76369cb71a760fee6cc2d63f6408db1aa8fad"
+  },
+  {
+    "name": "Badger DAO",
+    "symbol": "BADGER",
+    "decimals": 18,
+    "address": "0x753fbc5800a8c8e3fb6dc6415810d627a387dfc9",
+    "coingeckoId": "badger-dao",
+    "logoURL": "tokens/eip155-250/0x753fbc5800a8c8e3fb6dc6415810d627a387dfc9/logo.webp",
+    "logoHash": "444147cf48a3b2d8448a84e2b09304bf84c9de8a614d5a0a9b6f9864e6b2e651"
+  },
+  {
+    "name": "Kyber Network Crystal Legacy",
+    "symbol": "KNCL",
+    "decimals": 18,
+    "address": "0x765277eebeca2e31912c9946eae1021199b39c61",
+    "coingeckoId": "kyber-network",
+    "logoURL": "tokens/eip155-250/0x765277eebeca2e31912c9946eae1021199b39c61/logo.webp",
+    "logoHash": "3e1c049b89adfce63c257c6e6c9080f8a877c13d0a1d8c6a50acfc2f76c209aa"
+  },
+  {
+    "name": "Nexo",
+    "symbol": "NEXO",
+    "decimals": 18,
+    "address": "0x7c598c96d02398d89fbcb9d41eab3df0c16f227d",
+    "coingeckoId": "nexo",
+    "logoURL": "tokens/eip155-250/0x7c598c96d02398d89fbcb9d41eab3df0c16f227d/logo.webp",
+    "logoHash": "a8b525d850bf247d12c807ced63021bec8a09d19613b61937dc3c106d3e1ae4e"
+  },
+  {
+    "name": "Frax Share",
+    "symbol": "FXS",
+    "decimals": 18,
+    "address": "0x7d016eec9c25232b01f23ef992d98ca97fc2af5a",
+    "coingeckoId": "frax-share",
+    "logoURL": "tokens/eip155-250/0x7d016eec9c25232b01f23ef992d98ca97fc2af5a/logo.webp",
+    "logoHash": "114667f3906f6428163fbb918121f390029a9e3e96f3ff28e83f7fd83bd166a5"
+  },
+  {
+    "name": "Atari",
+    "symbol": "ATRI",
+    "decimals": 0,
+    "address": "0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b",
+    "coingeckoId": "atari",
+    "logoURL": "tokens/eip155-250/0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b/logo.webp",
+    "logoHash": "61876a8c247f22a0d73a7dbf6adcb1624aef266b2c26bd0855db5f62d5e05475"
+  },
+  {
+    "name": "Magic Internet Money",
+    "symbol": "MIM",
+    "decimals": 18,
+    "address": "0x82f0b8b456c1a451378467398982d4834b6829c1",
+    "coingeckoId": "magic-internet-money-fantom",
+    "logoURL": "tokens/eip155-250/0x82f0b8b456c1a451378467398982d4834b6829c1/logo.webp",
+    "logoHash": "1a41631432da553f3ebc95a0fbfa9861a97397b3e1361c73d2796c08e2c9bcc8"
+  },
+  {
+    "name": "Spookyswap",
+    "symbol": "BOO",
+    "decimals": 18,
+    "address": "0x841fad6eae12c286d1fd18d1d525dffa75c7effe",
+    "coingeckoId": "spookyswap",
+    "logoURL": "tokens/eip155-250/0x841fad6eae12c286d1fd18d1d525dffa75c7effe/logo.webp",
+    "logoHash": "229ed09a900483a07f3503e3d536dc9e6e09472be075cf79a0e404dc847651fe"
+  },
+  {
+    "name": "Bifrost",
+    "symbol": "BFC",
+    "decimals": 18,
+    "address": "0x84c882a4d8eb448ce086ea19418ca0f32f106117",
+    "coingeckoId": "bifrost",
+    "logoURL": "tokens/eip155-250/0x84c882a4d8eb448ce086ea19418ca0f32f106117/logo.webp",
+    "logoHash": "38c4b83d6301a510e605752703600a507e2dd8c706356943226068768e611ddc"
+  },
+  {
+    "name": "Circuits of Value",
+    "symbol": "COVAL",
+    "decimals": 8,
+    "address": "0x8b8407c6184f1f0fd1082e83d6a3b8349caced12",
+    "coingeckoId": "circuits-of-value",
+    "logoURL": "tokens/eip155-250/0x8b8407c6184f1f0fd1082e83d6a3b8349caced12/logo.webp",
+    "logoHash": "a744469839fccbe8fbe317eaa8d29791aa27825ef38f30f9dd2daef15e95daa9"
+  },
+  {
+    "name": "Dai",
+    "symbol": "DAI",
+    "decimals": 18,
+    "address": "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
+    "coingeckoId": "multichain-bridged-dai-fantom",
+    "logoURL": "tokens/eip155-250/0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e/logo.webp",
+    "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+  },
+  {
+    "name": "Vivid Labs",
+    "symbol": "VID",
+    "decimals": 18,
+    "address": "0x922d641a426dcffaef11680e5358f34d97d112e1",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x922d641a426dcffaef11680e5358f34d97d112e1/logo.webp",
+    "logoHash": "65ffe07f6e831f2c7545f92d5c357a00d3bf7da2b31492cc74251f3fdbd94752"
+  },
+  {
+    "name": "TrueUSD",
+    "symbol": "TUSD",
+    "decimals": 18,
+    "address": "0x9879abdea01a879644185341f7af7d8343556b7a",
+    "coingeckoId": "bridged-trueusd",
+    "logoURL": "tokens/eip155-250/0x9879abdea01a879644185341f7af7d8343556b7a/logo.webp",
+    "logoHash": "d51e20c3eabf9ac2bddb217f01f27a8cd0b6197c82dc02e67232c4033469257a"
+  },
+  {
+    "name": "OpenOcean",
+    "symbol": "OOE",
+    "decimals": 18,
+    "address": "0x9d8f97a3c2f9f397b6d46cbe2d39cc1d8cf19010",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x9d8f97a3c2f9f397b6d46cbe2d39cc1d8cf19010/logo.webp",
+    "logoHash": "5c38d98bb58261de1e470b9382c3397ee6107774e00f9e2288ec7bc0df476134"
+  },
+  {
+    "name": "Multichain",
+    "symbol": "MULTI",
+    "decimals": 18,
+    "address": "0x9fb9a33956351cf4fa040f65a13b835a3c8764e3",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0x9fb9a33956351cf4fa040f65a13b835a3c8764e3/logo.webp",
+    "logoHash": "248133e4a909665903f9e00c3efaed2283331c768e7c5d1670fb9c2ba7e7f5ff"
+  },
+  {
+    "name": "Alpaca Finance",
+    "symbol": "ALPACA",
+    "decimals": 18,
+    "address": "0xad996a45fd2373ed0b10efa4a8ecb9de445a4302",
+    "coingeckoId": "alpaca-finance",
+    "logoURL": "tokens/eip155-250/0xad996a45fd2373ed0b10efa4a8ecb9de445a4302/logo.webp",
+    "logoHash": "9cc0b451f3bf14f66d7e75f3ff85fb6f1b53b19340f340f6ce7c3a26484ddc0d"
+  },
+  {
+    "name": "Sushi",
+    "symbol": "SUSHI",
+    "decimals": 18,
+    "address": "0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc",
+    "coingeckoId": "sushi",
+    "logoURL": "tokens/eip155-250/0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc/logo.webp",
+    "logoHash": "4b5864ed55d8bd7d8229d87de976bad42ebeeb483a69e4c4c6135f5e2ac31972"
+  },
+  {
+    "name": "Chainlink",
+    "symbol": "LINK",
+    "decimals": 18,
+    "address": "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8",
+    "coingeckoId": "chainlink",
+    "logoURL": "tokens/eip155-250/0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8/logo.webp",
+    "logoHash": "cea438082d8c0f869f89569a386629c544fc72fb09bfb798fa45ae31ac0162d6"
+  },
+  {
+    "name": "Retreeb",
+    "symbol": "TREEB",
+    "decimals": 18,
+    "address": "0xc60d7067dfbc6f2caf30523a064f416a5af52963",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xc60d7067dfbc6f2caf30523a064f416a5af52963/logo.webp",
+    "logoHash": "51b7f28d857f9b30dfa2b6394996c7d685d21fd86dc5c2879394ab7cfe572740"
+  },
+  {
+    "name": "Rari Governance Token",
+    "symbol": "RGT",
+    "decimals": 18,
+    "address": "0xcf726a06f3dcec8ef2b033336d138caa0eae5af2",
+    "coingeckoId": "rari-governance-token",
+    "logoURL": "tokens/eip155-250/0xcf726a06f3dcec8ef2b033336d138caa0eae5af2/logo.webp",
+    "logoHash": "7f65c0a05f2eef60d7680aca8b982933b9220419bff635570754d1758f1a1b85"
+  },
+  {
+    "name": "Woofy",
+    "symbol": "WOOFY",
+    "decimals": 12,
+    "address": "0xd0660cd418a64a1d44e9214ad8e459324d8157f1",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xd0660cd418a64a1d44e9214ad8e459324d8157f1/logo.webp",
+    "logoHash": "f27a250bf4d3cd477a4e8efa78794904fe4004ac54950b936370fd1b802e557b"
+  },
+  {
+    "name": "Beefy.Finance",
+    "symbol": "BIFI",
+    "decimals": 18,
+    "address": "0xd6070ae98b8069de6b494332d1a1a81b6179d960",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xd6070ae98b8069de6b494332d1a1a81b6179d960/logo.webp",
+    "logoHash": "e36f68044d238a4b5ae0b82c460557acd80cea7bf1c40d5c0c451db6b497cd9b"
+  },
+  {
+    "name": "Geist Finance",
+    "symbol": "GEIST",
+    "decimals": 18,
+    "address": "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xd8321aa83fb0a4ecd6348d4577431310a6e0814d/logo.webp",
+    "logoHash": "1da9639b5536999d43c8bff3b04c429ae892028f0abb0a53acc8f277309d18fd"
+  },
+  {
+    "name": "Frax",
+    "symbol": "FRAX",
+    "decimals": 18,
+    "address": "0xdc301622e621166bd8e82f2ca0a26c13ad0be355",
+    "coingeckoId": "frax",
+    "logoURL": "tokens/eip155-250/0xdc301622e621166bd8e82f2ca0a26c13ad0be355/logo.webp",
+    "logoHash": "803a0eee7d4249aded597261dcea63465fb2de800e7e0af886775e666b104d42"
+  },
+  {
+    "name": "DEI",
+    "symbol": "DEI",
+    "decimals": 18,
+    "address": "0xde12c7959e1a72bbe8a5f7a1dc8f8eef9ab011b3",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xde12c7959e1a72bbe8a5f7a1dc8f8eef9ab011b3/logo.webp",
+    "logoHash": "15e54970ad1eb1e368bbce90b273990df66544b8b77ab7e4c980f4bd5199d1c2"
+  },
+  {
+    "name": "DEUS Finance",
+    "symbol": "DEUS",
+    "decimals": 18,
+    "address": "0xde5ed76e7c05ec5e4572cfc88d1acea165109e44",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xde5ed76e7c05ec5e4572cfc88d1acea165109e44/logo.webp",
+    "logoHash": "172e8a882762a3f1da6d566de8054b50fce45c6c35e25c6ed06c6ca9011818c8"
+  },
+  {
+    "name": "Scream",
+    "symbol": "SCREAM",
+    "decimals": 18,
+    "address": "0xe0654c8e6fd4d733349ac7e09f6f23da256bf475",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xe0654c8e6fd4d733349ac7e09f6f23da256bf475/logo.webp",
+    "logoHash": "860e836fcb27d1070771ce2c3b3fd216eaa05666c9560b577480138ebdd2ea92"
+  },
+  {
+    "name": "Banano",
+    "symbol": "BAN",
+    "decimals": 18,
+    "address": "0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034",
+    "coingeckoId": "wrapped-banano",
+    "logoURL": "tokens/eip155-250/0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034/logo.webp",
+    "logoHash": "d2bf0558f582ee062d57b117067be7a2a89b661132f3c15d5f4521bbaaa63cec"
+  },
+  {
+    "name": "Synapse",
+    "symbol": "SYN",
+    "decimals": 18,
+    "address": "0xe55e19fb4f2d85af758950957714292dac1e25b2",
+    "coingeckoId": "synapse-2",
+    "logoURL": "tokens/eip155-250/0xe55e19fb4f2d85af758950957714292dac1e25b2/logo.webp",
+    "logoHash": "e496a840e4e6506e30a5483021f656c453f8baca732e1f80b56d05483fcbecde"
+  },
+  {
+    "name": "Rainicorn",
+    "symbol": "RAINI",
+    "decimals": 18,
+    "address": "0xe83dfaaafd3310474d917583ae9633b4f68fb036",
+    "coingeckoId": "rainicorn",
+    "logoURL": "tokens/eip155-250/0xe83dfaaafd3310474d917583ae9633b4f68fb036/logo.webp",
+    "logoHash": "329344426db2fa41f0a858bfaf48820848a5b1f30a43e8d0e9a5443a81ec35d0"
+  },
+  {
+    "name": "Popsicle Finance",
+    "symbol": "ICE",
+    "decimals": 18,
+    "address": "0xf16e81dce15b08f326220742020379b855b87df9",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xf16e81dce15b08f326220742020379b855b87df9/logo.webp",
+    "logoHash": "4801aed4ba630ad6845a499b37b5d569e3c78787009b689bd6c13df6800cf560"
+  },
+  {
+    "name": "Beethoven X",
+    "symbol": "BEETS",
+    "decimals": 18,
+    "address": "0xf24bcf4d1e507740041c9cfd2dddb29585adce1e",
+    "coingeckoId": "beethoven-x",
+    "logoURL": "tokens/eip155-250/0xf24bcf4d1e507740041c9cfd2dddb29585adce1e/logo.webp",
+    "logoHash": "83931db96204be0a4e7ade7b7fc0cdcdc5aef5220b789170851f4a4d036d2910"
+  },
+  {
+    "name": "Fantohm",
+    "symbol": "FHM",
+    "decimals": 9,
+    "address": "0xfa1fbb8ef55a4855e5688c0ee13ac3f202486286",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-250/0xfa1fbb8ef55a4855e5688c0ee13ac3f202486286/logo.webp",
+    "logoHash": "ce61d630be84bf197f68697be4610c8e0480ef90edaccd338bda9bcfecab99e4"
+  },
+  {
+    "name": "MAI",
+    "symbol": "MIMATIC",
+    "decimals": 18,
+    "address": "0xfb98b335551a418cd0737375a2ea0ded62ea213b",
+    "coingeckoId": "mai-fantom",
+    "logoURL": "tokens/eip155-250/0xfb98b335551a418cd0737375a2ea0ded62ea213b/logo.webp",
+    "logoHash": "301ed9fa21ec737d20bf5e7598c4ad02ca9e82be77943f6af806b9842f5da314"
+  },
+  {
+    "name": "Fantom",
+    "symbol": "FTM",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": "fantom",
+    "logoURL": "tokens/eip155-250/native/logo.webp",
+    "logoHash": "f6124befc79650a41bf71b2015fe678ec5af64eed2768c988f5f557e349720f5"
+  }
+]

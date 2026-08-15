@@ -1,0 +1,24 @@
+{
+  "name": "Flare Forward",
+  "description": "AI-coded FTSO v2 provider from FlareForward, with full anchor-feed coverage and a self-bonded validator, tuned continuously by our own AI. We also run DeFi University - learn decentralized finance and AI with us: https://defiuniversitypro.com. Delegate your WFLR and check our live on-chain results for yourself.",
+  "logoURL": "providers/eip155-14/0x1fbb55a1877817a0f90cae60c1ab22fc94f97110/logo.webp",
+  "logoHash": "efdb6498c84d46098ea0bc7ce795a78f02e8d5474500693d33faf9f6c928853d",
+  "websiteURL": "https://ftso.flareforward.com/",
+  "links": {},
+  "identityAddress": "0x1fbb55a1877817a0f90cae60c1ab22fc94f97110",
+  "delegationAddress": "0xce2c92c54f7307894725e8ceb16424b7c9c18807",
+  "signingPolicyAddress": "0x67f39503608c47ece7df897bf01a034db2ae1ed9",
+  "submitAddress": "0x4e1d158779f5f41d9397bbb101af9d37fc92d750",
+  "submitSignaturesAddress": "0x4923d3a01327f5480adbb3ed01c019c58f970b1e",
+  "publicKey": "0x061c545f225ca485a4ddb2bd9e39c589f4400ed08e7d25f2495fb670f92dbbad1b4e98ef854b86fa65203c344a01e2d18af24ed2b8c62c680ed633f59cf48795",
+  "validators": ["NodeID-5amxeiA5AKHPPy6v1C7S1YgmkoXQDedtE"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x6e768d153f7692c80230a756c9e7df46ecf2d2f0a34d9d89662bae0191dc14bd",
+    "blockNumber": 63489464,
+    "timestamp": "2026-06-23T00:46:27.000Z"
+  }
+}

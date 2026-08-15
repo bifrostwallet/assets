@@ -1,0 +1,9 @@
+{
+  "name": "Minu",
+  "symbol": "MINU",
+  "decimals": 18,
+  "address": "0xf48f91df403976060cc05dbbf8a0901b09fdefd4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xf48f91df403976060cc05dbbf8a0901b09fdefd4/logo.webp",
+  "logoHash": "c85de30c731eefcb3e95d0ab575f8991bafc308ab27e91cf809c84e56c70a858"
+}

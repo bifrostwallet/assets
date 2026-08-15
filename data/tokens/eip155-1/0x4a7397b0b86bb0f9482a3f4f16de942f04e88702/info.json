@@ -1,0 +1,9 @@
+{
+  "name": "Freeway Token",
+  "symbol": "FWT",
+  "decimals": 18,
+  "address": "0x4a7397b0b86bb0f9482a3f4f16de942f04e88702",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x4a7397b0b86bb0f9482a3f4f16de942f04e88702/logo.webp",
+  "logoHash": "91c71c758377e7aff814fcb6f1e29c7a6c9c1266c9a328cf7069a11370d5f669"
+}

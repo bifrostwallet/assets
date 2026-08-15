@@ -1,0 +1,9 @@
+{
+  "name": "Status",
+  "symbol": "SNT",
+  "decimals": 18,
+  "address": "0x744d70fdbe2ba4cf95131626614a1763df805b9e",
+  "coingeckoId": "status",
+  "logoURL": "tokens/eip155-1/0x744d70fdbe2ba4cf95131626614a1763df805b9e/logo.webp",
+  "logoHash": "304fbe20e92b4ba99df34d521e8e361ceb8f525871525d58620a934740ac52e0"
+}

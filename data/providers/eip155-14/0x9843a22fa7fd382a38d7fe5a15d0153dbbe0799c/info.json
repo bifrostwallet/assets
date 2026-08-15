@@ -1,0 +1,27 @@
+{
+  "name": "FTSOCAN",
+  "description": "FTSO Canada is your partner to help you build your passive income on the Flare Network, by providing the Flare Network with a fast and efficient price provider.",
+  "logoURL": "providers/eip155-14/0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c/logo.webp",
+  "logoHash": "089eb42d0d09b1faf584dc0bda5406e7df270b05446a5cb509563127f9820d6d",
+  "websiteURL": "https://ftsocan.com",
+  "links": {},
+  "identityAddress": "0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c",
+  "delegationAddress": "0x9e55a49d251324b1623dc2a81894d1afbfb8bbdc",
+  "signingPolicyAddress": "0x6bb880e2b19cbf6e683a7f6407c1ad92ccfaf4c1",
+  "submitAddress": "0x8938fb6fb294de8cca3eaf7d78f7ee65103187a2",
+  "submitSignaturesAddress": "0x6bb8bf59c91ac16047e01d5dea21246841924295",
+  "publicKey": "0x0a3bc044e6a6ab68011b31a330a737fc82620b80e3f09aa5dc4305f51c45f0b92f307f1b76e3145f9d7305e88f2746491121d519fad547871283bcf555c2e832",
+  "validators": [
+    "NodeID-DgK9ARwXacjijk37v4fndMm6kRd8NXadM",
+    "NodeID-KzPd2Vx5WomGtur91B9K9R7to3mYyYga"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x51829e886cdca27c6b4c29cc559fbb8ce9b24dd528aacda483b975e02e35a76b",
+    "blockNumber": 56079,
+    "timestamp": "2022-07-25T22:40:58.000Z"
+  }
+}

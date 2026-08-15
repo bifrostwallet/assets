@@ -1,0 +1,9 @@
+{
+  "name": "Interest Bearing Bitcoin",
+  "symbol": "IBBTC",
+  "decimals": 18,
+  "address": "0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f/logo.webp",
+  "logoHash": "a54476477005b5ffe3ab3e3e5759aca1da305d7f9b05d7f2103f66146d6b9bd3"
+}

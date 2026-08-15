@@ -1,0 +1,9 @@
+{
+  "name": "LoveTokenV2",
+  "symbol": "CARE",
+  "decimals": 18,
+  "address": "0xb1d60fa6fabd9a2ad89960d070350552e47fb0d6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xb1d60fa6fabd9a2ad89960d070350552e47fb0d6/logo.webp",
+  "logoHash": "873aa36913f4808d34fb5bbbfcc65e3555173ae13c3610a489da306373fc46c3"
+}

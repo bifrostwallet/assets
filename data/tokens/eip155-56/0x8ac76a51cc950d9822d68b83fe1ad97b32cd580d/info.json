@@ -1,0 +1,9 @@
+{
+  "name": "USDC",
+  "symbol": "USDC",
+  "decimals": 18,
+  "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+  "coingeckoId": "binance-bridged-usdc-bnb-smart-chain",
+  "logoURL": "tokens/eip155-56/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

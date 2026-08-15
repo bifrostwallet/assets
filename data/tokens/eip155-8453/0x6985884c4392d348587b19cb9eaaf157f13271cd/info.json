@@ -1,0 +1,9 @@
+{
+  "name": "LayerZero",
+  "symbol": "ZRO",
+  "decimals": 18,
+  "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+  "coingeckoId": "layerzero",
+  "logoURL": "tokens/eip155-8453/0x6985884c4392d348587b19cb9eaaf157f13271cd/logo.webp",
+  "logoHash": "f14480ff39adf664071b8e0156d00355a56fcbd76003cce8896e7e4d667eaeea"
+}

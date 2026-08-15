@@ -1,0 +1,9 @@
+{
+  "name": "PoodleCoin",
+  "symbol": "POODLE",
+  "decimals": 18,
+  "address": "0xc18f99ce6dd6278be2d3f1e738ed11623444ae33",
+  "coingeckoId": "poodlecoin",
+  "logoURL": "tokens/eip155-14/0xc18f99ce6dd6278be2d3f1e738ed11623444ae33/logo.webp",
+  "logoHash": "89c0520bbc185c0807ea641fe7789b85cb48bfcc788aec61131b5c4467d825da"
+}

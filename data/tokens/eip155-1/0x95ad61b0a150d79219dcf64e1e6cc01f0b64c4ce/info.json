@@ -1,0 +1,9 @@
+{
+  "name": "Shiba Inu",
+  "symbol": "SHIB",
+  "decimals": 18,
+  "address": "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+  "coingeckoId": "shiba-inu",
+  "logoURL": "tokens/eip155-1/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce/logo.webp",
+  "logoHash": "81085a3d53a078da46ef0d3bbae3ca1a04bb5ad4ba3a74eeb004826fc0bc2403"
+}

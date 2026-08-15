@@ -1,0 +1,9 @@
+{
+  "name": "Carbon Protocol",
+  "symbol": "SWTH",
+  "decimals": 8,
+  "address": "0xc0ecb8499d8da2771abcbf4091db7f65158f1468",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xc0ecb8499d8da2771abcbf4091db7f65158f1468/logo.webp",
+  "logoHash": "cde7584d798b8e2955a2fccde7426d520779c01228c95b6098ddf552ece1fa17"
+}

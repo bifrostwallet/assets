@@ -1,0 +1,9 @@
+{
+  "name": "Staked FLR",
+  "symbol": "sFLR",
+  "decimals": 18,
+  "address": "0x12e605bc104e93b45e1ad99f9e555f659051c2bb",
+  "coingeckoId": "sceptre-staked-flr",
+  "logoURL": "tokens/eip155-14/0x12e605bc104e93b45e1ad99f9e555f659051c2bb/logo.webp",
+  "logoHash": "0530c4cc874fd49167acbe192c9dfd152fef44e496c2155b99db40afc7ac9577"
+}

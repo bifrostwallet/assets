@@ -1,0 +1,9 @@
+{
+  "name": "Alchemy Pay",
+  "symbol": "ACH",
+  "decimals": 8,
+  "address": "0xbc7d6b50616989655afd682fb42743507003056d",
+  "coingeckoId": "alchemy-pay",
+  "logoURL": "tokens/eip155-56/0xbc7d6b50616989655afd682fb42743507003056d/logo.webp",
+  "logoHash": "f33cfe345ba2498ab1b94dbc1c529cd8595cfbb6d526193ad9c5528c5c4a167d"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Sperax",
+  "symbol": "SPA",
+  "decimals": 18,
+  "address": "0x5575552988a3a80504bbaeb1311674fcfd40ad4b",
+  "coingeckoId": "sperax",
+  "logoURL": "tokens/eip155-42161/0x5575552988a3a80504bbaeb1311674fcfd40ad4b/logo.webp",
+  "logoHash": "01941a34c0ce22784f33ddf0fb3c942f01dce37c0121fe1b2436e23666287116"
+}

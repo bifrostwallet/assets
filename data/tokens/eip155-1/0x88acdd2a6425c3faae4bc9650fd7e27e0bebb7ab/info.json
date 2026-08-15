@@ -1,0 +1,9 @@
+{
+  "name": "Alchemist",
+  "symbol": "MIST",
+  "decimals": 18,
+  "address": "0x88acdd2a6425c3faae4bc9650fd7e27e0bebb7ab",
+  "coingeckoId": "alchemist",
+  "logoURL": "tokens/eip155-1/0x88acdd2a6425c3faae4bc9650fd7e27e0bebb7ab/logo.webp",
+  "logoHash": "3764f65bf9eaf914f640842d2957416205f7ed1a1336765fc633cc72a771646c"
+}

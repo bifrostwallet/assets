@@ -1,0 +1,24 @@
+{
+  "name": "Juice Nodes",
+  "description": "Juice Nodes is an independently owned and operated validator, squeezing every drop of performance to deliver fast, accurate data for the Flare ecosystem. No pulp.",
+  "logoURL": "providers/eip155-14/0x59ce07fcdd12fa7f902d2dddcab6e1696415615a/logo.webp",
+  "logoHash": "b273a7cb74aa2ef8fd31d994512f547fc1ac642766fde911fcdcca151f874bea",
+  "websiteURL": "https://juicenodes.com",
+  "links": {},
+  "identityAddress": "0x59ce07fcdd12fa7f902d2dddcab6e1696415615a",
+  "delegationAddress": "0xce73ade61b0d0100ba1507d9fa1dc2fea3046578",
+  "signingPolicyAddress": "0x46fad452141a7bc316348058ae4bc07ac4fb9d99",
+  "submitAddress": "0x1e5e4c20c9222a3aa22e6174c7fe2064232a866c",
+  "submitSignaturesAddress": "0xd73671364138a0b6405239c4c0df5f629adef876",
+  "publicKey": "0x0a4aa7510f9c312e405f5da8c89a7c391b07f1511f17f82b3ecf29af5087b6c02be71e9a8da3739f8fbe48511b666d0c3dcdbcc1127c5b0ae514ae8c9a2436a4",
+  "validators": ["NodeID-5tHXeYMb1oY5GcWjXEcTt9CHbq5GBgCjn"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x563eddad69f42147d1cfeb87fc893a0afe7634ef191fe538f6a407a109e4f402",
+    "blockNumber": 44146300,
+    "timestamp": "2025-07-06T16:42:32.000Z"
+  }
+}

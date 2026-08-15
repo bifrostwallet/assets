@@ -1,0 +1,9 @@
+{
+  "name": "ELYSIA",
+  "symbol": "EL",
+  "decimals": 18,
+  "address": "0x2781246fe707bb15cee3e5ea354e2154a2877b16",
+  "coingeckoId": "elysia",
+  "logoURL": "tokens/eip155-1/0x2781246fe707bb15cee3e5ea354e2154a2877b16/logo.webp",
+  "logoHash": "21099d001976cd3c0c1b251447fc78f44fd1e4719c6e672dda020dfa90c7efd1"
+}

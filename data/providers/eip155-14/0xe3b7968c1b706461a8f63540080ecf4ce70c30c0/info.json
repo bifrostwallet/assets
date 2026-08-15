@@ -1,0 +1,28 @@
+{
+  "name": "Aureus Ox",
+  "description": "Aureus Ox is building a scalable and reliable FTSO signal provider. Our initial goals include accurate price submission and delegation tools.",
+  "logoURL": "providers/eip155-14/0xe3b7968c1b706461a8f63540080ecf4ce70c30c0/logo.webp",
+  "logoHash": "fbe96ce566d0f669711107fbb1560f1510fd7d66421cdf91588e3b39f62bcee9",
+  "websiteURL": "https://aureusox.com",
+  "links": {},
+  "identityAddress": "0xe3b7968c1b706461a8f63540080ecf4ce70c30c0",
+  "delegationAddress": "0x9269fb79b098ab314de8a1e2afb8705678520443",
+  "signingPolicyAddress": "0xf178fd26fac21d47bb279706e2f8705af8be8eef",
+  "submitAddress": "0xadc0e58ab5d85bafa5383b1997f58a554960419a",
+  "submitSignaturesAddress": "0xde078f0951d6db4febf3ffd87e6c5a105622a263",
+  "publicKey": "0x28d0c94ef442258c8dfd633a1486725d5859e54d69f10615e5ddc190e6c09db70842cb7d4cfeeae7e3d880d900dd2ef15b796b6490a14a38c59ea046bf7ef138",
+  "validators": [
+    "NodeID-3phxSiKoYMj1dNSJysZhHYQKUbLX786jy",
+    "NodeID-DtwBuXMHKZn2zJd74cSjvwkVjuJTAEs2n",
+    "NodeID-LDAEZjAdapQMY4oF9t57FdBQhZKWd8wAg"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc333c2f4b591db81dcd8016cb414443ed0b633861d7fa692196fdcd7a41f62ec",
+    "blockNumber": 17224,
+    "timestamp": "2022-07-22T20:34:24.000Z"
+  }
+}

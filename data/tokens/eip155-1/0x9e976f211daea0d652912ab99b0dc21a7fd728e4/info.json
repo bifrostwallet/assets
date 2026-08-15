@@ -1,0 +1,9 @@
+{
+  "name": "MAP Protocol",
+  "symbol": "MAP",
+  "decimals": 18,
+  "address": "0x9e976f211daea0d652912ab99b0dc21a7fd728e4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x9e976f211daea0d652912ab99b0dc21a7fd728e4/logo.webp",
+  "logoHash": "7424ec3b7776d37e318f9d20ef2ba6afd841303fb5cd34e1a8dd4cf64e311dbe"
+}

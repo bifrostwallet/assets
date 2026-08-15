@@ -1,0 +1,9 @@
+{
+  "name": "FBTC",
+  "symbol": "FBTC",
+  "decimals": 8,
+  "address": "0xba17af59dcf544aafe69f622eb93bfc0ed1b1a6a",
+  "coingeckoId": "bitcoin",
+  "logoURL": "tokens/eip155-19/0xba17af59dcf544aafe69f622eb93bfc0ed1b1a6a/logo.webp",
+  "logoHash": "5c6cd95eccc17aea9cf3663051bf10d3b67bb0332632faf24fd3238735953958"
+}

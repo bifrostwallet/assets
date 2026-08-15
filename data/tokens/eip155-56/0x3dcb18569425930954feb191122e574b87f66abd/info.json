@@ -1,0 +1,9 @@
+{
+  "name": "Orion Money",
+  "symbol": "ORION",
+  "decimals": 18,
+  "address": "0x3dcb18569425930954feb191122e574b87f66abd",
+  "coingeckoId": "orion-money",
+  "logoURL": "tokens/eip155-56/0x3dcb18569425930954feb191122e574b87f66abd/logo.webp",
+  "logoHash": "c61cc0d992548aaf5d88640bd53082361553183d1e5bdefba73e45bf4076c44d"
+}

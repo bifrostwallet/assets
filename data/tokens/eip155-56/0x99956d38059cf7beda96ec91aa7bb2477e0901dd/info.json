@@ -1,0 +1,9 @@
+{
+  "name": "DIA",
+  "symbol": "DIA",
+  "decimals": 18,
+  "address": "0x99956d38059cf7beda96ec91aa7bb2477e0901dd",
+  "coingeckoId": "dia-data",
+  "logoURL": "tokens/eip155-56/0x99956d38059cf7beda96ec91aa7bb2477e0901dd/logo.webp",
+  "logoHash": "593f6532b6391319bbbac81dadfb00e1e5597a0ba13034e98dbe991e7d9443e7"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dYdX",
+  "symbol": "DYDX",
+  "decimals": 18,
+  "address": "0x92d6c1e31e14520e676a687f0a93788b716beff5",
+  "coingeckoId": "dydx",
+  "logoURL": "tokens/eip155-1/0x92d6c1e31e14520e676a687f0a93788b716beff5/logo.webp",
+  "logoHash": "b0f4e4bcf21670890bf2d413eec92127e52efffc31f5879c044e9ded843e46ee"
+}

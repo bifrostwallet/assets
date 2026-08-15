@@ -1,0 +1,9 @@
+{
+  "name": "Dora Factory",
+  "symbol": "DORA",
+  "decimals": 18,
+  "address": "0xbc4171f45ef0ef66e76f979df021a34b46dcc81d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xbc4171f45ef0ef66e76f979df021a34b46dcc81d/logo.webp",
+  "logoHash": "dd5146e6b6d506008ead059f97b32db90d772d8e9127c31ceffee3d1e61bff9b"
+}

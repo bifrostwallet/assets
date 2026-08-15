@@ -1,0 +1,9 @@
+{
+  "name": "Handshake",
+  "symbol": "HNS",
+  "decimals": 6,
+  "address": "0xa771b49064da011df051052848477f18dba1d2ac",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa771b49064da011df051052848477f18dba1d2ac/logo.webp",
+  "logoHash": "783931db145c708776d137b68c778640afd6567966b91dfb6fc9e3368122b631"
+}

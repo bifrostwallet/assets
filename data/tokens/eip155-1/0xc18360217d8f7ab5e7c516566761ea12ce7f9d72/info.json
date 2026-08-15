@@ -1,0 +1,9 @@
+{
+  "name": "Ethereum Name Service",
+  "symbol": "ENS",
+  "decimals": 18,
+  "address": "0xc18360217d8f7ab5e7c516566761ea12ce7f9d72",
+  "coingeckoId": "ethereum-name-service",
+  "logoURL": "tokens/eip155-1/0xc18360217d8f7ab5e7c516566761ea12ce7f9d72/logo.webp",
+  "logoHash": "8cc657eb93d8f28fdd65807e27dad439175e49196b28e7a9bcf5d0732e704010"
+}

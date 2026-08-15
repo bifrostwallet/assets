@@ -1,0 +1,28 @@
+{
+  "name": "AlphaOracle",
+  "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
+  "logoURL": "providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
+  "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
+  "websiteURL": "https://www.alphaoracle.io",
+  "links": {},
+  "identityAddress": "0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5",
+  "delegationAddress": "0x47b6effe71abd4e8cdcc56f2341beb404f804b87",
+  "signingPolicyAddress": "0x58f485e216a70138e81490e5fdcbf729510a7488",
+  "submitAddress": "0x55a662a4fe401ac19c4f9b807c6d9a40bc15b9a7",
+  "submitSignaturesAddress": "0x7a1c88a739d5c626496d73949b241cd6e118a323",
+  "publicKey": "0x1742a47ab348fe26d968312ba5936dff77920e87fdf210c25516fd4f90a2b6df0e4f19c1c97723ef48a81a59eda2266e27f8c1726a5fafe54452f60bfa942d5b",
+  "validators": [
+    "NodeID-J78JH6xKf59nTSxTDuWK1aD7YGcgkMTu3",
+    "NodeID-K5oMYbGkADUJeAxJaZgVFDtCxCH2gFtAA",
+    "NodeID-KRkND3cB1bYaWt71CSQdCUjRSR95d3cNz"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc50bb05fbf415c2c0cad73533a11687098f7c1822eb30879380697620f6ab6e3",
+    "blockNumber": 17386,
+    "timestamp": "2022-07-22T21:24:43.000Z"
+  }
+}

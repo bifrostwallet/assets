@@ -1,0 +1,9 @@
+{
+  "name": "VIDT Datalink",
+  "symbol": "VIDT",
+  "decimals": 18,
+  "address": "0x3f515f0a8e93f2e2f891ceeb3db4e62e202d7110",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x3f515f0a8e93f2e2f891ceeb3db4e62e202d7110/logo.webp",
+  "logoHash": "e2c7a2d04c0923b2a023c62af353c01c2f5caf98fcf3351fe2e1dd34d28162fe"
+}

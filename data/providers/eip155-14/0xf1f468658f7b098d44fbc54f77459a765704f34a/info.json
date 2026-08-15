@@ -1,0 +1,24 @@
+{
+  "name": "Restake",
+  "description": "Swyke is an ISO-27001 certified institutional grade validator registered with VARA (Virtual Asset Regulatory Authority)",
+  "logoURL": "providers/eip155-14/0xf1f468658f7b098d44fbc54f77459a765704f34a/logo.webp",
+  "logoHash": "d315cd39c7be8711a79d6787ea67aa9eee8ca853eae2a2cf5d1ca3b3040a08c2",
+  "websiteURL": "https://swyke.ai",
+  "links": {},
+  "identityAddress": "0xf1f468658f7b098d44fbc54f77459a765704f34a",
+  "delegationAddress": "0xbf55a6eb78487f49197806025ca82ddaf633204e",
+  "signingPolicyAddress": "0x1a199658f43d2045cbdb089e11a68cc4f2d38d06",
+  "submitAddress": "0xa75bcf7f7c50aa881e7ff5f01fe190afcc32ce2b",
+  "submitSignaturesAddress": "0x41635d3cdb52c82df5acece4dd2ec3021dd95c85",
+  "publicKey": "0x00efeb82ea69396b0cc460e82501eac3e1ffa045a4e4be799d7e5fce23a72430193401ac01aca7caf86ec6c50fea2505c458e8d39983e9ec8943fa36a612adac",
+  "validators": ["NodeID-JZuVSDnBui1u82RmkbkWKJ1JxfdxuVYR9"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x58de4fcd4710657bc88286da0d90418493881633061d64df936616cad3d5886d",
+    "blockNumber": 13276250,
+    "timestamp": "2023-09-27T12:36:59.000Z"
+  }
+}

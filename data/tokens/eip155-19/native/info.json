@@ -1,0 +1,9 @@
+{
+  "name": "Songbird",
+  "symbol": "SGB",
+  "decimals": 18,
+  "address": null,
+  "coingeckoId": "songbird",
+  "logoURL": "tokens/eip155-19/native/logo.webp",
+  "logoHash": "f6a9703e2612be47426433611b5dc7afb8460004ab8763a4c035674788999746"
+}

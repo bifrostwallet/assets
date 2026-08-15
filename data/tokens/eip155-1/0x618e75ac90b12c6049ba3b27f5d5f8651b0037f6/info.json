@@ -1,0 +1,9 @@
+{
+  "name": "QASH",
+  "symbol": "QASH",
+  "decimals": 6,
+  "address": "0x618e75ac90b12c6049ba3b27f5d5f8651b0037f6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x618e75ac90b12c6049ba3b27f5d5f8651b0037f6/logo.webp",
+  "logoHash": "c2d94a10898725f3a0e624a3a4e2671c9a5ea85fa68e73a68ff1d679006918fe"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Alien Worlds",
+  "symbol": "TLM",
+  "decimals": 4,
+  "address": "0x888888848b652b3e3a0f34c96e00eec0f3a23f72",
+  "coingeckoId": "alien-worlds",
+  "logoURL": "tokens/eip155-1/0x888888848b652b3e3a0f34c96e00eec0f3a23f72/logo.webp",
+  "logoHash": "be006bfc73e00ba5f9175b5a5268a4f72c2293a16d7750c1e5f1a689aaf08ade"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Genopets",
+  "symbol": "GENE",
+  "decimals": 18,
+  "address": "0x9df465460938f9ebdf51c38cc87d72184471f8f0",
+  "coingeckoId": "genopets",
+  "logoURL": "tokens/eip155-56/0x9df465460938f9ebdf51c38cc87d72184471f8f0/logo.webp",
+  "logoHash": "33f1b487bd932ca2a80175f011b02c2073d58bba6c777dbea32eb53f61f8272c"
+}

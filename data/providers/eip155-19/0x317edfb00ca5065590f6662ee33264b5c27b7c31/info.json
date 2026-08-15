@@ -1,0 +1,24 @@
+{
+  "name": "Comfy Nodes",
+  "description": "Only the comfiest rates.",
+  "logoURL": "providers/eip155-19/0x317edfb00ca5065590f6662ee33264b5c27b7c31/logo.webp",
+  "logoHash": "283cfb10cb3ada16cb944076aefab01442ac0abb576f01659c66f620ad5fa0f9",
+  "websiteURL": "https://www.comfynodes.com",
+  "links": {},
+  "identityAddress": "0x317edfb00ca5065590f6662ee33264b5c27b7c31",
+  "delegationAddress": "0x821bde578955b35f9f2c9022268e5bc748994f71",
+  "signingPolicyAddress": "0x295d1dceafda82dca22f6323b9b7889a2920c789",
+  "submitAddress": "0x0280799e02545dc838f816d2c9ce74e0a415c44b",
+  "submitSignaturesAddress": "0xe699d488af51096060b465ef9a08d41e7f3b642b",
+  "publicKey": "0x21cb0a4e2e1291bd91e79914219eb83c7ebd8af894aca30b8a64c0485f1d276e29af737364be864ec9828c7a459e51b96526324a8f8004c61edd97c1f161b290",
+  "validators": [],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x178f353ec9b80a0b20482b4f9ba2eddb3ae6afefad90c8da1aaf03d0d709430d",
+    "blockNumber": 1916844,
+    "timestamp": "2021-11-10T02:48:03.000Z"
+  }
+}

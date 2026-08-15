@@ -1,0 +1,9 @@
+{
+  "name": "Merit Circle",
+  "symbol": "MC",
+  "decimals": 18,
+  "address": "0x949d48eca67b17269629c7194f4b727d4ef9e5d6",
+  "coingeckoId": "merit-circle",
+  "logoURL": "tokens/eip155-56/0x949d48eca67b17269629c7194f4b727d4ef9e5d6/logo.webp",
+  "logoHash": "4a5adc5d23f766d9db75167fa5b115f6c9c06fac8cf01c8ca554504ca9105975"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Prophet Token",
+  "symbol": "PRO",
+  "decimals": 18,
+  "address": "0xf810576a68c3731875bde07404be815b16fc0b4e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xf810576a68c3731875bde07404be815b16fc0b4e/logo.webp",
+  "logoHash": "0d43ccae35a31f4ffb14fb0a3c00d864831ca884256d51d57f23c6733ed552a1"
+}

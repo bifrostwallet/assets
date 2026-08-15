@@ -1,0 +1,9 @@
+{
+  "name": "BNB48 Club Token",
+  "symbol": "KOGE",
+  "decimals": 18,
+  "address": "0xe6df05ce8c8301223373cf5b969afcb1498c5528",
+  "coingeckoId": "bnb48-club-token",
+  "logoURL": "tokens/eip155-56/0xe6df05ce8c8301223373cf5b969afcb1498c5528/logo.webp",
+  "logoHash": "3f4299baaf72bfb92486ba57bae7261a547082963e3032e34ef9391cc6a51d1b"
+}

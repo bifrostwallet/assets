@@ -1,0 +1,9 @@
+{
+  "name": "Convex CRV",
+  "symbol": "CVXCRV",
+  "decimals": 18,
+  "address": "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7",
+  "coingeckoId": "convex-crv",
+  "logoURL": "tokens/eip155-1/0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7/logo.webp",
+  "logoHash": "cc2a758a66b8ff3c7b4cc3a334f5d8c100d1462c30a0ed091040b38273ad20a3"
+}

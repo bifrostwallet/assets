@@ -1,0 +1,9 @@
+{
+  "name": "Hyperbeat USDT",
+  "symbol": "hbUSDT",
+  "decimals": 18,
+  "address": "0x5e105266db42f78fa814322bce7f388b4c2e61eb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x5e105266db42f78fa814322bce7f388b4c2e61eb/logo.webp",
+  "logoHash": "4b9504ef7c0398230f87d54a30dbf0b7e4725b4f934c1ddb6e8ce34fbada5934"
+}

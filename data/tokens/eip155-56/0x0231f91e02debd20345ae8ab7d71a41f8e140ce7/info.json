@@ -1,0 +1,9 @@
+{
+  "name": "Jupiter",
+  "symbol": "JUP",
+  "decimals": 18,
+  "address": "0x0231f91e02debd20345ae8ab7d71a41f8e140ce7",
+  "coingeckoId": "jupiter",
+  "logoURL": "tokens/eip155-56/0x0231f91e02debd20345ae8ab7d71a41f8e140ce7/logo.webp",
+  "logoHash": "d330ab6d10bbe9f9dbd7b7120c72e97e483fc1a5ecc45e96c9bbc7d572cc68c1"
+}

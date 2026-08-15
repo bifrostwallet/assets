@@ -1,0 +1,9 @@
+{
+  "name": "Verasity",
+  "symbol": "VRA",
+  "decimals": 18,
+  "address": "0xf411903cbc70a74d22900a5de66a2dda66507255",
+  "coingeckoId": "verasity",
+  "logoURL": "tokens/eip155-1/0xf411903cbc70a74d22900a5de66a2dda66507255/logo.webp",
+  "logoHash": "024f54ce646106057b7733cec7ef1d833edf6064bb2f631842a0864b097b2a86"
+}

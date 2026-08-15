@@ -1,0 +1,9 @@
+{
+  "name": "Santiment Network",
+  "symbol": "SAN",
+  "decimals": 18,
+  "address": "0x7c5a0ce9267ed19b22f8cae653f198e3e8daf098",
+  "coingeckoId": "santiment-network-token",
+  "logoURL": "tokens/eip155-1/0x7c5a0ce9267ed19b22f8cae653f198e3e8daf098/logo.webp",
+  "logoHash": "ce0ad75e32ff6035c43683102ba6694172745f6f5ab11325e2e8a0b887708f1f"
+}

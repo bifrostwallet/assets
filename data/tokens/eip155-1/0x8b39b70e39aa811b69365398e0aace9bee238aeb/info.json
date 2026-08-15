@@ -1,0 +1,9 @@
+{
+  "name": "PolkaFoundry",
+  "symbol": "PKF",
+  "decimals": 18,
+  "address": "0x8b39b70e39aa811b69365398e0aace9bee238aeb",
+  "coingeckoId": "polkafoundry",
+  "logoURL": "tokens/eip155-1/0x8b39b70e39aa811b69365398e0aace9bee238aeb/logo.webp",
+  "logoHash": "29caf4da7b3d1fb6a7eb1b2939918ff6ce2408ab181dc849403a1fa6a93ffd63"
+}

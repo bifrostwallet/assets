@@ -1,0 +1,9 @@
+{
+  "name": "WeGro",
+  "symbol": "WEGRO",
+  "decimals": 18,
+  "address": "0xd7c5d2a3b7868e6dd539e145c98a565f29ef3fa4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xd7c5d2a3b7868e6dd539e145c98a565f29ef3fa4/logo.webp",
+  "logoHash": "3279f0e4da25b240cc15c0edb7a4e2a7a4d5bb6639c6837d9d5bb0a16dc04a92"
+}

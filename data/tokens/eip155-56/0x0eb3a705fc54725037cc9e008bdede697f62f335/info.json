@@ -1,0 +1,9 @@
+{
+  "name": "Binance Cosmos",
+  "symbol": "ATOM",
+  "decimals": 18,
+  "address": "0x0eb3a705fc54725037cc9e008bdede697f62f335",
+  "coingeckoId": "cosmos",
+  "logoURL": "tokens/eip155-56/0x0eb3a705fc54725037cc9e008bdede697f62f335/logo.webp",
+  "logoHash": "e06ba57bfa520da19daa4cb8c2f4b5385bd35b3503269df9b5b602a8ac9898f1"
+}

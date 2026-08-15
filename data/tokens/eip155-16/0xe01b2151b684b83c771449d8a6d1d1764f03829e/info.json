@@ -1,0 +1,9 @@
+{
+  "name": "FBTC",
+  "symbol": "FTestBTC",
+  "decimals": 8,
+  "address": "0xe01b2151b684b83c771449d8a6d1d1764f03829e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0xe01b2151b684b83c771449d8a6d1d1764f03829e/logo.webp",
+  "logoHash": "5c6cd95eccc17aea9cf3663051bf10d3b67bb0332632faf24fd3238735953958"
+}

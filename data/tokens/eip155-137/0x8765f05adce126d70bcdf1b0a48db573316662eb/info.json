@@ -1,0 +1,9 @@
+{
+  "name": "PlayDapp",
+  "symbol": "PLA",
+  "decimals": 18,
+  "address": "0x8765f05adce126d70bcdf1b0a48db573316662eb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0x8765f05adce126d70bcdf1b0a48db573316662eb/logo.webp",
+  "logoHash": "06a1f3c468ea7527dfa63d93a579bfa269f684c15a34874646edcea02aac8944"
+}

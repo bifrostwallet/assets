@@ -1,0 +1,9 @@
+{
+  "name": "Euro Tether",
+  "symbol": "EURT",
+  "decimals": 6,
+  "address": "0xc581b735a1688071a1746c968e0798d642ede491",
+  "coingeckoId": "tether-eurt",
+  "logoURL": "tokens/eip155-1/0xc581b735a1688071a1746c968e0798d642ede491/logo.webp",
+  "logoHash": "cce54ec05e656f2d603b846ffca10c02999eb3624207d5f2d235b31f91938e2e"
+}

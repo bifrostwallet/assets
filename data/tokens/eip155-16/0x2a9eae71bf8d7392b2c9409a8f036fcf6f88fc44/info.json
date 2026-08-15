@@ -1,0 +1,9 @@
+{
+  "name": "Test BTC",
+  "symbol": "testBTC",
+  "decimals": 8,
+  "address": "0x2a9eae71bf8d7392b2c9409a8f036fcf6f88fc44",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x2a9eae71bf8d7392b2c9409a8f036fcf6f88fc44/logo.webp",
+  "logoHash": "a02e1fb474ba994090eb1a43773a4aeda1d743c5dbc806c52333cf6e64789485"
+}

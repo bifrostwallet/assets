@@ -1,0 +1,9 @@
+{
+  "name": "chrono.tech",
+  "symbol": "TIME",
+  "decimals": 8,
+  "address": "0x3b198e26e473b8fab2085b37978e36c9de5d7f68",
+  "coingeckoId": "chronobank",
+  "logoURL": "tokens/eip155-56/0x3b198e26e473b8fab2085b37978e36c9de5d7f68/logo.webp",
+  "logoHash": "8eaf8e8c15078be9dd380bd3b2be6578ec397965078c5b7d23d4dce5996ebe0c"
+}

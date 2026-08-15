@@ -1,0 +1,9 @@
+{
+  "name": "Core USDT0",
+  "symbol": "COREUSDT0",
+  "decimals": 18,
+  "address": "0xe8dd6a1e13244a27bdaa19ccbf33013647c675d1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xe8dd6a1e13244a27bdaa19ccbf33013647c675d1/logo.webp",
+  "logoHash": "97eb841852a4ecbf6ce7c3505faeb4a36dbe041ba6c801c8727e9fb6a5b2a9ba"
+}

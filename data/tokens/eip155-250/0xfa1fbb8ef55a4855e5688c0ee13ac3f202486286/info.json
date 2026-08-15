@@ -1,0 +1,9 @@
+{
+  "name": "Fantohm",
+  "symbol": "FHM",
+  "decimals": 9,
+  "address": "0xfa1fbb8ef55a4855e5688c0ee13ac3f202486286",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0xfa1fbb8ef55a4855e5688c0ee13ac3f202486286/logo.webp",
+  "logoHash": "ce61d630be84bf197f68697be4610c8e0480ef90edaccd338bda9bcfecab99e4"
+}

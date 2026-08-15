@@ -1,0 +1,9 @@
+{
+  "name": "Media Licensing Token",
+  "symbol": "MLT",
+  "decimals": 18,
+  "address": "0x4518231a8fdf6ac553b9bbd51bbb86825b583263",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x4518231a8fdf6ac553b9bbd51bbb86825b583263/logo.webp",
+  "logoHash": "a2b1c6ea75d1843fbc2b08fc0034303e292cd9110f54a07607b76e323d9e214c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Rai Reflex Index",
+  "symbol": "RAI",
+  "decimals": 18,
+  "address": "0x00e5646f60ac6fb446f621d146b6e1886f002905",
+  "coingeckoId": "rai",
+  "logoURL": "tokens/eip155-137/0x00e5646f60ac6fb446f621d146b6e1886f002905/logo.webp",
+  "logoHash": "f3222671f88355c7fa270ed2f48113c8278b8b0b83a15fad3be8bce640c2d47a"
+}

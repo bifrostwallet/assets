@@ -1,0 +1,9 @@
+{
+  "name": "DEAPCOIN",
+  "symbol": "DEP",
+  "decimals": 18,
+  "address": "0xcaf5191fc480f43e4df80106c7695eca56e48b18",
+  "coingeckoId": "deapcoin",
+  "logoURL": "tokens/eip155-56/0xcaf5191fc480f43e4df80106c7695eca56e48b18/logo.webp",
+  "logoHash": "b6eb1b3edfda1e2f2589623a8def54ea120c42aa069a8a12ea08bfe8b8321017"
+}

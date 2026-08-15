@@ -1,0 +1,9 @@
+{
+  "name": "Cartesi",
+  "symbol": "CTSI",
+  "decimals": 18,
+  "address": "0x8da443f84fea710266c8eb6bc34b71702d033ef2",
+  "coingeckoId": "cartesi",
+  "logoURL": "tokens/eip155-56/0x8da443f84fea710266c8eb6bc34b71702d033ef2/logo.webp",
+  "logoHash": "d8146d742c539a2c5dc99333e3125e9975d5e32b9ebb90287dbbb6aafc890488"
+}

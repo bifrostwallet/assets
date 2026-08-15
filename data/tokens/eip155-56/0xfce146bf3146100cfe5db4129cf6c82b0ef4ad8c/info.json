@@ -1,0 +1,9 @@
+{
+  "name": "renBTC",
+  "symbol": "RENBTC",
+  "decimals": 8,
+  "address": "0xfce146bf3146100cfe5db4129cf6c82b0ef4ad8c",
+  "coingeckoId": "renbtc",
+  "logoURL": "tokens/eip155-56/0xfce146bf3146100cfe5db4129cf6c82b0ef4ad8c/logo.webp",
+  "logoHash": "4bb47bb8618f700521c07ed12e0864345c09d0165a00f448fc810fa880a5975b"
+}

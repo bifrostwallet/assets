@@ -1,0 +1,9 @@
+{
+  "name": "Crypto.com Coin",
+  "symbol": "CRO",
+  "decimals": 8,
+  "address": "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
+  "coingeckoId": "crypto-com-chain",
+  "logoURL": "tokens/eip155-1/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b/logo.webp",
+  "logoHash": "f1fd7aaf1c7237b6a5ac84b4b30e6d25f1cd63d8978767ead09aef63942bb81a"
+}

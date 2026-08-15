@@ -1,0 +1,9 @@
+{
+  "name": "FXRP",
+  "symbol": "FTestXRP",
+  "decimals": 6,
+  "address": "0x0b6a3645c240605887a5532109323a3e12273dc7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0x0b6a3645c240605887a5532109323a3e12273dc7/logo.webp",
+  "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+}

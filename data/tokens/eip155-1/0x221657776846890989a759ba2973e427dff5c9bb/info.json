@@ -1,0 +1,9 @@
+{
+  "name": "Reputation",
+  "symbol": "REPv2",
+  "decimals": 18,
+  "address": "0x221657776846890989a759ba2973e427dff5c9bb",
+  "coingeckoId": "augur",
+  "logoURL": "tokens/eip155-1/0x221657776846890989a759ba2973e427dff5c9bb/logo.webp",
+  "logoHash": "9b80cf0c028989b1a73383e9104b50edc0221429313032f058d52b3e4d6462b6"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Synth Centralised Exchange Index",
+  "symbol": "SCEX",
+  "decimals": 18,
+  "address": "0xeabacd844a196d7faf3ce596edebf9900341b420",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xeabacd844a196d7faf3ce596edebf9900341b420/logo.webp",
+  "logoHash": "e9aff4d111baeb3482fb1892fa43367a9ced8137c331016205dec758b2745931"
+}

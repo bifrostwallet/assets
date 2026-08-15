@@ -1,0 +1,9 @@
+{
+  "name": "Vite",
+  "symbol": "VITE",
+  "decimals": 18,
+  "address": "0xadd5e881984783dd432f80381fb52f45b53f3e70",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xadd5e881984783dd432f80381fb52f45b53f3e70/logo.webp",
+  "logoHash": "ff97b95b7ef68df6d1bd2973437e8f763f18907f6fccba829dc1678485cc74cc"
+}

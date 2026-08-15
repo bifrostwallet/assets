@@ -1,0 +1,9 @@
+{
+  "name": "TurtleCat",
+  "symbol": "TURTLECAT",
+  "decimals": 9,
+  "address": "0x3b745cb3e50bb59cdf28a2db57b73ef909be6c58",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x3b745cb3e50bb59cdf28a2db57b73ef909be6c58/logo.webp",
+  "logoHash": "009a506210ab7c566429bad4bfabe749db463f4ef03ecf1c06dd8dae7467fa29"
+}

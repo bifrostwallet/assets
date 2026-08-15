@@ -1,0 +1,9 @@
+{
+  "name": "Oxygen",
+  "symbol": "OXY",
+  "decimals": 6,
+  "address": "0x965697b4ef02f0de01384d0d4f9f782b1670c163",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x965697b4ef02f0de01384d0d4f9f782b1670c163/logo.webp",
+  "logoHash": "edbc3b8d15faba869d5f584e90163a58a8694c506813379b97617479425fbac5"
+}

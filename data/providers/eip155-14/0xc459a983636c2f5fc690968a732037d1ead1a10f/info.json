@@ -1,0 +1,29 @@
+{
+  "name": "Kiln",
+  "description": "Enterprise-grade staking made easy",
+  "logoURL": "providers/eip155-14/0xc459a983636c2f5fc690968a732037d1ead1a10f/logo.webp",
+  "logoHash": "0aa5f38563eb7e105fd2798bd029e9fdd8f2e257e3b8e976ad46c03e2e36dfc5",
+  "websiteURL": "https://kiln.fi",
+  "links": {},
+  "identityAddress": "0xc459a983636c2f5fc690968a732037d1ead1a10f",
+  "delegationAddress": "0x6df84895f1f1f6f6767c59324f94089d4097051a",
+  "signingPolicyAddress": "0x84756ab06ff1ed968b2e69300a46825af641df7c",
+  "submitAddress": "0xa448b629f735d9609343410fe22bcab7d971d27e",
+  "submitSignaturesAddress": "0xf3d7ade3f92abb6749a6525a6140bc429877c1ad",
+  "publicKey": "0x1634038710cd88a5ad81f6c85e20200045125ada562770193915c7d3661b69a42987d6710848263c42da124dd59d49f4af20dc1908aafcf7e5d9d988d2da8f85",
+  "validators": [
+    "NodeID-78MUvGDAGt5bJWKgxBbayhoq9cuYgw8rz",
+    "NodeID-7ady1Dgt1oZwpjQk9BpZaNA5d8LLjDbLi",
+    "NodeID-ZPP3u3NyjAbTeGUzgjgTLwiuwuojzAeG",
+    "NodeID-t3mLmFZJLYdPc4pBxunh585ahrHTAezm"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x968a4f4859898871fe06ad1c76064449500e731113a1322bdfb2db8f0e2e8345",
+    "blockNumber": 12657047,
+    "timestamp": "2023-09-12T11:45:34.000Z"
+  }
+}

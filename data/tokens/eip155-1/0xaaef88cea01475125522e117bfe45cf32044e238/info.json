@@ -1,0 +1,9 @@
+{
+  "name": "GuildFi",
+  "symbol": "GF",
+  "decimals": 18,
+  "address": "0xaaef88cea01475125522e117bfe45cf32044e238",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xaaef88cea01475125522e117bfe45cf32044e238/logo.webp",
+  "logoHash": "5d6bb75afa2f5ffd59cf557fab195e820dbd3c4e7051437c536bd85deec2f0ad"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "AVINOC",
+  "symbol": "AVINOC",
+  "decimals": 18,
+  "address": "0xf1ca9cb74685755965c7458528a36934df52a3ef",
+  "coingeckoId": "avinoc",
+  "logoURL": "tokens/eip155-1/0xf1ca9cb74685755965c7458528a36934df52a3ef/logo.webp",
+  "logoHash": "63b0abfc899b27c799f260c1a1ecbde3d74d06b9d474ebefd5dd041ae574090c"
+}

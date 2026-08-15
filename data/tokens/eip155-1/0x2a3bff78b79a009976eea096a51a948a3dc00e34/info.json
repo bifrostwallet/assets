@@ -1,0 +1,9 @@
+{
+  "name": "Wilder World",
+  "symbol": "WILD",
+  "decimals": 18,
+  "address": "0x2a3bff78b79a009976eea096a51a948a3dc00e34",
+  "coingeckoId": "wilder-world",
+  "logoURL": "tokens/eip155-1/0x2a3bff78b79a009976eea096a51a948a3dc00e34/logo.webp",
+  "logoHash": "ade6b8f32432a12921bc55b15af10920ffda322a099f313c127985e4bbbc3e7f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Friends With Benefits Pro",
+  "symbol": "FWB",
+  "decimals": 18,
+  "address": "0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8",
+  "coingeckoId": "friends-with-benefits-pro",
+  "logoURL": "tokens/eip155-1/0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8/logo.webp",
+  "logoHash": "65a05af38355d0ea982ddab65ae6255171397844de2138786ad8a6d3c6bd2f98"
+}

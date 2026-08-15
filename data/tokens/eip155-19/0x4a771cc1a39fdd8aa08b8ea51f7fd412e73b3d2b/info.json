@@ -1,0 +1,9 @@
+{
+  "name": "Hex Trust USD",
+  "symbol": "USDX",
+  "decimals": 6,
+  "address": "0x4a771cc1a39fdd8aa08b8ea51f7fd412e73b3d2b",
+  "coingeckoId": "hex-trust-usdx",
+  "logoURL": "tokens/eip155-19/0x4a771cc1a39fdd8aa08b8ea51f7fd412e73b3d2b/logo.webp",
+  "logoHash": "003c13cccf76eefd2c678b900fe8bd56020a3c59195eee53aab8ce56713c3037"
+}

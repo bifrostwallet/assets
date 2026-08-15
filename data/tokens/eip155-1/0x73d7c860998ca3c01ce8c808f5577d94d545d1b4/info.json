@@ -1,0 +1,9 @@
+{
+  "name": "IX Swap",
+  "symbol": "IXS",
+  "decimals": 18,
+  "address": "0x73d7c860998ca3c01ce8c808f5577d94d545d1b4",
+  "coingeckoId": "ix-swap",
+  "logoURL": "tokens/eip155-1/0x73d7c860998ca3c01ce8c808f5577d94d545d1b4/logo.webp",
+  "logoHash": "5d4373dab7ce35f874b5e079da601b0869d1645729661be664389b247f9df9c5"
+}

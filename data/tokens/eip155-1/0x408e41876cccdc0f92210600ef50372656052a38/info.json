@@ -1,0 +1,9 @@
+{
+  "name": "Ren",
+  "symbol": "REN",
+  "decimals": 18,
+  "address": "0x408e41876cccdc0f92210600ef50372656052a38",
+  "coingeckoId": "republic-protocol",
+  "logoURL": "tokens/eip155-1/0x408e41876cccdc0f92210600ef50372656052a38/logo.webp",
+  "logoHash": "b4d5caa728ff8383624fd5133a37d99968fba6f537ea838430195ae0328da832"
+}

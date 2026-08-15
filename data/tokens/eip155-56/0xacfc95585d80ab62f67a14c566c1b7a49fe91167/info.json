@@ -1,0 +1,9 @@
+{
+  "name": "FEG Token BSC",
+  "symbol": "FEG",
+  "decimals": 9,
+  "address": "0xacfc95585d80ab62f67a14c566c1b7a49fe91167",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xacfc95585d80ab62f67a14c566c1b7a49fe91167/logo.webp",
+  "logoHash": "46c76668a401e35bbe8de5dd4e6a541440f88f090dd1d842f3f5e086204cca54"
+}

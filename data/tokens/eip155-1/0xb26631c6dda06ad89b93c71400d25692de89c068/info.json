@@ -1,0 +1,9 @@
+{
+  "name": "Minds",
+  "symbol": "MINDS",
+  "decimals": 18,
+  "address": "0xb26631c6dda06ad89b93c71400d25692de89c068",
+  "coingeckoId": "minds",
+  "logoURL": "tokens/eip155-1/0xb26631c6dda06ad89b93c71400d25692de89c068/logo.webp",
+  "logoHash": "7057be3bc3dd7f83bfb20301bdef42a44a953fb1f0ee7b95ec6ee537987cfdd9"
+}

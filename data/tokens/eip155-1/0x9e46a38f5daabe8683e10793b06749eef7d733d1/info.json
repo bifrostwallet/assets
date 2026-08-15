@@ -1,0 +1,9 @@
+{
+  "name": "PolySwarm",
+  "symbol": "NCT",
+  "decimals": 18,
+  "address": "0x9e46a38f5daabe8683e10793b06749eef7d733d1",
+  "coingeckoId": "polyswarm",
+  "logoURL": "tokens/eip155-1/0x9e46a38f5daabe8683e10793b06749eef7d733d1/logo.webp",
+  "logoHash": "7ff57076a8b48460e6501ebbced19099b86236283065f88be9fb9f2baf62439d"
+}

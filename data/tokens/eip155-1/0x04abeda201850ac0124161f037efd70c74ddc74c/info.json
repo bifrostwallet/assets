@@ -1,0 +1,9 @@
+{
+  "name": "Nest Protocol",
+  "symbol": "NEST",
+  "decimals": 18,
+  "address": "0x04abeda201850ac0124161f037efd70c74ddc74c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x04abeda201850ac0124161f037efd70c74ddc74c/logo.webp",
+  "logoHash": "fbf0581f2f0bd8b4123655b3a74b742718c61917761fec6ac14a00ef3b548b15"
+}

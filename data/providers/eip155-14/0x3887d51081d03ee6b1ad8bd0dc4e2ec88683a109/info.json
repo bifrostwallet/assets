@@ -1,0 +1,24 @@
+{
+  "name": "Luganodes",
+  "description": "Swiss-Operated Institutional Grade Staking Provider",
+  "logoURL": "providers/eip155-14/0x3887d51081d03ee6b1ad8bd0dc4e2ec88683a109/logo.webp",
+  "logoHash": "41b992b21389e63213551d8542a10ce8acba7464666c62e8d91b19c66adb3e21",
+  "websiteURL": "https://luganodes.com",
+  "links": {},
+  "identityAddress": "0x3887d51081d03ee6b1ad8bd0dc4e2ec88683a109",
+  "delegationAddress": "0xb53f6cfab63cabfc255c702ebeb273510db541d7",
+  "signingPolicyAddress": "0xd49fc3cdeeb888734734c485c4d1ca26372980e0",
+  "submitAddress": "0x473620d640e7df8b36b6042b3ccb2891acf8bb0e",
+  "submitSignaturesAddress": "0x8b821b7676f900f89fcc9fb1dd50696d0749c6af",
+  "publicKey": "0x1bc5eaaf1692ec0331859ee010ce36ed1125ada204a723c68f145a8f7ca75b4b2505b2cc794b28e36aa969aeba1d2ec136ee912fdca4313c672ed40581681dfd",
+  "validators": ["NodeID-MWNqxgXd8itY143jaNyq8aMYTeV1RXJgS"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x05874b6bd1de67e9a7aa81df96ddb8dafe7dde96cb70aa03dfe501f9be570371",
+    "blockNumber": 14135872,
+    "timestamp": "2023-10-17T06:56:33.000Z"
+  }
+}

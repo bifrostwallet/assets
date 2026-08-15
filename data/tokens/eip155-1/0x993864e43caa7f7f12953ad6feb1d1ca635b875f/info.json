@@ -1,0 +1,9 @@
+{
+  "name": "SingularityDAO",
+  "symbol": "SDAO",
+  "decimals": 18,
+  "address": "0x993864e43caa7f7f12953ad6feb1d1ca635b875f",
+  "coingeckoId": "singularitydao",
+  "logoURL": "tokens/eip155-1/0x993864e43caa7f7f12953ad6feb1d1ca635b875f/logo.webp",
+  "logoHash": "7a7d596d5c4809e4f8f00c7879bcbfc320cab74bafc8fedfc6ee27c68ae5a8b3"
+}

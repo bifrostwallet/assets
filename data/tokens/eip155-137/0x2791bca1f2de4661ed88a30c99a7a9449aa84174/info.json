@@ -1,0 +1,9 @@
+{
+  "name": "USDC (PoS)",
+  "symbol": "USDC-e",
+  "decimals": 6,
+  "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+  "coingeckoId": "bridged-usdc-polygon-pos-bridge",
+  "logoURL": "tokens/eip155-137/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

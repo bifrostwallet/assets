@@ -1,0 +1,9 @@
+{
+  "name": "Mdex",
+  "symbol": "MDX",
+  "decimals": 18,
+  "address": "0x9c65ab58d8d978db963e63f2bfb7121627e3a739",
+  "coingeckoId": "mdex-bsc",
+  "logoURL": "tokens/eip155-56/0x9c65ab58d8d978db963e63f2bfb7121627e3a739/logo.webp",
+  "logoHash": "6d4c16cd6b5d93f097ae92c939d7e7b21d0429780ec88ffab7d828509c9196f9"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Synth Cardano",
+  "symbol": "SADA",
+  "decimals": 18,
+  "address": "0xe36e2d3c7c34281fa3bc737950a68571736880a1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xe36e2d3c7c34281fa3bc737950a68571736880a1/logo.webp",
+  "logoHash": "0d4478bf7477c7ac9ee5a012eede675f7f0378c4c0adf5d6edf2a98e6d24427e"
+}

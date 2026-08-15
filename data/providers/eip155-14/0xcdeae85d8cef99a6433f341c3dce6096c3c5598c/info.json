@@ -1,0 +1,27 @@
+{
+  "name": "Stakecore",
+  "description": "An infrastructure provider that recognizes the importance of reliable data for an oracle-based chain.",
+  "logoURL": "providers/eip155-14/0xcdeae85d8cef99a6433f341c3dce6096c3c5598c/logo.webp",
+  "logoHash": "2c603fa094a5fabab32248718d726d939a69d0204c35d7b894784a5e0642a8d0",
+  "websiteURL": "https://stakecore.org",
+  "links": {},
+  "identityAddress": "0xcdeae85d8cef99a6433f341c3dce6096c3c5598c",
+  "delegationAddress": "0x1e68dc808a240c096f0261144dc41fd4c883cfb0",
+  "signingPolicyAddress": "0xda120015f32de47427663db78bc7339ace2213ac",
+  "submitAddress": "0x6a4121a29839b446052640655818b4c7f9bb569f",
+  "submitSignaturesAddress": "0x53cbf076ac8d35d40057e653b53f7e8b77d3b5fa",
+  "publicKey": "0x2a7aaad860513a588dda76e68e9a66e7d74a4c7de4398dbb6e81e834ac4a0f2420c0d6747cd094230148f76ca276640d15eb06f1ee9900bf8d74f8159a587e9c",
+  "validators": [
+    "NodeID-9phg2KMyH6nrwkf6G46d4SUWuNqf6jUqr",
+    "NodeID-KiAUisCU8UvXGnMRiUvoeyWneSdUm987"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x7cbff90ccc26966166c17a3ab2e64f0a5202f1dc62c361ec6894b261e78540e1",
+    "blockNumber": 30044942,
+    "timestamp": "2024-09-19T22:43:55.000Z"
+  }
+}
