@@ -1,0 +1,9 @@
+{
+  "name": "Bezoge Earth",
+  "symbol": "BEZOGE",
+  "decimals": 9,
+  "address": "0xdc349913d53b446485e98b76800b6254f43df695",
+  "coingeckoId": "bezoge-earth",
+  "logoURL": "tokens/eip155-1/0xdc349913d53b446485e98b76800b6254f43df695/logo.webp",
+  "logoHash": "180def38721767671c2d90aab7701c00f9c5f596b64e2bf0df92fad9e9a24628"
+}

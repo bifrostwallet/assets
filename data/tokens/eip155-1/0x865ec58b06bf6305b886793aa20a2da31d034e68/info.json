@@ -1,0 +1,9 @@
+{
+  "name": "Mossland",
+  "symbol": "MOC",
+  "decimals": 18,
+  "address": "0x865ec58b06bf6305b886793aa20a2da31d034e68",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x865ec58b06bf6305b886793aa20a2da31d034e68/logo.webp",
+  "logoHash": "58c1d17385e4d326aa6d7c1cb8b91633ff65cb5c6aa7ff44dcc9833c7a0514df"
+}

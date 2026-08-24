@@ -1,0 +1,9 @@
+{
+  "name": "Banana",
+  "symbol": "BANANA",
+  "decimals": 18,
+  "address": "0x94e496474f1725f1c1824cb5bdb92d7691a4f03a",
+  "coingeckoId": "banana",
+  "logoURL": "tokens/eip155-1/0x94e496474f1725f1c1824cb5bdb92d7691a4f03a/logo.webp",
+  "logoHash": "162bf4738de34ae0d9e4fe5b0808c87a745d2097eff8fd2bc6af0cfeec24727a"
+}

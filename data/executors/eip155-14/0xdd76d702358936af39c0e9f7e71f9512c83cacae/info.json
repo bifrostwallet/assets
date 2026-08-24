@@ -1,0 +1,11 @@
+{
+  "name": "Bifrost Claim Bot",
+  "description": "Public Bifrost claim executor. Claims FTSO rewards for wallets that set this address as their claim executor, for a fixed per-claim fee.",
+  "websiteURL": "https://bifrostwallet.com",
+  "links": {},
+  "logoURL": "executors/eip155-14/0xdd76d702358936af39c0e9f7e71f9512c83cacae/logo.png",
+  "logoHash": "13e207244dc828254862df9cd4729c85db346a75a792c747615a82adaf0e63f2",
+  "executorAddress": "0xdd76d702358936af39c0e9f7e71f9512c83cacae",
+  "ftsoRewards": true,
+  "validatorRewards": false
+}

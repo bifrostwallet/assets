@@ -1,0 +1,9 @@
+{
+  "name": "WalletConnect",
+  "symbol": "WCT",
+  "decimals": 18,
+  "address": "0xef4461891dfb3ac8572ccf7c794664a8dd927945",
+  "coingeckoId": "connect-token-wct",
+  "logoURL": "tokens/eip155-10/0xef4461891dfb3ac8572ccf7c794664a8dd927945/logo.webp",
+  "logoHash": "ddee3a23b50ce7e21e6b3ff871d5e6985ba57909671667916c01687e9017a78b"
+}

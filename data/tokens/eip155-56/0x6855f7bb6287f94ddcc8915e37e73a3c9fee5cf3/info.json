@@ -1,0 +1,9 @@
+{
+  "name": "StackOS",
+  "symbol": "STACK",
+  "decimals": 18,
+  "address": "0x6855f7bb6287f94ddcc8915e37e73a3c9fee5cf3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x6855f7bb6287f94ddcc8915e37e73a3c9fee5cf3/logo.webp",
+  "logoHash": "0a67cc46f9ee340f4b67ced1f29ee0c03a8577af8ef50f9422ce56bc67f222a0"
+}

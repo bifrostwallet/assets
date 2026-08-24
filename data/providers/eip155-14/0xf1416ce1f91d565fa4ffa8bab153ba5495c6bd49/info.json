@@ -1,0 +1,24 @@
+{
+  "name": "Honest Systems",
+  "description": "We validate, support FTSO and FDC, and do the honest work powering decentralized systems.",
+  "logoURL": "providers/eip155-14/0xf1416ce1f91d565fa4ffa8bab153ba5495c6bd49/logo.webp",
+  "logoHash": "34f2dba0887a546d29adb805f40ce8a511892874cfa70864238e49da8b214306",
+  "websiteURL": "https://honestsystems.io",
+  "links": {},
+  "identityAddress": "0xf1416ce1f91d565fa4ffa8bab153ba5495c6bd49",
+  "delegationAddress": "0x00031123b50cdd187dc4d2982164b5458061b463",
+  "signingPolicyAddress": "0xc80b78d40305ea9c6c249e65df3ae856ad3cf7db",
+  "submitAddress": "0x41fc6de61dcb7bdb1005f1edbdf70f57daf04c38",
+  "submitSignaturesAddress": "0x922fe81997cb1a3b6924437189b29679611790e8",
+  "publicKey": "0x0fd9c73eac9889f932317c36f8698ff9d219f49e34746792188e15e5143312c711792b518a2be7aba28b9334b79bda4c8504e9eb66f59761d710e6daf7f3c126",
+  "validators": ["NodeID-4PEfmmKcyfndKx1EGkxeQS1eooxD8vEBS"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x2c967c3ae66c109775668f37e4e8378043b4299beaade3e55d1c1aab46d91f2a",
+    "blockNumber": 39848179,
+    "timestamp": "2025-04-08T10:47:19.000Z"
+  }
+}

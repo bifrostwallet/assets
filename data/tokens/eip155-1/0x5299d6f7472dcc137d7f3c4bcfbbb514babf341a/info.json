@@ -1,0 +1,9 @@
+{
+  "name": "Synth Monero",
+  "symbol": "SXMR",
+  "decimals": 18,
+  "address": "0x5299d6f7472dcc137d7f3c4bcfbbb514babf341a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x5299d6f7472dcc137d7f3c4bcfbbb514babf341a/logo.webp",
+  "logoHash": "4b573c7f8b13c48082051ecd445f6cf345824aa9cb6277d5e1e3188fa2e3e5df"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Savings USDS",
+  "symbol": "sUSDS",
+  "decimals": 18,
+  "address": "0xb5b2dc7fd34c249f4be7fb1fcea07950784229e0",
+  "coingeckoId": "susds",
+  "logoURL": "tokens/eip155-10/0xb5b2dc7fd34c249f4be7fb1fcea07950784229e0/logo.webp",
+  "logoHash": "7466190679bae687c2da9cab0f832978d1f6367a4e5cf09e1f6e99eaf4e1cb25"
+}

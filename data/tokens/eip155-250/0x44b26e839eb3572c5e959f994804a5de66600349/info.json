@@ -1,0 +1,9 @@
+{
+  "name": "Hegic",
+  "symbol": "HEGIC",
+  "decimals": 18,
+  "address": "0x44b26e839eb3572c5e959f994804a5de66600349",
+  "coingeckoId": "hegic",
+  "logoURL": "tokens/eip155-250/0x44b26e839eb3572c5e959f994804a5de66600349/logo.webp",
+  "logoHash": "4966d05c6f66abffc372d4ec891d4c2474ebb11b4476bc072e86c103129a5ddd"
+}

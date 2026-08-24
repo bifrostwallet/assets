@@ -1,0 +1,9 @@
+{
+  "name": "STASIS EURO",
+  "symbol": "EURS",
+  "decimals": 2,
+  "address": "0xe111178a87a3bff0c8d18decba5798827539ae99",
+  "coingeckoId": "stasis-eurs",
+  "logoURL": "tokens/eip155-137/0xe111178a87a3bff0c8d18decba5798827539ae99/logo.webp",
+  "logoHash": "cc7a691489d965fa1ba393845f4b2824d9a123f3b7b3922de5c17b57039432b9"
+}

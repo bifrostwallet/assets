@@ -1,0 +1,24 @@
+{
+  "name": "Aternety",
+  "description": "Aternety US-based data provider on the Songbird Network.",
+  "logoURL": "providers/eip155-19/0xab3dae93cd52f6e2a0809dc19567c79ac3b1e225/logo.webp",
+  "logoHash": "0c6154d3edc97581f685e8dbe5e699bdb99674e05855973b553368b0a6129322",
+  "websiteURL": "https://aternety.com",
+  "links": {},
+  "identityAddress": "0xab3dae93cd52f6e2a0809dc19567c79ac3b1e225",
+  "delegationAddress": "0x2de2c741658f0ae7b2ddd8eadd179911564af119",
+  "signingPolicyAddress": "0x6b526660dcb12b70dd76595a886fb7430e44c855",
+  "submitAddress": "0x7573043e973cf04d8b920fb9170471d44a291fe1",
+  "submitSignaturesAddress": "0x61a39010fcc0bb7e1b81f880751ab832a797091f",
+  "publicKey": "0x1245a51163f6d8dbfac2eb1c35379be9ec6ff5d9fbe13046eeb1be0d0c15e48c26e9ba22fe2bfde0f03b1d49d24f47340d6b3abd19457b80321492877e73358e",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xf3f0c27899f90d9bd9378d4776e07b0147d0dfeebc99e92b259334508246da38",
+    "blockNumber": 1379980,
+    "timestamp": "2021-10-30T15:51:50.000Z"
+  }
+}

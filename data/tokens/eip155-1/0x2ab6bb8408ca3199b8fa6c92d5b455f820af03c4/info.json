@@ -1,0 +1,9 @@
+{
+  "name": "TE-FOOD",
+  "symbol": "TONE",
+  "decimals": 18,
+  "address": "0x2ab6bb8408ca3199b8fa6c92d5b455f820af03c4",
+  "coingeckoId": "te-food",
+  "logoURL": "tokens/eip155-1/0x2ab6bb8408ca3199b8fa6c92d5b455f820af03c4/logo.webp",
+  "logoHash": "668a2c56d5ef7e25b2fce660e3480cae2673bcc4b9ac0adc01d84414a5e170e7"
+}

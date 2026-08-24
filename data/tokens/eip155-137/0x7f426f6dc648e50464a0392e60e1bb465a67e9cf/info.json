@@ -1,0 +1,9 @@
+{
+  "name": "Auto",
+  "symbol": "AUTO",
+  "decimals": 18,
+  "address": "0x7f426f6dc648e50464a0392e60e1bb465a67e9cf",
+  "coingeckoId": "auto",
+  "logoURL": "tokens/eip155-137/0x7f426f6dc648e50464a0392e60e1bb465a67e9cf/logo.webp",
+  "logoHash": "d5a796d463190cd0aaa59a89cfec1a4decc765222ec203ce56db833bc1c05c35"
+}

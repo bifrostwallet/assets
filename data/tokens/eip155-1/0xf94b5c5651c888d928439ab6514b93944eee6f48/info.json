@@ -1,0 +1,9 @@
+{
+  "name": "YIELD App",
+  "symbol": "YLD",
+  "decimals": 18,
+  "address": "0xf94b5c5651c888d928439ab6514b93944eee6f48",
+  "coingeckoId": "yield-app",
+  "logoURL": "tokens/eip155-1/0xf94b5c5651c888d928439ab6514b93944eee6f48/logo.webp",
+  "logoHash": "236f088c63897d215df6b2699741d78b4db1842bff01730ae7dae7aa49bf34cc"
+}

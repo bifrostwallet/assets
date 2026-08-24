@@ -1,0 +1,9 @@
+{
+  "name": "XDC",
+  "symbol": "XDC",
+  "decimals": 18,
+  "address": null,
+  "coingeckoId": "xdce-crowd-sale",
+  "logoURL": "tokens/eip155-50/native/logo.webp",
+  "logoHash": "bac2459a7bce038877bbeab060f665a95dc2fa0aea2f33f044e7269d31717e7a"
+}

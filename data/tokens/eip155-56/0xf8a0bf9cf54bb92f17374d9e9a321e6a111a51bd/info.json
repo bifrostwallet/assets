@@ -1,0 +1,9 @@
+{
+  "name": "Chainlink",
+  "symbol": "LINK",
+  "decimals": 18,
+  "address": "0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd",
+  "coingeckoId": "chainlink",
+  "logoURL": "tokens/eip155-56/0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd/logo.webp",
+  "logoHash": "cea438082d8c0f869f89569a386629c544fc72fb09bfb798fa45ae31ac0162d6"
+}

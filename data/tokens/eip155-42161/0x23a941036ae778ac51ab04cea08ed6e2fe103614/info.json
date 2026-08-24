@@ -1,0 +1,9 @@
+{
+  "name": "The Graph",
+  "symbol": "GRT",
+  "decimals": 18,
+  "address": "0x23a941036ae778ac51ab04cea08ed6e2fe103614",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0x23a941036ae778ac51ab04cea08ed6e2fe103614/logo.webp",
+  "logoHash": "4223476bb355bca82aea883e8ddf74181c1395a2c2667a40898946b9a31a15e1"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "EvolveFTSO",
+  "description": "EvolveFTSO is a reliable data provider, run by a team providing continuous improvements to produce the best results",
+  "logoURL": "providers/eip155-14/0xc841535773feba1e53c09eb1e8890ebea0208d89/logo.webp",
+  "logoHash": "42aaf8db31dc96bb01326fba42a97be08e953155af9bb6ff30626296f5d2c9d4",
+  "websiteURL": "https://evolveftso.com",
+  "links": {},
+  "identityAddress": "0xc841535773feba1e53c09eb1e8890ebea0208d89",
+  "delegationAddress": "0x9b5f4a2177135a2a6dc83893d5d58e684419ab24",
+  "signingPolicyAddress": "0x6b7e0dc15d9cd1b9f5a1a57dd27e93fe7aacb392",
+  "submitAddress": "0xa1e706e163ac0469f3b28ca4177f86fa04c63a88",
+  "submitSignaturesAddress": "0x0d4a46925d0e362d54c4385da3ad044ecad4ada4",
+  "publicKey": "0x01b63299e16276bd15584dce2fd30877858fff93aaa091777bcf0cd991a590a003e303d0acd58edb4277985deda9abd3dc3a8249be314ecf1c73dcae99f4a349",
+  "validators": ["NodeID-FXJQRCN2nEqBYVsorBS5WHriwihjzv7G6"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x8cb1f9330e67386c2e479a663121b4a673273da169f7c275533f58d1f14fa11c",
+    "blockNumber": 20252,
+    "timestamp": "2022-07-23T09:51:07.000Z"
+  }
+}

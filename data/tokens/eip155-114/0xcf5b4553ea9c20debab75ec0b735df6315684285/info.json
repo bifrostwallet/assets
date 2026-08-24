@@ -1,0 +1,9 @@
+{
+  "name": "Test XLM",
+  "symbol": "testXLM",
+  "decimals": 7,
+  "address": "0xcf5b4553ea9c20debab75ec0b735df6315684285",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0xcf5b4553ea9c20debab75ec0b735df6315684285/logo.webp",
+  "logoHash": "d223cfad2770512b119a45f19db8ed05b275fcde32754c12a9042a33e6bb236f"
+}

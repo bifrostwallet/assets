@@ -1,0 +1,9 @@
+{
+  "name": "Polkastarter",
+  "symbol": "POLS",
+  "decimals": 18,
+  "address": "0x83e6f1e41cdd28eaceb20cb649155049fac3d5aa",
+  "coingeckoId": "polkastarter",
+  "logoURL": "tokens/eip155-1/0x83e6f1e41cdd28eaceb20cb649155049fac3d5aa/logo.webp",
+  "logoHash": "9a620899590e7845297e37be469c0cd10b5265bbef09442161815f63ed6fbc1f"
+}

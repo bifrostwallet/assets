@@ -1,0 +1,9 @@
+{
+  "name": "LTO Network",
+  "symbol": "LTO",
+  "decimals": 8,
+  "address": "0xd01409314acb3b245cea9500ece3f6fd4d70ea30",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xd01409314acb3b245cea9500ece3f6fd4d70ea30/logo.webp",
+  "logoHash": "be6a912ffddc17c8eadf428bbfb661187670c3a48b975472b82d223b54c81ed2"
+}

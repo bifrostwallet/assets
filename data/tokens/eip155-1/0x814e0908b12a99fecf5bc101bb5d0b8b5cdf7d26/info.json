@@ -1,0 +1,9 @@
+{
+  "name": "Measurable Data Token",
+  "symbol": "MDT",
+  "decimals": 18,
+  "address": "0x814e0908b12a99fecf5bc101bb5d0b8b5cdf7d26",
+  "coingeckoId": "measurable-data-token",
+  "logoURL": "tokens/eip155-1/0x814e0908b12a99fecf5bc101bb5d0b8b5cdf7d26/logo.webp",
+  "logoHash": "581140d3a2cc23bd221f96c5716d6d215b731d32a079a3fbf646ef20c074d65f"
+}

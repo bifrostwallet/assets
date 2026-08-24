@@ -1,0 +1,24 @@
+{
+  "name": "FTSO Plus",
+  "description": "FTSO provider with an emphasis on accuracy.",
+  "logoURL": "providers/eip155-14/0x6ebbe1e29aee3325a34a10bb267c55db7664750e/logo.webp",
+  "logoHash": "a4f3c2ddb50a5e11cf66b8aebdc9973451b06911d9e5df6d108c107dced255b7",
+  "websiteURL": "https://ftso.plus",
+  "links": {},
+  "identityAddress": "0x6ebbe1e29aee3325a34a10bb267c55db7664750e",
+  "delegationAddress": "0x3d2c08ed9b2333cbce2b8a219e02f4aa31ebccd3",
+  "signingPolicyAddress": "0x80ae88ba9356c0de8426c5bb23d8f7956254db34",
+  "submitAddress": "0x8dd6cffa01a429ff2232881efc5df0c340ba38f1",
+  "submitSignaturesAddress": "0x6c1acd6ea39c3fae4341eecfc51f5c70d89e026d",
+  "publicKey": "0x198dbade3700d6b88fd3615bb7ffded86074b198f43e1b621c43943405e00e041a7b271dea8868571707e2db1453f1f351a71aa59b350ca499ad6cfd5bd5bcc5",
+  "validators": ["NodeID-MN7sJduRdGUs3aWyYUmym2CFVsptzgKcJ"],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x8c7eabc74f33f299590e1eeca3647725063c5c3b72f92e3b4a11df58f961b3a5",
+    "blockNumber": 86701,
+    "timestamp": "2022-07-27T19:58:15.000Z"
+  }
+}

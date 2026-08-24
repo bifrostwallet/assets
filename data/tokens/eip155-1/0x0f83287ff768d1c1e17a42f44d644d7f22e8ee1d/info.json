@@ -1,0 +1,9 @@
+{
+  "name": "Synth Swiss Franc",
+  "symbol": "SCHF",
+  "decimals": 18,
+  "address": "0x0f83287ff768d1c1e17a42f44d644d7f22e8ee1d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x0f83287ff768d1c1e17a42f44d644d7f22e8ee1d/logo.webp",
+  "logoHash": "e88e38a43cbf1cfc65111a445b4db8c91456c34e5e569508ca467c4480e64614"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "The Phoenix Token",
+  "symbol": "PHX",
+  "decimals": 18,
+  "address": "0x06fb7579e28e1ca55afa52272296a89a879d690a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x06fb7579e28e1ca55afa52272296a89a879d690a/logo.webp",
+  "logoHash": "408525fd0f54732f5dab2c42e207d87fada3698e847ba348ecd500194eef973d"
+}

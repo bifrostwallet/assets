@@ -1,0 +1,24 @@
+{
+  "name": "Nansen",
+  "description": "Nansen is a leading on-chain analytics platform founded in 2020, and is now one of the most trusted names in crypto, serving traders and institutions. Disclaimer: delegating comes with slashing risks",
+  "logoURL": "providers/eip155-14/0x6c7c332a090c8d2085857cf3220ea01c6d45a723/logo.webp",
+  "logoHash": "563e3c84915cb6e7a27c14aa1968029011641b22dd0567a739e1c237a0c45efa",
+  "websiteURL": "https://nansen.ai",
+  "links": {},
+  "identityAddress": "0x6c7c332a090c8d2085857cf3220ea01c6d45a723",
+  "delegationAddress": "0xc382325bdde0baa40a03a34863fce45c510a4be9",
+  "signingPolicyAddress": "0x01d0cecde6be2ad69c4436590e66868cd77a30cc",
+  "submitAddress": "0xf73731c25b7287d0b9ca7acb011d1a046d380928",
+  "submitSignaturesAddress": "0xe1bada40524437116e215b2969a201d278ea2ae2",
+  "publicKey": "0x12ab6f94dad40f29225ea1864a5730a8d95c7e281bb365c924038f5ab583c2d005040a3dd94f7c8877a24d8eea65fe7f83514d92cdb8c756d4372087e730bb3b",
+  "validators": ["NodeID-Eg7CFfbcyZTwsMXDQnpdKx3tHRbAoCmfv"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x5b624190c5ce35eab765bd0e75024d4efd32586bd8cf5e9964b0852e37a49d54",
+    "blockNumber": 37727683,
+    "timestamp": "2025-02-20T02:37:01.000Z"
+  }
+}

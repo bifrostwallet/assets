@@ -1,0 +1,9 @@
+{
+  "name": "PepeSGBToken",
+  "symbol": "PEPES",
+  "decimals": 18,
+  "address": "0x5d463b081184b00fc8f35da07e7b726ed17531a4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x5d463b081184b00fc8f35da07e7b726ed17531a4/logo.webp",
+  "logoHash": "931222d7ce665e1a1c4d17457e25a622e05c229918e88a24af338983e75ccd93"
+}

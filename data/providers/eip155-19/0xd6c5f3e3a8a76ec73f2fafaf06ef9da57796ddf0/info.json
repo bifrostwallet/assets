@@ -1,0 +1,24 @@
+{
+  "name": "DataVector",
+  "description": "DataVector is an Infrastructure Provider on Flare Network validation services and reliable data provisioning to the Flare oracle system.",
+  "logoURL": "providers/eip155-19/0xd6c5f3e3a8a76ec73f2fafaf06ef9da57796ddf0/logo.webp",
+  "logoHash": "241b6e18ab12868c3fc9a48bfca51bba72d11e1112d060e8212ac9f71a27ab59",
+  "websiteURL": "https://datavector.org",
+  "links": {},
+  "identityAddress": "0xd6c5f3e3a8a76ec73f2fafaf06ef9da57796ddf0",
+  "delegationAddress": "0x43cab70e8edefef8c648c4fc0863dd9d8ff5776a",
+  "signingPolicyAddress": "0x70538a23d7a825eabf80e26dfacfd8c9d61c205d",
+  "submitAddress": "0x71aec2bc126654d116386864b5f3babce0ca87e0",
+  "submitSignaturesAddress": "0xe0dcf787fa4ea43fc949878a1d85a740a25b9958",
+  "publicKey": "0x14494c8ae19aa0207a389b4ff39ca27f81849b75f4423aea48a840b28acfee462368b5c80b8536633a8df31963c0821346f5a7b5a7bb4822d18c280d4a6f87df",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x89c186add5c9056ec9c308c1947e6d9f005a34025f8e4b66b0a06cee39b78d64",
+    "blockNumber": 47710178,
+    "timestamp": "2023-12-14T03:04:24.000Z"
+  }
+}

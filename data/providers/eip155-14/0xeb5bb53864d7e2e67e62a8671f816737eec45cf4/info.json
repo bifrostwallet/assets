@@ -1,0 +1,27 @@
+{
+  "name": "Resonance",
+  "description": "Resonance delivers accurate, transparent oracle signals on Flare, while prioritizing durability and the network's long-term health over short-term wins.",
+  "logoURL": "providers/eip155-14/0xeb5bb53864d7e2e67e62a8671f816737eec45cf4/logo.webp",
+  "logoHash": "b344bbfead835b318e0bfc6b95bb5b0406cf34e7d98773bfc223664246e944be",
+  "websiteURL": "https://resonanceoracle.xyz",
+  "links": {},
+  "identityAddress": "0xeb5bb53864d7e2e67e62a8671f816737eec45cf4",
+  "delegationAddress": "0x62571de064cac560207b7116c6d87c818f7376cc",
+  "signingPolicyAddress": "0x1b073bfe6bc73b48781757e6022063031e4f2497",
+  "submitAddress": "0x74ce5423adaccc76a6db7c201dc309bc0596d5fd",
+  "submitSignaturesAddress": "0x8c75fc9b860ad6ae71230f1cc904395760a5f83e",
+  "publicKey": "0x1dbb311427975c58a9b6dba3d21c474c260fa3e9ed8884f885ab2d16e715d4ac10ffaa9b77debb09d03d6210dddc02bab73e5bfbd9ca99f1f41fa056f43e2c8e",
+  "validators": [
+    "NodeID-GZFJBtR95xYQf785nJwXK5dQ1MsEtbXEx",
+    "NodeID-PSA7QAZ3s8cWwbuZ3qiCfodcRAa1DwHxA"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x03f7fe9589b18cd77f40d519bdbd10c653df9cbe56dd162536b9b9c8e4225c56",
+    "blockNumber": 45005382,
+    "timestamp": "2025-07-23T21:05:57.000Z"
+  }
+}

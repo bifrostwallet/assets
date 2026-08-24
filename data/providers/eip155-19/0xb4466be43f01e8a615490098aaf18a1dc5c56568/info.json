@@ -1,0 +1,24 @@
+{
+  "name": "AlphaOracle",
+  "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
+  "logoURL": "providers/eip155-19/0xb4466be43f01e8a615490098aaf18a1dc5c56568/logo.webp",
+  "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
+  "websiteURL": "https://www.alphaoracle.io",
+  "links": {},
+  "identityAddress": "0xb4466be43f01e8a615490098aaf18a1dc5c56568",
+  "delegationAddress": "0xbf61db1cdb43d196309824473fa82e5b17581159",
+  "signingPolicyAddress": "0x285ee7a4ec946ad5f6edae1611dbc4bc0510c783",
+  "submitAddress": "0xe191a91f55bd34192fbf8c573d6880df7e0ea19a",
+  "submitSignaturesAddress": "0x5ebc2d21e383f5649ed3a0a8a44fcb98a3d91912",
+  "publicKey": "0x0f53a52074b0b790186e8ecef811d2cd5587930fba2889e58364e6eb3daa6a561af7e68a852452b4585344a4567066b4f7a37ab03a3e3f119d4ce88b9c8a505e",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x2891780868a0fa9b0bf0712157c54c8a77c9ae7296f810e154124ba41cde82c4",
+    "blockNumber": 6758,
+    "timestamp": "2021-09-19T22:48:46.000Z"
+  }
+}

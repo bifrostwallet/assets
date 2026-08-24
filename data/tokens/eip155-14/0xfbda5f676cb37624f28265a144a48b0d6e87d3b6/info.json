@@ -1,0 +1,9 @@
+{
+  "name": "Bridged USDC (Stargate)",
+  "symbol": "USDC-e",
+  "decimals": 6,
+  "address": "0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
+  "coingeckoId": "usd-coin",
+  "logoURL": "tokens/eip155-14/0xfbda5f676cb37624f28265a144a48b0d6e87d3b6/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

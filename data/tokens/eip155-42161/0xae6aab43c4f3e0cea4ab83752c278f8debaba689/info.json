@@ -1,0 +1,9 @@
+{
+  "name": "dForce Token",
+  "symbol": "DF",
+  "decimals": 18,
+  "address": "0xae6aab43c4f3e0cea4ab83752c278f8debaba689",
+  "coingeckoId": "dforce-token",
+  "logoURL": "tokens/eip155-42161/0xae6aab43c4f3e0cea4ab83752c278f8debaba689/logo.webp",
+  "logoHash": "94d034e74e53d925126ced422e4ae9bc86d245c3405e6a6ae532581ca13854ed"
+}

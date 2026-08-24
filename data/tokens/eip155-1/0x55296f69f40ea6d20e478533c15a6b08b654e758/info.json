@@ -1,0 +1,9 @@
+{
+  "name": "XYO",
+  "symbol": "XYO",
+  "decimals": 18,
+  "address": "0x55296f69f40ea6d20e478533c15a6b08b654e758",
+  "coingeckoId": "xyo-network",
+  "logoURL": "tokens/eip155-1/0x55296f69f40ea6d20e478533c15a6b08b654e758/logo.webp",
+  "logoHash": "cc1443f0afc3bd23d961aab56b2fb8039b95aac4826dded1f5e796d5d5e770d8"
+}

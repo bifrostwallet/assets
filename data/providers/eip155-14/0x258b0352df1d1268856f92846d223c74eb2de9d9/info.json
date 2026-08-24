@@ -1,0 +1,24 @@
+{
+  "name": "Burst FTSO",
+  "description": "We strive to provide the best signals possible. Decentralization is extremely important to us, with this FTSO we will be helping the Flare blockchain achieve this.",
+  "logoURL": "providers/eip155-14/0x258b0352df1d1268856f92846d223c74eb2de9d9/logo.webp",
+  "logoHash": "e92e972ccf0fc89cf03d11be8459f51ea5b327111b714b259d36fc0405b83513",
+  "websiteURL": "https://burstftso.xyz",
+  "links": {},
+  "identityAddress": "0x258b0352df1d1268856f92846d223c74eb2de9d9",
+  "delegationAddress": "0x670a7fd22caa9c2fb5b798078d084b29ab4bc63c",
+  "signingPolicyAddress": "0x05f46574210074b5f5d7130fb3e0833d180693d8",
+  "submitAddress": "0x47af96571e3beae0b9a2b9d3448adf0301187873",
+  "submitSignaturesAddress": "0x7b876e007bc273e44d4a50a85a2c481504ced4b6",
+  "publicKey": "0x0a62be2050bc853504461871a1de044e19c0c569913983f807a1ab4d40ae8089196f9d94af163e31e83dfee94f323b29ad5cdc2621d6f69b190ef057a31a65b0",
+  "validators": ["NodeID-9jaZDNBCn4AwMzRqFBhxfem2ZZtiArRm2"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x49bc2f63757d9089ea93d9e661785708a9eb5e01b34a37ab5979fd3fc3daf2c3",
+    "blockNumber": 4145287,
+    "timestamp": "2023-01-14T15:05:53.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Guild of Guardians",
+  "symbol": "GOG",
+  "decimals": 18,
+  "address": "0x9ab7bb7fdc60f4357ecfef43986818a2a3569c62",
+  "coingeckoId": "guild-of-guardians",
+  "logoURL": "tokens/eip155-1/0x9ab7bb7fdc60f4357ecfef43986818a2a3569c62/logo.webp",
+  "logoHash": "71662c4575728c400c62c861301feed33b4d6c23cef3c189e0e3b15d3c1769b2"
+}

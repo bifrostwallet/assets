@@ -1,0 +1,9 @@
+{
+  "name": "Torum",
+  "symbol": "XTM",
+  "decimals": 18,
+  "address": "0xcd1faff6e578fa5cac469d2418c95671ba1a62fe",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xcd1faff6e578fa5cac469d2418c95671ba1a62fe/logo.webp",
+  "logoHash": "95515130482500873bbc394d014ad46699426a609fe465b869160091604ffdba"
+}

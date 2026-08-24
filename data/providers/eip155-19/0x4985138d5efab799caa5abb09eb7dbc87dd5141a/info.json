@@ -1,0 +1,24 @@
+{
+  "name": "Flare.Space",
+  "description": "Your most convenient and efficient Songbird network data provider and validator. Visit us to get access to information, tools and components for integration with Songbird network.",
+  "logoURL": "providers/eip155-19/0x4985138d5efab799caa5abb09eb7dbc87dd5141a/logo.webp",
+  "logoHash": "2986dc75b3f806b5babc43e5c9aaf6db8194b00bb3f1b2c70610392d96173b11",
+  "websiteURL": "https://flare.space/songbird",
+  "links": {},
+  "identityAddress": "0x4985138d5efab799caa5abb09eb7dbc87dd5141a",
+  "delegationAddress": "0xccd522393233052dd0dfeaadc124a0a9bb87fd08",
+  "signingPolicyAddress": "0xc139f933a6b44aa698e649cc8f142ce02fd19213",
+  "submitAddress": "0xe50c2243dd448dfcbd037463dc8d9f0787bfb17a",
+  "submitSignaturesAddress": "0x822526f4768eff2d4ba0b037bef08d7410c18c52",
+  "publicKey": "0x068d5e485eac0bc51a908beea82bd4b9bfb112fe4475f5393dddc58aaa519bf82b1b4e961c53f93698efea97e2296fbf0db1d6f381b918e94432a071f9b4987c",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5e55eb096d8932c4ca6e3c233fb9bbf040b2df25e88bbe099be0ad43fa24c751",
+    "blockNumber": 28613050,
+    "timestamp": "2022-12-31T08:41:52.000Z"
+  }
+}

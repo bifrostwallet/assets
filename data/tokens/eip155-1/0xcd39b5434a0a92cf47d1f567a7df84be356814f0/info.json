@@ -1,0 +1,9 @@
+{
+  "name": "Synth 1inch",
+  "symbol": "S1INCH",
+  "decimals": 18,
+  "address": "0xcd39b5434a0a92cf47d1f567a7df84be356814f0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xcd39b5434a0a92cf47d1f567a7df84be356814f0/logo.webp",
+  "logoHash": "dc9d8650211223be20232247fcab5a47ed85d10444def1aba4e393f384acce0f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Mobox",
+  "symbol": "MBOX",
+  "decimals": 18,
+  "address": "0x3203c9e46ca618c8c1ce5dc67e7e9d75f5da2377",
+  "coingeckoId": "mobox",
+  "logoURL": "tokens/eip155-56/0x3203c9e46ca618c8c1ce5dc67e7e9d75f5da2377/logo.webp",
+  "logoHash": "aa27a27abbc4d66971e8eaa353496c7c8e5cbe08d24c33bad08919a671b7be86"
+}

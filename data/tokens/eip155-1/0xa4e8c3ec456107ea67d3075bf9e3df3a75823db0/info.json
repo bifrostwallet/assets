@@ -1,0 +1,9 @@
+{
+  "name": "Loom Network (OLD)",
+  "symbol": "LOOMOLD",
+  "decimals": 18,
+  "address": "0xa4e8c3ec456107ea67d3075bf9e3df3a75823db0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa4e8c3ec456107ea67d3075bf9e3df3a75823db0/logo.webp",
+  "logoHash": "b707f9923714389b5c8d2958659502064326e9734c741c52e11f0fdafa504d9a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Veritaseum",
+  "symbol": "VERI",
+  "decimals": 18,
+  "address": "0x8f3470a7388c05ee4e7af3d01d8c722b0ff52374",
+  "coingeckoId": "veritaseum",
+  "logoURL": "tokens/eip155-1/0x8f3470a7388c05ee4e7af3d01d8c722b0ff52374/logo.webp",
+  "logoHash": "0fcd504b799ccd52926743a31154b8cb73e488751e81f9b1c9f316571d0af061"
+}

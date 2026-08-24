@@ -1,0 +1,9 @@
+{
+  "name": "Ternoa",
+  "symbol": "CAPS",
+  "decimals": 18,
+  "address": "0xffba7529ac181c2ee1844548e6d7061c9a597df4",
+  "coingeckoId": "coin-capsule",
+  "logoURL": "tokens/eip155-56/0xffba7529ac181c2ee1844548e6d7061c9a597df4/logo.webp",
+  "logoHash": "6fb0ef396b71c497b9aeeea77d7bc8f20a9834ec8d1b876b9096e2c9213d35aa"
+}

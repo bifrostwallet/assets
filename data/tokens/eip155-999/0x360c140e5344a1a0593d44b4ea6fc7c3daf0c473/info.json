@@ -1,0 +1,9 @@
+{
+  "name": "Kinetiq Markets LST",
+  "symbol": "kmHYPE",
+  "decimals": 18,
+  "address": "0x360c140e5344a1a0593d44b4ea6fc7c3daf0c473",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x360c140e5344a1a0593d44b4ea6fc7c3daf0c473/logo.webp",
+  "logoHash": "55ca71c543cb7eda3b4fd2464af28be708e36b7cbd1b324d80e769d3d959f6d0"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Futureswap",
+  "symbol": "FST",
+  "decimals": 18,
+  "address": "0x488cc08935458403a0458e45e20c0159c8ab2c92",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0x488cc08935458403a0458e45e20c0159c8ab2c92/logo.webp",
+  "logoHash": "a7c0daff77bbe94fa7675f7f53cbed4d81838192a24907f51740688cd781720a"
+}

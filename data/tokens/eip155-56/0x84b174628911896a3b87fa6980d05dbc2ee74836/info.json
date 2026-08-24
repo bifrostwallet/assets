@@ -1,0 +1,9 @@
+{
+  "name": "Zenon",
+  "symbol": "ZNN",
+  "decimals": 8,
+  "address": "0x84b174628911896a3b87fa6980d05dbc2ee74836",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x84b174628911896a3b87fa6980d05dbc2ee74836/logo.webp",
+  "logoHash": "8189dde2d8b83cd6a0f11c40ef69118742cb46ba30a662260c76ecd69dc059ad"
+}

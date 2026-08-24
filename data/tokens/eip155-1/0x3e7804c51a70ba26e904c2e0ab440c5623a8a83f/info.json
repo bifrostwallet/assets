@@ -1,0 +1,9 @@
+{
+  "name": "GPEX",
+  "symbol": "GPX",
+  "decimals": 8,
+  "address": "0x3e7804c51a70ba26e904c2e0ab440c5623a8a83f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3e7804c51a70ba26e904c2e0ab440c5623a8a83f/logo.webp",
+  "logoHash": "0f04dd1b609e705f1e48e251fb34e0a4eb6d9f976868282a6b0eff4046d8190a"
+}

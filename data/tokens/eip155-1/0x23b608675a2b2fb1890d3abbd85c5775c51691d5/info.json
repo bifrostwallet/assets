@@ -1,0 +1,9 @@
+{
+  "name": "Unisocks",
+  "symbol": "SOCKS",
+  "decimals": 18,
+  "address": "0x23b608675a2b2fb1890d3abbd85c5775c51691d5",
+  "coingeckoId": "unisocks",
+  "logoURL": "tokens/eip155-1/0x23b608675a2b2fb1890d3abbd85c5775c51691d5/logo.webp",
+  "logoHash": "f67ee6ccd3ebe0746f4765b2ffda30e6e596aa311eb4486d39e345a83859f810"
+}

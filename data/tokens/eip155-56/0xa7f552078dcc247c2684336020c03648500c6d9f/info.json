@@ -1,0 +1,9 @@
+{
+  "name": "Ellipsis",
+  "symbol": "EPS",
+  "decimals": 18,
+  "address": "0xa7f552078dcc247c2684336020c03648500c6d9f",
+  "coingeckoId": "ellipsis",
+  "logoURL": "tokens/eip155-56/0xa7f552078dcc247c2684336020c03648500c6d9f/logo.webp",
+  "logoHash": "7262ce642c0f2a35cba0d6ca99696a505fd3481f3740a1e79785666cf799e73f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Ether",
+  "symbol": "WETH",
+  "decimals": 18,
+  "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+  "coingeckoId": "arbitrum-bridged-weth-arbitrum-one",
+  "logoURL": "tokens/eip155-42161/0x82af49447d8a07e3bd95bd0d56f35241523fbab1/logo.webp",
+  "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
+}

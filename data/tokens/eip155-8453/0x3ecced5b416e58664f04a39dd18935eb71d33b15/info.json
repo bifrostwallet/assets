@@ -1,0 +1,9 @@
+{
+  "name": "Brian",
+  "symbol": "BRIAN",
+  "decimals": 18,
+  "address": "0x3ecced5b416e58664f04a39dd18935eb71d33b15",
+  "coingeckoId": "brian",
+  "logoURL": "tokens/eip155-8453/0x3ecced5b416e58664f04a39dd18935eb71d33b15/logo.webp",
+  "logoHash": "a69e369fc6562da83acfb9b591379a5f09146b7c5a9d5c3b0029a0ea9bb6f6b9"
+}

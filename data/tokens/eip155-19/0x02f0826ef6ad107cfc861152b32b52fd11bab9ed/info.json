@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Songbird",
+  "symbol": "WSGB",
+  "decimals": 18,
+  "address": "0x02f0826ef6ad107cfc861152b32b52fd11bab9ed",
+  "coingeckoId": "songbird",
+  "logoURL": "tokens/eip155-19/0x02f0826ef6ad107cfc861152b32b52fd11bab9ed/logo.webp",
+  "logoHash": "03d2ba5f5c4e2a95871336533bb31641306992cee78993971e695687cfd6740d"
+}

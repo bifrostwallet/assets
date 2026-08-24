@@ -1,0 +1,9 @@
+{
+  "name": "LizArt",
+  "symbol": "LIZ",
+  "decimals": 18,
+  "address": "0x2373aa3f73de2ad58ae5c32ea010cec351d840ba",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x2373aa3f73de2ad58ae5c32ea010cec351d840ba/logo.webp",
+  "logoHash": "8f3ed0ae7d5bdb572f0a47640d06ff984cbe040f1c6a5114a9f0f94132c184a0"
+}

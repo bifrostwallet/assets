@@ -1,0 +1,9 @@
+{
+  "name": "Gnosis",
+  "symbol": "GNO",
+  "decimals": 18,
+  "address": "0xa0b862f60edef4452f25b4160f177db44deb6cf1",
+  "coingeckoId": "gnosis",
+  "logoURL": "tokens/eip155-42161/0xa0b862f60edef4452f25b4160f177db44deb6cf1/logo.webp",
+  "logoHash": "375acdc62aefd4f92b269884907648282cbbb6149f01d19eebcaa626aac70e41"
+}

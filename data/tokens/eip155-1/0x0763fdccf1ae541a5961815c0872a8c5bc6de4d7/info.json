@@ -1,0 +1,9 @@
+{
+  "name": "SUKU",
+  "symbol": "SUKU",
+  "decimals": 18,
+  "address": "0x0763fdccf1ae541a5961815c0872a8c5bc6de4d7",
+  "coingeckoId": "suku",
+  "logoURL": "tokens/eip155-1/0x0763fdccf1ae541a5961815c0872a8c5bc6de4d7/logo.webp",
+  "logoHash": "284ab9f3e98f419f5efc4e5b005435c43a330d046b43bec895c657736bbf58ff"
+}

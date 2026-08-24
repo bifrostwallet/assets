@@ -1,0 +1,9 @@
+{
+  "name": "Fantom",
+  "symbol": "FTM",
+  "decimals": 18,
+  "address": null,
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-4002/native/logo.webp",
+  "logoHash": "f6124befc79650a41bf71b2015fe678ec5af64eed2768c988f5f557e349720f5"
+}

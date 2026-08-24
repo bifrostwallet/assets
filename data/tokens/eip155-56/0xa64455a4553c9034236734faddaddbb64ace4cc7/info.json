@@ -1,0 +1,9 @@
+{
+  "name": "Santos FC Fan Token",
+  "symbol": "SANTOS",
+  "decimals": 8,
+  "address": "0xa64455a4553c9034236734faddaddbb64ace4cc7",
+  "coingeckoId": "santos-fc-fan-token",
+  "logoURL": "tokens/eip155-56/0xa64455a4553c9034236734faddaddbb64ace4cc7/logo.webp",
+  "logoHash": "60a01c36461cac5916639f83f63795a375e86691e80c31be0179d34b4d516ac6"
+}

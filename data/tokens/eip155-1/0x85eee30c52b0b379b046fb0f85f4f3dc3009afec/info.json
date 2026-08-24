@@ -1,0 +1,9 @@
+{
+  "name": "Keep Network",
+  "symbol": "KEEP",
+  "decimals": 18,
+  "address": "0x85eee30c52b0b379b046fb0f85f4f3dc3009afec",
+  "coingeckoId": "keep-network",
+  "logoURL": "tokens/eip155-1/0x85eee30c52b0b379b046fb0f85f4f3dc3009afec/logo.webp",
+  "logoHash": "ee29598eafa2bbcea2801bc32c5e551bbe447d832829dd05acfb3c4ddfa21102"
+}

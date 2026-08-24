@@ -1,0 +1,9 @@
+{
+  "name": "Clover Finance",
+  "symbol": "CLV",
+  "decimals": 18,
+  "address": "0x80c62fe4487e1351b47ba49809ebd60ed085bf52",
+  "coingeckoId": "clover-finance",
+  "logoURL": "tokens/eip155-1/0x80c62fe4487e1351b47ba49809ebd60ed085bf52/logo.webp",
+  "logoHash": "6788b198da3a111025d32d29dca6676b0a5b40a24d23232af84c02e0d40c9637"
+}

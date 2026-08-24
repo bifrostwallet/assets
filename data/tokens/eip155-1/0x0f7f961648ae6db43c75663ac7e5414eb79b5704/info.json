@@ -1,0 +1,9 @@
+{
+  "name": "XIO Network",
+  "symbol": "XIO",
+  "decimals": 18,
+  "address": "0x0f7f961648ae6db43c75663ac7e5414eb79b5704",
+  "coingeckoId": "xio",
+  "logoURL": "tokens/eip155-1/0x0f7f961648ae6db43c75663ac7e5414eb79b5704/logo.webp",
+  "logoHash": "ec5ea2d652c3c89f0977d73712db3b6e637912e17e7595b26e8ba85ad74aec8b"
+}

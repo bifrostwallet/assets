@@ -1,0 +1,9 @@
+{
+  "name": "GridPlus Legacy",
+  "symbol": "GRID",
+  "decimals": 12,
+  "address": "0x12b19d3e2ccc14da04fae33e63652ce469b3f2fd",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x12b19d3e2ccc14da04fae33e63652ce469b3f2fd/logo.webp",
+  "logoHash": "8e81762c5f8862afd0301dabfa1817dfda093ef365d5e48c542d8f8dedd02442"
+}

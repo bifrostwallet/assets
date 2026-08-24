@@ -1,0 +1,9 @@
+{
+  "name": "Canary Reborn Token",
+  "symbol": "CRB",
+  "decimals": 18,
+  "address": "0x5369b08b9a5023d6178a1491ee2f44b0b7301fc9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x5369b08b9a5023d6178a1491ee2f44b0b7301fc9/logo.webp",
+  "logoHash": "8326af52c58685eecb4488f32004908d2b78f79da8fda57510d52f9b03275a54"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Frontier",
+  "symbol": "FRONT",
+  "decimals": 18,
+  "address": "0xf8c3527cc04340b208c854e985240c02f7b7793f",
+  "coingeckoId": "frontier-token",
+  "logoURL": "tokens/eip155-1/0xf8c3527cc04340b208c854e985240c02f7b7793f/logo.webp",
+  "logoHash": "f1bea27aef13d45b445c1b3525188e215c0d14117e90a4bb17b3a6526530f5e5"
+}

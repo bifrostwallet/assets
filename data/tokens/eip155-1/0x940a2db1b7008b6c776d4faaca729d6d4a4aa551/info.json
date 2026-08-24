@@ -1,0 +1,9 @@
+{
+  "name": "DUSK Network",
+  "symbol": "DUSK",
+  "decimals": 18,
+  "address": "0x940a2db1b7008b6c776d4faaca729d6d4a4aa551",
+  "coingeckoId": "dusk-network",
+  "logoURL": "tokens/eip155-1/0x940a2db1b7008b6c776d4faaca729d6d4a4aa551/logo.webp",
+  "logoHash": "01a7f1b22ada8065bfdd1acb0d0323b45065d88cc3397e7f1058ae0140fa2592"
+}

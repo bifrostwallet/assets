@@ -1,0 +1,9 @@
+{
+  "name": "AIOZ Network",
+  "symbol": "AIOZ",
+  "decimals": 18,
+  "address": "0x626e8036deb333b408be468f951bdb42433cbf18",
+  "coingeckoId": "aioz-network",
+  "logoURL": "tokens/eip155-1/0x626e8036deb333b408be468f951bdb42433cbf18/logo.webp",
+  "logoHash": "adaeae41b12d8cffa8dbe5a1a87cf1e656b4b7d4e2cfb998c42edc37de30c884"
+}

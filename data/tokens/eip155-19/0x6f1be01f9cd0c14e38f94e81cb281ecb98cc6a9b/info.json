@@ -1,0 +1,9 @@
+{
+  "name": "DAO Flare",
+  "symbol": "dFLR",
+  "decimals": 18,
+  "address": "0x6f1be01f9cd0c14e38f94e81cb281ecb98cc6a9b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x6f1be01f9cd0c14e38f94e81cb281ecb98cc6a9b/logo.webp",
+  "logoHash": "88488274ae47ee8297c904d7bbce6745bdba31289073e73801006c7846e590f9"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "CootieCoin",
+  "symbol": "COOT",
+  "decimals": 18,
+  "address": "0xe4671844fcb3ca9a80a1224b6f9a0a6c2ba2a7d5",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xe4671844fcb3ca9a80a1224b6f9a0a6c2ba2a7d5/logo.webp",
+  "logoHash": "d11a79bbff6446437c25c4e955444b79b96b500602eadf0781859b854c08e0c7"
+}

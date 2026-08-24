@@ -1,0 +1,9 @@
+{
+  "name": "Cardstarter",
+  "symbol": "CARDS",
+  "decimals": 18,
+  "address": "0x3d6f0dea3ac3c607b3998e6ce14b6350721752d9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3d6f0dea3ac3c607b3998e6ce14b6350721752d9/logo.webp",
+  "logoHash": "c382ba498325f52c9d7ae36ab92174b0e9f31d6b62c72b8b8e11a27b36648f61"
+}

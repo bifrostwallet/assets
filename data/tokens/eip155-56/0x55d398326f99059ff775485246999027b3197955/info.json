@@ -1,0 +1,9 @@
+{
+  "name": "Tether",
+  "symbol": "USDT",
+  "decimals": 18,
+  "address": "0x55d398326f99059ff775485246999027b3197955",
+  "coingeckoId": "binance-bridged-usdt-bnb-smart-chain",
+  "logoURL": "tokens/eip155-56/0x55d398326f99059ff775485246999027b3197955/logo.webp",
+  "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+}

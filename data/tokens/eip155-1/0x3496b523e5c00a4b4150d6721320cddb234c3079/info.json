@@ -1,0 +1,9 @@
+{
+  "name": "Numbers Protocol",
+  "symbol": "NUM",
+  "decimals": 18,
+  "address": "0x3496b523e5c00a4b4150d6721320cddb234c3079",
+  "coingeckoId": "numbers-protocol",
+  "logoURL": "tokens/eip155-1/0x3496b523e5c00a4b4150d6721320cddb234c3079/logo.webp",
+  "logoHash": "50a0490d508c047ea7cd4c95b0098e7182ba4ad8467288eedef5be9306482bbe"
+}

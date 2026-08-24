@@ -1,0 +1,9 @@
+{
+  "name": "BoringDAO",
+  "symbol": "BORING",
+  "decimals": 18,
+  "address": "0xffeecbf8d7267757c2dc3d13d730e97e15bfdf7f",
+  "coingeckoId": "boringdao",
+  "logoURL": "tokens/eip155-56/0xffeecbf8d7267757c2dc3d13d730e97e15bfdf7f/logo.webp",
+  "logoHash": "11643d4e030a49a920a24b252c0270c6dfafc40a9d0c19c914d9bb6b3ca98951"
+}

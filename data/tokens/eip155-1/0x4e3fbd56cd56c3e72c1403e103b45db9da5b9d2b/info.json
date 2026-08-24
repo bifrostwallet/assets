@@ -1,0 +1,9 @@
+{
+  "name": "Convex Finance",
+  "symbol": "CVX",
+  "decimals": 18,
+  "address": "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b",
+  "coingeckoId": "convex-finance",
+  "logoURL": "tokens/eip155-1/0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b/logo.webp",
+  "logoHash": "aa5f9f43941372177f404230b3b08f496a7e6a9a85c196285b70efd5d71fb887"
+}

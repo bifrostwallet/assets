@@ -1,0 +1,24 @@
+{
+  "name": "AU",
+  "description": "AU provide accurate and reliable price feeds to the Flare Network and a transparent, incentivised, risk-free delegation service. We do so by leveraging the distributed nature of the network and its participants.",
+  "logoURL": "providers/eip155-19/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
+  "logoHash": "a399082fda3dce17c4b7496d3d80400265f375567f624a9bfba809fbd133eeec",
+  "websiteURL": "https://www.au.cc",
+  "links": {},
+  "identityAddress": "0xb3c9aa09f22a06122d3608ef075f14e001561470",
+  "delegationAddress": "0x499017adb21d6f70480e4e6224cf4144071c1461",
+  "signingPolicyAddress": "0x493e5d0833646f99e4b414e9de5a10d8cb9b5c5a",
+  "submitAddress": "0x38f01976677021a2599c1d155206037ecb28c1e5",
+  "submitSignaturesAddress": "0x49e99eab73f135b384dddd3ccdb9cd1cf0e1736d",
+  "publicKey": "0x140579a5b93cc64dadf5d96535bef746cf4d41e14a7d6046b4dd8d3e56e61c3a2b003418ba0853b6a81095d509f70e8f5dee99c6ac59b7f0a946d9810e75a7d3",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x6381bc82445b21f9f7488534f768ac2b26579f392831375d17ecc03ad208629f",
+    "blockNumber": 11930,
+    "timestamp": "2021-09-21T00:33:30.000Z"
+  }
+}

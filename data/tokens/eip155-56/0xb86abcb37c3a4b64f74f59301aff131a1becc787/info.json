@@ -1,0 +1,9 @@
+{
+  "name": "Zilliqa",
+  "symbol": "ZIL",
+  "decimals": 12,
+  "address": "0xb86abcb37c3a4b64f74f59301aff131a1becc787",
+  "coingeckoId": "zilliqa",
+  "logoURL": "tokens/eip155-56/0xb86abcb37c3a4b64f74f59301aff131a1becc787/logo.webp",
+  "logoHash": "6d1bb4f83633b0bec67db0b85b74364a2069746b2f45acef1c4205d3a0671c58"
+}

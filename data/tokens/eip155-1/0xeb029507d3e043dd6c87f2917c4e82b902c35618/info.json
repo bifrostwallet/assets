@@ -1,0 +1,9 @@
+{
+  "name": "Synth Compound",
+  "symbol": "SCOMP",
+  "decimals": 18,
+  "address": "0xeb029507d3e043dd6c87f2917c4e82b902c35618",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xeb029507d3e043dd6c87f2917c4e82b902c35618/logo.webp",
+  "logoHash": "642a8b0333d1c94ed81541efdc468b4e1e8a4fe0ec675c60ccc8a68fd6c642e0"
+}

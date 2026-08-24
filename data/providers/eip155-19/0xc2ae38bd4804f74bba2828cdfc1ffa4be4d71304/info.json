@@ -1,0 +1,24 @@
+{
+  "name": "Sun-Dara",
+  "description": "Sun-Dara is an Asian STSO provider based primarily in Bangladesh with connections to the United Kingdom. We try and keep things simple and easy to understand. Check out our website for more information and service status updates.",
+  "logoURL": "providers/eip155-19/0xc2ae38bd4804f74bba2828cdfc1ffa4be4d71304/logo.webp",
+  "logoHash": "a1d70fb9e9dcc4273a01bf59f57ac538cf7623738f6b2a3f8794b10f770c6f27",
+  "websiteURL": "https://sun-dara.co.uk",
+  "links": {},
+  "identityAddress": "0xc2ae38bd4804f74bba2828cdfc1ffa4be4d71304",
+  "delegationAddress": "0x7394923453fc2f606cfb4d0ea1a5438bb8260d08",
+  "signingPolicyAddress": "0x15687fcfcd693ff9f357c0b535a49072653e5d00",
+  "submitAddress": "0xcc5ea80ee5ae7febe57913d330b41e16e7daf13e",
+  "submitSignaturesAddress": "0x3229f42a987b3900e99a40a71f88798c78701e0d",
+  "publicKey": "0x1c856c12d4ce5cd94ae28ef726575027be24f1a77253538efb7f015a4e968ed2252f61f4912dbabfe633d3d1e3c5859457389cb4ece458f29eb1d94d66472667",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xfade8e773afa90d5077ef4583a037a08051bbfdc1deb24298dd8d28cfe144760",
+    "blockNumber": 75296,
+    "timestamp": "2021-09-24T00:30:39.000Z"
+  }
+}

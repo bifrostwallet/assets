@@ -1,0 +1,9 @@
+{
+  "name": "Purr",
+  "symbol": "PURR",
+  "decimals": 18,
+  "address": "0x9b498c3c8a0b8cd8ba1d9851d40d186f1872b44e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x9b498c3c8a0b8cd8ba1d9851d40d186f1872b44e/logo.webp",
+  "logoHash": "8537bf58f44873fe003fd0ae4e632d6e2f6753beaa957d2b4faac851146902da"
+}

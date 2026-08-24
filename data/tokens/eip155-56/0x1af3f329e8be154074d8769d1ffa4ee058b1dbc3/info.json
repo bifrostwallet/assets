@@ -1,0 +1,9 @@
+{
+  "name": "Dai",
+  "symbol": "DAI",
+  "decimals": 18,
+  "address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+  "coingeckoId": "binance-peg-dai",
+  "logoURL": "tokens/eip155-56/0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3/logo.webp",
+  "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+}

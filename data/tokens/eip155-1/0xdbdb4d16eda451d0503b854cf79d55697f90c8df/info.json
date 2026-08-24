@@ -1,0 +1,9 @@
+{
+  "name": "Alchemix",
+  "symbol": "ALCX",
+  "decimals": 18,
+  "address": "0xdbdb4d16eda451d0503b854cf79d55697f90c8df",
+  "coingeckoId": "alchemix",
+  "logoURL": "tokens/eip155-1/0xdbdb4d16eda451d0503b854cf79d55697f90c8df/logo.webp",
+  "logoHash": "a7278075ea075903010b16fe94dc980461e0630aa167fd5226fe0cefd8096cca"
+}

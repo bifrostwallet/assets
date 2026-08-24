@@ -1,0 +1,155 @@
+[
+  {
+    "name": "Test USD",
+    "symbol": "testUSD",
+    "decimals": 6,
+    "address": "0x0b79fc311a7b89ed328b7aba6f18495996ebb339",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x0b79fc311a7b89ed328b7aba6f18495996ebb339/logo.webp",
+    "logoHash": "b7391c78a689884e1cc643688a5584d94641a899e952c9b83f76e41ef408be04"
+  },
+  {
+    "name": "Test Ether",
+    "symbol": "testETH",
+    "decimals": 18,
+    "address": "0x17c3e6318cb45b4267998940d7d65ba95a32954f",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x17c3e6318cb45b4267998940d7d65ba95a32954f/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  },
+  {
+    "name": "Test Tether",
+    "symbol": "testUSDT",
+    "decimals": 6,
+    "address": "0x18bd7be80f76055aeb4f1575a99d0c4d7893b8b5",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x18bd7be80f76055aeb4f1575a99d0c4d7893b8b5/logo.webp",
+    "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+  },
+  {
+    "name": "Wrapped XDC",
+    "symbol": "WXDC",
+    "decimals": 18,
+    "address": "0x2460ebd7b0a4b019ebce6bcf5a2f213bcdf10f48",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x2460ebd7b0a4b019ebce6bcf5a2f213bcdf10f48/logo.webp",
+    "logoHash": "40bff044cb6e2ca9a7b74563dc085a8652f9d8f6bf6a9fecefe271e53f320c99"
+  },
+  {
+    "name": "Test BTC",
+    "symbol": "testBTC",
+    "decimals": 8,
+    "address": "0x2a9eae71bf8d7392b2c9409a8f036fcf6f88fc44",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x2a9eae71bf8d7392b2c9409a8f036fcf6f88fc44/logo.webp",
+    "logoHash": "a02e1fb474ba994090eb1a43773a4aeda1d743c5dbc806c52333cf6e64789485"
+  },
+  {
+    "name": "FDOGE",
+    "symbol": "FTestDOGE",
+    "decimals": 8,
+    "address": "0x353d20c6eb0c7bfce3b828665c992de995ef67bd",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x353d20c6eb0c7bfce3b828665c992de995ef67bd/logo.webp",
+    "logoHash": "d022eea2ce5ce12ad35599419b1e5a4ded90c8b17c92573285d96a208aa9bf4f"
+  },
+  {
+    "name": "FXRP",
+    "symbol": "FTestXRP",
+    "decimals": 6,
+    "address": "0x51b1ac96027e55c29ece8a6fd99ddddd01f22f6c",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x51b1ac96027e55c29ece8a6fd99ddddd01f22f6c/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
+    "name": "Enosys Test Drip Drip",
+    "symbol": "etDD",
+    "decimals": 18,
+    "address": "0x68d74bd546de1027cd4a61aa1da69e00a4bfbd85",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x68d74bd546de1027cd4a61aa1da69e00a4bfbd85/logo.webp",
+    "logoHash": "fdfb7cd2a7d3ee90ff757acbdc17da9109e0244d9efbe380835aaee3313c1f03"
+  },
+  {
+    "name": "Test LTC",
+    "symbol": "testLTC",
+    "decimals": 8,
+    "address": "0x73b6db4b0aed010487cfd1138ff8d7c908151181",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x73b6db4b0aed010487cfd1138ff8d7c908151181/logo.webp",
+    "logoHash": "86cecf4762c9e52607110a5cac47ca0cc9d073329c4dace7a4ed42e5e89cfa82"
+  },
+  {
+    "name": "Wrapped Coston Flare",
+    "symbol": "WCFLR",
+    "decimals": 18,
+    "address": "0x767b25a658e8fc8ab6ebbd52043495db61b4ea91",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x767b25a658e8fc8ab6ebbd52043495db61b4ea91/logo.webp",
+    "logoHash": "f8edcaa3b8a00e2d01ff266478f4cf02ecc8f568689fba91ec04231407262dd7"
+  },
+  {
+    "name": "Test ADA",
+    "symbol": "testADA",
+    "decimals": 6,
+    "address": "0x8048c36831d8f7e40365cf11cff6db66293ec9e9",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0x8048c36831d8f7e40365cf11cff6db66293ec9e9/logo.webp",
+    "logoHash": "2bcf9b3f500d403e6ef812133e268a58da456045f98cab69ac928068fe3c7bb1"
+  },
+  {
+    "name": "Test USDC",
+    "symbol": "testUSDC",
+    "decimals": 6,
+    "address": "0xd20d9284e8b43c60365bca90662c67b5a0b91dd6",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0xd20d9284e8b43c60365bca90662c67b5a0b91dd6/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "Test EUR",
+    "symbol": "testEUR",
+    "decimals": 6,
+    "address": "0xda501af976af8dbf24a1545803f04f508f1bf2ae",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0xda501af976af8dbf24a1545803f04f508f1bf2ae/logo.webp",
+    "logoHash": "8a7f7d6c86d06f73e1ae698dac770c504e58d3a795f51bbb49e082aca8db06f1"
+  },
+  {
+    "name": "FBTC",
+    "symbol": "FTestBTC",
+    "decimals": 8,
+    "address": "0xe01b2151b684b83c771449d8a6d1d1764f03829e",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0xe01b2151b684b83c771449d8a6d1d1764f03829e/logo.webp",
+    "logoHash": "5c6cd95eccc17aea9cf3663051bf10d3b67bb0332632faf24fd3238735953958"
+  },
+  {
+    "name": "Bridged USDC (Enosys)",
+    "symbol": "USDC-e",
+    "decimals": 6,
+    "address": "0xe1485a8db4e7307788f16c29020af2c5fcd01622",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0xe1485a8db4e7307788f16c29020af2c5fcd01622/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "Test DOGE",
+    "symbol": "testDOGE",
+    "decimals": 8,
+    "address": "0xff00529ce94b6256bdf4eed7774d4301f0ec6557",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/0xff00529ce94b6256bdf4eed7774d4301f0ec6557/logo.webp",
+    "logoHash": "9100ee43d24855408709690089e6e67371718f18826680af3660b6e148d4d46a"
+  },
+  {
+    "name": "Coston Flare",
+    "symbol": "C2FLR",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-16/native/logo.webp",
+    "logoHash": "0c42be5fcae2c02e274db48147c2014eb2de81872872f9d1c2224d6cd81fe4c1"
+  }
+]

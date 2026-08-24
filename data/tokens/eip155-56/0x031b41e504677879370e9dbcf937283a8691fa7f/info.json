@@ -1,0 +1,9 @@
+{
+  "name": "Fetch.ai",
+  "symbol": "FET",
+  "decimals": 18,
+  "address": "0x031b41e504677879370e9dbcf937283a8691fa7f",
+  "coingeckoId": "fetch-ai",
+  "logoURL": "tokens/eip155-56/0x031b41e504677879370e9dbcf937283a8691fa7f/logo.webp",
+  "logoHash": "d9f70e53805a726e38b71225992d00b7cced1679402f4b8d887de9dea7bfdf5c"
+}

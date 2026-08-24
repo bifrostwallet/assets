@@ -1,0 +1,24 @@
+{
+  "name": "FlareBus",
+  "description": "FlareBus is a decentralized FTSO provider that delivers accurate and real-time price data for the Flare Network ecosystem. Our infrastructure is a hybrid blend of dedicated bare-metal servers and scalable cloud environments. This combination allows us to optimize for both low-latency performance and high availability.",
+  "logoURL": "providers/eip155-19/0x6facdb16ca28ade44f682c17be7b3357eb2f6a4c/logo.webp",
+  "logoHash": "c174658a6188d23931a6307ad00b8d8bacf9745814044daaa699d3edafc70f27",
+  "websiteURL": "https://flarebus.com",
+  "links": {},
+  "identityAddress": "0x6facdb16ca28ade44f682c17be7b3357eb2f6a4c",
+  "delegationAddress": "0xf24f04f1f886b2e09d9cf76fbc7e02925c9f8cc8",
+  "signingPolicyAddress": "0xe627eb93529583a0f359e4b39fc8ad275cc93bfc",
+  "submitAddress": "0x86eac68014db746b662e6bea8be9a2df3caefda5",
+  "submitSignaturesAddress": "0xadb05bc67040578bfb4b25f3ce89ab89c2f78a97",
+  "publicKey": "0x25d85428c569e605c24291af182f66d652c2c34906c2bc68969a016010737991211530d71dd9391d663c53fa78dde88b5e93f7e4951c3d04c5ba2ab5c6bba6f4",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x9f112c8b5ca91c9cee42f829d6f105efff6859ef450052f0760191a22ded2360",
+    "blockNumber": 100075446,
+    "timestamp": "2025-08-25T10:04:36.000Z"
+  }
+}

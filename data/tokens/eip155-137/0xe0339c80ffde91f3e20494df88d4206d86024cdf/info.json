@@ -1,0 +1,9 @@
+{
+  "name": "Dogelon Mars",
+  "symbol": "ELON",
+  "decimals": 18,
+  "address": "0xe0339c80ffde91f3e20494df88d4206d86024cdf",
+  "coingeckoId": "dogelon-mars",
+  "logoURL": "tokens/eip155-137/0xe0339c80ffde91f3e20494df88d4206d86024cdf/logo.webp",
+  "logoHash": "6fd537860926f066143cae062f012a78c2cbf2b9aa112ab780de4c14894ba7de"
+}

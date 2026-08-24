@@ -1,0 +1,9 @@
+{
+  "name": "Lattice Token",
+  "symbol": "LTX",
+  "decimals": 8,
+  "address": "0xa393473d64d2f9f026b60b6df7859a689715d092",
+  "coingeckoId": "lattice-token",
+  "logoURL": "tokens/eip155-1/0xa393473d64d2f9f026b60b6df7859a689715d092/logo.webp",
+  "logoHash": "6203de82bf46bab56932c68289d253f16cda844d2a3023861a0ed2a78acb4269"
+}

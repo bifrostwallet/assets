@@ -1,0 +1,9 @@
+{
+  "name": "Dafi Protocol",
+  "symbol": "DAFI",
+  "decimals": 18,
+  "address": "0xfc979087305a826c2b2a0056cfaba50aad3e6439",
+  "coingeckoId": "dafi-protocol",
+  "logoURL": "tokens/eip155-1/0xfc979087305a826c2b2a0056cfaba50aad3e6439/logo.webp",
+  "logoHash": "6f5071b56e54c9b2060d9f8ced2208bc320f5d87735f93deab6f0eded3f5c447"
+}

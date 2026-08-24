@@ -1,0 +1,9 @@
+{
+  "name": "FibSwap DEX",
+  "symbol": "FIBO",
+  "decimals": 9,
+  "address": "0x5067c6e9e6c443372f2e62946273abbf3cc2f2b3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x5067c6e9e6c443372f2e62946273abbf3cc2f2b3/logo.webp",
+  "logoHash": "29e6ac0c8dbf2c2bb6db02080917efd527860469299f3250e2c5f73458f75006"
+}

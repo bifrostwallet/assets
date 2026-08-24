@@ -1,0 +1,9 @@
+{
+  "name": "Numeraire",
+  "symbol": "NMR",
+  "decimals": 18,
+  "address": "0x1776e1f26f98b1a5df9cd347953a26dd3cb46671",
+  "coingeckoId": "numeraire",
+  "logoURL": "tokens/eip155-1/0x1776e1f26f98b1a5df9cd347953a26dd3cb46671/logo.webp",
+  "logoHash": "e697350869f27f9c41f9da43332a044ee1a3045f625dc1325ec5620d1f00e891"
+}

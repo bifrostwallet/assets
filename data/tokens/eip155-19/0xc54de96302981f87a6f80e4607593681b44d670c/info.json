@@ -1,0 +1,9 @@
+{
+  "name": "Experimental Wrapped XDC",
+  "symbol": "exXDC",
+  "decimals": 18,
+  "address": "0xc54de96302981f87a6f80e4607593681b44d670c",
+  "coingeckoId": "xdce-crowd-sale",
+  "logoURL": "tokens/eip155-19/0xc54de96302981f87a6f80e4607593681b44d670c/logo.webp",
+  "logoHash": "fda390a0af2317b19382f9f3c324f5a5b7353da806f04b2c9145cdc518c96101"
+}

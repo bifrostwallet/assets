@@ -1,0 +1,9 @@
+{
+  "name": "Polyient Games Governance Token",
+  "symbol": "PGT",
+  "decimals": 18,
+  "address": "0xeaccb6e0f24d66cf4aa6cbda33971b9231d332a1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xeaccb6e0f24d66cf4aa6cbda33971b9231d332a1/logo.webp",
+  "logoHash": "7bfb7c507d7c9026b220e3394775fc150cdb1c769df0ac4eb928489d3d6b25cf"
+}

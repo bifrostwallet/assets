@@ -1,0 +1,9 @@
+{
+  "name": "Best FTSO NFT Points",
+  "symbol": "NFTP",
+  "decimals": 18,
+  "address": "0x3b46090e608cbc963356f30857f4dacc09f5ddc4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x3b46090e608cbc963356f30857f4dacc09f5ddc4/logo.webp",
+  "logoHash": "ed947e717fe1b7129fe6d916b70c7a7d699a92d5890c1dc05b2b52ebdaac7604"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Mirror Protocol",
+  "symbol": "MIR",
+  "decimals": 18,
+  "address": "0x09a3ecafa817268f77be1283176b946c4ff2e608",
+  "coingeckoId": "mirror-protocol",
+  "logoURL": "tokens/eip155-1/0x09a3ecafa817268f77be1283176b946c4ff2e608/logo.webp",
+  "logoHash": "eb3a53678a54577ddcedc208ec98fbcfb3b502d840793201eed8e23c4cbd923a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "CRYPTO20",
+  "symbol": "C20",
+  "decimals": 18,
+  "address": "0x26e75307fc0c021472feb8f727839531f112f317",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x26e75307fc0c021472feb8f727839531f112f317/logo.webp",
+  "logoHash": "3ef83ee565ae2e910aee836fef0a6a9c4e246a66a4ef558f0a7e3cee77349c14"
+}

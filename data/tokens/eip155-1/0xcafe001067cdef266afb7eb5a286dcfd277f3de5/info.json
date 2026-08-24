@@ -1,0 +1,9 @@
+{
+  "name": "ParaSwap",
+  "symbol": "PSP",
+  "decimals": 18,
+  "address": "0xcafe001067cdef266afb7eb5a286dcfd277f3de5",
+  "coingeckoId": "paraswap",
+  "logoURL": "tokens/eip155-1/0xcafe001067cdef266afb7eb5a286dcfd277f3de5/logo.webp",
+  "logoHash": "1c01a8087ce8083dfb279f42b357671ae2bdac49730887293f7c3d1cf22f56ab"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Flare Dienst",
+  "description": "An EU-based data provider.",
+  "logoURL": "providers/eip155-19/0x342c8c165db96a60efedd2e3480ae5398a1fd322/logo.webp",
+  "logoHash": "6797faf8541ea923a36191bf9951af6ccf04808ef6c6df8ebc50e26e1496a778",
+  "websiteURL": "https://flare-dienst.xyz",
+  "links": {},
+  "identityAddress": "0x342c8c165db96a60efedd2e3480ae5398a1fd322",
+  "delegationAddress": "0xde4051b333b3063fd28267cd4412dd25233d0ae1",
+  "signingPolicyAddress": "0x5bb7e630a3c14d4f4d889b1c7488f7affc8da0e1",
+  "submitAddress": "0xc7aeb460f425667d4fb16e0c0c42325b031030a0",
+  "submitSignaturesAddress": "0x0beb25d66cdd056ac4ff46c2c85937a27f644f86",
+  "publicKey": "0x038d51351495bc3cc20fd1316e58ce28a327e5fe712a70606af238d6110d381e20383e5731dc31c42712205966c438969f7694f79900efffb34c606d12c24440",
+  "validators": [],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x13f87f4a55125f7f0870576f84ddcd0161e489d2faa32d9a60ad1b715580478b",
+    "blockNumber": 4759722,
+    "timestamp": "2021-12-21T13:43:11.000Z"
+  }
+}

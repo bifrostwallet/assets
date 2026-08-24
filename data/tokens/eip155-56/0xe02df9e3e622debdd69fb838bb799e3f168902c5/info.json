@@ -1,0 +1,9 @@
+{
+  "name": "BakerySwap",
+  "symbol": "BAKE",
+  "decimals": 18,
+  "address": "0xe02df9e3e622debdd69fb838bb799e3f168902c5",
+  "coingeckoId": "bakerytoken",
+  "logoURL": "tokens/eip155-56/0xe02df9e3e622debdd69fb838bb799e3f168902c5/logo.webp",
+  "logoHash": "c7a04f1162bede35dd6503b57515dafef46ec94200552e732bbf25d7a2533737"
+}

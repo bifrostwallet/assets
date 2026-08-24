@@ -1,0 +1,9 @@
+{
+  "name": "Sentinel Protocol",
+  "symbol": "UPP",
+  "decimals": 18,
+  "address": "0xc86d054809623432210c107af2e3f619dcfbf652",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc86d054809623432210c107af2e3f619dcfbf652/logo.webp",
+  "logoHash": "933b53373a3dcf1b6eb0ce2946f0f92b9503a300dd2531bebd3bf14fa1e00b83"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SelfKey",
+  "symbol": "KEY",
+  "decimals": 18,
+  "address": "0x4cc19356f2d37338b9802aa8e8fc58b0373296e7",
+  "coingeckoId": "selfkey",
+  "logoURL": "tokens/eip155-1/0x4cc19356f2d37338b9802aa8e8fc58b0373296e7/logo.webp",
+  "logoHash": "e79cb65621af145a327be8bb503fcbee4f92ecea64a909f69078d3f02fcd4b2d"
+}

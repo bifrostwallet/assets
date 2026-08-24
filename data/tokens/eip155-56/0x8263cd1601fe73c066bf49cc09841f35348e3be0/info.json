@@ -1,0 +1,9 @@
+{
+  "name": "Altura",
+  "symbol": "ALU",
+  "decimals": 18,
+  "address": "0x8263cd1601fe73c066bf49cc09841f35348e3be0",
+  "coingeckoId": "altura",
+  "logoURL": "tokens/eip155-56/0x8263cd1601fe73c066bf49cc09841f35348e3be0/logo.webp",
+  "logoHash": "d11200e878b180cc29a1e1203d587f5545c0d6cc7fdc6de2d042d6b469eb5c11"
+}

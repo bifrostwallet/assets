@@ -1,0 +1,9 @@
+{
+  "name": "Lido Staked Ether",
+  "symbol": "STETH",
+  "decimals": 18,
+  "address": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84",
+  "coingeckoId": "staked-ether",
+  "logoURL": "tokens/eip155-1/0xae7ab96520de3a18e5e111b5eaab095312d7fe84/logo.webp",
+  "logoHash": "194949351a3772540d868e362e8507b78be9c0160cf9c6f2ac7cdacb56510c3b"
+}

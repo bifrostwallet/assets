@@ -1,0 +1,9 @@
+{
+  "name": "Aragon Court",
+  "symbol": "ANJ",
+  "decimals": 18,
+  "address": "0xcd62b1c403fa761baadfc74c525ce2b51780b184",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xcd62b1c403fa761baadfc74c525ce2b51780b184/logo.webp",
+  "logoHash": "9b6778602af0c92ad0ad61aacfa10f757742797da152170b53274738063cc993"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Bridged WETH (Stargate)",
+  "symbol": "WETH-e",
+  "decimals": 18,
+  "address": "0x1502fa4be69d526124d453619276faccab275d3d",
+  "coingeckoId": "ethereum",
+  "logoURL": "tokens/eip155-14/0x1502fa4be69d526124d453619276faccab275d3d/logo.webp",
+  "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
+}

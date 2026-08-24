@@ -1,0 +1,24 @@
+{
+  "name": "Defi Oracles",
+  "description": "DeFi Oracles is a multi-chain decentralized finance oracle service provider.",
+  "logoURL": "providers/eip155-19/0x00620f4659bc546284dab2720373c606727f073a/logo.webp",
+  "logoHash": "c77104b02952451e78e3a3553ed89fb34619a43e117a751b67266d4fc02d989c",
+  "websiteURL": "https://defioracles.org",
+  "links": {},
+  "identityAddress": "0x00620f4659bc546284dab2720373c606727f073a",
+  "delegationAddress": "0xca60cd408a5e447897258cdb1f699478c71cc55e",
+  "signingPolicyAddress": "0xf9b5da7af59bf8c8b68ef1743a4dcdca213b583e",
+  "submitAddress": "0x57857265f6015f2193fc4e924055172b54826fb1",
+  "submitSignaturesAddress": "0xa5277c53daabc9cbc885ffbc4a4a4ccf46655620",
+  "publicKey": "0x21024f152b5f6805aa3f9c6e083d845ab8737093cb694cb46f7db4868d0882971458b2fb6835496a95116829a5ff309611871ab6d5ee9acc0cdc0425483a9962",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x505436e3144210f58ab18c767ac3993f2c7c8fe4f41a45739bedd0464b3f4982",
+    "blockNumber": 108325,
+    "timestamp": "2021-09-25T17:22:53.000Z"
+  }
+}

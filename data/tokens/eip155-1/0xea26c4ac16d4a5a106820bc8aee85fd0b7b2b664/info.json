@@ -1,0 +1,9 @@
+{
+  "name": "QuarkChain",
+  "symbol": "QKC",
+  "decimals": 18,
+  "address": "0xea26c4ac16d4a5a106820bc8aee85fd0b7b2b664",
+  "coingeckoId": "quark-chain",
+  "logoURL": "tokens/eip155-1/0xea26c4ac16d4a5a106820bc8aee85fd0b7b2b664/logo.webp",
+  "logoHash": "896f63920448ba781f2fd39c9a535bcdb36a8a8a43378f5bfaf33f03a0acfbf5"
+}

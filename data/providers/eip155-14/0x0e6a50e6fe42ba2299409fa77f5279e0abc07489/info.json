@@ -1,0 +1,29 @@
+{
+  "name": "Seraphim",
+  "description": "",
+  "logoURL": "providers/eip155-14/0x0e6a50e6fe42ba2299409fa77f5279e0abc07489/logo.webp",
+  "logoHash": "20f0d87387b4948db74322f21122d343db4a2cc5d2b7b1726ef754fe2b1bcf4e",
+  "websiteURL": "",
+  "links": {},
+  "identityAddress": "0x0e6a50e6fe42ba2299409fa77f5279e0abc07489",
+  "delegationAddress": "0xcd1eadb3ea02b3500e9d3425f3fb08aab8f33378",
+  "signingPolicyAddress": "0x5530d66f100ad83755cf7b8352236cff909b7d44",
+  "submitAddress": "0x9e36c786bd1fafc9cbdb05f16efd08345b25cda1",
+  "submitSignaturesAddress": "0x84896cfdb9b2caa6eb92bf18c016eae22366a9cd",
+  "publicKey": "0x2d6922282a76c8aa091518e47c45cc014d11046990d4bd9ce0ca7b9bcb417644097d5909771496955dd02fb6ec7d64597f160f82f0e537e1f52459d4483f6ab0",
+  "validators": [
+    "NodeID-2hWCwcnHGDE9bsHJ6ikV8Eu38FSaAFnbo",
+    "NodeID-4FUZ69HaskWngaUyU9nFmEkPXAM1zx4yG",
+    "NodeID-79xXFeS8ZqXiBah4sxUzTYPksuJYS82cv",
+    "NodeID-P4vXckSMDUNvfCm1eDhEgUFsyawwneQuR"
+  ],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x99364617ecaf221ac23b56f374526848ed7cac21bf59540e84685ab5d8bb1a23",
+    "blockNumber": 58351082,
+    "timestamp": "2026-04-08T20:48:26.000Z"
+  }
+}

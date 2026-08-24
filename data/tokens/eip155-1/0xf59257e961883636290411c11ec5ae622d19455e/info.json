@@ -1,0 +1,9 @@
+{
+  "name": "FloorDAO",
+  "symbol": "FLOOR",
+  "decimals": 9,
+  "address": "0xf59257e961883636290411c11ec5ae622d19455e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf59257e961883636290411c11ec5ae622d19455e/logo.webp",
+  "logoHash": "c0d225abe8a377b19b55248d8e2644a8857fb40d023dd75b5a90bdc600544146"
+}

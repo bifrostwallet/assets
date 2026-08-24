@@ -1,0 +1,24 @@
+{
+  "name": "FTSO Paris",
+  "description": "FTSO Paris is a data provider based in Paris, France, submitting prices calculated from over 80 cryptocurrency exchanges using a proprietary, robust, and fault-tolerant algorithm.",
+  "logoURL": "providers/eip155-19/0x28603d496801086f503d80b5d321ecad13ca3afc/logo.webp",
+  "logoHash": "d1358e37506c320292234b88e40d57a614e1a1e661e10768828668e1c512f9ad",
+  "websiteURL": "https://ftso.paris",
+  "links": {},
+  "identityAddress": "0x28603d496801086f503d80b5d321ecad13ca3afc",
+  "delegationAddress": "0x2c293599ca61bb53e8ff82c8a19c2a8b883ea23f",
+  "signingPolicyAddress": "0x2a4bac7f442a4cd30faf3a1aeee74940c456ddf1",
+  "submitAddress": "0x8051e1447d2dbc375c218605f623898edffe0a28",
+  "submitSignaturesAddress": "0x399b78562110e9be3ac52a3e2628f6fc413147eb",
+  "publicKey": "0x181e06575c697a3596e4d1126773729e45778f639493e78b08c3dc62352d3a11243b25fd67ef0ea51d30a210954b0e47997b7c319d84185536194e5e710e53dd",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x51252f969ba6d48cef0fade137ab821ba9fe25bca2dec1e79dce25b8164d9f9a",
+    "blockNumber": 14726576,
+    "timestamp": "2022-04-20T23:32:50.000Z"
+  }
+}

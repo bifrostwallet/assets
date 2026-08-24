@@ -1,0 +1,9 @@
+{
+  "name": "Metaverse Index",
+  "symbol": "MVI",
+  "decimals": 18,
+  "address": "0xfe712251173a2cd5f5be2b46bb528328ea3565e1",
+  "coingeckoId": "metaverse-index",
+  "logoURL": "tokens/eip155-137/0xfe712251173a2cd5f5be2b46bb528328ea3565e1/logo.webp",
+  "logoHash": "3b183c5ce4fcf6fb286fa2a7f93bfcf3bceae6fae01e7096a37fdef16336f373"
+}

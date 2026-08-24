@@ -1,0 +1,9 @@
+{
+  "name": "MXC",
+  "symbol": "MXC",
+  "decimals": 18,
+  "address": "0x5ca381bbfb58f0092df149bd3d243b08b9a8386e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x5ca381bbfb58f0092df149bd3d243b08b9a8386e/logo.webp",
+  "logoHash": "d35a242906795fefb960d4be5963b2f51ad421d89a6e72bc29c4a6df01607707"
+}

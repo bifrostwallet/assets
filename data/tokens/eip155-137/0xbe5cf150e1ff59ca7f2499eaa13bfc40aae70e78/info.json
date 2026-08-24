@@ -1,0 +1,9 @@
+{
+  "name": "Glitch Protocol",
+  "symbol": "GLCH",
+  "decimals": 18,
+  "address": "0xbe5cf150e1ff59ca7f2499eaa13bfc40aae70e78",
+  "coingeckoId": "glitch-protocol",
+  "logoURL": "tokens/eip155-137/0xbe5cf150e1ff59ca7f2499eaa13bfc40aae70e78/logo.webp",
+  "logoHash": "e561c1b3bed0e9008d55ddd0a59b3eb7a3e15246b637d7ded63bed807cd9acab"
+}

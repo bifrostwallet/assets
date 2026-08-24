@@ -1,0 +1,9 @@
+{
+  "name": "DogeBonk",
+  "symbol": "DOBO",
+  "decimals": 9,
+  "address": "0xae2df9f730c54400934c06a17462c41c08a06ed8",
+  "coingeckoId": "dogebonk",
+  "logoURL": "tokens/eip155-56/0xae2df9f730c54400934c06a17462c41c08a06ed8/logo.webp",
+  "logoHash": "0a009645982dc91abace2e33fe9154c2faf05e32da5da08e03a5ce70e433ac90"
+}

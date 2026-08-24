@@ -1,0 +1,9 @@
+{
+  "name": "Elastos",
+  "symbol": "ELA",
+  "decimals": 18,
+  "address": "0xe6fd75ff38adca4b97fbcd938c86b98772431867",
+  "coingeckoId": "elastos",
+  "logoURL": "tokens/eip155-1/0xe6fd75ff38adca4b97fbcd938c86b98772431867/logo.webp",
+  "logoHash": "028aca0c20275c7bb954fcb1a86958cb8085abbaf66afd494e4c16a62ff3bb5e"
+}

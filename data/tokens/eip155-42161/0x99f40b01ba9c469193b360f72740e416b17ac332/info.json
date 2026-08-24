@@ -1,0 +1,9 @@
+{
+  "name": "MATH",
+  "symbol": "MATH",
+  "decimals": 18,
+  "address": "0x99f40b01ba9c469193b360f72740e416b17ac332",
+  "coingeckoId": "math",
+  "logoURL": "tokens/eip155-42161/0x99f40b01ba9c469193b360f72740e416b17ac332/logo.webp",
+  "logoHash": "de1904539925e45cfcca14091575aba787a8b46b3610f47695e575ce5435b505"
+}

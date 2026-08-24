@@ -1,0 +1,9 @@
+{
+  "name": "BEPRO Network",
+  "symbol": "BEPRO",
+  "decimals": 18,
+  "address": "0xcf3c8be2e2c42331da80ef210e9b1b307c03d36a",
+  "coingeckoId": "bepro-network",
+  "logoURL": "tokens/eip155-1/0xcf3c8be2e2c42331da80ef210e9b1b307c03d36a/logo.webp",
+  "logoHash": "6be253494508a29ed246e718546fa8b3b674523f023e9c3ddd595754f49b9f6f"
+}

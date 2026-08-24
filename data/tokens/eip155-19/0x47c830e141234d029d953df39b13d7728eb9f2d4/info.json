@@ -1,0 +1,9 @@
+{
+  "name": "FlareX",
+  "symbol": "FLRX",
+  "decimals": 18,
+  "address": "0x47c830e141234d029d953df39b13d7728eb9f2d4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x47c830e141234d029d953df39b13d7728eb9f2d4/logo.webp",
+  "logoHash": "3ab814d18d9e24da18c3132b619ace865543bef3e9549ba9db538044ca9340f7"
+}

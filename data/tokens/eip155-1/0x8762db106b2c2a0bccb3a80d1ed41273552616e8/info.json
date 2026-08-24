@@ -1,0 +1,9 @@
+{
+  "name": "Reserve Rights Legacy",
+  "symbol": "RSR",
+  "decimals": 18,
+  "address": "0x8762db106b2c2a0bccb3a80d1ed41273552616e8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x8762db106b2c2a0bccb3a80d1ed41273552616e8/logo.webp",
+  "logoHash": "6dcab4ba90a5531a4e8bb7008acc0efd680e64740bd5fb93c582cb6bbd446ce7"
+}

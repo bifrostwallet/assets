@@ -1,0 +1,9 @@
+{
+  "name": "e-Radix",
+  "symbol": "EXRD",
+  "decimals": 18,
+  "address": "0x6468e79a80c0eab0f9a2b574c8d5bc374af59414",
+  "coingeckoId": "e-radix",
+  "logoURL": "tokens/eip155-1/0x6468e79a80c0eab0f9a2b574c8d5bc374af59414/logo.webp",
+  "logoHash": "70d55a97153600265555f17c193bf91e95b60d3654a28576e3a4bbae89c5991e"
+}

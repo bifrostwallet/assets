@@ -1,0 +1,9 @@
+{
+  "name": "Poollotto.finance",
+  "symbol": "PLT",
+  "decimals": 18,
+  "address": "0x631c2f0edabac799f07550aee4ff0bf7fd35212b",
+  "coingeckoId": "poollotto-finance",
+  "logoURL": "tokens/eip155-56/0x631c2f0edabac799f07550aee4ff0bf7fd35212b/logo.webp",
+  "logoHash": "4e3afb573f6129fcf1ccdd064cd39c37b2535bcbce4a8f4e3b1f4714a42c5e3c"
+}

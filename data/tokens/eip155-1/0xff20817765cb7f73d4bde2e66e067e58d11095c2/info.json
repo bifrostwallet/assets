@@ -1,0 +1,9 @@
+{
+  "name": "Amp",
+  "symbol": "AMP",
+  "decimals": 18,
+  "address": "0xff20817765cb7f73d4bde2e66e067e58d11095c2",
+  "coingeckoId": "amp-token",
+  "logoURL": "tokens/eip155-1/0xff20817765cb7f73d4bde2e66e067e58d11095c2/logo.webp",
+  "logoHash": "8e5ba7db409911488a4fd0b185e32cee8365b14a8052a3dfffdc0151989f199e"
+}

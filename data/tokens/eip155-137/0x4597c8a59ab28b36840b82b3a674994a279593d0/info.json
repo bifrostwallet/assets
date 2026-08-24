@@ -1,0 +1,9 @@
+{
+  "name": "Circuits of Value",
+  "symbol": "COVAL",
+  "decimals": 8,
+  "address": "0x4597c8a59ab28b36840b82b3a674994a279593d0",
+  "coingeckoId": "circuits-of-value",
+  "logoURL": "tokens/eip155-137/0x4597c8a59ab28b36840b82b3a674994a279593d0/logo.webp",
+  "logoHash": "a744469839fccbe8fbe317eaa8d29791aa27825ef38f30f9dd2daef15e95daa9"
+}

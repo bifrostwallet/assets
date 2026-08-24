@@ -1,0 +1,9 @@
+{
+  "name": "Ooki",
+  "symbol": "OOKI",
+  "decimals": 18,
+  "address": "0x0de05f6447ab4d22c8827449ee4ba2d5c288379b",
+  "coingeckoId": "ooki",
+  "logoURL": "tokens/eip155-1/0x0de05f6447ab4d22c8827449ee4ba2d5c288379b/logo.webp",
+  "logoHash": "8c8a48dff398eea9e07e6267c971674c11686dcb345820da23401674b0249df9"
+}

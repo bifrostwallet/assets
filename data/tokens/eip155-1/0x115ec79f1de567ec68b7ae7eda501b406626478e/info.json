@@ -1,0 +1,9 @@
+{
+  "name": "Carry",
+  "symbol": "CRE",
+  "decimals": 18,
+  "address": "0x115ec79f1de567ec68b7ae7eda501b406626478e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x115ec79f1de567ec68b7ae7eda501b406626478e/logo.webp",
+  "logoHash": "3f82378a6c23716eecf7bcdcb10c1b18793cc366dad0613f0dab5f22f0512e6f"
+}

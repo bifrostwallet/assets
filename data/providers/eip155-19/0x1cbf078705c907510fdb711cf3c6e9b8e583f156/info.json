@@ -1,0 +1,24 @@
+{
+  "name": "Solarius",
+  "description": "Solarius Flare Time Series Oracle provides accurate data from advanced algorithms using our reliable and robust hardware.",
+  "logoURL": "providers/eip155-19/0x1cbf078705c907510fdb711cf3c6e9b8e583f156/logo.webp",
+  "logoHash": "c59dd7cbb9e09270a6c85af88539f704a7581b81dbf7ee688151f33e9d18219f",
+  "websiteURL": "https://www.solarius.io/ftso",
+  "links": {},
+  "identityAddress": "0x1cbf078705c907510fdb711cf3c6e9b8e583f156",
+  "delegationAddress": "0x6c6b3560704da8a2c33b1bb00e88ba343807e565",
+  "signingPolicyAddress": "0x53bce8b63c3357717d87a816e3414e2103a85d27",
+  "submitAddress": "0x959fe25a0f1b4e1bea43c57c611afb62442124b0",
+  "submitSignaturesAddress": "0xe8d23036eea8c64a05eb5cbe919c4fdfaecda5fb",
+  "publicKey": "0x17373b729a384e6074f85eaabd9042d72bf056835ad1a2f02a20c980e392fc990d43b5b3ddb44a62e10a5898098f3adcfdb6a667f07c4ea3e6dada94877500d9",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x18eff6ee35e0a1b0320882dec677042a73b709dbd1792fe70e514eb4e3413cf0",
+    "blockNumber": 14621595,
+    "timestamp": "2022-04-18T19:27:29.000Z"
+  }
+}

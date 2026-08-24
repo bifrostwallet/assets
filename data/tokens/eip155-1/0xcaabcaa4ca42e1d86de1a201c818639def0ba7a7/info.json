@@ -1,0 +1,9 @@
+{
+  "name": "Talken",
+  "symbol": "TALK",
+  "decimals": 18,
+  "address": "0xcaabcaa4ca42e1d86de1a201c818639def0ba7a7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xcaabcaa4ca42e1d86de1a201c818639def0ba7a7/logo.webp",
+  "logoHash": "3fc66f28f3fc9e4d597122a0e69e3f0ff1d0f8f9c2adb6ac68a4970223746bcb"
+}

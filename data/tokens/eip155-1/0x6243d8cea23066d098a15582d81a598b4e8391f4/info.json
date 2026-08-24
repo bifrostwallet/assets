@@ -1,0 +1,9 @@
+{
+  "name": "Reflexer Ungovernance Token",
+  "symbol": "FLX",
+  "decimals": 18,
+  "address": "0x6243d8cea23066d098a15582d81a598b4e8391f4",
+  "coingeckoId": "reflexer-ungovernance-token",
+  "logoURL": "tokens/eip155-1/0x6243d8cea23066d098a15582d81a598b4e8391f4/logo.webp",
+  "logoHash": "aec7e87fe14c8fbed324106e7454fcebcfbe445552d339ea8daef09300002ec1"
+}

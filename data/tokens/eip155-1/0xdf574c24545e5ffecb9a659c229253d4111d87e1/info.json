@@ -1,0 +1,9 @@
+{
+  "name": "HUSD",
+  "symbol": "HUSD",
+  "decimals": 8,
+  "address": "0xdf574c24545e5ffecb9a659c229253d4111d87e1",
+  "coingeckoId": "husd",
+  "logoURL": "tokens/eip155-1/0xdf574c24545e5ffecb9a659c229253d4111d87e1/logo.webp",
+  "logoHash": "14b87e0f417d8177962ab1abe854f75238db4e476d1cd42f742758c0154154bb"
+}

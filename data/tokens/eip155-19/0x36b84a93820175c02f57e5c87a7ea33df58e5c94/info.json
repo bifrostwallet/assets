@@ -1,0 +1,9 @@
+{
+  "name": "Experimental ETH",
+  "symbol": "exETH",
+  "decimals": 18,
+  "address": "0x36b84a93820175c02f57e5c87a7ea33df58e5c94",
+  "coingeckoId": "ethereum",
+  "logoURL": "tokens/eip155-19/0x36b84a93820175c02f57e5c87a7ea33df58e5c94/logo.webp",
+  "logoHash": "3dc5854f584319a987b3f99400e1b73df26a47d1c3a47dadbad9cf8db271259b"
+}

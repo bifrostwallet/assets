@@ -1,0 +1,24 @@
+{
+  "name": "ACDTftso",
+  "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
+  "logoURL": "providers/eip155-19/0x527e5e829763885008e171493c0e8d4a1ec48239/logo.webp",
+  "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
+  "websiteURL": "https://www.flare-base.io",
+  "links": {},
+  "identityAddress": "0x527e5e829763885008e171493c0e8d4a1ec48239",
+  "delegationAddress": "0x86ec5c8ce7a4dd7762cff205d64bfc0c272feb6d",
+  "signingPolicyAddress": "0x526a35584129879950c1b044f5627812217b833a",
+  "submitAddress": "0xe6c5024a337451e32f18f4b043bdb2d755897f7e",
+  "submitSignaturesAddress": "0xfb341c48679a52973f778df1dd5c50a8e03010b0",
+  "publicKey": "0x0867be798fbfa4ce51090ae40166f9e0626c3d856bb0e0367494a41ba99c19da0287972a591d8d54526e3117329a6a4674d0fb1002a3aa0f527237837985b4f7",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xe56c63e6354e672ed55f2d64565c1599b73fc08289023e5b0d49ad8876e6f0ed",
+    "blockNumber": 8073797,
+    "timestamp": "2022-01-23T10:56:54.000Z"
+  }
+}

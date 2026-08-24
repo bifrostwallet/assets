@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped HYPE",
+  "symbol": "WHYPE",
+  "decimals": 18,
+  "address": "0x5555555555555555555555555555555555555555",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x5555555555555555555555555555555555555555/logo.webp",
+  "logoHash": "9b637cd2c31884b9c033d3213e8cc40f457b98f2ee49d0e33c01af364983e3e5"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Perpetual Protocol",
+  "symbol": "PERP",
+  "decimals": 18,
+  "address": "0xbc396689893d065f41bc2c6ecbee5e0085233447",
+  "coingeckoId": "perpetual-protocol",
+  "logoURL": "tokens/eip155-1/0xbc396689893d065f41bc2c6ecbee5e0085233447/logo.webp",
+  "logoHash": "2e537bd5bcd4d85e553a4b696cb10a2bb7aee5caf2d66b3a5d72587171d401c4"
+}

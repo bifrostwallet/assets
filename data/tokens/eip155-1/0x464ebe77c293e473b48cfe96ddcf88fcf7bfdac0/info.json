@@ -1,0 +1,9 @@
+{
+  "name": "KRYLL",
+  "symbol": "KRL",
+  "decimals": 18,
+  "address": "0x464ebe77c293e473b48cfe96ddcf88fcf7bfdac0",
+  "coingeckoId": "kryll",
+  "logoURL": "tokens/eip155-1/0x464ebe77c293e473b48cfe96ddcf88fcf7bfdac0/logo.webp",
+  "logoHash": "9ee2b0914da8c2865358d74665514c1612168771eb44873287fde869816cb94b"
+}

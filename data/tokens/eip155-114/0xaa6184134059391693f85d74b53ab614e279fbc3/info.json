@@ -1,0 +1,9 @@
+{
+  "name": "Test FIL",
+  "symbol": "testFIL",
+  "decimals": 18,
+  "address": "0xaa6184134059391693f85d74b53ab614e279fbc3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0xaa6184134059391693f85d74b53ab614e279fbc3/logo.webp",
+  "logoHash": "332d8249d84866b68fbaf5ef4a51aafed67131e1eb1a53c4b13f4ea9092b8ff2"
+}

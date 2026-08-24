@@ -1,0 +1,29 @@
+{
+  "name": "Next Finance Tech",
+  "description": "Japan's leading staking service provider under a Nasdaq-listed group.",
+  "logoURL": "providers/eip155-14/0xfed1eff46608249054a6c7c4bce8998051dcff7d/logo.webp",
+  "logoHash": "e2b098e983d5fd02639d50897570e6b573bcb32c09b1e733c0cbdb9806dc2ef9",
+  "websiteURL": "https://nxt-fintech.com",
+  "links": {},
+  "identityAddress": "0xfed1eff46608249054a6c7c4bce8998051dcff7d",
+  "delegationAddress": "0x6c23aa4c5a1da47f8fdf9df4a032904c062cb92b",
+  "signingPolicyAddress": "0x4dfee82239b05d749abfa8cd8fa438146760ce00",
+  "submitAddress": "0x61d328cc6c18076432acfda8d5b5bd86041aef79",
+  "submitSignaturesAddress": "0xf6c99a269b22010fde6fd1db45c1fdc8c7fb6de2",
+  "publicKey": "0x159039f28ddad79a4cf47a454f5bff4f13ae260340b1b9355651278ebda47d51185b548fcaa2744edd6d25664d41aaa6a528b36f2cbaeffffbff0c960d10d257",
+  "validators": [
+    "NodeID-7aU2dDeBVu4btx4wbt44ACqyJeQRjCZMi",
+    "NodeID-Cv6y6wJeFujp94oWEd5L1iMoZBQgzpcir",
+    "NodeID-JLAi1KM18TocQu9zvmSw6wND4hEvgkER6",
+    "NodeID-KywEC9cXm8P4KezUkovM5oA1rLTTFDe6e"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xeef7ee7adb5e4c889846cc9ea07c44d94546a35f7d66b1eaa34c2e58031d9cfb",
+    "blockNumber": 56773279,
+    "timestamp": "2026-03-10T09:08:03.000Z"
+  }
+}

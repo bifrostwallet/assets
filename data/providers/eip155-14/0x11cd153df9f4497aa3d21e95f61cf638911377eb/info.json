@@ -1,0 +1,27 @@
+{
+  "name": "FTSO Yggdrassil",
+  "description": "Inspired by the mighty Yggdrassil tree, our FTSO stands firmly rooted in the Flare Network nurturing reliable and decentralized data feeds, symbolizing strength and growth.",
+  "logoURL": "providers/eip155-14/0x11cd153df9f4497aa3d21e95f61cf638911377eb/logo.webp",
+  "logoHash": "0935e6a701d6f4f875d31675121bf3fdfd6159014f31fbed3384d4694b194344",
+  "websiteURL": "https://ftso-yggdrassil.com",
+  "links": {},
+  "identityAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
+  "delegationAddress": "0x3035364f988cfc4574d459009f9d3f68d9d734d7",
+  "signingPolicyAddress": "0xb7603ab85c2c0b2ed85e5a148ecdd324f4c749bd",
+  "submitAddress": "0x6dc9f5e5eefddf1982bfe00c29ad2f7c8917e1bb",
+  "submitSignaturesAddress": "0xb9eadef3fbbf11ac0a0ba5ea5bc13b079e82c09b",
+  "publicKey": "0x2ee52e6794810801c4335093a80ed834bc305bb449e05809ed130920f56f8d7928220a77cce047b1f063ec48b3d10235b6660d96d3bc8bacf4dc5cb818b12117",
+  "validators": [
+    "NodeID-BfDUbmZ4SJ8cDp9hcnAu1wjzeDRGsR9QZ",
+    "NodeID-Nznsv1tqRDam6SB17FW5PAiFVSpkWpMQ6"
+  ],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x6500fd065b55f1c0b0effbd30b1a2c22ab0f198be95b0e987a0c5f3baf806170",
+    "blockNumber": 41008792,
+    "timestamp": "2025-05-03T12:54:32.000Z"
+  }
+}

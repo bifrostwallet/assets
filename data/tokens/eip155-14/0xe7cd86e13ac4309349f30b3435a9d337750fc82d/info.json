@@ -1,0 +1,9 @@
+{
+  "name": "USDT0",
+  "symbol": "USDT0",
+  "decimals": 6,
+  "address": "0xe7cd86e13ac4309349f30b3435a9d337750fc82d",
+  "coingeckoId": "tether",
+  "logoURL": "tokens/eip155-14/0xe7cd86e13ac4309349f30b3435a9d337750fc82d/logo.webp",
+  "logoHash": "74e70292b99d244a9dfd9014428b9e5df48c1d83872dfdcd4f0f256704736a48"
+}

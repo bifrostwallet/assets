@@ -1,0 +1,9 @@
+{
+  "name": "88mph",
+  "symbol": "MPH",
+  "decimals": 18,
+  "address": "0x8888801af4d980682e47f1a9036e589479e835c5",
+  "coingeckoId": "88mph",
+  "logoURL": "tokens/eip155-1/0x8888801af4d980682e47f1a9036e589479e835c5/logo.webp",
+  "logoHash": "478c9ff1056a269d783ac22c49b6fd870d6ff405c0734ca6ea79784598db06b2"
+}

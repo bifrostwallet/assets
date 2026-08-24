@@ -1,0 +1,9 @@
+{
+  "name": "Pendle",
+  "symbol": "PENDLE",
+  "decimals": 18,
+  "address": "0xd6eb81136884713e843936843e286fd2a85a205a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0xd6eb81136884713e843936843e286fd2a85a205a/logo.webp",
+  "logoHash": "aa57d3f2ced0f785d1aad24477a2c5548119b31d2fa58d77e4a944a21f548e58"
+}

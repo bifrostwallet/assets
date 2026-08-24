@@ -1,0 +1,24 @@
+{
+  "name": "Knot Nodes",
+  "description": "Knot Nodes is a Signal Provider that aims to contribute to the endeavor of building a decentralized world by delivering necessary data to the  Flare network.",
+  "logoURL": "providers/eip155-19/0x7e74f48ee5575e028d6bebd77e368761f1d74a2a/logo.webp",
+  "logoHash": "a0f8dd2d8643fea41f5aaeafd23c8f71559f176bf21c009e1a57bdb35290eefe",
+  "websiteURL": "https://www.knotnodes.com",
+  "links": {},
+  "identityAddress": "0x7e74f48ee5575e028d6bebd77e368761f1d74a2a",
+  "delegationAddress": "0x4619ae2f09cf5e6da873c501a12d86aacbd7962b",
+  "signingPolicyAddress": "0x21ef03f609aad7db7224d3f8fd90f5593d2607ca",
+  "submitAddress": "0xcf1392b41ff06ab51d6f1bdf69e7cd706141a8ba",
+  "submitSignaturesAddress": "0xe8c7a135f1005eb66b135075a3ef9106b4da5c4f",
+  "publicKey": "0x0c44f245cb3a0d3d8c657507336da03a0fb9130c01353300f561125670088421292a8812432510ea25db4d8bae2a7f2912856a235f8aef481ee627653698ee5f",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x740b582aeeb31ca98614942ae6fb674769d5b0884d42080477c98d665a8f6cf3",
+    "blockNumber": 4657819,
+    "timestamp": "2021-12-20T03:10:03.000Z"
+  }
+}

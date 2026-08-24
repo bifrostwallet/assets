@@ -1,0 +1,9 @@
+{
+  "name": "Bounce",
+  "symbol": "AUCTION",
+  "decimals": 18,
+  "address": "0xa9b1eb5908cfc3cdf91f9b8b3a74108598009096",
+  "coingeckoId": "auction",
+  "logoURL": "tokens/eip155-1/0xa9b1eb5908cfc3cdf91f9b8b3a74108598009096/logo.webp",
+  "logoHash": "2d60cddeae56216fa763339eb241cb8ef5a9c399ea5867e26415844af649fe5c"
+}

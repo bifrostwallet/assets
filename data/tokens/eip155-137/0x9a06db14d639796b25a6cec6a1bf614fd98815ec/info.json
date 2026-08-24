@@ -1,0 +1,9 @@
+{
+  "name": "Panther",
+  "symbol": "ZKP",
+  "decimals": 18,
+  "address": "0x9a06db14d639796b25a6cec6a1bf614fd98815ec",
+  "coingeckoId": "panther",
+  "logoURL": "tokens/eip155-137/0x9a06db14d639796b25a6cec6a1bf614fd98815ec/logo.webp",
+  "logoHash": "6a1775948a124f39ad885a6a9b3a24448c0334051544cacfd1160a9d57419864"
+}

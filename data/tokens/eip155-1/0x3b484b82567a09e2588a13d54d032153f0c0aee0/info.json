@@ -1,0 +1,9 @@
+{
+  "name": "OpenDAO",
+  "symbol": "SOS",
+  "decimals": 18,
+  "address": "0x3b484b82567a09e2588a13d54d032153f0c0aee0",
+  "coingeckoId": "opendao",
+  "logoURL": "tokens/eip155-1/0x3b484b82567a09e2588a13d54d032153f0c0aee0/logo.webp",
+  "logoHash": "fb5c348f85c873fe683836232d84b68be9cdeeb0eaa6c003f9e6a48caa9752a0"
+}

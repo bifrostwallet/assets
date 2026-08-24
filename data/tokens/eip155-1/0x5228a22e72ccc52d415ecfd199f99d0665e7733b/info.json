@@ -1,0 +1,9 @@
+{
+  "name": "pTokens BTC",
+  "symbol": "PBTC",
+  "decimals": 18,
+  "address": "0x5228a22e72ccc52d415ecfd199f99d0665e7733b",
+  "coingeckoId": "ptokens-btc",
+  "logoURL": "tokens/eip155-1/0x5228a22e72ccc52d415ecfd199f99d0665e7733b/logo.webp",
+  "logoHash": "f7b3e9a3f429eaa1bfc2765c4177daac594e868b849083424596c4d1495eea88"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "BitTorrent",
+  "symbol": "BTT",
+  "decimals": 18,
+  "address": "0xc669928185dbce49d2230cc9b0979be6dc797957",
+  "coingeckoId": "bittorrent",
+  "logoURL": "tokens/eip155-1/0xc669928185dbce49d2230cc9b0979be6dc797957/logo.webp",
+  "logoHash": "e961284e6ad7e1d4d7adfc30ea948a3fe9e43165e39dafbf64cebdde8c4e00ab"
+}

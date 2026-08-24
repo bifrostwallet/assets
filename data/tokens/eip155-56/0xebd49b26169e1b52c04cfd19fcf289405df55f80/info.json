@@ -1,0 +1,9 @@
+{
+  "name": "Orbs",
+  "symbol": "ORBS",
+  "decimals": 18,
+  "address": "0xebd49b26169e1b52c04cfd19fcf289405df55f80",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xebd49b26169e1b52c04cfd19fcf289405df55f80/logo.webp",
+  "logoHash": "faf28d73476f3fff3820e913fc2afb2494fd889072e633ccb4381cbfb15a9f78"
+}

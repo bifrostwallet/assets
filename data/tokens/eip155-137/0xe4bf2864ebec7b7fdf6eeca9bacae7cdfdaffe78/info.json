@@ -1,0 +1,9 @@
+{
+  "name": "DODO",
+  "symbol": "DODO",
+  "decimals": 18,
+  "address": "0xe4bf2864ebec7b7fdf6eeca9bacae7cdfdaffe78",
+  "coingeckoId": "dodo",
+  "logoURL": "tokens/eip155-137/0xe4bf2864ebec7b7fdf6eeca9bacae7cdfdaffe78/logo.webp",
+  "logoHash": "ca550d75252e21577f707b8462eba052a92f9850994fd3461737f76bae5634bd"
+}

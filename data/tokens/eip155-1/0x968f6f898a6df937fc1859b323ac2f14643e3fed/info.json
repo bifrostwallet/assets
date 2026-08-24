@@ -1,0 +1,9 @@
+{
+  "name": "Newscrypto",
+  "symbol": "NWC",
+  "decimals": 18,
+  "address": "0x968f6f898a6df937fc1859b323ac2f14643e3fed",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x968f6f898a6df937fc1859b323ac2f14643e3fed/logo.webp",
+  "logoHash": "65647e2ed2029f61789ee1f9245abd14f0a07621de7fb5c8dda1d2ca8bb01d5b"
+}

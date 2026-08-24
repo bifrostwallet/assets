@@ -1,0 +1,9 @@
+{
+  "name": "Weirdo",
+  "symbol": "WEIRDO",
+  "decimals": 8,
+  "address": "0x76734b57dfe834f102fb61e1ebf844adf8dd931e",
+  "coingeckoId": "weirdo-2",
+  "logoURL": "tokens/eip155-8453/0x76734b57dfe834f102fb61e1ebf844adf8dd931e/logo.webp",
+  "logoHash": "4ec2161861d37fba8e4e76dbde770d2ee6bf28111a5cad1fdc7248c97f6dbda7"
+}

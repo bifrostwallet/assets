@@ -1,0 +1,9 @@
+{
+  "name": "Gala Legacy",
+  "symbol": "GALA",
+  "decimals": 8,
+  "address": "0x15d4c048f83bd7e37d49ea4c83a07267ec4203da",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x15d4c048f83bd7e37d49ea4c83a07267ec4203da/logo.webp",
+  "logoHash": "65f888e9d12e926156951b5d541835426238b6049c34cf647f530a305ff03f46"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Dai",
+  "symbol": "DAI",
+  "decimals": 18,
+  "address": "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+  "coingeckoId": "polygon-pos-bridged-dai-polygon-pos",
+  "logoURL": "tokens/eip155-137/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/logo.webp",
+  "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+}

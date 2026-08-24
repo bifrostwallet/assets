@@ -1,0 +1,9 @@
+{
+  "name": "DexTools",
+  "symbol": "DEXT",
+  "decimals": 18,
+  "address": "0xfb7b4564402e5500db5bb6d63ae671302777c75a",
+  "coingeckoId": "dextools",
+  "logoURL": "tokens/eip155-1/0xfb7b4564402e5500db5bb6d63ae671302777c75a/logo.webp",
+  "logoHash": "e38e3896567d1cd88fa3cfa4590280d2e273c9d8b7a7e43acde70655466e7b9d"
+}

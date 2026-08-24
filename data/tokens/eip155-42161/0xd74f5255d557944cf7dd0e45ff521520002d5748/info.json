@@ -1,0 +1,9 @@
+{
+  "name": "Sperax USD",
+  "symbol": "USDS",
+  "decimals": 18,
+  "address": "0xd74f5255d557944cf7dd0e45ff521520002d5748",
+  "coingeckoId": "sperax-usd",
+  "logoURL": "tokens/eip155-42161/0xd74f5255d557944cf7dd0e45ff521520002d5748/logo.webp",
+  "logoHash": "c4e2db7f3cb5a43d2d566cb65f34b784c5339a131ca39b10804ac53890958622"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Alpaca Finance",
+  "symbol": "ALPACA",
+  "decimals": 18,
+  "address": "0x8f0528ce5ef7b51152a59745befdd91d97091d2f",
+  "coingeckoId": "alpaca-finance",
+  "logoURL": "tokens/eip155-56/0x8f0528ce5ef7b51152a59745befdd91d97091d2f/logo.webp",
+  "logoHash": "9cc0b451f3bf14f66d7e75f3ff85fb6f1b53b19340f340f6ce7c3a26484ddc0d"
+}

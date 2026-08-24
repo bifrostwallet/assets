@@ -1,0 +1,9 @@
+{
+  "name": "Multichain",
+  "symbol": "MULTI",
+  "decimals": 18,
+  "address": "0x9fb9a33956351cf4fa040f65a13b835a3c8764e3",
+  "coingeckoId": "multichain-bsc",
+  "logoURL": "tokens/eip155-56/0x9fb9a33956351cf4fa040f65a13b835a3c8764e3/logo.webp",
+  "logoHash": "248133e4a909665903f9e00c3efaed2283331c768e7c5d1670fb9c2ba7e7f5ff"
+}

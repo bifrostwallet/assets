@@ -1,0 +1,9 @@
+{
+  "name": "Test DGB",
+  "symbol": "testDGB",
+  "decimals": 8,
+  "address": "0xc95a32ef14050df4b60f437e230fc94afd0309e6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0xc95a32ef14050df4b60f437e230fc94afd0309e6/logo.webp",
+  "logoHash": "1c7d77b730eec6dd288e1d312e58a0211dbcae127cd090de483f13f7e60c5e45"
+}

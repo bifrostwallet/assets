@@ -1,0 +1,9 @@
+{
+  "name": "Jade Protocol",
+  "symbol": "JADE",
+  "decimals": 9,
+  "address": "0x7ad7242a99f21aa543f9650a56d141c57e4f6081",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x7ad7242a99f21aa543f9650a56d141c57e4f6081/logo.webp",
+  "logoHash": "4832fdb22be300624d31d7b50339b6d89bc382384c6649815ef6b4a60212e57f"
+}

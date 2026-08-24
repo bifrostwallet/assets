@@ -1,0 +1,9 @@
+{
+  "name": "Boba Network",
+  "symbol": "BOBA",
+  "decimals": 18,
+  "address": "0x42bbfa2e77757c645eeaad1655e0911a7553efbc",
+  "coingeckoId": "boba-network",
+  "logoURL": "tokens/eip155-1/0x42bbfa2e77757c645eeaad1655e0911a7553efbc/logo.webp",
+  "logoHash": "31901386eb0a3c8946153ace714a4649e289ffa31ee2d8d54087a40beba1737c"
+}

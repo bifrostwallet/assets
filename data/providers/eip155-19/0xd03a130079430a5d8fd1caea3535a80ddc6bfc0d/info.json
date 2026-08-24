@@ -1,0 +1,24 @@
+{
+  "name": "True FTSO",
+  "description": "Still improving. No cheating. Reliable data. No dumping. Low fee.",
+  "logoURL": "providers/eip155-19/0xd03a130079430a5d8fd1caea3535a80ddc6bfc0d/logo.webp",
+  "logoHash": "e69b08e5ee31a5a4416005b19a90421186e7b87f63700ecfdce4906c0313b3b8",
+  "websiteURL": "https://trueftso.com",
+  "links": {},
+  "identityAddress": "0xd03a130079430a5d8fd1caea3535a80ddc6bfc0d",
+  "delegationAddress": "0xb6ded9d9ca19af10c67f9a8be8ca75e38e166faa",
+  "signingPolicyAddress": "0x53722abc03b122d570adf3f256bcb75640c2968a",
+  "submitAddress": "0x85d134f68c3c564bb935479490e5c8df5f4f1124",
+  "submitSignaturesAddress": "0x736188c74a6fdae726d319c41bae03e2776481e7",
+  "publicKey": "0x083a999cd108a0c9c4255c625d47ce58633f4a9251f07206551fddebb7e12481182ce213f779264a780779b21202db357e938703dc0a02cb0f50fa9d238227a8",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xa83aa9344c482861ff89b094744365bcc39d7a88fafa78475b0391d54864c84a",
+    "blockNumber": 24203333,
+    "timestamp": "2022-10-09T14:39:34.000Z"
+  }
+}

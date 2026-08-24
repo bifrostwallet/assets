@@ -1,0 +1,9 @@
+{
+  "name": "ForTube",
+  "symbol": "FOR",
+  "decimals": 18,
+  "address": "0x1fcdce58959f536621d76f5b7ffb955baa5a672f",
+  "coingeckoId": "force-protocol",
+  "logoURL": "tokens/eip155-1/0x1fcdce58959f536621d76f5b7ffb955baa5a672f/logo.webp",
+  "logoHash": "35f9f4442450f3f6cfb2ae734c4ffa5c3a3e6fc233af4e9417b0807ecca96b8e"
+}

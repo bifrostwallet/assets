@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Wrapped XDC",
+    "symbol": "WXDC",
+    "decimals": 18,
+    "address": "0x951857744785e80e2de051c32ee7b25f9c458c42",
+    "coingeckoId": "xdce-crowd-sale",
+    "logoURL": "tokens/eip155-50/0x951857744785e80e2de051c32ee7b25f9c458c42/logo.webp",
+    "logoHash": "40bff044cb6e2ca9a7b74563dc085a8652f9d8f6bf6a9fecefe271e53f320c99"
+  },
+  {
+    "name": "USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0xfa2958cb79b0491cc627c1557f441ef849ca8eb1",
+    "coingeckoId": "usd-coin",
+    "logoURL": "tokens/eip155-50/0xfa2958cb79b0491cc627c1557f441ef849ca8eb1/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "XDC",
+    "symbol": "XDC",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": "xdce-crowd-sale",
+    "logoURL": "tokens/eip155-50/native/logo.webp",
+    "logoHash": "bac2459a7bce038877bbeab060f665a95dc2fa0aea2f33f044e7269d31717e7a"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "Peercoin",
+  "symbol": "PPC",
+  "decimals": 6,
+  "address": "0x044d078f1c86508e13328842cc75ac021b272958",
+  "coingeckoId": "peercoin",
+  "logoURL": "tokens/eip155-1/0x044d078f1c86508e13328842cc75ac021b272958/logo.webp",
+  "logoHash": "0920535d7c7a204f4ac1260a3a245e4720f61fdea5a61e69c4b9525dd147dca2"
+}

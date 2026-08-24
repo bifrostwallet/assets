@@ -1,0 +1,9 @@
+{
+  "name": "SOTA Finance",
+  "symbol": "SOTA",
+  "decimals": 18,
+  "address": "0x0dde6f6e345bfd23f3f419f0dfe04e93143b44fb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x0dde6f6e345bfd23f3f419f0dfe04e93143b44fb/logo.webp",
+  "logoHash": "bd02e01a0e7a415709baaba132596fb01cfc2753c4210a978e664d1cd7e2090b"
+}

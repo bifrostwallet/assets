@@ -1,0 +1,9 @@
+{
+  "name": "flexUSD",
+  "symbol": "FLEXUSD",
+  "decimals": 18,
+  "address": "0xa774ffb4af6b0a91331c084e1aebae6ad535e6f3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa774ffb4af6b0a91331c084e1aebae6ad535e6f3/logo.webp",
+  "logoHash": "e941a856967016428e703b78f8a42ee483cd887795b4e16caf6930d884e3bc7e"
+}

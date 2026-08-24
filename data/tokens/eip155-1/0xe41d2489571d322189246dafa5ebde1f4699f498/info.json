@@ -1,0 +1,9 @@
+{
+  "name": "0x",
+  "symbol": "ZRX",
+  "decimals": 18,
+  "address": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+  "coingeckoId": "0x",
+  "logoURL": "tokens/eip155-1/0xe41d2489571d322189246dafa5ebde1f4699f498/logo.webp",
+  "logoHash": "bf6f6eb32d64249aea42052f55f63051eac1e7b28e04d489a76c6f159c3f589c"
+}

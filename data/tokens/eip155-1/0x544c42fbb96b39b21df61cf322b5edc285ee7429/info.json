@@ -1,0 +1,9 @@
+{
+  "name": "InsurAce",
+  "symbol": "INSUR",
+  "decimals": 18,
+  "address": "0x544c42fbb96b39b21df61cf322b5edc285ee7429",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x544c42fbb96b39b21df61cf322b5edc285ee7429/logo.webp",
+  "logoHash": "dc79e8053e3cd0076b695b072620484c941aed66100c0e20a88e573c2ad89f40"
+}

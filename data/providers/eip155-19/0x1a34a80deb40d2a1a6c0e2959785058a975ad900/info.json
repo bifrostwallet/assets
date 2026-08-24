@@ -1,0 +1,24 @@
+{
+  "name": "Linden Services",
+  "description": "Linden Services provides data to the Flare oracle system, validates transactions and blocks, and participates in the consensus process.",
+  "logoURL": "providers/eip155-19/0x1a34a80deb40d2a1a6c0e2959785058a975ad900/logo.webp",
+  "logoHash": "7db78198e04a6936f5f87812dba59dd2e818fd440e34386b25eb58d3dfd23e9f",
+  "websiteURL": "https://lindenservices.org",
+  "links": {},
+  "identityAddress": "0x1a34a80deb40d2a1a6c0e2959785058a975ad900",
+  "delegationAddress": "0x27cb5f4eba81976617b75953053d33ef2002dadf",
+  "signingPolicyAddress": "0x0aad8d0bab50599b1669a36dbf1fe4896242a093",
+  "submitAddress": "0xc3b54c0ac337cb33eed108f1a23a95983c8c58aa",
+  "submitSignaturesAddress": "0x5068d865a9c5e314286af73c059bee47ef8988c7",
+  "publicKey": "0x292883d48b92f9d3da7798dc51e05adbd9b18d427de16ef867c1a8b89a7864212a18a0bc6304c0ee8990f45791ddc3838e5cbdfd2c8bc70b0f3fcba16481432a",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xd59bc0038a504b5df8147d7c19104adbbb8ec806bd0d56b87425dd39f9b8c510",
+    "blockNumber": 81515999,
+    "timestamp": "2025-01-18T10:58:01.000Z"
+  }
+}

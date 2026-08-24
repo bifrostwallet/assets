@@ -1,0 +1,9 @@
+{
+  "name": "Dego Finance",
+  "symbol": "DEGO",
+  "decimals": 18,
+  "address": "0x88ef27e69108b2633f8e1c184cc37940a075cc02",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x88ef27e69108b2633f8e1c184cc37940a075cc02/logo.webp",
+  "logoHash": "1031cc75326db2d61540f997a69094ea1bdab7e99f71ec7f3279406e4ed6beac"
+}

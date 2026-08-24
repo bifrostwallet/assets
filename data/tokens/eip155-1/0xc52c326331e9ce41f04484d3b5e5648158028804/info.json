@@ -1,0 +1,9 @@
+{
+  "name": "Unizen",
+  "symbol": "ZCX",
+  "decimals": 18,
+  "address": "0xc52c326331e9ce41f04484d3b5e5648158028804",
+  "coingeckoId": "unizen",
+  "logoURL": "tokens/eip155-1/0xc52c326331e9ce41f04484d3b5e5648158028804/logo.webp",
+  "logoHash": "a71ad29878c90d96246334eb1a08d5d10000d1efd204eaabd702fc4c6e80bc7f"
+}

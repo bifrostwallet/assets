@@ -1,0 +1,24 @@
+{
+  "name": "uGaenn",
+  "description": "Your gain is our first priority.",
+  "logoURL": "providers/eip155-19/0xd249c7e0bdb6f407604260350ed56e7dd5254e51/logo.webp",
+  "logoHash": "e4944068ca635a93257ddcf486cfb91f60ad3075be28faaa17c46663713d772f",
+  "websiteURL": "https://ugaenn.io",
+  "links": {},
+  "identityAddress": "0xd249c7e0bdb6f407604260350ed56e7dd5254e51",
+  "delegationAddress": "0xb53d69b2519ac9f6d65cff8e7824bf09f7064d61",
+  "signingPolicyAddress": "0x31e412e114629702281533cc657be76ad928283b",
+  "submitAddress": "0x9247b83e99cb6d1a4546c2efea7595137a0532e7",
+  "submitSignaturesAddress": "0xbb654271f2a2debfdb3e702067fe9aaa484a3981",
+  "publicKey": "0x1c45b94cfc6175b40338b6155bc5a0c72b5c514ef7cdab54812edf61a26396960298fe3014b702cb1c7c61c6be071b6d229d7d40ec32b7f6426947887851a3f0",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x54588276e7659513346887fa49d18c934c2ed49f0b9df83749fc9dc58d360c80",
+    "blockNumber": 82085,
+    "timestamp": "2021-09-24T09:46:38.000Z"
+  }
+}

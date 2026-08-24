@@ -1,0 +1,29 @@
+{
+  "name": "PRICEKRAKEN",
+  "description": "Germany based FTSO data provider with passion for improvements",
+  "logoURL": "providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
+  "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
+  "websiteURL": "https://www.pricekraken.de",
+  "links": {},
+  "identityAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",
+  "delegationAddress": "0xb95f930711da83226416ffaab084249b2e01e1f2",
+  "signingPolicyAddress": "0x4dfcbc3a1529fb3c07245095fba7830063d71c34",
+  "submitAddress": "0xe0bfd268e193103cb3e8331725414d7644f05e35",
+  "submitSignaturesAddress": "0x80cfaefb05c359dd29f5b2dbb740efe3fab6ec0a",
+  "publicKey": "0x171273b327df8ad296197fbd9debad79f48b4947908d6c051a0a877c6024c4521efe76332552c0dca22e95494cf33e6fc25da56b1599dacab5545625acfac94f",
+  "validators": [
+    "NodeID-7egxBVmPJsHRetTjbxWUwbnLjCxmeHXrj",
+    "NodeID-9BUEHTS9efRkLwiirEf9x7oQ6kZZBBsWZ",
+    "NodeID-Mvr4Mv2qL4xgHsuaASvRyDQD4JsgrohgZ",
+    "NodeID-VpU9ehka7wy9C3KBjajfTop1vgkyXtzR"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x8063a8138426badf3e7c3c0154db12ef78fdba364241ef01de0ed73164c2e66c",
+    "blockNumber": 17403,
+    "timestamp": "2022-07-22T21:29:11.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Flare",
+  "symbol": "FLR",
+  "decimals": 18,
+  "address": null,
+  "coingeckoId": "flare-networks",
+  "logoURL": "tokens/eip155-14/native/logo.webp",
+  "logoHash": "7070253ce2a1da68057c284e17a1dfab6b6f7e6068fd3188a1ca25f7c8f7d5fa"
+}

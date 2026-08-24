@@ -1,0 +1,9 @@
+{
+  "name": "Mask Network",
+  "symbol": "MASK",
+  "decimals": 18,
+  "address": "0x2ed9a5c8c13b93955103b9a7c167b67ef4d568a3",
+  "coingeckoId": "mask-network",
+  "logoURL": "tokens/eip155-56/0x2ed9a5c8c13b93955103b9a7c167b67ef4d568a3/logo.webp",
+  "logoHash": "31c5ee70abd6e44ebb2a2130e1762434b1c136247a31c2856a5899c5af3332a8"
+}

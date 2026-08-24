@@ -1,0 +1,9 @@
+{
+  "name": "DEI",
+  "symbol": "DEI",
+  "decimals": 18,
+  "address": "0xde12c7959e1a72bbe8a5f7a1dc8f8eef9ab011b3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0xde12c7959e1a72bbe8a5f7a1dc8f8eef9ab011b3/logo.webp",
+  "logoHash": "15e54970ad1eb1e368bbce90b273990df66544b8b77ab7e4c980f4bd5199d1c2"
+}

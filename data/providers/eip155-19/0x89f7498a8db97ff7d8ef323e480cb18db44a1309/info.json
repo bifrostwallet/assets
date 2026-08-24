@@ -1,0 +1,24 @@
+{
+  "name": "EvolveFTSO",
+  "description": "EvolveFTSO is a reliable data provider, run by a team providing continuous improvements to produce the best results",
+  "logoURL": "providers/eip155-19/0x89f7498a8db97ff7d8ef323e480cb18db44a1309/logo.webp",
+  "logoHash": "42aaf8db31dc96bb01326fba42a97be08e953155af9bb6ff30626296f5d2c9d4",
+  "websiteURL": "https://evolveftso.com",
+  "links": {},
+  "identityAddress": "0x89f7498a8db97ff7d8ef323e480cb18db44a1309",
+  "delegationAddress": "0x0f80af5b905a9a34f69e74412c4a00b231d26daa",
+  "signingPolicyAddress": "0x0e879d2836196f9bb212eaa5d6b206fa633a8370",
+  "submitAddress": "0x216e8856902c0e90170e1a4f1bc8659c1b200afc",
+  "submitSignaturesAddress": "0xdeb6752c4120e1ee876ef39a3034c146fae189f8",
+  "publicKey": "0x09527f5f57482741588df7c7ece2801b77497a50c525983d20121c08259f60a210582db660b71b08db2eb6c6059561358f63c44db072a64c2aededdf3ded9428",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5820c65ab2e445ee566f1364c5bb9c51a33de204a1e274e7864dad4f30a74c79",
+    "blockNumber": 10604457,
+    "timestamp": "2022-02-15T16:28:06.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "PAX Gold",
+  "symbol": "PAXG",
+  "decimals": 18,
+  "address": "0x45804880de22913dafe09f4980848ece6ecbaf78",
+  "coingeckoId": "pax-gold",
+  "logoURL": "tokens/eip155-1/0x45804880de22913dafe09f4980848ece6ecbaf78/logo.webp",
+  "logoHash": "fdfb7cd2a7d3ee90ff757acbdc17da9109e0244d9efbe380835aaee3313c1f03"
+}

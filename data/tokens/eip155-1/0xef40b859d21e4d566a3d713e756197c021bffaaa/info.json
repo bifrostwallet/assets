@@ -1,0 +1,9 @@
+{
+  "name": "APENFT",
+  "symbol": "NFT",
+  "decimals": 6,
+  "address": "0xef40b859d21e4d566a3d713e756197c021bffaaa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xef40b859d21e4d566a3d713e756197c021bffaaa/logo.webp",
+  "logoHash": "b289a2b544b5f272e090deb15550a36d440789eeef68c7b14c22f3fd7c779788"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Tokocrypto",
+  "symbol": "TKO",
+  "decimals": 18,
+  "address": "0x9f589e3eabe42ebc94a44727b3f3531c0c877809",
+  "coingeckoId": "tokocrypto",
+  "logoURL": "tokens/eip155-56/0x9f589e3eabe42ebc94a44727b3f3531c0c877809/logo.webp",
+  "logoHash": "b76410d10bd372170235a4923a455fc36db386ad92b73c41ad8d9b15129e6a73"
+}

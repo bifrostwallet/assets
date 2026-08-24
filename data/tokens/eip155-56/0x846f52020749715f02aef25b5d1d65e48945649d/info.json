@@ -1,0 +1,9 @@
+{
+  "name": "Umbrella Network",
+  "symbol": "UMB",
+  "decimals": 18,
+  "address": "0x846f52020749715f02aef25b5d1d65e48945649d",
+  "coingeckoId": "umbrella-network",
+  "logoURL": "tokens/eip155-56/0x846f52020749715f02aef25b5d1d65e48945649d/logo.webp",
+  "logoHash": "11506929627e64905a05f62ed2795b81e75a0a23a0120094419e0cd622c048fd"
+}

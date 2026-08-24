@@ -1,0 +1,9 @@
+{
+  "name": "Pax Dollar",
+  "symbol": "USDP",
+  "decimals": 18,
+  "address": "0x8e870d67f660d95d5be530380d0ec0bd388289e1",
+  "coingeckoId": "paxos-standard",
+  "logoURL": "tokens/eip155-1/0x8e870d67f660d95d5be530380d0ec0bd388289e1/logo.webp",
+  "logoHash": "c62866d269319e92b03e42ae3e95628e0c6f422111be1aed5080e5ad01168572"
+}

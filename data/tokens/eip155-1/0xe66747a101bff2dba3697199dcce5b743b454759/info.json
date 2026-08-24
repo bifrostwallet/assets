@@ -1,0 +1,9 @@
+{
+  "name": "GateToken",
+  "symbol": "GT",
+  "decimals": 18,
+  "address": "0xe66747a101bff2dba3697199dcce5b743b454759",
+  "coingeckoId": "gatechain-token",
+  "logoURL": "tokens/eip155-1/0xe66747a101bff2dba3697199dcce5b743b454759/logo.webp",
+  "logoHash": "8af9ed53a2e3adc18bce872cbad6c574940f816cf0f15cc5a928eb651e92402a"
+}

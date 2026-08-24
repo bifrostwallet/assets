@@ -1,0 +1,9 @@
+{
+  "name": "Liquity USD",
+  "symbol": "LUSD",
+  "decimals": 18,
+  "address": "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
+  "coingeckoId": "liquity-usd",
+  "logoURL": "tokens/eip155-1/0x5f98805a4e8be255a32880fdec7f6728c6568ba0/logo.webp",
+  "logoHash": "24ab59b0218f12d4625a90eff407e3a1bdb7abb5283603271d5ff064fb4a184e"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ShibaDoge",
+  "symbol": "SHIBDOGE",
+  "decimals": 9,
+  "address": "0x6adb2e268de2aa1abf6578e4a8119b960e02928f",
+  "coingeckoId": "shibadoge",
+  "logoURL": "tokens/eip155-1/0x6adb2e268de2aa1abf6578e4a8119b960e02928f/logo.webp",
+  "logoHash": "3e3cb3c6230e575f037767028cdecc2eccc9862b307b32b94110857034897cec"
+}

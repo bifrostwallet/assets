@@ -1,0 +1,9 @@
+{
+  "name": "SpiritSwap",
+  "symbol": "SPIRIT",
+  "decimals": 18,
+  "address": "0x5cc61a78f164885776aa610fb0fe1257df78e59b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0x5cc61a78f164885776aa610fb0fe1257df78e59b/logo.webp",
+  "logoHash": "43555fa4ef1c5ecf42e722926e1bf39ec8de95de3f14a3d98e9a2e972c8d1998"
+}

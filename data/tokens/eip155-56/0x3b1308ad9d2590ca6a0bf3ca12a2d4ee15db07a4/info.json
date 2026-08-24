@@ -1,0 +1,9 @@
+{
+  "name": "Power Cash",
+  "symbol": "PRCH",
+  "decimals": 9,
+  "address": "0x3b1308ad9d2590ca6a0bf3ca12a2d4ee15db07a4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x3b1308ad9d2590ca6a0bf3ca12a2d4ee15db07a4/logo.webp",
+  "logoHash": "9b7059685e9fc3d64318fdc2f6752dcbd802c68d7b3722a9dfdf4f3c6784c7b8"
+}

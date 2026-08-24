@@ -1,0 +1,24 @@
+{
+  "name": "FlareFi",
+  "description": "We are a trustworthy data provider for Songbird and Flare Network, the new distributed ecosystem. We collect data reliably for the benefit of the ecosystem and our delegators.",
+  "logoURL": "providers/eip155-19/0x98bbe5658da8b31fbd3f07157a2cff4d10c0f22e/logo.webp",
+  "logoHash": "87e3fb050701a26dede20d67c63e50999079bab9323a19c42f55669f76db0868",
+  "websiteURL": "https://flarefi.tech",
+  "links": {},
+  "identityAddress": "0x98bbe5658da8b31fbd3f07157a2cff4d10c0f22e",
+  "delegationAddress": "0x5f3c5991de3f0713715a733ee125785d516ceb16",
+  "signingPolicyAddress": "0x519468fd9811661f490cb921b499d2388bc9426b",
+  "submitAddress": "0xe8a41662716c769b139860a947f3d4ef084084f1",
+  "submitSignaturesAddress": "0x074f47e258d65780faa3d4ee365565f506fc083c",
+  "publicKey": "0x19c49dfbdf5df0f7319b22b2eb913f29d15e22f51ced5dbb567bb6a903b81bb808b8b8b1f360d4655f0cb6a9b628c73afc21176b595b7117485d344061034fba",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x31e632e441f092fbdec854f66c22fa89f28e1ecd59303eddc88e9ee4d80492fd",
+    "blockNumber": 999634,
+    "timestamp": "2021-10-21T17:27:29.000Z"
+  }
+}

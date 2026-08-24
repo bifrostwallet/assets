@@ -1,0 +1,29 @@
+{
+  "name": "Oracle Daemon",
+  "description": "Oracle Daemon is a team of dedicated professionals designing the best data provider.",
+  "logoURL": "providers/eip155-14/0xa6f5901011aac01427428c97394743e193879490/logo.webp",
+  "logoHash": "0916a175fe63e7eedb0ecc687bb7c9c492212d0c9a2d81d2ad0096723eb2912a",
+  "websiteURL": "https://www.oracle-daemon.com",
+  "links": {},
+  "identityAddress": "0xa6f5901011aac01427428c97394743e193879490",
+  "delegationAddress": "0xfe532cb6fb3c47940aea7bead4d61c5e041d950e",
+  "signingPolicyAddress": "0xaf249d4eb561673adbf4af97a09db76617ba143f",
+  "submitAddress": "0xcc5ceeb5d05e3ce0a738892fa0a7abea4cd79479",
+  "submitSignaturesAddress": "0xce11a43890b7dfad0615c5ed6016fa8a7812a8bb",
+  "publicKey": "0x128a1263910da101b0c6e0a73c5df60caf36ac4addbcd7a1451a669c810c41222481e1dc76d5d03ce87cfe1521f12c928b0b642d7a44d58b3f0da78fac2862a6",
+  "validators": [
+    "NodeID-2a7BPY7UeJv2njMuyUHfBSTeQCYZj6bwV",
+    "NodeID-2miZhA7JAnyf9s5rYzDeNciwg4448LKsP",
+    "NodeID-GEC63GVfeYLG5UUBPSgiiN4YMvT71jdP",
+    "NodeID-N3GDYNsVNMxYTW4ULzrfRZpy3tRnhxKSQ"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x34ff3e67265345dd1f986a3c33af84c56ffd8644ca7e5c1ddaedce91cebe276f",
+    "blockNumber": 50448,
+    "timestamp": "2022-07-25T13:53:20.000Z"
+  }
+}

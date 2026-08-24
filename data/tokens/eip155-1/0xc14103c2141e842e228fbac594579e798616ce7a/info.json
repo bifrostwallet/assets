@@ -1,0 +1,9 @@
+{
+  "name": "Synth Litecoin",
+  "symbol": "SLTC",
+  "decimals": 18,
+  "address": "0xc14103c2141e842e228fbac594579e798616ce7a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc14103c2141e842e228fbac594579e798616ce7a/logo.webp",
+  "logoHash": "22eaf7cf090b86b5605039006672ed21f813e40853a3a1469aed0776242a0189"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "FEG Token",
+  "symbol": "FEG",
+  "decimals": 9,
+  "address": "0x389999216860ab8e0175387a0c90e5c52522c945",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x389999216860ab8e0175387a0c90e5c52522c945/logo.webp",
+  "logoHash": "46c76668a401e35bbe8de5dd4e6a541440f88f090dd1d842f3f5e086204cca54"
+}

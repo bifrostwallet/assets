@@ -1,0 +1,9 @@
+{
+  "name": "Test ADA",
+  "symbol": "testADA",
+  "decimals": 6,
+  "address": "0x8048c36831d8f7e40365cf11cff6db66293ec9e9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x8048c36831d8f7e40365cf11cff6db66293ec9e9/logo.webp",
+  "logoHash": "2bcf9b3f500d403e6ef812133e268a58da456045f98cab69ac928068fe3c7bb1"
+}

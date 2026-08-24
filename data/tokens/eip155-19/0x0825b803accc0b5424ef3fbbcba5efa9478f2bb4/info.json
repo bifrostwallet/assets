@@ -1,0 +1,9 @@
+{
+  "name": "LOVE Token",
+  "symbol": "LOVE",
+  "decimals": 18,
+  "address": "0x0825b803accc0b5424ef3fbbcba5efa9478f2bb4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x0825b803accc0b5424ef3fbbcba5efa9478f2bb4/logo.webp",
+  "logoHash": "75861a76b481363f500b812ca25588370e10610a852132881028b56d6c7ea189"
+}

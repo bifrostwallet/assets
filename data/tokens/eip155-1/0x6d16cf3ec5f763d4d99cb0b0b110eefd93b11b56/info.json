@@ -1,0 +1,9 @@
+{
+  "name": "Synth Perpetual Oil Futures",
+  "symbol": "SOIL",
+  "decimals": 18,
+  "address": "0x6d16cf3ec5f763d4d99cb0b0b110eefd93b11b56",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x6d16cf3ec5f763d4d99cb0b0b110eefd93b11b56/logo.webp",
+  "logoHash": "49dbb3e8f8d1a32f7bcf291398bf2d8a6be18cc94d9afed6bb16db5ee025bf17"
+}

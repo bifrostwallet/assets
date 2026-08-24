@@ -1,0 +1,9 @@
+{
+  "name": "USDC",
+  "symbol": "USDC",
+  "decimals": 6,
+  "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+  "coingeckoId": "usd-coin",
+  "logoURL": "tokens/eip155-42161/0xaf88d065e77c8cc2239327c5edb3a432268e5831/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Velas",
+  "symbol": "VLX",
+  "decimals": 18,
+  "address": "0x8c543aed163909142695f2d2acd0d55791a9edb9",
+  "coingeckoId": "velas",
+  "logoURL": "tokens/eip155-1/0x8c543aed163909142695f2d2acd0d55791a9edb9/logo.webp",
+  "logoHash": "59f2ec3d5c120b1e48f603e5e44c88bcc6f40e766f4399d6d53cea9bac4b56b4"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Seedify.fund",
+  "symbol": "SFUND",
+  "decimals": 18,
+  "address": "0x477bc8d23c634c154061869478bce96be6045d12",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x477bc8d23c634c154061869478bce96be6045d12/logo.webp",
+  "logoHash": "bcb6668e0f4806171362f681b6f3b38e3d2b8680c22adaaad71474196301f629"
+}

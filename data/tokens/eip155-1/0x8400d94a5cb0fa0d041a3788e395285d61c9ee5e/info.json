@@ -1,0 +1,9 @@
+{
+  "name": "Unibright",
+  "symbol": "UBT",
+  "decimals": 8,
+  "address": "0x8400d94a5cb0fa0d041a3788e395285d61c9ee5e",
+  "coingeckoId": "unibright",
+  "logoURL": "tokens/eip155-1/0x8400d94a5cb0fa0d041a3788e395285d61c9ee5e/logo.webp",
+  "logoHash": "0bbc5f1dcd37ca9fb73813e57fa005e2503418c4a802dd4325b1650b3130bea1"
+}

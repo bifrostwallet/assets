@@ -1,0 +1,9 @@
+{
+  "name": "Tranchess",
+  "symbol": "CHESS",
+  "decimals": 18,
+  "address": "0x20de22029ab63cf9a7cf5feb2b737ca1ee4c82a6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x20de22029ab63cf9a7cf5feb2b737ca1ee4c82a6/logo.webp",
+  "logoHash": "192f274d06813545afe85e68d4cc5466d8d5072c2cc614f3c8f8d85c388799bd"
+}

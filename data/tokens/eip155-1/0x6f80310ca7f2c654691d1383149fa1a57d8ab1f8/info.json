@@ -1,0 +1,9 @@
+{
+  "name": "Silo Finance",
+  "symbol": "SILO",
+  "decimals": 18,
+  "address": "0x6f80310ca7f2c654691d1383149fa1a57d8ab1f8",
+  "coingeckoId": "silo-finance",
+  "logoURL": "tokens/eip155-1/0x6f80310ca7f2c654691d1383149fa1a57d8ab1f8/logo.webp",
+  "logoHash": "3b36524c59ebc8a0d5462f4b143e70e3edd1a06911859fed015395e0975e09f3"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "GET Protocol",
+  "symbol": "GET",
+  "decimals": 18,
+  "address": "0x8a854288a5976036a725879164ca3e91d30c6a1b",
+  "coingeckoId": "get-token",
+  "logoURL": "tokens/eip155-1/0x8a854288a5976036a725879164ca3e91d30c6a1b/logo.webp",
+  "logoHash": "4e302140efdc77f26a51aef97717a73cebfa485838c8aeb38c09655f6be8ed3a"
+}

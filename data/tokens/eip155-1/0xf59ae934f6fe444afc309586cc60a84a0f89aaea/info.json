@@ -1,0 +1,9 @@
+{
+  "name": "Polkadex",
+  "symbol": "PDEX",
+  "decimals": 18,
+  "address": "0xf59ae934f6fe444afc309586cc60a84a0f89aaea",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf59ae934f6fe444afc309586cc60a84a0f89aaea/logo.webp",
+  "logoHash": "4aa3cb0fe760d454a4e7787a5f198243b1ddd0dafac472e83e1c130c485b156c"
+}

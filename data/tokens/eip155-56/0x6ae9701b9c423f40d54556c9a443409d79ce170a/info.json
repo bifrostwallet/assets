@@ -1,0 +1,9 @@
+{
+  "name": "Polkacity",
+  "symbol": "POLC",
+  "decimals": 18,
+  "address": "0x6ae9701b9c423f40d54556c9a443409d79ce170a",
+  "coingeckoId": "polka-city",
+  "logoURL": "tokens/eip155-56/0x6ae9701b9c423f40d54556c9a443409d79ce170a/logo.webp",
+  "logoHash": "9ec04064b41ea28a4b9ef7f64ed29e22834471829d93463e74c4b517b2261597"
+}

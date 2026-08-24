@@ -1,0 +1,24 @@
+{
+  "name": "FocusTSO",
+  "description": "FocusTSO. Data provider built by Focus Global Team of developers and Polish Flare community members who run an educational portal in Polish , English and Japanese. The team also provide tools like Airdrop Simulator and recently released Delegation Portal.",
+  "logoURL": "providers/eip155-14/0x3a32539045a214958132e1d9afba66460e0073eb/logo.webp",
+  "logoHash": "25070ceacff7468420520169071829290bd09195e3587c6188056b96780f929f",
+  "websiteURL": "https://ftso.focusflr.app",
+  "links": {},
+  "identityAddress": "0x3a32539045a214958132e1d9afba66460e0073eb",
+  "delegationAddress": "0xb084575cacedf7dedd78329656715651f8f66712",
+  "signingPolicyAddress": "0xe7a203ff45e25519fee8c25bb257e466a9f6285a",
+  "submitAddress": "0x77e37adfde61942ceb46f6657e65001e0baae805",
+  "submitSignaturesAddress": "0xff6da679b1d4fed143512abc26f5b890b3edc236",
+  "publicKey": "0x0933cb8ba42c3d45fd0bda914b1ce4714bd83d4c77120bb44e606e9a8b4c8f882250e2e419b31800c047a7fe21f4c917e0f50125646e78e647c1604b389ac264",
+  "validators": ["NodeID-D3QKd6XxLnrKowkziZJSG4RNLtffz8ESk"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xa6150b1791e11f55d1527f7951b76afe7e7efef034307d911ec390abfc24522b",
+    "blockNumber": 10863920,
+    "timestamp": "2023-07-18T03:52:48.000Z"
+  }
+}

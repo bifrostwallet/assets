@@ -1,0 +1,9 @@
+{
+  "name": "KardiaChain",
+  "symbol": "KAI",
+  "decimals": 18,
+  "address": "0x39ae8eefb05138f418bb27659c21632dc1ddab10",
+  "coingeckoId": "kardiachain",
+  "logoURL": "tokens/eip155-56/0x39ae8eefb05138f418bb27659c21632dc1ddab10/logo.webp",
+  "logoHash": "c167c5d3320154a42450f1b4b90c316cf0310d24bf4bbefc7d36906435c354e7"
+}

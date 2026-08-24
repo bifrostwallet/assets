@@ -1,0 +1,9 @@
+{
+  "name": "PARSIQ",
+  "symbol": "PRQ",
+  "decimals": 18,
+  "address": "0x362bc847a3a9637d3af6624eec853618a43ed7d2",
+  "coingeckoId": "parsiq",
+  "logoURL": "tokens/eip155-1/0x362bc847a3a9637d3af6624eec853618a43ed7d2/logo.webp",
+  "logoHash": "2c285366c665ae1ba27549add0ebb8064e4eb7670546ddd61b9e671cb3267a59"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Synth DeFi Index",
+  "symbol": "SDEFI",
+  "decimals": 18,
+  "address": "0xe1afe1fd76fd88f78cbf599ea1846231b8ba3b6b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xe1afe1fd76fd88f78cbf599ea1846231b8ba3b6b/logo.webp",
+  "logoHash": "1a685494336ee078f3f68886c44c7b0345c50c6dfdbbc9403321d1034687b023"
+}

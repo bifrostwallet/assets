@@ -1,0 +1,9 @@
+{
+  "name": "Stake DAO",
+  "symbol": "SDT",
+  "decimals": 18,
+  "address": "0x7ba4a00d54a07461d9db2aef539e91409943adc9",
+  "coingeckoId": "stake-dao",
+  "logoURL": "tokens/eip155-42161/0x7ba4a00d54a07461d9db2aef539e91409943adc9/logo.webp",
+  "logoHash": "01cba6ee0b7e1f59f6ce03b57138577b03f7fb57bde880e2d85e3115d438deff"
+}

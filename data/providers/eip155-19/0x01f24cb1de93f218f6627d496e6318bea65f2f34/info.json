@@ -1,0 +1,24 @@
+{
+  "name": "Bushido FTSO",
+  "description": "As samurai are born to serve their lord and die, Bushido FTSO exists to provide accurate and reliable prices for the Songbird ecosystem.",
+  "logoURL": "providers/eip155-19/0x01f24cb1de93f218f6627d496e6318bea65f2f34/logo.webp",
+  "logoHash": "4432fb046093f129e4c962667d8c155b8768657ffaaecda0d38769a8c14cf73c",
+  "websiteURL": "https://bushi.finance",
+  "links": {},
+  "identityAddress": "0x01f24cb1de93f218f6627d496e6318bea65f2f34",
+  "delegationAddress": "0x0d3852ad415477ffc39ce9351bd4dedbbd585833",
+  "signingPolicyAddress": "0x9e475034972d8acc3fe28e9a950d73a7631254e4",
+  "submitAddress": "0x854d6971733c84a8a62bab6f62a588a9e1e33f92",
+  "submitSignaturesAddress": "0x2e98485ba7f43d418e7380592e50a155ec8840a4",
+  "publicKey": "0x1529a7aa863f5f9bb74c3d4acf15ec970443bc44fd530a12a18a6f2bb3af75b709de5e46ae24922f2e96e7564601c1e9f8c6df448e3e9f6c9dcc19e3246fe64a",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x87f1729fd587f4839e4641ee5dc5d4af48226e46f160958eea0977f53f249fa5",
+    "blockNumber": 14488325,
+    "timestamp": "2022-04-16T11:10:08.000Z"
+  }
+}

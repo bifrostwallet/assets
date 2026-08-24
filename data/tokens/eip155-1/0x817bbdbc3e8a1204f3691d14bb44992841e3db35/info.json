@@ -1,0 +1,9 @@
+{
+  "name": "Cudos",
+  "symbol": "CUDOS",
+  "decimals": 18,
+  "address": "0x817bbdbc3e8a1204f3691d14bb44992841e3db35",
+  "coingeckoId": "cudos",
+  "logoURL": "tokens/eip155-1/0x817bbdbc3e8a1204f3691d14bb44992841e3db35/logo.webp",
+  "logoHash": "754e7a5d6a094c333825556d8bef27da343f9812cf7d40f0d770ffdae7151889"
+}

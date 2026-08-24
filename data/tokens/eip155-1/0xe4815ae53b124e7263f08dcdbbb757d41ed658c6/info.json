@@ -1,0 +1,9 @@
+{
+  "name": "ZKSwap",
+  "symbol": "ZKS",
+  "decimals": 18,
+  "address": "0xe4815ae53b124e7263f08dcdbbb757d41ed658c6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xe4815ae53b124e7263f08dcdbbb757d41ed658c6/logo.webp",
+  "logoHash": "8730f1db583e4714c58bb2afd8a23efe2151686d24662d3cf468651f6318f821"
+}

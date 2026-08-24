@@ -1,0 +1,9 @@
+{
+  "name": "Coin98",
+  "symbol": "C98",
+  "decimals": 18,
+  "address": "0xae12c5930881c53715b369cec7606b70d8eb229f",
+  "coingeckoId": "coin98",
+  "logoURL": "tokens/eip155-1/0xae12c5930881c53715b369cec7606b70d8eb229f/logo.webp",
+  "logoHash": "d871612b1a2dd28043a6067e01c36f144d647d507fe002dee7f778714d18562c"
+}

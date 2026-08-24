@@ -1,0 +1,9 @@
+{
+  "name": "StormX",
+  "symbol": "STMX",
+  "decimals": 18,
+  "address": "0xa62cc35625b0c8dc1faea39d33625bb4c15bd71c",
+  "coingeckoId": "storm",
+  "logoURL": "tokens/eip155-1/0xa62cc35625b0c8dc1faea39d33625bb4c15bd71c/logo.webp",
+  "logoHash": "e6b713db95f3d7ea4e1f13bf16f3f953dea893423ef21f242b01088868e1d62c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Ampleforth Governance Token",
+  "symbol": "FORTH",
+  "decimals": 18,
+  "address": "0x77fba179c79de5b7653f68b5039af940ada60ce0",
+  "coingeckoId": "ampleforth-governance-token",
+  "logoURL": "tokens/eip155-1/0x77fba179c79de5b7653f68b5039af940ada60ce0/logo.webp",
+  "logoHash": "7cdc325546bb40e961882e9be8a3d7641bf9e591608e451d0bd38ff331573a8e"
+}

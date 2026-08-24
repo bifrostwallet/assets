@@ -1,0 +1,9 @@
+{
+  "name": "MCDEX",
+  "symbol": "MCB",
+  "decimals": 18,
+  "address": "0x5fe80d2cd054645b9419657d3d10d26391780a7b",
+  "coingeckoId": "mcdex",
+  "logoURL": "tokens/eip155-56/0x5fe80d2cd054645b9419657d3d10d26391780a7b/logo.webp",
+  "logoHash": "ef2d4e1d382c4b9877c566ae255abbb62a21d8bfd77b2b72d1040286e240e17d"
+}

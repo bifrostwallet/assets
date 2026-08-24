@@ -1,0 +1,9 @@
+{
+  "name": "SwissBorg",
+  "symbol": "CHSB",
+  "decimals": 8,
+  "address": "0xba9d4199fab4f26efe3551d490e3821486f135ba",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xba9d4199fab4f26efe3551d490e3821486f135ba/logo.webp",
+  "logoHash": "d4cdff0ba75ee7a37f82c52929c07477ca274bfbf1a4b010243bdc54feb5aed3"
+}

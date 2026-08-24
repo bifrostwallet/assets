@@ -1,0 +1,24 @@
+{
+  "name": "CosmicData",
+  "description": "CosmicData operates production-grade oracle infrastructure on the Songbird and Flare networks. Custom multi-exchange FTSO price aggregation, in-house FDC verifier stack (BTC/DOGE/XRPL/ETH), and high-availability validator nodes - engineered for accuracy, uptime, and the FAssets era.",
+  "logoURL": "providers/eip155-19/0x9fb51f3a51c5db3238369b0a7d10f0ec289554b4/logo.webp",
+  "logoHash": "ebe2230b4a8ee987e7535066fd8ad9b541425db42af9feb3822f12817d3a88da",
+  "websiteURL": "https://cosmicdata.io",
+  "links": {},
+  "identityAddress": "0x9fb51f3a51c5db3238369b0a7d10f0ec289554b4",
+  "delegationAddress": "0x3be85b604e6eed1384fac798a7919cbebadb8337",
+  "signingPolicyAddress": "0x68e8b07efa615188657fb0bcb0d430b0275effbf",
+  "submitAddress": "0x7e9875dcaf7beff96959a6a9fab3cb537cd6488a",
+  "submitSignaturesAddress": "0xc542a0a01a02c790d0310e79a2c7a52dff443881",
+  "publicKey": "0x117297881a7f952a1a5b2683a17609f599e5caee92be15edeca5cfbc5f8968ec1c8c27ee46c363f0cc10fa1b70996bd1bb53b7f5d9ad1c65a8061a153bbb0587",
+  "validators": [],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x96762549a3cb096e108e39c020e2a9e39c4d7052e502f50d5b87b2625ea8e7c9",
+    "blockNumber": 118984722,
+    "timestamp": "2026-04-03T12:55:19.000Z"
+  }
+}

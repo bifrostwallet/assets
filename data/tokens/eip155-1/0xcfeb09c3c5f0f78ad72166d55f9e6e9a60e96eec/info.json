@@ -1,0 +1,9 @@
+{
+  "name": "vEmpire DDAO",
+  "symbol": "VEMP",
+  "decimals": 18,
+  "address": "0xcfeb09c3c5f0f78ad72166d55f9e6e9a60e96eec",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xcfeb09c3c5f0f78ad72166d55f9e6e9a60e96eec/logo.webp",
+  "logoHash": "d2c345ef33b642771a390080b0805542a7dcafc3010cf9500488a13f253669da"
+}

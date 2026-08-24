@@ -1,0 +1,9 @@
+{
+  "name": "Synth Dash",
+  "symbol": "SDASH",
+  "decimals": 18,
+  "address": "0xfe33ae95a9f0da8a845af33516edc240dcd711d6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xfe33ae95a9f0da8a845af33516edc240dcd711d6/logo.webp",
+  "logoHash": "83a990a063760f3307f566798f7fbd3b6ae6ad98786c5d2a16b1a6504f93bd76"
+}

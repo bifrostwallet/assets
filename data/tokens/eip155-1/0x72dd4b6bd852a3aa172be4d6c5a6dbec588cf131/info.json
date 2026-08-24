@@ -1,0 +1,9 @@
+{
+  "name": "NAGA",
+  "symbol": "NGC",
+  "decimals": 18,
+  "address": "0x72dd4b6bd852a3aa172be4d6c5a6dbec588cf131",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x72dd4b6bd852a3aa172be4d6c5a6dbec588cf131/logo.webp",
+  "logoHash": "4f56367ce33a17f94df6b6e0a65dfb5afa7d7b82beb02d27d80b2586b57d2d29"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "RedFOX Labs",
+  "symbol": "RFOX",
+  "decimals": 18,
+  "address": "0x0a3a21356793b49154fd3bbe91cbc2a16c0457f5",
+  "coingeckoId": "redfox-labs-2",
+  "logoURL": "tokens/eip155-56/0x0a3a21356793b49154fd3bbe91cbc2a16c0457f5/logo.webp",
+  "logoHash": "37ba79bb4ed82f862dc28c9da3a1817d952ff9c7f18dfac20238a65b644a6b86"
+}

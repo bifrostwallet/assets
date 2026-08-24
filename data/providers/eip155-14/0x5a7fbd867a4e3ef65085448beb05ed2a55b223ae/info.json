@@ -1,0 +1,28 @@
+{
+  "name": "Flare Sensei",
+  "description": "Flare Sensei provides FTSO, FDC and staking infrastructure for both the Songbird and Flare network.",
+  "logoURL": "providers/eip155-14/0x5a7fbd867a4e3ef65085448beb05ed2a55b223ae/logo.webp",
+  "logoHash": "3ac45d8af163866cc0959bc9addd02384ad3f3caec183aefda7f812b9ee94374",
+  "websiteURL": "https://flare-sensei.com",
+  "links": {},
+  "identityAddress": "0x5a7fbd867a4e3ef65085448beb05ed2a55b223ae",
+  "delegationAddress": "0x2566e97b2947dc2d6e9caf0bf737aabd7e78a0f6",
+  "signingPolicyAddress": "0x66ae2b213619924e609e69dd5dab170c560ff7e1",
+  "submitAddress": "0x844472f63665ca611fc73a824497d71bfaf72a9b",
+  "submitSignaturesAddress": "0x4a74ad97c7ac5f401ab4f90702db88c9fa8f3a9a",
+  "publicKey": "0x1dde79ca942d61ca2def2f1d4ab41007f6ee6d26432bb022526717ee7c1188090778b993e8253b9df2f80438ed5bad9c7878a705b36697945d077b8e1612859e",
+  "validators": [
+    "NodeID-6UzFTU6qVKYnTSaC5WbXq1kEYKxxZAjSY",
+    "NodeID-Jgnf61mFy134gFJNJKtrmBeSganNYANPZ",
+    "NodeID-LyKs43vshhK1Pr6apWF1sV51m2Q2CAwY"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xabe62a29d594569baf49f27c95140df4a76d2d1c53fa7aad454947652685efeb",
+    "blockNumber": 38003143,
+    "timestamp": "2025-02-26T10:02:35.000Z"
+  }
+}

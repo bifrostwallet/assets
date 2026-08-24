@@ -1,0 +1,9 @@
+{
+  "name": "Pawtocol",
+  "symbol": "UPI",
+  "decimals": 18,
+  "address": "0x70d2b7c19352bb76e4409858ff5746e500f2b67c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x70d2b7c19352bb76e4409858ff5746e500f2b67c/logo.webp",
+  "logoHash": "0323f0a55c2715d9df6ce0336811c654fefd3fbf76b0c0e1a84d9df7dd44b1e6"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "MovieBloc",
+  "symbol": "MBL",
+  "decimals": 18,
+  "address": "0xb879da8b24c9b8685de8526cf492e954f165d74b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xb879da8b24c9b8685de8526cf492e954f165d74b/logo.webp",
+  "logoHash": "817c1156416389b44c024c7f1c8c1f744466c66b9cc6ce57d1eb44d7be52b78e"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Exeedme",
+  "symbol": "XED",
+  "decimals": 18,
+  "address": "0xee573a945b01b788b9287ce062a0cfc15be9fd86",
+  "coingeckoId": "exeedme",
+  "logoURL": "tokens/eip155-1/0xee573a945b01b788b9287ce062a0cfc15be9fd86/logo.webp",
+  "logoHash": "619890ba7ff576bbb30c019b6250cbce6537a9709840e5da699b50e5ed0c75e6"
+}

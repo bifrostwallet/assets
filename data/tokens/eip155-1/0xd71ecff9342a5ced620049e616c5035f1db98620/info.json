@@ -1,0 +1,9 @@
+{
+  "name": "Synth Euros",
+  "symbol": "SEUR",
+  "decimals": 18,
+  "address": "0xd71ecff9342a5ced620049e616c5035f1db98620",
+  "coingeckoId": "seur",
+  "logoURL": "tokens/eip155-1/0xd71ecff9342a5ced620049e616c5035f1db98620/logo.webp",
+  "logoHash": "45a1d276726c8582ea70f0b836294270c13bbd022a6548db98fc47dba4bdae59"
+}

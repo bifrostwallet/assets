@@ -1,0 +1,9 @@
+{
+  "name": "FOAM",
+  "symbol": "FOAM",
+  "decimals": 18,
+  "address": "0x4946fcea7c692606e8908002e55a582af44ac121",
+  "coingeckoId": "foam-protocol",
+  "logoURL": "tokens/eip155-1/0x4946fcea7c692606e8908002e55a582af44ac121/logo.webp",
+  "logoHash": "add488b162cb83a1db3caa827ae04e948719dda6d0b0872daa0727e572276f92"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Lunar",
+  "symbol": "LNR",
+  "decimals": 9,
+  "address": "0x9d4451151a8de5b545a1bc6c8fdeb9d94a2868e1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x9d4451151a8de5b545a1bc6c8fdeb9d94a2868e1/logo.webp",
+  "logoHash": "99d63af910f8d63311c1805cb55f28dd50962f3b9a8afd6f1e869b6061b02614"
+}

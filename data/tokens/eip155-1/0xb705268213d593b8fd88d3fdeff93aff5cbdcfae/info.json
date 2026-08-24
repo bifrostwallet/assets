@@ -1,0 +1,9 @@
+{
+  "name": "IDEX",
+  "symbol": "IDEX",
+  "decimals": 18,
+  "address": "0xb705268213d593b8fd88d3fdeff93aff5cbdcfae",
+  "coingeckoId": "aurora-dao",
+  "logoURL": "tokens/eip155-1/0xb705268213d593b8fd88d3fdeff93aff5cbdcfae/logo.webp",
+  "logoHash": "0252ea97bf8f2c968053eeec022b6cae63acd41c25b27e0ba909d63f5adfd167"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pSTAKE Finance",
+  "symbol": "PSTAKE",
+  "decimals": 18,
+  "address": "0xfb5c6815ca3ac72ce9f5006869ae67f18bf77006",
+  "coingeckoId": "pstake-finance",
+  "logoURL": "tokens/eip155-1/0xfb5c6815ca3ac72ce9f5006869ae67f18bf77006/logo.webp",
+  "logoHash": "ff2339e2bea5e81f2c45acb89ad0c2583cfcaa86e3e06559cc87bfeafeab67dd"
+}

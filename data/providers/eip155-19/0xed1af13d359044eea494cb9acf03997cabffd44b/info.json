@@ -1,0 +1,24 @@
+{
+  "name": "XTerraMetrics",
+  "description": "At XTerraMetrics, we specialize in providing reliable and accurate data to the coston network. We offer solutions tailored to your needs. Our expertise in data analytics and the Flare network ensures top-notch crypto services for our clients.",
+  "logoURL": "providers/eip155-19/0xed1af13d359044eea494cb9acf03997cabffd44b/logo.webp",
+  "logoHash": "a4d0a92ff82493d12c7f3114dc71b856551b553885ec8d00c4efe3f43f39f7c8",
+  "websiteURL": "https://www.xterrametrics.com",
+  "links": {},
+  "identityAddress": "0xed1af13d359044eea494cb9acf03997cabffd44b",
+  "delegationAddress": "0xb0840104e84da02254b043fd4c205415e759bf1e",
+  "signingPolicyAddress": "0xc0d15f4b2d964d372f5ae097f7bf73259a50513a",
+  "submitAddress": "0x9a18baf7dd4261f337b206cffc5c0d723d2afc4b",
+  "submitSignaturesAddress": "0x7a0e2ba7a52553e7e82a8d1c29fb1d6e11bb5ed0",
+  "publicKey": "0x2d3105021b2e4c70f9833009138e6a0655d0eda07dd9ad7dd5e396199d3f65de176a67aef15db69444eb863f1337f54b6112f861f304d39a7474b85091a88edc",
+  "validators": [],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf2a29a51124bd465d9e4f41eb159a17866b365133cd0bcb91486864e96b2be41",
+    "blockNumber": 72127816,
+    "timestamp": "2024-10-01T05:49:33.000Z"
+  }
+}

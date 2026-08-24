@@ -1,0 +1,9 @@
+{
+  "name": "Ovr",
+  "symbol": "OVR",
+  "decimals": 18,
+  "address": "0x7e35d0e9180bf3a1fc47b0d110be7a21a10b41fe",
+  "coingeckoId": "ovr",
+  "logoURL": "tokens/eip155-56/0x7e35d0e9180bf3a1fc47b0d110be7a21a10b41fe/logo.webp",
+  "logoHash": "f789367c168fba32aa13337e5779f79b50f40d0da96d4777e7c10a8cab96e9d7"
+}

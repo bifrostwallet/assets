@@ -1,0 +1,129 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "test": "recommended",
+      "types": "recommended",
+      "project": "recommended"
+    },
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "noNonNullAssertion": "warn",
+        "noUnusedTemplateLiteral": "error",
+        // Prefer import from "node:fs" over "fs" (and the same for other builtins).
+        "useNodejsImportProtocol": "error",
+        "noNestedTernary": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        // CLI scripts report via info/warn/error; plain console.log stays discouraged.
+        "noConsole": { "level": "warn", "options": { "allow": ["info", "warn", "error"] } },
+        "noImportCycles": "warn"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "useExhaustiveDependencies": "error",
+        "useParseIntRadix": "error",
+        // Biome cannot resolve packages via Yarn PnP yet (see base-repository docs).
+        "noUnresolvedImports": "off"
+      },
+      "complexity": {
+        "noForEach": "warn"
+      },
+      "performance": {
+        "noBarrelFile": "warn"
+      },
+      // Nursery rules are NOT auto-enabled by domain "recommended" — list explicitly.
+      "nursery": {
+        "noFloatingPromises": "warn",
+        "noMisusedPromises": "warn",
+        "useAwaitThenable": "warn",
+        "useExhaustiveSwitchCases": "warn",
+        "noImpliedEval": "error"
+      },
+      // Provider manifests and on-chain data include long hex strings that trip entropy checks.
+      "security": {
+        "noSecrets": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentWidth": 2,
+    "indentStyle": "space",
+    "lineWidth": 100,
+    "formatWithErrors": false
+  },
+  "files": {
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.mts",
+      "**/*.cts",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.mjs",
+      "**/*.cjs",
+      "**/*.json",
+      "**/*.jsonc",
+      "!**/dist",
+      "!**/src copy",
+      "!**/node_modules",
+      "!**/.yarn",
+      "!!**/.pnp.cjs",
+      "!!**/.pnp.loader.mjs"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "lineEnding": "lf"
+    }
+  },
+  // Throwaway keys / vectors in tests and fixtures — keep scanning production src.
+  "overrides": [
+    {
+      "includes": [
+        "**/test/**",
+        "**/tests/**",
+        "**/__tests__/**",
+        "**/fixtures/**",
+        "**/__fixtures__/**",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.spec.ts",
+        "**/*.spec.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "security": { "noSecrets": "off" }
+        }
+      }
+    },
+    {
+      // CLI / security scripts use stderr for user-facing errors.
+      "includes": ["**/scripts/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": { "level": "warn", "options": { "allow": ["log", "error", "warn"] } }
+          }
+        }
+      }
+    }
+  ]
+}

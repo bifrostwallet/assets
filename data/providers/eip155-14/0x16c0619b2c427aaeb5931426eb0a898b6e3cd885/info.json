@@ -1,0 +1,27 @@
+{
+  "name": "Digital Dynamix",
+  "description": "The Digital Dynamix Validator is a key component of our expanding ecosystem on Flare which allows Rewards to be forwarded to our amazing community through novel initiatives - Sharing is Caring!",
+  "logoURL": "providers/eip155-14/0x16c0619b2c427aaeb5931426eb0a898b6e3cd885/logo.webp",
+  "logoHash": "2d7a9e5d4c5e7b1cc277bf5869c14b562c5947456e7ac7e9908b97c92b72ab39",
+  "websiteURL": "https://www.digitaldynamix.co.uk",
+  "links": {},
+  "identityAddress": "0x16c0619b2c427aaeb5931426eb0a898b6e3cd885",
+  "delegationAddress": "0x57711d552e2309c7a83716351e7a59a438f17e3a",
+  "signingPolicyAddress": "0xb4d29b9db72a9e557f58314d6de7c435bac40391",
+  "submitAddress": "0x6be30c886d5d838556e2c3b2ca634aa3b3a9dc34",
+  "submitSignaturesAddress": "0x07b28a5c3f849ae6273be74fefc00f32e3c23061",
+  "publicKey": "0x0a3a0f04570bf71443aed570454882b0c05a10d35ac95db1e28256edc811690b1a8f23c348e6bd7a26edb5a4d62b278c6f7dcb5132206b1b4e831c4b3e44d67a",
+  "validators": [
+    "NodeID-DqtFZusCw713o96Hx29iHKUhFyZ4eBDpw",
+    "NodeID-NEBeLpZHjxiSB9fbqDeqsxU529e41hQYE"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x983af5f00d42855ee0f559e71febf52477c25d1eebf0ad63f39df80735af03e0",
+    "blockNumber": 49977921,
+    "timestamp": "2025-11-02T15:21:57.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Dragonchain",
+  "symbol": "DRGN",
+  "decimals": 18,
+  "address": "0x419c4db4b9e25d6db2ad9691ccb832c8d9fda05e",
+  "coingeckoId": "dragonchain",
+  "logoURL": "tokens/eip155-1/0x419c4db4b9e25d6db2ad9691ccb832c8d9fda05e/logo.webp",
+  "logoHash": "cfc071366bf63a033ff93c1325acaa422dce56f6cf343fd8864c8bb621403b8f"
+}

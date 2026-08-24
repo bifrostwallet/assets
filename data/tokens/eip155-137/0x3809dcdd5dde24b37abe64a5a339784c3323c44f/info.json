@@ -1,0 +1,9 @@
+{
+  "name": "Trustswap",
+  "symbol": "SWAP",
+  "decimals": 18,
+  "address": "0x3809dcdd5dde24b37abe64a5a339784c3323c44f",
+  "coingeckoId": "trustswap",
+  "logoURL": "tokens/eip155-137/0x3809dcdd5dde24b37abe64a5a339784c3323c44f/logo.webp",
+  "logoHash": "a9b93dce19f32a341a0fbdf54cb331b7a180718f3329069c21180c3803cdef5a"
+}
