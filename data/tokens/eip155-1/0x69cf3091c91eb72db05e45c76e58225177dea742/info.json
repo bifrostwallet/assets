@@ -1,0 +1,9 @@
+{
+  "name": "CoinZoom",
+  "symbol": "ZOOM",
+  "decimals": 18,
+  "address": "0x69cf3091c91eb72db05e45c76e58225177dea742",
+  "coingeckoId": "coinzoom-token",
+  "logoURL": "tokens/eip155-1/0x69cf3091c91eb72db05e45c76e58225177dea742/logo.webp",
+  "logoHash": "68f61894314ce1a9bf60e870850fa9353962b76c027c03823bec8d7614ba06c4"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Bifrost Premium Claim Bot",
+  "description": "Premium Bifrost claim executor. Claims FTSO rewards for Bifrost Premium subscribers on Songbird, with no per-claim fee. Validator reward claiming is not available on Songbird.",
+  "websiteURL": "https://bifrostwallet.com",
+  "links": {},
+  "logoURL": "executors/eip155-19/0x79acd9afd6556f20ba66f726014b0609f812c4c2/logo.png",
+  "logoHash": "13e207244dc828254862df9cd4729c85db346a75a792c747615a82adaf0e63f2",
+  "executorAddress": "0x79acd9afd6556f20ba66f726014b0609f812c4c2",
+  "ftsoRewards": true,
+  "validatorRewards": false
+}

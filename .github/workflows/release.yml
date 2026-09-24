@@ -1,0 +1,98 @@
+name: Publish release
+
+# Publishes @bifrostwallet/assets to the public npm registry with provenance
+# (npm Trusted Publishing / OIDC → “Built and signed on GitHub Actions”).
+#
+# Gate: create a GitHub Release whose tag is v<package.json version>, or use
+# workflow_dispatch with publish=true once Trusted Publisher is configured on
+# npmjs.com. Do not publish until the org is ready for a public package.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish dist/ to npmjs.com (false = build-only dry run)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write # required for npm Trusted Publishing + provenance
+
+env:
+  COREPACK_ENABLE: "0"
+
+jobs:
+  publish:
+    name: Build and publish @bifrostwallet/assets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .node-version
+          registry-url: "https://registry.npmjs.org"
+          # Release publishes must not reuse a stale install cache
+          package-manager-cache: false
+
+      # Trusted Publishing needs npm CLI ≥ 11.5.1
+      - name: Ensure recent npm CLI
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: ./yarn install --immutable
+
+      # Beta: cryptographic verify only. --strict (require every entry self-signed)
+      # waits until after grandfathering ends 2026-11-01 (see README).
+      - name: Verify provider signatures
+        run: ./yarn verify:providers
+
+      - name: Build publishable package
+        run: ./yarn build:package
+
+      - name: Check release tag matches package version
+        if: github.event_name == 'release'
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="$(node -p "require('./dist/package.json').version")"
+          EXPECTED="v${VERSION}"
+          if [ "$TAG" != "$EXPECTED" ]; then
+            echo "Release tag $TAG must be $EXPECTED (dist/package.json version)" >&2
+            exit 1
+          fi
+
+      - name: Reject accidental non-prerelease until signatures are strict
+        run: |
+          VERSION="$(node -p "require('./dist/package.json').version")"
+          case "$VERSION" in
+            *-beta*|*-alpha*|*-rc*) ;;
+            *)
+              echo "Stable versions require verify:providers --strict in this workflow first." >&2
+              echo "Current version: $VERSION" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Publish to npm with provenance
+        if: github.event_name == 'release' || inputs.publish == true
+        run: npm publish ./dist --access public --tag beta
+        env:
+          NPM_CONFIG_PROVENANCE: "true"
+
+      - name: Dry-run summary
+        if: github.event_name == 'workflow_dispatch' && inputs.publish != true
+        run: |
+          {
+            echo "Built dist/ only (publish=false)."
+            echo "Version: $(node -p "require('./dist/package.json').version")"
+            echo ""
+            echo "When ready:"
+            echo "1. On npmjs.com, add Trusted Publisher for package @bifrostwallet/assets"
+            echo "   → GitHub org/repo bifrostwallet/assets, workflow release.yml"
+            echo "2. Create a GitHub Release tagged v<version>, or re-run with publish=true"
+          } >> "$GITHUB_STEP_SUMMARY"

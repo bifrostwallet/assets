@@ -1,0 +1,9 @@
+{
+  "name": "Router Protocol",
+  "symbol": "ROUTE",
+  "decimals": 18,
+  "address": "0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4",
+  "coingeckoId": "route",
+  "logoURL": "tokens/eip155-137/0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4/logo.webp",
+  "logoHash": "f88ebb0b467df8545354f646d63d1de95669e14d8ae9c3a2f6251c8529c0b28b"
+}

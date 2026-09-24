@@ -1,0 +1,9 @@
+{
+  "name": "Biswap",
+  "symbol": "BSW",
+  "decimals": 18,
+  "address": "0x965f527d9159dce6288a2219db51fc6eef120dd1",
+  "coingeckoId": "biswap",
+  "logoURL": "tokens/eip155-56/0x965f527d9159dce6288a2219db51fc6eef120dd1/logo.webp",
+  "logoHash": "bfd0a9001999516697c8787c51b948c1c5d179800f107189747bce90b1d1dde2"
+}

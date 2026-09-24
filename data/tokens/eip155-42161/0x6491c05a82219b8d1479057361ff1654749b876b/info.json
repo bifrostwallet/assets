@@ -1,0 +1,9 @@
+{
+  "name": "USDS",
+  "symbol": "USDS",
+  "decimals": 18,
+  "address": "0x6491c05a82219b8d1479057361ff1654749b876b",
+  "coingeckoId": "usds",
+  "logoURL": "tokens/eip155-42161/0x6491c05a82219b8d1479057361ff1654749b876b/logo.webp",
+  "logoHash": "617e7fac2005e2897e54fe9ce38cabfd907acc24868a7693fd74d73b04ed67a3"
+}

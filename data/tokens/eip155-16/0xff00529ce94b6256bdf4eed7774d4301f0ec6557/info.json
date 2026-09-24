@@ -1,0 +1,9 @@
+{
+  "name": "Test DOGE",
+  "symbol": "testDOGE",
+  "decimals": 8,
+  "address": "0xff00529ce94b6256bdf4eed7774d4301f0ec6557",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0xff00529ce94b6256bdf4eed7774d4301f0ec6557/logo.webp",
+  "logoHash": "9100ee43d24855408709690089e6e67371718f18826680af3660b6e148d4d46a"
+}

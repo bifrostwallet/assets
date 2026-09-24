@@ -1,0 +1,9 @@
+{
+  "name": "Dopex Rebate Token",
+  "symbol": "RDPX",
+  "decimals": 18,
+  "address": "0x32eb7902d4134bf98a28b963d26de779af92a212",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0x32eb7902d4134bf98a28b963d26de779af92a212/logo.webp",
+  "logoHash": "eb1483374d911b4a2c962b9f450e319a4592daa0edcad1215dc77de5135db9ed"
+}

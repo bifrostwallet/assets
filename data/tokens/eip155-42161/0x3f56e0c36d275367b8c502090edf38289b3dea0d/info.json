@@ -1,0 +1,9 @@
+{
+  "name": "MAI",
+  "symbol": "MIMATIC",
+  "decimals": 18,
+  "address": "0x3f56e0c36d275367b8c502090edf38289b3dea0d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0x3f56e0c36d275367b8c502090edf38289b3dea0d/logo.webp",
+  "logoHash": "c4573d61c955ea9890803add192be2d0328c3d939b4e96c3a65b1d30dedc8fc3"
+}

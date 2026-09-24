@@ -1,0 +1,9 @@
+{
+  "name": "LUKSO",
+  "symbol": "LYXE",
+  "decimals": 18,
+  "address": "0xa8b919680258d369114910511cc87595aec0be6d",
+  "coingeckoId": "lukso-token",
+  "logoURL": "tokens/eip155-1/0xa8b919680258d369114910511cc87595aec0be6d/logo.webp",
+  "logoHash": "27c38a67a34afc04751682fa2086666ec21549a109f4098d26d53973b56155fa"
+}

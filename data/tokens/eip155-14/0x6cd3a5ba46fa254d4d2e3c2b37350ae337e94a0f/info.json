@@ -1,0 +1,9 @@
+{
+  "name": "CDP Dollar",
+  "symbol": "CDP",
+  "decimals": 18,
+  "address": "0x6cd3a5ba46fa254d4d2e3c2b37350ae337e94a0f",
+  "coingeckoId": "tether",
+  "logoURL": "tokens/eip155-14/0x6cd3a5ba46fa254d4d2e3c2b37350ae337e94a0f/logo.webp",
+  "logoHash": "62ee540580b30ed6518f87ad0b21f1e83b9173a7fb21cba3258db26c2fb19e30"
+}

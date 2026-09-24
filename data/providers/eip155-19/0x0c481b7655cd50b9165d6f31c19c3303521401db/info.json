@@ -1,0 +1,24 @@
+{
+  "name": "ApexOracle",
+  "description": "",
+  "logoURL": "providers/eip155-19/0x0c481b7655cd50b9165d6f31c19c3303521401db/logo.webp",
+  "logoHash": "b578d6df3347b0bdfb07a2cf37f10c7e1d5e43973180ee9234e9a85c6fec470a",
+  "websiteURL": "",
+  "links": {},
+  "identityAddress": "0x0c481b7655cd50b9165d6f31c19c3303521401db",
+  "delegationAddress": "0x715bb0531eff2fca16ca8d3535f6d5133b6d7ec7",
+  "signingPolicyAddress": "0x38fd3ec8d50787df2f8c0f4f89da7dd41674d4d6",
+  "submitAddress": "0x64533d1517a0e57eb5a8ce16bcfb758e96ec536d",
+  "submitSignaturesAddress": "0xc67b8939d43796a0e7414ff21440b135de5a32b7",
+  "publicKey": "0x1c5a3e8a9dd89ce224124400af7b366136acd70c5514957a3150293572f0a9cb2fe31a0b45eeeb026d9c4e41631346362455a49ec2fc9a5183329177c0883f66",
+  "validators": [],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x48c715815acc7c886616af59c4971c68da03e5a3b3de27b6e59f8f3238dba56e",
+    "blockNumber": 124096688,
+    "timestamp": "2026-06-01T19:54:48.000Z"
+  }
+}

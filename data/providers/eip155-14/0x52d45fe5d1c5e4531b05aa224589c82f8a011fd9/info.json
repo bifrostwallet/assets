@@ -1,0 +1,29 @@
+{
+  "name": "FlareBus",
+  "description": "FlareBus is a decentralized FTSO provider that delivers accurate and real-time price data for the Flare Network ecosystem. Our infrastructure is a hybrid blend of dedicated bare-metal servers and scalable cloud environments. This combination allows us to optimize for both low-latency performance and high availability.",
+  "logoURL": "providers/eip155-14/0x52d45fe5d1c5e4531b05aa224589c82f8a011fd9/logo.webp",
+  "logoHash": "c174658a6188d23931a6307ad00b8d8bacf9745814044daaa699d3edafc70f27",
+  "websiteURL": "https://flarebus.com",
+  "links": {},
+  "identityAddress": "0x52d45fe5d1c5e4531b05aa224589c82f8a011fd9",
+  "delegationAddress": "0x6c5c813dd19f071be0b6e83701955810f118e717",
+  "signingPolicyAddress": "0xdce826ac4cad3e36df791163dac3b6d6707901c6",
+  "submitAddress": "0x7ca68f9f41072de982c7d948ddfdd2e3b8177e80",
+  "submitSignaturesAddress": "0xe53eb4413dc7990cd8dd28abfa0f265b5415c989",
+  "publicKey": "0x0387b2cdae7c23a73a8c4d39436f8c86f0d7ed240569df8c5ac38ce666c59f3a135313c0a7c7a52047d851a15c0f992487271fe27df45f666ab7aeeaf8e26d7c",
+  "validators": [
+    "NodeID-7FSTPU4B1sXzHGXTrGyxqa146yGVJ1PDu",
+    "NodeID-9mdghD2VMj56BXp7zf52o19h9WepVMyUn",
+    "NodeID-A3LxQME97LZCyiY6kAWnZ3SXkwJ82YDM9",
+    "NodeID-PkR4UxQ6MVLQAZ7RmKd93eDmS8BtmYdLG"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x27d61c30c5a5c034a5756a624e4bfc1c38ec703f0461d35971f28a0bbda4a1fc",
+    "blockNumber": 42826729,
+    "timestamp": "2025-06-09T07:46:30.000Z"
+  }
+}

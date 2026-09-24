@@ -1,0 +1,28 @@
+{
+  "name": "sToadz FTSO",
+  "description": "FTSO Stoadz provides a Flare Time Series Oracle for those who want to delegate their assets!",
+  "logoURL": "providers/eip155-14/0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45/logo.webp",
+  "logoHash": "d98f3460222da72bd652e64f75dd46314a00afa9e2a2724e5d2f9ec0f1c2f5c9",
+  "websiteURL": "https://xtoadz.xyz/signal-provider",
+  "links": {},
+  "identityAddress": "0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45",
+  "delegationAddress": "0x729589694a78ff2d8bacf75b7ac4389bd53ee533",
+  "signingPolicyAddress": "0x2eecbb469af133d136f011ce3f27ecf9524bb7c3",
+  "submitAddress": "0x39a875a881bf934ba1483f2bdae8c1a19125cbbf",
+  "submitSignaturesAddress": "0x4976bed181eb89de7e5a12b8b343f787a3f7ea05",
+  "publicKey": "0x08aae13d54bfdc32a80461859bdeb08b1415443868667b62c5783e311e1b42a00f979c53dd9450499bbbc8b93970a3289cd296763561b92d899123511cf97c1d",
+  "validators": [
+    "NodeID-2xbUrUGcj9HuntjA4YPHQFWiMuQz428SL",
+    "NodeID-F297gLgRxBndijAYvvvBGtQTwYCrScMQT",
+    "NodeID-NV7ZpcJvqzmvvT4PaeHWbTELWKFT2Jqxw"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xcb81cd117bca9523829314543aff48bd44f086abe90a7cdaf802b226f86c01e7",
+    "blockNumber": 4428130,
+    "timestamp": "2023-01-21T17:11:48.000Z"
+  }
+}

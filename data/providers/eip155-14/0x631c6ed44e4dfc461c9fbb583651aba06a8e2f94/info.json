@@ -1,0 +1,27 @@
+{
+  "name": "HEWG",
+  "description": "HEWG strikes to provide best FTSO price data.",
+  "logoURL": "providers/eip155-14/0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94/logo.webp",
+  "logoHash": "38cd71e542dbf4082e0b94c12f08b4a6e91af326707c9bd58569fa962a6e21f5",
+  "websiteURL": "https://hewg.org",
+  "links": {},
+  "identityAddress": "0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94",
+  "delegationAddress": "0xb6d68ea6c4de734ec481f92afd1c35f712441b73",
+  "signingPolicyAddress": "0x3f587672c6a33c975f7efa2183e93e442c8fe88c",
+  "submitAddress": "0x6b02d41a497d889a4276aa82b0f591dcc3e0f930",
+  "submitSignaturesAddress": "0x62b77c4013ed16aaa6885a6b37afb961e17bf2d5",
+  "publicKey": "0x261046c7f08017460427548dbe302eb4fe5c22a709d3dd3f6826b1ff79e217b9293f7f871f9e120ace925fd12c6adfbf9b812fc02202a026e0cade1599d7e057",
+  "validators": [
+    "NodeID-2hCHs6H4Vde8mdGGKidMvT4Fjit7goCBT",
+    "NodeID-BrxkEdpK8FvkL79H1hNkv1bbu6T7fhxAd"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x837979f4fcd412626ce9eafef414332ba8821f05144bd43855e569748b6c09cd",
+    "blockNumber": 22955,
+    "timestamp": "2022-07-23T16:16:20.000Z"
+  }
+}

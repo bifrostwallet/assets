@@ -1,0 +1,9 @@
+{
+  "name": "ShapeShift FOX Token",
+  "symbol": "FOX",
+  "decimals": 18,
+  "address": "0xc770eefad204b5180df6a14ee197d99d808ee52d",
+  "coingeckoId": "shapeshift-fox-token",
+  "logoURL": "tokens/eip155-1/0xc770eefad204b5180df6a14ee197d99d808ee52d/logo.webp",
+  "logoHash": "7d51f71600ed3bf68a89528eeacbcb00928d8f2edbfe88f038d1d5144f342b81"
+}

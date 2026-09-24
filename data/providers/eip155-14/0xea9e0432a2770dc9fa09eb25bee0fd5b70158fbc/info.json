@@ -1,0 +1,24 @@
+{
+  "name": "1FTSO",
+  "description": "1FTSO runs production-grade infrastructure for the Flare Network with a focus on reliability, transparency, and long-term network health. No gimmicks, no fluff, just consistent operations.",
+  "logoURL": "providers/eip155-14/0xea9e0432a2770dc9fa09eb25bee0fd5b70158fbc/logo.webp",
+  "logoHash": "ccbeadbf5909804b57c3f58c4a11b9a195ad2577deb57127697ed6016e1fabbf",
+  "websiteURL": "https://1ftso.com",
+  "links": {},
+  "identityAddress": "0xea9e0432a2770dc9fa09eb25bee0fd5b70158fbc",
+  "delegationAddress": "0xdc908744b7946dd19bf8e754c058fab9fec84993",
+  "signingPolicyAddress": "0x0ed685641b49903ee88449fad7ae90c890fe5271",
+  "submitAddress": "0x74d6cba774879756ee5a0df45314bf02b6cc69fd",
+  "submitSignaturesAddress": "0x2a592339732a84f8bb5acbb0f6dabb72ea93e42e",
+  "publicKey": "0x15ede83d4533c01ee367c447a788d70b79d3a51c510970eb553a0bcd0bcad97d24dbe39c2d3fcf314a52d99cd7858716a89a12039c9a97e6bdc2157aedaab345",
+  "validators": ["NodeID-NHdoCbjV2qnAqdFFw6ZesXcGG9CWjxt77"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x4ef23090a3060d3143747a5212400593087391ac444bd4c1deed9a1dc7587dec",
+    "blockNumber": 53740548,
+    "timestamp": "2026-01-12T14:35:56.000Z"
+  }
+}

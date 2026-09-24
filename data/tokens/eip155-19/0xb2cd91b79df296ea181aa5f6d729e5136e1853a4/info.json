@@ -1,0 +1,9 @@
+{
+  "name": "Canary",
+  "symbol": "CANARY",
+  "decimals": 18,
+  "address": "0xb2cd91b79df296ea181aa5f6d729e5136e1853a4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xb2cd91b79df296ea181aa5f6d729e5136e1853a4/logo.webp",
+  "logoHash": "fb0834e35f0dbdb5b6d591f9becb2f1bd363e1dc9c4c95b424afadffa159db6a"
+}

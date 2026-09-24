@@ -1,0 +1,9 @@
+{
+  "name": "The Doge NFT",
+  "symbol": "DOG",
+  "decimals": 18,
+  "address": "0xbaac2b4491727d78d2b78815144570b9f2fe8899",
+  "coingeckoId": "the-doge-nft",
+  "logoURL": "tokens/eip155-1/0xbaac2b4491727d78d2b78815144570b9f2fe8899/logo.webp",
+  "logoHash": "6d136b60a7cb8c9a700eae0924416720cfc689a3323e43d10d2382d9bfc78158"
+}

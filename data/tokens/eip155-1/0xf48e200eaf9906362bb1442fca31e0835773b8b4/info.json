@@ -1,0 +1,9 @@
+{
+  "name": "Synth Australian Dollars",
+  "symbol": "SAUD",
+  "decimals": 18,
+  "address": "0xf48e200eaf9906362bb1442fca31e0835773b8b4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf48e200eaf9906362bb1442fca31e0835773b8b4/logo.webp",
+  "logoHash": "99c77e865083da73fe6ce6440039f32b6ac6c4e999d23a146fe8d542c957862a"
+}

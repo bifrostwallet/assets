@@ -1,0 +1,9 @@
+{
+  "name": "AirSwap",
+  "symbol": "AST",
+  "decimals": 4,
+  "address": "0x27054b13b1b798b345b591a4d22e6562d47ea75a",
+  "coingeckoId": "airswap",
+  "logoURL": "tokens/eip155-1/0x27054b13b1b798b345b591a4d22e6562d47ea75a/logo.webp",
+  "logoHash": "63ce8e1b0b1f83bbf7905d666af83226d4b44cc6e9eddc62bb051c40671a8018"
+}

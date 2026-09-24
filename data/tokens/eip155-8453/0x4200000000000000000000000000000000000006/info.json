@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Ether",
+  "symbol": "WETH",
+  "decimals": 18,
+  "address": "0x4200000000000000000000000000000000000006",
+  "coingeckoId": "l2-standard-bridged-weth-base",
+  "logoURL": "tokens/eip155-8453/0x4200000000000000000000000000000000000006/logo.webp",
+  "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
+}

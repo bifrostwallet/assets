@@ -1,0 +1,9 @@
+{
+  "name": "DeFi Pulse Index",
+  "symbol": "DPI",
+  "decimals": 18,
+  "address": "0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b",
+  "coingeckoId": "defipulse-index",
+  "logoURL": "tokens/eip155-1/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/logo.webp",
+  "logoHash": "479989c6b2ace69c5f1cbdb082b7ed53af79cc569a96e6a95bfe65971fd426ff"
+}

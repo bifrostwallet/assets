@@ -1,0 +1,9 @@
+{
+  "name": "Bugo",
+  "symbol": "BUGO",
+  "decimals": 18,
+  "address": "0x6c1490729ce19e809cf9f7e3e223c0490833de02",
+  "coingeckoId": "bugo",
+  "logoURL": "tokens/eip155-14/0x6c1490729ce19e809cf9f7e3e223c0490833de02/logo.webp",
+  "logoHash": "5ffa6eb5182aaa146252805cb3880b065cfbc5b22d1ad75e99b65f346f19a249"
+}

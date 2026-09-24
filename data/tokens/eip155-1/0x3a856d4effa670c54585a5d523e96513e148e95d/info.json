@@ -1,0 +1,9 @@
+{
+  "name": "Trias Token",
+  "symbol": "TRIAS",
+  "decimals": 18,
+  "address": "0x3a856d4effa670c54585a5d523e96513e148e95d",
+  "coingeckoId": "trias-token",
+  "logoURL": "tokens/eip155-1/0x3a856d4effa670c54585a5d523e96513e148e95d/logo.webp",
+  "logoHash": "bb833d9993fbc6021a79d1b06a59d21eff0f207bda2660200ed880857a06dbeb"
+}

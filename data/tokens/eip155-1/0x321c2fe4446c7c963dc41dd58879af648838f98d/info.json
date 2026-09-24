@@ -1,0 +1,9 @@
+{
+  "name": "Cryptex Finance",
+  "symbol": "CTX",
+  "decimals": 18,
+  "address": "0x321c2fe4446c7c963dc41dd58879af648838f98d",
+  "coingeckoId": "cryptex-finance",
+  "logoURL": "tokens/eip155-1/0x321c2fe4446c7c963dc41dd58879af648838f98d/logo.webp",
+  "logoHash": "bc70f31052d88d68de0d3071acd3ec88d5b4b635480c8d583956af3690b7c5c3"
+}

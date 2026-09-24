@@ -1,0 +1,9 @@
+{
+  "name": "FLEX Coin",
+  "symbol": "FLEX",
+  "decimals": 18,
+  "address": "0xfcf8eda095e37a41e002e266daad7efc1579bc0a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xfcf8eda095e37a41e002e266daad7efc1579bc0a/logo.webp",
+  "logoHash": "e37595aa2ae76c71917a345f3828982a619c9e048ffaf456a9d3b825130349cc"
+}

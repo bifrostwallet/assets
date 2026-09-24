@@ -1,0 +1,9 @@
+{
+  "name": "Pluton",
+  "symbol": "PLU",
+  "decimals": 18,
+  "address": "0xd8912c10681d8b21fd3742244f44658dba12264e",
+  "coingeckoId": "pluton",
+  "logoURL": "tokens/eip155-1/0xd8912c10681d8b21fd3742244f44658dba12264e/logo.webp",
+  "logoHash": "b7d7f4f1a97c12a8fd1a81420e3b2b9f973e00587d23e7d5f4890dae67e01b7f"
+}

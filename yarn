@@ -1,0 +1,59 @@
+#!/bin/sh
+set -eu
+
+ROOT=$(CDPATH='' cd -- "$(dirname "$0")" && pwd)
+cd "$ROOT"
+
+YARNRC="$ROOT/.yarnrc.yml"
+HASH_FILE="$ROOT/.yarn/yarn-binary-hash.txt"
+
+if [ ! -f "$YARNRC" ]; then
+  echo "Error: .yarnrc.yml not found" >&2
+  exit 1
+fi
+
+YARN_REL=$(grep '^yarnPath:' "$YARNRC" | head -n1 | awk '{print $2}')
+if [ -z "$YARN_REL" ]; then
+  echo "Error: yarnPath not set in .yarnrc.yml" >&2
+  exit 1
+fi
+
+YARN_BIN="$ROOT/$YARN_REL"
+if [ ! -f "$YARN_BIN" ]; then
+  echo "Error: Yarn binary not found at $YARN_REL" >&2
+  exit 1
+fi
+
+if [ ! -f "$HASH_FILE" ]; then
+  echo "Error: Hash file not found at .yarn/yarn-binary-hash.txt" >&2
+  exit 1
+fi
+
+EXPECTED_HASH=$(grep -v '^#' "$HASH_FILE" | grep -v '^$' | tail -n 1 | tr -d '[:space:]')
+if [ -z "$EXPECTED_HASH" ]; then
+  echo "Error: Could not read expected hash from $HASH_FILE" >&2
+  exit 1
+fi
+
+ACTUAL_HASH=$(node -e "const fs=require('node:fs');const c=require('node:crypto');process.stdout.write(c.createHash('sha256').update(fs.readFileSync(process.argv[1])).digest('hex'))" "$YARN_BIN")
+
+if [ "$ACTUAL_HASH" != "$EXPECTED_HASH" ]; then
+  echo "Error: Yarn binary hash mismatch (integrity check failed)" >&2
+  echo "  Binary:   $YARN_REL" >&2
+  echo "  Expected: $EXPECTED_HASH" >&2
+  echo "  Actual:   $ACTUAL_HASH" >&2
+  echo "Run ./scripts/security/verify-yarn-hash.sh for details, or ./scripts/security/yarn-binary.sh update after a deliberate Yarn upgrade." >&2
+  exit 1
+fi
+
+# Refuse IDE/agent autostart persistence (Shai-Hulud-style worms).
+"$ROOT/scripts/security/block-ide-autostart-hooks.sh"
+
+# Prove to lifecycle scripts that this process entered via the hash-verified launcher.
+# Global yarn with yarnPath re-execs the vendored binary without setting this.
+export BIFROST_YARN_VERIFIED=1
+
+# Zero-Installs: keep the project cache (ignore host/agent YARN_CACHE_FOLDER overrides).
+export YARN_CACHE_FOLDER="$ROOT/.yarn/cache"
+
+exec node "$YARN_BIN" "$@"

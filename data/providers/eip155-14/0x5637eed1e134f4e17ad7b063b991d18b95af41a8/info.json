@@ -1,0 +1,24 @@
+{
+  "name": "4DadsFTSO",
+  "description": "4 dads, a bunch of kids and a FTSO. Furthering efforts of decentralization for Flare Network and it's canary network, Songbird.",
+  "logoURL": "providers/eip155-14/0x5637eed1e134f4e17ad7b063b991d18b95af41a8/logo.webp",
+  "logoHash": "6004ce457a18ca92d9761be3ecfd582b89561c7b0b54eeea7e42da3b2431dd1c",
+  "websiteURL": "https://4dads.io",
+  "links": {},
+  "identityAddress": "0x5637eed1e134f4e17ad7b063b991d18b95af41a8",
+  "delegationAddress": "0xc522e6a633545872f1afc0cdd7b2d96d97e3de67",
+  "signingPolicyAddress": "0x2467a13e8a8ffa25fc35ed1b9fa9167f7341928b",
+  "submitAddress": "0x486ac9352f2001d1f43b9c02622aa26099b86609",
+  "submitSignaturesAddress": "0xf190c5ac19a1f54bd6687d250a527b6adbb991f9",
+  "publicKey": "0x22df1d88ddef2506fbcd83cbec8eedda11738d8682fa97824a2ae74982e9ad75237b66aaa77b0bd3e393520c77b657a291eb5e7cd88e8110a3c7cba50c9eeac9",
+  "validators": ["NodeID-CoNH4gyEwB9gTrEmozwh14Zr8hs6wokRS"],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xbdfae86508259344e415c164886e9362547bebb99fb44c391385c3936e846277",
+    "blockNumber": 23511,
+    "timestamp": "2022-07-23T17:21:57.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Bitcoin",
+  "symbol": "WBTC",
+  "decimals": 8,
+  "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+  "coingeckoId": "arbitrum-bridged-wbtc-arbitrum-one",
+  "logoURL": "tokens/eip155-42161/0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f/logo.webp",
+  "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Avalanche",
+  "symbol": "AVAX",
+  "decimals": 18,
+  "address": "0x2c89bbc92bd86f8075d1decc58c7f4e0107f286b",
+  "coingeckoId": "bridged-wavax",
+  "logoURL": "tokens/eip155-137/0x2c89bbc92bd86f8075d1decc58c7f4e0107f286b/logo.webp",
+  "logoHash": "8887c9d276767f0dd1e22cee5b09085f9cc15588127d4b0daa7a795a96303e8f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Zombie Inu",
+  "symbol": "ZINU",
+  "decimals": 9,
+  "address": "0xc50ef449171a51fbeafd7c562b064b6471c36caa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc50ef449171a51fbeafd7c562b064b6471c36caa/logo.webp",
+  "logoHash": "246a1543102eaaa4bd844e85111060a8354e244ae4b5ce0102a6a8da52606462"
+}

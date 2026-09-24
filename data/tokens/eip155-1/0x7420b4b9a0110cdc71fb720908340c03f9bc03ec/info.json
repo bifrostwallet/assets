@@ -1,0 +1,9 @@
+{
+  "name": "JasmyCoin",
+  "symbol": "JASMY",
+  "decimals": 18,
+  "address": "0x7420b4b9a0110cdc71fb720908340c03f9bc03ec",
+  "coingeckoId": "jasmycoin",
+  "logoURL": "tokens/eip155-1/0x7420b4b9a0110cdc71fb720908340c03f9bc03ec/logo.webp",
+  "logoHash": "4216f715b839b11245eff0062f208904df2df9f5adf9b27be387031fbae8fdf1"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Meter Governance",
+  "symbol": "MTRG",
+  "decimals": 18,
+  "address": "0xbd2949f67dcdc549c6ebe98696449fa79d988a9f",
+  "coingeckoId": "meter",
+  "logoURL": "tokens/eip155-56/0xbd2949f67dcdc549c6ebe98696449fa79d988a9f/logo.webp",
+  "logoHash": "01ddf5f97b14dc43f715483aebd1ffc10d96337ff29faf9a5f8188e3b5aa2854"
+}

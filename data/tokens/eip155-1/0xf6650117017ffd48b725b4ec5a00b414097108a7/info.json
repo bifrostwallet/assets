@@ -1,0 +1,9 @@
+{
+  "name": "Xido Finance",
+  "symbol": "XIDO",
+  "decimals": 18,
+  "address": "0xf6650117017ffd48b725b4ec5a00b414097108a7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf6650117017ffd48b725b4ec5a00b414097108a7/logo.webp",
+  "logoHash": "2af04e42954cbb325d9f38abd177a5b63e243b4cc1bb94b5f62340ba911b8961"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "WPP Token",
+  "symbol": "WPP",
+  "decimals": 18,
+  "address": "0x1955d744f9435522be508d1ba60e3c12d0690b6a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x1955d744f9435522be508d1ba60e3c12d0690b6a/logo.webp",
+  "logoHash": "d9bd555d246ff1f41d1f5bcc41a9605647d3cf6dcf6f00fde9ec58d553a1f616"
+}

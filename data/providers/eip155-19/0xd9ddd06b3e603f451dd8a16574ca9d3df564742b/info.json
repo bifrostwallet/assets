@@ -1,0 +1,24 @@
+{
+  "name": "TempestFTSO",
+  "description": "TempestFTSO created by industry professionals to deliver the most reliable and accurate price feeds to the FTSO system.",
+  "logoURL": "providers/eip155-19/0xd9ddd06b3e603f451dd8a16574ca9d3df564742b/logo.webp",
+  "logoHash": "04834fb103440c336904abd652fdb1bd0727196c6f19b165b452e5477c8c0f14",
+  "websiteURL": "https://tempestftso.com",
+  "links": {},
+  "identityAddress": "0xd9ddd06b3e603f451dd8a16574ca9d3df564742b",
+  "delegationAddress": "0x4eb408fa585a5c66e523a4ae5f5706374ec9e8c7",
+  "signingPolicyAddress": "0x40567b5f30c90f35a3d3a5c57702bef6813d9a39",
+  "submitAddress": "0xb410331e0f29f9cf5792a18982bf416a7768fdec",
+  "submitSignaturesAddress": "0x88311d4876d761837fe70e771a4d4a5beb9da887",
+  "publicKey": "0x2eb04cf003c1079247e39bc5a0c777ccbe86e360b22213741ea259adbc6c9a1c1b3d9011ec62b2eeed3d6996858fe90589a4d61f35dec99a087bc57786449af2",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x9354bd81131ccf429a5979f23353116ad9fe5a7810f55deea40d8d1e97b3fedb",
+    "blockNumber": 25556519,
+    "timestamp": "2022-11-03T17:20:59.000Z"
+  }
+}

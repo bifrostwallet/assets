@@ -1,0 +1,101 @@
+#!/bin/sh
+# Block accidentally-committed populated env files.
+BLOCKED_ENV=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^\.env' || true)
+if [ -n "$BLOCKED_ENV" ]; then
+  echo "Refusing to commit env files:"
+  echo "$BLOCKED_ENV"
+  exit 1
+fi
+
+# Block IDE/agent/git-hook autostart persistence (Shai-Hulud-style worms).
+BLOCKED_IDE=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^(\.claude/settings\.json|\.vscode/tasks\.json|\.cursor/hooks\.json|\.cursor/hooks/|\.husky/)' || true)
+if [ -n "$BLOCKED_IDE" ]; then
+  echo "Refusing to commit IDE/agent autostart files:"
+  echo "$BLOCKED_IDE"
+  echo "These paths are used as malware persistence (Claude/Cursor hooks, VS Code folderOpen, nested git-hook installers)."
+  exit 1
+fi
+./scripts/security/block-ide-autostart-hooks.sh || exit 1
+
+# Run security checks only when security-sensitive files changed.
+if ./scripts/security/check-core-changes.sh; then
+  # Run security checks directly (not through yarn) for security reasons
+  # to ensure we're not relying on potentially compromised tools
+  ./scripts/security/security-checks.sh || exit 1
+fi
+
+# --- Quality gates (Biome / typecheck / ShellCheck / yamllint) ---
+# Keep this block aligned with base-repository .git-hooks/pre-commit.
+
+has_package_script() {
+  node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts['$1'] ? 0 : 1)"
+}
+
+# JS/TS/JSON for Biome (NodeNext may use .mts/.cts/.mjs/.cjs later).
+# POSIX-safe — tools may call git hooks using `sh`.
+set -- '*.ts' '*.tsx' '*.mts' '*.cts' '*.js' '*.jsx' '*.mjs' '*.cjs' '*.json' '*.jsonc'
+
+# Skip Yarn-generated PnP loaders and .yarn/ (committed for Zero-Installs, never Biome-linted).
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- "$@" \
+  | grep -vE '(^|/)\.pnp(\.|$)|(^|/)\.yarn/' || true)
+
+# Match scripts/lint-shell.sh discovery: *.sh, yarn/maestro launchers, .git-hooks/*.
+STAGED_SHELL=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '(^|/)(yarn|maestro)$|\.sh$|(^|/)\.git-hooks/' || true)
+
+# Match scripts/lint-yaml.sh discovery: *.yaml / *.yml (vendor/ ignored there).
+STAGED_YAML=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '\.ya?ml$' || true)
+
+if [ -z "$STAGED_FILES" ] && [ -z "$STAGED_SHELL" ] && [ -z "$STAGED_YAML" ]; then
+  echo "No TS/JS/JSON, shell, or YAML files staged. Skipping quality gates."
+  exit 0
+fi
+
+if [ ! -x "./yarn" ]; then
+  echo "Error: ./yarn launcher not found. Restore the repo yarn wrapper."
+  exit 1
+fi
+
+if [ -n "$STAGED_FILES" ]; then
+  if has_package_script lint; then
+    echo "Running Biome on staged files..."
+    # Reuse newline-filtered STAGED_FILES; re-null-delimit for xargs -0.
+    # Avoids grep -z (not portable across grep implementations).
+    # Hooks do not use set -e — fail closed if Biome fails.
+    while IFS= read -r file || [ -n "$file" ]; do
+      [ -n "$file" ] || continue
+      printf '%s\0' "$file"
+    done <<EOF | xargs -0 ./yarn biome check --no-errors-on-unmatched || exit 1
+$STAGED_FILES
+EOF
+    echo ""
+  else
+    echo "No lint script in package.json; skipping Biome."
+  fi
+fi
+
+STAGED_TS=$(printf '%s\n' "$STAGED_FILES" | grep -E '\.(ts|tsx|mts|cts)$' || true)
+if [ -n "$STAGED_TS" ] && has_package_script typecheck; then
+  echo "Running typecheck..."
+  ./yarn typecheck || exit 1
+  echo ""
+fi
+
+if [ -n "$STAGED_SHELL" ]; then
+  if has_package_script lint:shell; then
+    SHELL_LINT_LABEL=staged ./yarn lint:shell || exit 1
+  elif [ -x ./scripts/lint-shell.sh ]; then
+    SHELL_LINT_LABEL=staged ./scripts/lint-shell.sh || exit 1
+  fi
+fi
+
+if [ -n "$STAGED_YAML" ]; then
+  if has_package_script lint:yaml; then
+    YAML_LINT_LABEL=staged ./yarn lint:yaml || exit 1
+  elif [ -x ./scripts/lint-yaml.sh ]; then
+    YAML_LINT_LABEL=staged ./scripts/lint-yaml.sh || exit 1
+  fi
+fi

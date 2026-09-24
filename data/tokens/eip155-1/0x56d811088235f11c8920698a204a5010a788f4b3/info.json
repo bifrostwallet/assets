@@ -1,0 +1,9 @@
+{
+  "name": "bZx Protocol",
+  "symbol": "BZRX",
+  "decimals": 18,
+  "address": "0x56d811088235f11c8920698a204a5010a788f4b3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x56d811088235f11c8920698a204a5010a788f4b3/logo.webp",
+  "logoHash": "84f9952965a0e34a7da4e3018a203224d69d303a6fbc564500db1ea66355afa3"
+}

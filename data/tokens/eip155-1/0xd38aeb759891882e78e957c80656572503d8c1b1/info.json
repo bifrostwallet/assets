@@ -1,0 +1,9 @@
+{
+  "name": "Synth Curve DAO Token",
+  "symbol": "SCRV",
+  "decimals": 18,
+  "address": "0xd38aeb759891882e78e957c80656572503d8c1b1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xd38aeb759891882e78e957c80656572503d8c1b1/logo.webp",
+  "logoHash": "57ed464257920233b7d8431804566f2d436c0be565f9985450d3fe7e3fbcaf5a"
+}

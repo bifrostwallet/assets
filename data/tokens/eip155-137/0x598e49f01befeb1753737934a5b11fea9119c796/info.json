@@ -1,0 +1,9 @@
+{
+  "name": "Adshares",
+  "symbol": "ADS",
+  "decimals": 11,
+  "address": "0x598e49f01befeb1753737934a5b11fea9119c796",
+  "coingeckoId": "adshares",
+  "logoURL": "tokens/eip155-137/0x598e49f01befeb1753737934a5b11fea9119c796/logo.webp",
+  "logoHash": "ba998eb6c23dd71acf460984be8f87d19e97989910d904eb6782fff438f71e8d"
+}

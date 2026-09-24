@@ -1,0 +1,9 @@
+{
+  "name": "sETH2",
+  "symbol": "SETH2",
+  "decimals": 18,
+  "address": "0xfe2e637202056d30016725477c5da089ab0a043a",
+  "coingeckoId": "seth2",
+  "logoURL": "tokens/eip155-1/0xfe2e637202056d30016725477c5da089ab0a043a/logo.webp",
+  "logoHash": "87521d84a714fe6697805826d6de5b14a8cac1f06d163574bdb63f2a2b534789"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Cake Monster",
+  "symbol": "MONSTA",
+  "decimals": 18,
+  "address": "0x8a5d7fcd4c90421d21d30fcc4435948ac3618b2f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x8a5d7fcd4c90421d21d30fcc4435948ac3618b2f/logo.webp",
+  "logoHash": "3c520fb855be10f84600bf0ba2ff6e344e5a6473fe6ba7d0c83955dbe52eaf58"
+}

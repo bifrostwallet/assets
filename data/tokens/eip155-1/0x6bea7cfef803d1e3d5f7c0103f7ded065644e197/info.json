@@ -1,0 +1,9 @@
+{
+  "name": "Gamma Strategies",
+  "symbol": "GAMMA",
+  "decimals": 18,
+  "address": "0x6bea7cfef803d1e3d5f7c0103f7ded065644e197",
+  "coingeckoId": "gamma-strategies",
+  "logoURL": "tokens/eip155-1/0x6bea7cfef803d1e3d5f7c0103f7ded065644e197/logo.webp",
+  "logoHash": "4947d0bd86377ad60abf538cc108e87ecb3e9f0b198499d747f73c373da84356"
+}

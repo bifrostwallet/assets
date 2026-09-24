@@ -1,0 +1,9 @@
+{
+  "name": "Biconomy",
+  "symbol": "BICO",
+  "decimals": 18,
+  "address": "0xf17e65822b568b3903685a7c9f496cf7656cc6c2",
+  "coingeckoId": "biconomy",
+  "logoURL": "tokens/eip155-1/0xf17e65822b568b3903685a7c9f496cf7656cc6c2/logo.webp",
+  "logoHash": "bc30b74c31f6d693b2665ac622b3424022c666670b7c9dd4556d8140dd825f7e"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Scintilla",
+  "description": "High accuracy signal provider to the Flare Network.",
+  "logoURL": "providers/eip155-14/0x4fd3b47e10017d767bee358fe7290533c7218836/logo.webp",
+  "logoHash": "f24ca36d33de49f7d410bcf1105cb9cde4754e8cabe5738af4cd520474fb3c86",
+  "websiteURL": "https://www.scintilla.io",
+  "links": {},
+  "identityAddress": "0x4fd3b47e10017d767bee358fe7290533c7218836",
+  "delegationAddress": "0xefb939ebe430efd987c2650367a1b2c9f070d3f1",
+  "signingPolicyAddress": "0x4324f4250cc838aa418c2859168ccd7737cf1d34",
+  "submitAddress": "0x9adf4f025282c87a374580ce566a2d0dda198a53",
+  "submitSignaturesAddress": "0x2101daaca051de5f4ea6be3419642765408a866c",
+  "publicKey": "0x151f83d20c9750b2e97e48459e9e79024257c2fc60df964817c89be88c5cc46b2f8b123502be4523e612226de01108dc6b120691b7041a364e94712e392e3dc7",
+  "validators": ["NodeID-EBcyABp9i2wEgZbhiwnyLaqBwFFTdZXyd"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x24a05a7131e2c89c5a8d33a7dd28814463b8e935c322bbb1a058e4610d9776ea",
+    "blockNumber": 96695,
+    "timestamp": "2022-07-28T10:23:57.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Coinmetro",
+  "symbol": "XCM",
+  "decimals": 18,
+  "address": "0x36ac219f90f5a6a3c77f2a7b660e3cc701f68e25",
+  "coingeckoId": "coinmetro",
+  "logoURL": "tokens/eip155-1/0x36ac219f90f5a6a3c77f2a7b660e3cc701f68e25/logo.webp",
+  "logoHash": "9f14ea95f54d50fc96bbf95cf5e501be0be2a178f2f66ed2ed44c0dce5694b39"
+}

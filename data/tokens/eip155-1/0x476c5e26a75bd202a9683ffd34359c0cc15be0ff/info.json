@@ -1,0 +1,9 @@
+{
+  "name": "Serum",
+  "symbol": "SRM",
+  "decimals": 6,
+  "address": "0x476c5e26a75bd202a9683ffd34359c0cc15be0ff",
+  "coingeckoId": "serum",
+  "logoURL": "tokens/eip155-1/0x476c5e26a75bd202a9683ffd34359c0cc15be0ff/logo.webp",
+  "logoHash": "77eb3d00cec608c423685ad384b06dc6268153b3a34ae51a6d1fd53bf180df3a"
+}

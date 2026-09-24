@@ -1,0 +1,9 @@
+{
+  "name": "Aurora",
+  "symbol": "AURORA",
+  "decimals": 18,
+  "address": "0xaaaaaa20d9e0e2461697782ef11675f668207961",
+  "coingeckoId": "aurora-near",
+  "logoURL": "tokens/eip155-1/0xaaaaaa20d9e0e2461697782ef11675f668207961/logo.webp",
+  "logoHash": "18b87d992e251399c122da0976d604fc7df37eeb15794f9445c4ae91e03aef39"
+}

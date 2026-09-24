@@ -1,0 +1,9 @@
+{
+  "name": "Ankr",
+  "symbol": "ANKR",
+  "decimals": 18,
+  "address": "0x8290333cef9e6d528dd5618fb97a76f268f3edd4",
+  "coingeckoId": "ankr",
+  "logoURL": "tokens/eip155-1/0x8290333cef9e6d528dd5618fb97a76f268f3edd4/logo.webp",
+  "logoHash": "1e495ce10fbb0346054d2c5b17f7f3fb859e477b81c011535809b3e0e856d6ef"
+}

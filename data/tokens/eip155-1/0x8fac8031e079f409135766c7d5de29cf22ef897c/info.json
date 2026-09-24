@@ -1,0 +1,9 @@
+{
+  "name": "Humans.ai",
+  "symbol": "HEART",
+  "decimals": 18,
+  "address": "0x8fac8031e079f409135766c7d5de29cf22ef897c",
+  "coingeckoId": "humans-ai",
+  "logoURL": "tokens/eip155-1/0x8fac8031e079f409135766c7d5de29cf22ef897c/logo.webp",
+  "logoHash": "2e44b18d175e9883a0a3e649e14d84401793984ce3df28e592dd7349992f4d59"
+}

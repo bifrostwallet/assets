@@ -1,0 +1,9 @@
+{
+  "name": "MarketMove",
+  "symbol": "MOVE",
+  "decimals": 9,
+  "address": "0x231cf6f78620e42fe00d0c5c3088b427f355d01c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x231cf6f78620e42fe00d0c5c3088b427f355d01c/logo.webp",
+  "logoHash": "56e922930a41582f043499234249c2fc57b4ce169bc451789ca7618b4cc0ff3c"
+}

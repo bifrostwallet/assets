@@ -1,0 +1,9 @@
+{
+  "name": "Ampleforth",
+  "symbol": "AMPL",
+  "decimals": 9,
+  "address": "0xdb021b1b247fe2f1fa57e0a87c748cc1e321f07f",
+  "coingeckoId": "ampleforth",
+  "logoURL": "tokens/eip155-56/0xdb021b1b247fe2f1fa57e0a87c748cc1e321f07f/logo.webp",
+  "logoHash": "2258dc6883546ac114fad48e681eae8cec4c2e75119a305e9341af891bf0e2ae"
+}

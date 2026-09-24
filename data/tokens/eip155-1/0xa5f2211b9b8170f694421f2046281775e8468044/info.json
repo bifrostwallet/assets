@@ -1,0 +1,9 @@
+{
+  "name": "THORSwap",
+  "symbol": "THOR",
+  "decimals": 18,
+  "address": "0xa5f2211b9b8170f694421f2046281775e8468044",
+  "coingeckoId": "thorswap",
+  "logoURL": "tokens/eip155-1/0xa5f2211b9b8170f694421f2046281775e8468044/logo.webp",
+  "logoHash": "a13348db8594f02403d26596346de31872120bcf7853b4a7cf98087391d73b08"
+}

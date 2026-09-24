@@ -1,0 +1,9 @@
+{
+  "name": "DAOhaus",
+  "symbol": "HAUS",
+  "decimals": 18,
+  "address": "0xf2051511b9b121394fa75b8f7d4e7424337af687",
+  "coingeckoId": "daohaus",
+  "logoURL": "tokens/eip155-1/0xf2051511b9b121394fa75b8f7d4e7424337af687/logo.webp",
+  "logoHash": "469805f03ff4f7106328bcc89562753c00e9f3535a7efa97d341b4de1c361493"
+}

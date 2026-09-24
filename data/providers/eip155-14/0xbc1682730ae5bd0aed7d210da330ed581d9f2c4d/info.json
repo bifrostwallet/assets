@@ -1,0 +1,24 @@
+{
+  "name": "Flaris",
+  "description": "UK technology",
+  "logoURL": "providers/eip155-14/0xbc1682730ae5bd0aed7d210da330ed581d9f2c4d/logo.webp",
+  "logoHash": "e581e9640e8473a4a08f912f8042896bcfd3f0f378ddac75777a9a7ec9c63a5d",
+  "websiteURL": "https://www.flaris.uk",
+  "links": {},
+  "identityAddress": "0xbc1682730ae5bd0aed7d210da330ed581d9f2c4d",
+  "delegationAddress": "0xf8b1dcf2594afd082aae088661bf574cb9bbdc61",
+  "signingPolicyAddress": "0xda3dbefdc13e86dcd5443f514aa11c1f63db3cbf",
+  "submitAddress": "0xb0e80448fdf21cec226041ca8165a36d22f2dfa2",
+  "submitSignaturesAddress": "0x7df36c1d5e1551fca6289d2b574a3c05d7cec1db",
+  "publicKey": "0x0cf3bb4f6ab3ce6574136a31b6b8167556f6546170ad231301d13ee04ce8aed818968c94797d4a501dceb6195bf8e00ed7c826a91ea9e3dd03b25e55740e244e",
+  "validators": ["NodeID-66rV9yEWSVGLC8fs9ynKptVf9f6bSbHC8"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x47d2486d857e06da2ad7fb907963af73fabd22379f918692256f46f9c9c63e71",
+    "blockNumber": 2034172,
+    "timestamp": "2022-10-26T12:14:52.000Z"
+  }
+}

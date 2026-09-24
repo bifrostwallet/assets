@@ -1,0 +1,9 @@
+{
+  "name": "THORChain (ERC20)",
+  "symbol": "RUNE",
+  "decimals": 18,
+  "address": "0x3155ba85d5f96b2d030a4966af206230e46849cb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3155ba85d5f96b2d030a4966af206230e46849cb/logo.webp",
+  "logoHash": "415e564dab01b877570cac3cff2c31bb94a945436815dfdf0d8c6569798c541b"
+}

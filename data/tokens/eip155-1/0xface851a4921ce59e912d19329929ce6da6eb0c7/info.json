@@ -1,0 +1,9 @@
+{
+  "name": "cLINK",
+  "symbol": "CLINK",
+  "decimals": 8,
+  "address": "0xface851a4921ce59e912d19329929ce6da6eb0c7",
+  "coingeckoId": "compound-chainlink-token",
+  "logoURL": "tokens/eip155-1/0xface851a4921ce59e912d19329929ce6da6eb0c7/logo.webp",
+  "logoHash": "20f1077ac42eac6d15b26f32676ff33eef23781f39e8f009dc9e0a9e1aa62abd"
+}

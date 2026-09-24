@@ -1,0 +1,9 @@
+{
+  "name": "Loopring",
+  "symbol": "LRC",
+  "decimals": 18,
+  "address": "0xbbbbca6a901c926f240b89eacb641d8aec7aeafd",
+  "coingeckoId": "loopring",
+  "logoURL": "tokens/eip155-1/0xbbbbca6a901c926f240b89eacb641d8aec7aeafd/logo.webp",
+  "logoHash": "4b06396f4c8cfd76e068fef1f7b3fed1330d49ab902f90b4941074610a60fbff"
+}

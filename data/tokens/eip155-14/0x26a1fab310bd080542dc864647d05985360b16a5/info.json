@@ -1,0 +1,9 @@
+{
+  "name": "Flare Staked Ether",
+  "symbol": "flrETH",
+  "decimals": 18,
+  "address": "0x26a1fab310bd080542dc864647d05985360b16a5",
+  "coingeckoId": "flare-staked-ether",
+  "logoURL": "tokens/eip155-14/0x26a1fab310bd080542dc864647d05985360b16a5/logo.webp",
+  "logoHash": "bf429e89f75b05cc17282f0ba8c995119e837fe8a50bed4fdcffd659bf127c73"
+}

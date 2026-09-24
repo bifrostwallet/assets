@@ -1,0 +1,9 @@
+{
+  "name": "Geist Finance",
+  "symbol": "GEIST",
+  "decimals": 18,
+  "address": "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0xd8321aa83fb0a4ecd6348d4577431310a6e0814d/logo.webp",
+  "logoHash": "1da9639b5536999d43c8bff3b04c429ae892028f0abb0a53acc8f277309d18fd"
+}

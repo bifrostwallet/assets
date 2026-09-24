@@ -1,0 +1,9 @@
+{
+  "name": "Silent Notary",
+  "symbol": "UBSN",
+  "decimals": 4,
+  "address": "0x86efc496dca70bcfd92d19194290e8457a375773",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x86efc496dca70bcfd92d19194290e8457a375773/logo.webp",
+  "logoHash": "d2228ba807584d6dfbdc40bf7122fe1e1df37b67d5351e72b14faadc882003c1"
+}

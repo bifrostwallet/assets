@@ -1,0 +1,9 @@
+{
+  "name": "Tomb Shares",
+  "symbol": "TSHARE",
+  "decimals": 18,
+  "address": "0x4cdf39285d7ca8eb3f090fda0c069ba5f4145b37",
+  "coingeckoId": "tomb-shares",
+  "logoURL": "tokens/eip155-250/0x4cdf39285d7ca8eb3f090fda0c069ba5f4145b37/logo.webp",
+  "logoHash": "886011522053cde3002ab1916eff282fffc2ccf9712211a2e11c1fc6b0ccd606"
+}

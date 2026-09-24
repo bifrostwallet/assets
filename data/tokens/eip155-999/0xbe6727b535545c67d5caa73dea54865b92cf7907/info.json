@@ -1,0 +1,9 @@
+{
+  "name": "Unit Ethereum",
+  "symbol": "UETH",
+  "decimals": 18,
+  "address": "0xbe6727b535545c67d5caa73dea54865b92cf7907",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0xbe6727b535545c67d5caa73dea54865b92cf7907/logo.webp",
+  "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+}

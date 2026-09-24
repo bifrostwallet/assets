@@ -1,0 +1,9 @@
+{
+  "name": "Opulous",
+  "symbol": "OPUL",
+  "decimals": 18,
+  "address": "0x80d55c03180349fff4a229102f62328220a96444",
+  "coingeckoId": "opulous",
+  "logoURL": "tokens/eip155-1/0x80d55c03180349fff4a229102f62328220a96444/logo.webp",
+  "logoHash": "a4e611030abf7eae9a9cc766b884918243d40a2b04dfd401d43b0338314b1994"
+}

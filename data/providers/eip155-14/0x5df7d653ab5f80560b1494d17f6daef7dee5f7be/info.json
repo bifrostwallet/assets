@@ -1,0 +1,24 @@
+{
+  "name": "Sparky",
+  "description": "",
+  "logoURL": "providers/eip155-14/0x5df7d653ab5f80560b1494d17f6daef7dee5f7be/logo.webp",
+  "logoHash": "e8ad2a2b17ab80643a9b1429c29311e8aa5606a45c67cddc5db286b74fb68139",
+  "websiteURL": "",
+  "links": {},
+  "identityAddress": "0x5df7d653ab5f80560b1494d17f6daef7dee5f7be",
+  "delegationAddress": "0x59187c1f521fbacc0236e74db052ecfb17d9a845",
+  "signingPolicyAddress": "0x70509021b5faf413492cba08f37e81da3a4b8729",
+  "submitAddress": "0x92a74e5c5a4c42dfc6b531244a29c68b7da57196",
+  "submitSignaturesAddress": "0xe97c990a1fc4f10d6147260b70ab8e886c72eec3",
+  "publicKey": "0x1bbb8f8bc4a36220821a49920e84a81072381e2a7c034ed27beacdb0693951b1130053096ca94b1048c310ee562b1095a020117b0080a8c76f0cb0b89deb29d9",
+  "validators": ["NodeID-HHL3A3jMLbcKWKBP91ApQpuuKkqD9VguZ"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xa139d711b5089733c94ccb4f84291ec75a28ce187b004a7be87178a06880a538",
+    "blockNumber": 55222513,
+    "timestamp": "2026-02-09T11:46:14.000Z"
+  }
+}

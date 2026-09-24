@@ -1,0 +1,9 @@
+{
+  "name": "Beethoven X",
+  "symbol": "BEETS",
+  "decimals": 18,
+  "address": "0xf24bcf4d1e507740041c9cfd2dddb29585adce1e",
+  "coingeckoId": "beethoven-x",
+  "logoURL": "tokens/eip155-250/0xf24bcf4d1e507740041c9cfd2dddb29585adce1e/logo.webp",
+  "logoHash": "83931db96204be0a4e7ade7b7fc0cdcdc5aef5220b789170851f4a4d036d2910"
+}

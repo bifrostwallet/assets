@@ -1,0 +1,9 @@
+{
+  "name": "Dent",
+  "symbol": "DENT",
+  "decimals": 8,
+  "address": "0x3597bfd533a99c9aa083587b074434e61eb0a258",
+  "coingeckoId": "dent",
+  "logoURL": "tokens/eip155-1/0x3597bfd533a99c9aa083587b074434e61eb0a258/logo.webp",
+  "logoHash": "ae97ae56c485d29326a7a49d4e2820df1f8c31a6bbea92212e720dc33ccfea06"
+}

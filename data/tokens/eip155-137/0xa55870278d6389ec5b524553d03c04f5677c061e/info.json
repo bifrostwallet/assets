@@ -1,0 +1,9 @@
+{
+  "name": "XCAD Network",
+  "symbol": "XCAD",
+  "decimals": 18,
+  "address": "0xa55870278d6389ec5b524553d03c04f5677c061e",
+  "coingeckoId": "xcad-network",
+  "logoURL": "tokens/eip155-137/0xa55870278d6389ec5b524553d03c04f5677c061e/logo.webp",
+  "logoHash": "8deefe2e4dc3a6ef470e03d6fb80e1558231a47c550ba473860359063ef01c0d"
+}

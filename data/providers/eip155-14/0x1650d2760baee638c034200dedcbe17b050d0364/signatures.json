@@ -1,0 +1,13 @@
+{
+  "identityAddress": "0x1650d2760baee638c034200dedcbe17b050d0364",
+  "verificationInstructions": "To verify signatures, take the provider's info.json without the logoURL, listed, managementGroup, domainLinked, dualNetwork and firstTransaction properties, hash the resulting JSON with SHA-256, and verify that the hash was signed by the respective signer addresses.",
+  "signatures": [
+    {
+      "signerName": "Bifrost Wallet",
+      "signerAddress": "0x1650d2760BAee638c034200DEdCBe17B050d0364",
+      "messageHash": "0xa2f5a06c92c5026c651de2faa3cc0bb79b948a7666860b69560682b06f3fb086",
+      "signature": "0xf3e9e85cc2b4d0d6f5a5d1d61c864d5b7f21822bdbd51fe64d84edb24096cbbd68ae28909c2eac0473bd374b896245714c21c9dddafe99c1f7d12b208baaedb31c",
+      "date": "2025-07-15T21:10:32.031Z"
+    }
+  ]
+}

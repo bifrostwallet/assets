@@ -1,0 +1,9 @@
+{
+  "name": "SKALE Network",
+  "symbol": "SKL",
+  "decimals": 18,
+  "address": "0x00c83aecc790e8a4453e5dd3b0b4b3680501a7a7",
+  "coingeckoId": "skale",
+  "logoURL": "tokens/eip155-1/0x00c83aecc790e8a4453e5dd3b0b4b3680501a7a7/logo.webp",
+  "logoHash": "e3491a056496242bc3d2eec328ea9b897c4d2ac04f872ef3e7e4fa445655b376"
+}

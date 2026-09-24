@@ -1,0 +1,9 @@
+{
+  "name": "NKN",
+  "symbol": "NKN",
+  "decimals": 18,
+  "address": "0x5cf04716ba20127f1e2297addcf4b5035000c9eb",
+  "coingeckoId": "nkn",
+  "logoURL": "tokens/eip155-1/0x5cf04716ba20127f1e2297addcf4b5035000c9eb/logo.webp",
+  "logoHash": "4d0e73098600a3ebc3515022a941fb0fd26691c97c1b55b91eaf36bebc2ce902"
+}

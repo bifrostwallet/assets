@@ -1,0 +1,24 @@
+{
+  "name": "Flare Oracle",
+  "description": "Flare Oracle, a data provider to the Flare network. Our goal is to give users a plug & play solution to effortlessly control their passive income.",
+  "logoURL": "providers/eip155-19/0x6c2209754845df0fc01d048c3f3c3537b5d35b9c/logo.webp",
+  "logoHash": "e247ef4205d11754a3bdf3bf0874304616ca7140e6f75941ca89cf136a8dd56d",
+  "websiteURL": "https://flareoracle.io",
+  "links": {},
+  "identityAddress": "0x6c2209754845df0fc01d048c3f3c3537b5d35b9c",
+  "delegationAddress": "0x1b00870092a929d160492daf8e734b4bca033266",
+  "signingPolicyAddress": "0xfe28f67f7e33f9702476da4a851148b8d594b453",
+  "submitAddress": "0x8ca22a091f467d4e4d0e0357b6cd6d963e426689",
+  "submitSignaturesAddress": "0xfba9e89bf31ad6a0a7079e6ea4775b09b49efdd2",
+  "publicKey": "0x0b9f23f04efd418dc45c183010cd0ded815083d7882e27434166c41c871f136e042ea2b42f276bcd05fd1c6ff1456301591db6e287dc316396c9e9f49235cb59",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xf8d9cc44b1e22cec23f3d737a7e02b37949941a40f41c61ecaaa232644f6bb42",
+    "blockNumber": 513205,
+    "timestamp": "2021-10-08T12:46:43.000Z"
+  }
+}

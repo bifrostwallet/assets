@@ -1,0 +1,9 @@
+{
+  "name": "feUSD",
+  "symbol": "feUSD",
+  "decimals": 18,
+  "address": "0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70/logo.webp",
+  "logoHash": "d041cbab379369806bdc25201d7ede607e5658c652982c3885fb38ef6006f7f5"
+}

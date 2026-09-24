@@ -1,0 +1,9 @@
+{
+  "name": "Function X",
+  "symbol": "FX",
+  "decimals": 18,
+  "address": "0x8c15ef5b4b21951d50e53e4fbda8298ffad25057",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x8c15ef5b4b21951d50e53e4fbda8298ffad25057/logo.webp",
+  "logoHash": "9bcbcb0eb3fb5272ac97b0bd590dc7251e63b7a11473f9b718fd6986bccf2dd7"
+}

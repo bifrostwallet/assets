@@ -1,0 +1,9 @@
+{
+  "name": "Unifi Protocol DAO",
+  "symbol": "UNFI",
+  "decimals": 18,
+  "address": "0x728c5bac3c3e370e372fc4671f9ef6916b814d8b",
+  "coingeckoId": "unifi-protocol-dao",
+  "logoURL": "tokens/eip155-56/0x728c5bac3c3e370e372fc4671f9ef6916b814d8b/logo.webp",
+  "logoHash": "44298f5b6fcdc6b26e9a1376805eb610870e8d57a804ca4218f1e0c509dd0ef5"
+}

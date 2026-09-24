@@ -1,0 +1,9 @@
+{
+  "name": "Orchid Protocol",
+  "symbol": "OXT",
+  "decimals": 18,
+  "address": "0x4575f41308ec1483f3d399aa9a2826d74da13deb",
+  "coingeckoId": "orchid-protocol",
+  "logoURL": "tokens/eip155-1/0x4575f41308ec1483f3d399aa9a2826d74da13deb/logo.webp",
+  "logoHash": "561c93662025d4f77e2a05df5dab973967409a086d07cc3b0d6b280a4c770e30"
+}

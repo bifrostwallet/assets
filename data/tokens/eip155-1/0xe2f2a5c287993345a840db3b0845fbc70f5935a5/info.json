@@ -1,0 +1,9 @@
+{
+  "name": "mStable USD",
+  "symbol": "MUSD",
+  "decimals": 18,
+  "address": "0xe2f2a5c287993345a840db3b0845fbc70f5935a5",
+  "coingeckoId": "musd",
+  "logoURL": "tokens/eip155-1/0xe2f2a5c287993345a840db3b0845fbc70f5935a5/logo.webp",
+  "logoHash": "84a3852ff63ed9439fd1fa6a6683517ad4829b2b845384009bac439a128e52fc"
+}

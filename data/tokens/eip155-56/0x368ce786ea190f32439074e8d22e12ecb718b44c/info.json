@@ -1,0 +1,9 @@
+{
+  "name": "Epik Prime",
+  "symbol": "EPIK",
+  "decimals": 18,
+  "address": "0x368ce786ea190f32439074e8d22e12ecb718b44c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x368ce786ea190f32439074e8d22e12ecb718b44c/logo.webp",
+  "logoHash": "faf5a2f67c945d95284eeb56c2e8db1f7e6a9f390e9cb49370da7069ce450c2c"
+}

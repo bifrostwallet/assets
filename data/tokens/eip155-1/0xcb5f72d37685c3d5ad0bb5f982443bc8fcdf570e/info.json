@@ -1,0 +1,9 @@
+{
+  "name": "Rootkit",
+  "symbol": "ROOT",
+  "decimals": 18,
+  "address": "0xcb5f72d37685c3d5ad0bb5f982443bc8fcdf570e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xcb5f72d37685c3d5ad0bb5f982443bc8fcdf570e/logo.webp",
+  "logoHash": "237de164a06d9c50a3574598629289eb6bee4a77a1b7b842c17a171fd615b828"
+}

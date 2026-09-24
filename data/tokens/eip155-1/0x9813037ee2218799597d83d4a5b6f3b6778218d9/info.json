@@ -1,0 +1,9 @@
+{
+  "name": "Bone ShibaSwap",
+  "symbol": "BONE",
+  "decimals": 18,
+  "address": "0x9813037ee2218799597d83d4a5b6f3b6778218d9",
+  "coingeckoId": "bone-shibaswap",
+  "logoURL": "tokens/eip155-1/0x9813037ee2218799597d83d4a5b6f3b6778218d9/logo.webp",
+  "logoHash": "7340359825b3e76559d142e22830e0bd49a40005a9a8fe6c32ae7888f03aa7f5"
+}

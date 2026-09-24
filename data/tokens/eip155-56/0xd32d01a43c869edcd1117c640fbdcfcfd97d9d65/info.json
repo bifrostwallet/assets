@@ -1,0 +1,9 @@
+{
+  "name": "Nominex",
+  "symbol": "NMX",
+  "decimals": 18,
+  "address": "0xd32d01a43c869edcd1117c640fbdcfcfd97d9d65",
+  "coingeckoId": "nominex",
+  "logoURL": "tokens/eip155-56/0xd32d01a43c869edcd1117c640fbdcfcfd97d9d65/logo.webp",
+  "logoHash": "fbcd8bfeee456691d759a1349095bc4ea856453855cbc50dd72ff29cdc62a437"
+}

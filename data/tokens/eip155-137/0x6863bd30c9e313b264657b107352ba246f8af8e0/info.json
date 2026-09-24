@@ -1,0 +1,9 @@
+{
+  "name": "BlackPool",
+  "symbol": "BPT",
+  "decimals": 18,
+  "address": "0x6863bd30c9e313b264657b107352ba246f8af8e0",
+  "coingeckoId": "blackpool-token",
+  "logoURL": "tokens/eip155-137/0x6863bd30c9e313b264657b107352ba246f8af8e0/logo.webp",
+  "logoHash": "7b88d637a756b440f35363e9b1e21d0613152df543fd9ad553d062755efee484"
+}

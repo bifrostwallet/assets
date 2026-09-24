@@ -1,0 +1,9 @@
+{
+  "name": "Ethereum Push Notification Service",
+  "symbol": "PUSH",
+  "decimals": 18,
+  "address": "0xf418588522d5dd018b425e472991e52ebbeeeeee",
+  "coingeckoId": "ethereum-push-notification-service",
+  "logoURL": "tokens/eip155-1/0xf418588522d5dd018b425e472991e52ebbeeeeee/logo.webp",
+  "logoHash": "89142222a97a9630d73074e9837933948a655d100e4e581d12d617b9898d748d"
+}

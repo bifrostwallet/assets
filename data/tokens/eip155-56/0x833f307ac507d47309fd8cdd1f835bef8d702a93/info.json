@@ -1,0 +1,9 @@
+{
+  "name": "REVV",
+  "symbol": "REVV",
+  "decimals": 18,
+  "address": "0x833f307ac507d47309fd8cdd1f835bef8d702a93",
+  "coingeckoId": "revv",
+  "logoURL": "tokens/eip155-56/0x833f307ac507d47309fd8cdd1f835bef8d702a93/logo.webp",
+  "logoHash": "56225da328cdb7971d1fbf4efe328aa0ff43dd362d0dbdd9ede21b3749b2cfd1"
+}

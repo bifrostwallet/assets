@@ -1,0 +1,24 @@
+{
+  "name": "SenseiNode",
+  "description": "SenseiNode provides top-tier, secure, and reliable blockchain  infrastructure. Trusted by leading networks and developers, SenseiNode is the key partner for powering decentralization.",
+  "logoURL": "providers/eip155-14/0x12649c1937fbdad9bebc1246110fcafea490b8a2/logo.webp",
+  "logoHash": "73857b3d217333afb41b9a355045be6e20f25135773776d56a5bf549f289e30c",
+  "websiteURL": "https://senseinode.com",
+  "links": {},
+  "identityAddress": "0x12649c1937fbdad9bebc1246110fcafea490b8a2",
+  "delegationAddress": "0xe08898b7b8b18dbcddcc6339c8b9c19effa81413",
+  "signingPolicyAddress": "0xfcdf1909fab925b73361128be01e5acb6f281b3c",
+  "submitAddress": "0x797a667434454e54fd1e66c25d2c73353143f43f",
+  "submitSignaturesAddress": "0xc7d2a8769ce1c555080f784e91d11857d5e46118",
+  "publicKey": "0x0b0292d98a201912a0122860eb3258e7022bbeed9f8da739143d6a7586797ccf0210e9635b109337470305b9234e7d1496434e4ca0ed4cd231cb2992cbe05f0c",
+  "validators": ["NodeID-FFdDVS1oHz6VaFweiBSSf4uaHrWEH5sbn"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x6653af9e122e08172e368e28a905ec7cb8cac4a40bbe91ced376369da370ba8a",
+    "blockNumber": 13329706,
+    "timestamp": "2023-09-28T15:40:00.000Z"
+  }
+}

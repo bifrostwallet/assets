@@ -1,0 +1,9 @@
+{
+  "name": "ApeCoin",
+  "symbol": "APE",
+  "decimals": 18,
+  "address": "0x4d224452801aced8b2f0aebe155379bb5d594381",
+  "coingeckoId": "apecoin",
+  "logoURL": "tokens/eip155-1/0x4d224452801aced8b2f0aebe155379bb5d594381/logo.webp",
+  "logoHash": "1d9cdb83f51ec9ab663a4fd6c2b8f3fb8cd807140ba020a859e687295c15acf6"
+}

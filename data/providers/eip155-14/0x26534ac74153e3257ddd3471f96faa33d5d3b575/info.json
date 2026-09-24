@@ -1,0 +1,24 @@
+{
+  "name": "African Proofs",
+  "description": "We are a Flare and Songbird blockchain networks data signals provider based in South Africa. We provide a consistent and honest account of real world information for use in the Flare Networks ecosystem of chains.",
+  "logoURL": "providers/eip155-14/0x26534ac74153e3257ddd3471f96faa33d5d3b575/logo.webp",
+  "logoHash": "29d655018c95dd3bb9225375038e757953805980bc9ed4dd7b320a5065faf485",
+  "websiteURL": "https://proofs.africa",
+  "links": {},
+  "identityAddress": "0x26534ac74153e3257ddd3471f96faa33d5d3b575",
+  "delegationAddress": "0x7808b9e0f7c488172b54b30f98c2fcf36d903b2c",
+  "signingPolicyAddress": "0x3fa07a1d5cb3b34c7a04782c5dd8be9d910ed0e5",
+  "submitAddress": "0x366bcb8c23490327a1c63880875a35de41705876",
+  "submitSignaturesAddress": "0x81acbfb044b7fbc4177e3b033fbf10fa8d335dc0",
+  "publicKey": "0x19cf4133a0fca2b7fd108446d699ffa3a5c698ba39a3da0b133005f40bdbdd2816444f52cc73026cc180b7722e2a98682ab0040f133dde1cd216e3cb212ba082",
+  "validators": ["NodeID-FLPF99Gi1c79NGHw7GYyhttWPVxpCq713"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x141fbe1c8cc8643edbb7afe69f752515a52a0f6deb9775b420337a3762571c8c",
+    "blockNumber": 132237,
+    "timestamp": "2022-07-30T13:02:21.000Z"
+  }
+}

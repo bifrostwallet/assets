@@ -1,0 +1,9 @@
+{
+  "name": "Tribe",
+  "symbol": "TRIBE",
+  "decimals": 18,
+  "address": "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
+  "coingeckoId": "tribe-2",
+  "logoURL": "tokens/eip155-1/0xc7283b66eb1eb5fb86327f08e1b5816b0720212b/logo.webp",
+  "logoHash": "89858d1c62c415bbfd88e27a9a86f5a9fb023cdff6ac6b85db3b3740d66be1be"
+}

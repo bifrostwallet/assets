@@ -1,0 +1,9 @@
+{
+  "name": "Core FXRP",
+  "symbol": "CSXRP",
+  "decimals": 18,
+  "address": "0x53184adabf312b490bf1ebcfdc896feff6019a14",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x53184adabf312b490bf1ebcfdc896feff6019a14/logo.webp",
+  "logoHash": "fea9e095edc0443f5fb4360e0bdce0b97fc3b3bb44aa09d0373fa7c243df6ce0"
+}

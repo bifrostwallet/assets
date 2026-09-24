@@ -1,0 +1,9 @@
+{
+  "name": "Tomb",
+  "symbol": "TOMB",
+  "decimals": 18,
+  "address": "0x0e98c977b943f06075b2d795794238fbfb9b9a34",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0x0e98c977b943f06075b2d795794238fbfb9b9a34/logo.webp",
+  "logoHash": "02ac41eecb95e5db637644bf08b76369cb71a760fee6cc2d63f6408db1aa8fad"
+}

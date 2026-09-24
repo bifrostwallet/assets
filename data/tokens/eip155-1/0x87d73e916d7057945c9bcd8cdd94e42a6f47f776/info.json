@@ -1,0 +1,9 @@
+{
+  "name": "NFTX",
+  "symbol": "NFTX",
+  "decimals": 18,
+  "address": "0x87d73e916d7057945c9bcd8cdd94e42a6f47f776",
+  "coingeckoId": "nftx",
+  "logoURL": "tokens/eip155-1/0x87d73e916d7057945c9bcd8cdd94e42a6f47f776/logo.webp",
+  "logoHash": "15fa9e5ff5a426e2e1c886c345c4160a394eba0b6a1a127a9282b0f45596f688"
+}

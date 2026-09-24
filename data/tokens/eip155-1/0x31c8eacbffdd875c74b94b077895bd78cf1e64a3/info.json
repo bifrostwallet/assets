@@ -1,0 +1,9 @@
+{
+  "name": "Radicle",
+  "symbol": "RAD",
+  "decimals": 18,
+  "address": "0x31c8eacbffdd875c74b94b077895bd78cf1e64a3",
+  "coingeckoId": "radicle",
+  "logoURL": "tokens/eip155-1/0x31c8eacbffdd875c74b94b077895bd78cf1e64a3/logo.webp",
+  "logoHash": "1308db0011a0767f41e548c599fe1e9fd960beee2e0ac060f11fb11be06edb0b"
+}

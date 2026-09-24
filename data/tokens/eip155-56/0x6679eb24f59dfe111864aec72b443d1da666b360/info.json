@@ -1,0 +1,9 @@
+{
+  "name": "Ariva",
+  "symbol": "ARV",
+  "decimals": 8,
+  "address": "0x6679eb24f59dfe111864aec72b443d1da666b360",
+  "coingeckoId": "ariva",
+  "logoURL": "tokens/eip155-56/0x6679eb24f59dfe111864aec72b443d1da666b360/logo.webp",
+  "logoHash": "0485daab9195ba3bff08856c2f9b9d010d30a2a3bd4b38e3869ebb10ca899975"
+}

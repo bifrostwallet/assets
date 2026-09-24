@@ -1,0 +1,9 @@
+{
+  "name": "Rarible",
+  "symbol": "RARI",
+  "decimals": 18,
+  "address": "0xfca59cd816ab1ead66534d82bc21e7515ce441cf",
+  "coingeckoId": "rarible",
+  "logoURL": "tokens/eip155-1/0xfca59cd816ab1ead66534d82bc21e7515ce441cf/logo.webp",
+  "logoHash": "8fbab656e75ab4e5a02301212ba7cce056ea1b89a5935f5d6426a3f3850bbe8a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Splinterlands",
+  "symbol": "SPS",
+  "decimals": 18,
+  "address": "0x1633b7157e7638c4d6593436111bf125ee74703f",
+  "coingeckoId": "splinterlands",
+  "logoURL": "tokens/eip155-56/0x1633b7157e7638c4d6593436111bf125ee74703f/logo.webp",
+  "logoHash": "066b0a8ba2094d8613b73c6d5762fdfa76717f28c37976604866902f44e74546"
+}

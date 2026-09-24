@@ -1,0 +1,9 @@
+{
+  "name": "Optimism",
+  "symbol": "OP",
+  "decimals": 18,
+  "address": "0x4200000000000000000000000000000000000042",
+  "coingeckoId": "optimism",
+  "logoURL": "tokens/eip155-10/0x4200000000000000000000000000000000000042/logo.webp",
+  "logoHash": "450febda6d1520cc6f405a94115b394680f3655d5478067e855eaf253bbb5d54"
+}

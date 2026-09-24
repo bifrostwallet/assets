@@ -1,0 +1,9 @@
+{
+  "name": "Kirobo",
+  "symbol": "KIRO",
+  "decimals": 18,
+  "address": "0xb1191f691a355b43542bea9b8847bc73e7abb137",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xb1191f691a355b43542bea9b8847bc73e7abb137/logo.webp",
+  "logoHash": "6c044c8087e2cb6d57fc93f0833bb81a07ddd90ba068bab2e276e2b23ad38a53"
+}

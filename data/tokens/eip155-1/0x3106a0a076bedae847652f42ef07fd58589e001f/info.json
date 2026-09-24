@@ -1,0 +1,9 @@
+{
+  "name": "Alkimi",
+  "symbol": "$ADS",
+  "decimals": 18,
+  "address": "0x3106a0a076bedae847652f42ef07fd58589e001f",
+  "coingeckoId": "alkimi",
+  "logoURL": "tokens/eip155-1/0x3106a0a076bedae847652f42ef07fd58589e001f/logo.webp",
+  "logoHash": "18e04e344061c2bab39a97e54287a66f0b472922a31469430b7289b4047fc948"
+}

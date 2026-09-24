@@ -1,0 +1,9 @@
+{
+  "name": "Quantstamp",
+  "symbol": "QSP",
+  "decimals": 18,
+  "address": "0x99ea4db9ee77acd40b119bd1dc4e33e1c070b80d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x99ea4db9ee77acd40b119bd1dc4e33e1c070b80d/logo.webp",
+  "logoHash": "ab164df645de39d80776a63630b83a3f6eb47a50b0a872b83ee006b4096f76b7"
+}

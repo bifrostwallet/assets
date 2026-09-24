@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped NXM",
+  "symbol": "WNXM",
+  "decimals": 18,
+  "address": "0x0d438f3b5175bebc262bf23753c1e53d03432bde",
+  "coingeckoId": "wrapped-nxm",
+  "logoURL": "tokens/eip155-1/0x0d438f3b5175bebc262bf23753c1e53d03432bde/logo.webp",
+  "logoHash": "c3bae8c0e693ab2863aa6be0434537f39fdab8f74132277498031a5b09eeee16"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "FrooDoo",
+  "symbol": "FODO",
+  "decimals": 18,
+  "address": "0x908bb3e15040801fd29e542221a31baaa7a4be19",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x908bb3e15040801fd29e542221a31baaa7a4be19/logo.webp",
+  "logoHash": "b3ef66143c4ce6e61785ace7f64e7a7670de3d1e13773af2c78919edd396ccbb"
+}

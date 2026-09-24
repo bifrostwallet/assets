@@ -1,0 +1,9 @@
+{
+  "name": "Beefy.Finance",
+  "symbol": "BIFI",
+  "decimals": 18,
+  "address": "0xfbdd194376de19a88118e84e279b977f165d01b8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0xfbdd194376de19a88118e84e279b977f165d01b8/logo.webp",
+  "logoHash": "e36f68044d238a4b5ae0b82c460557acd80cea7bf1c40d5c0c451db6b497cd9b"
+}

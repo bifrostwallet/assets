@@ -1,0 +1,9 @@
+{
+  "name": "BiLira",
+  "symbol": "TRYB",
+  "decimals": 6,
+  "address": "0xc1fdbed7dac39cae2ccc0748f7a80dc446f6a594",
+  "coingeckoId": "bilira",
+  "logoURL": "tokens/eip155-56/0xc1fdbed7dac39cae2ccc0748f7a80dc446f6a594/logo.webp",
+  "logoHash": "5df2c3df69a6cd97c5f0b71c699a2234174997d0574f85291abf2cc38e9c0608"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Alchemix USD",
+  "symbol": "alUSD",
+  "decimals": 18,
+  "address": "0xbc6da0fe9ad5f3b0d58160288917aa56653660e9",
+  "coingeckoId": "alchemix-usd",
+  "logoURL": "tokens/eip155-1/0xbc6da0fe9ad5f3b0d58160288917aa56653660e9/logo.webp",
+  "logoHash": "750c2ef67133a4e1e705c1ee0a4c04f91c0fe1b5d2e8342e0dcc228fe6145c89"
+}

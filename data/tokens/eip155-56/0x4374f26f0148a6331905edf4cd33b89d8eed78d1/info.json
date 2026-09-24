@@ -1,0 +1,9 @@
+{
+  "name": "Yoshi.exchange",
+  "symbol": "YOSHI",
+  "decimals": 18,
+  "address": "0x4374f26f0148a6331905edf4cd33b89d8eed78d1",
+  "coingeckoId": "yoshi-exchange",
+  "logoURL": "tokens/eip155-56/0x4374f26f0148a6331905edf4cd33b89d8eed78d1/logo.webp",
+  "logoHash": "be42d42635f7fbbaa13e1dc6d6b9fe1f8c63ec8cad6448e54a066082f7da03cc"
+}

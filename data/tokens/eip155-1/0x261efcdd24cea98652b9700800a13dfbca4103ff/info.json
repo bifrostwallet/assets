@@ -1,0 +1,9 @@
+{
+  "name": "Synth Gold Ounce",
+  "symbol": "SXAU",
+  "decimals": 18,
+  "address": "0x261efcdd24cea98652b9700800a13dfbca4103ff",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x261efcdd24cea98652b9700800a13dfbca4103ff/logo.webp",
+  "logoHash": "e96e578070048776f62e09dd6f8dca937a35985bad150e4b0dffb1ad6c310792"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Infinity Token",
+  "symbol": "INFT",
+  "decimals": 18,
+  "address": "0xd46bd7a5ebe52199bd6f0efd59a1d7cef7f35eae",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xd46bd7a5ebe52199bd6f0efd59a1d7cef7f35eae/logo.webp",
+  "logoHash": "e8a01d455b7147bbd37d9353236a7a2be7f1371a6f81a411c81fcbbca788ffa6"
+}

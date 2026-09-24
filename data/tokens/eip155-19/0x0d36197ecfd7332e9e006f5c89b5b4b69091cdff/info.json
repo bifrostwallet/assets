@@ -1,0 +1,9 @@
+{
+  "name": "Beast Token",
+  "symbol": "BEAST",
+  "decimals": 18,
+  "address": "0x0d36197ecfd7332e9e006f5c89b5b4b69091cdff",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x0d36197ecfd7332e9e006f5c89b5b4b69091cdff/logo.webp",
+  "logoHash": "8037e258df1a28d481687e33700f635bbfae3147dd2bcc805080863035fa6fde"
+}

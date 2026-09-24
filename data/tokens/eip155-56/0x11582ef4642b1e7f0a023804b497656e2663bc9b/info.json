@@ -1,0 +1,9 @@
+{
+  "name": "KCCPad",
+  "symbol": "KCCPAD",
+  "decimals": 18,
+  "address": "0x11582ef4642b1e7f0a023804b497656e2663bc9b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x11582ef4642b1e7f0a023804b497656e2663bc9b/logo.webp",
+  "logoHash": "e330c4d08b91ad7a859c6a369f1cbe347d46d2d24e773a394057bc4750835fe2"
+}

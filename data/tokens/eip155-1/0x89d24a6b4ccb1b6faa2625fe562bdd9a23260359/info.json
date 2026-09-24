@@ -1,0 +1,9 @@
+{
+  "name": "Sai",
+  "symbol": "SAI",
+  "decimals": 18,
+  "address": "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359",
+  "coingeckoId": "sai",
+  "logoURL": "tokens/eip155-1/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359/logo.webp",
+  "logoHash": "9f7de900ebf4a4a6883f54e22dbc9b7853bf04b4804cbf565b1a9c375a875bda"
+}

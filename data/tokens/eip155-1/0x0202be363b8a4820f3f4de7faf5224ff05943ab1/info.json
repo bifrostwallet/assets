@@ -1,0 +1,9 @@
+{
+  "name": "UniLend Finance",
+  "symbol": "UFT",
+  "decimals": 18,
+  "address": "0x0202be363b8a4820f3f4de7faf5224ff05943ab1",
+  "coingeckoId": "unlend-finance",
+  "logoURL": "tokens/eip155-1/0x0202be363b8a4820f3f4de7faf5224ff05943ab1/logo.webp",
+  "logoHash": "62bd0115f9f4cba118bc72e28ea23e063551c34e3d0fa3bbd5b98fd4db4215d4"
+}

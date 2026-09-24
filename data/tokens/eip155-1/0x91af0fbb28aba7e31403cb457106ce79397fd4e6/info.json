@@ -1,0 +1,9 @@
+{
+  "name": "Aergo",
+  "symbol": "AERGO",
+  "decimals": 18,
+  "address": "0x91af0fbb28aba7e31403cb457106ce79397fd4e6",
+  "coingeckoId": "aergo",
+  "logoURL": "tokens/eip155-1/0x91af0fbb28aba7e31403cb457106ce79397fd4e6/logo.webp",
+  "logoHash": "15efd17c3f3caba8bf6b84c2c15aa1434e500cfea90e0a3798350787b35a79b3"
+}

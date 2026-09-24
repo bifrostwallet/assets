@@ -1,0 +1,9 @@
+{
+  "name": "Synth THORChain",
+  "symbol": "SRUNE",
+  "decimals": 18,
+  "address": "0x0352557b007a4aae1511c114409b932f06f9e2f4",
+  "coingeckoId": "srune",
+  "logoURL": "tokens/eip155-1/0x0352557b007a4aae1511c114409b932f06f9e2f4/logo.webp",
+  "logoHash": "2f9b8fe5b26330e748cfb91302915d6528e2434637f8dfffd93f103e47226009"
+}

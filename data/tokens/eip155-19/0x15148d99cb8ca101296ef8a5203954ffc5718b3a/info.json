@@ -1,0 +1,9 @@
+{
+  "name": "Athena",
+  "symbol": "xATH",
+  "decimals": 18,
+  "address": "0x15148d99cb8ca101296ef8a5203954ffc5718b3a",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x15148d99cb8ca101296ef8a5203954ffc5718b3a/logo.webp",
+  "logoHash": "383d37d9d33d160b463d1ed357b817251b2b4c714a17e744fec7d5937dfef467"
+}

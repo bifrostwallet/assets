@@ -1,0 +1,9 @@
+{
+  "name": "USDT0",
+  "symbol": "USDT0",
+  "decimals": 6,
+  "address": "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb/logo.webp",
+  "logoHash": "74e70292b99d244a9dfd9014428b9e5df48c1d83872dfdcd4f0f256704736a48"
+}

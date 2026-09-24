@@ -1,0 +1,9 @@
+{
+  "name": "ICHI",
+  "symbol": "ICHI",
+  "decimals": 9,
+  "address": "0x903bef1736cddf2a537176cf3c64579c3867a881",
+  "coingeckoId": "legacy-ichi",
+  "logoURL": "tokens/eip155-1/0x903bef1736cddf2a537176cf3c64579c3867a881/logo.webp",
+  "logoHash": "ef37b1bd66eee7a4a436bea4ff05612cc8e2228437c85ff4e26302de66202206"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Stratos",
+  "symbol": "STOS",
+  "decimals": 18,
+  "address": "0x08c32b0726c5684024ea6e141c50ade9690bbdcc",
+  "coingeckoId": "stratos",
+  "logoURL": "tokens/eip155-1/0x08c32b0726c5684024ea6e141c50ade9690bbdcc/logo.webp",
+  "logoHash": "d036de9697ddd837d9f11715f85de3b525e9bda03ef1e40cff0fea1a5e062af5"
+}

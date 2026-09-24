@@ -1,0 +1,92 @@
+[
+  {
+    "name": "FXRP",
+    "symbol": "FTestXRP",
+    "decimals": 6,
+    "address": "0x0b6a3645c240605887a5532109323a3e12273dc7",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0x0b6a3645c240605887a5532109323a3e12273dc7/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
+    "name": "Test USD",
+    "symbol": "testUSD",
+    "decimals": 6,
+    "address": "0x6623c0bb56adb150dc9c6bdb8682521354c2bf73",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0x6623c0bb56adb150dc9c6bdb8682521354c2bf73/logo.webp",
+    "logoHash": "baa755af6ded6999823e23834daedac0a73896fae6f16c682034496b764f9780"
+  },
+  {
+    "name": "Joule",
+    "symbol": "JOULE",
+    "decimals": 18,
+    "address": "0x9acd5170a14cc8c848ba96b251bf17e2924a84bf",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0x9acd5170a14cc8c848ba96b251bf17e2924a84bf/logo.webp",
+    "logoHash": "91ba043ddf014a81d483b5857ea495f4c00ac8f79ae62a36f3b72f10ed0170e7"
+  },
+  {
+    "name": "Kii",
+    "symbol": "KII",
+    "decimals": 18,
+    "address": "0xa9d0a6e72c208213bb1d392d4333fbae1fdcccc4",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xa9d0a6e72c208213bb1d392d4333fbae1fdcccc4/logo.webp",
+    "logoHash": "a8444953f2001945a41f4bbf71555a341463db7882b88fea19fa425044882d68"
+  },
+  {
+    "name": "Test FIL",
+    "symbol": "testFIL",
+    "decimals": 18,
+    "address": "0xaa6184134059391693f85d74b53ab614e279fbc3",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xaa6184134059391693f85d74b53ab614e279fbc3/logo.webp",
+    "logoHash": "332d8249d84866b68fbaf5ef4a51aafed67131e1eb1a53c4b13f4ea9092b8ff2"
+  },
+  {
+    "name": "Wrapped Coston 2 Flare",
+    "symbol": "WC2FLR",
+    "decimals": 18,
+    "address": "0xc67dce33d7a8efa5ffeb961899c73fe01bce9273",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xc67dce33d7a8efa5ffeb961899c73fe01bce9273/logo.webp",
+    "logoHash": "9eb372404b6d4d0bcde8002e3e33e4eae65656f5889f2d415689aba17cc1c0d7"
+  },
+  {
+    "name": "Test DGB",
+    "symbol": "testDGB",
+    "decimals": 8,
+    "address": "0xc95a32ef14050df4b60f437e230fc94afd0309e6",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xc95a32ef14050df4b60f437e230fc94afd0309e6/logo.webp",
+    "logoHash": "1c7d77b730eec6dd288e1d312e58a0211dbcae127cd090de483f13f7e60c5e45"
+  },
+  {
+    "name": "Test XLM",
+    "symbol": "testXLM",
+    "decimals": 7,
+    "address": "0xcf5b4553ea9c20debab75ec0b735df6315684285",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xcf5b4553ea9c20debab75ec0b735df6315684285/logo.webp",
+    "logoHash": "d223cfad2770512b119a45f19db8ed05b275fcde32754c12a9042a33e6bb236f"
+  },
+  {
+    "name": "Test Algo",
+    "symbol": "testALGO",
+    "decimals": 6,
+    "address": "0xeea81af8bc97e550d95a77d74a44b0be55be8f9f",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/0xeea81af8bc97e550d95a77d74a44b0be55be8f9f/logo.webp",
+    "logoHash": "204bf33318469f629c891abfc411a23811e1099c7a3120452870cb7fb9262141"
+  },
+  {
+    "name": "Coston 2 Flare",
+    "symbol": "C2FLR",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-114/native/logo.webp",
+    "logoHash": "b74203859f15d4efd59660200fdb2eee39b403473a517958dd3aff06ee923f35"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "Goldfinch",
+  "symbol": "GFI",
+  "decimals": 18,
+  "address": "0xdab396ccf3d84cf2d07c4454e10c8a6f5b008d2b",
+  "coingeckoId": "goldfinch",
+  "logoURL": "tokens/eip155-1/0xdab396ccf3d84cf2d07c4454e10c8a6f5b008d2b/logo.webp",
+  "logoHash": "6696abe10153265c57bdb62086482108800048b7fbbf9c985ba09666ca4f1719"
+}

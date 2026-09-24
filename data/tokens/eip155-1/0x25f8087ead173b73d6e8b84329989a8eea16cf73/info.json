@@ -1,0 +1,9 @@
+{
+  "name": "Yield Guild Games",
+  "symbol": "YGG",
+  "decimals": 18,
+  "address": "0x25f8087ead173b73d6e8b84329989a8eea16cf73",
+  "coingeckoId": "yield-guild-games",
+  "logoURL": "tokens/eip155-1/0x25f8087ead173b73d6e8b84329989a8eea16cf73/logo.webp",
+  "logoHash": "1a9f189c814229769dcaa283caef9b1b04aeec225e459b9264ff246236d535af"
+}

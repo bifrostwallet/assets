@@ -1,0 +1,9 @@
+{
+  "name": "Creditcoin",
+  "symbol": "CTC",
+  "decimals": 18,
+  "address": "0xa3ee21c306a700e682abcdfe9baa6a08f3820419",
+  "coingeckoId": "creditcoin-2",
+  "logoURL": "tokens/eip155-1/0xa3ee21c306a700e682abcdfe9baa6a08f3820419/logo.webp",
+  "logoHash": "7c8a9b0396bffc913dddb6c25cc22a315a04745551adf543721b1c285ba3640a"
+}

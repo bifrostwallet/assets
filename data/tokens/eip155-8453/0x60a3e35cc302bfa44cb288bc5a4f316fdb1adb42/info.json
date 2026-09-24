@@ -1,0 +1,9 @@
+{
+  "name": "EURC",
+  "symbol": "EURC",
+  "decimals": 6,
+  "address": "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42",
+  "coingeckoId": "euro-coin",
+  "logoURL": "tokens/eip155-8453/0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42/logo.webp",
+  "logoHash": "1c2b9985fdbf60b1a70ddca3552c6cc927abdde1945697a5588eed186e4fa42e"
+}

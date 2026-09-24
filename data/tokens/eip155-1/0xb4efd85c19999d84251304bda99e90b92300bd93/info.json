@@ -1,0 +1,9 @@
+{
+  "name": "Rocket Pool Legacy",
+  "symbol": "RPL",
+  "decimals": 18,
+  "address": "0xb4efd85c19999d84251304bda99e90b92300bd93",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xb4efd85c19999d84251304bda99e90b92300bd93/logo.webp",
+  "logoHash": "1612973441b7279024c8dcf4e085a6466b143f04d08f13f6145effa23ed026c0"
+}

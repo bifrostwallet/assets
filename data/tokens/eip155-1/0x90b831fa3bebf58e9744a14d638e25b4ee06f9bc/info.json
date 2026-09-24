@@ -1,0 +1,9 @@
+{
+  "name": "Mimo Governance Token",
+  "symbol": "MIMO",
+  "decimals": 18,
+  "address": "0x90b831fa3bebf58e9744a14d638e25b4ee06f9bc",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x90b831fa3bebf58e9744a14d638e25b4ee06f9bc/logo.webp",
+  "logoHash": "ec308cac3de01ea753dcb771203395ecbaa7e5404d11785fa35c98160978e1cb"
+}

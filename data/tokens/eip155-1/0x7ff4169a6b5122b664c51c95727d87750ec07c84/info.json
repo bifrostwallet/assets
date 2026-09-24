@@ -1,0 +1,9 @@
+{
+  "name": "Tenset",
+  "symbol": "10SET",
+  "decimals": 18,
+  "address": "0x7ff4169a6b5122b664c51c95727d87750ec07c84",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x7ff4169a6b5122b664c51c95727d87750ec07c84/logo.webp",
+  "logoHash": "e2edc2946b7b269a398da77b1fd7ede7af2806660cb0959823a967e9b8af613d"
+}

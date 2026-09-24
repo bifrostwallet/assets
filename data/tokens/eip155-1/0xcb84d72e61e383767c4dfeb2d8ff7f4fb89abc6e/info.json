@@ -1,0 +1,9 @@
+{
+  "name": "Vega Protocol",
+  "symbol": "VEGA",
+  "decimals": 18,
+  "address": "0xcb84d72e61e383767c4dfeb2d8ff7f4fb89abc6e",
+  "coingeckoId": "vega-protocol",
+  "logoURL": "tokens/eip155-1/0xcb84d72e61e383767c4dfeb2d8ff7f4fb89abc6e/logo.webp",
+  "logoHash": "f57ed58281b28fde870cb05f5b247a190c1a9c8a165ac7a189d76f5431c78db8"
+}

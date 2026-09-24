@@ -1,0 +1,9 @@
+{
+  "name": "Koinos",
+  "symbol": "KOIN",
+  "decimals": 8,
+  "address": "0x66d28cb58487a7609877550e1a34691810a6b9fc",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x66d28cb58487a7609877550e1a34691810a6b9fc/logo.webp",
+  "logoHash": "604bd4b1a459ddabf32aedb9c4eb1eeff36d3fca4608fc2157464ea83fa99191"
+}

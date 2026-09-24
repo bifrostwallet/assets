@@ -1,0 +1,9 @@
+{
+  "name": "Avocado DAO",
+  "symbol": "AVG",
+  "decimals": 18,
+  "address": "0xa41f142b6eb2b164f8164cae0716892ce02f311f",
+  "coingeckoId": "avaocado-dao",
+  "logoURL": "tokens/eip155-1/0xa41f142b6eb2b164f8164cae0716892ce02f311f/logo.webp",
+  "logoHash": "d6df9b05ab295b87f8cc5c843eba817a959fa90b31ec7665f6dfee5b916c927a"
+}

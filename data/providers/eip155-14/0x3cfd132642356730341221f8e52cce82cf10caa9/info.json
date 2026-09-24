@@ -1,0 +1,27 @@
+{
+  "name": "Flare Beacon",
+  "description": "Flare network signal provider. Beaconing since inception",
+  "logoURL": "providers/eip155-14/0x3cfd132642356730341221f8e52cce82cf10caa9/logo.webp",
+  "logoHash": "60975b5e9812d11568f0b75264a5072ce4a0b2749f641a5931bdd417d02e1d22",
+  "websiteURL": "https://flarebeacon.xyz",
+  "links": {},
+  "identityAddress": "0x3cfd132642356730341221f8e52cce82cf10caa9",
+  "delegationAddress": "0xdd33ba13f32c90d678422251b52b005335fb7a4c",
+  "signingPolicyAddress": "0x644c70e36168b8a922aecaddae38c95d40403e3a",
+  "submitAddress": "0xf2a9ced48870d37c7e3362b4aa4a2733b1fc6bef",
+  "submitSignaturesAddress": "0x5c980a7b3dbb602fa298fdc6c3e35f4b037b9929",
+  "publicKey": "0x0841620b3cb6129402e4aa65686907d9fa07ad3468d07014a8216a0d915b6b46023d45f93227013e8fbb65c01abf925bb039dfa99367baf646b0a102c18cffbf",
+  "validators": [
+    "NodeID-CrsvTSFLB8G3ziPaVjgH1pj8NQxSZkECD",
+    "NodeID-Fvr7jSqNdueYRthVBp2qVWdAgw3tQzjxa"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x3c353a43fa77fed91b920bb96aea7c2597dbf68fc9b78ca0434637c8f5356daf",
+    "blockNumber": 1677139,
+    "timestamp": "2022-10-10T14:02:51.000Z"
+  }
+}

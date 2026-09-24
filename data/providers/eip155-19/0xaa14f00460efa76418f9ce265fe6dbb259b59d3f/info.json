@@ -1,0 +1,24 @@
+{
+  "name": "Tailwind FTSO",
+  "description": "Tailwind FTSO is a European provider run by IT professionals and developers using enterprise technologies to deliver accurate and reliable data.",
+  "logoURL": "providers/eip155-19/0xaa14f00460efa76418f9ce265fe6dbb259b59d3f/logo.webp",
+  "logoHash": "2ddc395d7f5b89e57fe3b84997555e9a4ce763158e2b20b619873f67dc5edd76",
+  "websiteURL": "https://tailwindftso.com",
+  "links": {},
+  "identityAddress": "0xaa14f00460efa76418f9ce265fe6dbb259b59d3f",
+  "delegationAddress": "0x04bd6870d801d68cd58163900b8eed6bddda29cb",
+  "signingPolicyAddress": "0x85ddaaa17e3906bc1be051f6161ebe2ef68998c5",
+  "submitAddress": "0xfac6ac7f8124418c389aeb225ceb1872eedac401",
+  "submitSignaturesAddress": "0x9cb870ddd75d722a57d35d1ce93526546710aae0",
+  "publicKey": "0x1680ee2984c3e5dbd89d4bb6ebd98b91d124725d56022fc0ebb11245b2a235e621eb3c1ec3b3ab550083a54199d17ac51a56b056a0e35d34b5656310ad59b0d1",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x2a2fca174ac95b887c1705da0f177cab210fc8e76da29c5980ce8c22cd43c098",
+    "blockNumber": 9742518,
+    "timestamp": "2022-02-07T13:17:45.000Z"
+  }
+}

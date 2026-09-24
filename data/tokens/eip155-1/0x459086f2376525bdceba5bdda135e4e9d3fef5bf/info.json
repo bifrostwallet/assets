@@ -1,0 +1,9 @@
+{
+  "name": "renBCH",
+  "symbol": "RENBCH",
+  "decimals": 8,
+  "address": "0x459086f2376525bdceba5bdda135e4e9d3fef5bf",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x459086f2376525bdceba5bdda135e4e9d3fef5bf/logo.webp",
+  "logoHash": "519d10d2a049347e13bb7730a7df05079a785e1419ebd59d793d46b730c6650d"
+}

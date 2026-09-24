@@ -1,0 +1,9 @@
+{
+  "name": "HEPE",
+  "symbol": "HEPE",
+  "decimals": 18,
+  "address": "0x5695bd1c24ee0c14b17fc1cc8aaca547bf17624e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x5695bd1c24ee0c14b17fc1cc8aaca547bf17624e/logo.webp",
+  "logoHash": "46391ea5c3bad8b366353fadc7a380bbcdd7a368038ea974f75dcebfc1dabebc"
+}

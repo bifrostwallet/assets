@@ -1,0 +1,9 @@
+{
+  "name": "CateCoin",
+  "symbol": "CATE",
+  "decimals": 9,
+  "address": "0xe4fae3faa8300810c835970b9187c268f55d998f",
+  "coingeckoId": "catecoin",
+  "logoURL": "tokens/eip155-56/0xe4fae3faa8300810c835970b9187c268f55d998f/logo.webp",
+  "logoHash": "f003dce168cc19b55049d03b06c6d8d28948bfd05b8676311fc986995d5c05f4"
+}

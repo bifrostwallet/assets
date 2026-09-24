@@ -1,0 +1,24 @@
+{
+  "name": "FTSO UK",
+  "description": "Signal provider on the Flare Network. UK-based team with global coverage. Providing robust and weighted signals. Dedicated to unlocking value.",
+  "logoURL": "providers/eip155-14/0x30339750867a19381f4cbcd5da9b04c8ac6c5eae/logo.webp",
+  "logoHash": "bf7d6d300d9ab8890a853f8345420b7c1a6f1f625b7f4f1f0afeab70cc7a2f55",
+  "websiteURL": "https://www.ftso.uk",
+  "links": {},
+  "identityAddress": "0x30339750867a19381f4cbcd5da9b04c8ac6c5eae",
+  "delegationAddress": "0x5f911c2c681f678e5a3a8d54f950d6b192cc16e3",
+  "signingPolicyAddress": "0x02048b215cb0a6b5fe960cb2e9b18381c2ebd109",
+  "submitAddress": "0x47e01ee35dbaecfc146619231e5b67939b45e447",
+  "submitSignaturesAddress": "0xff7389c0c22b898cdc0281c979d9b525a4e2d722",
+  "publicKey": "0x10721dfca4dec261f7fc276f8a17ca65f988577b444234d05fae6d38e2e48017146a8a73f4727b94360766478c2d73c92854ef1aaea008d1c9d3605af581109a",
+  "validators": ["NodeID-MZKzjLDRo9bwDjaDR5c4PALEibYyDe4A7"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x0c552f93b17e791be92370a233e8f55703289b4d73248498537873dcda9f900f",
+    "blockNumber": 172758,
+    "timestamp": "2022-08-01T17:43:25.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Celsius",
+  "symbol": "CEL",
+  "decimals": 4,
+  "address": "0xaaaebe6fe48e54f431b0c390cfaf0b017d09d42d",
+  "coingeckoId": "celsius-degree-token",
+  "logoURL": "tokens/eip155-1/0xaaaebe6fe48e54f431b0c390cfaf0b017d09d42d/logo.webp",
+  "logoHash": "13c0efdf8a53708b8835b6d4765f9376404c1eee9ee92d47beaa94fdcea67987"
+}

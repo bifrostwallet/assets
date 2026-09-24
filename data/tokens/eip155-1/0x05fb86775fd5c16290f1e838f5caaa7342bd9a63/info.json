@@ -1,0 +1,9 @@
+{
+  "name": "Hacken Token",
+  "symbol": "HAI",
+  "decimals": 8,
+  "address": "0x05fb86775fd5c16290f1e838f5caaa7342bd9a63",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x05fb86775fd5c16290f1e838f5caaa7342bd9a63/logo.webp",
+  "logoHash": "068f6a017b4aec4d4eac5cccd6bd920394f4ee66475d2513d10ac5c2235b7e01"
+}

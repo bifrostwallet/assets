@@ -1,0 +1,9 @@
+{
+  "name": "Blox",
+  "symbol": "CDT",
+  "decimals": 18,
+  "address": "0x177d39ac676ed1c67a2b268ad7f1e58826e5b0af",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x177d39ac676ed1c67a2b268ad7f1e58826e5b0af/logo.webp",
+  "logoHash": "9ed18d7823b519045cb7d4028887c2d74f75478611a27129c3e1070ed2523007"
+}

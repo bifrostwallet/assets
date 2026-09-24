@@ -1,0 +1,9 @@
+{
+  "name": "ETH 2x Flexible Leverage Index",
+  "symbol": "ETH2X-FLI",
+  "decimals": 18,
+  "address": "0xaa6e8127831c9de45ae56bb1b0d4d4da6e5665bd",
+  "coingeckoId": "eth-2x-flexible-leverage-index",
+  "logoURL": "tokens/eip155-1/0xaa6e8127831c9de45ae56bb1b0d4d4da6e5665bd/logo.webp",
+  "logoHash": "ff780641f38d5a61375162d48abf5c5e8b4852ee4812c368d896b0b89a2ea7df"
+}

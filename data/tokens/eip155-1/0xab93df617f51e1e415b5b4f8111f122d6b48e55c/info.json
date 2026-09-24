@@ -1,0 +1,9 @@
+{
+  "name": "Delta Exchange Token",
+  "symbol": "DETO",
+  "decimals": 18,
+  "address": "0xab93df617f51e1e415b5b4f8111f122d6b48e55c",
+  "coingeckoId": "delta-exchange-token",
+  "logoURL": "tokens/eip155-1/0xab93df617f51e1e415b5b4f8111f122d6b48e55c/logo.webp",
+  "logoHash": "4a9c18898f8dafed058f577b45e77cfb881cccf06e1341325bcb459d67cee6ac"
+}

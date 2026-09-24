@@ -1,0 +1,9 @@
+{
+  "name": "Everdome",
+  "symbol": "DOME",
+  "decimals": 18,
+  "address": "0x475bfaa1848591ae0e6ab69600f48d828f61a80e",
+  "coingeckoId": "everdome",
+  "logoURL": "tokens/eip155-56/0x475bfaa1848591ae0e6ab69600f48d828f61a80e/logo.webp",
+  "logoHash": "e2b28127b0246499ee663316ead4ad4e83c0932ddd38155756fca03f16a81035"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Ivy Oracle",
+  "description": "Low fee and optimised rewards, Ivy Oracle strive for providing the best open analytics tools for the community.",
+  "logoURL": "providers/eip155-14/0xd6ae2609e2b9c5cc5079dcd041f17d742486937c/logo.webp",
+  "logoHash": "40ff3488fabb3d188d27156753441c763fa2b7390f8fd82aaa4648a4672253ff",
+  "websiteURL": "https://ivyoracle.xyz",
+  "links": {},
+  "identityAddress": "0xd6ae2609e2b9c5cc5079dcd041f17d742486937c",
+  "delegationAddress": "0x64d998bc81424131e5af05071263fdebd1a82986",
+  "signingPolicyAddress": "0xbcb9a85ab7ace500a3a2ea8ecba9c8a2b5b602cc",
+  "submitAddress": "0x9870c740fcf81c1f6c9d40b4046f12a55be0d78a",
+  "submitSignaturesAddress": "0x442213f1a924036a64612e544ee8c11243d57cf6",
+  "publicKey": "0x0c8b43e5a1d9ca2245dc64fa240a76bc61852c96b1e410a26a172dfce8ae7785040b440c786e660e1045a994dd5e93164b39b901dfe57ee6533b4f6601bffc72",
+  "validators": ["NodeID-5jV2rg4CGt6ewiDbB9QeWDEptVudskJeY"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc8ee848158f8d4fa4b244ee271490d850106150164e11d63cac6b1b044f890b7",
+    "blockNumber": 757814,
+    "timestamp": "2022-08-30T02:20:21.000Z"
+  }
+}

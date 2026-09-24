@@ -1,0 +1,9 @@
+{
+  "name": "Frax Share",
+  "symbol": "FXS",
+  "decimals": 18,
+  "address": "0xe48a3d7d0bc88d552f730b62c006bc925eadb9ee",
+  "coingeckoId": "frax-share",
+  "logoURL": "tokens/eip155-56/0xe48a3d7d0bc88d552f730b62c006bc925eadb9ee/logo.webp",
+  "logoHash": "114667f3906f6428163fbb918121f390029a9e3e96f3ff28e83f7fd83bd166a5"
+}

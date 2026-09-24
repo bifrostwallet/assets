@@ -1,0 +1,9 @@
+{
+  "name": "Ultra",
+  "symbol": "UOS",
+  "decimals": 4,
+  "address": "0xd13c7342e1ef687c5ad21b27c2b65d772cab5c8c",
+  "coingeckoId": "ultra",
+  "logoURL": "tokens/eip155-1/0xd13c7342e1ef687c5ad21b27c2b65d772cab5c8c/logo.webp",
+  "logoHash": "f86c17d090654ded5c2224f240d50517ccc901b90e09c2ee2692a4bc923a194b"
+}

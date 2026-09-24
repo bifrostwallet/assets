@@ -1,0 +1,9 @@
+{
+  "name": "Gala",
+  "symbol": "GALA",
+  "decimals": 8,
+  "address": "0xd1d2eb1b1e90b638588728b4130137d262c87cae",
+  "coingeckoId": "gala",
+  "logoURL": "tokens/eip155-1/0xd1d2eb1b1e90b638588728b4130137d262c87cae/logo.webp",
+  "logoHash": "fdd67f384bc8de6b2b560c603f57060ad8b40777676712f4da2ec209b0b835bd"
+}

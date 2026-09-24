@@ -1,0 +1,9 @@
+{
+  "name": "Hermez Network",
+  "symbol": "HEZ",
+  "decimals": 18,
+  "address": "0xeef9f339514298c6a857efcfc1a762af84438dee",
+  "coingeckoId": "hermez-network-token",
+  "logoURL": "tokens/eip155-1/0xeef9f339514298c6a857efcfc1a762af84438dee/logo.webp",
+  "logoHash": "73c03c52c9665213016657a7c073d5e9d050f3e0244d359e7b1ba25fae2a0316"
+}

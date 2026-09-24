@@ -1,0 +1,9 @@
+{
+  "name": "Koda Cryptocurrency",
+  "symbol": "KODA",
+  "decimals": 9,
+  "address": "0x8094e772fa4a60bdeb1dfec56ab040e17dd608d5",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x8094e772fa4a60bdeb1dfec56ab040e17dd608d5/logo.webp",
+  "logoHash": "1cbc973fa171eab4fc13c49e617dde313bee54d61387517bf621041673cd3dde"
+}

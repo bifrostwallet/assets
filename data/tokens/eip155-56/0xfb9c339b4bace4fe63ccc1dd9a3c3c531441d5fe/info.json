@@ -1,0 +1,9 @@
+{
+  "name": "SHILL",
+  "symbol": "SHILL",
+  "decimals": 18,
+  "address": "0xfb9c339b4bace4fe63ccc1dd9a3c3c531441d5fe",
+  "coingeckoId": "shill-token",
+  "logoURL": "tokens/eip155-56/0xfb9c339b4bace4fe63ccc1dd9a3c3c531441d5fe/logo.webp",
+  "logoHash": "508deca316de3f75b93a658b3252147900efb1fdbfe261d438743c993c1878ba"
+}

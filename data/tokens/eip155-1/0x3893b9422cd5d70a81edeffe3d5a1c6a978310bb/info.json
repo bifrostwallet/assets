@@ -1,0 +1,9 @@
+{
+  "name": "Mithril",
+  "symbol": "MITH",
+  "decimals": 18,
+  "address": "0x3893b9422cd5d70a81edeffe3d5a1c6a978310bb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3893b9422cd5d70a81edeffe3d5a1c6a978310bb/logo.webp",
+  "logoHash": "d800dc070e07ae2cbc4ed424a4ca9c5d339e4c9947789ea071c5ec34f3e09afc"
+}

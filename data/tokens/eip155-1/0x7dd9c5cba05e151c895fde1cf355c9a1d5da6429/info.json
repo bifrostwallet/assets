@@ -1,0 +1,9 @@
+{
+  "name": "Golem",
+  "symbol": "GLM",
+  "decimals": 18,
+  "address": "0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429",
+  "coingeckoId": "golem",
+  "logoURL": "tokens/eip155-1/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429/logo.webp",
+  "logoHash": "40abf3f85267a3ea5ae18b6c61bddf446347ff12e8577078e02830dde0d441db"
+}

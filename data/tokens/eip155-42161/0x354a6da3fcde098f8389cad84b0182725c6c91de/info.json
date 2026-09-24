@@ -1,0 +1,9 @@
+{
+  "name": "Compound",
+  "symbol": "COMP",
+  "decimals": 18,
+  "address": "0x354a6da3fcde098f8389cad84b0182725c6c91de",
+  "coingeckoId": "compound-governance-token",
+  "logoURL": "tokens/eip155-42161/0x354a6da3fcde098f8389cad84b0182725c6c91de/logo.webp",
+  "logoHash": "aafe47230b770823a478e19209f957721b665aba0818d5320e03394f7cc3857f"
+}

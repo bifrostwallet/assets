@@ -1,0 +1,24 @@
+{
+  "name": "Flare Beacon",
+  "description": "Songbird network signal provider. Beaconing since inception",
+  "logoURL": "providers/eip155-19/0x44eb776cd95ae59b2eda2ce354557427361e75da/logo.webp",
+  "logoHash": "60975b5e9812d11568f0b75264a5072ce4a0b2749f641a5931bdd417d02e1d22",
+  "websiteURL": "https://flarebeacon.xyz",
+  "links": {},
+  "identityAddress": "0x44eb776cd95ae59b2eda2ce354557427361e75da",
+  "delegationAddress": "0x633ce03ea66d910c15869e1552fdccc2bf9aad87",
+  "signingPolicyAddress": "0x91abe8c9b87c7d48f4fd70af31e418ce6d336896",
+  "submitAddress": "0xb9f0f796bebca28c9813452c9b1b5719d89604e3",
+  "submitSignaturesAddress": "0xd8659e7ef5d329509bcefcad0b6d6b3622bc49c7",
+  "publicKey": "0x022d6391aceb4cc55efcb5a17e96f49931c32ee271832aa6b024ef0223cccc6b12cbf13b2eb7431ef6c24548977d6e8a25f135aae18f311343d2749bb73cdf46",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x373e79196dee981c97d647e404629435d26d4dff78882f530f0393215e70889e",
+    "blockNumber": 19353109,
+    "timestamp": "2022-07-11T15:42:39.000Z"
+  }
+}

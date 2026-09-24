@@ -1,0 +1,9 @@
+{
+  "name": "Voyager Token",
+  "symbol": "VGX",
+  "decimals": 8,
+  "address": "0x3c4b6e6e1ea3d4863700d7f76b36b7f3d3f13e3d",
+  "coingeckoId": "ethos",
+  "logoURL": "tokens/eip155-1/0x3c4b6e6e1ea3d4863700d7f76b36b7f3d3f13e3d/logo.webp",
+  "logoHash": "b9dcbd1bddc4c83a8b5df66a9b918b4b697980bb04f99dfd0653997d6d3fed79"
+}

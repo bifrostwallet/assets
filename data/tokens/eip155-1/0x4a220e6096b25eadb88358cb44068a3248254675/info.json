@@ -1,0 +1,9 @@
+{
+  "name": "Quant",
+  "symbol": "QNT",
+  "decimals": 18,
+  "address": "0x4a220e6096b25eadb88358cb44068a3248254675",
+  "coingeckoId": "quant-network",
+  "logoURL": "tokens/eip155-1/0x4a220e6096b25eadb88358cb44068a3248254675/logo.webp",
+  "logoHash": "0c3096ebe6e4591cb61fd8a94008c50b19616e21be08fc027580ba8cf45791e5"
+}

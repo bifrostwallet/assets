@@ -1,0 +1,27 @@
+{
+  "name": "PrivatAsset",
+  "description": "Driven by expertise, guided by integrity. Turning financial potential into real progress",
+  "logoURL": "providers/eip155-14/0xecafe633830fa27b4912a5588c28b7d994e1f203/logo.webp",
+  "logoHash": "6368f45f2e606fc8176616983f09cfd17f03852722538bbe9c276b8b8a461036",
+  "websiteURL": "https://privatasset.com",
+  "links": {},
+  "identityAddress": "0xecafe633830fa27b4912a5588c28b7d994e1f203",
+  "delegationAddress": "0xff2e51fbf9196eaf96978ec454c5acdcf4c46990",
+  "signingPolicyAddress": "0x79280386dda03f4af8d6212582652a80332d29d7",
+  "submitAddress": "0x232b3cecc2e4eaae6122952ad0b1bbc60f85a829",
+  "submitSignaturesAddress": "0xb1b47b656d828ee475f7c929add686331eaecf42",
+  "publicKey": "0x14a0be7711b118ecb2041d028aa0abbc8ee6d97ba32c36c28ccee5a25818076d0ff796b001ea3851c4dd0e4479b8be02dfd211c44f1c2c8b46ee4cf8685b373f",
+  "validators": [
+    "NodeID-KnnQc8YZ1fQVkJPp3XyDiHnCwcxuMUurU",
+    "NodeID-PWzNhHemVzK2mTTjsXnAV5FViBUf3Wwt4"
+  ],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x8f42e056dcd3b9297cca90039d7765cb8a2d54b61f9e76e04cbe3f5a7a648033",
+    "blockNumber": 44775728,
+    "timestamp": "2025-07-19T08:22:06.000Z"
+  }
+}

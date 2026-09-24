@@ -1,0 +1,9 @@
+{
+  "name": "Binance Dogecoin",
+  "symbol": "DOGE",
+  "decimals": 8,
+  "address": "0xba2ae424d960c26247dd6c32edc70b295c744c43",
+  "coingeckoId": "binance-peg-dogecoin",
+  "logoURL": "tokens/eip155-56/0xba2ae424d960c26247dd6c32edc70b295c744c43/logo.webp",
+  "logoHash": "f875d4f65626664c7ea7f1bdf20e1e57a81ea94b9635150d0d20dcfb3db50e29"
+}

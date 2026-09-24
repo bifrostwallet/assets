@@ -1,0 +1,9 @@
+{
+  "name": "Ultiledger",
+  "symbol": "ULT",
+  "decimals": 18,
+  "address": "0xe884cc2795b9c45beeac0607da9539fd571ccf85",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xe884cc2795b9c45beeac0607da9539fd571ccf85/logo.webp",
+  "logoHash": "440ec17f98dd1e3581438f51a48d4c864b939d7ac72a845c788b50b70d1c942c"
+}

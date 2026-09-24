@@ -1,0 +1,9 @@
+{
+  "name": "Oraichain",
+  "symbol": "ORAI",
+  "decimals": 18,
+  "address": "0x4c11249814f11b9346808179cf06e71ac328c1b5",
+  "coingeckoId": "oraichain-token",
+  "logoURL": "tokens/eip155-1/0x4c11249814f11b9346808179cf06e71ac328c1b5/logo.webp",
+  "logoHash": "421b5394c354e6ff832d321663d0db14b113dc173076e44dd13706c145fac6d7"
+}

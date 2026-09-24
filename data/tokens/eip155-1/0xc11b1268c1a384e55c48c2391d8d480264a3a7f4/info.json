@@ -1,0 +1,9 @@
+{
+  "name": "Compound Wrapped BTC Legacy",
+  "symbol": "CWBTC",
+  "decimals": 8,
+  "address": "0xc11b1268c1a384e55c48c2391d8d480264a3a7f4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xc11b1268c1a384e55c48c2391d8d480264a3a7f4/logo.webp",
+  "logoHash": "01be3e4c16b9584d74661d7a7ac914ae8252f12c9c8c3095570954bf66e90ea3"
+}

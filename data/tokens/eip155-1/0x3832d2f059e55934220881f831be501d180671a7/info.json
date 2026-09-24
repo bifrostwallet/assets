@@ -1,0 +1,9 @@
+{
+  "name": "renDOGE",
+  "symbol": "RENDOGE",
+  "decimals": 8,
+  "address": "0x3832d2f059e55934220881f831be501d180671a7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3832d2f059e55934220881f831be501d180671a7/logo.webp",
+  "logoHash": "50bfbd7a036966e507c738407372687eebb74aa29c4d955516514fd9c961439e"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Unit Bitcoin",
+  "symbol": "UBTC",
+  "decimals": 8,
+  "address": "0x9fdbda0a5e284c32744d2f17ee5c74b284993463",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x9fdbda0a5e284c32744d2f17ee5c74b284993463/logo.webp",
+  "logoHash": "e28623100879e12c896a2396d30b38a7b53b6520174dbf11b14dfeeaea6bdcd0"
+}

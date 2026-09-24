@@ -1,0 +1,9 @@
+{
+  "name": "Crypterium",
+  "symbol": "CRPT",
+  "decimals": 18,
+  "address": "0x08389495d7456e1951ddf7c3a1314a4bfb646d8b",
+  "coingeckoId": "crypterium",
+  "logoURL": "tokens/eip155-1/0x08389495d7456e1951ddf7c3a1314a4bfb646d8b/logo.webp",
+  "logoHash": "bcfe84af9cf46d6df3017e97339608b1cf547f569f27fff7512e91559d417b85"
+}

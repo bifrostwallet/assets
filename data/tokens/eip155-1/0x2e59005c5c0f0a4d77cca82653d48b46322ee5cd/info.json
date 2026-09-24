@@ -1,0 +1,9 @@
+{
+  "name": "Synth Tezos",
+  "symbol": "SXTZ",
+  "decimals": 18,
+  "address": "0x2e59005c5c0f0a4d77cca82653d48b46322ee5cd",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x2e59005c5c0f0a4d77cca82653d48b46322ee5cd/logo.webp",
+  "logoHash": "19f7ecfe5c0db34d215d1906c4f2f0949d1b07b15575bf36846460be2f4e036f"
+}

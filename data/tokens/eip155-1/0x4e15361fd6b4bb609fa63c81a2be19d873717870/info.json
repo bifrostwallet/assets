@@ -1,0 +1,9 @@
+{
+  "name": "Fantom",
+  "symbol": "FTM",
+  "decimals": 18,
+  "address": "0x4e15361fd6b4bb609fa63c81a2be19d873717870",
+  "coingeckoId": "wrapped-fantom",
+  "logoURL": "tokens/eip155-1/0x4e15361fd6b4bb609fa63c81a2be19d873717870/logo.webp",
+  "logoHash": "f6124befc79650a41bf71b2015fe678ec5af64eed2768c988f5f557e349720f5"
+}

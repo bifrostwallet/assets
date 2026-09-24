@@ -1,0 +1,9 @@
+{
+  "name": "Xenos Finance Gokubi",
+  "symbol": "XFG",
+  "decimals": 18,
+  "address": "0xef1790543be177a3cb6e0629564cab66082853a2",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xef1790543be177a3cb6e0629564cab66082853a2/logo.webp",
+  "logoHash": "d278751ceeeb91190e907eca9880525bdc0673d2b348a8915df36198746101b3"
+}

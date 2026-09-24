@@ -1,0 +1,9 @@
+{
+  "name": "Dai",
+  "symbol": "DAI",
+  "decimals": 18,
+  "address": "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
+  "coingeckoId": "multichain-bridged-dai-fantom",
+  "logoURL": "tokens/eip155-250/0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e/logo.webp",
+  "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "sETH",
+  "symbol": "SETH",
+  "decimals": 18,
+  "address": "0xe405de8f52ba7559f9df3c368500b6e6ae6cee49",
+  "coingeckoId": "seth",
+  "logoURL": "tokens/eip155-10/0xe405de8f52ba7559f9df3c368500b6e6ae6cee49/logo.webp",
+  "logoHash": "973b37b95be592ef36070634807e42b1815b9cf11f3c2346ca82e951673e8908"
+}

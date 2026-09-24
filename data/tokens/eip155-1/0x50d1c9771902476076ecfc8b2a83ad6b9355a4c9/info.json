@@ -1,0 +1,9 @@
+{
+  "name": "FTX Token",
+  "symbol": "FTT",
+  "decimals": 18,
+  "address": "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9",
+  "coingeckoId": "ftx-token",
+  "logoURL": "tokens/eip155-1/0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9/logo.webp",
+  "logoHash": "04f30d2401b16a4a90cd401cb03ada0218fe14cf362b715737bdfb02b990616a"
+}

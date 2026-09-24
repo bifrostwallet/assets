@@ -1,0 +1,24 @@
+{
+  "name": "Wonderftso",
+  "description": "The best ftso around",
+  "logoURL": "providers/eip155-19/0xfe193a0f95bbeee5a5c8306bca5cedfa65114460/logo.webp",
+  "logoHash": "52f250507dadecd99584aab7ade9b8143b59bc33aa89c2b92b0e101a0d5aefdb",
+  "websiteURL": "https://www.wonderftso.eu",
+  "links": {},
+  "identityAddress": "0xfe193a0f95bbeee5a5c8306bca5cedfa65114460",
+  "delegationAddress": "0x78a99aa32cde18b33b150941fbf718715d15af6a",
+  "signingPolicyAddress": "0xaa4d1f2b94370229bc20c3582e1d940ec783de12",
+  "submitAddress": "0x917445462e58e32af317fb5271d7eb028438f87f",
+  "submitSignaturesAddress": "0xb46f83efe04bc1fc9ca480cba861e65f35940352",
+  "publicKey": "0x0df7e4944b21107e21525d144e16d55000d617606a889860e995d9c929f7e0d3016a914ac197d38bab99a102cbf3070d0d11c7d2a69e7edbb531251d903b74b8",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x967bdeb1ac459af2871b767236d563adc0bf58337f1d119654c4841c2173cfc3",
+    "blockNumber": 17282111,
+    "timestamp": "2022-06-08T08:54:39.000Z"
+  }
+}

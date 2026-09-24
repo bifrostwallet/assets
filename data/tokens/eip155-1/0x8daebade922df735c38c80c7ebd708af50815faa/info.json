@@ -1,0 +1,9 @@
+{
+  "name": "tBTC",
+  "symbol": "TBTC",
+  "decimals": 18,
+  "address": "0x8daebade922df735c38c80c7ebd708af50815faa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x8daebade922df735c38c80c7ebd708af50815faa/logo.webp",
+  "logoHash": "d53226a592edf897a7f8ce9c89cd0918c034b876427ac21c6195695c2d4ef8ae"
+}

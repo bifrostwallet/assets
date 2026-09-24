@@ -1,0 +1,9 @@
+{
+  "name": "inSure DeFi",
+  "symbol": "SURE",
+  "decimals": 18,
+  "address": "0xcb86c6a22cb56b6cf40cafedb06ba0df188a416e",
+  "coingeckoId": "insure",
+  "logoURL": "tokens/eip155-1/0xcb86c6a22cb56b6cf40cafedb06ba0df188a416e/logo.webp",
+  "logoHash": "1dbc67ef0f4bc1e27765b34a1a0bb0f24f2f8022b55da516cc9149f8149b1cb6"
+}

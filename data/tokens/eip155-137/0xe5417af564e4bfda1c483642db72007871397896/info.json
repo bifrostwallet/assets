@@ -1,0 +1,9 @@
+{
+  "name": "Gains Network",
+  "symbol": "GNS",
+  "decimals": 18,
+  "address": "0xe5417af564e4bfda1c483642db72007871397896",
+  "coingeckoId": "gains-network",
+  "logoURL": "tokens/eip155-137/0xe5417af564e4bfda1c483642db72007871397896/logo.webp",
+  "logoHash": "261a99c7a71ad20dfdf2c6110c3a445c5d07809166e7423eaeca34ec3a479663"
+}

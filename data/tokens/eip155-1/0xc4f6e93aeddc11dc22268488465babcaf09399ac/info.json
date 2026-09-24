@@ -1,0 +1,9 @@
+{
+  "name": "hi Dollar",
+  "symbol": "HI",
+  "decimals": 18,
+  "address": "0xc4f6e93aeddc11dc22268488465babcaf09399ac",
+  "coingeckoId": "hi-dollar",
+  "logoURL": "tokens/eip155-1/0xc4f6e93aeddc11dc22268488465babcaf09399ac/logo.webp",
+  "logoHash": "7f4074ce6130add7cc5717e2e40d3dfc8eba638cdd58e97a0a776c32fd3ed179"
+}

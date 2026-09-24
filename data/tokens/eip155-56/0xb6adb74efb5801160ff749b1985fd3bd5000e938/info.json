@@ -1,0 +1,9 @@
+{
+  "name": "GameZone",
+  "symbol": "GZONE",
+  "decimals": 18,
+  "address": "0xb6adb74efb5801160ff749b1985fd3bd5000e938",
+  "coingeckoId": "gamezone",
+  "logoURL": "tokens/eip155-56/0xb6adb74efb5801160ff749b1985fd3bd5000e938/logo.webp",
+  "logoHash": "2f80e6b8b137dbef7c092d6ddee8d0b9fc9802f6352dccb90b514e8831cf6fcf"
+}

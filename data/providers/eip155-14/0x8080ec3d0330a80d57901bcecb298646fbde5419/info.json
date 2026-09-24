@@ -1,0 +1,27 @@
+{
+  "name": "TempestFTSO",
+  "description": "TempestFTSO created by industry professionals to deliver the most reliable and accurate price feeds to the FTSO system.",
+  "logoURL": "providers/eip155-14/0x8080ec3d0330a80d57901bcecb298646fbde5419/logo.webp",
+  "logoHash": "04834fb103440c336904abd652fdb1bd0727196c6f19b165b452e5477c8c0f14",
+  "websiteURL": "https://tempestftso.com",
+  "links": {},
+  "identityAddress": "0x8080ec3d0330a80d57901bcecb298646fbde5419",
+  "delegationAddress": "0x96616c93747babe136bb56310be2ae665b18da63",
+  "signingPolicyAddress": "0xaec4efacdc09ebff3035b8a131953b20a8b4e968",
+  "submitAddress": "0x7d73c6aaccdfc0583ed2d9cd7ee74c151d5ac43f",
+  "submitSignaturesAddress": "0x257c9f4b407b9d605320b1f10bf3ef453c0256e1",
+  "publicKey": "0x091981797b22d11b7ed2327f650a9046476b6b5ebf456b4a71bf5dd5e3abd97725a49cd2a89255303d9ed6c01d4124bca86508d0a178056334131183c7de82d4",
+  "validators": [
+    "NodeID-98RaC6gbJMhin1NXsBFUoicEqiF7VKWbL",
+    "NodeID-HocHt7RWAxksQj94zEJJ6He7gH2mRnzs1"
+  ],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x3d1d40063007b6da475a693a5f2c732a065b06b8f515f5ae1bc70d34df417b3a",
+    "blockNumber": 2692233,
+    "timestamp": "2022-11-22T18:23:55.000Z"
+  }
+}

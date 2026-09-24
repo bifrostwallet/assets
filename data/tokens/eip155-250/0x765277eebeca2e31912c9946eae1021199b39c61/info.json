@@ -1,0 +1,9 @@
+{
+  "name": "Kyber Network Crystal Legacy",
+  "symbol": "KNCL",
+  "decimals": 18,
+  "address": "0x765277eebeca2e31912c9946eae1021199b39c61",
+  "coingeckoId": "kyber-network",
+  "logoURL": "tokens/eip155-250/0x765277eebeca2e31912c9946eae1021199b39c61/logo.webp",
+  "logoHash": "3e1c049b89adfce63c257c6e6c9080f8a877c13d0a1d8c6a50acfc2f76c209aa"
+}

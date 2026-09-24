@@ -1,0 +1,9 @@
+{
+  "name": "Reef",
+  "symbol": "REEF",
+  "decimals": 18,
+  "address": "0xfe3e6a25e6b192a42a44ecddcd13796471735acf",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xfe3e6a25e6b192a42a44ecddcd13796471735acf/logo.webp",
+  "logoHash": "cf4b2870b2c5be894dd09a42ce8b9d4125ec652299946fccdb00224dbe81a5fd"
+}

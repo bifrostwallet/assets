@@ -1,0 +1,9 @@
+{
+  "name": "Ribbon Finance",
+  "symbol": "RBN",
+  "decimals": 18,
+  "address": "0x6123b0049f904d730db3c36a31167d9d4121fa6b",
+  "coingeckoId": "ribbon-finance",
+  "logoURL": "tokens/eip155-1/0x6123b0049f904d730db3c36a31167d9d4121fa6b/logo.webp",
+  "logoHash": "2a81aff0b2eaf60e377828ce65393bfed5310d6a75d1078e0f265db06c4e0d9e"
+}

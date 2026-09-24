@@ -1,0 +1,9 @@
+{
+  "name": "TrueUSD",
+  "symbol": "TUSD",
+  "decimals": 18,
+  "address": "0x2e1ad108ff1d8c782fcbbb89aad783ac49586756",
+  "coingeckoId": "bridged-trueusd",
+  "logoURL": "tokens/eip155-137/0x2e1ad108ff1d8c782fcbbb89aad783ac49586756/logo.webp",
+  "logoHash": "d51e20c3eabf9ac2bddb217f01f27a8cd0b6197c82dc02e67232c4033469257a"
+}

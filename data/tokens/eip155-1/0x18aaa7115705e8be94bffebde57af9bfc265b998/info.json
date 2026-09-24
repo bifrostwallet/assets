@@ -1,0 +1,9 @@
+{
+  "name": "Audius",
+  "symbol": "AUDIO",
+  "decimals": 18,
+  "address": "0x18aaa7115705e8be94bffebde57af9bfc265b998",
+  "coingeckoId": "audius",
+  "logoURL": "tokens/eip155-1/0x18aaa7115705e8be94bffebde57af9bfc265b998/logo.webp",
+  "logoHash": "71514e289ea0c2379a223b972bf3ffdc929ed2e463bea9c5a4a119de10726fb5"
+}

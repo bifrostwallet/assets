@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Compound Test USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-11155111/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238/logo.webp",
+    "logoHash": "49975447c37decacd306a99aed58330b45fef3d96642dab826ce64859f6f617a"
+  },
+  {
+    "name": "Aave Test USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0x94a9d9ac8a22534e3faca9f4e7f2e2cf85d5e4c8",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-11155111/0x94a9d9ac8a22534e3faca9f4e7f2e2cf85d5e4c8/logo.webp",
+    "logoHash": "49975447c37decacd306a99aed58330b45fef3d96642dab826ce64859f6f617a"
+  }
+]

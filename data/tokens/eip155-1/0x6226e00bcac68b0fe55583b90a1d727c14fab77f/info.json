@@ -1,0 +1,9 @@
+{
+  "name": "MultiVAC",
+  "symbol": "MTV",
+  "decimals": 18,
+  "address": "0x6226e00bcac68b0fe55583b90a1d727c14fab77f",
+  "coingeckoId": "multivac",
+  "logoURL": "tokens/eip155-1/0x6226e00bcac68b0fe55583b90a1d727c14fab77f/logo.webp",
+  "logoHash": "b1bef5cd22f81d53aa6781ac1171b24e413747d9bbc722ad8426d36872eeea8c"
+}

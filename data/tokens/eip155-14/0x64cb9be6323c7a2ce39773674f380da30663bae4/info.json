@@ -1,0 +1,9 @@
+{
+  "name": "ScottyCash",
+  "symbol": "SCOTTY",
+  "decimals": 6,
+  "address": "0x64cb9be6323c7a2ce39773674f380da30663bae4",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x64cb9be6323c7a2ce39773674f380da30663bae4/logo.webp",
+  "logoHash": "9518c982d0723443202be180ce544c58e5b1b6e1931ac39afe99075c252b0af4"
+}

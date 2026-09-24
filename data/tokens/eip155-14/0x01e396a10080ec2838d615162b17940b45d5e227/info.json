@@ -1,0 +1,9 @@
+{
+  "name": "Billi Da Bear",
+  "symbol": "BILLI",
+  "decimals": 18,
+  "address": "0x01e396a10080ec2838d615162b17940b45d5e227",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x01e396a10080ec2838d615162b17940b45d5e227/logo.webp",
+  "logoHash": "cbb0c4f8a3154ca341937f57742069c728b9d2e9ea3afa9156bf0b3a230f692f"
+}

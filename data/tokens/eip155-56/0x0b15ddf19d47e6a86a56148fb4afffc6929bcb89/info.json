@@ -1,0 +1,9 @@
+{
+  "name": "Impossible Finance Launchpad",
+  "symbol": "IDIA",
+  "decimals": 18,
+  "address": "0x0b15ddf19d47e6a86a56148fb4afffc6929bcb89",
+  "coingeckoId": "idia",
+  "logoURL": "tokens/eip155-56/0x0b15ddf19d47e6a86a56148fb4afffc6929bcb89/logo.webp",
+  "logoHash": "4e0dacdd6bd5624d86e6db661401e71e419bfc56a6afa7dc543c535ccc273649"
+}

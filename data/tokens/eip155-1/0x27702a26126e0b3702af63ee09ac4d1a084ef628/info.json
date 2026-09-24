@@ -1,0 +1,9 @@
+{
+  "name": "Aleph.im",
+  "symbol": "ALEPH",
+  "decimals": 18,
+  "address": "0x27702a26126e0b3702af63ee09ac4d1a084ef628",
+  "coingeckoId": "aleph",
+  "logoURL": "tokens/eip155-1/0x27702a26126e0b3702af63ee09ac4d1a084ef628/logo.webp",
+  "logoHash": "6faafdaa432ffb3a2931790070b4f3f230503ed6bf57d06536e92847624ddcd8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Klima DAO",
+  "symbol": "KLIMA",
+  "decimals": 9,
+  "address": "0x4e78011ce80ee02d2c3e649fb657e45898257815",
+  "coingeckoId": "klima-dao",
+  "logoURL": "tokens/eip155-137/0x4e78011ce80ee02d2c3e649fb657e45898257815/logo.webp",
+  "logoHash": "55fc51802e4853eb412f77623af30644cfbd20f3068cdc629b3005ee9de259f0"
+}

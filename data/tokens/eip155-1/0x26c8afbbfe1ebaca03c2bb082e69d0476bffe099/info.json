@@ -1,0 +1,9 @@
+{
+  "name": "Cellframe",
+  "symbol": "CELL",
+  "decimals": 18,
+  "address": "0x26c8afbbfe1ebaca03c2bb082e69d0476bffe099",
+  "coingeckoId": "cellframe",
+  "logoURL": "tokens/eip155-1/0x26c8afbbfe1ebaca03c2bb082e69d0476bffe099/logo.webp",
+  "logoHash": "9cb873f16bd6599bc093a098f9a38aa730a4a7cd15f5846e97f9af7d3a87139b"
+}

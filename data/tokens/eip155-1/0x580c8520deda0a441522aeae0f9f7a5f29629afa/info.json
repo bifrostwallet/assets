@@ -1,0 +1,9 @@
+{
+  "name": "Dawn",
+  "symbol": "DAWN",
+  "decimals": 18,
+  "address": "0x580c8520deda0a441522aeae0f9f7a5f29629afa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x580c8520deda0a441522aeae0f9f7a5f29629afa/logo.webp",
+  "logoHash": "14603456539d890eac686c6a1891c49c396f832228620a1c5753072ef99bc334"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "JS Coin",
+  "symbol": "JSC",
+  "decimals": 18,
+  "address": "0x2d2b39a036c3c02d50e2353061898e04433dd8fa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x2d2b39a036c3c02d50e2353061898e04433dd8fa/logo.webp",
+  "logoHash": "8a8b6865454081be4260d0471c59e1ae1d24472af21d225e8f4f9dea02b2f990"
+}

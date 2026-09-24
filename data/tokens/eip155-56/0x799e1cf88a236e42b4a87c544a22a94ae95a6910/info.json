@@ -1,0 +1,9 @@
+{
+  "name": "MContent",
+  "symbol": "MCONTENT",
+  "decimals": 6,
+  "address": "0x799e1cf88a236e42b4a87c544a22a94ae95a6910",
+  "coingeckoId": "mcontent",
+  "logoURL": "tokens/eip155-56/0x799e1cf88a236e42b4a87c544a22a94ae95a6910/logo.webp",
+  "logoHash": "519b3335bdd29be2e2a2390b90c0ab5d27417dd5e27d57fd9902b14768b82741"
+}

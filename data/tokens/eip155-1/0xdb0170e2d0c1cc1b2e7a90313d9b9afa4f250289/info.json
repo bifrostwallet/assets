@@ -1,0 +1,9 @@
+{
+  "name": "ADAPad",
+  "symbol": "ADAPAD",
+  "decimals": 18,
+  "address": "0xdb0170e2d0c1cc1b2e7a90313d9b9afa4f250289",
+  "coingeckoId": "adapad",
+  "logoURL": "tokens/eip155-1/0xdb0170e2d0c1cc1b2e7a90313d9b9afa4f250289/logo.webp",
+  "logoHash": "f1a29194be7c45452de121d1e52f4b241713249d1176797cfc35696c0d04502a"
+}

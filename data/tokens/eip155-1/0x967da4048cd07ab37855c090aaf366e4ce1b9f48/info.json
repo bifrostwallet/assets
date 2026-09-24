@@ -1,0 +1,9 @@
+{
+  "name": "Ocean Protocol",
+  "symbol": "OCEAN",
+  "decimals": 18,
+  "address": "0x967da4048cd07ab37855c090aaf366e4ce1b9f48",
+  "coingeckoId": "ocean-protocol",
+  "logoURL": "tokens/eip155-1/0x967da4048cd07ab37855c090aaf366e4ce1b9f48/logo.webp",
+  "logoHash": "af1c95e7e347e543ae7ea743687923f9b91674cc738a060852e5ae30aaf95260"
+}

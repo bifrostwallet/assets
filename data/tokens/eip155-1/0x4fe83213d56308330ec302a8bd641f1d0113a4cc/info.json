@@ -1,0 +1,9 @@
+{
+  "name": "NuCypher",
+  "symbol": "NU",
+  "decimals": 18,
+  "address": "0x4fe83213d56308330ec302a8bd641f1d0113a4cc",
+  "coingeckoId": "nucypher",
+  "logoURL": "tokens/eip155-1/0x4fe83213d56308330ec302a8bd641f1d0113a4cc/logo.webp",
+  "logoHash": "5970ef5bd4c38b5f9004978e22f97674a1efcd76731703e2e374131b1fc6e791"
+}

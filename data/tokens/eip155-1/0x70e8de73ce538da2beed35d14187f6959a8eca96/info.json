@@ -1,0 +1,9 @@
+{
+  "name": "XSGD",
+  "symbol": "XSGD",
+  "decimals": 6,
+  "address": "0x70e8de73ce538da2beed35d14187f6959a8eca96",
+  "coingeckoId": "xsgd",
+  "logoURL": "tokens/eip155-1/0x70e8de73ce538da2beed35d14187f6959a8eca96/logo.webp",
+  "logoHash": "00c65e2b1a176a4075e2b447519fa03681ef53e56bb6016382cde93d516a0c7d"
+}

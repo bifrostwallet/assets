@@ -1,0 +1,9 @@
+{
+  "name": "Origin Dollar",
+  "symbol": "OUSD",
+  "decimals": 18,
+  "address": "0x2a8e1e676ec238d8a992307b495b45b3feaa5e86",
+  "coingeckoId": "origin-dollar",
+  "logoURL": "tokens/eip155-1/0x2a8e1e676ec238d8a992307b495b45b3feaa5e86/logo.webp",
+  "logoHash": "1dc9b4e70a8cd5c20d12f8bb0881bbc7b4709f8abafabdcda9f7b378f667919f"
+}

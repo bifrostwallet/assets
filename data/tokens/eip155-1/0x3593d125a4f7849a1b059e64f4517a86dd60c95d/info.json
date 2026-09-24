@@ -1,0 +1,9 @@
+{
+  "name": "MANTRA DAO",
+  "symbol": "OM",
+  "decimals": 18,
+  "address": "0x3593d125a4f7849a1b059e64f4517a86dd60c95d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3593d125a4f7849a1b059e64f4517a86dd60c95d/logo.webp",
+  "logoHash": "1f3eb18148460b1d61dca26b7c83e09b372746d67ee6af8c1c8c39008df7c04c"
+}

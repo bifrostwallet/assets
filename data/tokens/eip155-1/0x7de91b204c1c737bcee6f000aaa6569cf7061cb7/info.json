@@ -1,0 +1,9 @@
+{
+  "name": "Robonomics Network",
+  "symbol": "XRT",
+  "decimals": 9,
+  "address": "0x7de91b204c1c737bcee6f000aaa6569cf7061cb7",
+  "coingeckoId": "robonomics-network",
+  "logoURL": "tokens/eip155-1/0x7de91b204c1c737bcee6f000aaa6569cf7061cb7/logo.webp",
+  "logoHash": "70a28375beea59e85fac4a76908379a9f4effefbbe7fe232847cb32b05534adb"
+}

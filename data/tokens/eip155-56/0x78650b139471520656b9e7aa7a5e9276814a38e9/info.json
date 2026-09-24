@@ -1,0 +1,9 @@
+{
+  "name": "BTC Standard Hashrate Token",
+  "symbol": "BTCST",
+  "decimals": 17,
+  "address": "0x78650b139471520656b9e7aa7a5e9276814a38e9",
+  "coingeckoId": "btc-standard-hashrate-token",
+  "logoURL": "tokens/eip155-56/0x78650b139471520656b9e7aa7a5e9276814a38e9/logo.webp",
+  "logoHash": "d2ade8538393f6021809d1f1b4226f076bca9ad4be22dfc62a9b98f48a03a5d6"
+}

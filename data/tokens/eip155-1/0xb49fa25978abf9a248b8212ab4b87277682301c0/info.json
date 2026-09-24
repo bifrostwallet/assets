@@ -1,0 +1,9 @@
+{
+  "name": "RAI Finance",
+  "symbol": "SOFI",
+  "decimals": 18,
+  "address": "0xb49fa25978abf9a248b8212ab4b87277682301c0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xb49fa25978abf9a248b8212ab4b87277682301c0/logo.webp",
+  "logoHash": "4dbd72ee365e8e408bb19716c16ef2f3f05da9de4c44aab96cb6907c66e55ab1"
+}

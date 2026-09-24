@@ -1,0 +1,9 @@
+{
+  "name": "Premia",
+  "symbol": "PREMIA",
+  "decimals": 18,
+  "address": "0x6399c842dd2be3de30bf99bc7d1bbf6fa3650e70",
+  "coingeckoId": "premia",
+  "logoURL": "tokens/eip155-1/0x6399c842dd2be3de30bf99bc7d1bbf6fa3650e70/logo.webp",
+  "logoHash": "d9b1efea4a835868132629aa357dad2a333d9ce4d14bead292d8b12cf6e90370"
+}

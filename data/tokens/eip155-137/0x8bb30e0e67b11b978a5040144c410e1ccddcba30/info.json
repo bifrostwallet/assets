@@ -1,0 +1,9 @@
+{
+  "name": "0chain",
+  "symbol": "ZCN",
+  "decimals": 10,
+  "address": "0x8bb30e0e67b11b978a5040144c410e1ccddcba30",
+  "coingeckoId": "0chain",
+  "logoURL": "tokens/eip155-137/0x8bb30e0e67b11b978a5040144c410e1ccddcba30/logo.webp",
+  "logoHash": "64e820f5edc72eb486ca0bfa4cc42c637fd096765a9b9df1d3a414c572968e0e"
+}

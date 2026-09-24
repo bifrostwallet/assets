@@ -1,0 +1,9 @@
+{
+  "name": "DefiCliq",
+  "symbol": "CLIQ",
+  "decimals": 18,
+  "address": "0x0def8d8adde14c9ef7c2a986df3ea4bd65826767",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x0def8d8adde14c9ef7c2a986df3ea4bd65826767/logo.webp",
+  "logoHash": "3d5c80cef475c8dfe0e739e62bb521d687cdfa23eccbb628313d94564410b250"
+}

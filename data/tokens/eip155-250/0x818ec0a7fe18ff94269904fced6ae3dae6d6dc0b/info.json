@@ -1,0 +1,9 @@
+{
+  "name": "Atari",
+  "symbol": "ATRI",
+  "decimals": 0,
+  "address": "0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b",
+  "coingeckoId": "atari",
+  "logoURL": "tokens/eip155-250/0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b/logo.webp",
+  "logoHash": "61876a8c247f22a0d73a7dbf6adcb1624aef266b2c26bd0855db5f62d5e05475"
+}

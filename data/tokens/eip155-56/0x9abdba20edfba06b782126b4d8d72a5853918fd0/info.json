@@ -1,0 +1,9 @@
+{
+  "name": "Taboo Token",
+  "symbol": "TABOO",
+  "decimals": 9,
+  "address": "0x9abdba20edfba06b782126b4d8d72a5853918fd0",
+  "coingeckoId": "taboo-token",
+  "logoURL": "tokens/eip155-56/0x9abdba20edfba06b782126b4d8d72a5853918fd0/logo.webp",
+  "logoHash": "7058598ca7056c8dd01a1591a0aab8789e666574e28c2c3d7cb5646237c8447c"
+}

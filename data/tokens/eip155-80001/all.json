@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Polygon",
+    "symbol": "POL",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-80001/native/logo.webp",
+    "logoHash": "7ddaeddf4296b0676d44682bde4ef6e9eb6ec1922e97a28dabeb3b6a3e3ac662"
+  }
+]

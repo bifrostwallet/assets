@@ -1,0 +1,9 @@
+{
+  "name": "StormX Legacy",
+  "symbol": "STMX",
+  "decimals": 18,
+  "address": "0xbe9375c6a420d2eeb258962efb95551a5b722803",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xbe9375c6a420d2eeb258962efb95551a5b722803/logo.webp",
+  "logoHash": "f147694cf7c21605ab5e51ecd652cc852f9505526c74f26f95966203afc67ced"
+}

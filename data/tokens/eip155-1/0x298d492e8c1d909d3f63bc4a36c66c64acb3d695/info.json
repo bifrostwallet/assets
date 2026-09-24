@@ -1,0 +1,9 @@
+{
+  "name": "PolkaBridge",
+  "symbol": "PBR",
+  "decimals": 18,
+  "address": "0x298d492e8c1d909d3f63bc4a36c66c64acb3d695",
+  "coingeckoId": "polkabridge",
+  "logoURL": "tokens/eip155-1/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/logo.webp",
+  "logoHash": "3923f47813ae2cec21eae5a257903dd50b2758529e6adbad88493de55cc46710"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Lossless",
+  "symbol": "LSS",
+  "decimals": 18,
+  "address": "0x3b9be07d622accaed78f479bc0edabfd6397e320",
+  "coingeckoId": "lossless",
+  "logoURL": "tokens/eip155-1/0x3b9be07d622accaed78f479bc0edabfd6397e320/logo.webp",
+  "logoHash": "f27058624ec9fda5db6bc0ab6bad0c8b9d67509f5404f40785f91c31d97108cf"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Strong",
+  "symbol": "STRONG",
+  "decimals": 18,
+  "address": "0x990f341946a3fdb507ae7e52d17851b87168017c",
+  "coingeckoId": "strong",
+  "logoURL": "tokens/eip155-1/0x990f341946a3fdb507ae7e52d17851b87168017c/logo.webp",
+  "logoHash": "f7e3c7f388abaa2ea7e18162473d43430fa2e6a7ca23ac721c81f3d7b3a8ab14"
+}

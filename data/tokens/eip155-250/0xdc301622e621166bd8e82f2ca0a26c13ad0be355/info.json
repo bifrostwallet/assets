@@ -1,0 +1,9 @@
+{
+  "name": "Frax",
+  "symbol": "FRAX",
+  "decimals": 18,
+  "address": "0xdc301622e621166bd8e82f2ca0a26c13ad0be355",
+  "coingeckoId": "frax",
+  "logoURL": "tokens/eip155-250/0xdc301622e621166bd8e82f2ca0a26c13ad0be355/logo.webp",
+  "logoHash": "803a0eee7d4249aded597261dcea63465fb2de800e7e0af886775e666b104d42"
+}

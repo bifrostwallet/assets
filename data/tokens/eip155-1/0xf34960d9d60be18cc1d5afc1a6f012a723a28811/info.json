@@ -1,0 +1,9 @@
+{
+  "name": "KuCoin Token",
+  "symbol": "KCS",
+  "decimals": 6,
+  "address": "0xf34960d9d60be18cc1d5afc1a6f012a723a28811",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf34960d9d60be18cc1d5afc1a6f012a723a28811/logo.webp",
+  "logoHash": "8010cf3a6743210b112772a6081b66842bd7c350ea17d5538d6bbe07b406052c"
+}

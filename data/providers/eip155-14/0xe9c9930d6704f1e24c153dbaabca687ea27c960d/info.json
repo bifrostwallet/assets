@@ -1,0 +1,27 @@
+{
+  "name": "Aternety",
+  "description": "Aternety US-based data provider on the Flare Network.",
+  "logoURL": "providers/eip155-14/0xe9c9930d6704f1e24c153dbaabca687ea27c960d/logo.webp",
+  "logoHash": "0c6154d3edc97581f685e8dbe5e699bdb99674e05855973b553368b0a6129322",
+  "websiteURL": "https://aternety.com",
+  "links": {},
+  "identityAddress": "0xe9c9930d6704f1e24c153dbaabca687ea27c960d",
+  "delegationAddress": "0xd3956f862a4960bb4937e596a2baecffcbb4b3e0",
+  "signingPolicyAddress": "0x1f4785bfda610047fcfe9d0db21e5f19c0f280e1",
+  "submitAddress": "0xca0e4b980fa7a8bf58b31e14714388aa29ef9933",
+  "submitSignaturesAddress": "0xd6d9244c894e1140b2510fd5ac39878830384faf",
+  "publicKey": "0x236130c043a0ad48df682431cd0023b2d6ae03c3b420d4e0a7521b4d59a3ddc51029d016afd8bc5928355953e6f6962b914abc9da8ad3e790c9340a551fe12b6",
+  "validators": [
+    "NodeID-P4T4uKqveVxjZZXVdADHENdnCKnsCFvDE",
+    "NodeID-k4QG8eJ9bYu717nbj8Ki8VykK8g1VWK9"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x98996df66d3141b32c2e7e790c4491e58724ef6fbbc73236a71a14bbf3dc53fa",
+    "blockNumber": 20573,
+    "timestamp": "2022-07-23T10:51:51.000Z"
+  }
+}

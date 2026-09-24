@@ -1,0 +1,9 @@
+{
+  "name": "Aave",
+  "symbol": "AAVE",
+  "decimals": 18,
+  "address": "0x6a07a792ab2965c72a5b8088d3a069a7ac3a993b",
+  "coingeckoId": "aave",
+  "logoURL": "tokens/eip155-250/0x6a07a792ab2965c72a5b8088d3a069a7ac3a993b/logo.webp",
+  "logoHash": "da72af6dd2d673bea75b8e770c5518ada4e80244acc8e330efed95e64715175f"
+}

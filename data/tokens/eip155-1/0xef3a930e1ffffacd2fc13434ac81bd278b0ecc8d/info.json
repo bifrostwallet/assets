@@ -1,0 +1,9 @@
+{
+  "name": "Stafi",
+  "symbol": "FIS",
+  "decimals": 18,
+  "address": "0xef3a930e1ffffacd2fc13434ac81bd278b0ecc8d",
+  "coingeckoId": "stafi",
+  "logoURL": "tokens/eip155-1/0xef3a930e1ffffacd2fc13434ac81bd278b0ecc8d/logo.webp",
+  "logoHash": "7902fcd259931f1ce7d3aee0252dec058f749095d6630ce78f719f73339501d1"
+}

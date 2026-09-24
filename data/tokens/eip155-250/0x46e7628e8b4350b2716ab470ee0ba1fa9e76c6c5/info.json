@@ -1,0 +1,9 @@
+{
+  "name": "Band Protocol",
+  "symbol": "BAND",
+  "decimals": 18,
+  "address": "0x46e7628e8b4350b2716ab470ee0ba1fa9e76c6c5",
+  "coingeckoId": "band-protocol",
+  "logoURL": "tokens/eip155-250/0x46e7628e8b4350b2716ab470ee0ba1fa9e76c6c5/logo.webp",
+  "logoHash": "2bed2c5556f4c94b3b8be70ab7dd63761b809a7a2af6e775f67629280cb8e432"
+}

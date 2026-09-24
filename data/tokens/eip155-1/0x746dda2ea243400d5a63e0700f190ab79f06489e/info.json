@@ -1,0 +1,9 @@
+{
+  "name": "BOSAGORA",
+  "symbol": "BOA",
+  "decimals": 7,
+  "address": "0x746dda2ea243400d5a63e0700f190ab79f06489e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x746dda2ea243400d5a63e0700f190ab79f06489e/logo.webp",
+  "logoHash": "ede3c7f3da31cd04be7606657ce26cecf144681c20c8f9a3f07a28ca6413b5e1"
+}

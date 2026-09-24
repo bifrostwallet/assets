@@ -1,0 +1,9 @@
+{
+  "name": "agEUR",
+  "symbol": "AGEUR",
+  "decimals": 18,
+  "address": "0xe0b52e49357fd4daf2c15e02058dce6bc0057db4",
+  "coingeckoId": "ageur",
+  "logoURL": "tokens/eip155-137/0xe0b52e49357fd4daf2c15e02058dce6bc0057db4/logo.webp",
+  "logoHash": "c6d1374cff577dba0c21ad242a3794d7fd2fb289cd4d577b46d523a21ec01c78"
+}

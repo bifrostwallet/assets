@@ -1,0 +1,9 @@
+{
+  "name": "Token Pocket",
+  "symbol": "TPT",
+  "decimals": 4,
+  "address": "0xeca41281c24451168a37211f0bc2b8645af45092",
+  "coingeckoId": "token-pocket",
+  "logoURL": "tokens/eip155-56/0xeca41281c24451168a37211f0bc2b8645af45092/logo.webp",
+  "logoHash": "4669ea9df6ea50ec110977a4fcef99ac650196b38662a015868a7ef8ca62bd6c"
+}

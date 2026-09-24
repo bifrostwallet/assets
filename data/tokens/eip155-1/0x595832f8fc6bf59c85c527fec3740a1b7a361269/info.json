@@ -1,0 +1,9 @@
+{
+  "name": "Power Ledger",
+  "symbol": "POWR",
+  "decimals": 6,
+  "address": "0x595832f8fc6bf59c85c527fec3740a1b7a361269",
+  "coingeckoId": "power-ledger",
+  "logoURL": "tokens/eip155-1/0x595832f8fc6bf59c85c527fec3740a1b7a361269/logo.webp",
+  "logoHash": "6b7e04afaf08ccb4be1a2f956be490f3f8b34dc36c77ba7a5a3a3414f60eaa34"
+}

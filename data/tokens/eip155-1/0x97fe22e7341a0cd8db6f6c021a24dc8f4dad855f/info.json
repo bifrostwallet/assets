@@ -1,0 +1,9 @@
+{
+  "name": "Synth Pound Sterling",
+  "symbol": "SGBP",
+  "decimals": 18,
+  "address": "0x97fe22e7341a0cd8db6f6c021a24dc8f4dad855f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x97fe22e7341a0cd8db6f6c021a24dc8f4dad855f/logo.webp",
+  "logoHash": "915c2cbaeff256360f3e0f53010e8e4fad1ddc92f9148a68767f11753f33ca96"
+}

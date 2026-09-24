@@ -1,0 +1,9 @@
+{
+  "name": "Celer Network",
+  "symbol": "CELR",
+  "decimals": 18,
+  "address": "0x3a8b787f78d775aecfeea15706d4221b40f345ab",
+  "coingeckoId": "celer-network",
+  "logoURL": "tokens/eip155-42161/0x3a8b787f78d775aecfeea15706d4221b40f345ab/logo.webp",
+  "logoHash": "7458e6c382f99de1b8666df43dbc43abf9cd89a532e3a7ab335ebd4cd281843a"
+}

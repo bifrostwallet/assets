@@ -1,0 +1,9 @@
+{
+  "name": "Hoge Finance",
+  "symbol": "HOGE",
+  "decimals": 9,
+  "address": "0xa4fffc757e8c4f24e7b209c033c123d20983ad40",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xa4fffc757e8c4f24e7b209c033c123d20983ad40/logo.webp",
+  "logoHash": "0d74f6bf2460a74904ed222d0fabbd406fececb58ef128b51c0e71842df40e90"
+}

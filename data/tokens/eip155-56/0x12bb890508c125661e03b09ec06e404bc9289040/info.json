@@ -1,0 +1,9 @@
+{
+  "name": "Radio Caca",
+  "symbol": "RACA",
+  "decimals": 18,
+  "address": "0x12bb890508c125661e03b09ec06e404bc9289040",
+  "coingeckoId": "radio-caca",
+  "logoURL": "tokens/eip155-56/0x12bb890508c125661e03b09ec06e404bc9289040/logo.webp",
+  "logoHash": "6b3f2035b6fad52750b16c98598107ea3bdaad88e6c65e82c205fb747f4dba20"
+}

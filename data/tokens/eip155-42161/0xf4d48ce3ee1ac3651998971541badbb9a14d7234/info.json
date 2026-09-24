@@ -1,0 +1,9 @@
+{
+  "name": "Cream",
+  "symbol": "CREAM",
+  "decimals": 18,
+  "address": "0xf4d48ce3ee1ac3651998971541badbb9a14d7234",
+  "coingeckoId": "cream-2",
+  "logoURL": "tokens/eip155-42161/0xf4d48ce3ee1ac3651998971541badbb9a14d7234/logo.webp",
+  "logoHash": "8cdd6f5527b5c43573e09f6828c245748a1c4d3dd246a58ee7b58ef0e0a430b1"
+}

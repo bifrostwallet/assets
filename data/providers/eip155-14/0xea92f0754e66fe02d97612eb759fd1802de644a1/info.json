@@ -1,0 +1,24 @@
+{
+  "name": "Tailwind FTSO",
+  "description": "Tailwind FTSO is a European provider run by IT professionals and developers using enterprise technologies to deliver accurate and reliable data.",
+  "logoURL": "providers/eip155-14/0xea92f0754e66fe02d97612eb759fd1802de644a1/logo.webp",
+  "logoHash": "2ddc395d7f5b89e57fe3b84997555e9a4ce763158e2b20b619873f67dc5edd76",
+  "websiteURL": "https://tailwindftso.com",
+  "links": {},
+  "identityAddress": "0xea92f0754e66fe02d97612eb759fd1802de644a1",
+  "delegationAddress": "0xc8c1f188a891b8627e2cbcdc8a67a2ed01ab8f10",
+  "signingPolicyAddress": "0x6414b7ee57805130d186d99f653c241a0fff2a9e",
+  "submitAddress": "0x3b8fcc9505d56e269ca17eadc2c972cdd390226f",
+  "submitSignaturesAddress": "0x1921c3656dadbb2561cd6cf3066301e0b88cb5c0",
+  "publicKey": "0x0a8c85b61dfdae67c03e234a17b4dd3eeac7070d37afec57439d06bad76d4e8a0b5e0761a4668ae9abcbccce041b7b37c8730f64a9ec297e0e4f6b94e4aba341",
+  "validators": ["NodeID-JF4XWnC9PjZVXQuqLcpQvxztdMez3CpkR"],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x0ef23c5e789b1b344270807915c8f3f9a9cbe6c54d27d37eec7359152dd69691",
+    "blockNumber": 311476,
+    "timestamp": "2022-08-08T16:11:55.000Z"
+  }
+}

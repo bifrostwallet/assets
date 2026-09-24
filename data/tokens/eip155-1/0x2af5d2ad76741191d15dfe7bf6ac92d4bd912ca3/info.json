@@ -1,0 +1,9 @@
+{
+  "name": "UNUS SED LEO",
+  "symbol": "LEO",
+  "decimals": 18,
+  "address": "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
+  "coingeckoId": "leo-token",
+  "logoURL": "tokens/eip155-1/0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3/logo.webp",
+  "logoHash": "79036c92318d66f4a6013413ef51fe8b13e0230c60062b23568731ba926134ac"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "aelf",
+  "symbol": "ELF",
+  "decimals": 18,
+  "address": "0xbf2179859fc6d5bee9bf9158632dc51678a4100e",
+  "coingeckoId": "aelf",
+  "logoURL": "tokens/eip155-1/0xbf2179859fc6d5bee9bf9158632dc51678a4100e/logo.webp",
+  "logoHash": "6dac8cf95df534a535f2ede69a9b008761a222c135fa12d06f4428d9869e1030"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "BoringDAO BTC",
+  "symbol": "OBTC",
+  "decimals": 18,
+  "address": "0x8064d9ae6cdf087b1bcd5bdf3531bd5d8c537a68",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x8064d9ae6cdf087b1bcd5bdf3531bd5d8c537a68/logo.webp",
+  "logoHash": "9ba7424532daca5396655140299ebbeb33d87a29fe8298556ba0b6de69f5729a"
+}

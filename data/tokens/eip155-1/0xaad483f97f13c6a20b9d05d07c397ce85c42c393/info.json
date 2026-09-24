@@ -1,0 +1,9 @@
+{
+  "name": "Woonkly Power",
+  "symbol": "WOOP",
+  "decimals": 18,
+  "address": "0xaad483f97f13c6a20b9d05d07c397ce85c42c393",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xaad483f97f13c6a20b9d05d07c397ce85c42c393/logo.webp",
+  "logoHash": "2dd2e75404c3df27f649d5d22de9cc7fbf463c919889634eb0d7beaec8f53648"
+}

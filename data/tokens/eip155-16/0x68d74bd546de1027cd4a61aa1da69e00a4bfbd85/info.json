@@ -1,0 +1,9 @@
+{
+  "name": "Enosys Test Drip Drip",
+  "symbol": "etDD",
+  "decimals": 18,
+  "address": "0x68d74bd546de1027cd4a61aa1da69e00a4bfbd85",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x68d74bd546de1027cd4a61aa1da69e00a4bfbd85/logo.webp",
+  "logoHash": "fdfb7cd2a7d3ee90ff757acbdc17da9109e0244d9efbe380835aaee3313c1f03"
+}

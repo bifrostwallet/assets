@@ -1,0 +1,9 @@
+{
+  "name": "ShareToken",
+  "symbol": "SHR",
+  "decimals": 2,
+  "address": "0xd98f75b1a3261dab9eed4956c93f33749027a964",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xd98f75b1a3261dab9eed4956c93f33749027a964/logo.webp",
+  "logoHash": "957ef053815c97acfb31bc8a621460851321d25431ee33a3fd6ef4eb2a7b6dc5"
+}

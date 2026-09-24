@@ -1,0 +1,9 @@
+{
+  "name": "Badger DAO",
+  "symbol": "BADGER",
+  "decimals": 18,
+  "address": "0x3472a5a71965499acd81997a54bba8d852c6e53d",
+  "coingeckoId": "badger-dao",
+  "logoURL": "tokens/eip155-1/0x3472a5a71965499acd81997a54bba8d852c6e53d/logo.webp",
+  "logoHash": "444147cf48a3b2d8448a84e2b09304bf84c9de8a614d5a0a9b6f9864e6b2e651"
+}

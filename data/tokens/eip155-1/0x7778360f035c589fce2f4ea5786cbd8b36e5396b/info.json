@@ -1,0 +1,9 @@
+{
+  "name": "OpenOcean",
+  "symbol": "OOE",
+  "decimals": 18,
+  "address": "0x7778360f035c589fce2f4ea5786cbd8b36e5396b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x7778360f035c589fce2f4ea5786cbd8b36e5396b/logo.webp",
+  "logoHash": "5c38d98bb58261de1e470b9382c3397ee6107774e00f9e2288ec7bc0df476134"
+}
