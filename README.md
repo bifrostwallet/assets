@@ -142,10 +142,6 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 ./yarn check:tokens -- --skip-onchain
 ```
 
-## Executors
-
-Claim executors are curated in-repo (`data/executors/`). Not a third-party listing program.
-
 ## Contracts
 
 Named contract listings (`name`, `project`, `address`) are planned under `data/contracts/`; no ABIs and no logos in this catalog.
@@ -157,7 +153,6 @@ data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.jso
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
 data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
-data/executors/<chain>/<address>/           Bifrost claim executors only
 src/                                        curation tooling (TypeScript, dev-only)
 ```
 

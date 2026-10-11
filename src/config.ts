@@ -263,36 +263,6 @@ export const DAPP_INFO_KEYS = [
 ] as const;
 
 /**
- * Curated claim executors (Bifrost-operated only — not open self-serve).
- * Addresses come from claim-bots `chains.json` publicClaimBot / premiumClaimBot.
- */
-export interface ExecutorInfo {
-  name: string;
-  description: string;
-  websiteURL: string;
-  links: Partial<Record<AllowedLink, string>>;
-  logoURL: string;
-  logoHash: string;
-  executorAddress: string;
-  /** Claims FTSO / Flare Systems Protocol reward epochs */
-  ftsoRewards: boolean;
-  /** Claims validator (staking) rewards via ValidatorRewardManager */
-  validatorRewards: boolean;
-}
-
-export const EXECUTOR_INFO_KEYS = [
-  "name",
-  "description",
-  "websiteURL",
-  "links",
-  "logoURL",
-  "logoHash",
-  "executorAddress",
-  "ftsoRewards",
-  "validatorRewards",
-] as const;
-
-/**
  * CAIP-2 chains for dapp bookmarks — Bifrost Wallet mainnets only.
  * Flare and XRP first (most used); no Fantom; includes HyperEVM + UTXO.
  */

@@ -165,7 +165,7 @@ function getSectionHashes() {
   return SECTION_HASHES;
 }
 
-const SECTION_ORDER = ["providers", "executors", "contracts", "dapps", "tokens"];
+const SECTION_ORDER = ["providers", "contracts", "dapps", "tokens"];
 
 /** Canonical UTF-8 JSON bytes (as string) that the Ed25519 signature covers. */
 function canonicalManifestBody(body) {
@@ -307,7 +307,6 @@ export declare const MANIFEST_PUBLIC_KEY: string;
 /** Section content hashes baked into this package release (compare to CDN manifest) */
 export declare function getSectionHashes(): {
   providers?: ManifestSectionHashes;
-  executors?: ManifestSectionHashes;
   contracts?: ManifestSectionHashes;
   dapps?: ManifestSectionHashes;
   tokens?: ManifestSectionHashes;
@@ -317,7 +316,6 @@ export interface AssetsManifestBody {
   generatedAt: string;
   sections: {
     providers?: ManifestSectionHashes;
-    executors?: ManifestSectionHashes;
     contracts?: ManifestSectionHashes;
     dapps?: ManifestSectionHashes;
     tokens?: ManifestSectionHashes;

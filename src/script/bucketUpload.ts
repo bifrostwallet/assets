@@ -64,10 +64,9 @@ function collectUploads(assetBase: string): {
   const dataDir = path.join(process.cwd(), "data");
   const uploads: UploadItem[] = [];
   const providerChains: Record<string, string> = {};
-  const executorChains: Record<string, string> = {};
   const tokenChains: Record<string, string> = {};
 
-  const walk = (dir: string, section: "providers" | "executors" | "tokens"): void => {
+  const walk = (dir: string, section: "providers" | "tokens"): void => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
@@ -89,7 +88,6 @@ function collectUploads(assetBase: string): {
         const chain = path.basename(path.dirname(fullPath));
         const hash = sha256Hex(body);
         if (section === "providers") providerChains[chain] = hash;
-        else if (section === "executors") executorChains[chain] = hash;
         else tokenChains[chain] = hash;
 
         uploads.push({
@@ -113,7 +111,7 @@ function collectUploads(assetBase: string): {
     }
   };
 
-  for (const section of ["providers", "executors", "tokens"] as const) {
+  for (const section of ["providers", "tokens"] as const) {
     const sectionDir = path.join(dataDir, section);
     if (fs.existsSync(sectionDir)) {
       walk(sectionDir, section);
@@ -125,12 +123,6 @@ function collectUploads(assetBase: string): {
     sections.providers = {
       contentHash: rollupChainHashes(providerChains),
       chains: providerChains,
-    };
-  }
-  if (Object.keys(executorChains).length > 0) {
-    sections.executors = {
-      contentHash: rollupChainHashes(executorChains),
-      chains: executorChains,
     };
   }
   if (Object.keys(tokenChains).length > 0) {

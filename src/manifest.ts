@@ -37,7 +37,6 @@ export interface AssetsManifestBody {
   generatedAt: string;
   sections: {
     providers?: ManifestSection;
-    executors?: ManifestSection;
     contracts?: ManifestSection;
     dapps?: ManifestSection;
     tokens?: ManifestSection;
@@ -49,7 +48,7 @@ export interface AssetsManifest extends AssetsManifestBody {
   signature: string;
 }
 
-const SECTION_ORDER = ["providers", "executors", "contracts", "dapps", "tokens"] as const;
+const SECTION_ORDER = ["providers", "contracts", "dapps", "tokens"] as const;
 
 export function sha256Hex(bytes: Buffer | string): string {
   return createHash("sha256").update(bytes).digest("hex");
@@ -97,14 +96,6 @@ export function buildManifestFromDataDir(
     sections.providers = {
       contentHash: rollupChainHashes(providerChains),
       chains: providerChains,
-    };
-  }
-
-  const executorChains = listChainAllJson(path.join(dataDir, "executors"));
-  if (Object.keys(executorChains).length > 0) {
-    sections.executors = {
-      contentHash: rollupChainHashes(executorChains),
-      chains: executorChains,
     };
   }
 

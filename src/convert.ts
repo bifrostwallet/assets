@@ -8,8 +8,6 @@ import {
   BLOCKCHAIN_NETWORKS,
   DAPP_INFO_KEYS,
   type DappInfo,
-  EXECUTOR_INFO_KEYS,
-  type ExecutorInfo,
   PROVIDER_INFO_KEYS,
   type ProviderInfo,
   SIGNED_PROVIDER_INFO_KEYS,
@@ -349,60 +347,4 @@ export function rebuildDappsAllJson(): void {
 
   const allPath = path.join(dappsDir, "all.json");
   fs.writeFileSync(allPath, `${JSON.stringify(dapps, null, 2)}\n`);
-}
-
-/**
- * Sorts an executor info object according to the defined key order
- */
-export function sortExecutorInfo(executorInfo: ExecutorInfo): ExecutorInfo {
-  const sortedInfo = {} as ExecutorInfo;
-  for (const key of EXECUTOR_INFO_KEYS) {
-    sortedInfo[key] = executorInfo[key] as never;
-  }
-  return sortedInfo;
-}
-
-/**
- * Rebuilds data/executors/<chainPath>/all.json from every per-executor info.json
- */
-export function rebuildExecutorsAllJson(chainPath?: string): void {
-  const executorsRoot = path.join(process.cwd(), "data", "executors");
-  if (!fs.existsSync(executorsRoot)) {
-    return;
-  }
-
-  const chains = chainPath
-    ? [chainPath]
-    : fs
-        .readdirSync(executorsRoot, { withFileTypes: true })
-        .filter((entry) => entry.isDirectory())
-        .map((entry) => entry.name)
-        .sort();
-
-  for (const chain of chains) {
-    const chainDir = path.join(executorsRoot, chain);
-    if (!fs.existsSync(chainDir)) {
-      continue;
-    }
-
-    const addresses = fs
-      .readdirSync(chainDir, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
-      .map((entry) => entry.name)
-      .sort();
-
-    const executors: ExecutorInfo[] = [];
-    for (const address of addresses) {
-      const infoPath = path.join(chainDir, address, "info.json");
-      if (!fs.existsSync(infoPath)) {
-        continue;
-      }
-      const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ExecutorInfo;
-      executors.push(withAbsoluteLogoURL(sortExecutorInfo(info)));
-    }
-
-    executors.sort((a, b) => a.name.localeCompare(b.name));
-
-    fs.writeFileSync(path.join(chainDir, "all.json"), `${JSON.stringify(executors, null, 2)}\n`);
-  }
 }
