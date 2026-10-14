@@ -1,0 +1,9 @@
+{
+  "name": "STEPN",
+  "symbol": "GMT",
+  "decimals": 8,
+  "address": "0x3019bf2a2ef8040c242c9a4c5c4bd4c81678b2a1",
+  "coingeckoId": "stepn",
+  "logoURL": "tokens/eip155-56/0x3019bf2a2ef8040c242c9a4c5c4bd4c81678b2a1/logo.webp",
+  "logoHash": "57f73a1166ac50d04dfc1b3ed7e825ab13ee74ecd749d803876e1da891ba2561"
+}

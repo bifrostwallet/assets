@@ -1,0 +1,9 @@
+{
+  "name": "QuickSwap",
+  "symbol": "QUICK",
+  "decimals": 18,
+  "address": "0x6c28aef8977c9b773996d0e8376d2ee379446f2f",
+  "coingeckoId": "quick",
+  "logoURL": "tokens/eip155-1/0x6c28aef8977c9b773996d0e8376d2ee379446f2f/logo.webp",
+  "logoHash": "c8e421cf5c4fc4f34ee5e46af7c7d871a8f7d5e568839b73aa18d5a7dd641faa"
+}

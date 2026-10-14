@@ -1,0 +1,9 @@
+{
+  "name": "Marlin",
+  "symbol": "POND",
+  "decimals": 18,
+  "address": "0x57b946008913b82e4df85f501cbaed910e58d26c",
+  "coingeckoId": "marlin",
+  "logoURL": "tokens/eip155-1/0x57b946008913b82e4df85f501cbaed910e58d26c/logo.webp",
+  "logoHash": "74496f408d4a2b63013b1093a24b5674535aa9884775d0723089f452296df6f9"
+}

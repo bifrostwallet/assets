@@ -1,0 +1,9 @@
+{
+  "name": "Balancer",
+  "symbol": "BAL",
+  "decimals": 18,
+  "address": "0xba100000625a3754423978a60c9317c58a424e3d",
+  "coingeckoId": "balancer",
+  "logoURL": "tokens/eip155-1/0xba100000625a3754423978a60c9317c58a424e3d/logo.webp",
+  "logoHash": "4bab08211df4b99f3424c1906138bb6a2a106603a80934576779b293a260c807"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "EnreachDAO",
+  "symbol": "NRCH",
+  "decimals": 9,
+  "address": "0x69fa8e7f6bf1ca1fb0de61e1366f7412b827cc51",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x69fa8e7f6bf1ca1fb0de61e1366f7412b827cc51/logo.webp",
+  "logoHash": "7cf694f3912af285def29d305137d608321b81b842ec0ac1db6a49d8b0b7f953"
+}

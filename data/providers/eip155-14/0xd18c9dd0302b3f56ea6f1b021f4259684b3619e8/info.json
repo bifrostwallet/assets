@@ -1,0 +1,27 @@
+{
+  "name": "Flare Oracle",
+  "description": "Flare Oracle, a data provider to the Flare network. Our goal is to give users a plug & play solution to effortlessly control their passive income.",
+  "logoURL": "providers/eip155-14/0xd18c9dd0302b3f56ea6f1b021f4259684b3619e8/logo.webp",
+  "logoHash": "e247ef4205d11754a3bdf3bf0874304616ca7140e6f75941ca89cf136a8dd56d",
+  "websiteURL": "https://flareoracle.io",
+  "links": {},
+  "identityAddress": "0xd18c9dd0302b3f56ea6f1b021f4259684b3619e8",
+  "delegationAddress": "0xf0f095bbd5e2e33e9c1703cdedd0015280406e90",
+  "signingPolicyAddress": "0x7cf61474946584517f08f702b4b2cf518b6201b4",
+  "submitAddress": "0x6b5aa7e68fee9b1829d8939182855f743f946c3c",
+  "submitSignaturesAddress": "0x91e65a860ee348ffe142d6e1cae3c6a4afc959a4",
+  "publicKey": "0x1321daf14ee9701e11d0d6940966fc877f0427f9232817ad31f7550e742799800204b76c0c337c7bcd044ea3c5ee549cb163349b264283fa2aabb815e9258807",
+  "validators": [
+    "NodeID-4hyFQEeDqpG9yyEnafTwqQQTTFex32KG2",
+    "NodeID-J8Zbi3b3AjTEUmHdE4KSApEU1U36iaeDS"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5c12eef5cffcab98c4f60699e042aed4c81025f0aef5b576b780d47e71a95173",
+    "blockNumber": 17703,
+    "timestamp": "2022-07-22T23:06:22.000Z"
+  }
+}

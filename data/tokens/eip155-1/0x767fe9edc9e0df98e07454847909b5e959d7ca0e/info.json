@@ -1,0 +1,9 @@
+{
+  "name": "Illuvium",
+  "symbol": "ILV",
+  "decimals": 18,
+  "address": "0x767fe9edc9e0df98e07454847909b5e959d7ca0e",
+  "coingeckoId": "illuvium",
+  "logoURL": "tokens/eip155-1/0x767fe9edc9e0df98e07454847909b5e959d7ca0e/logo.webp",
+  "logoHash": "b5d5dd3f71e0a918ad88d8b02206338dfbb297c98f630a5673f9d8322445ed88"
+}

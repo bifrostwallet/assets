@@ -1,0 +1,9 @@
+{
+  "name": "Huobi Token",
+  "symbol": "HT",
+  "decimals": 18,
+  "address": "0x6f259637dcd74c767781e37bc6133cd6a68aa161",
+  "coingeckoId": "huobi-token",
+  "logoURL": "tokens/eip155-1/0x6f259637dcd74c767781e37bc6133cd6a68aa161/logo.webp",
+  "logoHash": "f936c4ebaf476b73c272836fa552e7d511d16aeee0b3570916087bf43db979d3"
+}

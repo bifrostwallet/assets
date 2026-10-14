@@ -1,0 +1,9 @@
+{
+  "name": "KeeperDAO",
+  "symbol": "ROOK",
+  "decimals": 18,
+  "address": "0xfa5047c9c78b8877af97bdcb85db743fd7313d4a",
+  "coingeckoId": "rook",
+  "logoURL": "tokens/eip155-1/0xfa5047c9c78b8877af97bdcb85db743fd7313d4a/logo.webp",
+  "logoHash": "92590e972615fee2785f6a0754520b530eb3013f64ed4906c8ddfb5283b6429d"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Dai",
+  "symbol": "DAI",
+  "decimals": 18,
+  "address": "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
+  "coingeckoId": "l2-standard-bridged-dai-base",
+  "logoURL": "tokens/eip155-8453/0x50c5725949a6f0c72e6c4a641f24049a917db0cb/logo.webp",
+  "logoHash": "695e4c377c15616af7c18c6d69b8c9aacf1581b4dfde08c6ea662c81c94dfd3b"
+}

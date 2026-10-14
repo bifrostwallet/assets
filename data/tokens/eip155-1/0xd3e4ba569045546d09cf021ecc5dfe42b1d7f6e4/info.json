@@ -1,0 +1,9 @@
+{
+  "name": "Morpheus Network",
+  "symbol": "MNW",
+  "decimals": 18,
+  "address": "0xd3e4ba569045546d09cf021ecc5dfe42b1d7f6e4",
+  "coingeckoId": "morpheus-network",
+  "logoURL": "tokens/eip155-1/0xd3e4ba569045546d09cf021ecc5dfe42b1d7f6e4/logo.webp",
+  "logoHash": "024344e2575ff0167971934e0a2a896edfeae27c9f2155d310c70768641bfcf7"
+}

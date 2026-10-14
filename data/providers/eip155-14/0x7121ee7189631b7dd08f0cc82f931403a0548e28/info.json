@@ -1,0 +1,24 @@
+{
+  "name": "Quicknode",
+  "description": "Accelerating Web3 with lightning-fast Flare infrastructure SOC 1 Type 2, SOC 2 Type 2, ISO 27001 Certified.",
+  "logoURL": "providers/eip155-14/0x7121ee7189631b7dd08f0cc82f931403a0548e28/logo.webp",
+  "logoHash": "d0d3ed83a5efb3660200dabb2e019fa334db39c39c29f67f0e64a9d771843dcf",
+  "websiteURL": "https://quicknode.com",
+  "links": {},
+  "identityAddress": "0x7121ee7189631b7dd08f0cc82f931403a0548e28",
+  "delegationAddress": "0xf7909947baf29c921bdba9cb844a08d144ca876d",
+  "signingPolicyAddress": "0xe1514fe4687fb5e10c21f2e3f1d1695bb2d56e37",
+  "submitAddress": "0x36f31e7277a4d5423f9cd5821fb4977636eb7a19",
+  "submitSignaturesAddress": "0x2582aed91350537681a9dca0adbe31e6ed2a0485",
+  "publicKey": "0x1a80a9b1a935d5e80b88865c83637bbf519fb319526144ca2bea488a700dd5e40cdbedd789168449a68d9da16b5981bc7464ecb70201e43f894c094ab0b93cff",
+  "validators": ["NodeID-5D7CQ8NbifLY1jj76oyvRU3VbUFTP1sLR"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf926811ba804d95636102ad8902d844cd1f373522cf659ae8f1c097340171d8f",
+    "blockNumber": 50084156,
+    "timestamp": "2025-11-04T14:12:42.000Z"
+  }
+}

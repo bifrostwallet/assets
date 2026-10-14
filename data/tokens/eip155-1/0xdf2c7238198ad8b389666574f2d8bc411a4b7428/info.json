@@ -1,0 +1,9 @@
+{
+  "name": "Hifi Finance",
+  "symbol": "MFT",
+  "decimals": 18,
+  "address": "0xdf2c7238198ad8b389666574f2d8bc411a4b7428",
+  "coingeckoId": "mainframe",
+  "logoURL": "tokens/eip155-1/0xdf2c7238198ad8b389666574f2d8bc411a4b7428/logo.webp",
+  "logoHash": "3f642f46bdfc5e2adfd92003f0ccdafacf6af7eca46293164f33e314bb35fee4"
+}

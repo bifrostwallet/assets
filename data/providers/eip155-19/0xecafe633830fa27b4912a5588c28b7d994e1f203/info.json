@@ -1,0 +1,24 @@
+{
+  "name": "PrivatAsset",
+  "description": "Driven by expertise, guided by integrity. Turning financial potential into real progress",
+  "logoURL": "providers/eip155-19/0xecafe633830fa27b4912a5588c28b7d994e1f203/logo.webp",
+  "logoHash": "6368f45f2e606fc8176616983f09cfd17f03852722538bbe9c276b8b8a461036",
+  "websiteURL": "https://privatasset.com",
+  "links": {},
+  "identityAddress": "0xecafe633830fa27b4912a5588c28b7d994e1f203",
+  "delegationAddress": "0xff2e51fbf9196eaf96978ec454c5acdcf4c46990",
+  "signingPolicyAddress": "0x79280386dda03f4af8d6212582652a80332d29d7",
+  "submitAddress": "0x232b3cecc2e4eaae6122952ad0b1bbc60f85a829",
+  "submitSignaturesAddress": "0xb1b47b656d828ee475f7c929add686331eaecf42",
+  "publicKey": "0x26f08e0bbbfe590a7b02b16fbb9c42e4f3145baf9bb9f36e3d2454af73db3bee270bac27a0eacc78a654058a1802c8c30802502f0dfc8a3a9e4017e294aac256",
+  "validators": [],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xa5c24c990d089378ce6a38f9f8b620514d12d45e19e826cca22e2b3437adaab9",
+    "blockNumber": 102406813,
+    "timestamp": "2025-09-22T10:55:13.000Z"
+  }
+}

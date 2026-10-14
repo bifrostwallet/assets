@@ -1,0 +1,9 @@
+{
+  "name": "Enjin Coin",
+  "symbol": "ENJ",
+  "decimals": 18,
+  "address": "0xf629cbd94d3791c9250152bd8dfbdf380e2a3b9c",
+  "coingeckoId": "enjincoin",
+  "logoURL": "tokens/eip155-1/0xf629cbd94d3791c9250152bd8dfbdf380e2a3b9c/logo.webp",
+  "logoHash": "449eda3ceef7a2819a00ec5a0b968e13aba7bd81c6497c9eb7922a2153ccc968"
+}

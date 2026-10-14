@@ -1,0 +1,9 @@
+{
+  "name": "BarnBridge",
+  "symbol": "BOND",
+  "decimals": 18,
+  "address": "0x0391d2021f89dc339f60fff84546ea23e337750f",
+  "coingeckoId": "barnbridge",
+  "logoURL": "tokens/eip155-1/0x0391d2021f89dc339f60fff84546ea23e337750f/logo.webp",
+  "logoHash": "337a8b09fb1a3fb97f121ac2c8913c2d2f705d4b8b3c2708f45dba7a66737c10"
+}

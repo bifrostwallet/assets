@@ -1,0 +1,9 @@
+{
+  "name": "HOPR",
+  "symbol": "HOPR",
+  "decimals": 18,
+  "address": "0xf5581dfefd8fb0e4aec526be659cfab1f8c781da",
+  "coingeckoId": "hopr",
+  "logoURL": "tokens/eip155-1/0xf5581dfefd8fb0e4aec526be659cfab1f8c781da/logo.webp",
+  "logoHash": "c562c764fb3bac0e30cd42349d49b209e2523d076155f75a9251a222e8d5efb0"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Chromia",
+  "symbol": "CHR",
+  "decimals": 6,
+  "address": "0x8a2279d4a90b6fe1c4b30fa660cc9f926797baa2",
+  "coingeckoId": "chromaway",
+  "logoURL": "tokens/eip155-1/0x8a2279d4a90b6fe1c4b30fa660cc9f926797baa2/logo.webp",
+  "logoHash": "d899474d1087f35fb59f40676acdb7875f97fac9b817debed66f5a37b613ba6b"
+}

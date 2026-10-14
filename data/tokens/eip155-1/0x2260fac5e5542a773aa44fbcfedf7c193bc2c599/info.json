@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Bitcoin",
+  "symbol": "WBTC",
+  "decimals": 8,
+  "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+  "coingeckoId": "wrapped-bitcoin",
+  "logoURL": "tokens/eip155-1/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/logo.webp",
+  "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "sRIBBITS",
+  "symbol": "SRIBBITS",
+  "decimals": 18,
+  "address": "0x399e279c814a3100065fceab8cba1ab114805344",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x399e279c814a3100065fceab8cba1ab114805344/logo.webp",
+  "logoHash": "e786f52e188dcfa83f8577054246231fdb9f5cc3285fa93eb122e784441700f3"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "WOO",
+  "symbol": "WOO",
+  "decimals": 18,
+  "address": "0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
+  "coingeckoId": "woo-network",
+  "logoURL": "tokens/eip155-137/0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603/logo.webp",
+  "logoHash": "6b9b069f242a28609c9d5fe1a6626b66458c13fcfc795bcf6ec3f6fe1526e23e"
+}

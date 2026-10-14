@@ -1,0 +1,9 @@
+{
+  "name": "Bridged USDC",
+  "symbol": "USDCe",
+  "decimals": 6,
+  "address": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
+  "coingeckoId": "bridged-usd-coin-optimism",
+  "logoURL": "tokens/eip155-10/0x7f5c764cbc14f9669b88837ca1490cca17c31607/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Utrust",
+  "symbol": "UTK",
+  "decimals": 18,
+  "address": "0xdc9ac3c20d1ed0b540df9b1fedc10039df13f99c",
+  "coingeckoId": "utrust",
+  "logoURL": "tokens/eip155-1/0xdc9ac3c20d1ed0b540df9b1fedc10039df13f99c/logo.webp",
+  "logoHash": "1c6e341ca21f7a906a4c3d03423515cb59ee1903ce01456dbb902236bbf0d124"
+}

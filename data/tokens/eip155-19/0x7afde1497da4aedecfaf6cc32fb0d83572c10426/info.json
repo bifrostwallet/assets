@@ -1,0 +1,9 @@
+{
+  "name": "Songbird Phoenix Token",
+  "symbol": "sPHX",
+  "decimals": 18,
+  "address": "0x7afde1497da4aedecfaf6cc32fb0d83572c10426",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x7afde1497da4aedecfaf6cc32fb0d83572c10426/logo.webp",
+  "logoHash": "b1a5547938af4633a4356df1e46aef9c4409c2e8d4474129814b526ca922c04c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Qredo",
+  "symbol": "QRDO",
+  "decimals": 8,
+  "address": "0x4123a133ae3c521fd134d7b13a2dec35b56c2463",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x4123a133ae3c521fd134d7b13a2dec35b56c2463/logo.webp",
+  "logoHash": "d514527a5579d88196f85948b940cd74bcb77f369463eb3494fbcb70fcfc29b1"
+}

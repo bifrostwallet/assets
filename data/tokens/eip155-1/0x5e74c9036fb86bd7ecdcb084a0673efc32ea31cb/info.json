@@ -1,0 +1,9 @@
+{
+  "name": "Synth ETH",
+  "symbol": "SETH",
+  "decimals": 18,
+  "address": "0x5e74c9036fb86bd7ecdcb084a0673efc32ea31cb",
+  "coingeckoId": "seth",
+  "logoURL": "tokens/eip155-1/0x5e74c9036fb86bd7ecdcb084a0673efc32ea31cb/logo.webp",
+  "logoHash": "05a923e2216f77a4a72215169a9387b3ee8038fd58f2dc45dd14a422d1ad0cf3"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped XDC",
+  "symbol": "WXDC",
+  "decimals": 18,
+  "address": "0x951857744785e80e2de051c32ee7b25f9c458c42",
+  "coingeckoId": "xdce-crowd-sale",
+  "logoURL": "tokens/eip155-50/0x951857744785e80e2de051c32ee7b25f9c458c42/logo.webp",
+  "logoHash": "40bff044cb6e2ca9a7b74563dc085a8652f9d8f6bf6a9fecefe271e53f320c99"
+}

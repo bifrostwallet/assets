@@ -1,0 +1,9 @@
+{
+  "name": "PowerPool Concentrated Voting Power",
+  "symbol": "CVP",
+  "decimals": 18,
+  "address": "0x38e4adb44ef08f22f5b5b76a8f0c2d0dcbe7dca1",
+  "coingeckoId": "concentrated-voting-power",
+  "logoURL": "tokens/eip155-1/0x38e4adb44ef08f22f5b5b76a8f0c2d0dcbe7dca1/logo.webp",
+  "logoHash": "a92b95f191cc98242fd5ecc569da0452879ca3d2876af8fac12b23c581e7a59a"
+}

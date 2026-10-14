@@ -1,0 +1,9 @@
+{
+  "name": "UMA",
+  "symbol": "UMA",
+  "decimals": 18,
+  "address": "0x04fa0d235c4abf4bcf4787af4cf447de572ef828",
+  "coingeckoId": "uma",
+  "logoURL": "tokens/eip155-1/0x04fa0d235c4abf4bcf4787af4cf447de572ef828/logo.webp",
+  "logoHash": "9e4a198cf91a88497e2d4f3e1d144955818ffdd17739e97173677f3be639a143"
+}

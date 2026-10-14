@@ -1,0 +1,9 @@
+{
+  "name": "Smooth Love Potion",
+  "symbol": "SLP",
+  "decimals": 0,
+  "address": "0xcc8fa225d80b9c7d42f96e9570156c65d6caaa25",
+  "coingeckoId": "smooth-love-potion",
+  "logoURL": "tokens/eip155-1/0xcc8fa225d80b9c7d42f96e9570156c65d6caaa25/logo.webp",
+  "logoHash": "ae24b966181b74ef972018c3d4fc04857c544477a7043059a2b2789564e00dc1"
+}

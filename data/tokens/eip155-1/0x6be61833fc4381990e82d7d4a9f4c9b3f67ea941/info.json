@@ -1,0 +1,9 @@
+{
+  "name": "Hotbit Token",
+  "symbol": "HTB",
+  "decimals": 18,
+  "address": "0x6be61833fc4381990e82d7d4a9f4c9b3f67ea941",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x6be61833fc4381990e82d7d4a9f4c9b3f67ea941/logo.webp",
+  "logoHash": "c28aa57902d6868d89f87b8b6f7c46612b422d6465f36b7e732507744a191895"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SuperRare",
+  "symbol": "RARE",
+  "decimals": 18,
+  "address": "0xba5bde662c17e2adff1075610382b9b691296350",
+  "coingeckoId": "superrare",
+  "logoURL": "tokens/eip155-1/0xba5bde662c17e2adff1075610382b9b691296350/logo.webp",
+  "logoHash": "6f6e66dd716a40ade15a6f4558fe131c628fedf100f02fe555f91449118211ac"
+}

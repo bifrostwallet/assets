@@ -1,0 +1,9 @@
+{
+  "name": "Stargate Finance",
+  "symbol": "STG",
+  "decimals": 18,
+  "address": "0x6694340fc020c5e6b96567843da2df01b2ce1eb6",
+  "coingeckoId": "stargate-finance",
+  "logoURL": "tokens/eip155-42161/0x6694340fc020c5e6b96567843da2df01b2ce1eb6/logo.webp",
+  "logoHash": "07b140fdc0899f4070ff9fa0fde26bf161dc62be1d0337fb355aeb0d4a9ff3a3"
+}

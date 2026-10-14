@@ -1,0 +1,9 @@
+{
+  "name": "Dvision Network",
+  "symbol": "DVI",
+  "decimals": 18,
+  "address": "0x10633216e7e8281e33c86f02bf8e565a635d9770",
+  "coingeckoId": "dvision-network",
+  "logoURL": "tokens/eip155-1/0x10633216e7e8281e33c86f02bf8e565a635d9770/logo.webp",
+  "logoHash": "1010814464e7e230d4e21e566953ca60906dcd61f683ee6f604107a1b1b6fa29"
+}

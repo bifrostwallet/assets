@@ -1,0 +1,9 @@
+{
+  "name": "Sifchain",
+  "symbol": "EROWAN",
+  "decimals": 18,
+  "address": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe/logo.webp",
+  "logoHash": "9a2b5fb845823cb5e9d7603787c809009afd825c876c637fdcd842477eb3cb58"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Chirp",
+  "symbol": "CHIRP",
+  "decimals": 18,
+  "address": "0x81add7359f2b95276f8542f2a0acd7ecd2ae9349",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x81add7359f2b95276f8542f2a0acd7ecd2ae9349/logo.webp",
+  "logoHash": "2ca2246fac17d6ccca256a56636043b0e0f56f07af819006ec61b4dfe28bcf6f"
+}

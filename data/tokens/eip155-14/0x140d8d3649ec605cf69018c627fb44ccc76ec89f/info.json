@@ -1,0 +1,9 @@
+{
+  "name": "Helion",
+  "symbol": "HLN",
+  "decimals": 18,
+  "address": "0x140d8d3649ec605cf69018c627fb44ccc76ec89f",
+  "coingeckoId": "enosys",
+  "logoURL": "tokens/eip155-14/0x140d8d3649ec605cf69018c627fb44ccc76ec89f/logo.webp",
+  "logoHash": "8a61f62f55564ac66689976f2f946f0ca839e4a00a96ba9c68568c06a27601f7"
+}

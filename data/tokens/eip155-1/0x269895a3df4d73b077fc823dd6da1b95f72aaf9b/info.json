@@ -1,0 +1,9 @@
+{
+  "name": "Synth South Korean Won",
+  "symbol": "SKRW",
+  "decimals": 18,
+  "address": "0x269895a3df4d73b077fc823dd6da1b95f72aaf9b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x269895a3df4d73b077fc823dd6da1b95f72aaf9b/logo.webp",
+  "logoHash": "b92e5395c330db52093711d055f5b9ca0c3db199748cd6d9978f118e36c227f0"
+}

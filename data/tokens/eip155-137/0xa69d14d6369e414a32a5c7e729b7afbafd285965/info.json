@@ -1,0 +1,9 @@
+{
+  "name": "Global Coin Research",
+  "symbol": "GCR",
+  "decimals": 4,
+  "address": "0xa69d14d6369e414a32a5c7e729b7afbafd285965",
+  "coingeckoId": "global-coin-research",
+  "logoURL": "tokens/eip155-137/0xa69d14d6369e414a32a5c7e729b7afbafd285965/logo.webp",
+  "logoHash": "bf3a8ccf4edc9385d9bbf4cdbe868d9382df2703f86859be9198ad0fbc1913d6"
+}

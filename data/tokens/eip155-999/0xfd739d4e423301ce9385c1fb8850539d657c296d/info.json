@@ -1,0 +1,9 @@
+{
+  "name": "Kinetiq Staked HYPE",
+  "symbol": "KHYPE",
+  "decimals": 18,
+  "address": "0xfd739d4e423301ce9385c1fb8850539d657c296d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0xfd739d4e423301ce9385c1fb8850539d657c296d/logo.webp",
+  "logoHash": "0606d3e40173a930417eb96e1e12c11c9be40afefa3408d10f3f290472e7e7c5"
+}

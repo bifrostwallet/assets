@@ -1,0 +1,9 @@
+{
+  "name": "cVault.finance",
+  "symbol": "CORE",
+  "decimals": 18,
+  "address": "0x62359ed7505efc61ff1d56fef82158ccaffa23d7",
+  "coingeckoId": "cvault-finance",
+  "logoURL": "tokens/eip155-1/0x62359ed7505efc61ff1d56fef82158ccaffa23d7/logo.webp",
+  "logoHash": "a3339fa14b43f939a9b5d155caf64877efd1611ae91191a2eaaa4e476379465e"
+}

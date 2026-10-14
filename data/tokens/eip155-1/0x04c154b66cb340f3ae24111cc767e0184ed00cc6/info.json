@@ -1,0 +1,9 @@
+{
+  "name": "Pirex Ether",
+  "symbol": "pxETH",
+  "decimals": 18,
+  "address": "0x04c154b66cb340f3ae24111cc767e0184ed00cc6",
+  "coingeckoId": "dinero-staked-eth",
+  "logoURL": "tokens/eip155-1/0x04c154b66cb340f3ae24111cc767e0184ed00cc6/logo.webp",
+  "logoHash": "06499093bdeca31178eb385b48bc4e314ec5159176d927ffc4b1fd436107e71d"
+}

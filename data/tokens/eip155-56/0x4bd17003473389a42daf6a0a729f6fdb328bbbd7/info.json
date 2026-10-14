@@ -1,0 +1,9 @@
+{
+  "name": "Vai",
+  "symbol": "VAI",
+  "decimals": 18,
+  "address": "0x4bd17003473389a42daf6a0a729f6fdb328bbbd7",
+  "coingeckoId": "vai",
+  "logoURL": "tokens/eip155-56/0x4bd17003473389a42daf6a0a729f6fdb328bbbd7/logo.webp",
+  "logoHash": "d1aff535d1aeab1812dd15c841492b3b484a8019adae751d89fcbc5124ecafc5"
+}

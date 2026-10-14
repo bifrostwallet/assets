@@ -1,0 +1,9 @@
+{
+  "name": "USDH",
+  "symbol": "USDH",
+  "decimals": 6,
+  "address": "0x111111a1a0667d36bd57c0a9f569b98057111111",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x111111a1a0667d36bd57c0a9f569b98057111111/logo.webp",
+  "logoHash": "58314c8cefc61d61dd49277445e594d2c2d44dd17db0d63f5eae064c9ef0738b"
+}

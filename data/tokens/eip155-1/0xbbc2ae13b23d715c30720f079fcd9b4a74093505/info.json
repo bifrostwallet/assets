@@ -1,0 +1,9 @@
+{
+  "name": "Ethernity Chain",
+  "symbol": "ERN",
+  "decimals": 18,
+  "address": "0xbbc2ae13b23d715c30720f079fcd9b4a74093505",
+  "coingeckoId": "ethernity-chain",
+  "logoURL": "tokens/eip155-1/0xbbc2ae13b23d715c30720f079fcd9b4a74093505/logo.webp",
+  "logoHash": "2eb4157e9efad78c1783e6262605c5947cce78a61a950994c191ff83ac1546e5"
+}

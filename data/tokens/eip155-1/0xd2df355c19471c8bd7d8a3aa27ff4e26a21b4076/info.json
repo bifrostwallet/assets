@@ -1,0 +1,9 @@
+{
+  "name": "Synth Aave",
+  "symbol": "SAAVE",
+  "decimals": 18,
+  "address": "0xd2df355c19471c8bd7d8a3aa27ff4e26a21b4076",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xd2df355c19471c8bd7d8a3aa27ff4e26a21b4076/logo.webp",
+  "logoHash": "0667895ef03aba8dc6ab07ad1618427ec0d3f25a9574404a2a1d010ef26b59c2"
+}

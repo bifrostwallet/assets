@@ -1,0 +1,9 @@
+{
+  "name": "Compound Collateral",
+  "symbol": "CCOMP",
+  "decimals": 8,
+  "address": "0x70e36f6bf80a52b3b46b3af8e106cc0ed743e8e4",
+  "coingeckoId": "ccomp",
+  "logoURL": "tokens/eip155-1/0x70e36f6bf80a52b3b46b3af8e106cc0ed743e8e4/logo.webp",
+  "logoHash": "4b1cdbcd932f1c8646730f764eb852ec26d38bdd04fc3519ede35fa7c677fbb2"
+}

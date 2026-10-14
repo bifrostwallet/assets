@@ -1,0 +1,9 @@
+{
+  "name": "CargoX",
+  "symbol": "CXO",
+  "decimals": 18,
+  "address": "0xf2ae0038696774d65e67892c9d301c5f2cbbda58",
+  "coingeckoId": "cargox",
+  "logoURL": "tokens/eip155-137/0xf2ae0038696774d65e67892c9d301c5f2cbbda58/logo.webp",
+  "logoHash": "5ce7baf084815fec584fd88561afc05bfba5e5a06e7570f4bb518393b2ace998"
+}

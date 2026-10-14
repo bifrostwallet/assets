@@ -1,0 +1,27 @@
+{
+  "name": "Cottage Nodes",
+  "description": "Our delegation services enable token holders to earn lucrative rewards on the Flare Network. Advanced algorithms are constantly refined with the objective of generating maximum reward for the benefit of all Flare token holders who have delegated their vote to us. Validating from under the Alps.",
+  "logoURL": "providers/eip155-14/0x781ea2dce725ca139c6ecc62c1ee7c8876608392/logo.webp",
+  "logoHash": "16700a6e3a01b861656ea843f2e8744ac1242ed34cffb58088fa02a991714298",
+  "websiteURL": "https://www.cottagenodes.com",
+  "links": {},
+  "identityAddress": "0x781ea2dce725ca139c6ecc62c1ee7c8876608392",
+  "delegationAddress": "0x6ebbd69832af87434253c10f9045e012286f509e",
+  "signingPolicyAddress": "0x6d62d0e3614fd6c44b14b41a00fc7df80ae91dae",
+  "submitAddress": "0x04a7aa6b6a318b525aff7bafa0269d9bef977380",
+  "submitSignaturesAddress": "0xe02b800e56f071eb498b871edadd99ae7fce4d6e",
+  "publicKey": "0x16241bf63c68c7c524bbafe9b3f2e6e8a7b12b2bfe415fe595e2488bb0e809d51d293ab15caaecfafcd2ac69536587d15993a1a35d75d51a565a81585b9957df",
+  "validators": [
+    "NodeID-Gmd8JQGtt7UuGTus32SMhqV9TG1D92a7f",
+    "NodeID-JKw7j6LkdFTn1egU4Pd3YtPreebaqLU4i"
+  ],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x29e2c589310278c9e623887af024409d5d34c64eb8efcbc1d073bd3c2350ac0a",
+    "blockNumber": 50456089,
+    "timestamp": "2025-11-11T13:47:09.000Z"
+  }
+}

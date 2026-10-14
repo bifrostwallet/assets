@@ -1,0 +1,27 @@
+{
+  "name": "Envision",
+  "description": "Providing reliable data feeds to the Flare Network",
+  "logoURL": "providers/eip155-14/0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e/logo.webp",
+  "logoHash": "7d60eaa31227b9d7ff500f4ed0130b3086936b2917f009670930e2ffa15784b1",
+  "websiteURL": "https://www.envisionftso.com",
+  "links": {},
+  "identityAddress": "0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e",
+  "delegationAddress": "0x9b42b895d2a10d048eaf4996fdf93aebf59167bf",
+  "signingPolicyAddress": "0xb25f584a52cc31541f6d783abe700c078f618bb4",
+  "submitAddress": "0xeb431aca7d7b626c8635de8842a8ca4a25c53ab1",
+  "submitSignaturesAddress": "0xdf4a3adb26d23cf51380b31d5ffc3c94d06697b7",
+  "publicKey": "0x0e7a4499d35d90c55a060f7e6b9e5a0c9d04e5154b7fa049e75ded80cc15b58305e5acbbb75a703cd424266f6ff2ac9bbc39a1ee881fdd1e3ec91869f8f9bf89",
+  "validators": [
+    "NodeID-4mKZ7GYeKtdHMxhmHajDh1WVrVx1xWJxJ",
+    "NodeID-DAVrAR2VCxe7rnmkDaVUbW8jWd9b86cS"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x442098d94978aff256a4b0158762166a18c13fe66980fb4ffa1947400513ae60",
+    "blockNumber": 2103596,
+    "timestamp": "2022-10-29T10:35:12.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Vidya",
+  "symbol": "VIDYA",
+  "decimals": 18,
+  "address": "0x3d3d35bb9bec23b06ca00fe472b50e7a4c692c30",
+  "coingeckoId": "vidya",
+  "logoURL": "tokens/eip155-1/0x3d3d35bb9bec23b06ca00fe472b50e7a4c692c30/logo.webp",
+  "logoHash": "ff4548c2f5ff077c464c03145b4a3f83e58cbe17309342f0a6cbdac9fe42c82a"
+}

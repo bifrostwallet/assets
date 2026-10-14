@@ -1,0 +1,9 @@
+{
+  "name": "Instadapp",
+  "symbol": "INST",
+  "decimals": 18,
+  "address": "0x6f40d4a6237c257fff2db00fa0510deeecd303eb",
+  "coingeckoId": "instadapp",
+  "logoURL": "tokens/eip155-1/0x6f40d4a6237c257fff2db00fa0510deeecd303eb/logo.webp",
+  "logoHash": "7e4c43f2f6b9e84295873ee862653bd7cd1ec1cec1893fc4c5b4b0f69dfbee3b"
+}

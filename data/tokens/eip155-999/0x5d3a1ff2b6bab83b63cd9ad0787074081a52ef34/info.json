@@ -1,0 +1,9 @@
+{
+  "name": "USDe",
+  "symbol": "USDe",
+  "decimals": 18,
+  "address": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34/logo.webp",
+  "logoHash": "949fdc0db8fa19247a733855dab66563192cdfac0fe7d01c429e2aa1e0cf107e"
+}

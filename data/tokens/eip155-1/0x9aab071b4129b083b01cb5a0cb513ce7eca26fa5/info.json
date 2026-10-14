@@ -1,0 +1,9 @@
+{
+  "name": "HUNT",
+  "symbol": "HUNT",
+  "decimals": 18,
+  "address": "0x9aab071b4129b083b01cb5a0cb513ce7eca26fa5",
+  "coingeckoId": "hunt-token",
+  "logoURL": "tokens/eip155-1/0x9aab071b4129b083b01cb5a0cb513ce7eca26fa5/logo.webp",
+  "logoHash": "f5d243d007e80238a3ca25a072082813aea8494770191679d4fbcddcca85c12e"
+}

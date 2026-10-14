@@ -1,0 +1,9 @@
+{
+  "name": "Escoin Token",
+  "symbol": "ELG",
+  "decimals": 18,
+  "address": "0xa2085073878152ac3090ea13d1e41bd69e60dc99",
+  "coingeckoId": "escoin-token",
+  "logoURL": "tokens/eip155-1/0xa2085073878152ac3090ea13d1e41bd69e60dc99/logo.webp",
+  "logoHash": "0a14c96be3690be6fe1564430a6be840276252956f5a39b8669b1bba00e00ba4"
+}

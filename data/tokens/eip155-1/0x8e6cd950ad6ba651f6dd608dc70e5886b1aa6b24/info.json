@@ -1,0 +1,9 @@
+{
+  "name": "StarLink",
+  "symbol": "STARL",
+  "decimals": 18,
+  "address": "0x8e6cd950ad6ba651f6dd608dc70e5886b1aa6b24",
+  "coingeckoId": "starlink",
+  "logoURL": "tokens/eip155-1/0x8e6cd950ad6ba651f6dd608dc70e5886b1aa6b24/logo.webp",
+  "logoHash": "736dc23be8385e38ef4069145a40e6b4016e712ea012ce567d3401d957275eda"
+}

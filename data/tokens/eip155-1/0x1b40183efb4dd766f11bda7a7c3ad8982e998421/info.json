@@ -1,0 +1,9 @@
+{
+  "name": "Vesper Finance",
+  "symbol": "VSP",
+  "decimals": 18,
+  "address": "0x1b40183efb4dd766f11bda7a7c3ad8982e998421",
+  "coingeckoId": "vesper-finance",
+  "logoURL": "tokens/eip155-1/0x1b40183efb4dd766f11bda7a7c3ad8982e998421/logo.webp",
+  "logoHash": "f44625d06a0ba723bbae931cf519a8b872b4b8da31813f96d7dacb18cd47ea22"
+}

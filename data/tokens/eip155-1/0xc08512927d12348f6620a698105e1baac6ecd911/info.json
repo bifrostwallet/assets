@@ -1,0 +1,9 @@
+{
+  "name": "GYEN",
+  "symbol": "GYEN",
+  "decimals": 6,
+  "address": "0xc08512927d12348f6620a698105e1baac6ecd911",
+  "coingeckoId": "gyen",
+  "logoURL": "tokens/eip155-1/0xc08512927d12348f6620a698105e1baac6ecd911/logo.webp",
+  "logoHash": "5cba6f2236a5d3c190ad2b2e1c719ad19954c7c6e71897dd0e51c24f1262662e"
+}

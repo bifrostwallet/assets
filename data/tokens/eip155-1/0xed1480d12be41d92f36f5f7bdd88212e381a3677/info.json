@@ -1,0 +1,9 @@
+{
+  "name": "FIAT DAO",
+  "symbol": "FDT",
+  "decimals": 18,
+  "address": "0xed1480d12be41d92f36f5f7bdd88212e381a3677",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xed1480d12be41d92f36f5f7bdd88212e381a3677/logo.webp",
+  "logoHash": "fef5f2205c039c5c0fa106946d895a0ee253cf85478d781cf3cb905ea6b0b26e"
+}

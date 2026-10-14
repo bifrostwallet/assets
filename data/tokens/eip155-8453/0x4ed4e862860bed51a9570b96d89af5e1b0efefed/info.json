@@ -1,0 +1,9 @@
+{
+  "name": "Degen",
+  "symbol": "DEGEN",
+  "decimals": 18,
+  "address": "0x4ed4e862860bed51a9570b96d89af5e1b0efefed",
+  "coingeckoId": "degen-base",
+  "logoURL": "tokens/eip155-8453/0x4ed4e862860bed51a9570b96d89af5e1b0efefed/logo.webp",
+  "logoHash": "17179204fefae59f4bce485e6e37e934aaa2b08cc9e92cb863e6b0f704246aba"
+}

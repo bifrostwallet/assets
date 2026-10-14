@@ -1,0 +1,24 @@
+{
+  "name": "Flare Strategies",
+  "description": "",
+  "logoURL": "providers/eip155-14/0x3fcb0b871a82ba8d329b2f1d6e35b3535bd019ef/logo.webp",
+  "logoHash": "9d35cdb425363835f873c5f645c1a326e988773d4fb001fa972eb8db5d8f60b6",
+  "websiteURL": "https://flarestrategies.github.io",
+  "links": {},
+  "identityAddress": "0x3fcb0b871a82ba8d329b2f1d6e35b3535bd019ef",
+  "delegationAddress": "0x457464f9390ebc5217cfefcbced3f1562a0379b2",
+  "signingPolicyAddress": "0x909652a53ad7aa3b8eebed4b95801ee95bc04795",
+  "submitAddress": "0xbdcb67a617d97b628878dbeaabdffe0cc9023661",
+  "submitSignaturesAddress": "0xcc3789c9e555350529fde7ac40087b5283280623",
+  "publicKey": "0x05ff2a620e79359ec1c91ebfe76632afaefef3ac2bcbee2da5fde2157851b2580135e25221055f3ebe6e69861dcb0c965280f2011f2acb841b8efa5b9b1a6a26",
+  "validators": ["NodeID-Eb7EMwgvoKDq1Wgk6EapXxqVeHiCeR14R"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xaba003902c72fafc71528a322d2e9dcd5bcd748840e53fb3f62c366a3eab5fc4",
+    "blockNumber": 56251620,
+    "timestamp": "2026-02-28T11:43:31.000Z"
+  }
+}

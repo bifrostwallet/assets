@@ -1,0 +1,9 @@
+{
+  "name": "Manifold Finance",
+  "symbol": "FOLD",
+  "decimals": 18,
+  "address": "0xd084944d3c05cd115c09d072b9f44ba3e0e45921",
+  "coingeckoId": "manifold-finance",
+  "logoURL": "tokens/eip155-1/0xd084944d3c05cd115c09d072b9f44ba3e0e45921/logo.webp",
+  "logoHash": "e4e47ecd61499ac5e0f40ae733ea06e7306ddfaf70aac2418c09f80cfcfe881c"
+}

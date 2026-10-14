@@ -1,0 +1,9 @@
+{
+  "name": "Synth Japanese Yen",
+  "symbol": "SJPY",
+  "decimals": 18,
+  "address": "0xf6b1c627e95bfc3c1b4c9b825a032ff0fbf3e07d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf6b1c627e95bfc3c1b4c9b825a032ff0fbf3e07d/logo.webp",
+  "logoHash": "c06718ad788a2adc749a8f44d8ac26241e6325b61235a2cc9f98ea9dcf7cbfcd"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "MirSFlr",
+  "description": "On a mission to deliver fast, reliable and transparent data on the Flare Network to maximize rewards for delegators with near-zero downtime.",
+  "logoURL": "providers/eip155-14/0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3/logo.webp",
+  "logoHash": "408dfa6bf7c200292822a1fd6dddddc0ae20e4eb3114013f99c6f09689dc1fbd",
+  "websiteURL": "https://www.mirhollio.com",
+  "links": {},
+  "identityAddress": "0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3",
+  "delegationAddress": "0xad9105bef5e5df2eacbe2de9037a96695b00cade",
+  "signingPolicyAddress": "0x593e0e7e089054c295f4fc943344aea52cf499af",
+  "submitAddress": "0xef3fe201f3319b3e576177f5f331708c032a8d3f",
+  "submitSignaturesAddress": "0x7890eec3139bcffc95c3ac3e6a0bbf74367b6975",
+  "publicKey": "0x0864e7fab9b247f2aa06cc00d8a824e1064090f49938682289737621368a3c4904540a56e641671db6167b8b5bfecd920d0e3e47e80dd3124206757f873b2d0f",
+  "validators": ["NodeID-8dNfgpspPNDrZD2ksKCRJoGe4Xqe6qVtz"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xf8c3d2c41150c2115212f67cc61e8593706f5505814831b666d51a7380deff11",
+    "blockNumber": 45136810,
+    "timestamp": "2025-07-26T12:17:35.000Z"
+  }
+}

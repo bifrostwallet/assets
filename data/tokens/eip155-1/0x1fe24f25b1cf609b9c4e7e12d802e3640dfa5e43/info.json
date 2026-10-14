@@ -1,0 +1,9 @@
+{
+  "name": "Chain Guardians",
+  "symbol": "CGG",
+  "decimals": 18,
+  "address": "0x1fe24f25b1cf609b9c4e7e12d802e3640dfa5e43",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x1fe24f25b1cf609b9c4e7e12d802e3640dfa5e43/logo.webp",
+  "logoHash": "d04a8322eb2658404fff31dc3a446313ddc71f1fc28330ea4dcb6a3410474a0b"
+}

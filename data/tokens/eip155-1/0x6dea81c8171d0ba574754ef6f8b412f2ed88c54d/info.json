@@ -1,0 +1,9 @@
+{
+  "name": "Liquity",
+  "symbol": "LQTY",
+  "decimals": 18,
+  "address": "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d",
+  "coingeckoId": "liquity",
+  "logoURL": "tokens/eip155-1/0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d/logo.webp",
+  "logoHash": "a2ede3a4cc0926c7b8032d120473ba394ae162084873fb40c93e352ad224b6c3"
+}

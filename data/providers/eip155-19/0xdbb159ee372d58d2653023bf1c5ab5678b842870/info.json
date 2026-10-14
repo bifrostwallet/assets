@@ -1,0 +1,24 @@
+{
+  "name": "FTSO Plus",
+  "description": "FTSO provider with an emphasis on accuracy.",
+  "logoURL": "providers/eip155-19/0xdbb159ee372d58d2653023bf1c5ab5678b842870/logo.webp",
+  "logoHash": "a4f3c2ddb50a5e11cf66b8aebdc9973451b06911d9e5df6d108c107dced255b7",
+  "websiteURL": "https://ftso.plus",
+  "links": {},
+  "identityAddress": "0xdbb159ee372d58d2653023bf1c5ab5678b842870",
+  "delegationAddress": "0x0fa72d3912d1c530ab1f6a8a9fb61c672947e964",
+  "signingPolicyAddress": "0x5483a24b91fd1fcb8ba1c5ae54c85d9b61d62198",
+  "submitAddress": "0x9f061f18fde13b8afb4ad002d40b94d26f86c9b6",
+  "submitSignaturesAddress": "0x9fc23f0dcc1c46ef3647201442f4dacc01971b11",
+  "publicKey": "0x03c9ea86549511ee86835cc1199ad8f0720a2b73b6b74711a073248382f46cd61a526478e9a20c85e280fb1c5085899cbe9ce30d65dc0807b9a25458ed69b9fa",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xce33a06bb00c86936d1b2669c92dd3b169ec660d40e827e299f391ba047648a3",
+    "blockNumber": 415414,
+    "timestamp": "2021-10-05T10:18:34.000Z"
+  }
+}

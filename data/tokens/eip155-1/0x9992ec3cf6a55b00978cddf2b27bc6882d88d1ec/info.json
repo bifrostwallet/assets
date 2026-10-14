@@ -1,0 +1,9 @@
+{
+  "name": "Polymath",
+  "symbol": "POLY",
+  "decimals": 18,
+  "address": "0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec",
+  "coingeckoId": "polymath",
+  "logoURL": "tokens/eip155-1/0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec/logo.webp",
+  "logoHash": "c050e5faed170124f9243165534586f2b222df41f7cf0e8639ccfdcde20d980e"
+}

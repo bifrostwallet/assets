@@ -1,0 +1,9 @@
+{
+  "name": "Aurox Token",
+  "symbol": "URUS",
+  "decimals": 18,
+  "address": "0xc6dddb5bc6e61e0841c54f3e723ae1f3a807260b",
+  "coingeckoId": "urus-token",
+  "logoURL": "tokens/eip155-1/0xc6dddb5bc6e61e0841c54f3e723ae1f3a807260b/logo.webp",
+  "logoHash": "ae5660e27816127e55036555ebb76a885bad8950c4f1e6e28f34264f69d79451"
+}

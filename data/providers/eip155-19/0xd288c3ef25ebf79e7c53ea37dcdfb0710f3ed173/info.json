@@ -1,0 +1,24 @@
+{
+  "name": "FTSO London",
+  "description": "Let's work together to maximise your Flare Rewards. Our delegation services enable token holders to earn lucrative rewards on the Flare Network",
+  "logoURL": "providers/eip155-19/0xd288c3ef25ebf79e7c53ea37dcdfb0710f3ed173/logo.webp",
+  "logoHash": "db4f6be50e9130759fd7ab8c479dfa83d57aa3159cee42b7a2b15537a5a1d0f6",
+  "websiteURL": "https://www.ftso.london",
+  "links": {},
+  "identityAddress": "0xd288c3ef25ebf79e7c53ea37dcdfb0710f3ed173",
+  "delegationAddress": "0x0708a4c813594b7e0218cb4a5d8b75c76abfc859",
+  "signingPolicyAddress": "0x5da692a7ee11e292bddf8ea15bd388f3bec1347a",
+  "submitAddress": "0x2d4da92b99b98dd4a0744fa563bf27b30aee6b0b",
+  "submitSignaturesAddress": "0xa587056d4d028003b0241051bbff7ec2691d84f9",
+  "publicKey": "0x2633860dd25a2b5435fbb522aa6c134ed2cb7fe031a2b2766fa52e8cf5a659570792f99b3c7b52119439205dd5f2f91c3b41d0bb83be68f04a2748fd9f2bc2b0",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xa38b15c1d90022cab767d32c25f95072ca03251ccaee4c64a1d6031269426800",
+    "blockNumber": 4128865,
+    "timestamp": "2021-12-12T22:00:17.000Z"
+  }
+}

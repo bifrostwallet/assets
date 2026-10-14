@@ -1,0 +1,24 @@
+{
+  "name": "FlareWatch",
+  "description": "Operated by the team behind FlareWatch.io - the validator-scoring + DeFi dashboard the Flare community uses daily. All yield from this validator funds FlareWatch's public infrastructure: monitoring, dashboards, and ecosystem tooling. Transparent methodology, no protocol affiliations. Delegate to support the tools you already use.",
+  "logoURL": "providers/eip155-19/0xbdeb203e55e65451fabf0e7b778b32ac174918ff/logo.webp",
+  "logoHash": "0d43100df4bb97d0edc4b906dedbaea523a377fc0891194434b78bc0dee80f51",
+  "websiteURL": "https://www.flarewatch.io",
+  "links": {},
+  "identityAddress": "0xbdeb203e55e65451fabf0e7b778b32ac174918ff",
+  "delegationAddress": "0xaf4ef2a0ecf8d914db6b721d3eb79c46ca612796",
+  "signingPolicyAddress": "0xf72841bd4042eff74f2caab7d8ddb11ffeab6b94",
+  "submitAddress": "0x58ced1f8150498dfeba90451f033314a00da3525",
+  "submitSignaturesAddress": "0xec814d475773ef28772a8b8372caecaac2807708",
+  "publicKey": "0x150a68bceeaff168bfb719df137d04e818778ff6cd22421c9f2f93e2afb6f57b27660207aa23f8a7a05a2e22e1d43b432313ddfb6a21c38166641deb83a5e25f",
+  "validators": [],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5cebf32c839f656cb4c19a6128e96d64fc50458daa806fa607696ecf74ec1f57",
+    "blockNumber": 120662561,
+    "timestamp": "2026-04-22T23:28:10.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Curve DAO",
+  "symbol": "CRV",
+  "decimals": 18,
+  "address": "0x172370d5cd63279efa6d502dab29171933a610af",
+  "coingeckoId": "curve-dao-token",
+  "logoURL": "tokens/eip155-137/0x172370d5cd63279efa6d502dab29171933a610af/logo.webp",
+  "logoHash": "1da7fbf1cd6ad0722a9c661285d79c4ce647cf9629d074a9a2c1536da886bdb6"
+}

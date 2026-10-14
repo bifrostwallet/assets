@@ -1,0 +1,9 @@
+{
+  "name": "Compound Basic Attention Token",
+  "symbol": "CBAT",
+  "decimals": 8,
+  "address": "0x6c8c6b02e7b2be14d4fa6022dfd6d75921d90e4e",
+  "coingeckoId": "compound-basic-attention-token",
+  "logoURL": "tokens/eip155-1/0x6c8c6b02e7b2be14d4fa6022dfd6d75921d90e4e/logo.webp",
+  "logoHash": "a7a625b2aefca30de288ebff36b96481d96f95b76d53731f24d84a48c553e30a"
+}

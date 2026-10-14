@@ -1,0 +1,9 @@
+{
+  "name": "Kishu Inu",
+  "symbol": "KISHU",
+  "decimals": 9,
+  "address": "0xa2b4c0af19cc16a6cfacce81f192b024d625817d",
+  "coingeckoId": "kishu-inu",
+  "logoURL": "tokens/eip155-1/0xa2b4c0af19cc16a6cfacce81f192b024d625817d/logo.webp",
+  "logoHash": "0d47fb36fe0b8e5bdf793b0e8a8d207bae15ab4fee274bc01627ffde28dd7ee3"
+}

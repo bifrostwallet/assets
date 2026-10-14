@@ -1,0 +1,9 @@
+{
+  "name": "NFTY Token",
+  "symbol": "NFTY",
+  "decimals": 18,
+  "address": "0x5774b2fc3e91af89f89141eacf76545e74265982",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x5774b2fc3e91af89f89141eacf76545e74265982/logo.webp",
+  "logoHash": "a675cf71dfbdc1ee3c7e225f13478a73985aea425f6ad44e1465673ea590cf37"
+}

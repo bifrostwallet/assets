@@ -1,0 +1,27 @@
+{
+  "name": "ACDTftso",
+  "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
+  "logoURL": "providers/eip155-14/0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1/logo.webp",
+  "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
+  "websiteURL": "https://www.flare-base.io",
+  "links": {},
+  "identityAddress": "0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1",
+  "delegationAddress": "0xac2884a4479bf7c21aa0462d52bc9c76c3a9a3dd",
+  "signingPolicyAddress": "0x526a35584129879950c1b044f5627812217b833a",
+  "submitAddress": "0xe6c5024a337451e32f18f4b043bdb2d755897f7e",
+  "submitSignaturesAddress": "0xfb341c48679a52973f778df1dd5c50a8e03010b0",
+  "publicKey": "0x1f6b624f4d5f794ca971254cb5bb7e5d3caaeacb2d83654904cc6a89848c09cc2edf882ddb660d513b790403ded7a4573d981c5263b41f1c0574bf58c5e14ff0",
+  "validators": [
+    "NodeID-J9tdd552FoPfAZboP3WwWqXvvrJDqkW97",
+    "NodeID-Ms5oKoFmzxNYgpAnppbY62GYmQcTQbXhV"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xd151209ad1a666c74be95fd34275fab84d4009b732d107c1fc0aa6635f19c111",
+    "blockNumber": 17848,
+    "timestamp": "2022-07-22T23:55:22.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "PAID Network",
+  "symbol": "PAID",
+  "decimals": 18,
+  "address": "0xad86d0e9764ba90ddd68747d64bffbd79879a238",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xad86d0e9764ba90ddd68747d64bffbd79879a238/logo.webp",
+  "logoHash": "4dd5fdb12655cfabfc3a2a19f226dca16c41b44063f033f7496e96840023bc26"
+}

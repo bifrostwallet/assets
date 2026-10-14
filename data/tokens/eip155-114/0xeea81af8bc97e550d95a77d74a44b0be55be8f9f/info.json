@@ -1,0 +1,9 @@
+{
+  "name": "Test Algo",
+  "symbol": "testALGO",
+  "decimals": 6,
+  "address": "0xeea81af8bc97e550d95a77d74a44b0be55be8f9f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0xeea81af8bc97e550d95a77d74a44b0be55be8f9f/logo.webp",
+  "logoHash": "204bf33318469f629c891abfc411a23811e1099c7a3120452870cb7fb9262141"
+}

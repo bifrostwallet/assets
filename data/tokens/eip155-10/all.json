@@ -1,0 +1,182 @@
+[
+  {
+    "name": "USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
+    "coingeckoId": "usd-coin",
+    "logoURL": "tokens/eip155-10/0x0b2c639c533813f4aa9d7837caf62653d097ff85/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "Chainlink",
+    "symbol": "LINK",
+    "decimals": 18,
+    "address": "0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6",
+    "coingeckoId": "chainlink",
+    "logoURL": "tokens/eip155-10/0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6/logo.webp",
+    "logoHash": "cea438082d8c0f869f89569a386629c544fc72fb09bfb798fa45ae31ac0162d6"
+  },
+  {
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "decimals": 18,
+    "address": "0x4200000000000000000000000000000000000006",
+    "coingeckoId": "l2-standard-bridged-weth-optimism",
+    "logoURL": "tokens/eip155-10/0x4200000000000000000000000000000000000006/logo.webp",
+    "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
+  },
+  {
+    "name": "Optimism",
+    "symbol": "OP",
+    "decimals": 18,
+    "address": "0x4200000000000000000000000000000000000042",
+    "coingeckoId": "optimism",
+    "logoURL": "tokens/eip155-10/0x4200000000000000000000000000000000000042/logo.webp",
+    "logoHash": "450febda6d1520cc6f405a94115b394680f3655d5478067e855eaf253bbb5d54"
+  },
+  {
+    "name": "USDS",
+    "symbol": "USDS",
+    "decimals": 18,
+    "address": "0x4f13a96ec5c4cf34e442b46bbd98a0791f20edc3",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-10/0x4f13a96ec5c4cf34e442b46bbd98a0791f20edc3/logo.webp",
+    "logoHash": "617e7fac2005e2897e54fe9ce38cabfd907acc24868a7693fd74d73b04ed67a3"
+  },
+  {
+    "name": "Wrapped Bitcoin",
+    "symbol": "WBTC",
+    "decimals": 8,
+    "address": "0x68f180fcce6836688e9084f035309e29bf0a2095",
+    "coingeckoId": "wrapped-bitcoin",
+    "logoURL": "tokens/eip155-10/0x68f180fcce6836688e9084f035309e29bf0a2095/logo.webp",
+    "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
+  },
+  {
+    "name": "LayerZero",
+    "symbol": "ZRO",
+    "decimals": 18,
+    "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+    "coingeckoId": "layerzero",
+    "logoURL": "tokens/eip155-10/0x6985884c4392d348587b19cb9eaaf157f13271cd/logo.webp",
+    "logoHash": "f14480ff39adf664071b8e0156d00355a56fcbd76003cce8896e7e4d667eaeea"
+  },
+  {
+    "name": "Uniswap",
+    "symbol": "UNI",
+    "decimals": 18,
+    "address": "0x6fd9d7ad17242c41f7131d257212c54a0e816691",
+    "coingeckoId": "uniswap",
+    "logoURL": "tokens/eip155-10/0x6fd9d7ad17242c41f7131d257212c54a0e816691/logo.webp",
+    "logoHash": "d209fee53a9ed5f4e0a31d6a823aa109a6651609009ec976cbab3dc2a2490166"
+  },
+  {
+    "name": "Bridged USDC",
+    "symbol": "USDCe",
+    "decimals": 6,
+    "address": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
+    "coingeckoId": "bridged-usd-coin-optimism",
+    "logoURL": "tokens/eip155-10/0x7f5c764cbc14f9669b88837ca1490cca17c31607/logo.webp",
+    "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+  },
+  {
+    "name": "Rai Reflex Index",
+    "symbol": "RAI",
+    "decimals": 18,
+    "address": "0x7fb688ccf682d58f86d7e38e03f9d22e7705448b",
+    "coingeckoId": "rai",
+    "logoURL": "tokens/eip155-10/0x7fb688ccf682d58f86d7e38e03f9d22e7705448b/logo.webp",
+    "logoHash": "f3222671f88355c7fa270ed2f48113c8278b8b0b83a15fad3be8bce640c2d47a"
+  },
+  {
+    "name": "Synthetix",
+    "symbol": "SNX",
+    "decimals": 18,
+    "address": "0x8700daec35af8ff88c16bdf0418774cb3d7599b4",
+    "coingeckoId": "havven",
+    "logoURL": "tokens/eip155-10/0x8700daec35af8ff88c16bdf0418774cb3d7599b4/logo.webp",
+    "logoHash": "ecc3f37c59e4e980f9c26eb7797f68668cde24a7ebfad46373d447a1b3841174"
+  },
+  {
+    "name": "Synth USD",
+    "symbol": "SUSD",
+    "decimals": 18,
+    "address": "0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-10/0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9/logo.webp",
+    "logoHash": "58bb6e67cfd7cde74d516fd1c29d387ba33d3835ff68e8c44dfe95dbffce8e80"
+  },
+  {
+    "name": "The Doge NFT",
+    "symbol": "DOG",
+    "decimals": 18,
+    "address": "0x8f69ee043d52161fd29137aedf63f5e70cd504d5",
+    "coingeckoId": "the-doge-nft",
+    "logoURL": "tokens/eip155-10/0x8f69ee043d52161fd29137aedf63f5e70cd504d5/logo.webp",
+    "logoHash": "6d136b60a7cb8c9a700eae0924416720cfc689a3323e43d10d2382d9bfc78158"
+  },
+  {
+    "name": "Tether",
+    "symbol": "USDT",
+    "decimals": 6,
+    "address": "0x94b008aa00579c1307b0ef2c499ad98a8ce58e58",
+    "coingeckoId": "bridged-usdt",
+    "logoURL": "tokens/eip155-10/0x94b008aa00579c1307b0ef2c499ad98a8ce58e58/logo.webp",
+    "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+  },
+  {
+    "name": "Savings USDS",
+    "symbol": "sUSDS",
+    "decimals": 18,
+    "address": "0xb5b2dc7fd34c249f4be7fb1fcea07950784229e0",
+    "coingeckoId": "susds",
+    "logoURL": "tokens/eip155-10/0xb5b2dc7fd34c249f4be7fb1fcea07950784229e0/logo.webp",
+    "logoHash": "7466190679bae687c2da9cab0f832978d1f6367a4e5cf09e1f6e99eaf4e1cb25"
+  },
+  {
+    "name": "Dai",
+    "symbol": "DAI",
+    "decimals": 18,
+    "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+    "coingeckoId": "makerdao-optimism-bridged-dai-optimism",
+    "logoURL": "tokens/eip155-10/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1/logo.webp",
+    "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+  },
+  {
+    "name": "Worldcoin",
+    "symbol": "WLD",
+    "decimals": 18,
+    "address": "0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1",
+    "coingeckoId": "worldcoin-wld",
+    "logoURL": "tokens/eip155-10/0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1/logo.webp",
+    "logoHash": "4ef2aee5fc7d27e1249dc8a0da9166be4ec31421f599bf2ac4b7def121900210"
+  },
+  {
+    "name": "sETH",
+    "symbol": "SETH",
+    "decimals": 18,
+    "address": "0xe405de8f52ba7559f9df3c368500b6e6ae6cee49",
+    "coingeckoId": "seth",
+    "logoURL": "tokens/eip155-10/0xe405de8f52ba7559f9df3c368500b6e6ae6cee49/logo.webp",
+    "logoHash": "973b37b95be592ef36070634807e42b1815b9cf11f3c2346ca82e951673e8908"
+  },
+  {
+    "name": "WalletConnect",
+    "symbol": "WCT",
+    "decimals": 18,
+    "address": "0xef4461891dfb3ac8572ccf7c794664a8dd927945",
+    "coingeckoId": "connect-token-wct",
+    "logoURL": "tokens/eip155-10/0xef4461891dfb3ac8572ccf7c794664a8dd927945/logo.webp",
+    "logoHash": "ddee3a23b50ce7e21e6b3ff871d5e6985ba57909671667916c01687e9017a78b"
+  },
+  {
+    "name": "Optimistic Ethereum",
+    "symbol": "ETH",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": "ethereum",
+    "logoURL": "tokens/eip155-10/native/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  }
+]

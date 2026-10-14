@@ -1,0 +1,24 @@
+{
+  "name": "PRICEKRAKEN",
+  "description": "Germany based FTSO data provider with passion for improvements",
+  "logoURL": "providers/eip155-19/0x4f84caab4a53aabbad2dfe1013d2bb53edbf2f0a/logo.webp",
+  "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
+  "websiteURL": "https://www.pricekraken.de",
+  "links": {},
+  "identityAddress": "0x4f84caab4a53aabbad2dfe1013d2bb53edbf2f0a",
+  "delegationAddress": "0xef4ef2f3b8c69282846a98341095baa018247553",
+  "signingPolicyAddress": "0x4dfcbc3a1529fb3c07245095fba7830063d71c34",
+  "submitAddress": "0xe0bfd268e193103cb3e8331725414d7644f05e35",
+  "submitSignaturesAddress": "0x80cfaefb05c359dd29f5b2dbb740efe3fab6ec0a",
+  "publicKey": "0x29fa1941fded80680943e0f6ff83f73c447f1f06048c7b5a51c601dfaee6c8ee1bd09a839857613e4d118ffc74a0ef4fb2605e58d50e11dc9b5e0443a2e8d80e",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x66815a3da631b0ca7b1bad4cb3195c70c81c23cd45cf0b236412c60eca6de26d",
+    "blockNumber": 3378140,
+    "timestamp": "2021-12-03T01:00:09.000Z"
+  }
+}

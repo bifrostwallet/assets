@@ -1,0 +1,9 @@
+{
+  "name": "Phala Network",
+  "symbol": "PHA",
+  "decimals": 18,
+  "address": "0x6c5ba91642f10282b576d91922ae6448c9d52f4e",
+  "coingeckoId": "pha",
+  "logoURL": "tokens/eip155-1/0x6c5ba91642f10282b576d91922ae6448c9d52f4e/logo.webp",
+  "logoHash": "c3e5aae64f79bcfa061815b1263e0a97c4545a235eaa4fb9d0ed09a8f31ba7b6"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Ambire AdEx",
+  "symbol": "ADX",
+  "decimals": 18,
+  "address": "0x6bff4fb161347ad7de4a625ae5aa3a1ca7077819",
+  "coingeckoId": "adex",
+  "logoURL": "tokens/eip155-56/0x6bff4fb161347ad7de4a625ae5aa3a1ca7077819/logo.webp",
+  "logoHash": "0fa891f20f19f67f81b8a27130fdd2efc1973e1a7401e7fc67b5b55de6c66ce0"
+}

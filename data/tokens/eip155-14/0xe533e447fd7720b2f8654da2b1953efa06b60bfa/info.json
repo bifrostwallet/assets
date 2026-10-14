@@ -1,0 +1,9 @@
+{
+  "name": "Flare XRP Yield Vault",
+  "symbol": "earnXRP",
+  "decimals": 6,
+  "address": "0xe533e447fd7720b2f8654da2b1953efa06b60bfa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xe533e447fd7720b2f8654da2b1953efa06b60bfa/logo.webp",
+  "logoHash": "81edc88d2c36b03ca44278ac9c7801caa7f659550f23544b94985ce1d197edec"
+}

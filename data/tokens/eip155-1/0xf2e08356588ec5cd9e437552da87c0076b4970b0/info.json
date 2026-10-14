@@ -1,0 +1,9 @@
+{
+  "name": "Synth TRON",
+  "symbol": "STRX",
+  "decimals": 18,
+  "address": "0xf2e08356588ec5cd9e437552da87c0076b4970b0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xf2e08356588ec5cd9e437552da87c0076b4970b0/logo.webp",
+  "logoHash": "3557ea270d0ce97e8f32f925abaf8f51514fd58480c24e06a017c02d89513e78"
+}

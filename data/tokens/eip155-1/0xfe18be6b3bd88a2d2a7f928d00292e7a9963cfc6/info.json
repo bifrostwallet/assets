@@ -1,0 +1,9 @@
+{
+  "name": "Synth Bitcoin",
+  "symbol": "SBTC",
+  "decimals": 18,
+  "address": "0xfe18be6b3bd88a2d2a7f928d00292e7a9963cfc6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xfe18be6b3bd88a2d2a7f928d00292e7a9963cfc6/logo.webp",
+  "logoHash": "0faa0ea061bdf7c102b6ef866456a212b3be8b4af632a114cc41568a3f43d685"
+}

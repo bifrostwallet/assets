@@ -1,0 +1,9 @@
+{
+  "name": "Kylin Network",
+  "symbol": "KYL",
+  "decimals": 18,
+  "address": "0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c/logo.webp",
+  "logoHash": "6568532dc2b8b4d302b2f3d07d926e634471bdb06d44c63badd54ef9b0460174"
+}

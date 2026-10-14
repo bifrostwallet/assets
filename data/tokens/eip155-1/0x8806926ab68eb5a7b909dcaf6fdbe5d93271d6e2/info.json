@@ -1,0 +1,9 @@
+{
+  "name": "Uquid Coin",
+  "symbol": "UQC",
+  "decimals": 18,
+  "address": "0x8806926ab68eb5a7b909dcaf6fdbe5d93271d6e2",
+  "coingeckoId": "uquid-coin",
+  "logoURL": "tokens/eip155-1/0x8806926ab68eb5a7b909dcaf6fdbe5d93271d6e2/logo.webp",
+  "logoHash": "596b1805373ea057e3d0ebb0b5d58f736c905fab552f68ef081d1ef0e00a733a"
+}

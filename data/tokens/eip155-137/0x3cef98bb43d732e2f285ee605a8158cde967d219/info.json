@@ -1,0 +1,9 @@
+{
+  "name": "Basic Attention Token",
+  "symbol": "BAT",
+  "decimals": 18,
+  "address": "0x3cef98bb43d732e2f285ee605a8158cde967d219",
+  "coingeckoId": "basic-attention-token",
+  "logoURL": "tokens/eip155-137/0x3cef98bb43d732e2f285ee605a8158cde967d219/logo.webp",
+  "logoHash": "5a48ca1ae0213318cff8fb3cc1ec2b5911f0e4c4f9cfd52672139f1730aae95a"
+}

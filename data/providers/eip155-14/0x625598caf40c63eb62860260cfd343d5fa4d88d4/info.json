@@ -1,0 +1,27 @@
+{
+  "name": "Xdrops Oracle",
+  "description": "Croatia based Flare FTSO data provider.",
+  "logoURL": "providers/eip155-14/0x625598caf40c63eb62860260cfd343d5fa4d88d4/logo.webp",
+  "logoHash": "b80cf832fd03faccb66cd8cde2e01589e2df4a8a63adf2c9857561de75b258b3",
+  "websiteURL": "https://www.xdrops.live",
+  "links": {},
+  "identityAddress": "0x625598caf40c63eb62860260cfd343d5fa4d88d4",
+  "delegationAddress": "0x112b1130bd78b5a520adeace6130151e07a270a7",
+  "signingPolicyAddress": "0x725a5766c84ab2f507441eeb200a02a53761182b",
+  "submitAddress": "0x0b65694dc9f9c8540889efb3cf7f3a134c13298c",
+  "submitSignaturesAddress": "0xf7dfd259aed472f8a93184303f733ebece79c787",
+  "publicKey": "0x1ccb97af48339e22bfec093822ef8b9f0d230251f1bdb32a87505c0a555e32740192da1abcac483ec19897255073c416cab5114f63b1336670412b276588767c",
+  "validators": [
+    "NodeID-B6sAUBEYn2fvHMeUnsUkh1yNrvTzKu8gZ",
+    "NodeID-HGNPxSh8dZqCNCmHfMMNWYC8CNQiUwDWK"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x5ad343e17f23bb92ed2ff810be976100ae082781d04ea941b10ef12c899cf238",
+    "blockNumber": 18026,
+    "timestamp": "2022-07-23T00:43:40.000Z"
+  }
+}

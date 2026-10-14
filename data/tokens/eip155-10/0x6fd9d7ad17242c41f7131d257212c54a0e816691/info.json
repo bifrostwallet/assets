@@ -1,0 +1,9 @@
+{
+  "name": "Uniswap",
+  "symbol": "UNI",
+  "decimals": 18,
+  "address": "0x6fd9d7ad17242c41f7131d257212c54a0e816691",
+  "coingeckoId": "uniswap",
+  "logoURL": "tokens/eip155-10/0x6fd9d7ad17242c41f7131d257212c54a0e816691/logo.webp",
+  "logoHash": "d209fee53a9ed5f4e0a31d6a823aa109a6651609009ec976cbab3dc2a2490166"
+}

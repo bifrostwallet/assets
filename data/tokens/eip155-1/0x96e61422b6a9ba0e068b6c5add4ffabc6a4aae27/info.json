@@ -1,0 +1,9 @@
+{
+  "name": "Iron Bank EURO",
+  "symbol": "IBEUR",
+  "decimals": 18,
+  "address": "0x96e61422b6a9ba0e068b6c5add4ffabc6a4aae27",
+  "coingeckoId": "iron-bank-euro",
+  "logoURL": "tokens/eip155-1/0x96e61422b6a9ba0e068b6c5add4ffabc6a4aae27/logo.webp",
+  "logoHash": "8035f155892424f27f6f1e2a3bde9e90b6d0ab13b9c0e2010040a79429a2f5f8"
+}

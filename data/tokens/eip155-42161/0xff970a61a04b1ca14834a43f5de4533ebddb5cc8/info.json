@@ -1,0 +1,9 @@
+{
+  "name": "Bridged USDC",
+  "symbol": "USDCe",
+  "decimals": 6,
+  "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+  "coingeckoId": "usd-coin-ethereum-bridged",
+  "logoURL": "tokens/eip155-42161/0xff970a61a04b1ca14834a43f5de4533ebddb5cc8/logo.webp",
+  "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
+}

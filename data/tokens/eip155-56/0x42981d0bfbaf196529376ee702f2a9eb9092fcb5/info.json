@@ -1,0 +1,9 @@
+{
+  "name": "SafeMoon",
+  "symbol": "SFM",
+  "decimals": 9,
+  "address": "0x42981d0bfbaf196529376ee702f2a9eb9092fcb5",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x42981d0bfbaf196529376ee702f2a9eb9092fcb5/logo.webp",
+  "logoHash": "e90db23f105b71d3668044da9a989b3a94fc0f20193ba1b340236e5f492e1032"
+}

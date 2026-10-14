@@ -1,0 +1,9 @@
+{
+  "name": "Hoo Token",
+  "symbol": "HOO",
+  "decimals": 8,
+  "address": "0xd241d7b5cb0ef9fc79d9e4eb9e21f5e209f52f7d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xd241d7b5cb0ef9fc79d9e4eb9e21f5e209f52f7d/logo.webp",
+  "logoHash": "271ba3207463ebd57cd0995f7eaa337d69fae66d7802c99ab78b9e74d767a626"
+}

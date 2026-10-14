@@ -1,0 +1,9 @@
+{
+  "name": "Bean",
+  "symbol": "BEAN",
+  "decimals": 6,
+  "address": "0xdc59ac4fefa32293a95889dc396682858d52e5db",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xdc59ac4fefa32293a95889dc396682858d52e5db/logo.webp",
+  "logoHash": "7276061899af3bb133f9abcef2321a0fd499c3ce57058e1cc2c7059494867483"
+}

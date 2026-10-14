@@ -1,0 +1,27 @@
+{
+  "name": "Bushido FTSO",
+  "description": "As samurai are born to serve their lord and die, Bushido FTSO exists to provide accurate and reliable prices for the Flare ecosystem.",
+  "logoURL": "providers/eip155-14/0x69175664e592a41d789f912ad92ec0c45ac64609/logo.webp",
+  "logoHash": "4432fb046093f129e4c962667d8c155b8768657ffaaecda0d38769a8c14cf73c",
+  "websiteURL": "https://bushi.finance",
+  "links": {},
+  "identityAddress": "0x69175664e592a41d789f912ad92ec0c45ac64609",
+  "delegationAddress": "0xc7cf3238d2ca63d01ad4d42b4ccb9db8b0ade702",
+  "signingPolicyAddress": "0x414d0c57c2694c0b2fd47f2df6c92181e4a0a1e1",
+  "submitAddress": "0x9d26bf1f1e80bdb70cf9134471eadcda9c8b7ddb",
+  "submitSignaturesAddress": "0x42dc0b5d0dfc8b00afce9b9dc94b0ba9b87260f8",
+  "publicKey": "0x012cac8706849306197c9f2f8f0adc471d089f9d75e7253cfe2f9e67aaffbcb201f983c1b910f781d96f84010d3bb5328394e9c06cac6ceaa1d8bc290bc99117",
+  "validators": [
+    "NodeID-AW81N9vGQttoQMMdpqbihU5hEwH793YXj",
+    "NodeID-JHnfNSNgSThSJEFG8aq99FRAE4a7Ko7UP"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x2764e96686b026dc9eb24322eb2a7500370bd24b697a853480dc214613964c0f",
+    "blockNumber": 37798,
+    "timestamp": "2022-07-24T17:59:49.000Z"
+  }
+}

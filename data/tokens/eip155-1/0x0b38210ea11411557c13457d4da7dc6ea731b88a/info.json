@@ -1,0 +1,9 @@
+{
+  "name": "API3",
+  "symbol": "API3",
+  "decimals": 18,
+  "address": "0x0b38210ea11411557c13457d4da7dc6ea731b88a",
+  "coingeckoId": "api3",
+  "logoURL": "tokens/eip155-1/0x0b38210ea11411557c13457d4da7dc6ea731b88a/logo.webp",
+  "logoHash": "6c1c7ad85292b05f1aaa0495905bfba7d0ad6f77fbf403ccdd57bb8fb1311774"
+}

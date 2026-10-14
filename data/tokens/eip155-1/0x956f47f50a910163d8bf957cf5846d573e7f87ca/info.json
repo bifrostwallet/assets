@@ -1,0 +1,9 @@
+{
+  "name": "Fei Protocol",
+  "symbol": "FEI",
+  "decimals": 18,
+  "address": "0x956f47f50a910163d8bf957cf5846d573e7f87ca",
+  "coingeckoId": "fei-usd",
+  "logoURL": "tokens/eip155-1/0x956f47f50a910163d8bf957cf5846d573e7f87ca/logo.webp",
+  "logoHash": "4e5eeeb47923a6c8963c4446ed599c7098cce3d67a6a42c1096c1e6604431a5f"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Aureus Ox",
+  "description": "Aureus Ox is building a scalable and reliable FTSO signal provider. Our initial goals include accurate price submission and delegation tools.",
+  "logoURL": "providers/eip155-19/0xbe311f1640b700f76d17c009a505487c23b0312c/logo.webp",
+  "logoHash": "fbe96ce566d0f669711107fbb1560f1510fd7d66421cdf91588e3b39f62bcee9",
+  "websiteURL": "https://aureusox.com",
+  "links": {},
+  "identityAddress": "0xbe311f1640b700f76d17c009a505487c23b0312c",
+  "delegationAddress": "0x6d323e71e141ce2d7b752313c8a654a9c9d1b377",
+  "signingPolicyAddress": "0x86339bbf3e57c6026ce678617dec27f2cc5dbd62",
+  "submitAddress": "0x7ce5f38ba4b9a11a462c0235159052cf5d026972",
+  "submitSignaturesAddress": "0xd224ab1433acb76a26c669b451589707b88a39b7",
+  "publicKey": "0x07704246b5cde7de97bb90e401bd673d1b873b06c1bcd123ec76ac549c7d97970a868035a203f9e1097ac3ba2f8be9ad4655a3eb4deee864c8f15ae1d1120ecb",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x36841a141596948878581c70725a651c747a72018045e44ace33dfed1ae096e5",
+    "blockNumber": 6238,
+    "timestamp": "2021-09-19T18:58:21.000Z"
+  }
+}

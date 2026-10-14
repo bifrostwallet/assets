@@ -1,0 +1,24 @@
+{
+  "name": "Encode Club",
+  "description": "We are a global community of top developers, professionals and talented students in Emerging Tech.",
+  "logoURL": "providers/eip155-14/0xf697cef9e0be6bebac06410a5bcc56f7e8f52835/logo.webp",
+  "logoHash": "64035d98e7b8ea419cef00bac263a0e979a72420b524108a8100e479fff5a063",
+  "websiteURL": "https://www.encode.club",
+  "links": {},
+  "identityAddress": "0xf697cef9e0be6bebac06410a5bcc56f7e8f52835",
+  "delegationAddress": "0x1c2bb2ca14914a462ab7268de4a48ef6445116c2",
+  "signingPolicyAddress": "0x8f57080ef650c181cf52ead62f8aadc5f5159eb9",
+  "submitAddress": "0x0054a662c151a36b5b0358fd7a1a51180dad2fd6",
+  "submitSignaturesAddress": "0xc91cbc0fc8a47cd81d2c4ae9c8e576884b821081",
+  "publicKey": "0x015ee503822b2c17e8f6685d6f6effd58794e1d4834bed0137a5cb256b9d5ecc1e30b2bba4a91ce32a8de8fa4c55314c0ac6c32dadfdbc934ddaeee3bf6a660d",
+  "validators": ["NodeID-9fsCXCFJ7hzgsGK4FVpuNt1FVjJ9ScfVU"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x873e7f8fd345ccb6b5333c35079970af2e2076b5346fb55e0c5b627c29641402",
+    "blockNumber": 33395129,
+    "timestamp": "2024-11-22T18:33:39.000Z"
+  }
+}

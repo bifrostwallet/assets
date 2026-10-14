@@ -1,0 +1,9 @@
+{
+  "name": "FDOGE",
+  "symbol": "FTestDOGE",
+  "decimals": 8,
+  "address": "0x353d20c6eb0c7bfce3b828665c992de995ef67bd",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x353d20c6eb0c7bfce3b828665c992de995ef67bd/logo.webp",
+  "logoHash": "d022eea2ce5ce12ad35599419b1e5a4ded90c8b17c92573285d96a208aa9bf4f"
+}

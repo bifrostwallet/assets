@@ -1,0 +1,9 @@
+{
+  "name": "Cardstack",
+  "symbol": "CARD",
+  "decimals": 18,
+  "address": "0x954b890704693af242613edef1b603825afcd708",
+  "coingeckoId": "cardstack",
+  "logoURL": "tokens/eip155-1/0x954b890704693af242613edef1b603825afcd708/logo.webp",
+  "logoHash": "9c26daf8220af70c22bf242c21e005e3cb9a54764e823d5262f86fe6ad585e10"
+}

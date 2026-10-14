@@ -1,0 +1,9 @@
+{
+  "name": "Shyft Network",
+  "symbol": "SHFT",
+  "decimals": 18,
+  "address": "0xb17c88bda07d28b3838e0c1de6a30eafbcf52d85",
+  "coingeckoId": "shyft-network-2",
+  "logoURL": "tokens/eip155-1/0xb17c88bda07d28b3838e0c1de6a30eafbcf52d85/logo.webp",
+  "logoHash": "54931a2cb537df6ab83b336e3fffcdc46b11234ad7db9c6df9f48ac31e53e72b"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Render Token",
+  "symbol": "RNDR",
+  "decimals": 18,
+  "address": "0x61299774020da444af134c82fa83e3810b309991",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0x61299774020da444af134c82fa83e3810b309991/logo.webp",
+  "logoHash": "d6cec7013805863ea61a0a30fe9d004e89e928d4878231bc82213228d6cae20d"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "AU",
+  "description": "AU provide accurate and reliable price feeds to the Flare Network and a transparent, incentivised, risk-free delegation service. We do so by leveraging the distributed nature of the network and its participants.",
+  "logoURL": "providers/eip155-14/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
+  "logoHash": "a399082fda3dce17c4b7496d3d80400265f375567f624a9bfba809fbd133eeec",
+  "websiteURL": "https://www.au.cc",
+  "links": {},
+  "identityAddress": "0xb3c9aa09f22a06122d3608ef075f14e001561470",
+  "delegationAddress": "0x4990320858ae3528b645c60059281a66c3488888",
+  "signingPolicyAddress": "0xaecc531817dbb9f7cc73de3e2117091e7bb4309f",
+  "submitAddress": "0x5ef6c59a665765233926d2b9ddf0aae30d63c7fb",
+  "submitSignaturesAddress": "0xa3411beebb955e30115f1deaae58e00a5c4b2e52",
+  "publicKey": "0x122d7748a2cf626f06a627ab244c99971b3441712dbf6705f9c551b39636846c2e67cb66702f98d832a92ec12147b18ff9c25a9198c84720bca32e2e86a9cf9a",
+  "validators": [
+    "NodeID-4VGUXmAD3YHdapbLnJBmuWEQceaRQ1Zyd",
+    "NodeID-Bo98cjoi5LvF6jXAMHZZLQYutyeGutBQ1",
+    "NodeID-HZwFckGTbucqTtE7qcv6z85mnScUfAeW6",
+    "NodeID-J8sGdhcnVY1yVQNEb7w3LUjxkWCnByhw8"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x3d055cba4e143043f510a6e04bc34f887f5cad414c16e2f8d3bd86ee8f2882ff",
+    "blockNumber": 18560,
+    "timestamp": "2022-07-23T03:03:08.000Z"
+  }
+}

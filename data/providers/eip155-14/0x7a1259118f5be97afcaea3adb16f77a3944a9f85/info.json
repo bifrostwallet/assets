@@ -1,0 +1,24 @@
+{
+  "name": "Solarius",
+  "description": "Solarius Flare Time Series Oracle provides accurate data from advanced algorithms using our reliable and robust hardware.",
+  "logoURL": "providers/eip155-14/0x7a1259118f5be97afcaea3adb16f77a3944a9f85/logo.webp",
+  "logoHash": "c59dd7cbb9e09270a6c85af88539f704a7581b81dbf7ee688151f33e9d18219f",
+  "websiteURL": "https://www.solarius.io/ftso",
+  "links": {},
+  "identityAddress": "0x7a1259118f5be97afcaea3adb16f77a3944a9f85",
+  "delegationAddress": "0x8863ead675dff5cf260d5fdc079d50996d1f3cd4",
+  "signingPolicyAddress": "0x0a0a5aa956df00a0a6d83a72fe61c930eadebe5b",
+  "submitAddress": "0x8b5484a822d1d8dbbfafcb1ef66e71566f026603",
+  "submitSignaturesAddress": "0xf7dab5d10d0b5f4bca851372867d51ecb894aa13",
+  "publicKey": "0x0de90ea8b68dd7f31f06aef75c54d9ab689dec18af0feb6dc871cb0e4098ce150821d1931b6c28b2877b1ee49201ca90041749302b7b29cd4c13e345a6d8efc0",
+  "validators": ["NodeID-2q436GJKA5faTceNaAbu7CYxftv3K8fS4"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc4dc9a8fa776557b7d5a5c5925757cef0a1f9cc8658061b67e9d027312492b38",
+    "blockNumber": 39792,
+    "timestamp": "2022-07-24T21:08:28.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "STAKE",
+  "symbol": "STAKE",
+  "decimals": 18,
+  "address": "0x0ae055097c6d159879521c384f1d2123d1f195e6",
+  "coingeckoId": "xdai-stake",
+  "logoURL": "tokens/eip155-1/0x0ae055097c6d159879521c384f1d2123d1f195e6/logo.webp",
+  "logoHash": "6a6262e2af86b249b643907cebfa663cba24375c3af14da6a2798784fc79fb31"
+}

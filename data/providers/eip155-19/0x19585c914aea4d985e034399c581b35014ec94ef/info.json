@@ -1,0 +1,24 @@
+{
+  "name": "Atlas TSO",
+  "description": "Atlas Songbird Network Data Provider. Doing what is best for the users and the network.",
+  "logoURL": "providers/eip155-19/0x19585c914aea4d985e034399c581b35014ec94ef/logo.webp",
+  "logoHash": "5e1a708b378aee7f818695791eb34aae617c1a27d6c0dd75788bca69b35a315a",
+  "websiteURL": "https://tsoatlas.xyz",
+  "links": {},
+  "identityAddress": "0x19585c914aea4d985e034399c581b35014ec94ef",
+  "delegationAddress": "0xb5ecb64526f777eb6f02d4a83abab1fad26b1c00",
+  "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
+  "submitAddress": "0x991b71d7380e89354ea71007eb744316829b62ae",
+  "submitSignaturesAddress": "0x8b31c922bfc7f969585fda3e86faa873b72e88e4",
+  "publicKey": "0x0bea4ddaa37c9f34160604d5ca90f1ce2b353caa1df54d580447bac6fa2696860ed29f25b00c1ebb59d916e4ec7e932f9838d9ef7c459160dbbd41e79901568c",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x8a097bf6c4129c583142ed427794c83dbeaa0642eb7dce98139066e7150cd5e9",
+    "blockNumber": 23100042,
+    "timestamp": "2022-09-18T14:20:05.000Z"
+  }
+}

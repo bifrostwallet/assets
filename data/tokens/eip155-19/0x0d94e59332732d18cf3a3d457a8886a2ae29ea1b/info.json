@@ -1,0 +1,9 @@
+{
+  "name": "Songbird Finance Token",
+  "symbol": "SFIN",
+  "decimals": 18,
+  "address": "0x0d94e59332732d18cf3a3d457a8886a2ae29ea1b",
+  "coingeckoId": "songbird-finance",
+  "logoURL": "tokens/eip155-19/0x0d94e59332732d18cf3a3d457a8886a2ae29ea1b/logo.webp",
+  "logoHash": "492b4f14565220239a73ea6cec96de91b51071b315c92110f71933714e945dc0"
+}

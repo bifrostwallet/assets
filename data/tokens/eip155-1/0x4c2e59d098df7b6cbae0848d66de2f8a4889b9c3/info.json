@@ -1,0 +1,9 @@
+{
+  "name": "Fodl Finance",
+  "symbol": "FODL",
+  "decimals": 18,
+  "address": "0x4c2e59d098df7b6cbae0848d66de2f8a4889b9c3",
+  "coingeckoId": "fodl-finance",
+  "logoURL": "tokens/eip155-1/0x4c2e59d098df7b6cbae0848d66de2f8a4889b9c3/logo.webp",
+  "logoHash": "da782ca1ff394ca88e2ab773e9fd656cf3f8c4f4c0905cf18dfa4efcff9b45db"
+}

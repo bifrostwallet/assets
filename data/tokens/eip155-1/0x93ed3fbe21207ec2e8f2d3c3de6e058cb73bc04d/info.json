@@ -1,0 +1,9 @@
+{
+  "name": "Kleros",
+  "symbol": "PNK",
+  "decimals": 18,
+  "address": "0x93ed3fbe21207ec2e8f2d3c3de6e058cb73bc04d",
+  "coingeckoId": "kleros",
+  "logoURL": "tokens/eip155-1/0x93ed3fbe21207ec2e8f2d3c3de6e058cb73bc04d/logo.webp",
+  "logoHash": "a0acd5564b59befdf8207ef8a4828021dd22d9413047b984dadfc6a61649a2e5"
+}

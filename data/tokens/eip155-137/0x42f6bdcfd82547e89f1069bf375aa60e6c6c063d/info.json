@@ -1,0 +1,9 @@
+{
+  "name": "Civilization",
+  "symbol": "CIV",
+  "decimals": 18,
+  "address": "0x42f6bdcfd82547e89f1069bf375aa60e6c6c063d",
+  "coingeckoId": "civilization",
+  "logoURL": "tokens/eip155-137/0x42f6bdcfd82547e89f1069bf375aa60e6c6c063d/logo.webp",
+  "logoHash": "0c8f3710074a8abedc31335642663ce2f6f6bb74bd19d5d34c7740621e492359"
+}

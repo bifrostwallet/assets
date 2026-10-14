@@ -1,0 +1,9 @@
+{
+  "name": "Kinetiq",
+  "symbol": "KNTQ",
+  "decimals": 18,
+  "address": "0x000000000000780555bd0bca3791f89f9542c2d6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-999/0x000000000000780555bd0bca3791f89f9542c2d6/logo.webp",
+  "logoHash": "593b9d0dbaa71e160e0c65965357a3e0e0a7d8f4bd15131217cd2d61f29c9763"
+}

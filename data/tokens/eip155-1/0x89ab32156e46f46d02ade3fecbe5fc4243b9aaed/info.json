@@ -1,0 +1,9 @@
+{
+  "name": "pNetwork",
+  "symbol": "PNT",
+  "decimals": 18,
+  "address": "0x89ab32156e46f46d02ade3fecbe5fc4243b9aaed",
+  "coingeckoId": "pnetwork",
+  "logoURL": "tokens/eip155-1/0x89ab32156e46f46d02ade3fecbe5fc4243b9aaed/logo.webp",
+  "logoHash": "e9e23a95942405cbc7ae4b15eff277959f792850f5cc9bdbee04c3c0a653fac2"
+}

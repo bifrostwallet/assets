@@ -1,0 +1,9 @@
+{
+  "name": "Polkaswap",
+  "symbol": "PSWAP",
+  "decimals": 18,
+  "address": "0x519c1001d550c0a1dae7d1fc220f7d14c2a521bb",
+  "coingeckoId": "polkaswap",
+  "logoURL": "tokens/eip155-1/0x519c1001d550c0a1dae7d1fc220f7d14c2a521bb/logo.webp",
+  "logoHash": "bdb904986796b12aa6e8289aff646b3a23647589838810db8b8b4e0a8ab4557f"
+}

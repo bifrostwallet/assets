@@ -1,0 +1,9 @@
+{
+  "name": "FUNToken",
+  "symbol": "FUN",
+  "decimals": 8,
+  "address": "0x419d0d8bdd9af5e606ae2232ed285aff190e711b",
+  "coingeckoId": "funfair",
+  "logoURL": "tokens/eip155-1/0x419d0d8bdd9af5e606ae2232ed285aff190e711b/logo.webp",
+  "logoHash": "cb55c9183ea189684c91e756087e8ab38b5936f6767d4302e09164cc6b3f30fd"
+}

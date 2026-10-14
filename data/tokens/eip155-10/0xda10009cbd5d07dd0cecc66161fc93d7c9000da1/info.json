@@ -1,0 +1,9 @@
+{
+  "name": "Dai",
+  "symbol": "DAI",
+  "decimals": 18,
+  "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+  "coingeckoId": "makerdao-optimism-bridged-dai-optimism",
+  "logoURL": "tokens/eip155-10/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1/logo.webp",
+  "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
+}

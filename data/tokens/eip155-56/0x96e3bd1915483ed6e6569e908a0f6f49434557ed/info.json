@@ -1,0 +1,9 @@
+{
+  "name": "Doge Army Token",
+  "symbol": "DGAT",
+  "decimals": 18,
+  "address": "0x96e3bd1915483ed6e6569e908a0f6f49434557ed",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x96e3bd1915483ed6e6569e908a0f6f49434557ed/logo.webp",
+  "logoHash": "1ee0dfb1dea134961798fb9fa0b61c1d2546179561e2aa1fcbf9ff04556d57fb"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Ankr",
+  "description": "Build web3 apps with a full suite of developer tools. Power them with fast, global, decentralized connections to dozens of chains",
+  "logoURL": "providers/eip155-14/0x25a762a3ae37ad037221daf623dadfa8e3247ca2/logo.webp",
+  "logoHash": "7f902dbae1bd2b274589d8379715327d02c1b6900bc1b385fb8d5de660c749bc",
+  "websiteURL": "https://ankr.com",
+  "links": {},
+  "identityAddress": "0x25a762a3ae37ad037221daf623dadfa8e3247ca2",
+  "delegationAddress": "0xb7fd410bb86f427b2d2c75efe6e35e621465913b",
+  "signingPolicyAddress": "0x21e1ea951e51afc00545901457e573c1d41ce0c6",
+  "submitAddress": "0xe2529e20ece2bd340c32360feb250d3f427e48fc",
+  "submitSignaturesAddress": "0xac2f2574cef00e62870f3ab32778f4f5ba03515a",
+  "publicKey": "0x12aeb1a24ac7ec9f045630979bf63d421e27d33c921ba43191976ac762c83d5f2404e30fa31e29ac5cee23a307b804d7a607d60001480254e7b08584c3c7e7fe",
+  "validators": ["NodeID-MfzBQ6MbriE31UWm9NjSnEgLiR1cAkEnN"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x78da27f0dd5d74c5a622e0b0364dde886bfce7bf62a59418500f7d2175f81992",
+    "blockNumber": 16233507,
+    "timestamp": "2023-12-04T10:36:10.000Z"
+  }
+}

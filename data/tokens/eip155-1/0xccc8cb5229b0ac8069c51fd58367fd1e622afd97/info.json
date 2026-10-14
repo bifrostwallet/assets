@@ -1,0 +1,9 @@
+{
+  "name": "Gods Unchained",
+  "symbol": "GODS",
+  "decimals": 18,
+  "address": "0xccc8cb5229b0ac8069c51fd58367fd1e622afd97",
+  "coingeckoId": "gods-unchained",
+  "logoURL": "tokens/eip155-1/0xccc8cb5229b0ac8069c51fd58367fd1e622afd97/logo.webp",
+  "logoHash": "88aa5990e0cabc9b7861d48e5cc99bf0dc3a41f7924dd1825374083b01e267e9"
+}

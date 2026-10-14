@@ -1,0 +1,9 @@
+{
+  "name": "AlphaToken",
+  "symbol": "ALPHA",
+  "decimals": 18,
+  "address": "0xa1faa113cbe53436df28ff0aee54275c13b40975",
+  "coingeckoId": "alpha-finance",
+  "logoURL": "tokens/eip155-1/0xa1faa113cbe53436df28ff0aee54275c13b40975/logo.webp",
+  "logoHash": "5b50da1743003a7f871ffaeb4438c53be27e53a0e4a38a79004e299a6be6b2b3"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "DANROCKET",
+  "symbol": "DRKET",
+  "decimals": 6,
+  "address": "0x8fbc9193a5a68ce4f65060534e87be485a715055",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x8fbc9193a5a68ce4f65060534e87be485a715055/logo.webp",
+  "logoHash": "f8cf6abd28a3017a65410c5f89515a203b58856816e43056dde2ee211f30a9b7"
+}

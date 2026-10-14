@@ -1,0 +1,9 @@
+{
+  "name": "Injective",
+  "symbol": "INJ",
+  "decimals": 18,
+  "address": "0xa2b726b1145a4773f68593cf171187d8ebe4d495",
+  "coingeckoId": "injective-protocol",
+  "logoURL": "tokens/eip155-56/0xa2b726b1145a4773f68593cf171187d8ebe4d495/logo.webp",
+  "logoHash": "40fdd68f8c7767f2bece32fb4b4c3975d16a163e954618bb6af24142fca1c487"
+}

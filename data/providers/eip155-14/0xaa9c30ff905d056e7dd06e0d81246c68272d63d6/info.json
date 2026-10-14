@@ -1,0 +1,24 @@
+{
+  "name": "Stakeway",
+  "description": "Stakeway by Gateway.fm is a premier staking provider offering Enterprise Grade Infrastructure tailored for customers seeking reliable and secure staking solutions. With a focus on performance and trust, we deliver a robust platform. Our services are designed to optimize staking experience, ensuring seamless operation and maximum returns",
+  "logoURL": "providers/eip155-14/0xaa9c30ff905d056e7dd06e0d81246c68272d63d6/logo.webp",
+  "logoHash": "0c657a67b04dfb717bfa3d5ae3dafddcfadac3b253f5ef285959b3ff8b1a3799",
+  "websiteURL": "https://stakeway.com",
+  "links": {},
+  "identityAddress": "0xaa9c30ff905d056e7dd06e0d81246c68272d63d6",
+  "delegationAddress": "0xf26be97eb0d7a9fbf8d67f813d3be411445885ce",
+  "signingPolicyAddress": "0x89018f53680a36fdf4abd2126a4f18774aed3458",
+  "submitAddress": "0x4f45b627acf32d715cb246f0a993df93556cadc4",
+  "submitSignaturesAddress": "0x8f6e7c0ce1a92ef8369ca65aeef6e8dd01f4a413",
+  "publicKey": "0x24202cccad13468d36ddcea9e02a71156c5ec84fb551b25dd233cf10d3b4cde50c7f258ee1041acbf480b059269127b0c8093def9129a3e26342c703e90d17ab",
+  "validators": ["NodeID-LxpVHRQAYXPRf7q5oz1iT4N1z9XHz5rHU"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xc50cbf77617dc99b7d01393aae3df4fc6948db690e13cc8acb74bfffff2e7f6f",
+    "blockNumber": 16644330,
+    "timestamp": "2023-12-13T16:00:31.000Z"
+  }
+}

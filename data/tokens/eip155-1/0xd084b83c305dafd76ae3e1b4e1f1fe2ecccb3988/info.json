@@ -1,0 +1,9 @@
+{
+  "name": "Terra Virtua Kolect",
+  "symbol": "TVK",
+  "decimals": 18,
+  "address": "0xd084b83c305dafd76ae3e1b4e1f1fe2ecccb3988",
+  "coingeckoId": "the-virtua-kolect",
+  "logoURL": "tokens/eip155-1/0xd084b83c305dafd76ae3e1b4e1f1fe2ecccb3988/logo.webp",
+  "logoHash": "9a992323f28bd1042eb093a1e5ed469d8a23bc1ed6c7ae0752980391429969e2"
+}

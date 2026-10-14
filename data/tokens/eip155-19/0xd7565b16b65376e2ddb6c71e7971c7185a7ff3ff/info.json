@@ -1,0 +1,9 @@
+{
+  "name": "OracleSwap.io",
+  "symbol": "ORACLE",
+  "decimals": 18,
+  "address": "0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff/logo.webp",
+  "logoHash": "8ef6d5fe44381dda5ca0352961cf97c3f8175fa1d0c71214bdc318e9f51a4621"
+}

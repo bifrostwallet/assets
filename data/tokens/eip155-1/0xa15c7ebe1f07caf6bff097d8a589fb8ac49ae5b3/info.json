@@ -1,0 +1,9 @@
+{
+  "name": "Pundi X Legacy",
+  "symbol": "NPXS",
+  "decimals": 18,
+  "address": "0xa15c7ebe1f07caf6bff097d8a589fb8ac49ae5b3",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa15c7ebe1f07caf6bff097d8a589fb8ac49ae5b3/logo.webp",
+  "logoHash": "a287b6a3c1017a7b1d175dc5a65bd64542dfda4c7d3d02a71bf164f4c0b2e800"
+}

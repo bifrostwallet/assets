@@ -1,0 +1,9 @@
+{
+  "name": "Maker",
+  "symbol": "MKR",
+  "decimals": 18,
+  "address": "0x2e9a6df78e42a30712c10a9dc4b1c8656f8f2879",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-42161/0x2e9a6df78e42a30712c10a9dc4b1c8656f8f2879/logo.webp",
+  "logoHash": "0c1abfc526939dac5bab05c2467ebb0113ab34b2a65bcace18880b7001837fac"
+}

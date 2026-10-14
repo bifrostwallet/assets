@@ -1,0 +1,9 @@
+{
+  "name": "Rari Governance Token",
+  "symbol": "RGT",
+  "decimals": 18,
+  "address": "0xcf726a06f3dcec8ef2b033336d138caa0eae5af2",
+  "coingeckoId": "rari-governance-token",
+  "logoURL": "tokens/eip155-250/0xcf726a06f3dcec8ef2b033336d138caa0eae5af2/logo.webp",
+  "logoHash": "7f65c0a05f2eef60d7680aca8b982933b9220419bff635570754d1758f1a1b85"
+}

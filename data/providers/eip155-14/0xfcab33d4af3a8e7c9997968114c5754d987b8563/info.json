@@ -1,0 +1,24 @@
+{
+  "name": "SparkDEX",
+  "description": "Flares DeFi Hub.",
+  "logoURL": "providers/eip155-14/0xfcab33d4af3a8e7c9997968114c5754d987b8563/logo.webp",
+  "logoHash": "e5e689b33dd1868263375653d1ce832341d16c015a8223c17703f61e3f87957d",
+  "websiteURL": "https://sparkdex.ai",
+  "links": {},
+  "identityAddress": "0xfcab33d4af3a8e7c9997968114c5754d987b8563",
+  "delegationAddress": "0xf8fb4cd8728f7def92b12f9de005df934f0b69cb",
+  "signingPolicyAddress": "0x0a466c8d69ecb2db351e1d1dde3ce6b33eadbfd2",
+  "submitAddress": "0xf5bf13d159e5e093a1980240f7aa4bc1211fd54f",
+  "submitSignaturesAddress": "0x5900a74b5cf7ed5b845057fed51c3eac3fd2927d",
+  "publicKey": "0x0e0adff259ced0405c648fd651f262947a5f5a952abfbbd669bf7cb52e6594882931e4ce916cb274e1e76425387fad4a985ec4d9756ae90332abe1e482fe79b3",
+  "validators": ["NodeID-PkNmRmrsQ9Grj98XNHrsK13YCMF44p3EQ"],
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xe48f3674185336101720e3a4de75ca895d89698e10ffd97c86e6271661fa5038",
+    "blockNumber": 49404094,
+    "timestamp": "2025-10-21T18:16:27.000Z"
+  }
+}

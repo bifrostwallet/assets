@@ -1,0 +1,9 @@
+{
+  "name": "DEUS Finance",
+  "symbol": "DEUS",
+  "decimals": 18,
+  "address": "0xde5ed76e7c05ec5e4572cfc88d1acea165109e44",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0xde5ed76e7c05ec5e4572cfc88d1acea165109e44/logo.webp",
+  "logoHash": "172e8a882762a3f1da6d566de8054b50fce45c6c35e25c6ed06c6ca9011818c8"
+}

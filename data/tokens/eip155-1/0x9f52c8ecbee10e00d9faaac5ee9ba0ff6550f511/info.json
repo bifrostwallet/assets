@@ -1,0 +1,9 @@
+{
+  "name": "Sipher",
+  "symbol": "SIPHER",
+  "decimals": 18,
+  "address": "0x9f52c8ecbee10e00d9faaac5ee9ba0ff6550f511",
+  "coingeckoId": "sipher",
+  "logoURL": "tokens/eip155-1/0x9f52c8ecbee10e00d9faaac5ee9ba0ff6550f511/logo.webp",
+  "logoHash": "63f1bceba8f03704c286d53fcf0980cc3e8b22c4747c9f0ee45135752a445e4d"
+}

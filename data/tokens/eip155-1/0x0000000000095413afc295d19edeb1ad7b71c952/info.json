@@ -1,0 +1,9 @@
+{
+  "name": "Tokenlon",
+  "symbol": "LON",
+  "decimals": 18,
+  "address": "0x0000000000095413afc295d19edeb1ad7b71c952",
+  "coingeckoId": "tokenlon",
+  "logoURL": "tokens/eip155-1/0x0000000000095413afc295d19edeb1ad7b71c952/logo.webp",
+  "logoHash": "70112ffbf4c2aee5d023c1fabce969db9ff3006f02e34c57abd3ab8d54c79db9"
+}

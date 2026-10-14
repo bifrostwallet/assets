@@ -1,0 +1,24 @@
+{
+  "name": "EDPFTSO",
+  "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
+  "logoURL": "providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
+  "logoHash": "42dcbf116ade9e816403d863531f47e125942a6ffa1eaa41083a3b80616c8462",
+  "websiteURL": "https://catenalytica.com",
+  "links": {},
+  "identityAddress": "0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8",
+  "delegationAddress": "0xad918962795547a8c997f96f7babb822612a5ffe",
+  "signingPolicyAddress": "0x5b0ff409b17df4b717ea0c5035d0a961c502fca8",
+  "submitAddress": "0x92bf54ae8aed699a038e8d8b0e62e5b511f56dc5",
+  "submitSignaturesAddress": "0x351cc97c268f5dc8eeeddded15b0bd0825e683f6",
+  "publicKey": "0x25f1ef05b491c632d3d4b014769032b87170003922b8c43d44a6714a57c488a60c2638c0424e3e9e4785b5383d64ab3dbcb237c2137050ec3027d8b9d691eaf0",
+  "validators": ["NodeID-Lj9wReAAhUQokvp2up5RokYYxkTTPqZRC"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x817ce848a890905823f71188fdc8b3428975efbaec85de20d45a8664626d212c",
+    "blockNumber": 763135,
+    "timestamp": "2022-08-30T08:19:56.000Z"
+  }
+}

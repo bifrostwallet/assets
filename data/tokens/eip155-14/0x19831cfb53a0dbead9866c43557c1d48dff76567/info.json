@@ -1,0 +1,9 @@
+{
+  "name": "cysFLR",
+  "symbol": "cysFLR",
+  "decimals": 18,
+  "address": "0x19831cfb53a0dbead9866c43557c1d48dff76567",
+  "coingeckoId": "cyclo-cysflr",
+  "logoURL": "tokens/eip155-14/0x19831cfb53a0dbead9866c43557c1d48dff76567/logo.webp",
+  "logoHash": "5194abde894121bb6fc2e05f8dd631b9d163186ce55c63a554dbe5d5cf1c0fd5"
+}

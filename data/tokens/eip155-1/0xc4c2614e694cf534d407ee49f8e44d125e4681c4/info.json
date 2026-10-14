@@ -1,0 +1,9 @@
+{
+  "name": "Chain Games",
+  "symbol": "CHAIN",
+  "decimals": 18,
+  "address": "0xc4c2614e694cf534d407ee49f8e44d125e4681c4",
+  "coingeckoId": "chain-games",
+  "logoURL": "tokens/eip155-1/0xc4c2614e694cf534d407ee49f8e44d125e4681c4/logo.webp",
+  "logoHash": "9a4023b93ad61a77d7a7fe7aa840899e7d518095d1087beced6e34543808c636"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "InGen.FTSO",
+  "description": "We are an Asian dynamic data provider for the FTSO bringing growth to the decentralized Flare.",
+  "logoURL": "providers/eip155-19/0xa6b95941845b229ad7b2cd4c3c6de3ad9d0865ff/logo.webp",
+  "logoHash": "93f120cfd62271290ed378652eaa48cdf3a5bef9c04dc71b304f08ad431f430e",
+  "websiteURL": "https://asia.ingen.com.ph",
+  "links": {},
+  "identityAddress": "0xa6b95941845b229ad7b2cd4c3c6de3ad9d0865ff",
+  "delegationAddress": "0x664e070592063bfe5072f0ac25c6c11e5ccf9928",
+  "signingPolicyAddress": "0xe5c465582969717375f38202d6f615581daf2728",
+  "submitAddress": "0x1b7202d589b133cb4179b6d034e047bda2620303",
+  "submitSignaturesAddress": "0x4cfffa315ff2ae0902deecc58189941a0c29b822",
+  "publicKey": "0x29692fcadde7502497d8cb057bdfbe9cf761a79ad4b5f64d228780557bfd3ab122b5a6cff3252cab751a58dfb3fc3347560b59f36b1ec8a0e8b7831c6a7e0a57",
+  "validators": [],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xc0567fb94c9fc87fb35538cb1d91ef72d76a6126a9d22e5e79cba48688a4c67a",
+    "blockNumber": 1995062,
+    "timestamp": "2021-11-11T13:10:10.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Axion",
+  "symbol": "AXN",
+  "decimals": 18,
+  "address": "0x839f1a22a59eaaf26c85958712ab32f80fea23d9",
+  "coingeckoId": "axion",
+  "logoURL": "tokens/eip155-137/0x839f1a22a59eaaf26c85958712ab32f80fea23d9/logo.webp",
+  "logoHash": "80b6a7ce21d5760671e8687073243bafb5a8185726571b8baf645ca46a40e82f"
+}

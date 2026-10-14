@@ -1,0 +1,9 @@
+{
+  "name": "Reimagined Finance",
+  "symbol": "REFI",
+  "decimals": 18,
+  "address": "0xa808b22ffd2c472ad1278088f16d4010e6a54d5f",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa808b22ffd2c472ad1278088f16d4010e6a54d5f/logo.webp",
+  "logoHash": "fcc900e8f43eceed454e1a7269b18a190a342dbbd31dff4da320cbc803feefa2"
+}

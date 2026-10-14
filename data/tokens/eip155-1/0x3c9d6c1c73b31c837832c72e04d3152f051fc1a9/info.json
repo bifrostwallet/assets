@@ -1,0 +1,9 @@
+{
+  "name": "BoringDAO Legacy",
+  "symbol": "BOR",
+  "decimals": 18,
+  "address": "0x3c9d6c1c73b31c837832c72e04d3152f051fc1a9",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x3c9d6c1c73b31c837832c72e04d3152f051fc1a9/logo.webp",
+  "logoHash": "835b3950f156ca518f536acdd8855fc118db1df42927554ce5099c2dc93552b2"
+}

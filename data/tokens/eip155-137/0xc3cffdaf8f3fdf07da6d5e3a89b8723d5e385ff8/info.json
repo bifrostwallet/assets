@@ -1,0 +1,9 @@
+{
+  "name": "Rubic",
+  "symbol": "RBC",
+  "decimals": 18,
+  "address": "0xc3cffdaf8f3fdf07da6d5e3a89b8723d5e385ff8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0xc3cffdaf8f3fdf07da6d5e3a89b8723d5e385ff8/logo.webp",
+  "logoHash": "6445173f1dd8cc41b43026e31116e0c0b643a6ca830705d0d0aecb35a889f22d"
+}

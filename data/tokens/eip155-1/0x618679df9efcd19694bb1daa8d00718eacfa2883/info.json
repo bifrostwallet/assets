@@ -1,0 +1,9 @@
+{
+  "name": "Universe.XYZ",
+  "symbol": "XYZ",
+  "decimals": 18,
+  "address": "0x618679df9efcd19694bb1daa8d00718eacfa2883",
+  "coingeckoId": "universe-xyz",
+  "logoURL": "tokens/eip155-1/0x618679df9efcd19694bb1daa8d00718eacfa2883/logo.webp",
+  "logoHash": "d1ac24c68d860bc7ea15e59732a5247c26231a43b509f18f8c0f61ab5534c4ca"
+}

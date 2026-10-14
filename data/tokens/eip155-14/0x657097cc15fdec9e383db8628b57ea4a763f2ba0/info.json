@@ -1,0 +1,9 @@
+{
+  "name": "SparkDEX",
+  "symbol": "SPRK",
+  "decimals": 18,
+  "address": "0x657097cc15fdec9e383db8628b57ea4a763f2ba0",
+  "coingeckoId": "sparkdex",
+  "logoURL": "tokens/eip155-14/0x657097cc15fdec9e383db8628b57ea4a763f2ba0/logo.webp",
+  "logoHash": "7a21af8c5d955cf13012898feff60767dbddbe856b2965230349d161228a64da"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "COTI Token",
+  "symbol": "COTI",
+  "decimals": 18,
+  "address": "0xddb3422497e61e13543bea06989c0789117555c5",
+  "coingeckoId": "coti",
+  "logoURL": "tokens/eip155-1/0xddb3422497e61e13543bea06989c0789117555c5/logo.webp",
+  "logoHash": "5f93cc9a76fe52736aac5568ccb6094dd6d67900b44cd7ae2ab2e325b964fb8a"
+}

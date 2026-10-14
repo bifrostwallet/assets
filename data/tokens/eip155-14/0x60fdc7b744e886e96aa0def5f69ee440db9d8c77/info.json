@@ -1,0 +1,9 @@
+{
+  "name": "Enosys Quant",
+  "symbol": "eQNT",
+  "decimals": 18,
+  "address": "0x60fdc7b744e886e96aa0def5f69ee440db9d8c77",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0x60fdc7b744e886e96aa0def5f69ee440db9d8c77/logo.webp",
+  "logoHash": "60c6bfc231a18ef789c65bdb6677406213256a8c44e46e200f2d31c281949d66"
+}

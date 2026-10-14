@@ -1,0 +1,9 @@
+{
+  "name": "Prometeus",
+  "symbol": "PROM",
+  "decimals": 18,
+  "address": "0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5",
+  "coingeckoId": "prometeus",
+  "logoURL": "tokens/eip155-56/0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5/logo.webp",
+  "logoHash": "747351719204b135a20def3cc333c8068ae1ad05d98d07ba8869345c16d664a9"
+}

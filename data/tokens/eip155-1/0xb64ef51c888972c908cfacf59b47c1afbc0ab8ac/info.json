@@ -1,0 +1,9 @@
+{
+  "name": "Storj",
+  "symbol": "STORJ",
+  "decimals": 8,
+  "address": "0xb64ef51c888972c908cfacf59b47c1afbc0ab8ac",
+  "coingeckoId": "storj",
+  "logoURL": "tokens/eip155-1/0xb64ef51c888972c908cfacf59b47c1afbc0ab8ac/logo.webp",
+  "logoHash": "a5f4c302ae15143e167257af256e9a2c6ab285f7306da635a820d60312fc6e59"
+}

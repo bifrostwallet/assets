@@ -1,0 +1,9 @@
+{
+  "name": "Compound Augur",
+  "symbol": "CREP",
+  "decimals": 8,
+  "address": "0x158079ee67fce2f58472a96584a73c7ab9ac95c1",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x158079ee67fce2f58472a96584a73c7ab9ac95c1/logo.webp",
+  "logoHash": "36f7ebed579ecaaa6f8760daa0cc09833ef41d3e3332269cd5f7c7aa80bb1296"
+}

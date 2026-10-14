@@ -1,0 +1,9 @@
+{
+  "name": "Enzyme",
+  "symbol": "MLN",
+  "decimals": 18,
+  "address": "0xec67005c4e498ec7f55e092bd1d35cbc47c91892",
+  "coingeckoId": "melon",
+  "logoURL": "tokens/eip155-1/0xec67005c4e498ec7f55e092bd1d35cbc47c91892/logo.webp",
+  "logoHash": "ebd869e6611034b6fefd55f3c04e5bd9c15f27653d1154859d642f8d0af33c9d"
+}

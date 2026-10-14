@@ -1,0 +1,9 @@
+{
+  "name": "Synth yearn.finance",
+  "symbol": "SYFI",
+  "decimals": 18,
+  "address": "0x992058b7db08f9734d84485bfbc243c4ee6954a7",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x992058b7db08f9734d84485bfbc243c4ee6954a7/logo.webp",
+  "logoHash": "93a2a61c5891275db864e5fd22d6259d5fef07cc7c1a63d6093eb94476cdf791"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Sora",
+  "symbol": "XOR",
+  "decimals": 18,
+  "address": "0x40fd72257597aa14c7231a7b1aaa29fce868f677",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x40fd72257597aa14c7231a7b1aaa29fce868f677/logo.webp",
+  "logoHash": "9352e12f611aac34dd75dc23cad18b0c2afd266030cb082d76110dd94b0c7d29"
+}

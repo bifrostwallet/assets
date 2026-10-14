@@ -1,0 +1,9 @@
+{
+  "name": "Metadium",
+  "symbol": "META",
+  "decimals": 18,
+  "address": "0xde2f7766c8bf14ca67193128535e5c7454f8387c",
+  "coingeckoId": "metadium",
+  "logoURL": "tokens/eip155-1/0xde2f7766c8bf14ca67193128535e5c7454f8387c/logo.webp",
+  "logoHash": "71599e4552b9b9b1fcfa51caabd54eb6669b220e15a46ed6b9e92f7fc3ac2a7d"
+}

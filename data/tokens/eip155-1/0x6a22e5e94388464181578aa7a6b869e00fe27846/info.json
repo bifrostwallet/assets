@@ -1,0 +1,9 @@
+{
+  "name": "Synth Silver Ounce",
+  "symbol": "SXAG",
+  "decimals": 18,
+  "address": "0x6a22e5e94388464181578aa7a6b869e00fe27846",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x6a22e5e94388464181578aa7a6b869e00fe27846/logo.webp",
+  "logoHash": "bd91fd69212df19c0185a1b090a9265dca0e374f6b5d33d7d11e4c6f3b547d69"
+}

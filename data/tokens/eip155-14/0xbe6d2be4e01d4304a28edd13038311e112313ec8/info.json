@@ -1,0 +1,9 @@
+{
+  "name": "Dinero OFT",
+  "symbol": "DINERO",
+  "decimals": 18,
+  "address": "0xbe6d2be4e01d4304a28edd13038311e112313ec8",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xbe6d2be4e01d4304a28edd13038311e112313ec8/logo.webp",
+  "logoHash": "1d05abfaf45cc9be15874109e4262c4426a9325311bd9a6934de9eb27222097c"
+}

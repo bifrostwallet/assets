@@ -1,0 +1,9 @@
+{
+  "name": "AscendEx Token",
+  "symbol": "ASD",
+  "decimals": 18,
+  "address": "0xff742d05420b6aca4481f635ad8341f81a6300c2",
+  "coingeckoId": "asd",
+  "logoURL": "tokens/eip155-1/0xff742d05420b6aca4481f635ad8341f81a6300c2/logo.webp",
+  "logoHash": "9d97eb7e58a12177f2d4bb635a0757c1b5b1edb31354daa5ea0fbaa3dc94e354"
+}

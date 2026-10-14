@@ -1,0 +1,9 @@
+{
+  "name": "Swipe",
+  "symbol": "SXP",
+  "decimals": 18,
+  "address": "0x47bead2563dcbf3bf2c9407fea4dc236faba485a",
+  "coingeckoId": "swipe",
+  "logoURL": "tokens/eip155-56/0x47bead2563dcbf3bf2c9407fea4dc236faba485a/logo.webp",
+  "logoHash": "4ce67212387f62657bb01826fe83336de2d7fb5985e112f177194c9c119afe18"
+}

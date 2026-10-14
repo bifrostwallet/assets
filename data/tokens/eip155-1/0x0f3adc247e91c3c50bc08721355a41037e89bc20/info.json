@@ -1,0 +1,9 @@
+{
+  "name": "Anchor Protocol",
+  "symbol": "ANC",
+  "decimals": 18,
+  "address": "0x0f3adc247e91c3c50bc08721355a41037e89bc20",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x0f3adc247e91c3c50bc08721355a41037e89bc20/logo.webp",
+  "logoHash": "aaa0fb484db95df690c8bb5fd55382b663b038dcc88503d8e016133c22167e39"
+}

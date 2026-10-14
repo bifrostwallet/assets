@@ -1,0 +1,9 @@
+{
+  "name": "SuperFarm",
+  "symbol": "SUPER",
+  "decimals": 18,
+  "address": "0xa1428174f516f527fafdd146b883bb4428682737",
+  "coingeckoId": "superfarm",
+  "logoURL": "tokens/eip155-137/0xa1428174f516f527fafdd146b883bb4428682737/logo.webp",
+  "logoHash": "91e0a62600556c304f57c08e4678b06d00c22f3d0e63e054c25b8e5a3ebc406a"
+}

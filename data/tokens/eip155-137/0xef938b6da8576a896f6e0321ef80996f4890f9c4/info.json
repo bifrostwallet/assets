@@ -1,0 +1,9 @@
+{
+  "name": "Decentral Games",
+  "symbol": "DG",
+  "decimals": 18,
+  "address": "0xef938b6da8576a896f6e0321ef80996f4890f9c4",
+  "coingeckoId": "decentral-games",
+  "logoURL": "tokens/eip155-137/0xef938b6da8576a896f6e0321ef80996f4890f9c4/logo.webp",
+  "logoHash": "7785201a2645714cb123e15cbdd522dbc44ad98b0a9d9d3b804513e69b1869d3"
+}

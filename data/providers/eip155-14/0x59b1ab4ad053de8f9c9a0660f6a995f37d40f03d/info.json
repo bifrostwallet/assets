@@ -1,0 +1,27 @@
+{
+  "name": "Flare Bank",
+  "description": "Flare Bank is providing you the ability to Experience the Power of Compound Gains",
+  "logoURL": "providers/eip155-14/0x59b1ab4ad053de8f9c9a0660f6a995f37d40f03d/logo.webp",
+  "logoHash": "1040b01c4cf12bffbc2d74994b88b215457cb7d7016b1cfff84619a16a6cbca5",
+  "websiteURL": "https://flrbank.com",
+  "links": {},
+  "identityAddress": "0x59b1ab4ad053de8f9c9a0660f6a995f37d40f03d",
+  "delegationAddress": "0xfa9368cfbee3b070d8552d8e75cdc0ff72efac50",
+  "signingPolicyAddress": "0x26bf9de6afcebd951ac521826f6463b078ec55ce",
+  "submitAddress": "0x68daef8ea63020d624b77b231c1a0590fa7b9e19",
+  "submitSignaturesAddress": "0xac8eba3cfe3fced349c8fefcff7c93b4a151e2ea",
+  "publicKey": "0x059fc9e10e322585c2131db112e22f0c832e610b2b15c863e4c01f21218cd4d2014673bd2036432ebe14c5510073e304f0220a479d3b496444034a722887953b",
+  "validators": [
+    "NodeID-GoVQ17h7kU1H3pKBZHF3cu2NyTBichnfg",
+    "NodeID-Mhm29H5a3Xq1jG9UpVoqo5mFXqqL3WpUV"
+  ],
+  "listed": false,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xac9e86ddbf4b010ebc345b1b56df834d9442f3803f04ff0af61c3a603bb89fda",
+    "blockNumber": 41780457,
+    "timestamp": "2025-05-19T05:41:40.000Z"
+  }
+}

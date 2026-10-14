@@ -1,0 +1,9 @@
+{
+  "name": "Everipedia",
+  "symbol": "IQ",
+  "decimals": 18,
+  "address": "0x579cea1889991f68acc35ff5c3dd0621ff29b0c9",
+  "coingeckoId": "everipedia",
+  "logoURL": "tokens/eip155-1/0x579cea1889991f68acc35ff5c3dd0621ff29b0c9/logo.webp",
+  "logoHash": "b8b00a00edf37f91de89298a2473c1354196cab89432afb993dae9f1e5efc0be"
+}

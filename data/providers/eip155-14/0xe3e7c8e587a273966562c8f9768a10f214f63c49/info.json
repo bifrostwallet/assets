@@ -1,0 +1,28 @@
+{
+  "name": "Atlas TSO",
+  "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
+  "logoURL": "providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
+  "logoHash": "5e1a708b378aee7f818695791eb34aae617c1a27d6c0dd75788bca69b35a315a",
+  "websiteURL": "https://tsoatlas.xyz",
+  "links": {},
+  "identityAddress": "0xe3e7c8e587a273966562c8f9768a10f214f63c49",
+  "delegationAddress": "0x07702a7494f760b0b3642463bdd2b7a13cfddbb2",
+  "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
+  "submitAddress": "0x991b71d7380e89354ea71007eb744316829b62ae",
+  "submitSignaturesAddress": "0x8b31c922bfc7f969585fda3e86faa873b72e88e4",
+  "publicKey": "0x0ab897da639da3b8cbf32988126bd94574c1bbf0d43cfe65c61f91fce19092dc0d2f70b0127d3b5d80cce12c355cbc2ec13c92de9bd4e18b840f0c1c1c6f839b",
+  "validators": [
+    "NodeID-DWh5dWPjkxHRsXJiNK5KQcEm5rDwEzikE",
+    "NodeID-JmYHE5qkDc7pxphwiRJss47vhmwAXavUi",
+    "NodeID-MsF6Xc1PsMWtcxVudCepWb5kUeF1EF8RX"
+  ],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xf0df7d22240340f79512cd000ac1751574bbc772a8226965bd572e356a21668f",
+    "blockNumber": 1591881,
+    "timestamp": "2022-10-06T16:13:30.000Z"
+  }
+}

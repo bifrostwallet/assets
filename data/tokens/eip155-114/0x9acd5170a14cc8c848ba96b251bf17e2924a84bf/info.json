@@ -1,0 +1,9 @@
+{
+  "name": "Joule",
+  "symbol": "JOULE",
+  "decimals": 18,
+  "address": "0x9acd5170a14cc8c848ba96b251bf17e2924a84bf",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-114/0x9acd5170a14cc8c848ba96b251bf17e2924a84bf/logo.webp",
+  "logoHash": "91ba043ddf014a81d483b5857ea495f4c00ac8f79ae62a36f3b72f10ed0170e7"
+}

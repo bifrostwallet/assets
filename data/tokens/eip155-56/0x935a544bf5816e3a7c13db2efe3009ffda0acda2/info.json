@@ -1,0 +1,9 @@
+{
+  "name": "Bluzelle",
+  "symbol": "BLZ",
+  "decimals": 18,
+  "address": "0x935a544bf5816e3a7c13db2efe3009ffda0acda2",
+  "coingeckoId": "bluzelle",
+  "logoURL": "tokens/eip155-56/0x935a544bf5816e3a7c13db2efe3009ffda0acda2/logo.webp",
+  "logoHash": "8de4f938c8047ee9b64a0197b08a7213377c91a1cd1cc0cd4a93a4af456d9f4e"
+}

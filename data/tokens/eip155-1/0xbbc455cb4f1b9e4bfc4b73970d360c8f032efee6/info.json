@@ -1,0 +1,9 @@
+{
+  "name": "Synth Chainlink",
+  "symbol": "SLINK",
+  "decimals": 18,
+  "address": "0xbbc455cb4f1b9e4bfc4b73970d360c8f032efee6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xbbc455cb4f1b9e4bfc4b73970d360c8f032efee6/logo.webp",
+  "logoHash": "6d315f7dd8fec29411abac220e2bc8bb76c0a7550f5fb881b7846b59dab6e0e4"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "AFOracle",
+  "description": "AFOracle is an FTSO provider from AFLabs, a team that helped build the Flare's smart contract infrastructure.",
+  "logoURL": "providers/eip155-19/0xc5261026e08ec6dc23162ef7eb1248548715be76/logo.webp",
+  "logoHash": "d11898797ebd85e821ec41ea1caee53ed2f3967ba12e3ce9d257e21dc6b7996a",
+  "websiteURL": "https://aforacle.com",
+  "links": {},
+  "identityAddress": "0xc5261026e08ec6dc23162ef7eb1248548715be76",
+  "delegationAddress": "0x9565d813a3a0cea62b3bdb9a4e236dcb5910c4f0",
+  "signingPolicyAddress": "0x558298090e6e5d439e792c9d1a3cde189a14037c",
+  "submitAddress": "0x3eb6a7ec0453b176a46a81ae49255e913b7e4749",
+  "submitSignaturesAddress": "0xfa0bc9ee91340b02d0d0a608b3cff23c38eda75b",
+  "publicKey": "0x1dfb1e7daaeb023e7c9809a65de2b13df63859eb182b75aa8f3cc080ba35a7a51fb8dc0e03fc55f326faa81b7ec0ec0dbd4695e071af15acabc5793a352affae",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x46866a154c687b0120cab688ba979133902da3b3f1268e22a35041146f89645f",
+    "blockNumber": 46903,
+    "timestamp": "2021-09-22T21:36:37.000Z"
+  }
+}

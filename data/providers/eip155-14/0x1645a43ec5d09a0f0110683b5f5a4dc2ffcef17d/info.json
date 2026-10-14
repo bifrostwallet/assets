@@ -1,0 +1,24 @@
+{
+  "name": "HP/Mana Nodes",
+  "description": "HP/Mana Nodes is a community based infrastructure provider on Flare Networks. Mint Player One or Player Two NFTs to fund our validator's self-bonding and secure your place as an infrastructure shareholder. The more FLR is bonded, the more yield is shared by all.",
+  "logoURL": "providers/eip155-14/0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d/logo.webp",
+  "logoHash": "1a11bd40547ce6a430e691d3f0a7165daff10a6405059ecb8dbefc44e536e679",
+  "websiteURL": "https://veriguardnft.xyz",
+  "links": {},
+  "identityAddress": "0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d",
+  "delegationAddress": "0xf61b94dedc5f23398997d73b7701d67556eaad6f",
+  "signingPolicyAddress": "0xdefaf698d59fe7bbb58950092e56da492079fb75",
+  "submitAddress": "0xe439e27259095dd0cec2eb48b9e5aa01ac41ee17",
+  "submitSignaturesAddress": "0x2580615e42d66ee0500d3969fce4d047d57cd4f3",
+  "publicKey": "0x2d4eedc5fc3e7265800513bf70776c04fea31e660fb5c272e92837e2cd75466819674af8effa0f453bc16a478318eae7977f70b88474a0e199411d620d4ff786",
+  "validators": ["NodeID-4YtvwPgc578pqKhHoYtP4VTKVejXg7JBF"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0xbb4917d34e08be50bd0e7097c133cc4f7f375f174ef6c7fe06f030af710800aa",
+    "blockNumber": 43599946,
+    "timestamp": "2025-06-24T22:26:17.000Z"
+  }
+}

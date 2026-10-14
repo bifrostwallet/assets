@@ -1,0 +1,9 @@
+{
+  "name": "WazirX",
+  "symbol": "WRX",
+  "decimals": 8,
+  "address": "0x72d6066f486bd0052eefb9114b66ae40e0a6031a",
+  "coingeckoId": "wazirx",
+  "logoURL": "tokens/eip155-137/0x72d6066f486bd0052eefb9114b66ae40e0a6031a/logo.webp",
+  "logoHash": "3bdb0f87bbda87e007526008253c8eda0d1ac7ec0e9c981192176c4e2c22d47d"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Planet Finance",
+  "symbol": "AQUA",
+  "decimals": 18,
+  "address": "0x72b7d61e8fc8cf971960dd9cfa59b8c829d91991",
+  "coingeckoId": "planet-finance",
+  "logoURL": "tokens/eip155-56/0x72b7d61e8fc8cf971960dd9cfa59b8c829d91991/logo.webp",
+  "logoHash": "61b47f8897d372994f98476fb8a0b0b74b635cc64238123a55378685aa85aa70"
+}

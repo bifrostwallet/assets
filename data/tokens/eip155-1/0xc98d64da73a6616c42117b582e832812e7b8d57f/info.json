@@ -1,0 +1,9 @@
+{
+  "name": "RSS3",
+  "symbol": "RSS3",
+  "decimals": 18,
+  "address": "0xc98d64da73a6616c42117b582e832812e7b8d57f",
+  "coingeckoId": "rss3",
+  "logoURL": "tokens/eip155-1/0xc98d64da73a6616c42117b582e832812e7b8d57f/logo.webp",
+  "logoHash": "ea9f71ba7cfd96011c7521120ca40e2297156af55d9520c99728b3058004c950"
+}

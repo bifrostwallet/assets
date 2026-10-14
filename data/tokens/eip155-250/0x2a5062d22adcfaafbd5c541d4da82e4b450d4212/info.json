@@ -1,0 +1,9 @@
+{
+  "name": "Keep3rV1",
+  "symbol": "KP3R",
+  "decimals": 18,
+  "address": "0x2a5062d22adcfaafbd5c541d4da82e4b450d4212",
+  "coingeckoId": "keep3rv1",
+  "logoURL": "tokens/eip155-250/0x2a5062d22adcfaafbd5c541d4da82e4b450d4212/logo.webp",
+  "logoHash": "9f48825b529b164bef32215a9ce9b1671fd6505f50eb02a2d02c5069f9714d24"
+}

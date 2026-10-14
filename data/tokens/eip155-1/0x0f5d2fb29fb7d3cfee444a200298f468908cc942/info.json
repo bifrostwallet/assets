@@ -1,0 +1,9 @@
+{
+  "name": "Decentraland",
+  "symbol": "MANA",
+  "decimals": 18,
+  "address": "0x0f5d2fb29fb7d3cfee444a200298f468908cc942",
+  "coingeckoId": "decentraland",
+  "logoURL": "tokens/eip155-1/0x0f5d2fb29fb7d3cfee444a200298f468908cc942/logo.webp",
+  "logoHash": "9f6ffc67fa8b1e6d78965f8cf9925e8fef8488212948d61b37b375b7ac35056d"
+}

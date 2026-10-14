@@ -1,0 +1,9 @@
+{
+  "name": "Canary Dollar",
+  "symbol": "CAND",
+  "decimals": 18,
+  "address": "0x70ad7172ef0b131a1428d0c1f66457eb041f2176",
+  "coingeckoId": "canary-dollar",
+  "logoURL": "tokens/eip155-19/0x70ad7172ef0b131a1428d0c1f66457eb041f2176/logo.webp",
+  "logoHash": "e360f348b7a23584fbcfb6c47a05a958461d443d2715114572a7fa4a35a476e0"
+}

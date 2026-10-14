@@ -1,0 +1,9 @@
+{
+  "name": "NXM",
+  "symbol": "NXM",
+  "decimals": 18,
+  "address": "0xd7c49cee7e9188cca6ad8ff264c1da2e69d4cf3b",
+  "coingeckoId": "nxm",
+  "logoURL": "tokens/eip155-1/0xd7c49cee7e9188cca6ad8ff264c1da2e69d4cf3b/logo.webp",
+  "logoHash": "438bf66df51d345064fcf84e1c8204c7490d05b2ff96ffccb8351cac79e9a0c1"
+}

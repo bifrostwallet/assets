@@ -1,0 +1,9 @@
+{
+  "name": "QANplatform",
+  "symbol": "QANX",
+  "decimals": 18,
+  "address": "0xaaa7a10a8ee237ea61e8ac46c50a8db8bcc1baaa",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0xaaa7a10a8ee237ea61e8ac46c50a8db8bcc1baaa/logo.webp",
+  "logoHash": "ef6724842f8505eb3137ff1cbc5e0e8a5a5b1cbda13ab9a54f4335dc8ba483d1"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "InfStones",
+  "description": "Infinite ease, speed, power. The ultimate WEB3 infrastructure platform",
+  "logoURL": "providers/eip155-14/0xe34fb45b2e966a69f8b2a17118aa14d57667d197/logo.webp",
+  "logoHash": "3e33a0b84822fa9027ba458bf199f5b32facf3fb5593b3793c588e06f5035bdf",
+  "websiteURL": "https://infstones.com",
+  "links": {},
+  "identityAddress": "0xe34fb45b2e966a69f8b2a17118aa14d57667d197",
+  "delegationAddress": "0xb1aa0f2691db6bbb2969efc7be70787f58dd2461",
+  "signingPolicyAddress": "0x21a3d0638acc6f3b7a451ca9783895f1eec754a5",
+  "submitAddress": "0xe4b58cf70eb715b1a8f04f666ea46af7d7046355",
+  "submitSignaturesAddress": "0x3d1714cf13ee2bca851e18dc03e68939a9284d43",
+  "publicKey": "0x291400fbfb18cab0e256073214fd5eecf66028b6198180f37b4b4c5c4c81c73c22c4fb169e56b0555284d68e6d3cb59de2afac8a44dbba7aa8bc33d6411f2a66",
+  "validators": [
+    "NodeID-4zWvBNmsbaS9UKQf6wcWgWGWRfitcGAuV",
+    "NodeID-5JkXthgpWVDq6utrtV1YVG7aspsHjhezM"
+  ],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x5cbdd933be2e2f0b993aad66966faad923dc13d0fb36804b94e9db0cc1c2c3c9",
+    "blockNumber": 13906740,
+    "timestamp": "2023-10-11T19:31:02.000Z"
+  }
+}

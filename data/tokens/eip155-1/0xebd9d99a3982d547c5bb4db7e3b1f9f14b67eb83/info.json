@@ -1,0 +1,9 @@
+{
+  "name": "Everest",
+  "symbol": "ID",
+  "decimals": 18,
+  "address": "0xebd9d99a3982d547c5bb4db7e3b1f9f14b67eb83",
+  "coingeckoId": "everid",
+  "logoURL": "tokens/eip155-1/0xebd9d99a3982d547c5bb4db7e3b1f9f14b67eb83/logo.webp",
+  "logoHash": "487d75946d917b87f2dc1cd1e06cc3a05364f6e220cd6528d28ca0a825aa8397"
+}

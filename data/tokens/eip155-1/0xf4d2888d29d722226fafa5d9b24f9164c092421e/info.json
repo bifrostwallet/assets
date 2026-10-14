@@ -1,0 +1,9 @@
+{
+  "name": "LooksRare",
+  "symbol": "LOOKS",
+  "decimals": 18,
+  "address": "0xf4d2888d29d722226fafa5d9b24f9164c092421e",
+  "coingeckoId": "looksrare",
+  "logoURL": "tokens/eip155-1/0xf4d2888d29d722226fafa5d9b24f9164c092421e/logo.webp",
+  "logoHash": "152d2521e263a379077013dc88ba0da9564ca56a309b7473eeb486bc00234d62"
+}

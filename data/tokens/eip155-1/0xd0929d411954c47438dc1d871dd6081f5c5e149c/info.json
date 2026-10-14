@@ -1,0 +1,9 @@
+{
+  "name": "Refereum",
+  "symbol": "RFR",
+  "decimals": 4,
+  "address": "0xd0929d411954c47438dc1d871dd6081f5c5e149c",
+  "coingeckoId": "refereum",
+  "logoURL": "tokens/eip155-1/0xd0929d411954c47438dc1d871dd6081f5c5e149c/logo.webp",
+  "logoHash": "cd41867b15d4aeaeffecd5c0b1877f4141edfe629d75fa2c1a5c2917e9e28827"
+}

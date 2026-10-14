@@ -1,0 +1,9 @@
+{
+  "name": "GMX",
+  "symbol": "GMX",
+  "decimals": 18,
+  "address": "0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a",
+  "coingeckoId": "gmx",
+  "logoURL": "tokens/eip155-42161/0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a/logo.webp",
+  "logoHash": "0d267efb68e063eb29028cd8a5a99314db0b74a81973aadcb3be3f1e394160e0"
+}

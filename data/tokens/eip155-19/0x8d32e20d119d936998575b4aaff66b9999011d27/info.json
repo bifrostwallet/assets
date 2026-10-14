@@ -1,0 +1,9 @@
+{
+  "name": "CanaryX",
+  "symbol": "CNYX",
+  "decimals": 18,
+  "address": "0x8d32e20d119d936998575b4aaff66b9999011d27",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x8d32e20d119d936998575b4aaff66b9999011d27/logo.webp",
+  "logoHash": "3b2f3157c3629d1453bf581a3658e33c5a111754f59d6cc2146fb48f6e3146c4"
+}

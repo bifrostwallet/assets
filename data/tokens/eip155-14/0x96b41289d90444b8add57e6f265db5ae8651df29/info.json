@@ -1,0 +1,9 @@
+{
+  "name": "Enosys USDT",
+  "symbol": "eUSDT",
+  "decimals": 6,
+  "address": "0x96b41289d90444b8add57e6f265db5ae8651df29",
+  "coingeckoId": "enosys-usdt",
+  "logoURL": "tokens/eip155-14/0x96b41289d90444b8add57e6f265db5ae8651df29/logo.webp",
+  "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
+}

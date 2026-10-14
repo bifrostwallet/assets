@@ -1,0 +1,9 @@
+{
+  "name": "Waves",
+  "symbol": "WAVES",
+  "decimals": 18,
+  "address": "0x1cf4592ebffd730c7dc92c1bdffdfc3b9efcf29a",
+  "coingeckoId": "waves",
+  "logoURL": "tokens/eip155-1/0x1cf4592ebffd730c7dc92c1bdffdfc3b9efcf29a/logo.webp",
+  "logoHash": "d813cdbe535efdf12668333184ed2c58954f14603f951ef7a5504f7bd74b7ede"
+}

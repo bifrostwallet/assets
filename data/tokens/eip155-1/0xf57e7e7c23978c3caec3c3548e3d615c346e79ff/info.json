@@ -1,0 +1,9 @@
+{
+  "name": "Immutable X",
+  "symbol": "IMX",
+  "decimals": 18,
+  "address": "0xf57e7e7c23978c3caec3c3548e3d615c346e79ff",
+  "coingeckoId": "immutable-x",
+  "logoURL": "tokens/eip155-1/0xf57e7e7c23978c3caec3c3548e3d615c346e79ff/logo.webp",
+  "logoHash": "c0c9357ceb38f6cd40bfe6b491fb9c06f20ab0aa7093f711e1f4d5599b56c107"
+}

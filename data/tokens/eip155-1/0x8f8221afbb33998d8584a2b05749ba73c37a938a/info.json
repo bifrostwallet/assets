@@ -1,0 +1,9 @@
+{
+  "name": "Request",
+  "symbol": "REQ",
+  "decimals": 18,
+  "address": "0x8f8221afbb33998d8584a2b05749ba73c37a938a",
+  "coingeckoId": "request-network",
+  "logoURL": "tokens/eip155-1/0x8f8221afbb33998d8584a2b05749ba73c37a938a/logo.webp",
+  "logoHash": "b07d13cd4b2d363b623f4400906331f62e7fbef95a0f4e2389853878838a16f1"
+}

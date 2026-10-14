@@ -1,0 +1,24 @@
+{
+  "name": "LightFTSO",
+  "description": "Homebrewed FTSO, light, nimble, with high rewards and lower fees. Get on! We're getting passive income!",
+  "logoURL": "providers/eip155-14/0x693a28bcd38f99308315074a2f6e7535fecd27fa/logo.webp",
+  "logoHash": "ff291af8c7afdc5a30e0e5f3a3bcb0a9faf12917ecd0a63fd1e4c03a442e848c",
+  "websiteURL": "https://www.lightft.so",
+  "links": {},
+  "identityAddress": "0x693a28bcd38f99308315074a2f6e7535fecd27fa",
+  "delegationAddress": "0xa9c69eb9de79188a9aba46c5336607f88a80ec89",
+  "signingPolicyAddress": "0x41800ccae0b9aba34f9f581739372f853b54067d",
+  "submitAddress": "0x3d71539f5814b3f77e084fe636378aa0b59a38c2",
+  "submitSignaturesAddress": "0x17e69eedb52bdc522b7498958323fcac85d50473",
+  "publicKey": "0x1042051579aa9a3ac8a8a0b232fe2bc16b797677e4f528bb1b0eea2c32d5350d0bffdc08325a0e735947678859349d7923312c791a78ccaef596feadd3222421",
+  "validators": ["NodeID-4e5tHaeoLvpXjtY5uMXtuYJgEWZ2JiC4D"],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": false,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0xcbbeb85eb5775e86e6bb2de933d65195f9cc824396b6a3342a170aebaca08aba",
+    "blockNumber": 17147,
+    "timestamp": "2022-07-22T20:06:08.000Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Singularity NET",
+  "symbol": "AGIX",
+  "decimals": 8,
+  "address": "0x5b7533812759b45c2b44c19e320ba2cd2681b542",
+  "coingeckoId": "singularitynet",
+  "logoURL": "tokens/eip155-1/0x5b7533812759b45c2b44c19e320ba2cd2681b542/logo.webp",
+  "logoHash": "55c63fe0292cb3eb1b6ce0d7530ca11615967989f31102721bd4af4a4fe4a480"
+}

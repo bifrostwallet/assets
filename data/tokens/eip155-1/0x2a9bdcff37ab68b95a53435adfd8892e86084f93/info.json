@@ -1,0 +1,9 @@
+{
+  "name": "Alpha Quark Token",
+  "symbol": "AQT",
+  "decimals": 18,
+  "address": "0x2a9bdcff37ab68b95a53435adfd8892e86084f93",
+  "coingeckoId": "alpha-quark-token",
+  "logoURL": "tokens/eip155-1/0x2a9bdcff37ab68b95a53435adfd8892e86084f93/logo.webp",
+  "logoHash": "ce9efe15322ab993158b0ef280d3b741024cee960a5a9594d651e7703de86e43"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Metahero",
+  "symbol": "HERO",
+  "decimals": 18,
+  "address": "0xd40bedb44c081d2935eeba6ef5a3c8a31a1bbe13",
+  "coingeckoId": "metahero",
+  "logoURL": "tokens/eip155-56/0xd40bedb44c081d2935eeba6ef5a3c8a31a1bbe13/logo.webp",
+  "logoHash": "fa8ad53d01efd1adeb98983c7f879210ed6411450eda049c3d8275dc0b437af6"
+}

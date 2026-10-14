@@ -1,0 +1,9 @@
+{
+  "name": "Mute",
+  "symbol": "MUTE",
+  "decimals": 18,
+  "address": "0xa49d7499271ae71cd8ab9ac515e6694c755d400c",
+  "coingeckoId": "mute",
+  "logoURL": "tokens/eip155-1/0xa49d7499271ae71cd8ab9ac515e6694c755d400c/logo.webp",
+  "logoHash": "80aa6dbb2c99302354f22eaa43b7be6bd474d5c2b24becf231723e8f673458b9"
+}

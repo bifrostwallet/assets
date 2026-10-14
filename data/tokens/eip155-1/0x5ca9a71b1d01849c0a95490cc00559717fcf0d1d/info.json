@@ -1,0 +1,9 @@
+{
+  "name": "Aeternity",
+  "symbol": "AE",
+  "decimals": 18,
+  "address": "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d/logo.webp",
+  "logoHash": "b97a63bd2a7de803c5fb4d2fe2d61ce923e6bac6f6b814cdfa3edbb80ffbe1bb"
+}

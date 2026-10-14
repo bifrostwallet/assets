@@ -1,0 +1,9 @@
+{
+  "name": "ANGLE",
+  "symbol": "ANGLE",
+  "decimals": 18,
+  "address": "0x31429d1856ad1377a8a0079410b297e1a9e214c2",
+  "coingeckoId": "angle-protocol",
+  "logoURL": "tokens/eip155-1/0x31429d1856ad1377a8a0079410b297e1a9e214c2/logo.webp",
+  "logoHash": "cc72338f5836dec2832801d16d4b2ed3528eaf201cb5f7ee6d09251e1cd91aa2"
+}

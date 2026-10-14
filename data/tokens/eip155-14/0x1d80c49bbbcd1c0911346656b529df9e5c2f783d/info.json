@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped Flare",
+  "symbol": "WFLR",
+  "decimals": 18,
+  "address": "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
+  "coingeckoId": "flare-networks",
+  "logoURL": "tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
+  "logoHash": "2acc89059d2eaaea493fe7bab098cb97d875eb3cea18991e7ebda0abb97bebf7"
+}

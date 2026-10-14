@@ -1,0 +1,9 @@
+{
+  "name": "USDe",
+  "symbol": "USDe",
+  "decimals": 18,
+  "address": "0x4c9edd5852cd905f086c759e8383e09bff1e68b3",
+  "coingeckoId": "ethena-usde",
+  "logoURL": "tokens/eip155-1/0x4c9edd5852cd905f086c759e8383e09bff1e68b3/logo.webp",
+  "logoHash": "949fdc0db8fa19247a733855dab66563192cdfac0fe7d01c429e2aa1e0cf107e"
+}

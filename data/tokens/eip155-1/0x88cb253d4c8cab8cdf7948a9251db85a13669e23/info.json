@@ -1,0 +1,9 @@
+{
+  "name": "Yieldly",
+  "symbol": "YLDY",
+  "decimals": 18,
+  "address": "0x88cb253d4c8cab8cdf7948a9251db85a13669e23",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x88cb253d4c8cab8cdf7948a9251db85a13669e23/logo.webp",
+  "logoHash": "cd31d4237fed95f20aa95de0d3b4085f55c68e844895ede28a24964d79d09e91"
+}

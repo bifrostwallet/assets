@@ -1,0 +1,9 @@
+{
+  "name": "DFI.money",
+  "symbol": "YFII",
+  "decimals": 18,
+  "address": "0xa1d0e215a23d7030842fc67ce582a6afa3ccab83",
+  "coingeckoId": "yfii-finance",
+  "logoURL": "tokens/eip155-1/0xa1d0e215a23d7030842fc67ce582a6afa3ccab83/logo.webp",
+  "logoHash": "9f84deca755e1bf594ad0143da3ef47433ab899d7fd8d8a614f0e84401530d9d"
+}

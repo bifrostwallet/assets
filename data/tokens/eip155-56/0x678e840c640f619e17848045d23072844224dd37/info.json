@@ -1,0 +1,9 @@
+{
+  "name": "Cratos",
+  "symbol": "CRTS",
+  "decimals": 18,
+  "address": "0x678e840c640f619e17848045d23072844224dd37",
+  "coingeckoId": "cratos",
+  "logoURL": "tokens/eip155-56/0x678e840c640f619e17848045d23072844224dd37/logo.webp",
+  "logoHash": "652fc3f599a1c8570b54397ce845b15b33f013c14ba038e72220e688fa81793f"
+}

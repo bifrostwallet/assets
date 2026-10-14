@@ -1,0 +1,9 @@
+{
+  "name": "ARPA Chain",
+  "symbol": "ARPA",
+  "decimals": 18,
+  "address": "0xee800b277a96b0f490a1a732e1d6395fad960a26",
+  "coingeckoId": "arpa",
+  "logoURL": "tokens/eip155-137/0xee800b277a96b0f490a1a732e1d6395fad960a26/logo.webp",
+  "logoHash": "4abd79032d2bb7a5bc4f9401141d6d4d9e99f98dec0e907c24e89710156de3e9"
+}

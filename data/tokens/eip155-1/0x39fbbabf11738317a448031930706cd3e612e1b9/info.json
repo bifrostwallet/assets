@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped XRP",
+  "symbol": "WXRP",
+  "decimals": 18,
+  "address": "0x39fbbabf11738317a448031930706cd3e612e1b9",
+  "coingeckoId": "wrapped-xrp",
+  "logoURL": "tokens/eip155-1/0x39fbbabf11738317a448031930706cd3e612e1b9/logo.webp",
+  "logoHash": "256d73cd82cec92b633fc267d2f2ef302d8c32fc457df79dfc7b422efe372f84"
+}

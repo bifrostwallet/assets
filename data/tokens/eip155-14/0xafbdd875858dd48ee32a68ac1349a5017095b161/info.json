@@ -1,0 +1,9 @@
+{
+  "name": "xHaven",
+  "symbol": "XVN",
+  "decimals": 18,
+  "address": "0xafbdd875858dd48ee32a68ac1349a5017095b161",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xafbdd875858dd48ee32a68ac1349a5017095b161/logo.webp",
+  "logoHash": "b2b9d1dbaedaab9d4f0124dfe321f1d5582eae593daa8ad059318907a2b1d46c"
+}

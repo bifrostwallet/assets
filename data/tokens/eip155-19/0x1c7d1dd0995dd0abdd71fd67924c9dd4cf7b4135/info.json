@@ -1,0 +1,9 @@
+{
+  "name": "CanaryGold",
+  "symbol": "CGLD",
+  "decimals": 18,
+  "address": "0x1c7d1dd0995dd0abdd71fd67924c9dd4cf7b4135",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x1c7d1dd0995dd0abdd71fd67924c9dd4cf7b4135/logo.webp",
+  "logoHash": "ca56f8590f6b802d285422e4a2f6ed01534d240f72adbe0669883f46f6ebccd9"
+}

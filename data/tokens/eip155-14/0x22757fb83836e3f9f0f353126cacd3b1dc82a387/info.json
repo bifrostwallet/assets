@@ -1,0 +1,9 @@
+{
+  "name": "FlareFox",
+  "symbol": "FLX",
+  "decimals": 18,
+  "address": "0x22757fb83836e3f9f0f353126cacd3b1dc82a387",
+  "coingeckoId": "flarefox",
+  "logoURL": "tokens/eip155-14/0x22757fb83836e3f9f0f353126cacd3b1dc82a387/logo.webp",
+  "logoHash": "775583efa798884bfbac63fc1a049b6d4080de1353c7740e27ae32f5f47f7200"
+}

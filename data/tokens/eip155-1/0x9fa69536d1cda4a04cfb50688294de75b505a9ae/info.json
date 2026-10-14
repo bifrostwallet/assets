@@ -1,0 +1,9 @@
+{
+  "name": "DeRace",
+  "symbol": "DERC",
+  "decimals": 18,
+  "address": "0x9fa69536d1cda4a04cfb50688294de75b505a9ae",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x9fa69536d1cda4a04cfb50688294de75b505a9ae/logo.webp",
+  "logoHash": "88d9001f0ea74d4776a844aad7bfba1068514934cbd1576489e78228824b21e7"
+}

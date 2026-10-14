@@ -1,0 +1,9 @@
+{
+  "name": "USDK",
+  "symbol": "USDK",
+  "decimals": 18,
+  "address": "0x1c48f86ae57291f7686349f12601910bd8d470bb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x1c48f86ae57291f7686349f12601910bd8d470bb/logo.webp",
+  "logoHash": "ffd3eba52096418b44cf3fa62c95ba9fd7c43d215beb6773b684cc6c54a08c21"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Test LTC",
+  "symbol": "testLTC",
+  "decimals": 8,
+  "address": "0x73b6db4b0aed010487cfd1138ff8d7c908151181",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-16/0x73b6db4b0aed010487cfd1138ff8d7c908151181/logo.webp",
+  "logoHash": "86cecf4762c9e52607110a5cac47ca0cc9d073329c4dace7a4ed42e5e89cfa82"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Electra Protocol",
+  "symbol": "XEP",
+  "decimals": 8,
+  "address": "0xb897d0a0f68800f8be7d69ffdd1c24b69f57bf3e",
+  "coingeckoId": "electra-protocol",
+  "logoURL": "tokens/eip155-56/0xb897d0a0f68800f8be7d69ffdd1c24b69f57bf3e/logo.webp",
+  "logoHash": "a01ff16ae647953bce1dab7547e7d56bc13b98c9f922068d3acd6c9c8cf2b558"
+}

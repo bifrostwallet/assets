@@ -1,0 +1,9 @@
+{
+  "name": "Compound Uni",
+  "symbol": "CUNI",
+  "decimals": 8,
+  "address": "0x35a18000230da775cac24873d00ff85bccded550",
+  "coingeckoId": "compound-uniswap",
+  "logoURL": "tokens/eip155-1/0x35a18000230da775cac24873d00ff85bccded550/logo.webp",
+  "logoHash": "ae6d0c04066ea63fdff1516dc0434f39d25802f24589569a237ce509b539f18d"
+}

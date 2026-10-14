@@ -1,0 +1,9 @@
+{
+  "name": "sFortuna",
+  "symbol": "SFORT",
+  "decimals": 18,
+  "address": "0x9e2e6c16803878c18e54ed74f05aeafcce464626",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-19/0x9e2e6c16803878c18e54ed74f05aeafcce464626/logo.webp",
+  "logoHash": "598f3facb92b0a7c8175eec94146384272e3ecbc679a1e50da353aa25ff6189f"
+}

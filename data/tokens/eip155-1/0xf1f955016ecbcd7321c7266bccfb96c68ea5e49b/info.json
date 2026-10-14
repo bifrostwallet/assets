@@ -1,0 +1,9 @@
+{
+  "name": "Rally",
+  "symbol": "RLY",
+  "decimals": 18,
+  "address": "0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b",
+  "coingeckoId": "rally-2",
+  "logoURL": "tokens/eip155-1/0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b/logo.webp",
+  "logoHash": "8305d9f1284c8c6ce0e5000c2318f160fa38373bb85e4df1b224394cd8199060"
+}

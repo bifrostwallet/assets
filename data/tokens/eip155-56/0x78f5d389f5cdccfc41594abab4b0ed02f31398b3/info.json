@@ -1,0 +1,9 @@
+{
+  "name": "ApolloX",
+  "symbol": "APX",
+  "decimals": 18,
+  "address": "0x78f5d389f5cdccfc41594abab4b0ed02f31398b3",
+  "coingeckoId": "apollox-2",
+  "logoURL": "tokens/eip155-56/0x78f5d389f5cdccfc41594abab4b0ed02f31398b3/logo.webp",
+  "logoHash": "cd1dbf97af6ad3c27120c65723e4680134623a1dd48a25dd3da216b0b9bdc093"
+}

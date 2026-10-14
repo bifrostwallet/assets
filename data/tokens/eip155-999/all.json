@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Kinetiq",
+    "symbol": "KNTQ",
+    "decimals": 18,
+    "address": "0x000000000000780555bd0bca3791f89f9542c2d6",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x000000000000780555bd0bca3791f89f9542c2d6/logo.webp",
+    "logoHash": "593b9d0dbaa71e160e0c65965357a3e0e0a7d8f4bd15131217cd2d61f29c9763"
+  },
+  {
+    "name": "feUSD",
+    "symbol": "feUSD",
+    "decimals": 18,
+    "address": "0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x02c6a2fa58cc01a18b8d9e00ea48d65e4df26c70/logo.webp",
+    "logoHash": "d041cbab379369806bdc25201d7ede607e5658c652982c3885fb38ef6006f7f5"
+  },
+  {
+    "name": "Swap",
+    "symbol": "SWAP",
+    "decimals": 18,
+    "address": "0x03832767bdf9a8ef007449942125ad605acfadb8",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x03832767bdf9a8ef007449942125ad605acfadb8/logo.webp",
+    "logoHash": "d31dad09cdff453b19675d7338797a69e085b3d4141b601517eabbb31fb8b930"
+  },
+  {
+    "name": "USDH",
+    "symbol": "USDH",
+    "decimals": 6,
+    "address": "0x111111a1a0667d36bd57c0a9f569b98057111111",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x111111a1a0667d36bd57c0a9f569b98057111111/logo.webp",
+    "logoHash": "58314c8cefc61d61dd49277445e594d2c2d44dd17db0d63f5eae064c9ef0738b"
+  },
+  {
+    "name": "Kinetiq Markets LST",
+    "symbol": "kmHYPE",
+    "decimals": 18,
+    "address": "0x360c140e5344a1a0593d44b4ea6fc7c3daf0c473",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x360c140e5344a1a0593d44b4ea6fc7c3daf0c473/logo.webp",
+    "logoHash": "55ca71c543cb7eda3b4fd2464af28be708e36b7cbd1b324d80e769d3d959f6d0"
+  },
+  {
+    "name": "Wrapped HYPE",
+    "symbol": "WHYPE",
+    "decimals": 18,
+    "address": "0x5555555555555555555555555555555555555555",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x5555555555555555555555555555555555555555/logo.webp",
+    "logoHash": "9b637cd2c31884b9c033d3213e8cc40f457b98f2ee49d0e33c01af364983e3e5"
+  },
+  {
+    "name": "Looped HYPE",
+    "symbol": "LHYPE",
+    "decimals": 18,
+    "address": "0x5748ae796ae46a4f1348a1693de4b50560485562",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x5748ae796ae46a4f1348a1693de4b50560485562/logo.webp",
+    "logoHash": "c22a4dcc7cbf42a7182066a203391fc6cd35868a426b709c0f4a98bff53e2b89"
+  },
+  {
+    "name": "USDe",
+    "symbol": "USDe",
+    "decimals": 18,
+    "address": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34/logo.webp",
+    "logoHash": "949fdc0db8fa19247a733855dab66563192cdfac0fe7d01c429e2aa1e0cf107e"
+  },
+  {
+    "name": "Hyperbeat USDT",
+    "symbol": "hbUSDT",
+    "decimals": 18,
+    "address": "0x5e105266db42f78fa814322bce7f388b4c2e61eb",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x5e105266db42f78fa814322bce7f388b4c2e61eb/logo.webp",
+    "logoHash": "4b9504ef7c0398230f87d54a30dbf0b7e4725b4f934c1ddb6e8ce34fbada5934"
+  },
+  {
+    "name": "Staked HYPE Shares",
+    "symbol": "wstHYPE",
+    "decimals": 18,
+    "address": "0x94e8396e0869c9f2200760af0621afd240e1cf38",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x94e8396e0869c9f2200760af0621afd240e1cf38/logo.webp",
+    "logoHash": "806b2a2bca9cc7e0083fc77d96f1d1604d77fe35b8e9f9f32eda69c79a7a7b35"
+  },
+  {
+    "name": "Purr",
+    "symbol": "PURR",
+    "decimals": 18,
+    "address": "0x9b498c3c8a0b8cd8ba1d9851d40d186f1872b44e",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x9b498c3c8a0b8cd8ba1d9851d40d186f1872b44e/logo.webp",
+    "logoHash": "8537bf58f44873fe003fd0ae4e632d6e2f6753beaa957d2b4faac851146902da"
+  },
+  {
+    "name": "Unit Bitcoin",
+    "symbol": "UBTC",
+    "decimals": 8,
+    "address": "0x9fdbda0a5e284c32744d2f17ee5c74b284993463",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0x9fdbda0a5e284c32744d2f17ee5c74b284993463/logo.webp",
+    "logoHash": "e28623100879e12c896a2396d30b38a7b53b6520174dbf11b14dfeeaea6bdcd0"
+  },
+  {
+    "name": "HyperUSD",
+    "symbol": "USDHL",
+    "decimals": 18,
+    "address": "0xb50a96253abdf803d85efcdce07ad8becbc52bd5",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xb50a96253abdf803d85efcdce07ad8becbc52bd5/logo.webp",
+    "logoHash": "856fd70dafe40432d6cd080c96c840b7cbc1059ca9188986ad9623412cce5c19"
+  },
+  {
+    "name": "USDC",
+    "symbol": "USDC",
+    "decimals": 6,
+    "address": "0xb88339cb7199b77e23db6e890353e22632ba630f",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xb88339cb7199b77e23db6e890353e22632ba630f/logo.webp",
+    "logoHash": "49975447c37decacd306a99aed58330b45fef3d96642dab826ce64859f6f617a"
+  },
+  {
+    "name": "USDT0",
+    "symbol": "USDT0",
+    "decimals": 6,
+    "address": "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb/logo.webp",
+    "logoHash": "74e70292b99d244a9dfd9014428b9e5df48c1d83872dfdcd4f0f256704736a48"
+  },
+  {
+    "name": "Unit Ethereum",
+    "symbol": "UETH",
+    "decimals": 18,
+    "address": "0xbe6727b535545c67d5caa73dea54865b92cf7907",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xbe6727b535545c67d5caa73dea54865b92cf7907/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  },
+  {
+    "name": "Pendle",
+    "symbol": "PENDLE",
+    "decimals": 18,
+    "address": "0xd6eb81136884713e843936843e286fd2a85a205a",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xd6eb81136884713e843936843e286fd2a85a205a/logo.webp",
+    "logoHash": "aa57d3f2ced0f785d1aad24477a2c5548119b31d2fa58d77e4a944a21f548e58"
+  },
+  {
+    "name": "Tether Gold",
+    "symbol": "XAUT0",
+    "decimals": 6,
+    "address": "0xf4d9235269a96aadafc9adae454a0618ebe37949",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xf4d9235269a96aadafc9adae454a0618ebe37949/logo.webp",
+    "logoHash": "91bb9c402a964de9be6c0fc8099ca5dc1bbd16cc4d53a28a8057ef8bedde3db2"
+  },
+  {
+    "name": "Kinetiq Staked HYPE",
+    "symbol": "KHYPE",
+    "decimals": 18,
+    "address": "0xfd739d4e423301ce9385c1fb8850539d657c296d",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xfd739d4e423301ce9385c1fb8850539d657c296d/logo.webp",
+    "logoHash": "0606d3e40173a930417eb96e1e12c11c9be40afefa3408d10f3f290472e7e7c5"
+  },
+  {
+    "name": "Staked HYPE",
+    "symbol": "stHYPE",
+    "decimals": 18,
+    "address": "0xffaa4a3d97fe9107cef8a3f48c069f577ff76cc1",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-999/0xffaa4a3d97fe9107cef8a3f48c069f577ff76cc1/logo.webp",
+    "logoHash": "806b2a2bca9cc7e0083fc77d96f1d1604d77fe35b8e9f9f32eda69c79a7a7b35"
+  },
+  {
+    "name": "Hyperliquid",
+    "symbol": "HYPE",
+    "decimals": 18,
+    "address": null,
+    "coingeckoId": "hyperliquid",
+    "logoURL": "tokens/eip155-999/native/logo.webp",
+    "logoHash": "9b637cd2c31884b9c033d3213e8cc40f457b98f2ee49d0e33c01af364983e3e5"
+  }
+]

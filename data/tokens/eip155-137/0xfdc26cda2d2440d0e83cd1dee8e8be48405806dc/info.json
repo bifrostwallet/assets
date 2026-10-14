@@ -1,0 +1,9 @@
+{
+  "name": "BTU Protocol",
+  "symbol": "BTU",
+  "decimals": 18,
+  "address": "0xfdc26cda2d2440d0e83cd1dee8e8be48405806dc",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0xfdc26cda2d2440d0e83cd1dee8e8be48405806dc/logo.webp",
+  "logoHash": "a45fc6b5a2544723cdb12b6d77243ad19e48f42ce421843fa5b5cc8c2ede8a29"
+}

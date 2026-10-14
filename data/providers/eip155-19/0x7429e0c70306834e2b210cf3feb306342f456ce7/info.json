@@ -1,0 +1,30 @@
+{
+  "name": "Bifrost Wallet",
+  "description": "Bifrost Wallet runs a competitive, accurate and reliable oracle service since 2021. Developed by Towo Labs a Songbird Network development partner.",
+  "logoURL": "providers/eip155-19/0x7429e0c70306834e2b210cf3feb306342f456ce7/logo.webp",
+  "logoHash": "c61db8ffb2f428b0bb346e3334de605e6b6ff969b07ed834240535f8708c4dd2",
+  "websiteURL": "https://bifrostwallet.com",
+  "links": {
+    "github": "https://github.com/bifrostwallet",
+    "x": "https://x.com/bifrostwallet",
+    "telegram": "https://t.me/+-hjtOruBWYg2ZmQ8",
+    "youtube": "https://www.youtube.com/@bifrostwallet-com",
+    "reddit": "https://www.reddit.com/r/Bifrost/"
+  },
+  "identityAddress": "0x7429e0c70306834e2b210cf3feb306342f456ce7",
+  "delegationAddress": "0x69141e890f3a79cd2cff552c0b71508be23712dc",
+  "signingPolicyAddress": "0xa1c5ad0b4a24b70b786b6143b066a8c54388f01f",
+  "submitAddress": "0xf01f5a31a07a046cd63d5ec27e82d12e6a89762f",
+  "submitSignaturesAddress": "0xdce533e7f4b46b992ebae38bf81a0f56d65cd88e",
+  "publicKey": "0x177ccd52148eb4beee49a8aedcfd3b9a9efa625c2c12fc5f0da79828fc17eacf25a3ce7b3e2465869eb4b7441aacb42fe0eafdc9c66885cd3d89d596bd33e815",
+  "validators": [],
+  "listed": true,
+  "managementGroup": true,
+  "domainLinked": true,
+  "dualNetwork": true,
+  "firstTransaction": {
+    "hash": "0x24cee5d2bb0ccc0d4299e0dd3c5063653f201ef7d5ce00e0fa687ead7ae05c94",
+    "blockNumber": 8230,
+    "timestamp": "2021-09-20T09:32:57.000Z"
+  }
+}

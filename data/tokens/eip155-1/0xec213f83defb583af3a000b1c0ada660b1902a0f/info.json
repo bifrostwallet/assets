@@ -1,0 +1,9 @@
+{
+  "name": "Presearch",
+  "symbol": "PRE",
+  "decimals": 18,
+  "address": "0xec213f83defb583af3a000b1c0ada660b1902a0f",
+  "coingeckoId": "presearch",
+  "logoURL": "tokens/eip155-1/0xec213f83defb583af3a000b1c0ada660b1902a0f/logo.webp",
+  "logoHash": "d7102a870bd62f5ab979ca80814840a5307ea08ec6284ae3590d585ec91b7d77"
+}

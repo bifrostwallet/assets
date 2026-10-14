@@ -1,0 +1,39 @@
+# Stay aligned YAML gate. Copy this file with scripts/lint-yaml.sh.
+# yamllint is preinstalled on GitHub ubuntu-24.04 (same model as ShellCheck).
+extends: default
+
+ignore: |
+  .yarn/
+  vendor/
+  node_modules/
+  .maestro/
+
+rules:
+  # Most of our files do not start with --- (GitHub Actions, Yarn, compose).
+  document-start: disable
+  # Cloud Build args, SHA pins, and long gcloud lines. Not a wrap-at-80 house style.
+  line-length:
+    max: 200
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+  # GitHub Actions uses `on:` as a key. YAML 1.1 would otherwise flag it as
+  # a truthy value. Keys are not booleans here.
+  truthy:
+    allowed-values: ["true", "false", "on", "off"]
+    check-keys: false
+  comments:
+    # SHA-pinned Actions: `uses: org/repo@sha # v7.0.1` (one space before #).
+    min-spaces-from-content: 1
+    # cloud-init user-data must start with the literal `#cloud-config`.
+    require-starting-space: false
+  comments-indentation: disable
+  empty-lines:
+    max: 2
+    max-end: 1
+  # GitHub Actions / Cloud Build often write `[ push ]` and `{ key: value }`.
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1

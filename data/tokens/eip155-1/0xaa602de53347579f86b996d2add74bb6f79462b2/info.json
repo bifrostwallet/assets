@@ -1,0 +1,9 @@
+{
+  "name": "Zipmex",
+  "symbol": "ZMT",
+  "decimals": 18,
+  "address": "0xaa602de53347579f86b996d2add74bb6f79462b2",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xaa602de53347579f86b996d2add74bb6f79462b2/logo.webp",
+  "logoHash": "82c4d121b2b7680aeb931d770f1bb13cec3736cbc01dc6ae2e91582b4b9c3e38"
+}

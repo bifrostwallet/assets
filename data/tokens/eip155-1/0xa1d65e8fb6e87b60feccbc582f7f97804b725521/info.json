@@ -1,0 +1,9 @@
+{
+  "name": "DXdao",
+  "symbol": "DXD",
+  "decimals": 18,
+  "address": "0xa1d65e8fb6e87b60feccbc582f7f97804b725521",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa1d65e8fb6e87b60feccbc582f7f97804b725521/logo.webp",
+  "logoHash": "210facee184062c68e86f6952520e55bea56575f33cfa138b700ed236584f239"
+}

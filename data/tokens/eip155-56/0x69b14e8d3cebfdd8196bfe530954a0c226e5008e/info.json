@@ -1,0 +1,9 @@
+{
+  "name": "SpacePi",
+  "symbol": "SpacePi",
+  "decimals": 9,
+  "address": "0x69b14e8d3cebfdd8196bfe530954a0c226e5008e",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x69b14e8d3cebfdd8196bfe530954a0c226e5008e/logo.webp",
+  "logoHash": "34adc4e6439dadcd16af2754d823a1f8e8e4a7405faa3b648e5ace8c8000520a"
+}

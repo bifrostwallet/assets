@@ -1,0 +1,9 @@
+{
+  "name": "BYTZ",
+  "symbol": "BYTZ",
+  "decimals": 8,
+  "address": "0x586fc153cf7e9c029d8c30842c4cb6a86f03b816",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x586fc153cf7e9c029d8c30842c4cb6a86f03b816/logo.webp",
+  "logoHash": "28dd3691cc8bc9e72b1f69eebb0c9e4d82c7977809cef77324efeb6374f39c5e"
+}

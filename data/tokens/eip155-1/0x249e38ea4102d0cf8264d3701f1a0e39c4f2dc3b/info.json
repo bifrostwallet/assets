@@ -1,0 +1,9 @@
+{
+  "name": "UFO Gaming",
+  "symbol": "UFO",
+  "decimals": 18,
+  "address": "0x249e38ea4102d0cf8264d3701f1a0e39c4f2dc3b",
+  "coingeckoId": "ufo-gaming",
+  "logoURL": "tokens/eip155-1/0x249e38ea4102d0cf8264d3701f1a0e39c4f2dc3b/logo.webp",
+  "logoHash": "4ea931756a908d9d860741efc8730c22b366fc78fa2c07e9c189954e6541ef33"
+}

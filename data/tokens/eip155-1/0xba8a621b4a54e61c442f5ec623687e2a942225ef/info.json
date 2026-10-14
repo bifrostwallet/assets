@@ -1,0 +1,9 @@
+{
+  "name": "Sandclock",
+  "symbol": "QUARTZ",
+  "decimals": 18,
+  "address": "0xba8a621b4a54e61c442f5ec623687e2a942225ef",
+  "coingeckoId": "sandclock",
+  "logoURL": "tokens/eip155-1/0xba8a621b4a54e61c442f5ec623687e2a942225ef/logo.webp",
+  "logoHash": "8ea185e4df5e7f736bac3648bbd6b2f8291ee2ee1f7613d06751a6cc2d443e8b"
+}

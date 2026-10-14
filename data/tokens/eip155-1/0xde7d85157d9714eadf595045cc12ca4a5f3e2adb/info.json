@@ -1,0 +1,9 @@
+{
+  "name": "STP Network",
+  "symbol": "STPT",
+  "decimals": 18,
+  "address": "0xde7d85157d9714eadf595045cc12ca4a5f3e2adb",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xde7d85157d9714eadf595045cc12ca4a5f3e2adb/logo.webp",
+  "logoHash": "e93292bf61d98f9355ad3ba154034bdd42df59034eb4ac457d13f90869d86d63"
+}

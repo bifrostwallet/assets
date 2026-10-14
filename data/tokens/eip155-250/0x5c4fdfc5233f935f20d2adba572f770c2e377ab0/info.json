@@ -1,0 +1,9 @@
+{
+  "name": "Hector Finance",
+  "symbol": "HEC",
+  "decimals": 9,
+  "address": "0x5c4fdfc5233f935f20d2adba572f770c2e377ab0",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-250/0x5c4fdfc5233f935f20d2adba572f770c2e377ab0/logo.webp",
+  "logoHash": "b9391b75102437ffd0e6293adc1988c7abc94e3f0666ea71c458aedc34a32036"
+}

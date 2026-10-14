@@ -1,0 +1,9 @@
+{
+  "name": "CloutContracts",
+  "symbol": "CCS",
+  "decimals": 0,
+  "address": "0x3e3b357061103dc040759ac7dceeaba9901043ad",
+  "coingeckoId": "cloutcontracts",
+  "logoURL": "tokens/eip155-56/0x3e3b357061103dc040759ac7dceeaba9901043ad/logo.webp",
+  "logoHash": "cba6b299a0d23f83aec6a229471ab4260c11ccbf6ea6b77ac1adebcaaaca1ace"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Baby Doge Coin",
+  "symbol": "BABYDOGE",
+  "decimals": 9,
+  "address": "0xc748673057861a797275cd8a068abb95a902e8de",
+  "coingeckoId": "baby-doge-coin",
+  "logoURL": "tokens/eip155-56/0xc748673057861a797275cd8a068abb95a902e8de/logo.webp",
+  "logoHash": "6cfd1f3f00a471eec8f3b4efa01d41f514cdbdf6b31d295daefe8cba7dc41918"
+}

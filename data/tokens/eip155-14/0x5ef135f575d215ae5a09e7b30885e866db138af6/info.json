@@ -1,0 +1,9 @@
+{
+  "name": "PiCO Coin",
+  "symbol": "PiCO",
+  "decimals": 18,
+  "address": "0x5ef135f575d215ae5a09e7b30885e866db138af6",
+  "coingeckoId": "pico",
+  "logoURL": "tokens/eip155-14/0x5ef135f575d215ae5a09e7b30885e866db138af6/logo.webp",
+  "logoHash": "175c9773b71108d6379d4d247ba0a71678d863e53593ef39a17968f8de1ddb22"
+}

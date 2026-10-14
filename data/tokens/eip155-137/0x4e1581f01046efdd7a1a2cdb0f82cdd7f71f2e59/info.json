@@ -1,0 +1,9 @@
+{
+  "name": "Popsicle Finance",
+  "symbol": "ICE",
+  "decimals": 18,
+  "address": "0x4e1581f01046efdd7a1a2cdb0f82cdd7f71f2e59",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-137/0x4e1581f01046efdd7a1a2cdb0f82cdd7f71f2e59/logo.webp",
+  "logoHash": "4801aed4ba630ad6845a499b37b5d569e3c78787009b689bd6c13df6800cf560"
+}

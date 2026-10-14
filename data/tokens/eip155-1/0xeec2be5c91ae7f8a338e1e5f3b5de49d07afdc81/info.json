@@ -1,0 +1,9 @@
+{
+  "name": "Dopex",
+  "symbol": "DPX",
+  "decimals": 18,
+  "address": "0xeec2be5c91ae7f8a338e1e5f3b5de49d07afdc81",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xeec2be5c91ae7f8a338e1e5f3b5de49d07afdc81/logo.webp",
+  "logoHash": "fdc8c6edf6a7acd14f56961a74e4cb11666473fcc3d037195011c6b30f9381e8"
+}

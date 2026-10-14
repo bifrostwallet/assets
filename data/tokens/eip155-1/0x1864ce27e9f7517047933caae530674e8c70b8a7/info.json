@@ -1,0 +1,9 @@
+{
+  "name": "Pibble",
+  "symbol": "PIB",
+  "decimals": 18,
+  "address": "0x1864ce27e9f7517047933caae530674e8c70b8a7",
+  "coingeckoId": "pibble",
+  "logoURL": "tokens/eip155-1/0x1864ce27e9f7517047933caae530674e8c70b8a7/logo.webp",
+  "logoHash": "e837da0957560ead06c68d93f69100c6da47937bf9c2a1f29c8b908f9cbce1a2"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SX Network",
+  "symbol": "SX",
+  "decimals": 18,
+  "address": "0x840195888db4d6a99ed9f73fcd3b225bb3cb1a79",
+  "coingeckoId": "sx-network",
+  "logoURL": "tokens/eip155-137/0x840195888db4d6a99ed9f73fcd3b225bb3cb1a79/logo.webp",
+  "logoHash": "c6e978e51d258ad2c8168b0c39121b1a598aa86e7b4a2c2d34d9c890e49c1450"
+}

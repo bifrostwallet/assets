@@ -1,0 +1,9 @@
+{
+  "name": "Axie Infinity",
+  "symbol": "AXS",
+  "decimals": 18,
+  "address": "0xbb0e17ef65f82ab018d8edd776e8dd940327b28b",
+  "coingeckoId": "axie-infinity",
+  "logoURL": "tokens/eip155-1/0xbb0e17ef65f82ab018d8edd776e8dd940327b28b/logo.webp",
+  "logoHash": "c6204b96ab8fe9289ce7643b2be318ab6f1177217bfda46e816a06607b9b0956"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Cult DAO",
+  "symbol": "CULT",
+  "decimals": 18,
+  "address": "0xf0f9d895aca5c8678f706fb8216fa22957685a13",
+  "coingeckoId": "cult-dao",
+  "logoURL": "tokens/eip155-1/0xf0f9d895aca5c8678f706fb8216fa22957685a13/logo.webp",
+  "logoHash": "0d3124acb84380b41d874be8998235f4c1a632c97f0424fcdcd77c6004c67a5e"
+}

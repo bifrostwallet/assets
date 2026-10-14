@@ -1,0 +1,9 @@
+{
+  "name": "BSCPAD",
+  "symbol": "BSCPAD",
+  "decimals": 18,
+  "address": "0x5a3010d4d8d3b5fb49f8b6e57fb9e48063f16700",
+  "coingeckoId": "bscpad",
+  "logoURL": "tokens/eip155-56/0x5a3010d4d8d3b5fb49f8b6e57fb9e48063f16700/logo.webp",
+  "logoHash": "cf3596640f390e9cab64c396b36bbfb84cbc218c8a1c24784c3cf43f549e1d43"
+}

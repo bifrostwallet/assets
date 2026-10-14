@@ -1,0 +1,24 @@
+{
+  "tokens": [
+    {
+      "chainPath": "eip155-56",
+      "address": "0x5ca42204cdaa70d5c773946e69de942b85ca6706",
+      "identifier": "POSI"
+    },
+    {
+      "chainPath": "eip155-137",
+      "address": "0x0000000000000000000000000000000000001010",
+      "identifier": "MATIC"
+    },
+    {
+      "chainPath": "eip155-1",
+      "address": "0x0c7d5ae016f806603cb1782bea29ac69471cab9c",
+      "identifier": "BFC"
+    },
+    {
+      "chainPath": "eip155-250",
+      "address": "0x95dd59343a893637be1c3228060ee6afbf6f0730",
+      "identifier": "LUNA"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pBTC35A",
+  "symbol": "PBTC35A",
+  "decimals": 18,
+  "address": "0xa8b12cc90abf65191532a12bb5394a714a46d358",
+  "coingeckoId": "pbtc35a",
+  "logoURL": "tokens/eip155-1/0xa8b12cc90abf65191532a12bb5394a714a46d358/logo.webp",
+  "logoHash": "84b88fb6489374629c98a1d9484a86b59630a6d7162b507176ef573ec641ed78"
+}

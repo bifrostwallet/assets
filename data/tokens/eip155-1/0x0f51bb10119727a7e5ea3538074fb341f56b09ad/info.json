@@ -1,0 +1,9 @@
+{
+  "name": "DAO Maker",
+  "symbol": "DAO",
+  "decimals": 18,
+  "address": "0x0f51bb10119727a7e5ea3538074fb341f56b09ad",
+  "coingeckoId": "dao-maker",
+  "logoURL": "tokens/eip155-1/0x0f51bb10119727a7e5ea3538074fb341f56b09ad/logo.webp",
+  "logoHash": "eec9509392b9dbd0b868b71219d796fcb70d61fda5b66a67b7b333fc1bd5c334"
+}

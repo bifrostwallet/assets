@@ -1,0 +1,9 @@
+{
+  "name": "Lyra Finance",
+  "symbol": "LYRA",
+  "decimals": 18,
+  "address": "0x01ba67aac7f75f647d94220cc98fb30fcc5105bf",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x01ba67aac7f75f647d94220cc98fb30fcc5105bf/logo.webp",
+  "logoHash": "703ed21e9c8f52f37c951f9394702879c9393f5d68cd28929fba21518cdf741b"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Fuse",
+  "symbol": "FUSE",
+  "decimals": 18,
+  "address": "0x5857c96dae9cf8511b08cb07f85753c472d36ea3",
+  "coingeckoId": "fuse-network-token",
+  "logoURL": "tokens/eip155-56/0x5857c96dae9cf8511b08cb07f85753c472d36ea3/logo.webp",
+  "logoHash": "9c74cf03a9bfb49277574fd7fbdea6dd0842c2ee73006ad84bb705dfaae792fc"
+}

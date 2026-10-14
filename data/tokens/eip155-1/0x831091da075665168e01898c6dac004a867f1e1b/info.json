@@ -1,0 +1,9 @@
+{
+  "name": "Gains Farm",
+  "symbol": "GFARM2",
+  "decimals": 18,
+  "address": "0x831091da075665168e01898c6dac004a867f1e1b",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x831091da075665168e01898c6dac004a867f1e1b/logo.webp",
+  "logoHash": "e2140c632f648295dec7b7e1888da9a0974007b8e80058688cfedc7d04abbe04"
+}

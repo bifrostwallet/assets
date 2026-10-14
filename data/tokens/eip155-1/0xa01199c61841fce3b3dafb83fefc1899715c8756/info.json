@@ -1,0 +1,9 @@
+{
+  "name": "Cirus",
+  "symbol": "CIRUS",
+  "decimals": 18,
+  "address": "0xa01199c61841fce3b3dafb83fefc1899715c8756",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0xa01199c61841fce3b3dafb83fefc1899715c8756/logo.webp",
+  "logoHash": "e6fdc7a4444cfbfcc284ff754ebf569a6797402be8b5352be9792101efad2f52"
+}

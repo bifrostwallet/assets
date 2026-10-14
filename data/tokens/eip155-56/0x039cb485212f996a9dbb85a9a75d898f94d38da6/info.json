@@ -1,0 +1,9 @@
+{
+  "name": "DeXe",
+  "symbol": "DEXE",
+  "decimals": 18,
+  "address": "0x039cb485212f996a9dbb85a9a75d898f94d38da6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-56/0x039cb485212f996a9dbb85a9a75d898f94d38da6/logo.webp",
+  "logoHash": "5de413dbd982628ae80577a7bee459a1ceeea7d4c86c15c21b88adb9a57a2a72"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Pingu",
+  "description": "Providing clear and reliable price signals for the Flare ecosystem.",
+  "logoURL": "providers/eip155-14/0xdf371cb9e9eb25612a165f02b4d8573f85027ee4/logo.webp",
+  "logoHash": "39a743633cde3c18fd838dca5603b7058347acb8dbf63b0cbe994e58d3bdc6c5",
+  "websiteURL": "https://pingu.cat",
+  "links": {},
+  "identityAddress": "0xdf371cb9e9eb25612a165f02b4d8573f85027ee4",
+  "delegationAddress": "0x5e6e598d64b7e559db91523067a3ad5699a9b77e",
+  "signingPolicyAddress": "0x1617cc98fc6d6bfd386d57226ceb679e8f23d8a5",
+  "submitAddress": "0xf404ea14326f2d856fb870cb2fc3978b242a8da1",
+  "submitSignaturesAddress": "0xe592a8f2c931bccfdbe232f13c3044711d4e5f78",
+  "publicKey": "0x2cb6ef88706bf1de4bb3d9a9b8c4b337689d2ff9d5feded88b3807c8b38ca92203cd1eb1675a70f4fa0326950cb45a57eb69e7c057dbdb0287420b7e06bfd006",
+  "validators": ["NodeID-Dbh8RabyVE7hWiBFjKwsU8qhLGu92CpEj"],
+  "listed": true,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false,
+  "firstTransaction": {
+    "hash": "0x973be6a53eb6bbed3f8528744b7a0e1bf0d0bb73f140d71272f55bc0c04ffaf7",
+    "blockNumber": 51224082,
+    "timestamp": "2025-11-25T23:01:22.000Z"
+  }
+}

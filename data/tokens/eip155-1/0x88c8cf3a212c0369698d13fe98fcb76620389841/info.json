@@ -1,0 +1,9 @@
+{
+  "name": "Synth EOS",
+  "symbol": "SEOS",
+  "decimals": 18,
+  "address": "0x88c8cf3a212c0369698d13fe98fcb76620389841",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-1/0x88c8cf3a212c0369698d13fe98fcb76620389841/logo.webp",
+  "logoHash": "68b44e2821e545ec5be4f824b308fa195dfce7927114d92fe7e9b1d9c92de200"
+}

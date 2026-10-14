@@ -1,0 +1,9 @@
+{
+  "name": "Apsis",
+  "symbol": "APS",
+  "decimals": 18,
+  "address": "0xff56eb5b1a7faa972291117e5e9565da29bc808d",
+  "coingeckoId": "apsis",
+  "logoURL": "tokens/eip155-14/0xff56eb5b1a7faa972291117e5e9565da29bc808d/logo.webp",
+  "logoHash": "4c0c27fc3abaa236405598099a76fcf3fb2e53e361c69f4577ddf1b6a1c0689a"
+}

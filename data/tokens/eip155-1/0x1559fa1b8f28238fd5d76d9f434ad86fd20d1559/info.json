@@ -1,0 +1,9 @@
+{
+  "name": "Eden",
+  "symbol": "EDEN",
+  "decimals": 18,
+  "address": "0x1559fa1b8f28238fd5d76d9f434ad86fd20d1559",
+  "coingeckoId": "eden",
+  "logoURL": "tokens/eip155-1/0x1559fa1b8f28238fd5d76d9f434ad86fd20d1559/logo.webp",
+  "logoHash": "391b03928e35ca23abb612ed7b75be3fb0042d85465ef8bf31fb74b52d47293d"
+}
