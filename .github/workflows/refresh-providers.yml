@@ -53,7 +53,7 @@ jobs:
         run: ./yarn install --immutable
 
       - name: Refresh earn APY and domain linkage
-        run: ./yarn refresh:providers --write-domain
+        run: ./yarn refresh:providers --write-domain --skip-chain
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -76,8 +76,8 @@ jobs:
           git commit -m "Nightly domain linkage refresh"
           git push origin HEAD:main
 
-      - name: Apply delist candidates (FSP rewards burned)
-        run: ./yarn refresh:providers --write-delist --skip-earn --skip-domain
+      - name: Apply delist candidates and chain drift
+        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -90,13 +90,13 @@ jobs:
 
           git add data/providers/
           if git diff --staged --quiet; then
-            echo "No delist changes; skipping pull request"
+            echo "No catalog suggestions; skipping pull request"
             exit 0
           fi
 
           BRANCH=nightly/fsp-delist
           git checkout -B "$BRANCH"
-          git commit -m "Delist providers that burned FSP rewards"
+          git commit -m "Suggest catalog updates from chain and FSP rewards"
           git fetch origin "$BRANCH" || true
           git push -u origin "HEAD:refs/heads/$BRANCH" --force-with-lease
 
@@ -104,7 +104,7 @@ jobs:
             gh pr create \
               --base "${{ github.event.repository.default_branch }}" \
               --head "$BRANCH" \
-              --title "Delist providers that burned FSP rewards" \
+              --title "Suggested catalog updates" \
               --body-file delist-summary.md
           else
             echo "Updated existing pull request for $BRANCH"

@@ -125,8 +125,9 @@ export function sortProviderInfo(providerInfo: Partial<ProviderInfo>): Partial<P
 
 /**
  * Returns the provider-signed subset of an info object (sorted, curator fields excluded).
- * Signatures cover this payload so that flipping `listed`, `managementGroup`,
- * `domainLinked`, or `dualNetwork` never invalidates an identity signature.
+ * Signatures cover name, description, logo hash, website, links, identity, and
+ * the responsibilities acknowledgement. Chain addresses and validators may change
+ * without a new signature.
  */
 export function signedProviderInfoPayload(
   providerInfo: Partial<ProviderInfo>,

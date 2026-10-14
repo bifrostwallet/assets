@@ -20,7 +20,7 @@ export const EIP712_DOMAIN_SALT = keccak256(toBytes("https://bifrostwallet.com")
 export const DAPP_EIP712_CHAIN_ID = 14;
 
 export const PROVIDER_VERIFICATION_INSTRUCTIONS =
-  'To verify signatures, rebuild EIP-712 typed data (domain name "Bifrost Assets", version "1", chainId of the provider network, salt keccak256("https://bifrostwallet.com") when the signed info includes acknowledgedResponsibilities) with primary type ProviderListing from the provider\'s info.json without logoURL, listed, managementGroup, domainLinked, dualNetwork and firstTransaction: human-readable signed fields, linksJson and validatorsJson (JSON.stringify of the sorted links object and validators array), acknowledgedResponsibilities (bool) when present, and contentHash (bytes32 SHA-256 of that canonical signed JSON, including acknowledgedResponsibilities when present). Recover the signer via eth_signTypedData_v4. contentHash must equal messageHash in signatures.json.';
+  'To verify signatures, rebuild EIP-712 typed data (domain name "Bifrost Assets", version "1", chainId of the provider network, salt keccak256("https://bifrostwallet.com") when the signed info includes acknowledgedResponsibilities) with primary type ProviderListing from the provider\'s info.json without logoURL, listed, managementGroup, domainLinked, dualNetwork, firstTransaction, delegationAddress, signingPolicyAddress, submitAddress, submitSignaturesAddress, publicKey, and validators: human-readable signed fields, linksJson (JSON.stringify of the sorted links object), acknowledgedResponsibilities (bool) when present, and contentHash (bytes32 SHA-256 of that canonical signed JSON). Recover the signer via eth_signTypedData_v4. contentHash must equal messageHash in signatures.json.';
 
 const PROVIDER_LISTING_FIELDS_BASE = [
   { name: "name", type: "string" },
@@ -28,13 +28,7 @@ const PROVIDER_LISTING_FIELDS_BASE = [
   { name: "websiteURL", type: "string" },
   { name: "logoHash", type: "bytes32" },
   { name: "identityAddress", type: "address" },
-  { name: "delegationAddress", type: "address" },
-  { name: "signingPolicyAddress", type: "address" },
-  { name: "submitAddress", type: "address" },
-  { name: "submitSignaturesAddress", type: "address" },
-  { name: "publicKey", type: "string" },
   { name: "linksJson", type: "string" },
-  { name: "validatorsJson", type: "string" },
   { name: "contentHash", type: "bytes32" },
 ] as const;
 
@@ -45,13 +39,7 @@ export const PROVIDER_LISTING_TYPES = {
     { name: "websiteURL", type: "string" },
     { name: "logoHash", type: "bytes32" },
     { name: "identityAddress", type: "address" },
-    { name: "delegationAddress", type: "address" },
-    { name: "signingPolicyAddress", type: "address" },
-    { name: "submitAddress", type: "address" },
-    { name: "submitSignaturesAddress", type: "address" },
-    { name: "publicKey", type: "string" },
     { name: "linksJson", type: "string" },
-    { name: "validatorsJson", type: "string" },
     { name: "acknowledgedResponsibilities", type: "bool" },
     { name: "contentHash", type: "bytes32" },
   ],
@@ -80,13 +68,7 @@ export type ProviderListingMessage = {
   websiteURL: string;
   logoHash: HexString;
   identityAddress: HexString;
-  delegationAddress: HexString;
-  signingPolicyAddress: HexString;
-  submitAddress: HexString;
-  submitSignaturesAddress: HexString;
-  publicKey: string;
   linksJson: string;
-  validatorsJson: string;
   acknowledgedResponsibilities?: boolean;
   contentHash: HexString;
 };
@@ -143,7 +125,6 @@ export function buildProviderListingTypedData(
   const legacy = options?.legacy ?? providerListingUsesLegacyTypedData(info);
   const payload = signedProviderInfoPayload(info);
   const links = (payload.links ?? {}) as Record<string, string>;
-  const validators = (payload.validators ?? []) as string[];
 
   const baseMessage = {
     name: String(payload.name ?? ""),
@@ -151,13 +132,7 @@ export function buildProviderListingTypedData(
     websiteURL: String(payload.websiteURL ?? ""),
     logoHash: asBytes32(String(payload.logoHash ?? "")),
     identityAddress: asAddress(String(payload.identityAddress ?? "")),
-    delegationAddress: asAddress(String(payload.delegationAddress ?? "")),
-    signingPolicyAddress: asAddress(String(payload.signingPolicyAddress ?? "")),
-    submitAddress: asAddress(String(payload.submitAddress ?? "")),
-    submitSignaturesAddress: asAddress(String(payload.submitSignaturesAddress ?? "")),
-    publicKey: String(payload.publicKey ?? ""),
     linksJson: JSON.stringify(links),
-    validatorsJson: JSON.stringify(validators),
     contentHash: asBytes32(contentHash),
   };
 

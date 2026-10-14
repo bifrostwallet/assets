@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { applyChainDrift, collectChainDrift, formatChainDriftSummary } from "../chainDrift.js";
 import type { ProviderInfo } from "../config.js";
 import { computeProviderApys, computeValidatorApys, providerNames } from "../earn/apy.js";
 import { CHAINS, type ChainConfig, type EarnConfig } from "../earn/config.js";
@@ -27,12 +28,15 @@ import { syncDomainLinkage } from "./syncDomainLinkage.js";
  * 3. With --write-delist: flip listed:false for providers that burned FSP
  *    rewards (eligibleForReward=false in the latest passes.json). CI applies
  *    this on a branch and opens a PR — never straight to main.
+ * 4. With --write-chain: compare EntityManager addresses and validators with
+ *    info.json and write the chain values. Same PR as delist; signatures stay
+ *    valid because those fields are unsigned.
  *
  * Usage:
  *   ./yarn refresh:providers
  *   ./yarn refresh:providers --dry-run
  *   ./yarn refresh:providers --write-domain
- *   ./yarn refresh:providers --write-delist --skip-earn --skip-domain
+ *   ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
  *   EARN_BUCKET=<private-earn-bucket> ./yarn refresh:providers
  */
 
@@ -40,8 +44,10 @@ interface RefreshArgs {
   dryRun: boolean;
   writeDomain: boolean;
   writeDelist: boolean;
+  writeChain: boolean;
   skipEarn: boolean;
   skipDomain: boolean;
+  skipChain: boolean;
 }
 
 function parseArgs(argv: string[]): RefreshArgs {
@@ -49,8 +55,10 @@ function parseArgs(argv: string[]): RefreshArgs {
     dryRun: argv.includes("--dry-run"),
     writeDomain: argv.includes("--write-domain"),
     writeDelist: argv.includes("--write-delist"),
+    writeChain: argv.includes("--write-chain"),
     skipEarn: argv.includes("--skip-earn"),
     skipDomain: argv.includes("--skip-domain"),
+    skipChain: argv.includes("--skip-chain"),
   };
 }
 
@@ -135,9 +143,8 @@ async function publishEarn(config: EarnConfig): Promise<void> {
 }
 
 async function refreshProviders(): Promise<void> {
-  const { dryRun, writeDomain, writeDelist, skipEarn, skipDomain } = parseArgs(
-    process.argv.slice(2),
-  );
+  const { dryRun, writeDomain, writeDelist, writeChain, skipEarn, skipDomain, skipChain } =
+    parseArgs(process.argv.slice(2));
 
   if (skipEarn) {
     console.info("ℹ️  --skip-earn: not publishing earn APY");
@@ -169,26 +176,48 @@ async function refreshProviders(): Promise<void> {
   }
 
   const candidates = await findDelistCandidates();
-  const summary = [formatDelistSummary(candidates), "", ...summaryParts].join("\n");
   console.info(`\n${formatDelistSummary(candidates)}`);
 
+  let chainDrift: Awaited<ReturnType<typeof collectChainDrift>> = [];
+  if (skipChain) {
+    console.info("ℹ️  --skip-chain: not comparing EntityManager fields");
+  } else {
+    console.info("\n⛓️ Chain fields");
+    chainDrift = await collectChainDrift();
+    console.info(formatChainDriftSummary(chainDrift));
+  }
+
+  const summary = [
+    formatDelistSummary(candidates),
+    "",
+    formatChainDriftSummary(chainDrift),
+    "",
+    ...summaryParts,
+  ].join("\n");
   const summaryPath = path.join(process.cwd(), "delist-summary.md");
   fs.writeFileSync(summaryPath, summary);
 
   if (candidates.length === 0) {
     console.info("✅ No delist candidates");
-    return;
-  }
-
-  if (!writeDelist || dryRun) {
+  } else if (!writeDelist || dryRun) {
     console.info(
       `ℹ️  ${candidates.length} delist candidate(s) — re-run with --write-delist to apply (CI opens a PR)`,
     );
-    return;
+  } else {
+    const updated = applyDelistCandidates(candidates);
+    console.info(`✅ Applied listed:false to ${updated} provider(s); rebuilt all.json`);
   }
 
-  const updated = applyDelistCandidates(candidates);
-  console.info(`✅ Applied listed:false to ${updated} provider(s); rebuilt all.json`);
+  if (chainDrift.length === 0) {
+    console.info("✅ No chain drift");
+  } else if (!writeChain || dryRun) {
+    console.info(
+      `ℹ️  ${chainDrift.length} provider(s) differ from chain — re-run with --write-chain to apply (CI opens a PR)`,
+    );
+  } else {
+    const updated = applyChainDrift(chainDrift);
+    console.info(`✅ Applied chain fields to ${updated} provider(s); rebuilt all.json`);
+  }
 }
 
 if (isMain(import.meta.url)) {

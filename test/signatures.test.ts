@@ -109,6 +109,31 @@ describe("Signature round-trip", () => {
     assert.equal(result.hasValidSignature, true);
   });
 
+  test("changing chain addresses or validators keeps the signature valid", async () => {
+    const dir = await writeSignedProvider(baseInfo);
+    const infoPath = path.join(dir, "info.json");
+    const other = "0x0000000000000000000000000000000000000001";
+    fs.writeFileSync(
+      infoPath,
+      JSON.stringify(
+        {
+          ...baseInfo,
+          delegationAddress: other,
+          signingPolicyAddress: other,
+          submitAddress: other,
+          submitSignaturesAddress: other,
+          publicKey: `0x${"2".repeat(128)}`,
+          validators: ["NodeID-EgJba99Q5iDcL81A27E111WANn9eZNj4v"],
+        },
+        null,
+        2,
+      ),
+    );
+
+    const result = await verifyProviderSignatures(dir);
+    assert.equal(result.hasValidSignature, true);
+  });
+
   test("changing a signed field (name) invalidates the signature", async () => {
     const dir = await writeSignedProvider(baseInfo);
     const infoPath = path.join(dir, "info.json");

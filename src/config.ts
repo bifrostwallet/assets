@@ -210,6 +210,8 @@ export function hasAcknowledgedResponsibilitiesAck(info: Partial<ProviderInfo>):
  *   appear after signing
  * - "logoURL" is a hosting detail (relative in info.json; absolute in published all.json);
  *   logo content integrity is covered by the signed "logoHash"
+ * - delegation, submit, signing-policy, public key, and validators are chain
+ *   facts. The nightly job may update them without a new signature.
  */
 export const UNSIGNED_PROVIDER_INFO_KEYS = [
   "logoURL",
@@ -218,6 +220,12 @@ export const UNSIGNED_PROVIDER_INFO_KEYS = [
   "domainLinked",
   "dualNetwork",
   "firstTransaction",
+  "delegationAddress",
+  "signingPolicyAddress",
+  "submitAddress",
+  "submitSignaturesAddress",
+  "publicKey",
+  "validators",
 ] as const;
 
 /**
