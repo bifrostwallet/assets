@@ -342,6 +342,15 @@
     "logoHash": "1d05abfaf45cc9be15874109e4262c4426a9325311bd9a6934de9eb27222097c"
   },
   {
+    "name": "FlareCat",
+    "symbol": "FCAT",
+    "decimals": 18,
+    "address": "0xbf6d832350c5fb787d3822841dc930c5ebdbb888",
+    "coingeckoId": "flarecat",
+    "logoURL": "tokens/eip155-14/0xbf6d832350c5fb787d3822841dc930c5ebdbb888/logo.webp",
+    "logoHash": "ba68cb3bca8ec50f94d2c51a667916033a7cd3d6cc139034a81858374274370b"
+  },
+  {
     "name": "PoodleCoin",
     "symbol": "POODLE",
     "decimals": 18,

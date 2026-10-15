@@ -153,6 +153,15 @@
     "logoHash": "aa57d3f2ced0f785d1aad24477a2c5548119b31d2fa58d77e4a944a21f548e58"
   },
   {
+    "name": "FXRP",
+    "symbol": "FXRP",
+    "decimals": 6,
+    "address": "0xd70659a6396285bf7214d7ea9673184e7c72e07e",
+    "coingeckoId": "ripple",
+    "logoURL": "tokens/eip155-999/0xd70659a6396285bf7214d7ea9673184e7c72e07e/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
     "name": "Tether Gold",
     "symbol": "XAUT0",
     "decimals": 6,

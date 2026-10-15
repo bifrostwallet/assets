@@ -1,5 +1,14 @@
 [
   {
+    "name": "FTestXRP OFT",
+    "symbol": "FTestXRP",
+    "decimals": 6,
+    "address": "0x14bfb521e318fc3d5e92a8462c65079bc7d4284c",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-998/0x14bfb521e318fc3d5e92a8462c65079bc7d4284c/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
     "name": "Hyperliquid",
     "symbol": "HYPE",
     "decimals": 18,

@@ -1,0 +1,9 @@
+{
+  "name": "FXRP",
+  "symbol": "FXRP",
+  "decimals": 6,
+  "address": "0xd70659a6396285bf7214d7ea9673184e7c72e07e",
+  "coingeckoId": "ripple",
+  "logoURL": "tokens/eip155-999/0xd70659a6396285bf7214d7ea9673184e7c72e07e/logo.webp",
+  "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+}
