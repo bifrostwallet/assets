@@ -59,12 +59,12 @@
     "security:audit-deps": "./yarn npm audit --recursive"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.2",
-    "@google-cloud/storage": "7.21.0",
-    "@types/node": "22.15.3",
+    "@biomejs/biome": "2.5.13",
+    "@google-cloud/storage": "7.22.0",
+    "@types/node": "22.20.2",
     "bs58": "6.0.0",
-    "typescript": "5.8.3",
-    "viem": "2.55.1"
+    "typescript": "5.9.3",
+    "viem": "2.56.5"
   },
   "packageManager": "yarn@4.17.1+sha256.471ffb15e0523663865bbf46a69e7d157ecf532412eb436c48dfab6e3f2abe88"
 }
