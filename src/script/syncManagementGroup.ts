@@ -1,24 +1,25 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, http } from "viem";
-import { BLOCKCHAIN_NETWORKS, FLARE_CONTRACT_REGISTRY, type ProviderInfo } from "../config.js";
+import {
+  BLOCKCHAIN_NETWORKS,
+  FLARE_CONTRACT_REGISTRY,
+  type NetworkConfig,
+  type ProviderInfo,
+} from "../config.js";
 import { rebuildProvidersAllJson, sortProviderInfo, toRelativePath } from "../convert.js";
 import { isMain } from "../isMain.js";
 import type { HexString } from "../validate.js";
-import { strongBrandKeys, weakBrandKeys } from "./syncDualNetwork.js";
 
 // On-chain FTSO Management Group membership (FIP.02 / STP.03) sync.
-// Resolves PollingManagementGroup through Flare's fixed ContractRegistry and reads the
+// Resolves PollingManagementGroup through the network's ContractRegistry and reads the
 // current member list (identity/voter addresses). Approach adapted from the MIT-licensed
 // BurstLabs/flareregistry (src/lib/management-group.ts).
 //
-// The group exists on Flare mainnet only. eip155-14 providers get true/false
-// from membership directly. A Songbird (eip155-19) entry mirrors its Flare
-// counterpart's membership when the entry is a curator-approved dual-network
-// brand (dualNetwork: true) and any brand key links it to a member — the
-// curator already approved the cross-chain pairing, so weak keys (name, links)
-// may identify the counterpart, but never grant membership without that
-// dualNetwork gate. Every other chain is forced to false.
+// Flare and Songbird each have their own PollingManagementGroup. The registry
+// address is the same on both networks; the RPC selects the chain. A provider
+// is a member only when its identity address is on that network's list.
+// Every other chain is forced to false.
 
 const registryAbi = [
   {
@@ -40,11 +41,10 @@ const managementGroupAbi = [
   },
 ] as const;
 
-/** Reads the current Management Group member addresses (lowercased identity addresses) */
-export async function fetchManagementGroupMembers(): Promise<string[]> {
-  const flare = BLOCKCHAIN_NETWORKS.flare;
+/** Reads one network's Management Group member addresses (lowercased identity addresses). */
+export async function fetchManagementGroupMembers(network: NetworkConfig): Promise<string[]> {
   const client = createPublicClient({
-    transport: http(flare.rpc, { timeout: 30000, retryCount: 3, retryDelay: 1000 }),
+    transport: http(network.rpc, { timeout: 30000, retryCount: 3, retryDelay: 1000 }),
   });
 
   const managementGroupAddress = (await client.readContract({
@@ -64,37 +64,11 @@ export async function fetchManagementGroupMembers(): Promise<string[]> {
 }
 
 export interface ManagementGroupSyncResult {
-  members: number;
+  flareMembers: number;
+  songbirdMembers: number;
   updated: number;
-  unknownMembers: string[];
-}
-
-function loadChainInfos(providersDir: string, chainPath: string): ProviderInfo[] {
-  const chainDir = path.join(providersDir, chainPath);
-  if (!fs.existsSync(chainDir)) return [];
-  const infos: ProviderInfo[] = [];
-  for (const provider of fs.readdirSync(chainDir, { withFileTypes: true })) {
-    if (!provider.isDirectory()) continue;
-    const infoPath = path.join(chainDir, provider.name, "info.json");
-    if (!fs.existsSync(infoPath)) continue;
-    infos.push(JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo);
-  }
-  return infos;
-}
-
-/**
- * Brand keys of Flare MG members — a curator-approved dual-network Songbird
- * entry sharing any of these mirrors the brand's Flare membership.
- */
-function memberBrandKeys(providersDir: string, memberSet: Set<string>): Set<string> {
-  const keys = new Set<string>();
-  for (const info of loadChainInfos(providersDir, BLOCKCHAIN_NETWORKS.flare.path)) {
-    if (!memberSet.has(info.identityAddress.toLowerCase())) continue;
-    for (const { key } of [...strongBrandKeys(info), ...weakBrandKeys(info)]) {
-      keys.add(key);
-    }
-  }
-  return keys;
+  unknownFlareMembers: string[];
+  unknownSongbirdMembers: string[];
 }
 
 /**
@@ -102,20 +76,22 @@ function memberBrandKeys(providersDir: string, memberSet: Set<string>): Set<stri
  * Also reports MG members that have no curated provider entry (gap audit).
  */
 export async function syncManagementGroup(): Promise<ManagementGroupSyncResult> {
-  const members = await fetchManagementGroupMembers();
-  const memberSet = new Set(members);
-  console.info(`📡 Management Group members on Flare: ${members.length}`);
+  const flareMembers = await fetchManagementGroupMembers(BLOCKCHAIN_NETWORKS.flare);
+  const songbirdMembers = await fetchManagementGroupMembers(BLOCKCHAIN_NETWORKS.songbird);
+  const membersByPath = new Map<string, Set<string>>([
+    [BLOCKCHAIN_NETWORKS.flare.path, new Set(flareMembers)],
+    [BLOCKCHAIN_NETWORKS.songbird.path, new Set(songbirdMembers)],
+  ]);
+  console.info(`📡 Management Group members on Flare: ${flareMembers.length}`);
+  console.info(`📡 Management Group members on Songbird: ${songbirdMembers.length}`);
 
   const providersDir = path.join(process.cwd(), "data", "providers");
-  const memberKeys = memberBrandKeys(providersDir, memberSet);
-  const knownIdentities = new Set<string>();
+  const knownByPath = new Map<string, Set<string>>();
   let updated = 0;
 
   for (const chain of fs.readdirSync(providersDir, { withFileTypes: true })) {
     if (!chain.isDirectory()) continue;
     const chainDir = path.join(providersDir, chain.name);
-    const isFlare = chain.name === BLOCKCHAIN_NETWORKS.flare.path;
-    const isSongbird = chain.name === BLOCKCHAIN_NETWORKS.songbird.path;
     let chainChanged = false;
 
     for (const provider of fs.readdirSync(chainDir, { withFileTypes: true })) {
@@ -125,15 +101,14 @@ export async function syncManagementGroup(): Promise<ManagementGroupSyncResult> 
 
       const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
       const identity = info.identityAddress.toLowerCase();
-      if (isFlare) {
-        knownIdentities.add(identity);
+      const memberSet = membersByPath.get(chain.name);
+      if (memberSet) {
+        const known = knownByPath.get(chain.name) ?? new Set<string>();
+        known.add(identity);
+        knownByPath.set(chain.name, known);
       }
 
-      const isMember = isFlare
-        ? memberSet.has(identity)
-        : isSongbird &&
-          info.dualNetwork === true &&
-          [...strongBrandKeys(info), ...weakBrandKeys(info)].some(({ key }) => memberKeys.has(key));
+      const isMember = memberSet?.has(identity) ?? false;
       if (info.managementGroup !== isMember) {
         info.managementGroup = isMember;
         fs.writeFileSync(infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
@@ -150,19 +125,34 @@ export async function syncManagementGroup(): Promise<ManagementGroupSyncResult> 
     }
   }
 
-  const unknownMembers = members.filter((member) => !knownIdentities.has(member));
+  const unknownFlareMembers = flareMembers.filter(
+    (member) => !knownByPath.get(BLOCKCHAIN_NETWORKS.flare.path)?.has(member),
+  );
+  const unknownSongbirdMembers = songbirdMembers.filter(
+    (member) => !knownByPath.get(BLOCKCHAIN_NETWORKS.songbird.path)?.has(member),
+  );
 
   console.info(`\n✅ Sync complete: ${updated} provider(s) updated`);
-  if (unknownMembers.length > 0) {
+  for (const [label, chainPath, unknown] of [
+    ["Flare", BLOCKCHAIN_NETWORKS.flare.path, unknownFlareMembers],
+    ["Songbird", BLOCKCHAIN_NETWORKS.songbird.path, unknownSongbirdMembers],
+  ] as const) {
+    if (unknown.length === 0) continue;
     console.warn(
-      `\n⚠️ ${unknownMembers.length} Management Group member(s) missing from data/providers/eip155-14:`,
+      `\n⚠️ ${unknown.length} ${label} Management Group member(s) missing from data/providers/${chainPath}:`,
     );
-    for (const member of unknownMembers) {
+    for (const member of unknown) {
       console.warn(`   ${member}`);
     }
   }
 
-  return { members: members.length, updated, unknownMembers };
+  return {
+    flareMembers: flareMembers.length,
+    songbirdMembers: songbirdMembers.length,
+    updated,
+    unknownFlareMembers,
+    unknownSongbirdMembers,
+  };
 }
 
 if (isMain(import.meta.url)) {

@@ -692,7 +692,7 @@
     "publicKey": "0x038d51351495bc3cc20fd1316e58ce28a327e5fe712a70606af238d6110d381e20383e5731dc31c42712205966c438969f7694f79900efffb34c606d12c24440",
     "validators": [],
     "listed": true,
-    "managementGroup": false,
+    "managementGroup": true,
     "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
@@ -1004,7 +1004,7 @@
     "publicKey": "0x1ba957530ad233ea61260ce1b41d308b5be16dfa425c2ec1baad13254eb484f91cc87e44959627cb86fa24e14bdbaf33950206fbfd996d0e87c9aecf8f4a9fd9",
     "validators": [],
     "listed": false,
-    "managementGroup": false,
+    "managementGroup": true,
     "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
@@ -1460,7 +1460,7 @@
     "publicKey": "0x150a68bceeaff168bfb719df137d04e818778ff6cd22421c9f2f93e2afb6f57b27660207aa23f8a7a05a2e22e1d43b432313ddfb6a21c38166641deb83a5e25f",
     "validators": [],
     "listed": true,
-    "managementGroup": false,
+    "managementGroup": true,
     "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
