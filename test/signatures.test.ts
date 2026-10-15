@@ -144,6 +144,24 @@ describe("Signature round-trip", () => {
     assert.ok(result.invalidSignatures[0].reason.includes("Stale message hash"));
   });
 
+  test("a staging directory verifies when the caller supplies the chain id", async () => {
+    const signedDir = await writeSignedProvider(baseInfo);
+    const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-provider-staging-"));
+    fs.copyFileSync(path.join(signedDir, "info.json"), path.join(stagingDir, "info.json"));
+    fs.copyFileSync(
+      path.join(signedDir, "signatures.json"),
+      path.join(stagingDir, "signatures.json"),
+    );
+
+    await assert.rejects(
+      () => verifyProviderSignatures(stagingDir),
+      /Could not determine chainId from path/,
+    );
+
+    const result = await verifyProviderSignatures(stagingDir, true, 14);
+    assert.equal(result.hasValidSelfSignature, true);
+  });
+
   test("an attestation qualifies only when the attester is listed and self-signed", async () => {
     const attesterKey = generatePrivateKey();
     const attesterAccount = privateKeyToAccount(attesterKey);

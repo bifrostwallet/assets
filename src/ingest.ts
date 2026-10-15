@@ -153,7 +153,11 @@ export async function ingestProviderSubmission(
     path.join(stagingDir, "signatures.json"),
   );
 
-  const verification = await verifyProviderSignatures(stagingDir);
+  const verification = await verifyProviderSignatures(
+    stagingDir,
+    true,
+    chainIdFromProviderPath(chainPath),
+  );
   if (!verification.hasValidSelfSignature) {
     const reasons = verification.invalidSignatures
       .map((invalid) => `${invalid.entry.signerAddress}: ${invalid.reason}`)
