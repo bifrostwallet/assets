@@ -9,6 +9,15 @@
     "logoHash": "49975447c37decacd306a99aed58330b45fef3d96642dab826ce64859f6f617a"
   },
   {
+    "name": "FTestXRP OFT",
+    "symbol": "FTestXRP",
+    "decimals": 6,
+    "address": "0x81672c5d42f3573ad95a0bdfbe824faac547d4e6",
+    "coingeckoId": null,
+    "logoURL": "tokens/eip155-11155111/0x81672c5d42f3573ad95a0bdfbe824faac547d4e6/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
     "name": "Aave Test USDC",
     "symbol": "USDC",
     "decimals": 6,

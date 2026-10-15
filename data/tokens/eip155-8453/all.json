@@ -117,6 +117,15 @@
     "logoHash": "5db03513be2509cb23213b31048a0731c02e07a5aa2130f287c52e533b935b37"
   },
   {
+    "name": "FXRP",
+    "symbol": "FXRP",
+    "decimals": 6,
+    "address": "0xce6170ea245dc8d1f275a710a062b70f125f0110",
+    "coingeckoId": "ripple",
+    "logoURL": "tokens/eip155-8453/0xce6170ea245dc8d1f275a710a062b70f125f0110/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
     "name": "Stargate Finance",
     "symbol": "STG",
     "decimals": 18,

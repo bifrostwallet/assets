@@ -1728,6 +1728,15 @@
     "logoHash": "95515130482500873bbc394d014ad46699426a609fe465b869160091604ffdba"
   },
   {
+    "name": "FXRP",
+    "symbol": "FXRP",
+    "decimals": 6,
+    "address": "0xce6170ea245dc8d1f275a710a062b70f125f0110",
+    "coingeckoId": "ripple",
+    "logoURL": "tokens/eip155-56/0xce6170ea245dc8d1f275a710a062b70f125f0110/logo.webp",
+    "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
+  },
+  {
     "name": "Venus",
     "symbol": "XVS",
     "decimals": 18,

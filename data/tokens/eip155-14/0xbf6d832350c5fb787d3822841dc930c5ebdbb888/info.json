@@ -1,0 +1,9 @@
+{
+  "name": "FlareCat",
+  "symbol": "FCAT",
+  "decimals": 18,
+  "address": "0xbf6d832350c5fb787d3822841dc930c5ebdbb888",
+  "coingeckoId": "flarecat",
+  "logoURL": "tokens/eip155-14/0xbf6d832350c5fb787d3822841dc930c5ebdbb888/logo.webp",
+  "logoHash": "61af9b20a39e518d335813a05d56e6cc35e4195ef52ecaa982996be050a80b23"
+}
