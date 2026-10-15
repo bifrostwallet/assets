@@ -27,16 +27,17 @@ Submissions are accepted only when signed by the identity address itself and whe
 
 ### Ownership signatures
 
-Every provider entry carries a `signatures.json` proving control of the identity address. Signatures use **EIP-712** (`eth_signTypedData_v4`, domain `Bifrost Assets`). The signed payload is the entry's `info.json` **excluding** `logoURL`, `listed`, `managementGroup`, `domainLinked`, `dualNetwork` and `firstTransaction`:
+Every provider entry carries a `signatures.json` proving control of the identity address. Signatures use **EIP-712** (`eth_signTypedData_v4`, domain `Bifrost Assets`). The signed payload is `name`, `description`, `websiteURL`, `links`, `identityAddress`, `acknowledgedResponsibilities`, and `logoHash`. It excludes:
 
+- `logoURL` is a hosting detail; logo integrity is covered by the signed `logoHash`
 - `listed` is granted by curators (see [listed in Bifrost Wallet](#listed-in-bifrost-wallet))
 - `managementGroup` is synced from Flare's on-chain PollingManagementGroup (a brand's Songbird entry mirrors its Flare membership)
 - `domainLinked` is refreshed nightly from optional website well-known / DNS linkage
 - `dualNetwork` marks the same brand present on both Flare and Songbird (kept current by `sync:dual-network`)
 - `firstTransaction` records the earliest known on-chain activity
-- `logoURL` is a hosting detail; logo integrity is covered by the signed `logoHash`
+- `delegationAddress`, `signingPolicyAddress`, `submitAddress`, `submitSignaturesAddress`, `publicKey`, and `validators` are the on-chain snapshot, including validator NodeIDs. A nightly job may update them without a new signature
 
-CI verifies all signatures cryptographically (`yarn verify:providers`). Because on-chain entity fields are part of the signed content, changing them on-chain requires re-signing your listing (re-submit through the web app).
+CI verifies all signatures cryptographically (`yarn verify:providers`). A change to your name, description, website, links, acknowledgement, or logo requires a new signature. Chain addresses, the public key, and validators can change without one.
 
 The signature requirement is a **self-signature** by the entry's identity address.
 
