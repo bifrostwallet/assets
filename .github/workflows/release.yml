@@ -1,11 +1,11 @@
 name: Publish release
 
-# Publishes @bifrostwallet/assets to the public npm registry with provenance
-# (npm Trusted Publishing / OIDC → “Built and signed on GitHub Actions”).
+# Stages @bifrostwallet/assets on the public npm registry with provenance
+# (npm Trusted Publishing / OIDC). A maintainer approves the staged version
+# on npmjs.com before it becomes installable.
 #
 # Gate: create a GitHub Release whose tag is v<package.json version>, or use
-# workflow_dispatch with publish=true once Trusted Publisher is configured on
-# npmjs.com. Do not publish until the org is ready for a public package.
+# workflow_dispatch with publish=true.
 
 on:
   release:
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: "Publish dist/ to npmjs.com (false = build-only dry run)"
+        description: "Stage dist/ on npmjs.com (false = build-only dry run)"
         type: boolean
         default: false
 
@@ -26,7 +26,7 @@ env:
 
 jobs:
   publish:
-    name: Build and publish @bifrostwallet/assets
+    name: Build and stage @bifrostwallet/assets
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -40,7 +40,7 @@ jobs:
           # Release publishes must not reuse a stale install cache
           package-manager-cache: false
 
-      # Trusted Publishing needs npm CLI ≥ 11.5.1
+      # Staged publishing needs npm CLI ≥ 11.15.0
       - name: Ensure recent npm CLI
         run: npm install -g npm@latest
 
@@ -78,9 +78,9 @@ jobs:
               ;;
           esac
 
-      - name: Publish to npm with provenance
+      - name: Stage on npm with provenance
         if: github.event_name == 'release' || inputs.publish == true
-        run: npm publish ./dist --access public --tag beta
+        run: npm stage publish ./dist --access public --tag beta
         env:
           NPM_CONFIG_PROVENANCE: "true"
 
@@ -91,8 +91,6 @@ jobs:
             echo "Built dist/ only (publish=false)."
             echo "Version: $(node -p "require('./dist/package.json').version")"
             echo ""
-            echo "When ready:"
-            echo "1. On npmjs.com, add Trusted Publisher for package @bifrostwallet/assets"
-            echo "   → GitHub org/repo bifrostwallet/assets, workflow release.yml"
-            echo "2. Create a GitHub Release tagged v<version>, or re-run with publish=true"
+            echo "To stage this version, re-run with publish=true."
+            echo "Then approve the staged version on npmjs.com."
           } >> "$GITHUB_STEP_SUMMARY"
