@@ -58,17 +58,21 @@ export interface ProviderSignatureVerification {
  *
  * `resolveAttesters` is internal: attester lookups verify the attester's own
  * entry with it disabled, so attestation chains never recurse.
+ *
+ * `chainId` is required when `providerDir` is not under an `eip155-<id>` path.
+ * Intake ingest verifies a copy in a temporary directory and passes the chain
+ * id from the submission instead of the temp path.
  */
 export async function verifyProviderSignatures(
   providerDir: string,
   resolveAttesters = true,
+  chainId = chainIdFromProviderPath(providerDir),
 ): Promise<ProviderSignatureVerification> {
   const infoPath = path.join(providerDir, "info.json");
   const signaturesPath = path.join(providerDir, "signatures.json");
 
   const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
   const expectedMessageHash = providerInfoMessageHash(info);
-  const chainId = chainIdFromProviderPath(providerDir);
   const typed = providerListingTypedData(info, chainId);
 
   const result: ProviderSignatureVerification = {
