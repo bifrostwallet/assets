@@ -31,7 +31,7 @@ Every provider entry carries a `signatures.json` proving control of the identity
 
 - `logoURL` is a hosting detail; logo integrity is covered by the signed `logoHash`
 - `listed` is granted by curators (see [listed in Bifrost Wallet](#listed-in-bifrost-wallet))
-- `managementGroup` is synced from Flare's on-chain PollingManagementGroup (a brand's Songbird entry mirrors its Flare membership)
+- `managementGroup` is synced from that network's on-chain PollingManagementGroup (Flare and Songbird each have their own group)
 - `domainLinked` is refreshed nightly from optional website well-known / DNS linkage
 - `dualNetwork` marks the same brand present on both Flare and Songbird (kept current by `sync:dual-network`)
 - `firstTransaction` records the earliest known on-chain activity

@@ -138,8 +138,9 @@ export interface ProviderInfo {
   /** Curator-granted listing flag for Bifrost Wallet UIs (not provider-signed) */
   listed: boolean;
   /**
-   * Flare FTSO Management Group membership, synced from PollingManagementGroup;
-   * the brand's Songbird entry mirrors its Flare membership (not provider-signed).
+   * This network's FTSO Management Group membership, synced from that network's
+   * PollingManagementGroup. Flare and Songbird each have their own group
+   * (not provider-signed).
    */
   managementGroup: boolean;
   /**
