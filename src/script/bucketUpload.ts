@@ -5,6 +5,7 @@ import { Storage } from "@google-cloud/storage";
 import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
 import { BUCKET_NAME, BUCKET_PREFIX, PROJECT_ID } from "../config.js";
 import { isMain } from "../isMain.js";
+import { legacyTokenIconDestination } from "../legacyTokenIcon.js";
 import {
   type AssetsManifestBody,
   rollupChainHashes,
@@ -22,6 +23,11 @@ import {
 //
 // Also uploads a signed root manifest.json (Ed25519 via ASSETS_MANIFEST_PRIVATE_KEY)
 // whose content hashes match the uploaded all.json bytes.
+//
+// Each ERC-20 logo.webp is uploaded twice, as the same WebP bytes: the catalog
+// object, and `res/icons/<address>.webp` at the bucket root (no prefix). Host
+// `/res` reads that key from the production static bucket, so point
+// STATIC_BUCKET at production.
 //
 // Auth uses Application Default Credentials (gcloud auth application-default login).
 // Pass --dry-run to preview without uploading.
@@ -66,6 +72,8 @@ function collectUploads(assetBase: string): {
   const providerChains: Record<string, string> = {};
   const tokenChains: Record<string, string> = {};
 
+  const legacyIcons = new Map<string, string>();
+
   const walk = (dir: string, section: "providers" | "tokens"): void => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const fullPath = path.join(dir, entry.name);
@@ -83,6 +91,19 @@ function collectUploads(assetBase: string): {
           cacheControl: LOGO_CACHE_CONTROL,
           contentType: "image/webp",
         });
+        if (section === "tokens") {
+          const legacyDestination = legacyTokenIconDestination(relative);
+          if (legacyDestination) {
+            const existing = legacyIcons.get(legacyDestination);
+            if (existing && existing !== fullPath) {
+              console.warn(
+                `⚠️  ${legacyDestination} already queued from ${existing}; keeping the first logo`,
+              );
+            } else if (!existing) {
+              legacyIcons.set(legacyDestination, fullPath);
+            }
+          }
+        }
       } else if (entry.name === "all.json") {
         const { body, tmpPath } = rewriteAllJsonForUpload(fullPath, assetBase);
         const chain = path.basename(path.dirname(fullPath));
@@ -116,6 +137,15 @@ function collectUploads(assetBase: string): {
     if (fs.existsSync(sectionDir)) {
       walk(sectionDir, section);
     }
+  }
+
+  for (const [destination, localPath] of legacyIcons) {
+    uploads.push({
+      localPath,
+      destination,
+      cacheControl: LOGO_CACHE_CONTROL,
+      contentType: "image/webp",
+    });
   }
 
   const sections: AssetsManifestBody["sections"] = {};
