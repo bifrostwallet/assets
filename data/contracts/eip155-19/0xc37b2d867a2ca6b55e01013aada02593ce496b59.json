@@ -1,0 +1,8 @@
+{
+  "address": "0xc37b2d867a2ca6b55e01013aada02593ce496b59",
+  "chain": "eip155:19",
+  "projectName": "AU",
+  "contractName": "Collateral Pool",
+  "category": "collateral-pool",
+  "logoURL": "contracts/logos/au.webp"
+}

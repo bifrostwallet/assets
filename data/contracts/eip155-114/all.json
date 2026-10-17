@@ -1,0 +1,18 @@
+[
+  {
+    "address": "0x8371172ab47a594592625c8e8fffef956a9acc1a",
+    "chain": "eip155:114",
+    "projectName": "Firelight",
+    "contractName": "Vault",
+    "category": "staking-protocol",
+    "logoURL": "contracts/logos/firelight.webp"
+  },
+  {
+    "address": "0xb0e31149c03f1300bd9ff8c165b1fa38fda2f0bb",
+    "chain": "eip155:114",
+    "projectName": "AmagiSwap",
+    "contractName": "Aggregator",
+    "category": "aggregator",
+    "logoURL": "contracts/logos/amagiswap.webp"
+  }
+]
