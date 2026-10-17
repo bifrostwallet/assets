@@ -3,6 +3,7 @@ import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import { describe, test } from "node:test";
+import { resolveAssetURL } from "../src/assetUrl.js";
 import {
   CONTRACT_CATEGORIES,
   type ContractInfo,
@@ -44,7 +45,23 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(lower.contractName, "Aggregator V2");
     assert.equal(lower.category, "aggregator");
     assert.equal(lower.chain, "eip155:14");
-    assert.equal("logoURL" in lower, false);
+    assert.equal(lower.logoURL, "contracts/logos/amagiswap.webp");
+
+    const auPool = getContract("eip155:14", "0xf45c1a5Ef4fB09F1c33f772175b2fec229D1885B");
+    assert.equal(auPool?.projectName, "AU");
+    assert.equal(auPool?.contractName, "Collateral Pool");
+    assert.equal(auPool?.logoURL, "contracts/logos/au.webp");
+
+    const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
+    assert.equal(firelight?.projectName, "Firelight");
+    assert.equal(firelight?.contractName, "Vault");
+    assert.equal(firelight?.category, "staking-protocol");
+    assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
+    assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
+    assert.equal(getContracts("eip155:14").length, 16);
+    assert.equal(getContracts("eip155:19").length, 12);
+    assert.equal(getContracts("eip155:16").length, 2);
+    assert.equal(getContracts("eip155:114").length, 2);
 
     assert.equal(getContract("eip155:14", "0x0000000000000000000000000000000000000001"), null);
     const flare = getContracts("eip155:14");
@@ -93,9 +110,15 @@ describe("contract catalog", { concurrency: false }, () => {
   });
 
   test("logoURL must be an existing WebP that meets catalog size rules", () => {
-    const logoDir = path.join(process.cwd(), "data", "contracts", "logos");
+    const logoDir = path.join(
+      process.cwd(),
+      "data",
+      "contracts",
+      "eip155-14",
+      "0x0000000000000000000000000000000000000001",
+    );
     fs.mkdirSync(logoDir, { recursive: true });
-    const logoURL = "contracts/logos/contract-logo-test.webp";
+    const logoURL = "contracts/eip155-14/0x0000000000000000000000000000000000000001/logo.webp";
     const logoPath = path.join(process.cwd(), "data", logoURL);
     const entry = {
       address: AMAGI_V2,
@@ -118,10 +141,7 @@ describe("contract catalog", { concurrency: false }, () => {
       fs.writeFileSync(logoPath, webpWithDimensions(128, 128));
       assert.deepEqual(validateContractRecord(entry, ctx), []);
     } finally {
-      fs.rmSync(logoPath, { force: true });
-      if (fs.existsSync(logoDir) && fs.readdirSync(logoDir).length === 0) {
-        fs.rmdirSync(logoDir);
-      }
+      fs.rmSync(logoDir, { recursive: true, force: true });
     }
   });
 });
@@ -139,7 +159,13 @@ describe("published package contract lookups", { concurrency: false }, () => {
       "eip155:14",
       "0x5ED8551F90aCC6395810d8274b019bf13EF1f696",
     );
-    assert.deepEqual(fromPackage, getContract("eip155:14", AMAGI_V2));
+    const fromCatalog = getContract("eip155:14", AMAGI_V2);
+    assert.ok(fromPackage?.logoURL);
+    assert.ok(fromCatalog?.logoURL);
+    assert.equal(fromPackage.logoURL, resolveAssetURL(fromCatalog.logoURL));
+    const { logoURL: _packageLogo, ...packageRest } = fromPackage;
+    const { logoURL: _catalogLogo, ...catalogRest } = fromCatalog;
+    assert.deepEqual(packageRest, catalogRest);
     assert.equal(assets.getContracts().length, getContracts().length);
     assert.ok(assets.CONTRACT_CHAIN_IDS.includes("eip155:14"));
     assert.equal(

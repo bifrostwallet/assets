@@ -1,0 +1,8 @@
+{
+  "address": "0x0afca56dd247f932bc4a7754a3307ffa814e11bd",
+  "chain": "eip155:19",
+  "projectName": "Oracle Daemon",
+  "contractName": "Agent Vault",
+  "category": "agent-vault",
+  "logoURL": "contracts/logos/od.webp"
+}

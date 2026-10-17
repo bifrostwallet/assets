@@ -83,12 +83,15 @@ export function contractsRoot(): string {
   return path.join(process.cwd(), "data", "contracts");
 }
 
+/** Shared project marks (`data/contracts/logos/<slug>.webp`), not a chain directory. */
+export const SHARED_CONTRACT_LOGO_DIR = "logos";
+
 export function listContractChainPaths(): string[] {
   const root = contractsRoot();
   if (!fs.existsSync(root)) return [];
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
+    .filter((entry) => entry.isDirectory() && entry.name !== SHARED_CONTRACT_LOGO_DIR)
     .map((entry) => entry.name)
     .sort();
 }
@@ -285,6 +288,10 @@ export function validateContractCatalog(): string[] {
       errors.push(`data/contracts/${entry.name}: unexpected file`);
       continue;
     }
+    if (entry.name === SHARED_CONTRACT_LOGO_DIR) {
+      errors.push(...validateSharedLogoDirectory());
+      continue;
+    }
     const chainPath = entry.name;
     try {
       const caip2 = chainPathToCaip2(chainPath);
@@ -346,6 +353,37 @@ export function validateContractCatalog(): string[] {
     }
   }
 
+  return errors;
+}
+
+function validateSharedLogoDirectory(): string[] {
+  const errors: string[] = [];
+  const dir = path.join(contractsRoot(), SHARED_CONTRACT_LOGO_DIR);
+  const referenced = new Set<string>();
+  for (const chainPath of listContractChainPaths()) {
+    for (const fileName of listContractFiles(chainPath)) {
+      const raw = loadContractFile(chainPath, fileName);
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
+      const logoURL = (raw as { logoURL?: unknown }).logoURL;
+      const sharedPrefix = `contracts/${SHARED_CONTRACT_LOGO_DIR}/`;
+      if (typeof logoURL === "string" && logoURL.startsWith(sharedPrefix)) {
+        referenced.add(logoURL);
+      }
+    }
+  }
+
+  for (const child of fs.readdirSync(dir, { withFileTypes: true })) {
+    const label = `${SHARED_CONTRACT_LOGO_DIR}/${child.name}`;
+    if (!child.isFile() || !/^[a-z0-9]+(?:-[a-z0-9]+)*\.webp$/.test(child.name)) {
+      errors.push(`${label}: shared logos must be slug.webp files`);
+      continue;
+    }
+    const logoURL = `contracts/${SHARED_CONTRACT_LOGO_DIR}/${child.name}`;
+    errors.push(...validateContractLogo(logoURL, label));
+    if (!referenced.has(logoURL)) {
+      errors.push(`${label}: shared logo is not referenced by any contract`);
+    }
+  }
   return errors;
 }
 

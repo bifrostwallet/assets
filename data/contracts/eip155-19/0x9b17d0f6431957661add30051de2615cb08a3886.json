@@ -3,5 +3,6 @@
   "chain": "eip155:19",
   "projectName": "AmagiSwap",
   "contractName": "Aggregator V2",
-  "category": "aggregator"
+  "category": "aggregator",
+  "logoURL": "contracts/logos/amagiswap.webp"
 }
