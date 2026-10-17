@@ -4,4 +4,4 @@ Install [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/a
 
 **Full integrator guide:** [docs.bifrostwallet.com: Consuming Assets](https://docs.bifrostwallet.com/list/consuming-assets)
 
-For listing rules (providers, dapps, logos), see [README.md](README.md).
+For listing rules (providers, dapps, contract names, logos), see [README.md](README.md). Contract lookup is `getContract(chain, address)` / `getContracts(chain?)`.

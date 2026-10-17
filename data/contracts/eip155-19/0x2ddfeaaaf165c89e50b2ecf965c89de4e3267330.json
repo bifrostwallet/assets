@@ -1,0 +1,7 @@
+{
+  "address": "0x2ddfeaaaf165c89e50b2ecf965c89de4e3267330",
+  "chain": "eip155:19",
+  "projectName": "Bifrost Wallet",
+  "contractName": "Agent Vault",
+  "category": "agent-vault"
+}

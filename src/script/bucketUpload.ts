@@ -52,8 +52,10 @@ function rewriteAllJsonForUpload(
   localPath: string,
   assetBase: string,
 ): { body: string; tmpPath: string } {
-  const entries = JSON.parse(fs.readFileSync(localPath, "utf8")) as Array<{ logoURL: string }>;
-  const rewritten = entries.map((entry) => withAbsoluteLogoURL(entry, assetBase));
+  const entries = JSON.parse(fs.readFileSync(localPath, "utf8")) as Array<{ logoURL?: string }>;
+  const rewritten = entries.map((entry) =>
+    entry.logoURL ? withAbsoluteLogoURL({ ...entry, logoURL: entry.logoURL }, assetBase) : entry,
+  );
   const body = `${JSON.stringify(rewritten, null, 2)}\n`;
   const tmpPath = path.join(
     os.tmpdir(),
@@ -71,6 +73,7 @@ function collectUploads(assetBase: string): {
   const uploads: UploadItem[] = [];
   const providerChains: Record<string, string> = {};
   const tokenChains: Record<string, string> = {};
+  const contractChains: Record<string, string> = {};
 
   const legacyIcons = new Map<string, string>();
 
@@ -148,6 +151,40 @@ function collectUploads(assetBase: string): {
     });
   }
 
+  const contractsDir = path.join(dataDir, "contracts");
+  if (fs.existsSync(contractsDir)) {
+    const walkContracts = (dir: string): void => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walkContracts(fullPath);
+          continue;
+        }
+        const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
+        if (entry.name === "logo.webp") {
+          uploads.push({
+            localPath: fullPath,
+            destination: `${BUCKET_PREFIX}${relative}`,
+            cacheControl: LOGO_CACHE_CONTROL,
+            contentType: "image/webp",
+          });
+        } else if (entry.name === "all.json") {
+          const { body, tmpPath } = rewriteAllJsonForUpload(fullPath, assetBase);
+          const chain = path.basename(path.dirname(fullPath));
+          contractChains[chain] = sha256Hex(body);
+          uploads.push({
+            localPath: tmpPath,
+            destination: `${BUCKET_PREFIX}${relative}`,
+            cacheControl: LIST_CACHE_CONTROL,
+            contentType: "application/json",
+            cleanup: true,
+          });
+        }
+      }
+    };
+    walkContracts(contractsDir);
+  }
+
   const sections: AssetsManifestBody["sections"] = {};
   if (Object.keys(providerChains).length > 0) {
     sections.providers = {
@@ -159,6 +196,12 @@ function collectUploads(assetBase: string): {
     sections.tokens = {
       contentHash: rollupChainHashes(tokenChains),
       chains: tokenChains,
+    };
+  }
+  if (Object.keys(contractChains).length > 0) {
+    sections.contracts = {
+      contentHash: rollupChainHashes(contractChains),
+      chains: contractChains,
     };
   }
 

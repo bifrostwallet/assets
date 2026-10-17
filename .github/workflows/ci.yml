@@ -65,3 +65,9 @@ jobs:
 
       - name: Test
         run: ./yarn test
+
+      - name: Check token catalog
+        run: ./yarn check:tokens
+
+      - name: Check contract catalog
+        run: ./yarn check:contracts

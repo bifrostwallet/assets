@@ -1,0 +1,44 @@
+[
+  {
+    "address": "0x56a11d4a0cd9552fc1049c45e1b68ed696cd3cd7",
+    "chain": "eip155:114",
+    "projectName": "Atlas TSO",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  },
+  {
+    "address": "0xb0e31149c03f1300bd9ff8c165b1fa38fda2f0bb",
+    "chain": "eip155:114",
+    "projectName": "AmagiSwap",
+    "contractName": "Aggregator",
+    "category": "aggregator"
+  },
+  {
+    "address": "0xc90d6847747b85d1fa2e07859869fb9fb72c0361",
+    "chain": "eip155:114",
+    "projectName": "Firelight",
+    "contractName": "Vault",
+    "category": "staking-protocol"
+  },
+  {
+    "address": "0xd6c1fa3c417ebcf60bb7e394eb94271e688ac419",
+    "chain": "eip155:114",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  },
+  {
+    "address": "0xdf1e2420b56002ea11f7f785c97dc1b6ec32286b",
+    "chain": "eip155:114",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  },
+  {
+    "address": "0xe6417f36ff720d8d472ebfedebabfeb6432624c7",
+    "chain": "eip155:114",
+    "projectName": "Atlas TSO",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  }
+]

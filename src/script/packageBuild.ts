@@ -2,6 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
 import type { ProviderInfo } from "../config.js";
+import { type ContractInfo, listContractChainPaths } from "../contracts.js";
 import { isMain } from "../isMain.js";
 import { rollupChainHashes, sha256Hex } from "../manifest.js";
 import { listTokenChainPaths, type TokenInfo } from "../tokens.js";
@@ -33,6 +34,16 @@ function loadTokens(chainPath: string): TokenInfo[] {
   return tokens.map((token) => withAbsoluteLogoURL(token, base));
 }
 
+function loadContracts(chainPath: string): ContractInfo[] {
+  const allPath = path.join(process.cwd(), "data", "contracts", chainPath, "all.json");
+  const contracts = JSON.parse(fs.readFileSync(allPath, "utf8")) as ContractInfo[];
+  const base = getAssetBaseURL();
+  return contracts.map((contract) => {
+    if (!contract.logoURL) return contract;
+    return withAbsoluteLogoURL({ ...contract, logoURL: contract.logoURL }, base);
+  });
+}
+
 function loadManifestPublicKey(): string {
   const pemPath = path.join(process.cwd(), "manifest-public.pem");
   if (!fs.existsSync(pemPath)) {
@@ -46,6 +57,7 @@ function buildIndexJs(
   sectionHashesJson: string,
   publicKeyPem: string,
   tokenChains: string[],
+  contractChains: string[],
 ): string {
   const publicKeyLiteral = JSON.stringify(publicKeyPem);
   const tokenRequires =
@@ -54,6 +66,10 @@ function buildIndexJs(
       : `${tokenChains.map((chain) => `  "${chain}": require("./tokens/${chain}.json"),`).join("\n")}\n`;
   const blocklistRequire =
     tokenChains.length > 0 ? 'require("./tokens/blocklist.json")' : "{ tokens: [] }";
+  const contractRequires =
+    contractChains.length === 0
+      ? ""
+      : `${contractChains.map((chain) => `  "${chain}": require("./contracts/${chain}.json"),`).join("\n")}\n`;
   return `"use strict";
 // @bifrostwallet/assets — generated file, do not edit.
 
@@ -65,6 +81,9 @@ const tokensByChain = {
 ${tokenRequires}};
 
 const tokenBlocklist = ${blocklistRequire};
+
+const contractsByChain = {
+${contractRequires}};
 
 /** Bundled snapshot of section content hashes (same algorithm as CDN manifest.json). */
 const SECTION_HASHES = ${sectionHashesJson};
@@ -79,6 +98,7 @@ const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(getAssetBaseURL())};
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
+const CONTRACT_CHAIN_IDS = Object.keys(contractsByChain).map(chainPathToCaip2);
 
 function chainPathToCaip2(chainPath) {
   const i = String(chainPath).indexOf("-");
@@ -156,6 +176,30 @@ function getTokenBlocklist() {
   return tokenBlocklist.tokens || [];
 }
 
+function getContracts(chainId) {
+  if (chainId == null) {
+    const all = [];
+    for (const chain of Object.keys(contractsByChain).sort()) {
+      all.push(...contractsByChain[chain]);
+    }
+    return all;
+  }
+  const contracts = contractsByChain[normalizeChainId(chainId)];
+  if (!contracts) {
+    throw new Error(
+      "Unknown contract chain " + chainId + ". Available: " + CONTRACT_CHAIN_IDS.join(", ")
+    );
+  }
+  return contracts;
+}
+
+function getContract(chainId, address) {
+  const target = String(address).toLowerCase();
+  return (
+    getContracts(chainId).find((contract) => contract.address.toLowerCase() === target) ?? null
+  );
+}
+
 function resolveAssetURL(relativePath, baseURL) {
   const base = baseURL || DEFAULT_ASSET_BASE_URL;
   return base.replace(/\\/?$/, "/") + String(relativePath).replace(/^\\//, "");
@@ -206,6 +250,7 @@ module.exports = {
   DEFAULT_ASSET_BASE_URL,
   PROVIDER_CHAIN_IDS,
   TOKEN_CHAIN_IDS,
+  CONTRACT_CHAIN_IDS,
   MANIFEST_PUBLIC_KEY,
   getSectionHashes,
   canonicalManifestBody,
@@ -219,6 +264,8 @@ module.exports = {
   getToken,
   getNativeToken,
   getTokenBlocklist,
+  getContracts,
+  getContract,
   resolveAssetURL,
 };
 `;
@@ -301,6 +348,28 @@ export type ChainId = string;
 export declare const DEFAULT_ASSET_BASE_URL: string;
 export declare const PROVIDER_CHAIN_IDS: string[];
 export declare const TOKEN_CHAIN_IDS: string[];
+export declare const CONTRACT_CHAIN_IDS: string[];
+
+export type ContractCategory =
+  | "aggregator"
+  | "router"
+  | "collateral-pool"
+  | "agent-vault"
+  | "staking-protocol"
+  | "bridge"
+  | "dapp-contract";
+
+export interface ContractInfo {
+  /** Lowercase 0x address */
+  address: string;
+  /** CAIP-2 chain id, e.g. "eip155:14" */
+  chain: string;
+  projectName: string;
+  contractName: string;
+  category: ContractCategory;
+  /** Absolute logo URL when the contract has one */
+  logoURL?: string;
+}
 /** Ed25519 SPKI PEM for verifying CDN manifest.json (empty string if key not generated yet) */
 export declare const MANIFEST_PUBLIC_KEY: string;
 
@@ -362,6 +431,13 @@ export declare function getNativeToken(chainId: ChainId): TokenInfo | null;
 /** Curated token blocklist entries */
 export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 /**
+ * Curated contracts. Omit chainId for every chain.
+ * Throws on an unknown CAIP-2 id.
+ */
+export declare function getContracts(chainId?: ChainId): ContractInfo[];
+/** One contract by address (case-insensitive), or null */
+export declare function getContract(chainId: ChainId, address: string): ContractInfo | null;
+/**
  * Joins a relative (or already-absolute) asset path to a base URL.
  * Defaults to the base baked into this package build (ASSET_BASE_URL / GitHub raw).
  */
@@ -407,8 +483,23 @@ function buildPackage(): void {
     }
   }
 
+  const contractChainIds = listContractChainPaths();
+  const contractChains: Record<string, string> = {};
+  if (contractChainIds.length > 0) {
+    fs.mkdirSync(path.join(distDir, "contracts"), { recursive: true });
+    for (const chain of contractChainIds) {
+      const contracts = loadContracts(chain);
+      const outPath = path.join(distDir, "contracts", `${chain}.json`);
+      const body = `${JSON.stringify(contracts, null, 2)}\n`;
+      fs.writeFileSync(outPath, body);
+      contractChains[chain] = sha256Hex(body);
+      console.info(`📦 contracts/${chain}.json (${contracts.length} contracts)`);
+    }
+  }
+
   const sections: {
     providers: { contentHash: string; chains: Record<string, string> };
+    contracts?: { contentHash: string; chains: Record<string, string> };
     tokens?: { contentHash: string; chains: Record<string, string> };
   } = {
     providers: {
@@ -416,6 +507,12 @@ function buildPackage(): void {
       chains: providerChains,
     },
   };
+  if (Object.keys(contractChains).length > 0) {
+    sections.contracts = {
+      contentHash: rollupChainHashes(contractChains),
+      chains: contractChains,
+    };
+  }
   if (Object.keys(tokenChains).length > 0) {
     sections.tokens = {
       contentHash: rollupChainHashes(tokenChains),
@@ -428,7 +525,7 @@ function buildPackage(): void {
 
   fs.writeFileSync(
     path.join(distDir, "index.js"),
-    buildIndexJs(sectionHashesJson, publicKeyPem, tokenChainIds),
+    buildIndexJs(sectionHashesJson, publicKeyPem, tokenChainIds, contractChainIds),
   );
   fs.writeFileSync(path.join(distDir, "index.d.ts"), INDEX_DTS);
   fs.writeFileSync(path.join(distDir, "section-hashes.json"), `${sectionHashesJson}\n`);
