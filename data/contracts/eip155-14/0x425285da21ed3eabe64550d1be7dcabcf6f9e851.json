@@ -1,0 +1,7 @@
+{
+  "address": "0x425285da21ed3eabe64550d1be7dcabcf6f9e851",
+  "chain": "eip155:14",
+  "projectName": "AmagiSwap",
+  "contractName": "Aggregator V2",
+  "category": "aggregator"
+}

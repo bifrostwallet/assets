@@ -1,0 +1,7 @@
+{
+  "address": "0xe6f39b738d8a38aa4ced30c20486eaa32cb1e5f1",
+  "chain": "eip155:16",
+  "projectName": "Bifrost Wallet",
+  "contractName": "Collateral Pool",
+  "category": "collateral-pool"
+}

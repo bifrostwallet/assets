@@ -1,0 +1,72 @@
+[
+  {
+    "address": "0x1567cf905a225fe1bf298dec0d5eb548e366ca8f",
+    "chain": "eip155:19",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  },
+  {
+    "address": "0x2ddfeaaaf165c89e50b2ecf965c89de4e3267330",
+    "chain": "eip155:19",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  },
+  {
+    "address": "0x45b6df9b4ee40342ca9c364982c220c6d9fd66a5",
+    "chain": "eip155:19",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  },
+  {
+    "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
+    "chain": "eip155:19",
+    "projectName": "Atlas TSO",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  },
+  {
+    "address": "0x7abf55c062acb1dcc94f8890b798cbb2de964eb6",
+    "chain": "eip155:19",
+    "projectName": "AmagiSwap",
+    "contractName": "Aggregator",
+    "category": "aggregator"
+  },
+  {
+    "address": "0x933a4bc8a50b500a301dbf96564014e6f69fe48f",
+    "chain": "eip155:19",
+    "projectName": "Atlas TSO",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  },
+  {
+    "address": "0x9b17d0f6431957661add30051de2615cb08a3886",
+    "chain": "eip155:19",
+    "projectName": "AmagiSwap",
+    "contractName": "Aggregator V2",
+    "category": "aggregator"
+  },
+  {
+    "address": "0xc78ffc5ed866947ef0777df81d3b700de83a155c",
+    "chain": "eip155:19",
+    "projectName": "Atlas TSO",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool"
+  },
+  {
+    "address": "0xd527597cf9ce95336d76d1d3be7474c310869f73",
+    "chain": "eip155:19",
+    "projectName": "Atlas TSO",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  },
+  {
+    "address": "0xd6c78ddc3cf5ef08afb61c805440c49cd5c23040",
+    "chain": "eip155:19",
+    "projectName": "Bifrost Wallet",
+    "contractName": "Agent Vault",
+    "category": "agent-vault"
+  }
+]
