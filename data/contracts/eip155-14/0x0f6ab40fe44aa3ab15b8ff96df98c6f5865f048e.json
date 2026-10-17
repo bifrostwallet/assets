@@ -1,0 +1,8 @@
+{
+  "address": "0x0f6ab40fe44aa3ab15b8ff96df98c6f5865f048e",
+  "chain": "eip155:14",
+  "projectName": "NORTSO",
+  "contractName": "Agent Vault",
+  "category": "agent-vault",
+  "logoURL": "contracts/logos/nortso.webp"
+}

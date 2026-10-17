@@ -161,7 +161,7 @@ function collectUploads(assetBase: string): {
           continue;
         }
         const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
-        if (entry.name === "logo.webp") {
+        if (entry.name.endsWith(".webp")) {
           uploads.push({
             localPath: fullPath,
             destination: `${BUCKET_PREFIX}${relative}`,

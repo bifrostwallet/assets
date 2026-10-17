@@ -3,5 +3,6 @@
   "chain": "eip155:19",
   "projectName": "Atlas TSO",
   "contractName": "Collateral Pool",
-  "category": "collateral-pool"
+  "category": "collateral-pool",
+  "logoURL": "contracts/logos/atlas.webp"
 }

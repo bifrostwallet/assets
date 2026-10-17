@@ -1,44 +1,18 @@
 [
   {
-    "address": "0x2f015150050f4552970b5975f07ee453479a739e",
-    "chain": "eip155:16",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Agent Vault",
-    "category": "agent-vault"
-  },
-  {
     "address": "0x68f66faf7b29e30d0740934f81eb266f6ff17428",
     "chain": "eip155:16",
     "projectName": "AmagiSwap",
     "contractName": "Aggregator V2",
-    "category": "aggregator"
+    "category": "aggregator",
+    "logoURL": "contracts/logos/amagiswap.webp"
   },
   {
     "address": "0xb9d2ed902ccc755bcc0af394d3efd71052415844",
     "chain": "eip155:16",
     "projectName": "AmagiSwap",
     "contractName": "Aggregator",
-    "category": "aggregator"
-  },
-  {
-    "address": "0xc0cda1e01b99f15fa14ced4fb5b6679b56432754",
-    "chain": "eip155:16",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Agent Vault",
-    "category": "agent-vault"
-  },
-  {
-    "address": "0xe6f39b738d8a38aa4ced30c20486eaa32cb1e5f1",
-    "chain": "eip155:16",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Collateral Pool",
-    "category": "collateral-pool"
-  },
-  {
-    "address": "0xf7f1ec988066da7af9695d77d978956998f66a2b",
-    "chain": "eip155:16",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Collateral Pool",
-    "category": "collateral-pool"
+    "category": "aggregator",
+    "logoURL": "contracts/logos/amagiswap.webp"
   }
 ]

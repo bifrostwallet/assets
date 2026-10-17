@@ -1,72 +1,98 @@
 [
   {
+    "address": "0x0afca56dd247f932bc4a7754a3307ffa814e11bd",
+    "chain": "eip155:19",
+    "projectName": "Oracle Daemon",
+    "contractName": "Agent Vault",
+    "category": "agent-vault",
+    "logoURL": "contracts/logos/od.webp"
+  },
+  {
+    "address": "0x10d6a3c36d01e5ef0541e24c9ff7024d5c5535b9",
+    "chain": "eip155:19",
+    "projectName": "Oracle Daemon",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool",
+    "logoURL": "contracts/logos/od.webp"
+  },
+  {
     "address": "0x1567cf905a225fe1bf298dec0d5eb548e366ca8f",
     "chain": "eip155:19",
     "projectName": "Bifrost Wallet",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool"
-  },
-  {
-    "address": "0x2ddfeaaaf165c89e50b2ecf965c89de4e3267330",
-    "chain": "eip155:19",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Agent Vault",
-    "category": "agent-vault"
-  },
-  {
-    "address": "0x45b6df9b4ee40342ca9c364982c220c6d9fd66a5",
-    "chain": "eip155:19",
-    "projectName": "Bifrost Wallet",
-    "contractName": "Collateral Pool",
-    "category": "collateral-pool"
+    "category": "collateral-pool",
+    "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
     "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
     "chain": "eip155:19",
     "projectName": "Atlas TSO",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool"
+    "category": "collateral-pool",
+    "logoURL": "contracts/logos/atlas.webp"
+  },
+  {
+    "address": "0x79bb072d875a3271d124249ad69a4de89634d3b7",
+    "chain": "eip155:19",
+    "projectName": "AU",
+    "contractName": "Agent Vault",
+    "category": "agent-vault",
+    "logoURL": "contracts/logos/au.webp"
   },
   {
     "address": "0x7abf55c062acb1dcc94f8890b798cbb2de964eb6",
     "chain": "eip155:19",
     "projectName": "AmagiSwap",
     "contractName": "Aggregator",
-    "category": "aggregator"
+    "category": "aggregator",
+    "logoURL": "contracts/logos/amagiswap.webp"
   },
   {
     "address": "0x933a4bc8a50b500a301dbf96564014e6f69fe48f",
     "chain": "eip155:19",
     "projectName": "Atlas TSO",
     "contractName": "Agent Vault",
-    "category": "agent-vault"
+    "category": "agent-vault",
+    "logoURL": "contracts/logos/atlas.webp"
   },
   {
     "address": "0x9b17d0f6431957661add30051de2615cb08a3886",
     "chain": "eip155:19",
     "projectName": "AmagiSwap",
     "contractName": "Aggregator V2",
-    "category": "aggregator"
+    "category": "aggregator",
+    "logoURL": "contracts/logos/amagiswap.webp"
   },
   {
-    "address": "0xc78ffc5ed866947ef0777df81d3b700de83a155c",
+    "address": "0xc37b2d867a2ca6b55e01013aada02593ce496b59",
     "chain": "eip155:19",
-    "projectName": "Atlas TSO",
+    "projectName": "AU",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool"
-  },
-  {
-    "address": "0xd527597cf9ce95336d76d1d3be7474c310869f73",
-    "chain": "eip155:19",
-    "projectName": "Atlas TSO",
-    "contractName": "Agent Vault",
-    "category": "agent-vault"
+    "category": "collateral-pool",
+    "logoURL": "contracts/logos/au.webp"
   },
   {
     "address": "0xd6c78ddc3cf5ef08afb61c805440c49cd5c23040",
     "chain": "eip155:19",
     "projectName": "Bifrost Wallet",
     "contractName": "Agent Vault",
-    "category": "agent-vault"
+    "category": "agent-vault",
+    "logoURL": "contracts/logos/bifrost-wallet.webp"
+  },
+  {
+    "address": "0xd8c270879fee41642ed2a71dde776eced6daea17",
+    "chain": "eip155:19",
+    "projectName": "NORTSO",
+    "contractName": "Collateral Pool",
+    "category": "collateral-pool",
+    "logoURL": "contracts/logos/nortso.webp"
+  },
+  {
+    "address": "0xe14638e7231ee58ab0ae6dc3e5086a8a391537aa",
+    "chain": "eip155:19",
+    "projectName": "NORTSO",
+    "contractName": "Agent Vault",
+    "category": "agent-vault",
+    "logoURL": "contracts/logos/nortso.webp"
   }
 ]

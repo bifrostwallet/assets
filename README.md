@@ -155,7 +155,8 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
   "chain": "eip155:14",
   "projectName": "AmagiSwap",
   "contractName": "Aggregator V2",
-  "category": "aggregator"
+  "category": "aggregator",
+  "logoURL": "contracts/logos/amagiswap.webp"
 }
 ```
 
@@ -173,7 +174,8 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
 data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.json, provenance.json
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
-data/contracts/eip155-<id>/<address>.json   contract display names (optional logo.webp)
+data/contracts/eip155-<id>/<address>.json   contract display names
+data/contracts/logos/<slug>.webp            shared project logos
 data/contracts/eip155-<id>/all.json         generated aggregate (do not edit)
 data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
 src/                                        curation tooling (TypeScript, dev-only)

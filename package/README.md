@@ -42,6 +42,7 @@ const wflr = getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d")
 const router = getContract("eip155:14", "0x5ED8551F90aCC6395810d8274b019bf13EF1f696");
 // router.projectName === "AmagiSwap"
 // router.contractName === "Aggregator V2"
+// router.logoURL ends with "contracts/logos/amagiswap.webp"
 const flareContracts = getContracts("eip155:14");
 const everyContract = getContracts();
 ```
