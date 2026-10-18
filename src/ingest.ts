@@ -466,7 +466,8 @@ const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
  *
  * Fully non-interactive. Validation pipeline:
  * 1. field validation with the repository validators
- * 2. logo requirements (exact 128×128 WebP, ≤24KB)
+ * 2. logo requirements (exact 128×128 WebP, ≤24KB; transparent background
+ *    recommended, opaque including solid white still valid)
  * 3. cryptographic verification: the submitter signed the canonical hash of
  *    the submitted content including the recomputed logo hash
  *
