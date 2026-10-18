@@ -1,9 +1,0 @@
-{
-  "name": "Lending USDT0",
-  "symbol": "isoUSDT0",
-  "decimals": 8,
-  "address": "0xad7e7989796414c9572da9854deb1b920724fd09",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0xad7e7989796414c9572da9854deb1b920724fd09/logo.webp",
-  "logoHash": "d8c284981219ef546ef403930ec905abc2de73e6b1ea8edd1221b141761a3119"
-}

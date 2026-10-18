@@ -90,15 +90,6 @@
     "logoHash": "d48435128aff38106f62e75be847734deb98bb1c04fb69250fde26520cdac011"
   },
   {
-    "name": "Lending USDC",
-    "symbol": "isoUSDC",
-    "decimals": 8,
-    "address": "0x1bb34a8360a09f3166574a331b941cd7e4463ab7",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x1bb34a8360a09f3166574a331b941cd7e4463ab7/logo.webp",
-    "logoHash": "824dda361a282b510a6abfe74678242f4f54366902230baa4f6b8f68f9acb63f"
-  },
-  {
     "name": "Wrapped Flare",
     "symbol": "WFLR",
     "decimals": 18,
@@ -106,15 +97,6 @@
     "coingeckoId": "flare-networks",
     "logoURL": "tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
     "logoHash": "2acc89059d2eaaea493fe7bab098cb97d875eb3cea18991e7ebda0abb97bebf7"
-  },
-  {
-    "name": "Lending USDT",
-    "symbol": "kUSDT",
-    "decimals": 8,
-    "address": "0x1e5bbc19e0b17d7d38f318c79401b3d16f2b93bb",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x1e5bbc19e0b17d7d38f318c79401b3d16f2b93bb/logo.webp",
-    "logoHash": "0a593b7b47fecd10e3c07b62ffc0119a695a0ea89690537f864fc7b2f0ee5627"
   },
   {
     "name": "FlareFox",
@@ -144,15 +126,6 @@
     "logoHash": "5ad40f8d685ba40f4dbbcac3a5ca39d1140d5bde720d878f7ed4a95778d64f45"
   },
   {
-    "name": "Lending SFLR",
-    "symbol": "kSFLR",
-    "decimals": 8,
-    "address": "0x291487bec339c2fe5d83dd45f0a15efc9ac45656",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x291487bec339c2fe5d83dd45f0a15efc9ac45656/logo.webp",
-    "logoHash": "03de121944a864d2b0913f9359e666c34dee8341522c8035234371c71e0aa34a"
-  },
-  {
     "name": "TurtleCat",
     "symbol": "TURTLECAT",
     "decimals": 9,
@@ -160,15 +133,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-14/0x3b745cb3e50bb59cdf28a2db57b73ef909be6c58/logo.webp",
     "logoHash": "009a506210ab7c566429bad4bfabe749db463f4ef03ecf1c06dd8dae7467fa29"
-  },
-  {
-    "name": "Lending FLRETH",
-    "symbol": "kFLRETH",
-    "decimals": 8,
-    "address": "0x40ee5dfe1d4a957ca8ac4dd4adaf8a8fa76b1c16",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x40ee5dfe1d4a957ca8ac4dd4adaf8a8fa76b1c16/logo.webp",
-    "logoHash": "0a49dfb35e1f59aeb56905d20d0811889fa1ea0a6128e651f84976f3b5e2b74e"
   },
   {
     "name": "SeagullCoin",
@@ -223,15 +187,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-14/0x5701113457375f8e78e46238533a27ba3e375d76/logo.webp",
     "logoHash": "6b7c0e0d5c7880d8324b272fffe2e8ffb529ec71fd1fc6de87a91f014370afe9"
-  },
-  {
-    "name": "Lending WETH",
-    "symbol": "kWETH",
-    "decimals": 8,
-    "address": "0x5c2400019017ae61f811d517d088df732642dbd0",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x5c2400019017ae61f811d517d088df732642dbd0/logo.webp",
-    "logoHash": "43f3a21b136a9b9efda7840eb2bb4f4c20471eceed1a3a8168f54ecbbaa7a945"
   },
   {
     "name": "PiCO Coin",
@@ -297,24 +252,6 @@
     "logoHash": "90aadc6264583416d3dd291fa3dee8429d1ac9ee929e533452b04868e5d2dc74"
   },
   {
-    "name": "Lending USDT0",
-    "symbol": "kUSDT0",
-    "decimals": 8,
-    "address": "0x76809abd690b77488ffb5277e0a8300a7e77b779",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x76809abd690b77488ffb5277e0a8300a7e77b779/logo.webp",
-    "logoHash": "592d17c61fdab83438465f7f2571b97e8fd39f324d081897c582291d2311f81f"
-  },
-  {
-    "name": "Lending STXRP",
-    "symbol": "isoSTXRP",
-    "decimals": 8,
-    "address": "0x870f7b89f0d408d7ca2e6586df26d00ea03aa358",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0x870f7b89f0d408d7ca2e6586df26d00ea03aa358/logo.webp",
-    "logoHash": "eab8d4b4b4fcea90c286a75cd7a19e5bbee136fa8a7caf39fa5816ce7c49f242"
-  },
-  {
     "name": "DANROCKET",
     "symbol": "DRKET",
     "decimals": 6,
@@ -378,15 +315,6 @@
     "logoHash": "e7501f0444da8509977c13baf0e583ab55dc0328c5fc5563c86c4e5db1c1c3b3"
   },
   {
-    "name": "Lending USDT0",
-    "symbol": "isoUSDT0",
-    "decimals": 8,
-    "address": "0xad7e7989796414c9572da9854deb1b920724fd09",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0xad7e7989796414c9572da9854deb1b920724fd09/logo.webp",
-    "logoHash": "d8c284981219ef546ef403930ec905abc2de73e6b1ea8edd1221b141761a3119"
-  },
-  {
     "name": "xHaven",
     "symbol": "XVN",
     "decimals": 18,
@@ -412,15 +340,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-14/0xb56718d45cffc7ca9d6b8b9e631f0657b971043f/logo.webp",
     "logoHash": "839314c986c437b3163f24a4d5fec5a7f43f188342457c5d0cc5ccead7590866"
-  },
-  {
-    "name": "Lending FLR",
-    "symbol": "kFLR",
-    "decimals": 8,
-    "address": "0xb84f771305d10607dd086b2f89712c0ced379407",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0xb84f771305d10607dd086b2f89712c0ced379407/logo.webp",
-    "logoHash": "71544ced66cd85aba55252d798a00ca3e8b8d43e27e05d83a902099cae2c778d"
   },
   {
     "name": "Dinero OFT",
@@ -468,15 +387,6 @@
     "logoHash": "6d15ef0627f4f933a82c0b6d8fb32bb408bf38da7b3f387693fe17a4dbe265eb"
   },
   {
-    "name": "Lending FXRP",
-    "symbol": "isoFXRP",
-    "decimals": 8,
-    "address": "0xd1b7a5efa9bd88f291f7a4563a8f6185c0249cb3",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0xd1b7a5efa9bd88f291f7a4563a8f6185c0249cb3/logo.webp",
-    "logoHash": "b1dd146c9198d43690a8e545d6cb910a1e196a13cfa787747347d4c428775296"
-  },
-  {
     "name": "Kii",
     "symbol": "KII",
     "decimals": 18,
@@ -484,15 +394,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-14/0xd38220cff996a73e9110aaca64e02d581b83a0cd/logo.webp",
     "logoHash": "a8444953f2001945a41f4bbf71555a341463db7882b88fea19fa425044882d68"
-  },
-  {
-    "name": "Lending FLR",
-    "symbol": "isoFLR",
-    "decimals": 8,
-    "address": "0xd7291d5001693d15b6e4d56d73b5d2cd7ecfe5c6",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-14/0xd7291d5001693d15b6e4d56d73b5d2cd7ecfe5c6/logo.webp",
-    "logoHash": "1e57410a6d7b62f118e815b1e4294faa2f30853796e76ec0689783395654a175"
   },
   {
     "name": "ZOINK",

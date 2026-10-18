@@ -1,9 +1,0 @@
-{
-  "name": "Lending SFLR",
-  "symbol": "kSFLR",
-  "decimals": 8,
-  "address": "0x291487bec339c2fe5d83dd45f0a15efc9ac45656",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0x291487bec339c2fe5d83dd45f0a15efc9ac45656/logo.webp",
-  "logoHash": "03de121944a864d2b0913f9359e666c34dee8341522c8035234371c71e0aa34a"
-}

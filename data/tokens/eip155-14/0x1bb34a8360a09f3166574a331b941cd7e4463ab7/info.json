@@ -1,9 +1,0 @@
-{
-  "name": "Lending USDC",
-  "symbol": "isoUSDC",
-  "decimals": 8,
-  "address": "0x1bb34a8360a09f3166574a331b941cd7e4463ab7",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0x1bb34a8360a09f3166574a331b941cd7e4463ab7/logo.webp",
-  "logoHash": "824dda361a282b510a6abfe74678242f4f54366902230baa4f6b8f68f9acb63f"
-}

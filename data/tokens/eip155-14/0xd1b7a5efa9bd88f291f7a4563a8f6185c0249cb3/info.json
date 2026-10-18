@@ -1,9 +1,0 @@
-{
-  "name": "Lending FXRP",
-  "symbol": "isoFXRP",
-  "decimals": 8,
-  "address": "0xd1b7a5efa9bd88f291f7a4563a8f6185c0249cb3",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0xd1b7a5efa9bd88f291f7a4563a8f6185c0249cb3/logo.webp",
-  "logoHash": "b1dd146c9198d43690a8e545d6cb910a1e196a13cfa787747347d4c428775296"
-}

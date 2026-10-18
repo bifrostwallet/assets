@@ -1,9 +1,0 @@
-{
-  "name": "Lending FLRETH",
-  "symbol": "kFLRETH",
-  "decimals": 8,
-  "address": "0x40ee5dfe1d4a957ca8ac4dd4adaf8a8fa76b1c16",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0x40ee5dfe1d4a957ca8ac4dd4adaf8a8fa76b1c16/logo.webp",
-  "logoHash": "0a49dfb35e1f59aeb56905d20d0811889fa1ea0a6128e651f84976f3b5e2b74e"
-}

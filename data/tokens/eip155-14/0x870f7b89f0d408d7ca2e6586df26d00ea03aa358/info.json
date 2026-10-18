@@ -1,9 +1,0 @@
-{
-  "name": "Lending STXRP",
-  "symbol": "isoSTXRP",
-  "decimals": 8,
-  "address": "0x870f7b89f0d408d7ca2e6586df26d00ea03aa358",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0x870f7b89f0d408d7ca2e6586df26d00ea03aa358/logo.webp",
-  "logoHash": "eab8d4b4b4fcea90c286a75cd7a19e5bbee136fa8a7caf39fa5816ce7c49f242"
-}

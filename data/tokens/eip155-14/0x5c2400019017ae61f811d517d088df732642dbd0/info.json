@@ -1,9 +1,0 @@
-{
-  "name": "Lending WETH",
-  "symbol": "kWETH",
-  "decimals": 8,
-  "address": "0x5c2400019017ae61f811d517d088df732642dbd0",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-14/0x5c2400019017ae61f811d517d088df732642dbd0/logo.webp",
-  "logoHash": "43f3a21b136a9b9efda7840eb2bb4f4c20471eceed1a3a8168f54ecbbaa7a945"
-}
