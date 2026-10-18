@@ -7,11 +7,12 @@ import { describe, test } from "node:test";
 import {
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
+  DAPP_CHAIN_IDS,
   DAPP_INFO_KEYS,
   type DappCategory,
   type DappInfo,
 } from "../src/config.js";
-import { dappSlugFromUrl, networkPathToCaip2 } from "../src/convert.js";
+import { dappSlugFromUrl } from "../src/convert.js";
 import {
   type DappCategoryGroup,
   dappCategoryErrors,
@@ -24,9 +25,76 @@ import { isValidDescription, isValidImage, isValidName, isValidURL } from "../sr
 // Tests run from dist/test; process.cwd() is the repo root under `./yarn test`.
 const DAPPS_DIR = path.join(process.cwd(), "data/dapps");
 
-const VALID_CAIP2 = new Set(
-  ["eip155-14", "eip155-19", "xrpl-0"].map((networkPath) => networkPathToCaip2(networkPath)),
-);
+const VALID_CAIP2 = new Set<string>(DAPP_CHAIN_IDS);
+
+/** Chains confirmed from each project's own docs, kept to DAPP_CHAINS. */
+const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
+  "au-cc": ["eip155:14", "eip155:19"],
+  "bifrostwallet-com": [
+    "bip122:000000000019d6689c085ae165831e93",
+    "bip122:12a765e31ffd4059bada1e25190f6e98",
+    "bip122:1a91e3dace36e2be3bf030a65679fe82",
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:19",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:56",
+    "eip155:8453",
+    "eip155:999",
+    "xrpl:0",
+  ],
+  "blazeswap-xyz": ["eip155:14", "eip155:19"],
+  "enosys-global": ["eip155:1", "eip155:14", "eip155:19", "eip155:50", "xrpl:0"],
+  "firelight-finance": ["eip155:14"],
+  "flare-network": ["eip155:14", "eip155:19"],
+  "kinetic-market": ["eip155:14"],
+  "layerzero-network": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:56",
+    "eip155:8453",
+    "eip155:999",
+  ],
+  "morpho-org": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:8453",
+    "eip155:999",
+  ],
+  "nortso-xyz": ["eip155:14", "eip155:19"],
+  "oracle-daemon-com": ["eip155:14", "eip155:19"],
+  "sparkdex-ai": ["eip155:14"],
+  "spectra-finance": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:56",
+    "eip155:8453",
+    "eip155:999",
+  ],
+  "stargate-finance": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:56",
+    "eip155:8453",
+  ],
+  "tsoatlas-xyz": ["eip155:14", "eip155:19"],
+};
 
 function getDappSlugs(): string[] {
   return fs
@@ -73,6 +141,7 @@ describe("curated dapps", () => {
       assert.equal("category" in info, false);
       assert.equal("featured" in info, false);
       assert.equal(dappSlugFromUrl(info.url), slug);
+      assert.deepEqual(info.chains, CONFIRMED_CHAINS[slug]);
     }
   });
 

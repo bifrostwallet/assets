@@ -4,5 +4,14 @@
   "url": "https://stargate.finance",
   "logoURL": "dapps/stargate-finance/logo.webp",
   "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8",
-  "chains": ["eip155:14"]
+  "chains": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:56",
+    "eip155:8453"
+  ]
 }

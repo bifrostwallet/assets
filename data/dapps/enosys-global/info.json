@@ -4,5 +4,5 @@
   "url": "https://enosys.global",
   "logoURL": "dapps/enosys-global/logo.webp",
   "logoHash": "bc4482171664d95305507d5a4e1e0e523fed300ddd7cabfa1934255286e8a16e",
-  "chains": ["eip155:14", "eip155:19"]
+  "chains": ["eip155:1", "eip155:14", "eip155:19", "eip155:50", "xrpl:0"]
 }

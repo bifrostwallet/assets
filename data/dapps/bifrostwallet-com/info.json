@@ -4,5 +4,20 @@
   "url": "https://bifrostwallet.com",
   "logoURL": "dapps/bifrostwallet-com/logo.webp",
   "logoHash": "3d802d3fe11b64d0238cae5b34c374f3d0d661d68391a99b9a4bde6912f1468f",
-  "chains": ["eip155:14", "eip155:19"]
+  "chains": [
+    "bip122:000000000019d6689c085ae165831e93",
+    "bip122:12a765e31ffd4059bada1e25190f6e98",
+    "bip122:1a91e3dace36e2be3bf030a65679fe82",
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:19",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:56",
+    "eip155:8453",
+    "eip155:999",
+    "xrpl:0"
+  ]
 }
