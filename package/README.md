@@ -21,6 +21,9 @@ const {
   findProviderByValidator,
   getNativeToken,
   getToken,
+  getContract,
+  getContracts,
+  CONTRACT_CATEGORY_LABELS,
 } = require("@bifrostwallet/assets");
 
 // Chain ids are CAIP-2 (e.g. "eip155:14", "eip155:19")
@@ -35,6 +38,16 @@ const picker = getListedProviders("eip155:14"); // listed: true only
 const flr = getNativeToken("eip155:14"); // native gas token (address === null)
 // WNAT / WFLR on Flare (lookup is case-insensitive)
 const wflr = getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
+
+// Transaction-review names. Lookup is case-insensitive. null when unknown.
+const pool = getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
+// pool.projectName === "Bifrost Wallet"
+// pool.contractName === "Collateral Pool"
+// pool.category === "fassets"
+// CONTRACT_CATEGORY_LABELS[pool.category] === "FAssets"
+// pool.logoURL ends with "contracts/logos/bifrost-wallet.webp"
+const flareContracts = getContracts("eip155:14");
+const everyContract = getContracts();
 ```
 
 TypeScript / ESM:
@@ -45,11 +58,15 @@ import {
   getListedProviders,
   findProviderByValidator,
   getNativeToken,
+  getContract,
+  CONTRACT_CATEGORY_LABELS,
 } from "@bifrostwallet/assets";
 
 const bifrost = getProvider("eip155:14", "0x1650d2760baee638c034200dedcbe17b050d0364");
 const listed = getListedProviders("eip155:14");
 const native = getNativeToken("eip155:14");
+const pool = getContract("eip155:14", "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4");
+// pool && CONTRACT_CATEGORY_LABELS[pool.category] === "FAssets"
 ```
 
 ## Provider picker vs confirmations
@@ -66,6 +83,7 @@ const native = getNativeToken("eip155:14");
 ```
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/all.json
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-14/all.json
+https://raw.githubusercontent.com/bifrostwallet/assets/main/data/contracts/eip155-14/all.json
 ```
 
 Relative `logoURL` values resolve against:

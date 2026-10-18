@@ -1,0 +1,8 @@
+{
+  "address": "0x71ee56f6b793386cecf536cd566ff50fe558f70e",
+  "chain": "eip155:14",
+  "projectName": "Oracle Daemon",
+  "contractName": "Collateral Pool",
+  "category": "fassets",
+  "logoURL": "contracts/logos/od.webp"
+}

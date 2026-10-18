@@ -1,0 +1,8 @@
+{
+  "address": "0x7cec6ec27f3a0f0a37b1847e5af3e99a7499a0bc",
+  "chain": "eip155:14",
+  "projectName": "Atlas TSO",
+  "contractName": "Agent Vault",
+  "category": "fassets",
+  "logoURL": "contracts/logos/atlas.webp"
+}

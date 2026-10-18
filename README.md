@@ -145,7 +145,44 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 
 ## Contracts
 
-Named contract listings (`name`, `project`, `address`) are planned under `data/contracts/`; no ABIs and no logos in this catalog.
+Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
+
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). Each chain has a generated `all.json` — do not edit it by hand. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+
+```json
+{
+  "address": "0xabc…",
+  "chain": "eip155:14",
+  "projectName": "Bifrost Wallet",
+  "contractName": "Collateral Pool",
+  "category": "fassets",
+  "logoURL": "contracts/logos/bifrost-wallet.webp"
+}
+```
+
+`category` is one of the product-approved values below. A new category needs product approval before it is added.
+
+- `dex`: swap routers and AMMs
+- `aggregator`: routes swaps across several DEXes
+- `bridge`: cross-chain messaging and token transfers
+- `lending`: money markets (supply, borrow, liquidation)
+- `staking`: delegating or restaking for rewards
+- `yield`: vaults and strategies that earn a return on deposits
+- `perpetuals`: perpetual futures and leveraged trading
+- `predictions`: prediction markets
+- `nft-marketplace`: NFT trading venues
+- `governance`: voting, DAO and governance contracts
+- `fassets`: FAssets system contracts (asset managers, agent vaults, collateral pools)
+- `rewards`: protocol-level reward, airdrop and claim managers
+- `other`: deliberate rare fallback
+
+Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
+
+`logoURL` is optional. When set, it is a relative WebP path in git and an absolute URL in the published package. Logos follow the same rules as other catalog marks: opaque **128×128** WebP, maximum **24 KB**. Store a contract's own mark at `data/contracts/<chain>/<address>/logo.webp`, or point several contracts at one shared file `data/contracts/logos/<slug>.webp`.
+
+```bash
+./yarn check:contracts
+```
 
 ## Repository layout
 
@@ -153,6 +190,9 @@ Named contract listings (`name`, `project`, `address`) are planned under `data/c
 data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.json, provenance.json
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
+data/contracts/eip155-<id>/<address>.json   contract display names
+data/contracts/logos/<slug>.webp            shared project logos
+data/contracts/eip155-<id>/all.json         generated aggregate (do not edit)
 data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
