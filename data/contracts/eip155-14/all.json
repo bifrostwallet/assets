@@ -4,14 +4,14 @@
     "chain": "eip155:14",
     "projectName": "Spectra",
     "contractName": "Router",
-    "category": "router"
+    "category": "yield"
   },
   {
     "address": "0x088eecb467b3968da36c71f05023a1d3133b2b83",
     "chain": "eip155:14",
     "projectName": "Enosys",
     "contractName": "DEX Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x0db9afb4c33be43a0a0e396fd1383b4ea97ab10a",
@@ -25,7 +25,7 @@
     "chain": "eip155:14",
     "projectName": "Atlas TSO",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/atlas.webp"
   },
   {
@@ -33,14 +33,14 @@
     "chain": "eip155:14",
     "projectName": "SparkDEX",
     "contractName": "Universal Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x0f6ab40fe44aa3ab15b8ff96df98c6f5865f048e",
     "chain": "eip155:14",
     "projectName": "NORTSO",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
@@ -48,14 +48,14 @@
     "chain": "eip155:14",
     "projectName": "Kinetic",
     "contractName": "FXRP Unitroller",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0x17aca82378c2859e40d84a373b49ee0b318020c4",
     "chain": "eip155:14",
     "projectName": "Enosys",
     "contractName": "Universal Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x1a44076050125825900e736c501f859c50fe728c",
@@ -69,14 +69,14 @@
     "chain": "eip155:14",
     "projectName": "Flare",
     "contractName": "FXRP Asset Manager",
-    "category": "dapp-contract"
+    "category": "fassets"
   },
   {
     "address": "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4",
     "chain": "eip155:14",
     "projectName": "Bifrost Wallet",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
@@ -84,7 +84,7 @@
     "chain": "eip155:14",
     "projectName": "Spectra",
     "contractName": "Registry",
-    "category": "dapp-contract"
+    "category": "yield"
   },
   {
     "address": "0x45d417612e177672958dc0537c45a8f8d754ac2e",
@@ -98,14 +98,14 @@
     "chain": "eip155:14",
     "projectName": "SparkDEX",
     "contractName": "Router V2",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x4c18ff3c89632c3dd62e796c0afa5c07c4c1b2b3",
     "chain": "eip155:14",
     "projectName": "Firelight",
     "contractName": "Vault",
-    "category": "staking-protocol",
+    "category": "staking",
     "logoURL": "contracts/logos/firelight.webp"
   },
   {
@@ -113,35 +113,35 @@
     "chain": "eip155:14",
     "projectName": "Spectra",
     "contractName": "Factory",
-    "category": "dapp-contract"
+    "category": "yield"
   },
   {
     "address": "0x5fd34090e9b195d8482ad3cc63db078534f1b113",
     "chain": "eip155:14",
     "projectName": "Enosys",
     "contractName": "Swap Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x69d57b9d705ead73a5d2f2476c30c55bd755cc2f",
     "chain": "eip155:14",
     "projectName": "SparkDEX",
     "contractName": "Swap Router V4",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x6fc83ecc0e8142635d77200e5052be8a0a9d2f42",
     "chain": "eip155:14",
     "projectName": "Morpho",
     "contractName": "Vault V2 Factory",
-    "category": "dapp-contract"
+    "category": "yield"
   },
   {
     "address": "0x71ee56f6b793386cecf536cd566ff50fe558f70e",
     "chain": "eip155:14",
     "projectName": "Oracle Daemon",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/od.webp"
   },
   {
@@ -149,7 +149,7 @@
     "chain": "eip155:14",
     "projectName": "Atlas TSO",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/atlas.webp"
   },
   {
@@ -157,21 +157,21 @@
     "chain": "eip155:14",
     "projectName": "Kinetic",
     "contractName": "Unitroller",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0x8a1e35f5c98c4e85b36b7b253222ee17773b2781",
     "chain": "eip155:14",
     "projectName": "SparkDEX",
     "contractName": "Swap Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x8ea74d78a03f20597cee115176f7f8b65271c87a",
     "chain": "eip155:14",
     "projectName": "Oracle Daemon",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/od.webp"
   },
   {
@@ -179,14 +179,14 @@
     "chain": "eip155:14",
     "projectName": "Flare",
     "contractName": "FTSO Reward Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   },
   {
     "address": "0xa69bf2ec0ef91a29b5da634bd4958aa32bad9fe3",
     "chain": "eip155:14",
     "projectName": "Bifrost Wallet",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
@@ -194,35 +194,35 @@
     "chain": "eip155:14",
     "projectName": "Morpho",
     "contractName": "Bundler3",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0xc8f55c5aa2c752ee285bd872855c749f4ee6239b",
     "chain": "eip155:14",
     "projectName": "Flare",
     "contractName": "Reward Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   },
   {
     "address": "0xc9b6b30b9326da62cefe34a54473ef7702a386e6",
     "chain": "eip155:14",
     "projectName": "Morpho",
     "contractName": "Public Allocator",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0xd56c0ea37b848939b59e6f5cda119b3fa473b5eb",
     "chain": "eip155:14",
     "projectName": "Flare",
     "contractName": "Claim Setup Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   },
   {
     "address": "0xd6af7ef36732a5a71121363be380ab6c8e9f72e0",
     "chain": "eip155:14",
     "projectName": "NORTSO",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
@@ -230,21 +230,21 @@
     "chain": "eip155:14",
     "projectName": "Kinetic",
     "contractName": "JOULE Unitroller",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0xe3a1b355ca63abcbc9589334b5e609583c7baa06",
     "chain": "eip155:14",
     "projectName": "BlazeSwap",
     "contractName": "Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0xe56f464c23760d563dd4c73dada05159ae71fc50",
     "chain": "eip155:14",
     "projectName": "AU",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/au.webp"
   },
   {
@@ -252,14 +252,14 @@
     "chain": "eip155:14",
     "projectName": "Morpho",
     "contractName": "Morpho",
-    "category": "dapp-contract"
+    "category": "lending"
   },
   {
     "address": "0xf45c1a5ef4fb09f1c33f772175b2fec229d1885b",
     "chain": "eip155:14",
     "projectName": "AU",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/au.webp"
   }
 ]

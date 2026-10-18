@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Enosys",
   "contractName": "Universal Router",
-  "category": "router"
+  "category": "dex"
 }

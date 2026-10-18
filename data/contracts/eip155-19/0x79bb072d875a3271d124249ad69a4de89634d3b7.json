@@ -3,6 +3,6 @@
   "chain": "eip155:19",
   "projectName": "AU",
   "contractName": "Agent Vault",
-  "category": "agent-vault",
+  "category": "fassets",
   "logoURL": "contracts/logos/au.webp"
 }

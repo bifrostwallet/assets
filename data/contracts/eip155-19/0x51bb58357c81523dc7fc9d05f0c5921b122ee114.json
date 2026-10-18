@@ -3,5 +3,5 @@
   "chain": "eip155:19",
   "projectName": "Enosys",
   "contractName": "Swap Router",
-  "category": "router"
+  "category": "dex"
 }

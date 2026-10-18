@@ -3,6 +3,6 @@
   "chain": "eip155:14",
   "projectName": "Bifrost Wallet",
   "contractName": "Collateral Pool",
-  "category": "collateral-pool",
+  "category": "fassets",
   "logoURL": "contracts/logos/bifrost-wallet.webp"
 }

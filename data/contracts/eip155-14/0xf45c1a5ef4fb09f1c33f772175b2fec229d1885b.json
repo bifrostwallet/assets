@@ -3,6 +3,6 @@
   "chain": "eip155:14",
   "projectName": "AU",
   "contractName": "Collateral Pool",
-  "category": "collateral-pool",
+  "category": "fassets",
   "logoURL": "contracts/logos/au.webp"
 }

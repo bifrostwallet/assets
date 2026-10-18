@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "SparkDEX",
   "contractName": "Swap Router",
-  "category": "router"
+  "category": "dex"
 }

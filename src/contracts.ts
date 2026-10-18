@@ -16,17 +16,44 @@ import { isWebpMagic } from "./webp.js";
  *   contracts/<chain>/<address>/logo.webp       per-contract mark
  *   contracts/logos/<slug>.webp                 shared project mark
  */
+/**
+ * Product-approved contract categories, in display order.
+ * Adding or renaming a category needs product approval.
+ */
 export const CONTRACT_CATEGORIES = [
+  "dex",
   "aggregator",
-  "router",
-  "collateral-pool",
-  "agent-vault",
-  "staking-protocol",
   "bridge",
-  "dapp-contract",
+  "lending",
+  "staking",
+  "yield",
+  "perpetuals",
+  "predictions",
+  "nft-marketplace",
+  "governance",
+  "fassets",
+  "rewards",
+  "other",
 ] as const;
 
 export type ContractCategory = (typeof CONTRACT_CATEGORIES)[number];
+
+/** Display names. Consumers should use these instead of hardcoding category strings. */
+export const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string> = {
+  dex: "DEX",
+  aggregator: "Aggregator",
+  bridge: "Bridge",
+  lending: "Lending",
+  staking: "Staking",
+  yield: "Yield",
+  perpetuals: "Perpetuals",
+  predictions: "Predictions",
+  "nft-marketplace": "NFT Marketplace",
+  governance: "Governance",
+  fassets: "FAssets",
+  rewards: "Rewards",
+  other: "Other",
+};
 
 export type ContractInfo = {
   /** Lowercase 0x address. Matches the JSON filename. */

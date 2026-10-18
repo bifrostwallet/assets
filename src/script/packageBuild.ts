@@ -2,7 +2,12 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
 import type { ProviderInfo } from "../config.js";
-import { type ContractInfo, listContractChainPaths } from "../contracts.js";
+import {
+  CONTRACT_CATEGORIES,
+  CONTRACT_CATEGORY_LABELS,
+  type ContractInfo,
+  listContractChainPaths,
+} from "../contracts.js";
 import { isMain } from "../isMain.js";
 import { rollupChainHashes, sha256Hex } from "../manifest.js";
 import { listTokenChainPaths, type TokenInfo } from "../tokens.js";
@@ -99,6 +104,8 @@ const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(getAssetBaseURL())};
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
 const CONTRACT_CHAIN_IDS = Object.keys(contractsByChain).map(chainPathToCaip2);
+const CONTRACT_CATEGORIES = ${JSON.stringify([...CONTRACT_CATEGORIES])};
+const CONTRACT_CATEGORY_LABELS = ${JSON.stringify(CONTRACT_CATEGORY_LABELS)};
 
 function chainPathToCaip2(chainPath) {
   const i = String(chainPath).indexOf("-");
@@ -251,6 +258,8 @@ module.exports = {
   PROVIDER_CHAIN_IDS,
   TOKEN_CHAIN_IDS,
   CONTRACT_CHAIN_IDS,
+  CONTRACT_CATEGORIES,
+  CONTRACT_CATEGORY_LABELS,
   MANIFEST_PUBLIC_KEY,
   getSectionHashes,
   canonicalManifestBody,
@@ -351,13 +360,12 @@ export declare const TOKEN_CHAIN_IDS: string[];
 export declare const CONTRACT_CHAIN_IDS: string[];
 
 export type ContractCategory =
-  | "aggregator"
-  | "router"
-  | "collateral-pool"
-  | "agent-vault"
-  | "staking-protocol"
-  | "bridge"
-  | "dapp-contract";
+%%CONTRACT_CATEGORY_UNION%%
+
+/** Product-approved category ids, in display order. */
+export declare const CONTRACT_CATEGORIES: readonly ContractCategory[];
+/** Display names. Use these instead of hardcoding category strings. */
+export declare const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string>;
 
 export interface ContractInfo {
   /** Lowercase 0x address */
@@ -527,7 +535,13 @@ function buildPackage(): void {
     path.join(distDir, "index.js"),
     buildIndexJs(sectionHashesJson, publicKeyPem, tokenChainIds, contractChainIds),
   );
-  fs.writeFileSync(path.join(distDir, "index.d.ts"), INDEX_DTS);
+  const categoryUnion = CONTRACT_CATEGORIES.map(
+    (category) => `  | ${JSON.stringify(category)}`,
+  ).join("\n");
+  fs.writeFileSync(
+    path.join(distDir, "index.d.ts"),
+    INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`),
+  );
   fs.writeFileSync(path.join(distDir, "section-hashes.json"), `${sectionHashesJson}\n`);
 
   const manifest = {

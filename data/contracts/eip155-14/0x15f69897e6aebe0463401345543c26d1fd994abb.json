@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Kinetic",
   "contractName": "FXRP Unitroller",
-  "category": "dapp-contract"
+  "category": "lending"
 }

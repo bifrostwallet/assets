@@ -4,7 +4,7 @@
     "chain": "eip155:19",
     "projectName": "Oracle Daemon",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/od.webp"
   },
   {
@@ -12,7 +12,7 @@
     "chain": "eip155:19",
     "projectName": "Oracle Daemon",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/od.webp"
   },
   {
@@ -20,7 +20,7 @@
     "chain": "eip155:19",
     "projectName": "Bifrost Wallet",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
@@ -28,28 +28,28 @@
     "chain": "eip155:19",
     "projectName": "Songbird",
     "contractName": "FTSO Reward Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   },
   {
     "address": "0x299d678f67e7add4efdf295ebe0e92fcb4f75c4c",
     "chain": "eip155:19",
     "projectName": "Songbird",
     "contractName": "FXRP Asset Manager",
-    "category": "dapp-contract"
+    "category": "fassets"
   },
   {
     "address": "0x51bb58357c81523dc7fc9d05f0c5921b122ee114",
     "chain": "eip155:19",
     "projectName": "Enosys",
     "contractName": "Swap Router",
-    "category": "router"
+    "category": "dex"
   },
   {
     "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
     "chain": "eip155:19",
     "projectName": "Atlas TSO",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/atlas.webp"
   },
   {
@@ -57,7 +57,7 @@
     "chain": "eip155:19",
     "projectName": "AU",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/au.webp"
   },
   {
@@ -65,7 +65,7 @@
     "chain": "eip155:19",
     "projectName": "Atlas TSO",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/atlas.webp"
   },
   {
@@ -73,7 +73,7 @@
     "chain": "eip155:19",
     "projectName": "AU",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/au.webp"
   },
   {
@@ -81,7 +81,7 @@
     "chain": "eip155:19",
     "projectName": "Bifrost Wallet",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
@@ -89,7 +89,7 @@
     "chain": "eip155:19",
     "projectName": "NORTSO",
     "contractName": "Collateral Pool",
-    "category": "collateral-pool",
+    "category": "fassets",
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
@@ -97,14 +97,14 @@
     "chain": "eip155:19",
     "projectName": "Songbird",
     "contractName": "Claim Setup Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   },
   {
     "address": "0xe14638e7231ee58ab0ae6dc3e5086a8a391537aa",
     "chain": "eip155:19",
     "projectName": "NORTSO",
     "contractName": "Agent Vault",
-    "category": "agent-vault",
+    "category": "fassets",
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
@@ -112,6 +112,6 @@
     "chain": "eip155:19",
     "projectName": "Songbird",
     "contractName": "Reward Manager",
-    "category": "dapp-contract"
+    "category": "rewards"
   }
 ]

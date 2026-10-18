@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Spectra",
   "contractName": "Router",
-  "category": "router"
+  "category": "yield"
 }

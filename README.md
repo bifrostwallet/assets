@@ -155,12 +155,28 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
   "chain": "eip155:14",
   "projectName": "Bifrost Wallet",
   "contractName": "Collateral Pool",
-  "category": "collateral-pool",
+  "category": "fassets",
   "logoURL": "contracts/logos/bifrost-wallet.webp"
 }
 ```
 
-`category` is one of `aggregator`, `router`, `collateral-pool`, `agent-vault`, `staking-protocol`, `bridge`, `dapp-contract`.
+`category` is one of the product-approved values below. A new category needs product approval before it is added.
+
+- `dex`: swap routers and AMMs
+- `aggregator`: routes swaps across several DEXes
+- `bridge`: cross-chain messaging and token transfers
+- `lending`: money markets (supply, borrow, liquidation)
+- `staking`: delegating or restaking for rewards
+- `yield`: vaults and strategies that earn a return on deposits
+- `perpetuals`: perpetual futures and leveraged trading
+- `predictions`: prediction markets
+- `nft-marketplace`: NFT trading venues
+- `governance`: voting, DAO and governance contracts
+- `fassets`: FAssets system contracts (asset managers, agent vaults, collateral pools)
+- `rewards`: protocol-level reward, airdrop and claim managers
+- `other`: deliberate rare fallback
+
+Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
 `logoURL` is optional. When set, it is a relative WebP path in git and an absolute URL in the published package. Logos follow the same rules as other catalog marks: opaque **128×128** WebP, maximum **24 KB**. Store a contract's own mark at `data/contracts/<chain>/<address>/logo.webp`, or point several contracts at one shared file `data/contracts/logos/<slug>.webp`.
 

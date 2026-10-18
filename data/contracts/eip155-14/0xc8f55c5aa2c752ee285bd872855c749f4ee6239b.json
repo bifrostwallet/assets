@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Flare",
   "contractName": "Reward Manager",
-  "category": "dapp-contract"
+  "category": "rewards"
 }

@@ -3,5 +3,5 @@
   "chain": "eip155:19",
   "projectName": "Songbird",
   "contractName": "Claim Setup Manager",
-  "category": "dapp-contract"
+  "category": "rewards"
 }

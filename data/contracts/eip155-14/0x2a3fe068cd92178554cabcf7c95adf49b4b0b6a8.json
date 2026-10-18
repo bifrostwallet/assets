@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Flare",
   "contractName": "FXRP Asset Manager",
-  "category": "dapp-contract"
+  "category": "fassets"
 }

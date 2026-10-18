@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Morpho",
   "contractName": "Vault V2 Factory",
-  "category": "dapp-contract"
+  "category": "yield"
 }

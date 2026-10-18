@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Morpho",
   "contractName": "Public Allocator",
-  "category": "dapp-contract"
+  "category": "lending"
 }

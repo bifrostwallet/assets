@@ -6,6 +6,7 @@ import { describe, test } from "node:test";
 import { resolveAssetURL } from "../src/assetUrl.js";
 import {
   CONTRACT_CATEGORIES,
+  CONTRACT_CATEGORY_LABELS,
   type ContractInfo,
   getContract,
   getContracts,
@@ -26,18 +27,38 @@ describe("contract catalog", { concurrency: false }, () => {
     const all = getContracts();
     const count = (category: ContractInfo["category"]) =>
       all.filter((contract) => contract.category === category).length;
+    assert.deepEqual(CONTRACT_CATEGORIES, [
+      "dex",
+      "aggregator",
+      "bridge",
+      "lending",
+      "staking",
+      "yield",
+      "perpetuals",
+      "predictions",
+      "nft-marketplace",
+      "governance",
+      "fassets",
+      "rewards",
+      "other",
+    ]);
+    assert.equal(count("dex"), 9);
     assert.equal(count("aggregator"), 0);
-    assert.equal(count("collateral-pool"), 10);
-    assert.equal(count("agent-vault"), 10);
-    assert.equal(count("staking-protocol"), 2);
-    assert.equal(count("router"), 10);
     assert.equal(count("bridge"), 3);
-    assert.equal(count("dapp-contract"), 17);
+    assert.equal(count("lending"), 6);
+    assert.equal(count("staking"), 2);
+    assert.equal(count("yield"), 4);
+    assert.equal(count("perpetuals"), 0);
+    assert.equal(count("predictions"), 0);
+    assert.equal(count("nft-marketplace"), 0);
+    assert.equal(count("governance"), 0);
+    assert.equal(count("fassets"), 22);
+    assert.equal(count("rewards"), 6);
+    assert.equal(count("other"), 0);
     assert.equal(all.length, 52);
-    assert.ok(CONTRACT_CATEGORIES.includes("aggregator"));
-    assert.ok(CONTRACT_CATEGORIES.includes("router"));
-    assert.ok(CONTRACT_CATEGORIES.includes("bridge"));
-    assert.ok(CONTRACT_CATEGORIES.includes("dapp-contract"));
+    for (const category of CONTRACT_CATEGORIES) {
+      assert.equal(CONTRACT_CATEGORY_LABELS[category].length > 0, true);
+    }
   });
 
   test("getContract is case-insensitive and getContracts filters by CAIP-2", () => {
@@ -47,7 +68,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.deepEqual(checksum, lower);
     assert.equal(lower.projectName, "Bifrost Wallet");
     assert.equal(lower.contractName, "Collateral Pool");
-    assert.equal(lower.category, "collateral-pool");
+    assert.equal(lower.category, "fassets");
     assert.equal(lower.chain, "eip155:14");
     assert.equal(lower.logoURL, "contracts/logos/bifrost-wallet.webp");
     assert.equal(getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696"), null);
@@ -60,7 +81,7 @@ describe("contract catalog", { concurrency: false }, () => {
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
-    assert.equal(firelight?.category, "staking-protocol");
+    assert.equal(firelight?.category, "staking");
     assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
     assert.equal(getContracts("eip155:14").length, 36);
@@ -72,7 +93,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(getContract("eip155:14", "0x12e605bc104e93B45e1aD99F9e555f659051c2BB"), null);
     const spark = getContract("eip155:14", "0x0f3D8a38D4c74afBebc2c42695642f0e3acb15D3");
     assert.equal(spark?.projectName, "SparkDEX");
-    assert.equal(spark?.category, "router");
+    assert.equal(spark?.category, "dex");
     const unitroller = getContract("eip155:14", "0x8041680Fb73E1Fe5F851e76233DCDfA0f2D2D7c8");
     assert.equal(unitroller?.projectName, "Kinetic");
     assert.equal(unitroller?.contractName, "Unitroller");
@@ -84,7 +105,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(enosys?.contractName, "Swap Router");
     const morpho = getContract("eip155:14", "0xF4346F5132e810f80a28487a79c7559d9797E8B0");
     assert.equal(morpho?.projectName, "Morpho");
-    assert.equal(morpho?.category, "dapp-contract");
+    assert.equal(morpho?.category, "lending");
     const spectra = getContract("eip155:14", "0x03E2eC137c6aB82978D52eDB7b504ad2DEb13F96");
     assert.equal(spectra?.projectName, "Spectra");
     assert.equal(spectra?.contractName, "Router");
@@ -104,7 +125,7 @@ describe("contract catalog", { concurrency: false }, () => {
       chain: "eip155:14",
       projectName: "Bifrost Wallet",
       contractName: "Collateral Pool",
-      category: "collateral-pool",
+      category: "fassets",
     };
     assert.deepEqual(
       validateContractRecord(
@@ -115,7 +136,7 @@ describe("contract catalog", { concurrency: false }, () => {
     );
     assert.deepEqual(
       validateContractRecord(
-        { ...base, category: "dex" },
+        { ...base, category: "router" },
         { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
       ).some((error) => error.includes("category")),
       true,
@@ -159,7 +180,7 @@ describe("contract catalog", { concurrency: false }, () => {
       chain: "eip155:14",
       projectName: "Bifrost Wallet",
       contractName: "Collateral Pool",
-      category: "collateral-pool",
+      category: "fassets",
       logoURL,
     };
     const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
@@ -188,6 +209,8 @@ describe("published package contract lookups", { concurrency: false }, () => {
       getContract: (chainId: string, address: string) => ContractInfo | null;
       getContracts: (chainId?: string) => ContractInfo[];
       CONTRACT_CHAIN_IDS: string[];
+      CONTRACT_CATEGORIES: readonly string[];
+      CONTRACT_CATEGORY_LABELS: Record<string, string>;
     };
     const fromPackage = assets.getContract(
       "eip155:14",
@@ -202,6 +225,8 @@ describe("published package contract lookups", { concurrency: false }, () => {
     assert.deepEqual(packageRest, catalogRest);
     assert.equal(assets.getContracts().length, getContracts().length);
     assert.ok(assets.CONTRACT_CHAIN_IDS.includes("eip155:14"));
+    assert.deepEqual(assets.CONTRACT_CATEGORIES, [...CONTRACT_CATEGORIES]);
+    assert.deepEqual(assets.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
     assert.equal(
       assets.getContract("eip155:19", "0x0000000000000000000000000000000000000001"),
       null,

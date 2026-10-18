@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "BlazeSwap",
   "contractName": "Router",
-  "category": "router"
+  "category": "dex"
 }

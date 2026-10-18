@@ -3,5 +3,5 @@
   "chain": "eip155:14",
   "projectName": "Spectra",
   "contractName": "Registry",
-  "category": "dapp-contract"
+  "category": "yield"
 }

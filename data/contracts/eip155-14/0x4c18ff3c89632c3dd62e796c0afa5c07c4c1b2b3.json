@@ -3,6 +3,6 @@
   "chain": "eip155:14",
   "projectName": "Firelight",
   "contractName": "Vault",
-  "category": "staking-protocol",
+  "category": "staking",
   "logoURL": "contracts/logos/firelight.webp"
 }
