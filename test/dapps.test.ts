@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as os from "node:os";
@@ -258,7 +259,20 @@ const ONE_PIXEL_PNG = Buffer.from(
 );
 
 describe("dapp logo conversion", () => {
-  test("converts a PNG to catalog WebP and rejects a non-PNG", () => {
+  test("rejects a non-PNG logo", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "dapp-logo-"));
+    const textPath = path.join(dir, "not-a-logo.png");
+    fs.writeFileSync(textPath, "not a png");
+    assert.throws(() => convertDappLogoPng(textPath), /Logo must be a PNG file/);
+  });
+
+  test("converts a PNG to catalog WebP", () => {
+    const which = spawnSync("which", ["cwebp"], { encoding: "utf8" });
+    if (which.status !== 0) {
+      // Optional OS tool — skip when libwebp is not installed (CI may still have it).
+      return;
+    }
+
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "dapp-logo-"));
     const pngPath = path.join(dir, "logo.png");
     fs.writeFileSync(pngPath, ONE_PIXEL_PNG);
@@ -269,9 +283,5 @@ describe("dapp logo conversion", () => {
     fs.writeFileSync(webpPath, webp);
     const validation = isValidImage(webpPath);
     assert.equal(validation.isValid, true, validation.errors.join("; "));
-
-    const textPath = path.join(dir, "not-a-logo.png");
-    fs.writeFileSync(textPath, "not a png");
-    assert.throws(() => convertDappLogoPng(textPath), /Logo must be a PNG file/);
   });
 });
