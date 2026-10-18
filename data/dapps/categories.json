@@ -2,7 +2,7 @@
   {
     "id": "featured",
     "label": "Featured",
-    "dapps": ["sparkdex-ai", "firelight-finance"]
+    "dapps": []
   },
   {
     "id": "dex",

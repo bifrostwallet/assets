@@ -178,7 +178,7 @@ describe("curated dapps", () => {
     assert.deepEqual(
       categories.map((group) => group.dapps),
       [
-        ["sparkdex-ai", "firelight-finance"],
+        [],
         ["sparkdex-ai", "blazeswap-xyz", "enosys-global"],
         ["kinetic-market", "morpho-org", "enosys-global"],
         ["spectra-finance", "enosys-global"],
@@ -218,6 +218,8 @@ function chips(overrides: Partial<Record<DappCategory, string[]>> = {}): DappCat
 
 describe("dapp category rules", () => {
   test("fails when a slug is missing, unknown, repeated, or the id is not allowed", () => {
+    assert.deepEqual(dappCategoryErrors(chips(), []), []);
+
     const missing = dappCategoryErrors(chips({ dex: ["sparkdex-ai"] }), ["sparkdex-ai", "au-cc"]);
     assert.deepEqual(missing, ["dapp au-cc is in no category"]);
 
