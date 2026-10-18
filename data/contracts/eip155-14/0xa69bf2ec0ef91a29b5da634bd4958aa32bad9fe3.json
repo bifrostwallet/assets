@@ -1,0 +1,8 @@
+{
+  "address": "0xa69bf2ec0ef91a29b5da634bd4958aa32bad9fe3",
+  "chain": "eip155:14",
+  "projectName": "Bifrost Wallet",
+  "contractName": "Agent Vault",
+  "category": "fassets",
+  "logoURL": "contracts/logos/bifrost-wallet.webp"
+}
