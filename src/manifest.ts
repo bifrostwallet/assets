@@ -99,14 +99,7 @@ export function buildManifestFromDataDir(
     };
   }
 
-  const contractChains = listChainAllJson(path.join(dataDir, "contracts"));
-  if (Object.keys(contractChains).length > 0) {
-    sections.contracts = {
-      contentHash: rollupChainHashes(contractChains),
-      chains: contractChains,
-    };
-  }
-
+  // Contracts have no all.json. The NPM package bundles per-address files instead.
   const dappsAll = path.join(dataDir, "dapps", "all.json");
   if (fs.existsSync(dappsAll)) {
     const hash = hashFile(dappsAll);

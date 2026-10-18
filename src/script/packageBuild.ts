@@ -6,6 +6,8 @@ import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
   type ContractInfo,
+  chainPathToCaip2,
+  getContracts,
   listContractChainPaths,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
@@ -40,8 +42,7 @@ function loadTokens(chainPath: string): TokenInfo[] {
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
-  const allPath = path.join(process.cwd(), "data", "contracts", chainPath, "all.json");
-  const contracts = JSON.parse(fs.readFileSync(allPath, "utf8")) as ContractInfo[];
+  const contracts = getContracts(chainPathToCaip2(chainPath));
   const base = getAssetBaseURL();
   return contracts.map((contract) => {
     if (!contract.logoURL) return contract;

@@ -83,8 +83,9 @@ const pool = getContract("eip155:14", "0x3a06584a47972ff7005301b5a44c7d2214a4d3b
 ```
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/all.json
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-14/all.json
-https://raw.githubusercontent.com/bifrostwallet/assets/main/data/contracts/eip155-14/all.json
 ```
+
+Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>.json`. There is no `data/contracts/<chain>/all.json`.
 
 Relative `logoURL` values resolve against:
 

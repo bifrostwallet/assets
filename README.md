@@ -147,7 +147,7 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 
 Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. Do not store `chain` in the per-address file. Each chain has a generated `all.json` — do not edit it by hand. `all.json` and `getContract` / `getContracts` include `chain`. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. Do not store `chain` in the per-address file. There is no aggregate `all.json`. `getContract` / `getContracts` read the per-address files and include `chain`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
 
 ```json
 {
@@ -189,9 +189,8 @@ Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding
 data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.json, provenance.json
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
-data/contracts/eip155-<id>/<address>.json   contract display names
+data/contracts/eip155-<id>/<address>.json   contract display names (no all.json)
 data/contracts/logos/<slug>.webp            shared project logos
-data/contracts/eip155-<id>/all.json         generated aggregate (do not edit)
 data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
 src/                                        curation tooling (TypeScript, dev-only)
 ```

@@ -18,9 +18,23 @@ import buildPackage from "../src/script/packageBuild.js";
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
 
 describe("contract catalog", { concurrency: false }, () => {
-  test("data/contracts matches the schema and all.json aggregates", () => {
+  test("data/contracts matches the schema", () => {
     const errors = validateContractCatalog();
     assert.deepEqual(errors, [], errors.join("\n"));
+  });
+
+  test("rejects a contract all.json aggregate", () => {
+    const allPath = path.join(process.cwd(), "data", "contracts", "eip155-14", "all.json");
+    fs.writeFileSync(allPath, "[]\n");
+    try {
+      const errors = validateContractCatalog();
+      assert.equal(
+        errors.some((error) => error.includes("do not use an aggregate file")),
+        true,
+      );
+    } finally {
+      fs.rmSync(allPath, { force: true });
+    }
   });
 
   test("seed covers pools, vaults, and Firelight", () => {

@@ -73,7 +73,6 @@ function collectUploads(assetBase: string): {
   const uploads: UploadItem[] = [];
   const providerChains: Record<string, string> = {};
   const tokenChains: Record<string, string> = {};
-  const contractChains: Record<string, string> = {};
 
   const legacyIcons = new Map<string, string>();
 
@@ -151,6 +150,7 @@ function collectUploads(assetBase: string): {
     });
   }
 
+  // Contract logos only. Lists stay in per-address files and the NPM package.
   const contractsDir = path.join(dataDir, "contracts");
   if (fs.existsSync(contractsDir)) {
     const walkContracts = (dir: string): void => {
@@ -167,17 +167,6 @@ function collectUploads(assetBase: string): {
             destination: `${BUCKET_PREFIX}${relative}`,
             cacheControl: LOGO_CACHE_CONTROL,
             contentType: "image/webp",
-          });
-        } else if (entry.name === "all.json") {
-          const { body, tmpPath } = rewriteAllJsonForUpload(fullPath, assetBase);
-          const chain = path.basename(path.dirname(fullPath));
-          contractChains[chain] = sha256Hex(body);
-          uploads.push({
-            localPath: tmpPath,
-            destination: `${BUCKET_PREFIX}${relative}`,
-            cacheControl: LIST_CACHE_CONTROL,
-            contentType: "application/json",
-            cleanup: true,
           });
         }
       }
@@ -196,12 +185,6 @@ function collectUploads(assetBase: string): {
     sections.tokens = {
       contentHash: rollupChainHashes(tokenChains),
       chains: tokenChains,
-    };
-  }
-  if (Object.keys(contractChains).length > 0) {
-    sections.contracts = {
-      contentHash: rollupChainHashes(contractChains),
-      chains: contractChains,
     };
   }
 

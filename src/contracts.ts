@@ -11,7 +11,7 @@ import { isWebpMagic } from "./webp.js";
  *
  * Git layout (path-safe CAIP-2, same as tokens and providers):
  *   data/contracts/eip155-14/0xabc….json       per-address record; chain is the directory
- *   data/contracts/eip155-14/all.json          generated aggregate (includes chain)
+ * There is no aggregate all.json. getContract / getContracts read these files.
  * Optional logos are WebP under data/, referenced by a relative logoURL:
  *   contracts/<chain>/<address>/logo.webp       per-contract mark
  *   contracts/logos/<slug>.webp                 shared project mark
@@ -274,33 +274,12 @@ function withContractChain(chainPath: string, record: Omit<ContractInfo, "chain"
   });
 }
 
-/** Per-file entries for a chain, sorted by address. `chain` comes from the directory. */
-export function aggregateContractChain(chainPath: string): ContractInfo[] {
+/** Per-address records for a chain, sorted by address. `chain` comes from the directory. */
+function loadContractChain(chainPath: string): ContractInfo[] {
   return listContractFiles(chainPath).map((fileName) => {
     const record = loadContractFile(chainPath, fileName) as Omit<ContractInfo, "chain">;
     return withContractChain(chainPath, record);
   });
-}
-
-export function contractsAllPath(chainPath: string): string {
-  return path.join(contractsRoot(), chainPath, "all.json");
-}
-
-export function readContractsAll(chainPath: string): ContractInfo[] {
-  const allPath = contractsAllPath(chainPath);
-  return JSON.parse(fs.readFileSync(allPath, "utf8")) as ContractInfo[];
-}
-
-export function rebuildContractsAllJson(chainPath: string): ContractInfo[] {
-  const contracts = aggregateContractChain(chainPath);
-  fs.writeFileSync(contractsAllPath(chainPath), `${JSON.stringify(contracts, null, 2)}\n`);
-  return contracts;
-}
-
-export function rebuildAllContractsAllJson(): void {
-  for (const chainPath of listContractChainPaths()) {
-    rebuildContractsAllJson(chainPath);
-  }
 }
 
 /** Structural problems in data/contracts. Empty means the catalog is valid. */
@@ -337,8 +316,12 @@ export function validateContractCatalog(): string[] {
         errors.push(...validateLogoDirectory(chainPath, child.name));
         continue;
       }
-      if (child.name === "all.json" || ADDRESS_FILE_RE.test(child.name)) {
-        if (child.name !== "all.json") jsonFiles.push(child.name);
+      if (child.name === "all.json") {
+        errors.push(`${chainPath}/all.json: contract catalogs do not use an aggregate file`);
+        continue;
+      }
+      if (ADDRESS_FILE_RE.test(child.name)) {
+        jsonFiles.push(child.name);
         continue;
       }
       errors.push(`${chainPath}/${child.name}: unexpected file`);
@@ -355,37 +338,6 @@ export function validateContractCatalog(): string[] {
         continue;
       }
       errors.push(...validateContractRecord(parsed, { chainPath, fileName }));
-    }
-
-    const allPath = contractsAllPath(chainPath);
-    if (!fs.existsSync(allPath)) {
-      errors.push(`${chainPath}/all.json: missing aggregate`);
-      continue;
-    }
-    let all: unknown;
-    try {
-      all = JSON.parse(fs.readFileSync(allPath, "utf8")) as unknown;
-    } catch (error) {
-      errors.push(
-        `${chainPath}/all.json: invalid JSON (${error instanceof Error ? error.message : String(error)})`,
-      );
-      continue;
-    }
-    if (!Array.isArray(all)) {
-      errors.push(`${chainPath}/all.json: must be an array`);
-      continue;
-    }
-    let expected: ContractInfo[];
-    try {
-      expected = aggregateContractChain(chainPath);
-    } catch (error) {
-      errors.push(
-        `${chainPath}/all.json: cannot aggregate (${error instanceof Error ? error.message : String(error)})`,
-      );
-      continue;
-    }
-    if (JSON.stringify(all) !== JSON.stringify(expected)) {
-      errors.push(`${chainPath}/all.json: does not match per-address JSON files`);
     }
   }
 
@@ -447,21 +399,19 @@ function availableChainIds(): string[] {
  */
 export function getContracts(chainId?: string): ContractInfo[] {
   if (chainId === undefined) {
-    return listContractChainPaths().flatMap((chainPath) =>
-      readContractsAll(chainPath).map((contract) => withContractChain(chainPath, contract)),
-    );
+    return listContractChainPaths().flatMap((chainPath) => loadContractChain(chainPath));
   }
   if (!isCaip2(chainId)) {
     throw new Error(`Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ${JSON.stringify(chainId)}`);
   }
   const chainPath = caip2ToChainPath(chainId);
-  const allPath = contractsAllPath(chainPath);
-  if (!fs.existsSync(allPath)) {
+  const chainDir = path.join(contractsRoot(), chainPath);
+  if (!fs.existsSync(chainDir) || !fs.statSync(chainDir).isDirectory()) {
     throw new Error(
       `Unknown contract chain ${chainId}. Available: ${availableChainIds().join(", ")}`,
     );
   }
-  return readContractsAll(chainPath).map((contract) => withContractChain(chainPath, contract));
+  return loadContractChain(chainPath);
 }
 
 /** One contract by address. Lookup is case-insensitive. Unknown address returns null. */
