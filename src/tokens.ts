@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { writeFormattedJson } from "./convert.js";
 import { sha256Hex } from "./manifest.js";
 
 /**
@@ -113,7 +114,7 @@ export function rebuildTokensAllJson(chainPath: string): TokenInfo[] {
     sortTokenInfo(loadTokenInfo(path.join(dir, "info.json"))),
   );
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  fs.writeFileSync(allPath, `${JSON.stringify(tokens, null, 2)}\n`);
+  writeFormattedJson(allPath, tokens);
   return tokens;
 }
 
