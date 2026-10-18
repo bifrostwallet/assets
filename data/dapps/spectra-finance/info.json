@@ -4,7 +4,5 @@
   "url": "https://spectra.finance",
   "logoURL": "dapps/spectra-finance/logo.webp",
   "logoHash": "54db84d2dbd1ad9a569f22aaeb0394d0f780449252a484a909dd02f2c540f44d",
-  "chains": ["eip155:14"],
-  "category": "yield",
-  "featured": false
+  "chains": ["eip155:14"]
 }

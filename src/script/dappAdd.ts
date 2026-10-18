@@ -1,18 +1,12 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { DAPP_CATEGORIES, DAPP_CHAINS, type DappCategory, type DappInfo } from "../config.js";
-import { calculateHash, dappSlugFromUrl, sortDappInfo, toRelativePath } from "../convert.js";
+import { DAPP_CHAINS, type DappInfo } from "../config.js";
+import { dappSlugFromUrl, sortDappInfo, toRelativePath } from "../convert.js";
+import { convertDappLogoPng } from "../dappLogo.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
-import { isValidDescription, isValidImage, isValidName, isValidURL } from "../validate.js";
-
-const CATEGORY_LABELS: Record<DappCategory, string> = {
-  dex: "DEX",
-  yield: "Yield",
-  nft: "NFT",
-  games: "Games",
-  other: "Other",
-};
+import { isValidDescription, isValidName, isValidURL } from "../validate.js";
 
 async function addDapp(): Promise<void> {
   try {
@@ -89,58 +83,22 @@ async function addDapp(): Promise<void> {
     ];
     const chains = chainIndexes.map((index) => DAPP_CHAINS[index].caip2).sort();
 
-    console.info("\nSelect category:");
-    for (const [index, category] of DAPP_CATEGORIES.entries()) {
-      console.info(`${index + 1}. ${CATEGORY_LABELS[category]}`);
-    }
-
-    const categoryInput = await getValidatedInput({
-      prompt: "Enter category choice",
-      validator: (input) => {
-        const num = Number(input);
-        return Number.isInteger(num) && num >= 1 && num <= DAPP_CATEGORIES.length;
-      },
-      errorMessage: `Please enter a number from 1-${DAPP_CATEGORIES.length}`,
-    });
-    const category = DAPP_CATEGORIES[Number(categoryInput) - 1];
-
-    const featuredInput = await getValidatedInput({
-      prompt: "Featured dapp? (yes/no)",
-      validator: (input) => ["yes", "no", "y", "n"].includes(input.toLowerCase()),
-      errorMessage: "Please enter 'yes' or 'no'",
-    });
-    const featured = featuredInput.toLowerCase().startsWith("y");
-
     const logoPath = await getValidatedInput({
-      prompt: "Enter path to logo WebP image (e.g. /Users/you/Downloads/logo.webp)",
+      prompt: "Enter path to a PNG logo (converted to 128×128 logo.webp)",
       validator: (input) => fs.existsSync(input) && input.toLowerCase().endsWith(".png"),
       errorMessage: "Please enter a valid path to a PNG file",
     });
 
-    const logoValidation = isValidImage(logoPath);
-    if (!logoValidation.isValid) {
-      console.error("❌ Logo validation failed:");
-      for (const error of logoValidation.errors) {
-        console.error(`  - ${error}`);
-      }
-      throw new Error("Logo validation failed");
-    }
-
-    console.info(
-      `✅ Dimensions: ${logoValidation.metadata?.width}x${logoValidation.metadata?.height}px`,
-    );
-    console.info(`✅ Size: ${logoValidation.metadata?.sizeKB.toFixed(2)}KB`);
-
+    const webp = convertDappLogoPng(logoPath);
+    const logoHash = createHash("sha256").update(webp).digest("hex");
     const logoURL = `dapps/${slug}/logo.webp`;
     const dappInfo = sortDappInfo({
       title,
       description,
       url,
       logoURL,
-      logoHash: calculateHash(logoPath),
+      logoHash,
       chains,
-      category,
-      featured,
     });
 
     fs.mkdirSync(outputDir, { recursive: true });
@@ -150,8 +108,11 @@ async function addDapp(): Promise<void> {
     console.info(`\n📁 Dapp information saved to: ${toRelativePath(infoPath)}`);
 
     const logoOutputPath = path.join(outputDir, "logo.webp");
-    fs.copyFileSync(logoPath, logoOutputPath);
+    fs.writeFileSync(logoOutputPath, webp);
     console.info(`📁 Dapp logo saved to: ${toRelativePath(logoOutputPath)}`);
+    console.info(
+      `Add ${slug} to data/dapps/categories.json by hand. Chip order is curated and this script does not edit that file.`,
+    );
 
     console.info("\n✅ Dapp added successfully!");
   } catch (error) {

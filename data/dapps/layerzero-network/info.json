@@ -4,7 +4,5 @@
   "url": "https://layerzero.network",
   "logoURL": "dapps/layerzero-network/logo.webp",
   "logoHash": "d3983a79d9fc21b3a264bf2256af15a8dae207aee9aa6bf8f72ee78c37b5927b",
-  "chains": ["eip155:14"],
-  "category": "other",
-  "featured": false
+  "chains": ["eip155:14"]
 }

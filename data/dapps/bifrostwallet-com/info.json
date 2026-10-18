@@ -4,7 +4,5 @@
   "url": "https://bifrostwallet.com",
   "logoURL": "dapps/bifrostwallet-com/logo.webp",
   "logoHash": "3d802d3fe11b64d0238cae5b34c374f3d0d661d68391a99b9a4bde6912f1468f",
-  "chains": ["eip155:14", "eip155:19"],
-  "category": "other",
-  "featured": false
+  "chains": ["eip155:14", "eip155:19"]
 }

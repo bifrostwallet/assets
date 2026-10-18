@@ -94,6 +94,9 @@ async function removeDapp(): Promise<void> {
     fs.rmSync(dappDir, { recursive: true, force: true });
 
     console.info(`\n✅ Dapp successfully removed from ${toRelativePath(dappDir)}`);
+    console.info(
+      `Remove ${slug} from data/dapps/categories.json by hand. That file is not updated here.`,
+    );
   } catch (error) {
     console.error(
       `❌ Error removing dapp: ${error instanceof Error ? error.message : String(error)}`,

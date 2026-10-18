@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
-import type { ProviderInfo } from "../config.js";
+import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
@@ -88,6 +88,9 @@ const tokenBlocklist = ${blocklistRequire};
 const contractsByChain = {
 ${contractRequires}};
 
+/** Hand-ordered browser chips. Not an all.json aggregate. */
+const dappCategories = require("./dapps/categories.json");
+
 /** Bundled snapshot of section content hashes (same algorithm as CDN manifest.json). */
 const SECTION_HASHES = ${sectionHashesJson};
 
@@ -104,6 +107,8 @@ const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
 const CONTRACT_CHAIN_IDS = Object.keys(contractsByChain).map(chainPathToCaip2);
 const CONTRACT_CATEGORIES = ${JSON.stringify([...CONTRACT_CATEGORIES])};
 const CONTRACT_CATEGORY_LABELS = ${JSON.stringify(CONTRACT_CATEGORY_LABELS)};
+const DAPP_CATEGORIES = ${JSON.stringify([...DAPP_CATEGORIES])};
+const DAPP_CATEGORY_LABELS = ${JSON.stringify(DAPP_CATEGORY_LABELS)};
 
 function chainPathToCaip2(chainPath) {
   const i = String(chainPath).indexOf("-");
@@ -211,6 +216,10 @@ function getContract(chainId, address) {
   );
 }
 
+function getDappCategories() {
+  return dappCategories;
+}
+
 function resolveAssetURL(relativePath, baseURL) {
   const base = baseURL || DEFAULT_ASSET_BASE_URL;
   return base.replace(/\\/?$/, "/") + String(relativePath).replace(/^\\//, "");
@@ -264,6 +273,8 @@ module.exports = {
   CONTRACT_CHAIN_IDS,
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
+  DAPP_CATEGORIES,
+  DAPP_CATEGORY_LABELS,
   MANIFEST_PUBLIC_KEY,
   getSectionHashes,
   canonicalManifestBody,
@@ -279,6 +290,7 @@ module.exports = {
   getTokenBlocklist,
   getContracts,
   getContract,
+  getDappCategories,
   resolveAssetURL,
 };
 `;
@@ -371,6 +383,21 @@ export declare const CONTRACT_CATEGORIES: readonly ContractCategory[];
 /** Display names. Use these instead of hardcoding category strings. */
 export declare const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string>;
 
+export type DappCategory =
+%%DAPP_CATEGORY_UNION%%
+
+/** Browser chip ids, in chip order. Separate from contract categories. */
+export declare const DAPP_CATEGORIES: readonly DappCategory[];
+/** Display names for those chips. marketplaces is NFT marketplaces only. */
+export declare const DAPP_CATEGORY_LABELS: Record<DappCategory, string>;
+
+export interface DappCategoryGroup {
+  id: DappCategory;
+  label: string;
+  /** Hand-ordered slugs. A slug may appear in more than one group. */
+  dapps: string[];
+}
+
 export interface ContractInfo {
   /** Lowercase 0x address */
   address: string;
@@ -451,6 +478,11 @@ export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 export declare function getContracts(chainId?: ChainId): ContractInfo[];
 /** One contract by address (case-insensitive), or null */
 export declare function getContract(chainId: ChainId, address: string): ContractInfo | null;
+/**
+ * Browser chips from data/dapps/categories.json, in curated order.
+ * This is not a dapp all.json.
+ */
+export declare function getDappCategories(): DappCategoryGroup[];
 /**
  * Joins a relative (or already-absolute) asset path to a base URL.
  * Defaults to the base baked into this package build (ASSET_BASE_URL / GitHub raw).
@@ -537,6 +569,15 @@ function buildPackage(): void {
   const publicKeyPem = loadManifestPublicKey();
   console.info(`🖼️  logoURL base: ${assetBase}`);
 
+  const categoriesSrc = path.join(process.cwd(), "data", "dapps", "categories.json");
+  if (!fs.existsSync(categoriesSrc)) {
+    throw new Error("data/dapps/categories.json missing");
+  }
+  const categoriesBody = fs.readFileSync(categoriesSrc);
+  fs.mkdirSync(path.join(distDir, "dapps"), { recursive: true });
+  fs.writeFileSync(path.join(distDir, "dapps", "categories.json"), categoriesBody);
+  console.info("📦 dapps/categories.json");
+
   fs.writeFileSync(
     path.join(distDir, "index.js"),
     buildIndexJs(sectionHashesJson, publicKeyPem, tokenChainIds, contractChainIds),
@@ -544,9 +585,15 @@ function buildPackage(): void {
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
+  const dappCategoryUnion = DAPP_CATEGORIES.map(
+    (category) => `  | ${JSON.stringify(category)}`,
+  ).join("\n");
   fs.writeFileSync(
     path.join(distDir, "index.d.ts"),
-    INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`),
+    INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`).replace(
+      "%%DAPP_CATEGORY_UNION%%",
+      `${dappCategoryUnion};`,
+    ),
   );
   fs.writeFileSync(path.join(distDir, "section-hashes.json"), `${sectionHashesJson}\n`);
 

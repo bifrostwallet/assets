@@ -243,16 +243,38 @@ export const SIGNED_PROVIDER_INFO_KEYS = PROVIDER_INFO_KEYS.filter(
 );
 
 /**
- * Fixed categories for curated dapp browser bookmarks.
- * Kept short (wallet discover UX): dex covers spot DEX + perps/aggregators;
- * yield covers lending/staking/farming; bridges and tools land in other.
+ * Browser chips for the dapp browser, in chip order.
+ * Separate from contract categories. Membership is the hand-edited
+ * `data/dapps/categories.json`, not a field on each dapp.
  */
-export const DAPP_CATEGORIES = ["dex", "yield", "nft", "games", "other"] as const;
+export const DAPP_CATEGORIES = [
+  "featured",
+  "dex",
+  "lending",
+  "yield",
+  "staking",
+  "marketplaces",
+  "social",
+  "games",
+] as const;
 
 export type DappCategory = (typeof DAPP_CATEGORIES)[number];
 
+/** Display names for {@link DAPP_CATEGORIES}. `marketplaces` is NFT marketplaces only. */
+export const DAPP_CATEGORY_LABELS: Record<DappCategory, string> = {
+  featured: "Featured",
+  dex: "DEX",
+  lending: "Lending",
+  yield: "Yield",
+  staking: "Staking",
+  marketplaces: "Marketplaces",
+  social: "Social",
+  games: "Games",
+};
+
 /**
- * Interface defining the structure of curated dapp bookmark information
+ * Interface defining the structure of curated dapp bookmark information.
+ * Browser chips are not stored here.
  */
 export interface DappInfo {
   /** Display name. Contract lookups expose this as projectName. */
@@ -264,8 +286,6 @@ export interface DappInfo {
   /** SHA-256 of logo.webp. Contract files copy this with logoURL. */
   logoHash: string;
   chains: string[];
-  category: DappCategory;
-  featured: boolean;
 }
 
 /**
@@ -278,8 +298,6 @@ export const DAPP_INFO_KEYS = [
   "logoURL",
   "logoHash",
   "chains",
-  "category",
-  "featured",
 ] as const;
 
 /**

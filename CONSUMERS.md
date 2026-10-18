@@ -4,4 +4,4 @@ Install [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/a
 
 **Full integrator guide:** [docs.bifrostwallet.com: Consuming Assets](https://docs.bifrostwallet.com/list/consuming-assets)
 
-For listing rules (providers, dapps, contract names, logos), see [README.md](README.md). Contract lookup is `getContract(chain, address)` / `getContracts(chain?)`. `projectName` is the dapp title. `logoURL` and `logoHash` are copies of that dapp's logo (`data/dapps/<slug>/`). Dapps have no `all.json`; only tokens and providers publish an aggregate.
+For listing rules (providers, dapps, contract names, logos), see [README.md](README.md). Contract lookup is `getContract(chain, address)` / `getContracts(chain?)`. `projectName` is the dapp title. `logoURL` and `logoHash` are copies of that dapp's logo (`data/dapps/<slug>/`). Dapps have no `all.json`; only tokens and providers publish an aggregate. Browser chips are `getDappCategories()` from `data/dapps/categories.json`.

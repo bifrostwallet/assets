@@ -4,7 +4,5 @@
   "url": "https://firelight.finance",
   "logoURL": "dapps/firelight-finance/logo.webp",
   "logoHash": "2b11bb2a0ca137dda56273024abf3f1c957badcb16a4dc65b0ef1b6f275e0965",
-  "chains": ["eip155:14"],
-  "category": "yield",
-  "featured": false
+  "chains": ["eip155:14"]
 }

@@ -4,7 +4,5 @@
   "url": "https://nortso.xyz",
   "logoURL": "dapps/nortso-xyz/logo.webp",
   "logoHash": "dd4ddd1a1285a631b010520d830f8285e5b78aef74186cc2ad872a51a80e3e40",
-  "chains": ["eip155:14", "eip155:19"],
-  "category": "other",
-  "featured": false
+  "chains": ["eip155:14", "eip155:19"]
 }

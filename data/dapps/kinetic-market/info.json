@@ -4,7 +4,5 @@
   "url": "https://kinetic.market",
   "logoURL": "dapps/kinetic-market/logo.webp",
   "logoHash": "e882c68fffda1455e9713004c1e989134b74e620c420a0a11754c08ba5c78c6f",
-  "chains": ["eip155:14"],
-  "category": "yield",
-  "featured": false
+  "chains": ["eip155:14"]
 }

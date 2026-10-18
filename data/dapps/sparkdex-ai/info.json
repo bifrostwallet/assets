@@ -4,7 +4,5 @@
   "url": "https://sparkdex.ai",
   "logoURL": "dapps/sparkdex-ai/logo.webp",
   "logoHash": "772fb06ca874c15344a5f8e3a3d09b7e675179f5592ad45d2d4309aabfb76162",
-  "chains": ["eip155:14"],
-  "category": "dex",
-  "featured": false
+  "chains": ["eip155:14"]
 }

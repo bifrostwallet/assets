@@ -4,7 +4,5 @@
   "url": "https://au.cc",
   "logoURL": "dapps/au-cc/logo.webp",
   "logoHash": "962a86220c6d42774f3080b58bfe3240c3f21e4e6cd82c1b06849b94c05cdcb8",
-  "chains": ["eip155:14", "eip155:19"],
-  "category": "other",
-  "featured": false
+  "chains": ["eip155:14", "eip155:19"]
 }

@@ -297,7 +297,8 @@ export function sortDappInfo(dappInfo: DappInfo): DappInfo {
  * A dapp submission's signed payload and its 0x-prefixed SHA-256 hash.
  * MUST produce byte-identical output to apps/add and apps/intake: fixed key
  * order, chains sorted. Excludes logoURL (hosting detail, integrity is covered
- * by logoHash) and featured (curator-granted).
+ * by logoHash). `category` stays in the signed listing payload. Catalog chips
+ * live in data/dapps/categories.json and are not stored on info.json.
  */
 export function dappSubmissionMessageHash(payload: {
   title: string;

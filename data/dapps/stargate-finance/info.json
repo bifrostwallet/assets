@@ -4,7 +4,5 @@
   "url": "https://stargate.finance",
   "logoURL": "dapps/stargate-finance/logo.webp",
   "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8",
-  "chains": ["eip155:14"],
-  "category": "other",
-  "featured": false
+  "chains": ["eip155:14"]
 }
