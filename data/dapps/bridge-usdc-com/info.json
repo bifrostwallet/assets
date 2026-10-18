@@ -1,0 +1,16 @@
+{
+  "title": "USDC Bridge",
+  "description": "USDC Bridge is Circle's app for moving USDC between supported blockchains. It uses Circle's Cross-Chain Transfer Protocol.",
+  "url": "https://bridge.usdc.com",
+  "logoURL": "dapps/bridge-usdc-com/logo.webp",
+  "logoHash": "ff74ece75ca6c12c21c54a9c04b80b5fc9d99ae3c494a268b1313097b438ecbc",
+  "chains": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:8453",
+    "eip155:999"
+  ]
+}

@@ -1,7 +1,8 @@
 {
   "address": "0xe26ad68b17224951b5740f33926cc438764eb9a7",
-  "chain": "eip155:19",
-  "projectName": "Songbird",
+  "dapp": "flare-network",
   "contractName": "Reward Manager",
-  "category": "rewards"
+  "category": "rewards",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
 }

@@ -1,0 +1,16 @@
+{
+  "title": "Spectra",
+  "description": "Spectra is a permissionless interest-rate derivatives protocol. On Flare, users can trade fixed-rate positions and provide liquidity to those markets.",
+  "url": "https://spectra.finance",
+  "logoURL": "dapps/spectra-finance/logo.webp",
+  "logoHash": "54db84d2dbd1ad9a569f22aaeb0394d0f780449252a484a909dd02f2c540f44d",
+  "chains": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:56",
+    "eip155:8453",
+    "eip155:999"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
-  "chain": "eip155:19",
-  "projectName": "Atlas TSO",
+  "dapp": "tsoatlas-xyz",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/atlas.webp"
+  "logoURL": "dapps/tsoatlas-xyz/logo.webp",
+  "logoHash": "04a981a6c3916d65772469a5affb7f48e771b717b6b23d59f7b0e9d4fdb749ed"
 }

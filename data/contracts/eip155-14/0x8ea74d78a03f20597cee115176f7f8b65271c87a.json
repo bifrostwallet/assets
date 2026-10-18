@@ -1,8 +1,8 @@
 {
   "address": "0x8ea74d78a03f20597cee115176f7f8b65271c87a",
-  "chain": "eip155:14",
-  "projectName": "Oracle Daemon",
+  "dapp": "oracle-daemon-com",
   "contractName": "Agent Vault",
   "category": "fassets",
-  "logoURL": "contracts/logos/od.webp"
+  "logoURL": "dapps/oracle-daemon-com/logo.webp",
+  "logoHash": "54630e90224ab398af51f15e3f9712529a1d7ad9b3c55bb5fc1d469b28864341"
 }

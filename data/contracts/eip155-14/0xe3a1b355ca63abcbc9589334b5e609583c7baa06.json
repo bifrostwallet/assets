@@ -1,7 +1,8 @@
 {
   "address": "0xe3a1b355ca63abcbc9589334b5e609583c7baa06",
-  "chain": "eip155:14",
-  "projectName": "BlazeSwap",
+  "dapp": "blazeswap-xyz",
   "contractName": "Router",
-  "category": "dex"
+  "category": "dex",
+  "logoURL": "dapps/blazeswap-xyz/logo.webp",
+  "logoHash": "0f5411f820aa2a6e3204bf4706464bc2eedd322baa107b15736a2067bc8b3016"
 }

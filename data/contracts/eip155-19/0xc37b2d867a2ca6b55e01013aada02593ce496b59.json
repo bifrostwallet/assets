@@ -1,8 +1,8 @@
 {
   "address": "0xc37b2d867a2ca6b55e01013aada02593ce496b59",
-  "chain": "eip155:19",
-  "projectName": "AU",
+  "dapp": "au-cc",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/au.webp"
+  "logoURL": "dapps/au-cc/logo.webp",
+  "logoHash": "962a86220c6d42774f3080b58bfe3240c3f21e4e6cd82c1b06849b94c05cdcb8"
 }

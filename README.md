@@ -131,7 +131,13 @@ NPM install and examples: [CONSUMERS.md](CONSUMERS.md). Full integrator guide: [
 
 ## Dapps
 
-Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details are sealed privately; public fields are title, description, URL, chains, category, and logo. Listing guide: [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
+Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details are sealed privately; public fields are title, description, URL, chains, and logo. Listing guide: [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
+
+Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. There is no per-dapp `category` or `featured` flag. Dapps have no `all.json`. Aggregates are only for tokens and providers.
+
+Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. Every dapp folder must appear in at least one chip. Validation fails otherwise. `bridges` is cross-chain token and message transfer. `marketplaces` is NFT marketplaces only. `other` is the fallback chip. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
+
+Place a dapp from its official site. Do not filter chips by network.
 
 ## Tokens
 
@@ -147,16 +153,18 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 
 Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). Each chain has a generated `all.json` — do not edit it by hand. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. Do not store `chain` or `projectName`. There is no aggregate `all.json` and no per-contract logo file. `getContract` / `getContracts` read these files, inject `chain`, and set `projectName` from the dapp `title`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+
+The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exist under `data/dapps/`) and a copy of that dapp's `logoURL` and `logoHash`. Validation rejects a copy that does not match. `./yarn check:contracts -- --fix` rewrites the copies from the dapp.
 
 ```json
 {
   "address": "0xabc…",
-  "chain": "eip155:14",
-  "projectName": "Bifrost Wallet",
+  "dapp": "bifrostwallet-com",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/bifrost-wallet.webp"
+  "logoURL": "dapps/bifrostwallet-com/logo.webp",
+  "logoHash": "…"
 }
 ```
 
@@ -178,10 +186,11 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` is optional. When set, it is a relative WebP path in git and an absolute URL in the published package. Logos follow the same rules as other catalog marks: opaque **128×128** WebP, maximum **24 KB**. Store a contract's own mark at `data/contracts/<chain>/<address>/logo.webp`, or point several contracts at one shared file `data/contracts/logos/<slug>.webp`.
+`logoURL` in git is the relative dapp path. The published package makes it absolute. `logoHash` is the SHA-256 of the dapp WebP. Logos are transparent lossless **128×128** WebP, maximum **24 KB**.
 
 ```bash
 ./yarn check:contracts
+./yarn check:contracts -- --fix
 ```
 
 ## Repository layout
@@ -190,10 +199,9 @@ Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding
 data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.json, provenance.json
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
-data/contracts/eip155-<id>/<address>.json   contract display names
-data/contracts/logos/<slug>.webp            shared project logos
-data/contracts/eip155-<id>/all.json         generated aggregate (do not edit)
-data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
+data/contracts/eip155-<id>/<address>.json   contract names plus a copy of the dapp logo (no all.json)
+data/dapps/categories.json                  hand-ordered browser chips (not an all.json)
+data/dapps/<slug>/                          info.json, logo.webp (no contact PII, no all.json)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
 
@@ -215,6 +223,12 @@ Listings are re-validated in this repository before they go live; CI re-checks o
 `./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, helpers). The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. Logos in the package are absolute GitHub raw URLs unless you set `ASSET_BASE_URL` at build time.
 
 ## Development
+
+### URL verification
+
+Dapp URLs must be confirmed from an official project source: the project's own docs or GitHub org, a verified X account, a flare.network ecosystem link, or the contract deployer docs. Never infer a URL from a name. A dapp `chains` list is confirmed the same way, and only ids in `DAPP_CHAINS` are stored.
+
+Dapp browser chips are hand-edited in `data/dapps/categories.json`. Do not store `category` or `featured` on `info.json`, and do not sort that file. A dapp in no chip fails validation.
 
 Use the repo [`yarn`](yarn) wrapper (`./yarn`), not Corepack or a global install.
 CI sets `COREPACK_ENABLE=0`. Upgrade Yarn with `./yarn security:yarn-binary:upgrade <version>`.

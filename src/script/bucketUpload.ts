@@ -73,7 +73,6 @@ function collectUploads(assetBase: string): {
   const uploads: UploadItem[] = [];
   const providerChains: Record<string, string> = {};
   const tokenChains: Record<string, string> = {};
-  const contractChains: Record<string, string> = {};
 
   const legacyIcons = new Map<string, string>();
 
@@ -151,38 +150,27 @@ function collectUploads(assetBase: string): {
     });
   }
 
-  const contractsDir = path.join(dataDir, "contracts");
-  if (fs.existsSync(contractsDir)) {
-    const walkContracts = (dir: string): void => {
+  // Dapp logos. Contract lists copy logoURL/logoHash and stay in the NPM package.
+  const dappsDir = path.join(dataDir, "dapps");
+  if (fs.existsSync(dappsDir)) {
+    const walkDappLogos = (dir: string): void => {
       for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const fullPath = path.join(dir, entry.name);
         if (entry.isDirectory()) {
-          walkContracts(fullPath);
+          walkDappLogos(fullPath);
           continue;
         }
+        if (entry.name !== "logo.webp") continue;
         const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
-        if (entry.name.endsWith(".webp")) {
-          uploads.push({
-            localPath: fullPath,
-            destination: `${BUCKET_PREFIX}${relative}`,
-            cacheControl: LOGO_CACHE_CONTROL,
-            contentType: "image/webp",
-          });
-        } else if (entry.name === "all.json") {
-          const { body, tmpPath } = rewriteAllJsonForUpload(fullPath, assetBase);
-          const chain = path.basename(path.dirname(fullPath));
-          contractChains[chain] = sha256Hex(body);
-          uploads.push({
-            localPath: tmpPath,
-            destination: `${BUCKET_PREFIX}${relative}`,
-            cacheControl: LIST_CACHE_CONTROL,
-            contentType: "application/json",
-            cleanup: true,
-          });
-        }
+        uploads.push({
+          localPath: fullPath,
+          destination: `${BUCKET_PREFIX}${relative}`,
+          cacheControl: LOGO_CACHE_CONTROL,
+          contentType: "image/webp",
+        });
       }
     };
-    walkContracts(contractsDir);
+    walkDappLogos(dappsDir);
   }
 
   const sections: AssetsManifestBody["sections"] = {};
@@ -197,25 +185,6 @@ function collectUploads(assetBase: string): {
       contentHash: rollupChainHashes(tokenChains),
       chains: tokenChains,
     };
-  }
-  if (Object.keys(contractChains).length > 0) {
-    sections.contracts = {
-      contentHash: rollupChainHashes(contractChains),
-      chains: contractChains,
-    };
-  }
-
-  const dappsAll = path.join(dataDir, "dapps", "all.json");
-  if (fs.existsSync(dappsAll)) {
-    const { body, tmpPath } = rewriteAllJsonForUpload(dappsAll, assetBase);
-    sections.dapps = { contentHash: sha256Hex(body) };
-    uploads.push({
-      localPath: tmpPath,
-      destination: `${BUCKET_PREFIX}dapps/all.json`,
-      cacheControl: LIST_CACHE_CONTROL,
-      contentType: "application/json",
-      cleanup: true,
-    });
   }
 
   return { uploads, sectionHashes: sections };

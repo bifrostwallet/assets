@@ -1,8 +1,8 @@
 {
   "address": "0xe56f464c23760d563dd4c73dada05159ae71fc50",
-  "chain": "eip155:14",
-  "projectName": "AU",
+  "dapp": "au-cc",
   "contractName": "Agent Vault",
   "category": "fassets",
-  "logoURL": "contracts/logos/au.webp"
+  "logoURL": "dapps/au-cc/logo.webp",
+  "logoHash": "962a86220c6d42774f3080b58bfe3240c3f21e4e6cd82c1b06849b94c05cdcb8"
 }

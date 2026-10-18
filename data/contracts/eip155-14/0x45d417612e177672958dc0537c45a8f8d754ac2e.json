@@ -1,7 +1,8 @@
 {
   "address": "0x45d417612e177672958dc0537c45a8f8d754ac2e",
-  "chain": "eip155:14",
-  "projectName": "Stargate",
+  "dapp": "stargate-finance",
   "contractName": "Token Messaging",
-  "category": "bridge"
+  "category": "bridge",
+  "logoURL": "dapps/stargate-finance/logo.webp",
+  "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8"
 }

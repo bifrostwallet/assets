@@ -1,7 +1,8 @@
 {
   "address": "0x6fc83ecc0e8142635d77200e5052be8a0a9d2f42",
-  "chain": "eip155:14",
-  "projectName": "Morpho",
+  "dapp": "morpho-org",
   "contractName": "Vault V2 Factory",
-  "category": "yield"
+  "category": "yield",
+  "logoURL": "dapps/morpho-org/logo.webp",
+  "logoHash": "8cc38996398c26609598042c6a9d969c40ecfd62527be35abe136b421a9a3061"
 }

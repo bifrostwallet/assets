@@ -1,8 +1,8 @@
 {
   "address": "0xd8c270879fee41642ed2a71dde776eced6daea17",
-  "chain": "eip155:19",
-  "projectName": "NORTSO",
+  "dapp": "nortso-xyz",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/nortso.webp"
+  "logoURL": "dapps/nortso-xyz/logo.webp",
+  "logoHash": "dd4ddd1a1285a631b010520d830f8285e5b78aef74186cc2ad872a51a80e3e40"
 }

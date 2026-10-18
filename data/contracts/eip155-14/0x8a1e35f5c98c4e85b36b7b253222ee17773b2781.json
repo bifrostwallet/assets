@@ -1,7 +1,8 @@
 {
   "address": "0x8a1e35f5c98c4e85b36b7b253222ee17773b2781",
-  "chain": "eip155:14",
-  "projectName": "SparkDEX",
+  "dapp": "sparkdex-ai",
   "contractName": "Swap Router",
-  "category": "dex"
+  "category": "dex",
+  "logoURL": "dapps/sparkdex-ai/logo.webp",
+  "logoHash": "772fb06ca874c15344a5f8e3a3d09b7e675179f5592ad45d2d4309aabfb76162"
 }

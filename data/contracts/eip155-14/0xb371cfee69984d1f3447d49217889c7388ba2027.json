@@ -1,7 +1,8 @@
 {
   "address": "0xb371cfee69984d1f3447d49217889c7388ba2027",
-  "chain": "eip155:14",
-  "projectName": "Morpho",
+  "dapp": "morpho-org",
   "contractName": "Bundler3",
-  "category": "lending"
+  "category": "lending",
+  "logoURL": "dapps/morpho-org/logo.webp",
+  "logoHash": "8cc38996398c26609598042c6a9d969c40ecfd62527be35abe136b421a9a3061"
 }

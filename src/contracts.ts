@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { ASSET_LOGO_REQUIREMENTS } from "./config.js";
+import { writeFormattedJson } from "./convert.js";
+import { sha256Hex } from "./manifest.js";
 import { isValidEvmAddress, isValidImage } from "./validate.js";
 import { isWebpMagic } from "./webp.js";
 
@@ -9,12 +11,13 @@ import { isWebpMagic } from "./webp.js";
  * The wallet checks the user's address book first; this catalog is the
  * fallback that turns a hex address into "Project: Contract".
  *
- * Git layout (path-safe CAIP-2, same as tokens and providers):
- *   data/contracts/eip155-14/0xabc….json
- *   data/contracts/eip155-14/all.json          generated aggregate
- * Optional logos are WebP under data/, referenced by a relative logoURL:
- *   contracts/<chain>/<address>/logo.webp       per-contract mark
- *   contracts/logos/<slug>.webp                 shared project mark
+ * Git layout (path-safe CAIP-2):
+ *   data/contracts/eip155-14/<address>.json   address, dapp slug, name, category, logo copy
+ *   data/dapps/<slug>/info.json                dapp title plus the one logo
+ *   data/dapps/<slug>/logo.webp
+ * There is no contract or dapp all.json and no per-contract logo file.
+ * `chain` is the directory. `projectName` is the dapp title, injected on read.
+ * logoURL and logoHash are copies of the dapp and must not drift.
  */
 /**
  * Product-approved contract categories, in display order.
@@ -58,31 +61,55 @@ export const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string> = {
 export type ContractInfo = {
   /** Lowercase 0x address. Matches the JSON filename. */
   address: string;
-  /** CAIP-2 chain id, e.g. "eip155:14". */
+  /** CAIP-2 chain id, e.g. "eip155:14". Injected from the chain directory. */
   chain: string;
+  /** Display name from the referenced dapp (`title`). */
   projectName: string;
   contractName: string;
   category: ContractCategory;
   /**
-   * Relative logo path in git (absolute after package / CDN publish).
-   * Omitted when the contract has no logo.
+   * Copy of the dapp logo path. Relative in git, absolute in the published package.
    */
-  logoURL?: string;
+  logoURL: string;
+  /** Copy of the dapp logoHash (SHA-256 of that WebP). */
+  logoHash: string;
 };
 
-export const CONTRACT_INFO_KEYS = [
+/**
+ * Fields stored in per-address JSON.
+ * `chain` is the directory and must not be stored.
+ * `projectName` comes from the dapp title and must not be stored.
+ */
+export const CONTRACT_FILE_KEYS = [
   "address",
-  "chain",
-  "projectName",
+  "dapp",
   "contractName",
   "category",
   "logoURL",
+  "logoHash",
 ] as const;
 
 /** CAIP-2: namespace (3–8) ":" reference (1–32). */
 const CAIP2_RE = /^[-a-z0-9]{3,8}:[-_a-zA-Z0-9]{1,32}$/;
 const ADDRESS_FILE_RE = /^0x[0-9a-f]{40}\.json$/;
+const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const HASH_RE = /^[0-9a-f]{64}$/;
 const DISPLAY_NAME_RE = /^[\x20-\x7E]{2,64}$/;
+
+type StoredContract = {
+  address: string;
+  dapp: string;
+  contractName: string;
+  category: ContractCategory;
+  logoURL: string;
+  logoHash: string;
+};
+
+type DappLogo = {
+  title: string;
+  logoURL: string;
+  logoHash: string;
+};
 
 export function isCaip2(value: string): boolean {
   return CAIP2_RE.test(value);
@@ -110,31 +137,30 @@ export function contractsRoot(): string {
   return path.join(process.cwd(), "data", "contracts");
 }
 
-/** Shared project marks (`data/contracts/logos/<slug>.webp`), not a chain directory. */
-export const SHARED_CONTRACT_LOGO_DIR = "logos";
+export function dappsRoot(): string {
+  return path.join(process.cwd(), "data", "dapps");
+}
 
 export function listContractChainPaths(): string[] {
   const root = contractsRoot();
   if (!fs.existsSync(root)) return [];
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name !== SHARED_CONTRACT_LOGO_DIR)
+    .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort();
 }
 
 export function sortContractInfo(info: ContractInfo): ContractInfo {
-  const sorted: ContractInfo = {
+  return {
     address: info.address,
     chain: info.chain,
     projectName: info.projectName,
     contractName: info.contractName,
     category: info.category,
+    logoURL: info.logoURL,
+    logoHash: info.logoHash,
   };
-  if (info.logoURL !== undefined) {
-    sorted.logoURL = info.logoURL;
-  }
-  return sorted;
 }
 
 function isDisplayName(value: string): boolean {
@@ -143,6 +169,30 @@ function isDisplayName(value: string): boolean {
 
 function isContractCategory(value: string): value is ContractCategory {
   return (CONTRACT_CATEGORIES as readonly string[]).includes(value);
+}
+
+function readJson(filePath: string): unknown {
+  return JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
+}
+
+function dappInfoPath(slug: string): string {
+  return path.join(dappsRoot(), slug, "info.json");
+}
+
+function loadDappLogo(slug: string): DappLogo | null {
+  const infoPath = dappInfoPath(slug);
+  if (!fs.existsSync(infoPath)) return null;
+  const raw = readJson(infoPath);
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const record = raw as Record<string, unknown>;
+  if (
+    typeof record.title !== "string" ||
+    typeof record.logoURL !== "string" ||
+    typeof record.logoHash !== "string"
+  ) {
+    return null;
+  }
+  return { title: record.title, logoURL: record.logoURL, logoHash: record.logoHash };
 }
 
 /**
@@ -162,20 +212,25 @@ export function validateContractRecord(
   const record = value as Record<string, unknown>;
 
   for (const key of Object.keys(record)) {
-    if (!(CONTRACT_INFO_KEYS as readonly string[]).includes(key)) {
+    if (key === "chain") {
+      errors.push(`${label}: chain must not be stored; the directory is the chain`);
+      continue;
+    }
+    if (key === "project" || key === "projectName") {
+      errors.push(`${label}: ${key} must not be stored; reference the dapp by slug`);
+      continue;
+    }
+    if (!(CONTRACT_FILE_KEYS as readonly string[]).includes(key)) {
       errors.push(`${label}: unexpected field ${key}`);
     }
   }
-  for (const key of ["address", "chain", "projectName", "contractName", "category"] as const) {
-    if (!(key in record)) {
-      errors.push(`${label}: missing ${key}`);
-    }
+  for (const key of CONTRACT_FILE_KEYS) {
+    if (!(key in record)) errors.push(`${label}: missing ${key}`);
   }
   if (errors.length > 0) return errors;
 
   const address = record.address;
-  const chain = record.chain;
-  const projectName = record.projectName;
+  const dapp = record.dapp;
   const contractName = record.contractName;
   const category = record.category;
 
@@ -194,21 +249,8 @@ export function validateContractRecord(
     }
   }
 
-  let chainPathCaip2: string | undefined;
-  try {
-    chainPathCaip2 = chainPathToCaip2(ctx.chainPath);
-  } catch {
-    errors.push(`${label}: chain directory is not a path-safe CAIP-2 id`);
-  }
-
-  if (typeof chain !== "string" || !isCaip2(chain)) {
-    errors.push(`${label}: chain must be a CAIP-2 id (e.g. "eip155:14")`);
-  } else if (chainPathCaip2 && chain !== chainPathCaip2) {
-    errors.push(`${label}: chain ${chain} does not match directory ${ctx.chainPath}`);
-  }
-
-  if (typeof projectName !== "string" || !isDisplayName(projectName)) {
-    errors.push(`${label}: projectName must be 2–64 printable characters`);
+  if (typeof dapp !== "string" || !SLUG_RE.test(dapp)) {
+    errors.push(`${label}: dapp must be a lowercase slug`);
   }
   if (typeof contractName !== "string" || !isDisplayName(contractName)) {
     errors.push(`${label}: contractName must be 2–64 printable characters`);
@@ -216,46 +258,24 @@ export function validateContractRecord(
   if (typeof category !== "string" || !isContractCategory(category)) {
     errors.push(`${label}: category must be one of ${CONTRACT_CATEGORIES.join(", ")}`);
   }
+  if (typeof record.logoURL !== "string" || record.logoURL.length === 0) {
+    errors.push(`${label}: logoURL must be a non-empty relative path`);
+  }
+  if (typeof record.logoHash !== "string" || !HASH_RE.test(record.logoHash)) {
+    errors.push(`${label}: logoHash must be a lowercase SHA-256 hex digest`);
+  }
+  if (errors.length > 0) return errors;
 
-  if ("logoURL" in record) {
-    errors.push(...validateContractLogo(record.logoURL, label));
+  if (typeof dapp === "string" && SLUG_RE.test(dapp)) {
+    const logo = loadDappLogo(dapp);
+    if (!logo) {
+      errors.push(`${label}: unknown dapp ${dapp}`);
+    } else if (record.logoURL !== logo.logoURL || record.logoHash !== logo.logoHash) {
+      errors.push(`${label}: logoURL and logoHash must match dapp ${dapp}`);
+    }
   }
 
   return errors;
-}
-
-function validateContractLogo(logoURL: unknown, label: string): string[] {
-  if (typeof logoURL !== "string" || logoURL.length === 0) {
-    return [`${label}: logoURL must be a non-empty relative path when set`];
-  }
-  if (logoURL !== logoURL.trim() || logoURL.includes("..") || logoURL.startsWith("/")) {
-    return [`${label}: logoURL must be a relative catalog path`];
-  }
-  if (/^[a-z][a-z0-9+.-]*:/i.test(logoURL)) {
-    return [`${label}: logoURL must be relative in git (absolute only in the published package)`];
-  }
-  if (!logoURL.startsWith("contracts/") || !logoURL.endsWith(".webp")) {
-    return [`${label}: logoURL must look like contracts/…/logo.webp`];
-  }
-
-  const filePath = path.join(process.cwd(), "data", logoURL);
-  if (!fs.existsSync(filePath)) {
-    return [`${label}: logo file missing at data/${logoURL}`];
-  }
-  const bytes = fs.readFileSync(filePath);
-  if (!isWebpMagic(bytes)) {
-    return [`${label}: logo must be WebP`];
-  }
-  const check = isValidImage(filePath, {
-    maxSizeKB: ASSET_LOGO_REQUIREMENTS.MAX_SIZE_KB,
-    minWidth: ASSET_LOGO_REQUIREMENTS.MIN_WIDTH,
-    maxWidth: ASSET_LOGO_REQUIREMENTS.MAX_WIDTH,
-    requireSquare: ASSET_LOGO_REQUIREMENTS.REQUIRE_SQUARE,
-  });
-  if (!check.isValid) {
-    return check.errors.map((error) => `${label}: ${error}`);
-  }
-  return [];
 }
 
 export function listContractFiles(chainPath: string): string[] {
@@ -268,41 +288,56 @@ export function listContractFiles(chainPath: string): string[] {
     .sort();
 }
 
-export function loadContractFile(chainPath: string, fileName: string): unknown {
-  const filePath = path.join(contractsRoot(), chainPath, fileName);
-  return JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
-}
-
-/** Per-file entries for a chain, sorted by address. */
-export function aggregateContractChain(chainPath: string): ContractInfo[] {
+function loadContractChain(chainPath: string): ContractInfo[] {
   return listContractFiles(chainPath).map((fileName) => {
-    const raw = loadContractFile(chainPath, fileName);
-    return sortContractInfo(raw as ContractInfo);
+    const record = readJson(path.join(contractsRoot(), chainPath, fileName)) as StoredContract;
+    const dapp = loadDappLogo(record.dapp);
+    if (!dapp) {
+      throw new Error(`Unknown dapp ${record.dapp} for ${chainPath}/${record.address}`);
+    }
+    return sortContractInfo({
+      address: record.address,
+      chain: chainPathToCaip2(chainPath),
+      projectName: dapp.title,
+      contractName: record.contractName,
+      category: record.category,
+      logoURL: record.logoURL,
+      logoHash: record.logoHash,
+    });
   });
 }
 
-export function contractsAllPath(chainPath: string): string {
-  return path.join(contractsRoot(), chainPath, "all.json");
-}
-
-export function readContractsAll(chainPath: string): ContractInfo[] {
-  const allPath = contractsAllPath(chainPath);
-  return JSON.parse(fs.readFileSync(allPath, "utf8")) as ContractInfo[];
-}
-
-export function rebuildContractsAllJson(chainPath: string): ContractInfo[] {
-  const contracts = aggregateContractChain(chainPath);
-  fs.writeFileSync(contractsAllPath(chainPath), `${JSON.stringify(contracts, null, 2)}\n`);
-  return contracts;
-}
-
-export function rebuildAllContractsAllJson(): void {
+/**
+ * Rewrite each contract's logoURL and logoHash from its dapp.
+ * Returns how many files changed. Unknown dapp slugs are left for validation.
+ */
+export function syncContractLogosFromDapps(): number {
+  let changed = 0;
   for (const chainPath of listContractChainPaths()) {
-    rebuildContractsAllJson(chainPath);
+    for (const fileName of listContractFiles(chainPath)) {
+      const filePath = path.join(contractsRoot(), chainPath, fileName);
+      const raw = readJson(filePath);
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
+      const record = raw as Record<string, unknown>;
+      if (typeof record.dapp !== "string") continue;
+      const dapp = loadDappLogo(record.dapp);
+      if (!dapp) continue;
+      if (record.logoURL === dapp.logoURL && record.logoHash === dapp.logoHash) continue;
+      writeFormattedJson(filePath, {
+        address: record.address,
+        dapp: record.dapp,
+        contractName: record.contractName,
+        category: record.category,
+        logoURL: dapp.logoURL,
+        logoHash: dapp.logoHash,
+      });
+      changed += 1;
+    }
   }
+  return changed;
 }
 
-/** Structural problems in data/contracts. Empty means the catalog is valid. */
+/** Structural problems in data/contracts (and the dapp logos they copy). */
 export function validateContractCatalog(): string[] {
   const errors: string[] = [];
   const root = contractsRoot();
@@ -310,13 +345,10 @@ export function validateContractCatalog(): string[] {
     return ["data/contracts is missing"];
   }
 
+  const usedDapps = new Set<string>();
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
     if (!entry.isDirectory()) {
       errors.push(`data/contracts/${entry.name}: unexpected file`);
-      continue;
-    }
-    if (entry.name === SHARED_CONTRACT_LOGO_DIR) {
-      errors.push(...validateSharedLogoDirectory());
       continue;
     }
     const chainPath = entry.name;
@@ -330,100 +362,76 @@ export function validateContractCatalog(): string[] {
     }
 
     const chainDir = path.join(root, chainPath);
-    const jsonFiles: string[] = [];
     for (const child of fs.readdirSync(chainDir, { withFileTypes: true })) {
+      if (child.name === "all.json") {
+        errors.push(`${chainPath}/all.json: contract catalogs do not use an aggregate file`);
+        continue;
+      }
       if (child.isDirectory()) {
-        errors.push(...validateLogoDirectory(chainPath, child.name));
+        errors.push(`${chainPath}/${child.name}: contract catalogs do not use address folders`);
         continue;
       }
-      if (child.name === "all.json" || ADDRESS_FILE_RE.test(child.name)) {
-        if (child.name !== "all.json") jsonFiles.push(child.name);
+      if (!ADDRESS_FILE_RE.test(child.name)) {
+        errors.push(`${chainPath}/${child.name}: unexpected file`);
         continue;
       }
-      errors.push(`${chainPath}/${child.name}: unexpected file`);
-    }
 
-    for (const fileName of jsonFiles) {
       let parsed: unknown;
       try {
-        parsed = loadContractFile(chainPath, fileName);
+        parsed = readJson(path.join(chainDir, child.name));
       } catch (error) {
-        errors.push(
-          `${chainPath}/${fileName}: invalid JSON (${error instanceof Error ? error.message : String(error)})`,
-        );
+        const message = error instanceof Error ? error.message : String(error);
+        errors.push(`${chainPath}/${child.name}: invalid JSON (${message})`);
         continue;
       }
-      errors.push(...validateContractRecord(parsed, { chainPath, fileName }));
-    }
-
-    const allPath = contractsAllPath(chainPath);
-    if (!fs.existsSync(allPath)) {
-      errors.push(`${chainPath}/all.json: missing aggregate`);
-      continue;
-    }
-    let all: unknown;
-    try {
-      all = JSON.parse(fs.readFileSync(allPath, "utf8")) as unknown;
-    } catch (error) {
-      errors.push(
-        `${chainPath}/all.json: invalid JSON (${error instanceof Error ? error.message : String(error)})`,
-      );
-      continue;
-    }
-    if (!Array.isArray(all)) {
-      errors.push(`${chainPath}/all.json: must be an array`);
-      continue;
-    }
-    const expected = aggregateContractChain(chainPath);
-    if (JSON.stringify(all) !== JSON.stringify(expected)) {
-      errors.push(`${chainPath}/all.json: does not match per-address JSON files`);
-    }
-  }
-
-  return errors;
-}
-
-function validateSharedLogoDirectory(): string[] {
-  const errors: string[] = [];
-  const dir = path.join(contractsRoot(), SHARED_CONTRACT_LOGO_DIR);
-  const referenced = new Set<string>();
-  for (const chainPath of listContractChainPaths()) {
-    for (const fileName of listContractFiles(chainPath)) {
-      const raw = loadContractFile(chainPath, fileName);
-      if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
-      const logoURL = (raw as { logoURL?: unknown }).logoURL;
-      const sharedPrefix = `contracts/${SHARED_CONTRACT_LOGO_DIR}/`;
-      if (typeof logoURL === "string" && logoURL.startsWith(sharedPrefix)) {
-        referenced.add(logoURL);
+      errors.push(...validateContractRecord(parsed, { chainPath, fileName: child.name }));
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        const dapp = (parsed as { dapp?: unknown }).dapp;
+        if (typeof dapp === "string" && SLUG_RE.test(dapp)) usedDapps.add(dapp);
       }
     }
   }
 
-  for (const child of fs.readdirSync(dir, { withFileTypes: true })) {
-    const label = `${SHARED_CONTRACT_LOGO_DIR}/${child.name}`;
-    if (!child.isFile() || !/^[a-z0-9]+(?:-[a-z0-9]+)*\.webp$/.test(child.name)) {
-      errors.push(`${label}: shared logos must be slug.webp files`);
-      continue;
-    }
-    const logoURL = `contracts/${SHARED_CONTRACT_LOGO_DIR}/${child.name}`;
-    errors.push(...validateContractLogo(logoURL, label));
-    if (!referenced.has(logoURL)) {
-      errors.push(`${label}: shared logo is not referenced by any contract`);
-    }
+  for (const slug of [...usedDapps].sort()) {
+    errors.push(...validateDappLogo(slug));
   }
   return errors;
 }
 
-function validateLogoDirectory(chainPath: string, dirName: string): string[] {
+function validateDappLogo(slug: string): string[] {
   const errors: string[] = [];
-  const dir = path.join(contractsRoot(), chainPath, dirName);
-  if (!/^0x[0-9a-f]{40}$/.test(dirName)) {
-    errors.push(`${chainPath}/${dirName}: logo directory must be a lowercase address`);
+  const label = `dapps/${slug}`;
+  const logo = loadDappLogo(slug);
+  if (!logo) {
+    return [`${label}: missing dapp info for a referenced contract`];
   }
-  for (const child of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (!child.isFile() || child.name !== "logo.webp") {
-      errors.push(`${chainPath}/${dirName}/${child.name}: only logo.webp is allowed`);
-    }
+  const expectedURL = `dapps/${slug}/logo.webp`;
+  if (logo.logoURL !== expectedURL) {
+    errors.push(`${label}: logoURL must be ${expectedURL}`);
+  }
+  if (!HASH_RE.test(logo.logoHash)) {
+    errors.push(`${label}: logoHash must be a lowercase SHA-256 hex digest`);
+  }
+  const filePath = path.join(process.cwd(), "data", expectedURL);
+  if (!fs.existsSync(filePath)) {
+    return [...errors, `${label}: logo file missing at data/${expectedURL}`];
+  }
+  const bytes = fs.readFileSync(filePath);
+  if (!isWebpMagic(bytes)) {
+    errors.push(`${label}: logo must be WebP`);
+    return errors;
+  }
+  const check = isValidImage(filePath, {
+    maxSizeKB: ASSET_LOGO_REQUIREMENTS.MAX_SIZE_KB,
+    minWidth: ASSET_LOGO_REQUIREMENTS.MIN_WIDTH,
+    maxWidth: ASSET_LOGO_REQUIREMENTS.MAX_WIDTH,
+    requireSquare: ASSET_LOGO_REQUIREMENTS.REQUIRE_SQUARE,
+  });
+  if (!check.isValid) {
+    errors.push(...check.errors.map((error) => `${label}: ${error}`));
+  }
+  if (HASH_RE.test(logo.logoHash) && sha256Hex(bytes) !== logo.logoHash) {
+    errors.push(`${label}: logoHash does not match logo.webp`);
   }
   return errors;
 }
@@ -435,22 +443,23 @@ function availableChainIds(): string[] {
 /**
  * Curated contracts. Omit `chainId` for every chain.
  * Throws on an unknown CAIP-2 id (same as getTokens).
+ * projectName is the dapp title. logoURL and logoHash are the dapp logo copies.
  */
 export function getContracts(chainId?: string): ContractInfo[] {
   if (chainId === undefined) {
-    return listContractChainPaths().flatMap((chainPath) => readContractsAll(chainPath));
+    return listContractChainPaths().flatMap((chainPath) => loadContractChain(chainPath));
   }
   if (!isCaip2(chainId)) {
     throw new Error(`Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ${JSON.stringify(chainId)}`);
   }
   const chainPath = caip2ToChainPath(chainId);
-  const allPath = contractsAllPath(chainPath);
-  if (!fs.existsSync(allPath)) {
+  const chainDir = path.join(contractsRoot(), chainPath);
+  if (!fs.existsSync(chainDir) || !fs.statSync(chainDir).isDirectory()) {
     throw new Error(
       `Unknown contract chain ${chainId}. Available: ${availableChainIds().join(", ")}`,
     );
   }
-  return readContractsAll(chainPath);
+  return loadContractChain(chainPath);
 }
 
 /** One contract by address. Lookup is case-insensitive. Unknown address returns null. */

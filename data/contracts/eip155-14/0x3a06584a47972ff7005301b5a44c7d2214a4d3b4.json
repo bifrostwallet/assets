@@ -1,8 +1,8 @@
 {
   "address": "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4",
-  "chain": "eip155:14",
-  "projectName": "Bifrost Wallet",
+  "dapp": "bifrostwallet-com",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/bifrost-wallet.webp"
+  "logoURL": "dapps/bifrostwallet-com/logo.webp",
+  "logoHash": "3d802d3fe11b64d0238cae5b34c374f3d0d661d68391a99b9a4bde6912f1468f"
 }

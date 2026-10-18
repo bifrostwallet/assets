@@ -1,7 +1,8 @@
 {
   "address": "0x299d678f67e7add4efdf295ebe0e92fcb4f75c4c",
-  "chain": "eip155:19",
-  "projectName": "Songbird",
+  "dapp": "flare-network",
   "contractName": "FXRP Asset Manager",
-  "category": "fassets"
+  "category": "fassets",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
 }

@@ -1,8 +1,8 @@
 {
   "address": "0x933a4bc8a50b500a301dbf96564014e6f69fe48f",
-  "chain": "eip155:19",
-  "projectName": "Atlas TSO",
+  "dapp": "tsoatlas-xyz",
   "contractName": "Agent Vault",
   "category": "fassets",
-  "logoURL": "contracts/logos/atlas.webp"
+  "logoURL": "dapps/tsoatlas-xyz/logo.webp",
+  "logoHash": "04a981a6c3916d65772469a5affb7f48e771b717b6b23d59f7b0e9d4fdb749ed"
 }

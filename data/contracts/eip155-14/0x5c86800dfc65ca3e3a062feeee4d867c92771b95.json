@@ -1,7 +1,8 @@
 {
   "address": "0x5c86800dfc65ca3e3a062feeee4d867c92771b95",
-  "chain": "eip155:14",
-  "projectName": "Spectra",
+  "dapp": "spectra-finance",
   "contractName": "Factory",
-  "category": "yield"
+  "category": "yield",
+  "logoURL": "dapps/spectra-finance/logo.webp",
+  "logoHash": "54db84d2dbd1ad9a569f22aaeb0394d0f780449252a484a909dd02f2c540f44d"
 }

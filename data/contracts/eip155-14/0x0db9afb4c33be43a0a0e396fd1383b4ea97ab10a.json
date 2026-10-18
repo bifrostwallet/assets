@@ -1,7 +1,8 @@
 {
   "address": "0x0db9afb4c33be43a0a0e396fd1383b4ea97ab10a",
-  "chain": "eip155:14",
-  "projectName": "Stargate",
+  "dapp": "stargate-finance",
   "contractName": "Credit Messaging",
-  "category": "bridge"
+  "category": "bridge",
+  "logoURL": "dapps/stargate-finance/logo.webp",
+  "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8"
 }

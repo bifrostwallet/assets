@@ -243,25 +243,53 @@ export const SIGNED_PROVIDER_INFO_KEYS = PROVIDER_INFO_KEYS.filter(
 );
 
 /**
- * Fixed categories for curated dapp browser bookmarks.
- * Kept short (wallet discover UX): dex covers spot DEX + perps/aggregators;
- * yield covers lending/staking/farming; bridges and tools land in other.
+ * Browser chips for the dapp browser, in chip order.
+ * Separate from contract categories. Membership is the hand-edited
+ * `data/dapps/categories.json`, not a field on each dapp.
  */
-export const DAPP_CATEGORIES = ["dex", "yield", "nft", "games", "other"] as const;
+export const DAPP_CATEGORIES = [
+  "featured",
+  "dex",
+  "lending",
+  "yield",
+  "staking",
+  "bridges",
+  "marketplaces",
+  "social",
+  "games",
+  "other",
+] as const;
 
 export type DappCategory = (typeof DAPP_CATEGORIES)[number];
 
+/** Display names for {@link DAPP_CATEGORIES}. `marketplaces` is NFT marketplaces only. */
+export const DAPP_CATEGORY_LABELS: Record<DappCategory, string> = {
+  featured: "Featured",
+  dex: "DEX",
+  lending: "Lending",
+  yield: "Yield",
+  staking: "Staking",
+  bridges: "Bridges",
+  marketplaces: "Marketplaces",
+  social: "Social",
+  games: "Games",
+  other: "Other",
+};
+
 /**
- * Interface defining the structure of curated dapp bookmark information
+ * Interface defining the structure of curated dapp bookmark information.
+ * Browser chips are not stored here.
  */
 export interface DappInfo {
+  /** Display name. Contract lookups expose this as projectName. */
   title: string;
   description: string;
   url: string;
+  /** Relative logo path in git (`dapps/<slug>/logo.webp`). Absolute in the published package. */
   logoURL: string;
+  /** SHA-256 of logo.webp. Contract files copy this with logoURL. */
+  logoHash: string;
   chains: string[];
-  category: DappCategory;
-  featured: boolean;
 }
 
 /**
@@ -272,9 +300,8 @@ export const DAPP_INFO_KEYS = [
   "description",
   "url",
   "logoURL",
+  "logoHash",
   "chains",
-  "category",
-  "featured",
 ] as const;
 
 /**

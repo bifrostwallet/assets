@@ -1,8 +1,8 @@
 {
   "address": "0x71ee56f6b793386cecf536cd566ff50fe558f70e",
-  "chain": "eip155:14",
-  "projectName": "Oracle Daemon",
+  "dapp": "oracle-daemon-com",
   "contractName": "Collateral Pool",
   "category": "fassets",
-  "logoURL": "contracts/logos/od.webp"
+  "logoURL": "dapps/oracle-daemon-com/logo.webp",
+  "logoHash": "54630e90224ab398af51f15e3f9712529a1d7ad9b3c55bb5fc1d469b28864341"
 }

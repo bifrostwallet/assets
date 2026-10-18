@@ -1,0 +1,60 @@
+[
+  {
+    "id": "featured",
+    "label": "Featured",
+    "dapps": []
+  },
+  {
+    "id": "dex",
+    "label": "DEX",
+    "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global"]
+  },
+  {
+    "id": "lending",
+    "label": "Lending",
+    "dapps": ["kinetic-market", "morpho-org", "enosys-global"]
+  },
+  {
+    "id": "yield",
+    "label": "Yield",
+    "dapps": ["spectra-finance", "enosys-global"]
+  },
+  {
+    "id": "staking",
+    "label": "Staking",
+    "dapps": ["firelight-finance", "au-cc", "portal-flare-network"]
+  },
+  {
+    "id": "bridges",
+    "label": "Bridges",
+    "dapps": ["layerzero-network", "stargate-finance", "usdt0-to", "bridge-usdc-com"]
+  },
+  {
+    "id": "marketplaces",
+    "label": "Marketplaces",
+    "dapps": []
+  },
+  {
+    "id": "social",
+    "label": "Social",
+    "dapps": []
+  },
+  {
+    "id": "games",
+    "label": "Games",
+    "dapps": []
+  },
+  {
+    "id": "other",
+    "label": "Other",
+    "dapps": [
+      "nortso-xyz",
+      "tsoatlas-xyz",
+      "oracle-daemon-com",
+      "au-cc",
+      "bifrostwallet-com",
+      "flare-network",
+      "fsa-flare-network"
+    ]
+  }
+]

@@ -1,26 +1,44 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import { describe, test } from "node:test";
 import { resolveAssetURL } from "../src/assetUrl.js";
+import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS } from "../src/config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
   type ContractInfo,
   getContract,
   getContracts,
+  syncContractLogosFromDapps,
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
 import buildPackage from "../src/script/packageBuild.js";
 
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
+const BIFROST_DAPP = "bifrostwallet-com";
 
 describe("contract catalog", { concurrency: false }, () => {
-  test("data/contracts matches the schema and all.json aggregates", () => {
+  test("data/contracts matches the schema", () => {
     const errors = validateContractCatalog();
     assert.deepEqual(errors, [], errors.join("\n"));
+  });
+
+  test("rejects a contract all.json aggregate", () => {
+    const allPath = path.join(process.cwd(), "data", "contracts", "eip155-14", "all.json");
+    fs.writeFileSync(allPath, "[]\n");
+    try {
+      const errors = validateContractCatalog();
+      assert.equal(
+        errors.some((error) => error.includes("do not use an aggregate file")),
+        true,
+      );
+    } finally {
+      fs.rmSync(allPath, { force: true });
+    }
   });
 
   test("seed covers pools, vaults, and Firelight", () => {
@@ -56,6 +74,15 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("rewards"), 6);
     assert.equal(count("other"), 0);
     assert.equal(all.length, 52);
+    const logoByProject = new Map<string, string>();
+    for (const contract of all) {
+      assert.match(contract.logoURL, /^dapps\/[a-z0-9-]+\/logo\.webp$/);
+      assert.match(contract.logoHash, /^[0-9a-f]{64}$/);
+      const previous = logoByProject.get(contract.projectName);
+      if (previous === undefined) logoByProject.set(contract.projectName, contract.logoHash);
+      else assert.equal(contract.logoHash, previous, contract.projectName);
+    }
+    assert.equal(logoByProject.size, 15);
     for (const category of CONTRACT_CATEGORIES) {
       assert.equal(CONTRACT_CATEGORY_LABELS[category].length > 0, true);
     }
@@ -70,19 +97,20 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(lower.contractName, "Collateral Pool");
     assert.equal(lower.category, "fassets");
     assert.equal(lower.chain, "eip155:14");
-    assert.equal(lower.logoURL, "contracts/logos/bifrost-wallet.webp");
+    assert.equal(lower.logoURL, `dapps/${BIFROST_DAPP}/logo.webp`);
+    assert.equal(lower.logoHash, sha256File(path.join(process.cwd(), "data", lower.logoURL)));
     assert.equal(getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696"), null);
 
     const auPool = getContract("eip155:14", "0xf45c1a5Ef4fB09F1c33f772175b2fec229D1885B");
     assert.equal(auPool?.projectName, "AU");
     assert.equal(auPool?.contractName, "Collateral Pool");
-    assert.equal(auPool?.logoURL, "contracts/logos/au.webp");
+    assert.equal(auPool?.logoURL, "dapps/au-cc/logo.webp");
 
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
     assert.equal(firelight?.category, "staking");
-    assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
+    assert.equal(firelight?.logoURL, "dapps/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
     assert.equal(getContracts("eip155:14").length, 36);
     assert.equal(getContracts("eip155:19").length, 15);
@@ -94,6 +122,7 @@ describe("contract catalog", { concurrency: false }, () => {
     const spark = getContract("eip155:14", "0x0f3D8a38D4c74afBebc2c42695642f0e3acb15D3");
     assert.equal(spark?.projectName, "SparkDEX");
     assert.equal(spark?.category, "dex");
+    assert.equal(spark?.logoURL, "dapps/sparkdex-ai/logo.webp");
     const unitroller = getContract("eip155:14", "0x8041680Fb73E1Fe5F851e76233DCDfA0f2D2D7c8");
     assert.equal(unitroller?.projectName, "Kinetic");
     assert.equal(unitroller?.contractName, "Unitroller");
@@ -119,84 +148,136 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.throws(() => getContracts("eip155-14"), /CAIP-2/);
   });
 
-  test("rejects a non-lowercase address, a bad category, and a chain mismatch", () => {
+  test("getContract returns chain from the directory", () => {
+    const file = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "data", "contracts", "eip155-14", `${BIFROST_POOL}.json`),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    assert.equal(Object.hasOwn(file, "chain"), false);
+    assert.equal(Object.hasOwn(file, "projectName"), false);
+    assert.equal(Object.hasOwn(file, "project"), false);
+    assert.equal(file.dapp, BIFROST_DAPP);
+    assert.equal(file.address, BIFROST_POOL);
+    assert.equal(file.logoURL, `dapps/${BIFROST_DAPP}/logo.webp`);
+    const dapp = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "data", "dapps", BIFROST_DAPP, "info.json"), "utf8"),
+    ) as { title: string; logoURL: string; logoHash: string };
+    assert.equal(file.logoURL, dapp.logoURL);
+    assert.equal(file.logoHash, dapp.logoHash);
+    assert.equal(dapp.title, "Bifrost Wallet");
+    const contract = getContract("eip155:14", BIFROST_POOL);
+    assert.ok(contract);
+    assert.equal(contract.chain, "eip155:14");
+    assert.equal(contract.address, BIFROST_POOL);
+    const songbird = getContracts("eip155:19");
+    assert.ok(songbird.every((entry) => entry.chain === "eip155:19"));
+    assert.equal(
+      songbird.some(
+        (entry) => entry.projectName === "Songbird" || entry.logoURL.includes("songbird"),
+      ),
+      false,
+    );
+    assert.ok(songbird.some((entry) => entry.projectName === "Flare"));
+    const flareReward = JSON.parse(
+      fs.readFileSync(
+        path.join(
+          process.cwd(),
+          "data/contracts/eip155-19/0x1643299dbbb36e3e1ac26a7febc3f97382bdcfa5.json",
+        ),
+        "utf8",
+      ),
+    ) as { dapp: string; logoURL: string };
+    assert.equal(flareReward.dapp, "flare-network");
+    assert.equal(flareReward.logoURL, "dapps/flare-network/logo.webp");
+    assert.equal(
+      getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a")?.chain,
+      "eip155:114",
+    );
+  });
+
+  test("rejects a non-lowercase address, a bad category, and a stored chain", () => {
+    const dapp = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "data", "dapps", BIFROST_DAPP, "info.json"), "utf8"),
+    ) as { logoURL: string; logoHash: string };
     const base = {
       address: BIFROST_POOL,
-      chain: "eip155:14",
-      projectName: "Bifrost Wallet",
+      dapp: BIFROST_DAPP,
       contractName: "Collateral Pool",
       category: "fassets",
+      logoURL: dapp.logoURL,
+      logoHash: dapp.logoHash,
     };
+    const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
     assert.deepEqual(
       validateContractRecord(
         { ...base, address: "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4" },
-        { chainPath: "eip155-14", fileName: "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4.json" },
+        ctx,
       ).some((error) => error.includes("lowercase")),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, category: "router" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("category")),
+      validateContractRecord({ ...base, category: "router" }, ctx).some((error) =>
+        error.includes("category"),
+      ),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, category: "aggregator", contractName: "Aggregator" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ),
+      validateContractRecord({ ...base, category: "aggregator", contractName: "Aggregator" }, ctx),
       [],
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, chain: "eip155-14" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("CAIP-2")),
+      validateContractRecord({ ...base, chain: "eip155:14" }, ctx).some((error) =>
+        error.includes("must not be stored"),
+      ),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, listed: true },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("unexpected field")),
+      validateContractRecord({ ...base, projectName: "Bifrost Wallet" }, ctx).some((error) =>
+        error.includes("projectName"),
+      ),
+      true,
+    );
+    assert.deepEqual(
+      validateContractRecord({ ...base, logoHash: "a".repeat(64) }, ctx).some((error) =>
+        error.includes("must match dapp"),
+      ),
+      true,
+    );
+    assert.deepEqual(
+      validateContractRecord({ ...base, dapp: "missing-dapp" }, ctx).some((error) =>
+        error.includes("unknown dapp"),
+      ),
+      true,
+    );
+    assert.deepEqual(
+      validateContractRecord({ ...base, listed: true }, ctx).some((error) =>
+        error.includes("unexpected field"),
+      ),
       true,
     );
   });
 
-  test("logoURL must be an existing WebP that meets catalog size rules", () => {
-    const logoDir = path.join(
+  test("syncContractLogosFromDapps rewrites a drifted logo copy", () => {
+    const filePath = path.join(
       process.cwd(),
       "data",
       "contracts",
       "eip155-14",
-      "0x0000000000000000000000000000000000000001",
+      `${BIFROST_POOL}.json`,
     );
-    fs.mkdirSync(logoDir, { recursive: true });
-    const logoURL = "contracts/eip155-14/0x0000000000000000000000000000000000000001/logo.webp";
-    const logoPath = path.join(process.cwd(), "data", logoURL);
-    const entry = {
-      address: BIFROST_POOL,
-      chain: "eip155:14",
-      projectName: "Bifrost Wallet",
-      contractName: "Collateral Pool",
-      category: "fassets",
-      logoURL,
-    };
-    const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
+    const original = fs.readFileSync(filePath, "utf8");
+    const record = JSON.parse(original) as { logoHash: string };
+    record.logoHash = "a".repeat(64);
+    fs.writeFileSync(filePath, `${JSON.stringify(record, null, 2)}\n`);
     try {
-      fs.writeFileSync(logoPath, Buffer.from("not-webp"));
-      assert.ok(validateContractRecord(entry, ctx).some((error) => error.includes("WebP")));
-
-      fs.writeFileSync(logoPath, webpWithDimensions(1, 1));
-      assert.ok(
-        validateContractRecord(entry, ctx).some((error) => error.includes("minimum required")),
-      );
-
-      fs.writeFileSync(logoPath, webpWithDimensions(128, 128));
-      assert.deepEqual(validateContractRecord(entry, ctx), []);
+      assert.equal(syncContractLogosFromDapps() > 0, true);
+      const restored = JSON.parse(fs.readFileSync(filePath, "utf8")) as { logoHash: string };
+      assert.equal(restored.logoHash, JSON.parse(original).logoHash);
+      assert.deepEqual(validateContractCatalog(), []);
     } finally {
-      fs.rmSync(logoDir, { recursive: true, force: true });
+      fs.writeFileSync(filePath, original);
     }
   });
 });
@@ -227,6 +308,19 @@ describe("published package contract lookups", { concurrency: false }, () => {
     assert.ok(assets.CONTRACT_CHAIN_IDS.includes("eip155:14"));
     assert.deepEqual(assets.CONTRACT_CATEGORIES, [...CONTRACT_CATEGORIES]);
     assert.deepEqual(assets.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
+    const packaged = assets as typeof assets & {
+      getDappCategories: () => { id: string; label: string; dapps: string[] }[];
+      DAPP_CATEGORIES: readonly string[];
+      DAPP_CATEGORY_LABELS: Record<string, string>;
+    };
+    const categoryFile = path.join(process.cwd(), "data", "dapps", "categories.json");
+    const packagedFile = path.join(process.cwd(), "dist", "dapps", "categories.json");
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "dapps", "all.json")), false);
+    assert.equal(fs.readFileSync(packagedFile, "utf8"), fs.readFileSync(categoryFile, "utf8"));
+    const parsedCategories = JSON.parse(fs.readFileSync(categoryFile, "utf8"));
+    assert.deepEqual(packaged.getDappCategories(), parsedCategories);
+    assert.deepEqual(packaged.DAPP_CATEGORIES, [...DAPP_CATEGORIES]);
+    assert.deepEqual(packaged.DAPP_CATEGORY_LABELS, DAPP_CATEGORY_LABELS);
     assert.equal(
       assets.getContract("eip155:19", "0x0000000000000000000000000000000000000001"),
       null,
@@ -235,19 +329,6 @@ describe("published package contract lookups", { concurrency: false }, () => {
   });
 });
 
-/** Minimal VP8L WebP whose dimension parser reports width × height. */
-function webpWithDimensions(width: number, height: number): Buffer {
-  const bits = (width - 1) | ((height - 1) << 14);
-  const chunk = Buffer.alloc(5);
-  chunk[0] = 0x2f;
-  chunk.writeUInt32LE(bits, 1);
-  const riffSize = 4 + 8 + chunk.length;
-  const out = Buffer.alloc(8 + riffSize);
-  out.write("RIFF", 0);
-  out.writeUInt32LE(riffSize, 4);
-  out.write("WEBP", 8);
-  out.write("VP8L", 12);
-  out.writeUInt32LE(chunk.length, 16);
-  chunk.copy(out, 20);
-  return out;
+function sha256File(filePath: string): string {
+  return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
 }

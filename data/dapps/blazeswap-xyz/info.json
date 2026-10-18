@@ -1,0 +1,8 @@
+{
+  "title": "BlazeSwap",
+  "description": "BlazeSwap is a decentralized exchange for swapping tokens on Flare and Songbird.",
+  "url": "https://blazeswap.xyz",
+  "logoURL": "dapps/blazeswap-xyz/logo.webp",
+  "logoHash": "0f5411f820aa2a6e3204bf4706464bc2eedd322baa107b15736a2067bc8b3016",
+  "chains": ["eip155:14", "eip155:19"]
+}

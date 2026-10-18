@@ -376,7 +376,10 @@ export function assertDappIntakeDocument(doc: Record<string, unknown>): {
     chains: string[];
     category: string;
   };
-  /** Curator hint when category is `other`; not written to the catalog. */
+  /**
+   * Signed listing hint. Allowed only when category is `other`.
+   * Never written to info.json.
+   */
   categoryOther?: string;
   submitter: string;
   messageHash: string;

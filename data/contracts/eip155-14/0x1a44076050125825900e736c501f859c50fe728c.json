@@ -1,7 +1,8 @@
 {
   "address": "0x1a44076050125825900e736c501f859c50fe728c",
-  "chain": "eip155:14",
-  "projectName": "LayerZero",
+  "dapp": "layerzero-network",
   "contractName": "Endpoint V2",
-  "category": "bridge"
+  "category": "bridge",
+  "logoURL": "dapps/layerzero-network/logo.webp",
+  "logoHash": "d3983a79d9fc21b3a264bf2256af15a8dae207aee9aa6bf8f72ee78c37b5927b"
 }

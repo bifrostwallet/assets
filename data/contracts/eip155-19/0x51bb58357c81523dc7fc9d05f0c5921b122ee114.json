@@ -1,7 +1,8 @@
 {
   "address": "0x51bb58357c81523dc7fc9d05f0c5921b122ee114",
-  "chain": "eip155:19",
-  "projectName": "Enosys",
+  "dapp": "enosys-global",
   "contractName": "Swap Router",
-  "category": "dex"
+  "category": "dex",
+  "logoURL": "dapps/enosys-global/logo.webp",
+  "logoHash": "bc4482171664d95305507d5a4e1e0e523fed300ddd7cabfa1934255286e8a16e"
 }

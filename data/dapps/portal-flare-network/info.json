@@ -1,0 +1,8 @@
+{
+  "title": "Flare Portal",
+  "description": "Flare Portal lets users manage FLR and SGB, wrap and delegate them to FTSO data providers, and take part in governance voting.",
+  "url": "https://portal.flare.network",
+  "logoURL": "dapps/portal-flare-network/logo.webp",
+  "logoHash": "2486ef09247c050a29767c531f8aa2dad05d39b9601c4b9c886a3d3b3c8c6db3",
+  "chains": ["eip155:14", "eip155:19"]
+}

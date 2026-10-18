@@ -1,0 +1,8 @@
+{
+  "title": "Firelight",
+  "description": "Firelight lets users on Flare stake FXRP and receive stXRP. The project describes the protocol as cover for onchain infrastructure.",
+  "url": "https://firelight.finance",
+  "logoURL": "dapps/firelight-finance/logo.webp",
+  "logoHash": "2b11bb2a0ca137dda56273024abf3f1c957badcb16a4dc65b0ef1b6f275e0965",
+  "chains": ["eip155:14"]
+}

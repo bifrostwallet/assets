@@ -1,8 +1,8 @@
 {
   "address": "0x4c18ff3c89632c3dd62e796c0afa5c07c4c1b2b3",
-  "chain": "eip155:14",
-  "projectName": "Firelight",
+  "dapp": "firelight-finance",
   "contractName": "Vault",
   "category": "staking",
-  "logoURL": "contracts/logos/firelight.webp"
+  "logoURL": "dapps/firelight-finance/logo.webp",
+  "logoHash": "2b11bb2a0ca137dda56273024abf3f1c957badcb16a4dc65b0ef1b6f275e0965"
 }

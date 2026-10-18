@@ -1,7 +1,8 @@
 {
   "address": "0x2a3fe068cd92178554cabcf7c95adf49b4b0b6a8",
-  "chain": "eip155:14",
-  "projectName": "Flare",
+  "dapp": "flare-network",
   "contractName": "FXRP Asset Manager",
-  "category": "fassets"
+  "category": "fassets",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
 }

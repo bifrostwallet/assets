@@ -1,7 +1,8 @@
 {
   "address": "0xd56c0ea37b848939b59e6f5cda119b3fa473b5eb",
-  "chain": "eip155:14",
-  "projectName": "Flare",
+  "dapp": "flare-network",
   "contractName": "Claim Setup Manager",
-  "category": "rewards"
+  "category": "rewards",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
 }

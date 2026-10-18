@@ -7,7 +7,6 @@ import {
   type BlockchainNetworkConfig,
   DAPP_CATEGORIES,
   DAPP_CHAIN_IDS,
-  type DappCategory,
   type DappInfo,
   type ProviderInfo,
 } from "./config.js";
@@ -16,7 +15,6 @@ import {
   dappSlugFromUrl,
   providerInfoMessageHash,
   providerLogoPath,
-  rebuildDappsAllJson,
   rebuildProvidersAllJson,
   sortDappInfo,
   sortProviderInfo,
@@ -471,9 +469,10 @@ const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
  * 3. cryptographic verification: the submitter signed the canonical hash of
  *    the submitted content including the recomputed logo hash
  *
- * The curator-managed featured flag is preserved from an existing repo entry
- * and never taken from the submission. Public provenance (submitter signature)
- * is stored as provenance.json — sealed outreach is not pulled or committed.
+ * The signed category is checked, then dropped. Browser chips are only the
+ * hand-edited data/dapps/categories.json, which this ingest does not rewrite.
+ * Public provenance (submitter signature) is stored as provenance.json —
+ * sealed outreach is not pulled or committed.
  *
  * Idempotent: re-ingesting a submission that matches the repo state returns
  * "unchanged" without touching files.
@@ -556,9 +555,8 @@ export async function ingestDappSubmission(
     description,
     url,
     logoURL: `dapps/${slug}/logo.webp`,
+    logoHash,
     chains: [...chains].sort(),
-    category: category as DappCategory,
-    featured: existingInfo?.featured ?? false,
   });
   const finalInfoJson = `${JSON.stringify(info, null, 2)}\n`;
 
@@ -592,9 +590,11 @@ export async function ingestDappSubmission(
   if (fs.existsSync(legacySubmissionPath)) {
     fs.unlinkSync(legacySubmissionPath);
   }
-  rebuildDappsAllJson();
 
   console.info(`📁 Ingested dapp ${title} at ${toRelativePath(dappDir)}`);
+  console.info(
+    `Add ${slug} to data/dapps/categories.json by hand if it belongs on a browser chip. That file is not updated here.`,
+  );
 
   return { status: "ingested", slug, infoPath };
 }

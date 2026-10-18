@@ -1,0 +1,16 @@
+{
+  "title": "Morpho",
+  "description": "Morpho is an open lending protocol. On Flare, users can supply assets to its markets or borrow against collateral.",
+  "url": "https://morpho.org",
+  "logoURL": "dapps/morpho-org/logo.webp",
+  "logoHash": "8cc38996398c26609598042c6a9d969c40ecfd62527be35abe136b421a9a3061",
+  "chains": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:14",
+    "eip155:42161",
+    "eip155:8453",
+    "eip155:999"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "@bifrostwallet/assets",
-  "version": "0.0.2-beta",
+  "version": "0.0.3-beta",
   "description": "Curated assets for Bifrost Wallet.",
   "repository": "https://github.com/bifrostwallet/assets.git",
   "author": "Bifrost Software Ltd",

@@ -1,7 +1,8 @@
 {
   "address": "0x1643299dbbb36e3e1ac26a7febc3f97382bdcfa5",
-  "chain": "eip155:19",
-  "projectName": "Songbird",
+  "dapp": "flare-network",
   "contractName": "FTSO Reward Manager",
-  "category": "rewards"
+  "category": "rewards",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
 }

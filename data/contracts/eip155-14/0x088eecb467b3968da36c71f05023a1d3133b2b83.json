@@ -1,7 +1,8 @@
 {
   "address": "0x088eecb467b3968da36c71f05023a1d3133b2b83",
-  "chain": "eip155:14",
-  "projectName": "Enosys",
+  "dapp": "enosys-global",
   "contractName": "DEX Router",
-  "category": "dex"
+  "category": "dex",
+  "logoURL": "dapps/enosys-global/logo.webp",
+  "logoHash": "bc4482171664d95305507d5a4e1e0e523fed300ddd7cabfa1934255286e8a16e"
 }

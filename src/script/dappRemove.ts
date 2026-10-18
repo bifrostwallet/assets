@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { DappInfo } from "../config.js";
-import { dappSlugFromUrl, rebuildDappsAllJson, toRelativePath } from "../convert.js";
+import { dappSlugFromUrl, toRelativePath } from "../convert.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
 
@@ -92,9 +92,11 @@ async function removeDapp(): Promise<void> {
     }
 
     fs.rmSync(dappDir, { recursive: true, force: true });
-    rebuildDappsAllJson();
 
     console.info(`\n✅ Dapp successfully removed from ${toRelativePath(dappDir)}`);
+    console.info(
+      `Remove ${slug} from data/dapps/categories.json by hand. That file is not updated here.`,
+    );
   } catch (error) {
     console.error(
       `❌ Error removing dapp: ${error instanceof Error ? error.message : String(error)}`,
