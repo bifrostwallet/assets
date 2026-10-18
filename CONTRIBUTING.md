@@ -14,6 +14,10 @@ PRs bypass those guarantees and are **closed without review**.
 - **Add or update your dapp listing:** use the listing form on
   [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp).
 
+## URL verification
+
+Dapp URLs must be confirmed from an official project source: the project's own docs or GitHub org, a verified X account, a flare.network ecosystem link, or the contract deployer docs. Never infer a URL from a name.
+
 ## Code and documentation
 
 Bug reports and suggestions are welcome as issues. For anything beyond a
