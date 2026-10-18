@@ -315,6 +315,11 @@ export function isValidNodeHex(hexString: string): boolean {
 
 /**
  * Validates a logo image (provider WebP or dapp PNG) against size/dimension rules.
+ *
+ * Transparent backgrounds are recommended and accepted (WebP alpha, PNG RGBA).
+ * Opaque logos, including a solid white background, stay valid. These checks
+ * do not flatten alpha and do not require a background color.
+ *
  * @param filePath Path to the image file
  * @param config Optional configuration to override default validation requirements
  * @returns Validation result with success status, any errors, and image metadata

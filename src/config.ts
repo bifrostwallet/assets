@@ -52,6 +52,11 @@ export const PROJECT_ID = process.env.STATIC_BUCKET_PROJECT_ID ?? process.env.GC
 /** Optional object key prefix inside the bucket (e.g. "static/"), set at upload time */
 export const BUCKET_PREFIX = process.env.BUCKET_PREFIX ?? "";
 
+/**
+ * Catalog logos are exact 128×128 WebP, at most 24 KB.
+ * A transparent background is recommended. Opaque logos, including a solid
+ * white background, stay valid: these checks do not require either.
+ */
 export const PROVIDER_LOGO_REQUIREMENTS = {
   MAX_SIZE_KB: 24,
   /** Exact final form produced by the listing portal converter / required on new intake. */
@@ -64,7 +69,8 @@ export const PROVIDER_LOGO_REQUIREMENTS = {
 
 /**
  * In-repo provider logos after WebP cutover: exact 128 WebP (same as intake).
- * Used by `isValidImage` for catalog checks.
+ * Used by `isValidImage` for catalog checks. Transparent backgrounds are
+ * recommended; opaque logos, including solid white, stay valid.
  */
 export const PROVIDER_LOGO_PUBLISHED_REQUIREMENTS = {
   MAX_SIZE_KB: 24,

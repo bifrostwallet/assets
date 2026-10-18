@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { describe, mock, test } from "node:test";
 import {
   isValidDescription,
@@ -263,7 +265,7 @@ describe("validate.ts tests", () => {
       0x00,
       0x80, // height: 128px (0x80 in hex)
       0x08, // bit depth
-      0x02, // color type RGB (opaque)
+      0x02, // color type RGB (opaque; still valid)
       0x00, // compression method
       0x00, // filter method
       0x00, // interlace method
@@ -296,6 +298,50 @@ describe("validate.ts tests", () => {
       assert.equal(validResult.metadata?.width, 128);
       assert.equal(validResult.metadata?.height, 128);
       assert.equal(validResult.metadata?.sizeKB, 10);
+
+      // Square RGBA (transparent background) is valid. Opaque logos stay valid above.
+      const transparentPngBuffer = Buffer.from([
+        0x89,
+        0x50,
+        0x4e,
+        0x47,
+        0x0d,
+        0x0a,
+        0x1a,
+        0x0a,
+        0x00,
+        0x00,
+        0x00,
+        0x0d,
+        0x49,
+        0x48,
+        0x44,
+        0x52,
+        0x00,
+        0x00,
+        0x00,
+        0x80,
+        0x00,
+        0x00,
+        0x00,
+        0x80,
+        0x08,
+        0x06, // color type RGBA
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+      ]);
+      mockReadFileSync.mock.mockImplementation(
+        (() => transparentPngBuffer) as unknown as typeof fs.readFileSync,
+      );
+      const transparentPngResult = isValidImage("/path/to/transparent.png");
+      assert.equal(transparentPngResult.isValid, true, transparentPngResult.errors.join(", "));
+      assert.equal(transparentPngResult.metadata?.width, 128);
+      assert.equal(transparentPngResult.metadata?.height, 128);
 
       // Test file doesn't exist
       mockExistsSync.mock.mockImplementation((() => false) as typeof fs.existsSync);
@@ -368,6 +414,31 @@ describe("validate.ts tests", () => {
       mockReadFileSync.mock.restore();
       mockStatSync.mock.restore();
       mockExistsSync.mock.restore();
+    }
+  });
+
+  test("isValidImage() accepts transparent WebP and opaque WebP", () => {
+    // 128×128 lossless WebP fixtures: fully transparent (alpha) and opaque white.
+    const transparentWebp = Buffer.from("UklGRhQAAABXRUJQVlA4TAgAAAAvf8AfEIiICA==", "base64");
+    const opaqueWebp = Buffer.from("UklGRhYAAABXRUJQVlA4TAoAAAAvf8AfAEX/I/of", "base64");
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "logo-alpha-"));
+    try {
+      const transparentPath = path.join(dir, "transparent.webp");
+      const opaquePath = path.join(dir, "opaque.webp");
+      fs.writeFileSync(transparentPath, transparentWebp);
+      fs.writeFileSync(opaquePath, opaqueWebp);
+
+      const transparentResult = isValidImage(transparentPath);
+      assert.equal(transparentResult.isValid, true, transparentResult.errors.join(", "));
+      assert.equal(transparentResult.metadata?.width, 128);
+      assert.equal(transparentResult.metadata?.height, 128);
+
+      const opaqueResult = isValidImage(opaquePath);
+      assert.equal(opaqueResult.isValid, true, opaqueResult.errors.join(", "));
+      assert.equal(opaqueResult.metadata?.width, 128);
+      assert.equal(opaqueResult.metadata?.height, 128);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
     }
   });
 

@@ -1,9 +1,0 @@
-{
-  "name": "Experimental Finance Token Legacy",
-  "symbol": "EXFI",
-  "decimals": 18,
-  "address": "0x72d932019ae098a6368e6676e16169d112e7720a",
-  "coingeckoId": null,
-  "logoURL": "tokens/eip155-19/0x72d932019ae098a6368e6676e16169d112e7720a/logo.webp",
-  "logoHash": "242c5cfc39e236422cd26d4ad31f0a04cf590976d3cba2ea4a7ab10189b6fc99"
-}

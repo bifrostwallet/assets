@@ -1,9 +1,0 @@
-{
-  "name": "FDOGE",
-  "symbol": "FDOGE",
-  "decimals": 8,
-  "address": "0xaa25ee3b68c515e69a463876ab262bc4e8339030",
-  "coingeckoId": "dogecoin",
-  "logoURL": "tokens/eip155-19/0xaa25ee3b68c515e69a463876ab262bc4e8339030/logo.webp",
-  "logoHash": "d022eea2ce5ce12ad35599419b1e5a4ded90c8b17c92573285d96a208aa9bf4f"
-}

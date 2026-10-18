@@ -146,17 +146,17 @@ const CUSTOM_COINGECKO: { coingeckoId: string; address: string; chain: string }[
     chain: "flr-livenet",
   },
   {
-    coingeckoId: "ripple",
+    coingeckoId: "flare-bridged-xrp-flare",
     address: "0xAd552A648C74D49E10027AB8a618A3ad4901c5bE",
     chain: "flr-livenet",
   },
   {
-    coingeckoId: "ripple",
+    coingeckoId: "firelight-staked-xrp",
     address: "0x4C18Ff3C89632c3Dd62E796c0aFA5c07c4c1B2b3",
     chain: "flr-livenet",
   },
   {
-    coingeckoId: "tether",
+    coingeckoId: "enosys-loans-cdp",
     address: "0x6Cd3a5Ba46FA254D4d2E3C2B37350ae337E94a0F",
     chain: "flr-livenet",
   },
