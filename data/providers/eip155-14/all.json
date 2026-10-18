@@ -2320,11 +2320,13 @@
   },
   {
     "name": "Seraphim",
-    "description": "",
+    "description": "Independent and self-funded. Part of Flare since the first Songbird airdrop, holding, delegating and following the network from the background. In 2026 we took a stronger stance in its success by running our own FTSO: every anchor feed, FDC attestations and four validators, on private nodes with an in-house algorithm.",
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x0e6a50e6fe42ba2299409fa77f5279e0abc07489/logo.webp",
-    "logoHash": "20f0d87387b4948db74322f21122d343db4a2cc5d2b7b1726ef754fe2b1bcf4e",
+    "logoHash": "b8809db7f62eecedebfaa98946d3d5960d1d53a4b65cf59d45401aa238cb7678",
     "websiteURL": "https://seraphimlab.ca",
-    "links": {},
+    "links": {
+      "x": "https://x.com/Seraphim_Lab"
+    },
     "identityAddress": "0x0e6a50e6fe42ba2299409fa77f5279e0abc07489",
     "delegationAddress": "0xcd1eadb3ea02b3500e9d3425f3fb08aab8f33378",
     "signingPolicyAddress": "0x5530d66f100ad83755cf7b8352236cff909b7d44",
@@ -2337,6 +2339,7 @@
       "NodeID-79xXFeS8ZqXiBah4sxUzTYPksuJYS82cv",
       "NodeID-P4vXckSMDUNvfCm1eDhEgUFsyawwneQuR"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": false,
     "managementGroup": false,
     "domainLinked": false,
