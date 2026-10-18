@@ -3,7 +3,7 @@
   "symbol": "stXRP",
   "decimals": 6,
   "address": "0x4c18ff3c89632c3dd62e796c0afa5c07c4c1b2b3",
-  "coingeckoId": "ripple",
+  "coingeckoId": "firelight-staked-xrp",
   "logoURL": "tokens/eip155-14/0x4c18ff3c89632c3dd62e796c0afa5c07c4c1b2b3/logo.webp",
   "logoHash": "695495e30d5496d7392797cfac44ce50aa9596ef3d40509a33bf6e4476008b65"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "SparkDEX Staked FLR",
+  "symbol": "stFLR",
+  "decimals": 18,
+  "address": "0x0988c6ba244a90c07a917ebe609eb3264be716ff",
+  "coingeckoId": "sparkdex-staked-flr",
+  "logoURL": "tokens/eip155-14/0x0988c6ba244a90c07a917ebe609eb3264be716ff/logo.webp",
+  "logoHash": "be45d0a61d61574ab3a9646abdc0226dcf7f221e4b2ea027e983e1dcc79bc102"
+}

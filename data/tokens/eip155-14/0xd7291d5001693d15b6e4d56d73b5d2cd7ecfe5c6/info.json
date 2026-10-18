@@ -1,0 +1,9 @@
+{
+  "name": "Lending FLR",
+  "symbol": "isoFLR",
+  "decimals": 8,
+  "address": "0xd7291d5001693d15b6e4d56d73b5d2cd7ecfe5c6",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xd7291d5001693d15b6e4d56d73b5d2cd7ecfe5c6/logo.webp",
+  "logoHash": "1e57410a6d7b62f118e815b1e4294faa2f30853796e76ec0689783395654a175"
+}

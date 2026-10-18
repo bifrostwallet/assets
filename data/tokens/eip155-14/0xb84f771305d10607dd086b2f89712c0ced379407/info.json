@@ -1,0 +1,9 @@
+{
+  "name": "Lending FLR",
+  "symbol": "kFLR",
+  "decimals": 8,
+  "address": "0xb84f771305d10607dd086b2f89712c0ced379407",
+  "coingeckoId": null,
+  "logoURL": "tokens/eip155-14/0xb84f771305d10607dd086b2f89712c0ced379407/logo.webp",
+  "logoHash": "71544ced66cd85aba55252d798a00ca3e8b8d43e27e05d83a902099cae2c778d"
+}
