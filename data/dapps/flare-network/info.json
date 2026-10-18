@@ -1,6 +1,6 @@
 {
   "title": "Flare",
-  "description": "Flare is the EVM network that hosts these protocol contracts on Flare and Songbird.",
+  "description": "Flare is a layer 1 blockchain with built-in data protocols, including the FTSO price oracle, the Flare Data Connector, and FAssets. Songbird is its canary network, and these protocol contracts are listed for both.",
   "url": "https://flare.network",
   "logoURL": "dapps/flare-network/logo.webp",
   "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f",

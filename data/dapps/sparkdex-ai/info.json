@@ -1,6 +1,6 @@
 {
   "title": "SparkDEX",
-  "description": "SparkDEX is a decentralized exchange on Flare.",
+  "description": "SparkDEX is a decentralized exchange on Flare for swapping tokens through automated market makers. Its docs also describe a perpetual-trading exchange.",
   "url": "https://sparkdex.ai",
   "logoURL": "dapps/sparkdex-ai/logo.webp",
   "logoHash": "772fb06ca874c15344a5f8e3a3d09b7e675179f5592ad45d2d4309aabfb76162",

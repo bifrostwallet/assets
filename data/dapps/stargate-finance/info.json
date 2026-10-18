@@ -1,6 +1,6 @@
 {
   "title": "Stargate",
-  "description": "Stargate is a cross-chain bridge deployed on Flare.",
+  "description": "Stargate is a cross-chain bridge built on LayerZero. On Flare, users can move assets between chains through its pools.",
   "url": "https://stargate.finance",
   "logoURL": "dapps/stargate-finance/logo.webp",
   "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8",
