@@ -44,10 +44,7 @@ function loadTokens(chainPath: string): TokenInfo[] {
 function loadContracts(chainPath: string): ContractInfo[] {
   const contracts = getContracts(chainPathToCaip2(chainPath));
   const base = getAssetBaseURL();
-  return contracts.map((contract) => {
-    if (!contract.logoURL) return contract;
-    return withAbsoluteLogoURL({ ...contract, logoURL: contract.logoURL }, base);
-  });
+  return contracts.map((contract) => withAbsoluteLogoURL(contract, base));
 }
 
 function loadManifestPublicKey(): string {
@@ -382,8 +379,10 @@ export interface ContractInfo {
   projectName: string;
   contractName: string;
   category: ContractCategory;
-  /** Absolute logo URL when the contract has one */
-  logoURL?: string;
+  /** Absolute logo URL (the project mark, or this contract's override) */
+  logoURL: string;
+  /** SHA-256 of that logo file */
+  logoHash: string;
 }
 /** Ed25519 SPKI PEM for verifying CDN manifest.json (empty string if key not generated yet) */
 export declare const MANIFEST_PUBLIC_KEY: string;

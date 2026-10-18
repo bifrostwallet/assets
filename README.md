@@ -147,15 +147,24 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 
 Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. Do not store `chain` in the per-address file. There is no aggregate `all.json`. `getContract` / `getContracts` read the per-address files and include `chain`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>/info.json` (path-safe CAIP-2, same folder layout as tokens and providers). The chain directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The address directory name is the address. Do not store `chain` in `info.json`. There is no aggregate `all.json`. `getContract` / `getContracts` read these files, include `chain`, and resolve `logoURL` plus `logoHash`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+
+The logo belongs to the project, not to each contract. `data/projects/<slug>/info.json` holds the display name and exactly one `logo.webp` (`logoURL` + `logoHash`). Each contract stores `project` (the slug) instead of repeating the mark. A contract may set its own `logo.webp` plus `logoURL` and `logoHash` only when that contract needs a different mark; otherwise it inherits the project logo.
 
 ```json
 {
   "address": "0xabc…",
-  "projectName": "Bifrost Wallet",
+  "project": "bifrost-wallet",
   "contractName": "Collateral Pool",
-  "category": "fassets",
-  "logoURL": "contracts/logos/bifrost-wallet.webp"
+  "category": "fassets"
+}
+```
+
+```json
+{
+  "name": "Bifrost Wallet",
+  "logoURL": "projects/bifrost-wallet/logo.webp",
+  "logoHash": "…"
 }
 ```
 
@@ -177,7 +186,7 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` is optional. When set, it is a relative WebP path in git and an absolute URL in the published package. Logos follow the same rules as other catalog marks: opaque **128×128** WebP, maximum **24 KB**. Store a contract's own mark at `data/contracts/<chain>/<address>/logo.webp`, or point several contracts at one shared file `data/contracts/logos/<slug>.webp`.
+Resolved `logoURL` is a relative WebP path in git and an absolute URL in the published package. `logoHash` is the SHA-256 of that file. Project logos are small transparent lossless **128×128** WebP, maximum **24 KB**, one file per project.
 
 ```bash
 ./yarn check:contracts
@@ -189,8 +198,8 @@ Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding
 data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.json, provenance.json
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
-data/contracts/eip155-<id>/<address>.json   contract display names (no all.json)
-data/contracts/logos/<slug>.webp            shared project logos
+data/contracts/eip155-<id>/<address>/info.json   contract display names (no all.json)
+data/projects/<slug>/                          project name + one shared logo.webp
 data/dapps/<slug>/                          curated dapp bookmarks (no contact PII)
 src/                                        curation tooling (TypeScript, dev-only)
 ```

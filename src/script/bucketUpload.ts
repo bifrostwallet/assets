@@ -150,28 +150,28 @@ function collectUploads(assetBase: string): {
     });
   }
 
-  // Contract logos only. Lists stay in per-address files and the NPM package.
-  const contractsDir = path.join(dataDir, "contracts");
-  if (fs.existsSync(contractsDir)) {
-    const walkContracts = (dir: string): void => {
-      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-          walkContracts(fullPath);
-          continue;
-        }
-        const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
-        if (entry.name.endsWith(".webp")) {
-          uploads.push({
-            localPath: fullPath,
-            destination: `${BUCKET_PREFIX}${relative}`,
-            cacheControl: LOGO_CACHE_CONTROL,
-            contentType: "image/webp",
-          });
-        }
+  // Contract and project logos. Lists stay in per-address files and the NPM package.
+  const walkLogos = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walkLogos(fullPath);
+        continue;
       }
-    };
-    walkContracts(contractsDir);
+      const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
+      if (entry.name.endsWith(".webp")) {
+        uploads.push({
+          localPath: fullPath,
+          destination: `${BUCKET_PREFIX}${relative}`,
+          cacheControl: LOGO_CACHE_CONTROL,
+          contentType: "image/webp",
+        });
+      }
+    }
+  };
+  for (const section of ["contracts", "projects"] as const) {
+    const sectionDir = path.join(dataDir, section);
+    if (fs.existsSync(sectionDir)) walkLogos(sectionDir);
   }
 
   const sections: AssetsManifestBody["sections"] = {};

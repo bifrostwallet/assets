@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
@@ -70,6 +71,15 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("rewards"), 6);
     assert.equal(count("other"), 0);
     assert.equal(all.length, 52);
+    const logoByProject = new Map<string, string>();
+    for (const contract of all) {
+      assert.match(contract.logoURL, /^projects\/[a-z0-9-]+\/logo\.webp$/);
+      assert.match(contract.logoHash, /^[0-9a-f]{64}$/);
+      const previous = logoByProject.get(contract.projectName);
+      if (previous === undefined) logoByProject.set(contract.projectName, contract.logoHash);
+      else assert.equal(contract.logoHash, previous, contract.projectName);
+    }
+    assert.equal(logoByProject.size, 16);
     for (const category of CONTRACT_CATEGORIES) {
       assert.equal(CONTRACT_CATEGORY_LABELS[category].length > 0, true);
     }
@@ -84,19 +94,20 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(lower.contractName, "Collateral Pool");
     assert.equal(lower.category, "fassets");
     assert.equal(lower.chain, "eip155:14");
-    assert.equal(lower.logoURL, "contracts/logos/bifrost-wallet.webp");
+    assert.equal(lower.logoURL, "projects/bifrost-wallet/logo.webp");
+    assert.equal(lower.logoHash, sha256File(path.join(process.cwd(), "data", lower.logoURL)));
     assert.equal(getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696"), null);
 
     const auPool = getContract("eip155:14", "0xf45c1a5Ef4fB09F1c33f772175b2fec229D1885B");
     assert.equal(auPool?.projectName, "AU");
     assert.equal(auPool?.contractName, "Collateral Pool");
-    assert.equal(auPool?.logoURL, "contracts/logos/au.webp");
+    assert.equal(auPool?.logoURL, "projects/au/logo.webp");
 
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
     assert.equal(firelight?.category, "staking");
-    assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
+    assert.equal(firelight?.logoURL, "projects/firelight/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
     assert.equal(getContracts("eip155:14").length, 36);
     assert.equal(getContracts("eip155:19").length, 15);
@@ -108,6 +119,7 @@ describe("contract catalog", { concurrency: false }, () => {
     const spark = getContract("eip155:14", "0x0f3D8a38D4c74afBebc2c42695642f0e3acb15D3");
     assert.equal(spark?.projectName, "SparkDEX");
     assert.equal(spark?.category, "dex");
+    assert.equal(spark?.logoURL, "projects/sparkdex/logo.webp");
     const unitroller = getContract("eip155:14", "0x8041680Fb73E1Fe5F851e76233DCDfA0f2D2D7c8");
     assert.equal(unitroller?.projectName, "Kinetic");
     assert.equal(unitroller?.contractName, "Unitroller");
@@ -136,11 +148,15 @@ describe("contract catalog", { concurrency: false }, () => {
   test("getContract returns chain from the directory", () => {
     const file = JSON.parse(
       fs.readFileSync(
-        path.join(process.cwd(), "data", "contracts", "eip155-14", `${BIFROST_POOL}.json`),
+        path.join(process.cwd(), "data", "contracts", "eip155-14", BIFROST_POOL, "info.json"),
         "utf8",
       ),
     ) as Record<string, unknown>;
     assert.equal(Object.hasOwn(file, "chain"), false);
+    assert.equal(Object.hasOwn(file, "projectName"), false);
+    assert.equal(Object.hasOwn(file, "logoURL"), false);
+    assert.equal(file.project, "bifrost-wallet");
+    assert.equal(file.address, BIFROST_POOL);
     const contract = getContract("eip155:14", BIFROST_POOL);
     assert.ok(contract);
     assert.equal(contract.chain, "eip155:14");
@@ -156,43 +172,44 @@ describe("contract catalog", { concurrency: false }, () => {
   test("rejects a non-lowercase address, a bad category, and a stored chain", () => {
     const base = {
       address: BIFROST_POOL,
-      projectName: "Bifrost Wallet",
+      project: "bifrost-wallet",
       contractName: "Collateral Pool",
       category: "fassets",
     };
+    const ctx = { chainPath: "eip155-14", dirName: BIFROST_POOL };
     assert.deepEqual(
       validateContractRecord(
         { ...base, address: "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4" },
-        { chainPath: "eip155-14", fileName: "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4.json" },
+        ctx,
       ).some((error) => error.includes("lowercase")),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, category: "router" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("category")),
+      validateContractRecord({ ...base, category: "router" }, ctx).some((error) =>
+        error.includes("category"),
+      ),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, category: "aggregator", contractName: "Aggregator" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ),
+      validateContractRecord({ ...base, category: "aggregator", contractName: "Aggregator" }, ctx),
       [],
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, chain: "eip155:14" },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("must not be stored")),
+      validateContractRecord({ ...base, chain: "eip155:14" }, ctx).some((error) =>
+        error.includes("must not be stored"),
+      ),
       true,
     );
     assert.deepEqual(
-      validateContractRecord(
-        { ...base, listed: true },
-        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("unexpected field")),
+      validateContractRecord({ ...base, projectName: "Bifrost Wallet" }, ctx).some((error) =>
+        error.includes("projectName"),
+      ),
+      true,
+    );
+    assert.deepEqual(
+      validateContractRecord({ ...base, listed: true }, ctx).some((error) =>
+        error.includes("unexpected field"),
+      ),
       true,
     );
   });
@@ -208,14 +225,16 @@ describe("contract catalog", { concurrency: false }, () => {
     fs.mkdirSync(logoDir, { recursive: true });
     const logoURL = "contracts/eip155-14/0x0000000000000000000000000000000000000001/logo.webp";
     const logoPath = path.join(process.cwd(), "data", logoURL);
+    const overrideAddress = "0x0000000000000000000000000000000000000001";
     const entry = {
-      address: BIFROST_POOL,
-      projectName: "Bifrost Wallet",
+      address: overrideAddress,
+      project: "bifrost-wallet",
       contractName: "Collateral Pool",
       category: "fassets",
       logoURL,
+      logoHash: "a".repeat(64),
     };
-    const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
+    const ctx = { chainPath: "eip155-14", dirName: overrideAddress };
     try {
       fs.writeFileSync(logoPath, Buffer.from("not-webp"));
       assert.ok(validateContractRecord(entry, ctx).some((error) => error.includes("WebP")));
@@ -225,8 +244,10 @@ describe("contract catalog", { concurrency: false }, () => {
         validateContractRecord(entry, ctx).some((error) => error.includes("minimum required")),
       );
 
-      fs.writeFileSync(logoPath, webpWithDimensions(128, 128));
-      assert.deepEqual(validateContractRecord(entry, ctx), []);
+      const bytes = webpWithDimensions(128, 128);
+      fs.writeFileSync(logoPath, bytes);
+      assert.deepEqual(validateContractRecord({ ...entry, logoHash: sha256(bytes) }, ctx), []);
+      assert.ok(validateContractRecord(entry, ctx).some((error) => error.includes("logoHash")));
     } finally {
       fs.rmSync(logoDir, { recursive: true, force: true });
     }
@@ -266,6 +287,14 @@ describe("published package contract lookups", { concurrency: false }, () => {
     assert.throws(() => assets.getContracts("not-a-chain"));
   });
 });
+
+function sha256(bytes: Buffer): string {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function sha256File(filePath: string): string {
+  return sha256(fs.readFileSync(filePath));
+}
 
 /** Minimal VP8L WebP whose dimension parser reports width × height. */
 function webpWithDimensions(width: number, height: number): Buffer {

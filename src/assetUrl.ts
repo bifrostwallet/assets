@@ -35,7 +35,7 @@ export function toRelativeAssetPath(logoURL: string): string {
     // fall through
   }
 
-  const match = trimmed.match(/((?:providers|dapps|tokens|contracts)\/.+)$/);
+  const match = trimmed.match(/((?:providers|dapps|tokens|contracts|projects)\/.+)$/);
   return match ? match[1] : trimmed.replace(/^\//, "");
 }
 
