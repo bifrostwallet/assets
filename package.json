@@ -30,8 +30,6 @@
     "check:tokens": "tsc && ./yarn node build/src/script/checkTokens.js",
     "refresh:providers": "tsc && ./yarn node build/src/script/refreshProviders.js",
     "normalize:providers": "tsc && ./yarn node build/src/script/normalizeProviders.js",
-    "normalize:catalog-logos": "tsc && ./yarn node build/src/script/normalizeCatalogLogos.js",
-    "migrate:catalog-logos-webp": "tsc && ./yarn node build/src/script/migrateCatalogLogosWebp.js",
     "pull:submissions": "tsc && ./yarn node build/src/script/pullSubmissions.js",
     "verify:no-contact-pii": "./scripts/security/verify-no-contact-pii.sh",
     "manifest:generate-key": "tsc && ./yarn node build/src/script/generateManifestKey.js",

@@ -6,6 +6,7 @@
 delist-summary.md
 *.log
 /.ignore
+reports/
 
 # Listing portal + intake stay private (deploy/ops only; not in the public repo)
 /apps/

@@ -16,17 +16,11 @@ const ADDRESS_FIELDS = [
  * Normalizes every provider info.json to the current schema (idempotent):
  * - EVM addresses + publicKey forced to lowercase (canonical in-repo form)
  * - logoURL becomes a relative path (providers/<chain>/<identity>/logo.webp)
- * - listed defaults to false (seeded once from the previously hardcoded allowlists)
+ * - listed defaults to false when missing
  * - managementGroup defaults to false (kept current by sync:management-group)
  * - domainLinked defaults to false (kept current by sync:domain-linkage / nightly refresh)
  * Then rebuilds all.json for every chain.
  */
-
-/** Providers previously hardcoded as listed in src/config.ts */
-const SEED_LISTED: Record<string, string[]> = {
-  "eip155-14": ["0x1650d2760baee638c034200dedcbe17b050d0364"],
-  "eip155-19": ["0x7429e0c70306834e2b210cf3feb306342f456ce7"],
-};
 
 function normalizeProviders(): void {
   const providersDir = path.join(process.cwd(), "data", "providers");
@@ -58,7 +52,7 @@ function normalizeProviders(): void {
       info.logoURL = providerLogoPath(chain.name, info.identityAddress);
 
       if (typeof info.listed !== "boolean") {
-        info.listed = (SEED_LISTED[chain.name] ?? []).includes(info.identityAddress);
+        info.listed = false;
       }
 
       if (typeof info.managementGroup !== "boolean") {
