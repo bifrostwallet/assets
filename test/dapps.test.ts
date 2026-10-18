@@ -31,6 +31,15 @@ const VALID_CAIP2 = new Set<string>(DAPP_CHAIN_IDS);
 /** Chains confirmed from each project's own docs, kept to DAPP_CHAINS. */
 const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   "au-cc": ["eip155:14", "eip155:19"],
+  "bridge-usdc-com": [
+    "eip155:1",
+    "eip155:10",
+    "eip155:137",
+    "eip155:42161",
+    "eip155:50",
+    "eip155:8453",
+    "eip155:999",
+  ],
   "bifrostwallet-com": [
     "bip122:000000000019d6689c085ae165831e93",
     "bip122:12a765e31ffd4059bada1e25190f6e98",
@@ -187,7 +196,7 @@ describe("curated dapps", () => {
         ["kinetic-market", "morpho-org", "enosys-global"],
         ["spectra-finance", "enosys-global"],
         ["firelight-finance", "au-cc", "portal-flare-network"],
-        ["layerzero-network", "stargate-finance", "usdt0-to"],
+        ["layerzero-network", "stargate-finance", "usdt0-to", "bridge-usdc-com"],
         [],
         [],
         [],

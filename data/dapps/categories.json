@@ -27,7 +27,7 @@
   {
     "id": "bridges",
     "label": "Bridges",
-    "dapps": ["layerzero-network", "stargate-finance", "usdt0-to"]
+    "dapps": ["layerzero-network", "stargate-finance", "usdt0-to", "bridge-usdc-com"]
   },
   {
     "id": "marketplaces",
