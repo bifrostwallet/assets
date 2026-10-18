@@ -86,7 +86,7 @@ https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip15
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-14/all.json
 ```
 
-Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>.json`. `projectName` is the dapp title, and `logoURL` / `logoHash` are copies of that dapp's logo. There is no `data/contracts/<chain>/all.json`.
+Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>.json`. `projectName` is the dapp title, and `logoURL` / `logoHash` are copies of that dapp's logo. There is no `data/contracts/<chain>/all.json` and no `data/dapps/all.json`. Aggregates are only the provider and token lists above.
 
 Relative `logoURL` values resolve against:
 

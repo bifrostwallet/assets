@@ -3,7 +3,7 @@
   "description": "Spectra is a fixed-rate yield protocol deployed on Flare.",
   "url": "https://spectra.finance",
   "logoURL": "dapps/spectra-finance/logo.webp",
-  "logoHash": "31be6e5ec5450f5e1a28de0e3553f145ddc97ff90d3790270edd6ca227015c6e",
+  "logoHash": "54db84d2dbd1ad9a569f22aaeb0394d0f780449252a484a909dd02f2c540f44d",
   "chains": ["eip155:14"],
   "category": "yield",
   "featured": false

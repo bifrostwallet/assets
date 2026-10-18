@@ -3,7 +3,7 @@
   "description": "BlazeSwap is a decentralized exchange on Flare.",
   "url": "https://blazeswap.xyz",
   "logoURL": "dapps/blazeswap-xyz/logo.webp",
-  "logoHash": "32014d97a3d9eb97f0804b8a9e2b01c1bd028b5be6f1e30d70b1b1f71838de66",
+  "logoHash": "0f5411f820aa2a6e3204bf4706464bc2eedd322baa107b15736a2067bc8b3016",
   "chains": ["eip155:14"],
   "category": "dex",
   "featured": false

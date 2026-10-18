@@ -3,14 +3,12 @@ import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { describe, test } from "node:test";
-import { withAbsoluteLogoURL } from "../src/assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_INFO_KEYS, type DappInfo } from "../src/config.js";
-import { dappSlugFromUrl, networkPathToCaip2, sortDappInfo } from "../src/convert.js";
+import { dappSlugFromUrl, networkPathToCaip2 } from "../src/convert.js";
 import { isValidDescription, isValidName, isValidURL } from "../src/validate.js";
 
 // Tests run from dist/test; process.cwd() is the repo root under `./yarn test`.
 const DAPPS_DIR = path.join(process.cwd(), "data/dapps");
-const ALL_JSON_PATH = path.join(DAPPS_DIR, "all.json");
 
 const VALID_CAIP2 = new Set(
   ["eip155-14", "eip155-19", "xrpl-0"].map((networkPath) => networkPathToCaip2(networkPath)),
@@ -32,7 +30,6 @@ function readDappInfo(slug: string): DappInfo {
 describe("curated dapps", () => {
   const slugs = getDappSlugs();
   const folderDapps = slugs.map((slug) => ({ slug, info: readDappInfo(slug) }));
-  const allDapps = JSON.parse(fs.readFileSync(ALL_JSON_PATH, "utf8")) as DappInfo[];
 
   test("every dapp folder has info.json", () => {
     for (const slug of slugs) {
@@ -71,12 +68,8 @@ describe("curated dapps", () => {
     assert.equal(new Set(slugs).size, slugs.length);
   });
 
-  test("all.json matches aggregated and sorted folder info", () => {
-    const expected = folderDapps
-      .map(({ info }) => withAbsoluteLogoURL(sortDappInfo(info)))
-      .sort((a, b) => a.title.localeCompare(b.title));
-
-    assert.deepEqual(allDapps, expected);
+  test("dapps have no all.json aggregate", () => {
+    assert.equal(fs.existsSync(path.join(DAPPS_DIR, "all.json")), false);
   });
 
   test("logo.webp is valid when present", () => {

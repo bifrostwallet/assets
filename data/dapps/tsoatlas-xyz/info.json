@@ -3,7 +3,7 @@
   "description": "Atlas TSO provides FTSO data and FAssets agent services on Flare and Songbird.",
   "url": "https://tsoatlas.xyz",
   "logoURL": "dapps/tsoatlas-xyz/logo.webp",
-  "logoHash": "543353a3fc7c1b8123ac77c70a843a4a34a5846d9349fe6b0fb48ff7f3feb99b",
+  "logoHash": "04a981a6c3916d65772469a5affb7f48e771b717b6b23d59f7b0e9d4fdb749ed",
   "chains": ["eip155:14", "eip155:19"],
   "category": "other",
   "featured": false

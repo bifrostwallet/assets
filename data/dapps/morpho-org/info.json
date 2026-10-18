@@ -3,7 +3,7 @@
   "description": "Morpho is a lending protocol deployed on Flare.",
   "url": "https://morpho.org",
   "logoURL": "dapps/morpho-org/logo.webp",
-  "logoHash": "bee7c11d2dc99501ca966b26a0d0ea4ce6367b4b806124c4fde0cd593b4353ed",
+  "logoHash": "8cc38996398c26609598042c6a9d969c40ecfd62527be35abe136b421a9a3061",
   "chains": ["eip155:14"],
   "category": "yield",
   "featured": false

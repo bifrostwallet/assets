@@ -3,7 +3,7 @@
   "description": "Oracle Daemon is an FTSO data provider and FAssets agent on Flare and Songbird.",
   "url": "https://www.oracle-daemon.com",
   "logoURL": "dapps/oracle-daemon-com/logo.webp",
-  "logoHash": "0c0f9223583ea3617803da6abade5a467a55ffb94e89dd84908005f732888895",
+  "logoHash": "54630e90224ab398af51f15e3f9712529a1d7ad9b3c55bb5fc1d469b28864341",
   "chains": ["eip155:14", "eip155:19"],
   "category": "other",
   "featured": false

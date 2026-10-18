@@ -99,12 +99,8 @@ export function buildManifestFromDataDir(
     };
   }
 
-  // Contracts have no all.json. The NPM package bundles per-address files instead.
-  const dappsAll = path.join(dataDir, "dapps", "all.json");
-  if (fs.existsSync(dappsAll)) {
-    const hash = hashFile(dappsAll);
-    sections.dapps = { contentHash: hash };
-  }
+  // Contracts and dapps have no all.json. The NPM package bundles contract files,
+  // and dapp logos are uploaded individually.
 
   const tokenChains = listChainAllJson(path.join(dataDir, "tokens"));
   if (Object.keys(tokenChains).length > 0) {

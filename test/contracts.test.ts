@@ -81,7 +81,7 @@ describe("contract catalog", { concurrency: false }, () => {
       if (previous === undefined) logoByProject.set(contract.projectName, contract.logoHash);
       else assert.equal(contract.logoHash, previous, contract.projectName);
     }
-    assert.equal(logoByProject.size, 16);
+    assert.equal(logoByProject.size, 15);
     for (const category of CONTRACT_CATEGORIES) {
       assert.equal(CONTRACT_CATEGORY_LABELS[category].length > 0, true);
     }
@@ -172,6 +172,24 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(contract.address, BIFROST_POOL);
     const songbird = getContracts("eip155:19");
     assert.ok(songbird.every((entry) => entry.chain === "eip155:19"));
+    assert.equal(
+      songbird.some(
+        (entry) => entry.projectName === "Songbird" || entry.logoURL.includes("songbird"),
+      ),
+      false,
+    );
+    assert.ok(songbird.some((entry) => entry.projectName === "Flare"));
+    const flareReward = JSON.parse(
+      fs.readFileSync(
+        path.join(
+          process.cwd(),
+          "data/contracts/eip155-19/0x1643299dbbb36e3e1ac26a7febc3f97382bdcfa5.json",
+        ),
+        "utf8",
+      ),
+    ) as { dapp: string; logoURL: string };
+    assert.equal(flareReward.dapp, "flare-network");
+    assert.equal(flareReward.logoURL, "dapps/flare-network/logo.webp");
     assert.equal(
       getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a")?.chain,
       "eip155:114",

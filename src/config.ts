@@ -259,7 +259,7 @@ export interface DappInfo {
   title: string;
   description: string;
   url: string;
-  /** Relative logo path in git (`dapps/<slug>/logo.webp`). Absolute in all.json. */
+  /** Relative logo path in git (`dapps/<slug>/logo.webp`). Absolute in the published package. */
   logoURL: string;
   /** SHA-256 of logo.webp. Contract files copy this with logoURL. */
   logoHash: string;

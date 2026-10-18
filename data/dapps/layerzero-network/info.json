@@ -3,7 +3,7 @@
   "description": "LayerZero is a cross-chain messaging protocol used on Flare.",
   "url": "https://layerzero.network",
   "logoURL": "dapps/layerzero-network/logo.webp",
-  "logoHash": "9e211dbdbe01793e81b657845124daf0b3f2d47ed21308c593382286563d4ab3",
+  "logoHash": "d3983a79d9fc21b3a264bf2256af15a8dae207aee9aa6bf8f72ee78c37b5927b",
   "chains": ["eip155:14"],
   "category": "other",
   "featured": false

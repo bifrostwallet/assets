@@ -3,7 +3,7 @@
   "description": "AU is a Flare and Songbird infrastructure provider and FAssets agent.",
   "url": "https://au.cc",
   "logoURL": "dapps/au-cc/logo.webp",
-  "logoHash": "a5c0fe0c45ddc96ab7ac9815c83efe741b0c182f15f4199796739a672cf2f2c6",
+  "logoHash": "962a86220c6d42774f3080b58bfe3240c3f21e4e6cd82c1b06849b94c05cdcb8",
   "chains": ["eip155:14", "eip155:19"],
   "category": "other",
   "featured": false

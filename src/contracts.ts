@@ -15,8 +15,7 @@ import { isWebpMagic } from "./webp.js";
  *   data/contracts/eip155-14/<address>.json   address, dapp slug, name, category, logo copy
  *   data/dapps/<slug>/info.json                dapp title plus the one logo
  *   data/dapps/<slug>/logo.webp
- *   data/dapps/all.json                        generated aggregate
- * There is no contract all.json and no per-contract logo file.
+ * There is no contract or dapp all.json and no per-contract logo file.
  * `chain` is the directory. `projectName` is the dapp title, injected on read.
  * logoURL and logoHash are copies of the dapp and must not drift.
  */

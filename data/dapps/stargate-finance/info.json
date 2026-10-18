@@ -3,7 +3,7 @@
   "description": "Stargate is a cross-chain bridge deployed on Flare.",
   "url": "https://stargate.finance",
   "logoURL": "dapps/stargate-finance/logo.webp",
-  "logoHash": "5415bf3e063cafd54cb868bbc6a8a4673b38705b4781f51f941b9885c7136d79",
+  "logoHash": "d209da98a1dec4223be863f4cb0a90fc587807f628c1eb02f1652913e7f010f8",
   "chains": ["eip155:14"],
   "category": "other",
   "featured": false

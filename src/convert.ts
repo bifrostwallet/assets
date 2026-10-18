@@ -342,34 +342,3 @@ export function dappSlugFromUrl(url: string): string {
   const hostname = new URL(url).hostname.replace(/^www\./, "").toLowerCase();
   return hostname.replace(/\./g, "-");
 }
-
-/**
- * Rebuilds data/dapps/all.json from every per-dapp info.json
- */
-export function rebuildDappsAllJson(): void {
-  const dappsDir = path.join(process.cwd(), "data", "dapps");
-  if (!fs.existsSync(dappsDir)) {
-    return;
-  }
-
-  const slugs = fs
-    .readdirSync(dappsDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .sort();
-
-  const dapps: DappInfo[] = [];
-  for (const slug of slugs) {
-    const infoPath = path.join(dappsDir, slug, "info.json");
-    if (!fs.existsSync(infoPath)) {
-      continue;
-    }
-    const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as DappInfo;
-    dapps.push(withAbsoluteLogoURL(sortDappInfo(info)));
-  }
-
-  dapps.sort((a, b) => a.title.localeCompare(b.title));
-
-  const allPath = path.join(dappsDir, "all.json");
-  writeFormattedJson(allPath, dapps);
-}

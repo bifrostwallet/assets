@@ -133,7 +133,7 @@ NPM install and examples: [CONSUMERS.md](CONSUMERS.md). Full integrator guide: [
 
 Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details are sealed privately; public fields are title, description, URL, chains, category, and logo. Listing guide: [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
 
-Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. `data/dapps/all.json` is generated from those folders, with absolute `logoURL` values, the same way provider aggregates are published. Do not edit `all.json` by hand.
+Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. Dapps have no `all.json`. Aggregates are only for tokens and providers.
 
 ## Tokens
 
@@ -196,8 +196,7 @@ data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.jso
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
 data/contracts/eip155-<id>/<address>.json   contract names plus a copy of the dapp logo (no all.json)
-data/dapps/<slug>/                          info.json, logo.webp (no contact PII)
-data/dapps/all.json                         generated aggregate (do not edit)
+data/dapps/<slug>/                          info.json, logo.webp (no contact PII, no all.json)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
 

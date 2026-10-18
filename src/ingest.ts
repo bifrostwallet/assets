@@ -16,7 +16,6 @@ import {
   dappSlugFromUrl,
   providerInfoMessageHash,
   providerLogoPath,
-  rebuildDappsAllJson,
   rebuildProvidersAllJson,
   sortDappInfo,
   sortProviderInfo,
@@ -593,7 +592,6 @@ export async function ingestDappSubmission(
   if (fs.existsSync(legacySubmissionPath)) {
     fs.unlinkSync(legacySubmissionPath);
   }
-  rebuildDappsAllJson();
 
   console.info(`📁 Ingested dapp ${title} at ${toRelativePath(dappDir)}`);
 

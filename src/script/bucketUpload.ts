@@ -187,19 +187,6 @@ function collectUploads(assetBase: string): {
     };
   }
 
-  const dappsAll = path.join(dataDir, "dapps", "all.json");
-  if (fs.existsSync(dappsAll)) {
-    const { body, tmpPath } = rewriteAllJsonForUpload(dappsAll, assetBase);
-    sections.dapps = { contentHash: sha256Hex(body) };
-    uploads.push({
-      localPath: tmpPath,
-      destination: `${BUCKET_PREFIX}dapps/all.json`,
-      cacheControl: LIST_CACHE_CONTROL,
-      contentType: "application/json",
-      cleanup: true,
-    });
-  }
-
   return { uploads, sectionHashes: sections };
 }
 

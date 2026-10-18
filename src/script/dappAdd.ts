@@ -1,13 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { DAPP_CATEGORIES, DAPP_CHAINS, type DappCategory, type DappInfo } from "../config.js";
-import {
-  calculateHash,
-  dappSlugFromUrl,
-  rebuildDappsAllJson,
-  sortDappInfo,
-  toRelativePath,
-} from "../convert.js";
+import { calculateHash, dappSlugFromUrl, sortDappInfo, toRelativePath } from "../convert.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
 import { isValidDescription, isValidImage, isValidName, isValidURL } from "../validate.js";
@@ -56,12 +50,17 @@ async function addDapp(): Promise<void> {
       throw new Error("Dapp already exists");
     }
 
-    const allPath = path.join(process.cwd(), "data", "dapps", "all.json");
-    if (fs.existsSync(allPath)) {
-      const existing = JSON.parse(fs.readFileSync(allPath, "utf8")) as DappInfo[];
-      if (existing.some((dapp) => dapp.url === url || dappSlugFromUrl(dapp.url) === slug)) {
-        console.error(`❌ A dapp with this URL or slug already exists: ${url}`);
-        throw new Error("Duplicate dapp URL");
+    const dappsDir = path.join(process.cwd(), "data", "dapps");
+    if (fs.existsSync(dappsDir)) {
+      for (const entry of fs.readdirSync(dappsDir, { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue;
+        const existingPath = path.join(dappsDir, entry.name, "info.json");
+        if (!fs.existsSync(existingPath)) continue;
+        const existing = JSON.parse(fs.readFileSync(existingPath, "utf8")) as DappInfo;
+        if (existing.url === url || entry.name === slug) {
+          console.error(`❌ A dapp with this URL or slug already exists: ${url}`);
+          throw new Error("Duplicate dapp URL");
+        }
       }
     }
 
@@ -153,9 +152,6 @@ async function addDapp(): Promise<void> {
     const logoOutputPath = path.join(outputDir, "logo.webp");
     fs.copyFileSync(logoPath, logoOutputPath);
     console.info(`📁 Dapp logo saved to: ${toRelativePath(logoOutputPath)}`);
-
-    rebuildDappsAllJson();
-    console.info(`📁 Aggregated list updated: ${toRelativePath(allPath)}`);
 
     console.info("\n✅ Dapp added successfully!");
   } catch (error) {
