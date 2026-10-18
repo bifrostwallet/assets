@@ -1,11 +1,32 @@
 [
   {
+    "address": "0x088eecb467b3968da36c71f05023a1d3133b2b83",
+    "chain": "eip155:14",
+    "projectName": "Enosys",
+    "contractName": "DEX Router",
+    "category": "router"
+  },
+  {
+    "address": "0x0db9afb4c33be43a0a0e396fd1383b4ea97ab10a",
+    "chain": "eip155:14",
+    "projectName": "Stargate",
+    "contractName": "Credit Messaging",
+    "category": "bridge"
+  },
+  {
     "address": "0x0e647177df92a75e16d4043ee4bba9cccae874a6",
     "chain": "eip155:14",
     "projectName": "Atlas TSO",
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/atlas.webp"
+  },
+  {
+    "address": "0x0f3d8a38d4c74afbebc2c42695642f0e3acb15d3",
+    "chain": "eip155:14",
+    "projectName": "SparkDEX",
+    "contractName": "Universal Router",
+    "category": "router"
   },
   {
     "address": "0x0f6ab40fe44aa3ab15b8ff96df98c6f5865f048e",
@@ -16,12 +37,89 @@
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
+    "address": "0x12e605bc104e93b45e1ad99f9e555f659051c2bb",
+    "chain": "eip155:14",
+    "projectName": "Sceptre",
+    "contractName": "sFLR",
+    "category": "staking-protocol"
+  },
+  {
+    "address": "0x15f69897e6aebe0463401345543c26d1fd994abb",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "FXRP Unitroller",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x1a44076050125825900e736c501f859c50fe728c",
+    "chain": "eip155:14",
+    "projectName": "LayerZero",
+    "contractName": "Endpoint V2",
+    "category": "bridge"
+  },
+  {
+    "address": "0x1bb34a8360a09f3166574a331b941cd7e4463ab7",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoUSDC",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
+    "chain": "eip155:14",
+    "projectName": "Flare",
+    "contractName": "WFLR",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x1e5bbc19e0b17d7d38f318c79401b3d16f2b93bb",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kUSDT",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x291487bec339c2fe5d83dd45f0a15efc9ac45656",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kSFLR",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x2a3fe068cd92178554cabcf7c95adf49b4b0b6a8",
+    "chain": "eip155:14",
+    "projectName": "Flare",
+    "contractName": "FXRP Asset Manager",
+    "category": "dapp-contract"
+  },
+  {
     "address": "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4",
     "chain": "eip155:14",
     "projectName": "Bifrost Wallet",
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
+  },
+  {
+    "address": "0x40ee5dfe1d4a957ca8ac4dd4adaf8a8fa76b1c16",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kFLRETH",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x45d417612e177672958dc0537c45a8f8d754ac2e",
+    "chain": "eip155:14",
+    "projectName": "Stargate",
+    "contractName": "Token Messaging",
+    "category": "bridge"
+  },
+  {
+    "address": "0x4a1e5a90e9943467fad1acea1e7f0e5e88472a1e",
+    "chain": "eip155:14",
+    "projectName": "SparkDEX",
+    "contractName": "Router V2",
+    "category": "router"
   },
   {
     "address": "0x4c18ff3c89632c3dd62e796c0afa5c07c4c1b2b3",
@@ -32,12 +130,40 @@
     "logoURL": "contracts/logos/firelight.webp"
   },
   {
+    "address": "0x5c2400019017ae61f811d517d088df732642dbd0",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kWETH",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x69d57b9d705ead73a5d2f2476c30c55bd755cc2f",
+    "chain": "eip155:14",
+    "projectName": "SparkDEX",
+    "contractName": "Swap Router V4",
+    "category": "router"
+  },
+  {
     "address": "0x71ee56f6b793386cecf536cd566ff50fe558f70e",
     "chain": "eip155:14",
     "projectName": "Oracle Daemon",
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/od.webp"
+  },
+  {
+    "address": "0x76809abd690b77488ffb5277e0a8300a7e77b779",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kUSDT0",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x7b6fcf27e6fc63aaee93295b8d116eeff11983d3",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoJOULE",
+    "category": "dapp-contract"
   },
   {
     "address": "0x7cec6ec27f3a0f0a37b1847e5af3e99a7499a0bc",
@@ -48,12 +174,40 @@
     "logoURL": "contracts/logos/atlas.webp"
   },
   {
+    "address": "0x8041680fb73e1fe5f851e76233dcdfa0f2d2d7c8",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "Unitroller",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x870f7b89f0d408d7ca2e6586df26d00ea03aa358",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoSTXRP",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x8a1e35f5c98c4e85b36b7b253222ee17773b2781",
+    "chain": "eip155:14",
+    "projectName": "SparkDEX",
+    "contractName": "Swap Router",
+    "category": "router"
+  },
+  {
     "address": "0x8ea74d78a03f20597cee115176f7f8b65271c87a",
     "chain": "eip155:14",
     "projectName": "Oracle Daemon",
     "contractName": "Agent Vault",
     "category": "agent-vault",
     "logoURL": "contracts/logos/od.webp"
+  },
+  {
+    "address": "0xa0ff992e0b33dbdc577e488dc917a042f7b42875",
+    "chain": "eip155:14",
+    "projectName": "Flare",
+    "contractName": "FTSO Reward Manager",
+    "category": "dapp-contract"
   },
   {
     "address": "0xa69bf2ec0ef91a29b5da634bd4958aa32bad9fe3",
@@ -64,12 +218,75 @@
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
+    "address": "0xad7e7989796414c9572da9854deb1b920724fd09",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoUSDT0",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xb84f771305d10607dd086b2f89712c0ced379407",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kFLR",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xc8f55c5aa2c752ee285bd872855c749f4ee6239b",
+    "chain": "eip155:14",
+    "projectName": "Flare",
+    "contractName": "Reward Manager",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xd1b7a5efa9bd88f291f7a4563a8f6185c0249cb3",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoFXRP",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xd56c0ea37b848939b59e6f5cda119b3fa473b5eb",
+    "chain": "eip155:14",
+    "projectName": "Flare",
+    "contractName": "Claim Setup Manager",
+    "category": "dapp-contract"
+  },
+  {
     "address": "0xd6af7ef36732a5a71121363be380ab6c8e9f72e0",
     "chain": "eip155:14",
     "projectName": "NORTSO",
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/nortso.webp"
+  },
+  {
+    "address": "0xd7291d5001693d15b6e4d56d73b5d2cd7ecfe5c6",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "isoFLR",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xdcce91d46ecb209645a26b5885500127819beadd",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "JOULE Unitroller",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xdeebabe05bda7e8c1740873abf715f16164c29b8",
+    "chain": "eip155:14",
+    "projectName": "Kinetic",
+    "contractName": "kUSDC.e",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xe3a1b355ca63abcbc9589334b5e609583c7baa06",
+    "chain": "eip155:14",
+    "projectName": "BlazeSwap",
+    "contractName": "Router",
+    "category": "router"
   },
   {
     "address": "0xe56f464c23760d563dd4c73dada05159ae71fc50",

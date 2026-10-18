@@ -1,0 +1,7 @@
+{
+  "address": "0x8a1e35f5c98c4e85b36b7b253222ee17773b2781",
+  "chain": "eip155:14",
+  "projectName": "SparkDEX",
+  "contractName": "Swap Router",
+  "category": "router"
+}

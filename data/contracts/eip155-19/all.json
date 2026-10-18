@@ -1,5 +1,12 @@
 [
   {
+    "address": "0x02f0826ef6ad107cfc861152b32b52fd11bab9ed",
+    "chain": "eip155:19",
+    "projectName": "Songbird",
+    "contractName": "WSGB",
+    "category": "dapp-contract"
+  },
+  {
     "address": "0x0afca56dd247f932bc4a7754a3307ffa814e11bd",
     "chain": "eip155:19",
     "projectName": "Oracle Daemon",
@@ -22,6 +29,20 @@
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
+  },
+  {
+    "address": "0x1643299dbbb36e3e1ac26a7febc3f97382bdcfa5",
+    "chain": "eip155:19",
+    "projectName": "Songbird",
+    "contractName": "FTSO Reward Manager",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x299d678f67e7add4efdf295ebe0e92fcb4f75c4c",
+    "chain": "eip155:19",
+    "projectName": "Songbird",
+    "contractName": "FXRP Asset Manager",
+    "category": "dapp-contract"
   },
   {
     "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
@@ -72,11 +93,25 @@
     "logoURL": "contracts/logos/nortso.webp"
   },
   {
+    "address": "0xdd138b38d87b0f95f6c3e13e78ffdf2588f1732d",
+    "chain": "eip155:19",
+    "projectName": "Songbird",
+    "contractName": "Claim Setup Manager",
+    "category": "dapp-contract"
+  },
+  {
     "address": "0xe14638e7231ee58ab0ae6dc3e5086a8a391537aa",
     "chain": "eip155:19",
     "projectName": "NORTSO",
     "contractName": "Agent Vault",
     "category": "agent-vault",
     "logoURL": "contracts/logos/nortso.webp"
+  },
+  {
+    "address": "0xe26ad68b17224951b5740f33926cc438764eb9a7",
+    "chain": "eip155:19",
+    "projectName": "Songbird",
+    "contractName": "Reward Manager",
+    "category": "dapp-contract"
   }
 ]

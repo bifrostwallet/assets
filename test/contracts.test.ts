@@ -29,8 +29,11 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("aggregator"), 0);
     assert.equal(count("collateral-pool"), 10);
     assert.equal(count("agent-vault"), 10);
-    assert.equal(count("staking-protocol"), 2);
-    assert.equal(all.length, 22);
+    assert.equal(count("staking-protocol"), 3);
+    assert.equal(count("router"), 6);
+    assert.equal(count("bridge"), 3);
+    assert.equal(count("dapp-contract"), 26);
+    assert.equal(all.length, 58);
     assert.ok(CONTRACT_CATEGORIES.includes("aggregator"));
     assert.ok(CONTRACT_CATEGORIES.includes("router"));
     assert.ok(CONTRACT_CATEGORIES.includes("bridge"));
@@ -60,9 +63,26 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(firelight?.category, "staking-protocol");
     assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 11);
-    assert.equal(getContracts("eip155:19").length, 10);
+    assert.equal(getContracts("eip155:14").length, 42);
+    assert.equal(getContracts("eip155:19").length, 15);
     assert.equal(getContracts("eip155:114").length, 1);
+
+    const wflr = getContract("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
+    assert.equal(wflr?.projectName, "Flare");
+    assert.equal(wflr?.contractName, "WFLR");
+    assert.equal(wflr?.category, "dapp-contract");
+    const wsgb = getContract("eip155:19", "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED");
+    assert.equal(wsgb?.projectName, "Songbird");
+    assert.equal(wsgb?.contractName, "WSGB");
+    const spark = getContract("eip155:14", "0x0f3D8a38D4c74afBebc2c42695642f0e3acb15D3");
+    assert.equal(spark?.projectName, "SparkDEX");
+    assert.equal(spark?.category, "router");
+    const sceptre = getContract("eip155:14", "0x12e605bc104e93B45e1aD99F9e555f659051c2BB");
+    assert.equal(sceptre?.projectName, "Sceptre");
+    assert.equal(sceptre?.category, "staking-protocol");
+    const endpoint = getContract("eip155:14", "0x1a44076050125825900e736c501f859c50fE728c");
+    assert.equal(endpoint?.projectName, "LayerZero");
+    assert.equal(endpoint?.category, "bridge");
     assert.throws(() => getContracts("eip155:16"), /Unknown contract chain/);
 
     assert.equal(getContract("eip155:14", "0x0000000000000000000000000000000000000001"), null);
