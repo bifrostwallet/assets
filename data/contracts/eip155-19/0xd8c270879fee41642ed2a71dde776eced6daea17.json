@@ -1,6 +1,5 @@
 {
   "address": "0xd8c270879fee41642ed2a71dde776eced6daea17",
-  "chain": "eip155:19",
   "projectName": "NORTSO",
   "contractName": "Collateral Pool",
   "category": "fassets",

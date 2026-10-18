@@ -1,6 +1,5 @@
 {
   "address": "0xc9b6b30b9326da62cefe34a54473ef7702a386e6",
-  "chain": "eip155:14",
   "projectName": "Morpho",
   "contractName": "Public Allocator",
   "category": "lending"

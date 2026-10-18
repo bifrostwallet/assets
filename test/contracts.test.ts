@@ -119,10 +119,29 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.throws(() => getContracts("eip155-14"), /CAIP-2/);
   });
 
-  test("rejects a non-lowercase address, a bad category, and a chain mismatch", () => {
+  test("getContract returns chain from the directory", () => {
+    const file = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "data", "contracts", "eip155-14", `${BIFROST_POOL}.json`),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    assert.equal(Object.hasOwn(file, "chain"), false);
+    const contract = getContract("eip155:14", BIFROST_POOL);
+    assert.ok(contract);
+    assert.equal(contract.chain, "eip155:14");
+    assert.equal(contract.address, BIFROST_POOL);
+    const songbird = getContracts("eip155:19");
+    assert.ok(songbird.every((entry) => entry.chain === "eip155:19"));
+    assert.equal(
+      getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a")?.chain,
+      "eip155:114",
+    );
+  });
+
+  test("rejects a non-lowercase address, a bad category, and a stored chain", () => {
     const base = {
       address: BIFROST_POOL,
-      chain: "eip155:14",
       projectName: "Bifrost Wallet",
       contractName: "Collateral Pool",
       category: "fassets",
@@ -150,9 +169,9 @@ describe("contract catalog", { concurrency: false }, () => {
     );
     assert.deepEqual(
       validateContractRecord(
-        { ...base, chain: "eip155-14" },
+        { ...base, chain: "eip155:14" },
         { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
-      ).some((error) => error.includes("CAIP-2")),
+      ).some((error) => error.includes("must not be stored")),
       true,
     );
     assert.deepEqual(
@@ -177,7 +196,6 @@ describe("contract catalog", { concurrency: false }, () => {
     const logoPath = path.join(process.cwd(), "data", logoURL);
     const entry = {
       address: BIFROST_POOL,
-      chain: "eip155:14",
       projectName: "Bifrost Wallet",
       contractName: "Collateral Pool",
       category: "fassets",

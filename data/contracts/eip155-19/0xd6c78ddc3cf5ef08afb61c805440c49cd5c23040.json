@@ -1,6 +1,5 @@
 {
   "address": "0xd6c78ddc3cf5ef08afb61c805440c49cd5c23040",
-  "chain": "eip155:19",
   "projectName": "Bifrost Wallet",
   "contractName": "Agent Vault",
   "category": "fassets",

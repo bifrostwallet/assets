@@ -1,6 +1,5 @@
 {
   "address": "0x0e647177df92a75e16d4043ee4bba9cccae874a6",
-  "chain": "eip155:14",
   "projectName": "Atlas TSO",
   "contractName": "Collateral Pool",
   "category": "fassets",

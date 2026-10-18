@@ -1,6 +1,5 @@
 {
   "address": "0x5c86800dfc65ca3e3a062feeee4d867c92771b95",
-  "chain": "eip155:14",
   "projectName": "Spectra",
   "contractName": "Factory",
   "category": "yield"

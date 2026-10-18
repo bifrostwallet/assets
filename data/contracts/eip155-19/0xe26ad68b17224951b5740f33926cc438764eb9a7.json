@@ -1,6 +1,5 @@
 {
   "address": "0xe26ad68b17224951b5740f33926cc438764eb9a7",
-  "chain": "eip155:19",
   "projectName": "Songbird",
   "contractName": "Reward Manager",
   "category": "rewards"

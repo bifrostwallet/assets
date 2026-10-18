@@ -10,8 +10,8 @@ import { isWebpMagic } from "./webp.js";
  * fallback that turns a hex address into "Project: Contract".
  *
  * Git layout (path-safe CAIP-2, same as tokens and providers):
- *   data/contracts/eip155-14/0xabc….json
- *   data/contracts/eip155-14/all.json          generated aggregate
+ *   data/contracts/eip155-14/0xabc….json       per-address record; chain is the directory
+ *   data/contracts/eip155-14/all.json          generated aggregate (includes chain)
  * Optional logos are WebP under data/, referenced by a relative logoURL:
  *   contracts/<chain>/<address>/logo.webp       per-contract mark
  *   contracts/logos/<slug>.webp                 shared project mark
@@ -58,7 +58,7 @@ export const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string> = {
 export type ContractInfo = {
   /** Lowercase 0x address. Matches the JSON filename. */
   address: string;
-  /** CAIP-2 chain id, e.g. "eip155:14". */
+  /** CAIP-2 chain id, e.g. "eip155:14". Injected from the chain directory. */
   chain: string;
   projectName: string;
   contractName: string;
@@ -70,9 +70,12 @@ export type ContractInfo = {
   logoURL?: string;
 };
 
+/**
+ * Fields stored in per-address JSON.
+ * `chain` is the directory (`eip155-14` → `eip155:14`) and must not be stored.
+ */
 export const CONTRACT_INFO_KEYS = [
   "address",
-  "chain",
   "projectName",
   "contractName",
   "category",
@@ -162,11 +165,15 @@ export function validateContractRecord(
   const record = value as Record<string, unknown>;
 
   for (const key of Object.keys(record)) {
+    if (key === "chain") {
+      errors.push(`${label}: chain must not be stored; the directory is the chain`);
+      continue;
+    }
     if (!(CONTRACT_INFO_KEYS as readonly string[]).includes(key)) {
       errors.push(`${label}: unexpected field ${key}`);
     }
   }
-  for (const key of ["address", "chain", "projectName", "contractName", "category"] as const) {
+  for (const key of ["address", "projectName", "contractName", "category"] as const) {
     if (!(key in record)) {
       errors.push(`${label}: missing ${key}`);
     }
@@ -174,7 +181,6 @@ export function validateContractRecord(
   if (errors.length > 0) return errors;
 
   const address = record.address;
-  const chain = record.chain;
   const projectName = record.projectName;
   const contractName = record.contractName;
   const category = record.category;
@@ -192,19 +198,6 @@ export function validateContractRecord(
     } else if (typeof address === "string" && ctx.fileName !== expectedFile) {
       errors.push(`${label}: filename does not match address`);
     }
-  }
-
-  let chainPathCaip2: string | undefined;
-  try {
-    chainPathCaip2 = chainPathToCaip2(ctx.chainPath);
-  } catch {
-    errors.push(`${label}: chain directory is not a path-safe CAIP-2 id`);
-  }
-
-  if (typeof chain !== "string" || !isCaip2(chain)) {
-    errors.push(`${label}: chain must be a CAIP-2 id (e.g. "eip155:14")`);
-  } else if (chainPathCaip2 && chain !== chainPathCaip2) {
-    errors.push(`${label}: chain ${chain} does not match directory ${ctx.chainPath}`);
   }
 
   if (typeof projectName !== "string" || !isDisplayName(projectName)) {
@@ -273,11 +266,19 @@ export function loadContractFile(chainPath: string, fileName: string): unknown {
   return JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
 }
 
-/** Per-file entries for a chain, sorted by address. */
+/** Attach the directory chain (`eip155-14` → `eip155:14`) and canonical key order. */
+function withContractChain(chainPath: string, record: Omit<ContractInfo, "chain">): ContractInfo {
+  return sortContractInfo({
+    ...record,
+    chain: chainPathToCaip2(chainPath),
+  });
+}
+
+/** Per-file entries for a chain, sorted by address. `chain` comes from the directory. */
 export function aggregateContractChain(chainPath: string): ContractInfo[] {
   return listContractFiles(chainPath).map((fileName) => {
-    const raw = loadContractFile(chainPath, fileName);
-    return sortContractInfo(raw as ContractInfo);
+    const record = loadContractFile(chainPath, fileName) as Omit<ContractInfo, "chain">;
+    return withContractChain(chainPath, record);
   });
 }
 
@@ -374,7 +375,15 @@ export function validateContractCatalog(): string[] {
       errors.push(`${chainPath}/all.json: must be an array`);
       continue;
     }
-    const expected = aggregateContractChain(chainPath);
+    let expected: ContractInfo[];
+    try {
+      expected = aggregateContractChain(chainPath);
+    } catch (error) {
+      errors.push(
+        `${chainPath}/all.json: cannot aggregate (${error instanceof Error ? error.message : String(error)})`,
+      );
+      continue;
+    }
     if (JSON.stringify(all) !== JSON.stringify(expected)) {
       errors.push(`${chainPath}/all.json: does not match per-address JSON files`);
     }
@@ -438,7 +447,9 @@ function availableChainIds(): string[] {
  */
 export function getContracts(chainId?: string): ContractInfo[] {
   if (chainId === undefined) {
-    return listContractChainPaths().flatMap((chainPath) => readContractsAll(chainPath));
+    return listContractChainPaths().flatMap((chainPath) =>
+      readContractsAll(chainPath).map((contract) => withContractChain(chainPath, contract)),
+    );
   }
   if (!isCaip2(chainId)) {
     throw new Error(`Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ${JSON.stringify(chainId)}`);
@@ -450,7 +461,7 @@ export function getContracts(chainId?: string): ContractInfo[] {
       `Unknown contract chain ${chainId}. Available: ${availableChainIds().join(", ")}`,
     );
   }
-  return readContractsAll(chainPath);
+  return readContractsAll(chainPath).map((contract) => withContractChain(chainPath, contract));
 }
 
 /** One contract by address. Lookup is case-insensitive. Unknown address returns null. */

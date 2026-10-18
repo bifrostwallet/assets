@@ -1,6 +1,5 @@
 {
   "address": "0x45d417612e177672958dc0537c45a8f8d754ac2e",
-  "chain": "eip155:14",
   "projectName": "Stargate",
   "contractName": "Token Messaging",
   "category": "bridge"

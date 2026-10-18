@@ -1,6 +1,5 @@
 {
   "address": "0xe3a1b355ca63abcbc9589334b5e609583c7baa06",
-  "chain": "eip155:14",
   "projectName": "BlazeSwap",
   "contractName": "Router",
   "category": "dex"

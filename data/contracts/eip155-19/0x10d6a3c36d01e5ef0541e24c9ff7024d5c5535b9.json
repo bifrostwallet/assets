@@ -1,6 +1,5 @@
 {
   "address": "0x10d6a3c36d01e5ef0541e24c9ff7024d5c5535b9",
-  "chain": "eip155:19",
   "projectName": "Oracle Daemon",
   "contractName": "Collateral Pool",
   "category": "fassets",

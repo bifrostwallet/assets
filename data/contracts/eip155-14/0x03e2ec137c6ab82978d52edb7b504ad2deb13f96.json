@@ -1,6 +1,5 @@
 {
   "address": "0x03e2ec137c6ab82978d52edb7b504ad2deb13f96",
-  "chain": "eip155:14",
   "projectName": "Spectra",
   "contractName": "Router",
   "category": "yield"

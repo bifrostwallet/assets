@@ -1,6 +1,5 @@
 {
   "address": "0xb371cfee69984d1f3447d49217889c7388ba2027",
-  "chain": "eip155:14",
   "projectName": "Morpho",
   "contractName": "Bundler3",
   "category": "lending"

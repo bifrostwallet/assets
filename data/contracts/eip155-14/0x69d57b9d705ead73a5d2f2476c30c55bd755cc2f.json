@@ -1,6 +1,5 @@
 {
   "address": "0x69d57b9d705ead73a5d2f2476c30c55bd755cc2f",
-  "chain": "eip155:14",
   "projectName": "SparkDEX",
   "contractName": "Swap Router V4",
   "category": "dex"

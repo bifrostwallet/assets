@@ -1,6 +1,5 @@
 {
   "address": "0xd56c0ea37b848939b59e6f5cda119b3fa473b5eb",
-  "chain": "eip155:14",
   "projectName": "Flare",
   "contractName": "Claim Setup Manager",
   "category": "rewards"

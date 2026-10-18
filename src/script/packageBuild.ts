@@ -183,21 +183,27 @@ function getTokenBlocklist() {
   return tokenBlocklist.tokens || [];
 }
 
+function contractsWithChain(chainPath, contracts) {
+  const chain = chainPathToCaip2(chainPath);
+  return contracts.map((contract) => ({ ...contract, chain }));
+}
+
 function getContracts(chainId) {
   if (chainId == null) {
     const all = [];
     for (const chain of Object.keys(contractsByChain).sort()) {
-      all.push(...contractsByChain[chain]);
+      all.push(...contractsWithChain(chain, contractsByChain[chain]));
     }
     return all;
   }
-  const contracts = contractsByChain[normalizeChainId(chainId)];
+  const chainPath = normalizeChainId(chainId);
+  const contracts = contractsByChain[chainPath];
   if (!contracts) {
     throw new Error(
       "Unknown contract chain " + chainId + ". Available: " + CONTRACT_CHAIN_IDS.join(", ")
     );
   }
-  return contracts;
+  return contractsWithChain(chainPath, contracts);
 }
 
 function getContract(chainId, address) {

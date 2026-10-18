@@ -1,6 +1,5 @@
 {
   "address": "0x8041680fb73e1fe5f851e76233dcdfa0f2d2d7c8",
-  "chain": "eip155:14",
   "projectName": "Kinetic",
   "contractName": "Unitroller",
   "category": "lending"
