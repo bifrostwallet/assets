@@ -166,7 +166,12 @@ describe("curated dapps", () => {
   });
 
   test("categories.json is the hand-ordered browser chip list", () => {
-    const categories = readDappCategories() as DappCategoryGroup[];
+    const document = readDappCategories() as {
+      categories: DappCategoryGroup[];
+      unlisted: string[];
+    };
+    assert.deepEqual(Object.keys(document).sort(), ["categories", "unlisted"]);
+    const categories = document.categories;
     assert.deepEqual(
       categories.map((group) => group.id),
       [...DAPP_CATEGORIES],
@@ -191,64 +196,86 @@ describe("curated dapps", () => {
     for (const group of categories) {
       assert.deepEqual(Object.keys(group).sort(), ["dapps", "id", "label"]);
     }
+    assert.deepEqual(document.unlisted, [
+      "layerzero-network",
+      "stargate-finance",
+      "flare-network",
+      "bifrostwallet-com",
+      "nortso-xyz",
+      "tsoatlas-xyz",
+      "oracle-daemon-com",
+    ]);
   });
 
-  test("category validation reports only dapps that fit no chip", () => {
-    const errors = validateDappCategories();
-    const uncategorized = errors.filter((error) => error.includes("is in no category"));
-    assert.deepEqual(
-      errors.filter((error) => !error.includes("is in no category")),
-      [],
-    );
-    assert.deepEqual(uncategorized, [
-      "dapp bifrostwallet-com is in no category",
-      "dapp flare-network is in no category",
-      "dapp layerzero-network is in no category",
-      "dapp nortso-xyz is in no category",
-      "dapp oracle-daemon-com is in no category",
-      "dapp stargate-finance is in no category",
-      "dapp tsoatlas-xyz is in no category",
-    ]);
+  test("category validation passes when every dapp is listed or unlisted", () => {
+    assert.deepEqual(validateDappCategories(), []);
   });
 });
 
-function chips(overrides: Partial<Record<DappCategory, string[]>> = {}): DappCategoryGroup[] {
-  return DAPP_CATEGORIES.map((id) => ({
-    id,
-    label: DAPP_CATEGORY_LABELS[id],
-    dapps: overrides[id] ?? [],
-  }));
+function catalog(
+  overrides: Partial<Record<DappCategory, string[]>> = {},
+  unlisted: string[] = [],
+): { categories: DappCategoryGroup[]; unlisted: string[] } {
+  return {
+    categories: DAPP_CATEGORIES.map((id) => ({
+      id,
+      label: DAPP_CATEGORY_LABELS[id],
+      dapps: overrides[id] ?? [],
+    })),
+    unlisted,
+  };
 }
 
 describe("dapp category rules", () => {
   test("fails when a slug is missing, unknown, repeated, or the id is not allowed", () => {
-    const missing = dappCategoryErrors(chips({ dex: ["sparkdex-ai"] }), ["sparkdex-ai", "au-cc"]);
+    const missing = dappCategoryErrors(catalog({ dex: ["sparkdex-ai"] }), ["sparkdex-ai", "au-cc"]);
     assert.deepEqual(missing, ["dapp au-cc is in no category"]);
 
-    const unknown = dappCategoryErrors(chips({ dex: ["missing-dapp"] }), []);
+    const covered = dappCategoryErrors(catalog({ dex: ["sparkdex-ai"] }, ["au-cc"]), [
+      "sparkdex-ai",
+      "au-cc",
+    ]);
+    assert.deepEqual(covered, []);
+
+    const both = dappCategoryErrors(catalog({ dex: ["sparkdex-ai"] }, ["sparkdex-ai"]), [
+      "sparkdex-ai",
+    ]);
+    assert.deepEqual(both, ["slug sparkdex-ai is listed and unlisted"]);
+
+    const repeatedUnlisted = dappCategoryErrors(catalog({}, ["au-cc", "au-cc"]), ["au-cc"]);
+    assert.deepEqual(repeatedUnlisted, ["slug au-cc repeats within unlisted"]);
+
+    const unknownUnlisted = dappCategoryErrors(catalog({}, ["missing-dapp"]), []);
+    assert.deepEqual(unknownUnlisted, ["slug missing-dapp in unlisted does not exist"]);
+
+    const unknown = dappCategoryErrors(catalog({ dex: ["missing-dapp"] }), []);
     assert.deepEqual(unknown, ["slug missing-dapp in dex does not exist"]);
 
-    const repeated = dappCategoryErrors(chips({ dex: ["sparkdex-ai", "sparkdex-ai"] }), [
+    const repeated = dappCategoryErrors(catalog({ dex: ["sparkdex-ai", "sparkdex-ai"] }), [
       "sparkdex-ai",
     ]);
     assert.deepEqual(repeated, ["slug sparkdex-ai repeats within dex"]);
 
-    const badId = chips();
-    badId[1] = { id: "nft" as DappCategory, label: "NFT", dapps: [] };
+    const badId = catalog();
+    badId.categories[1] = { id: "nft" as DappCategory, label: "NFT", dapps: [] };
     const bad = dappCategoryErrors(badId, []);
     assert.ok(bad.some((error) => error.includes("not an allowed category")));
 
-    const swapped = chips();
-    const dex = swapped[1];
-    swapped[1] = swapped[2];
-    swapped[2] = dex;
+    const swapped = catalog();
+    const dex = swapped.categories[1];
+    swapped.categories[1] = swapped.categories[2];
+    swapped.categories[2] = dex;
     const swappedErrors = dappCategoryErrors(swapped, []);
     assert.ok(swappedErrors.some((error) => error === "categories[1] id must be dex"));
 
-    const filtered = chips();
-    (filtered[0] as DappCategoryGroup & { network?: string }).network = "eip155:14";
+    const filtered = catalog();
+    (filtered.categories[0] as DappCategoryGroup & { network?: string }).network = "eip155:14";
     const extra = dappCategoryErrors(filtered, []);
     assert.ok(extra.some((error) => error.includes("keys must be id, label, dapps")));
+
+    assert.deepEqual(dappCategoryErrors([], []), [
+      "categories.json must be an object with categories and unlisted",
+    ]);
   });
 });
 

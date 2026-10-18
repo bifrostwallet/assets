@@ -135,9 +135,9 @@ Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwalle
 
 Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. There is no per-dapp `category` or `featured` flag. Dapps have no `all.json`. Aggregates are only for tokens and providers.
 
-Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `marketplaces`, `social`, `games`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. `marketplaces` is NFT marketplaces only. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
+Browser chips live only in the hand-edited `data/dapps/categories.json`. The file is an object with `categories` (an ordered array of `{ id, label, dapps }`) and `unlisted` (slugs excluded from the browser). Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `marketplaces`, `social`, `games`. Order inside a chip, and the order of `unlisted`, is curated and is never sorted. A dapp may appear in more than one chip. It must appear in a chip or in `unlisted`, and not in both. `unlisted` is not a chip: it names dapps that contracts reference and that the browser must not show. `marketplaces` is NFT marketplaces only. The NPM package ships the chip array as `getDappCategories()` and the excluded slugs as `getUnlistedDapps()`. The file is not an aggregate `all.json`.
 
-Place a dapp from its official site. FTSO data providers, and any other dapp that matches no chip, stay out of the file. Do not invent a chip for them, and do not filter chips by network.
+Place a dapp from its official site. A dapp that matches no chip goes in `unlisted`. Do not invent a chip, and do not filter chips by network. Validation fails when a dapp folder is in neither list.
 
 ## Tokens
 
@@ -200,7 +200,7 @@ data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.jso
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated token metadata + logos
 data/contracts/eip155-<id>/<address>.json   contract names plus a copy of the dapp logo (no all.json)
-data/dapps/categories.json                  hand-ordered browser chips (not an all.json)
+data/dapps/categories.json                  hand-ordered chips plus unlisted slugs (not an all.json)
 data/dapps/<slug>/                          info.json, logo.webp (no contact PII, no all.json)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
@@ -228,7 +228,7 @@ Listings are re-validated in this repository before they go live; CI re-checks o
 
 Dapp URLs must be confirmed from an official project source: the project's own docs or GitHub org, a verified X account, a flare.network ecosystem link, or the contract deployer docs. Never infer a URL from a name. A dapp `chains` list is confirmed the same way, and only ids in `DAPP_CHAINS` are stored.
 
-Dapp browser chips are hand-edited in `data/dapps/categories.json`. Do not store `category` or `featured` on `info.json`, do not sort that file, and do not invent a chip for a dapp that matches none.
+Dapp browser chips and the unlisted slug list are hand-edited in `data/dapps/categories.json`. Do not store `category` or `featured` on `info.json`, do not sort that file, and do not invent a chip. A dapp in neither a chip nor `unlisted` fails validation.
 
 Use the repo [`yarn`](yarn) wrapper (`./yarn`), not Corepack or a global install.
 CI sets `COREPACK_ENABLE=0`. Upgrade Yarn with `./yarn security:yarn-binary:upgrade <version>`.

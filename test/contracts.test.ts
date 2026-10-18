@@ -310,6 +310,7 @@ describe("published package contract lookups", { concurrency: false }, () => {
     assert.deepEqual(assets.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
     const packaged = assets as typeof assets & {
       getDappCategories: () => { id: string; label: string; dapps: string[] }[];
+      getUnlistedDapps: () => string[];
       DAPP_CATEGORIES: readonly string[];
       DAPP_CATEGORY_LABELS: Record<string, string>;
     };
@@ -317,8 +318,12 @@ describe("published package contract lookups", { concurrency: false }, () => {
     const packagedFile = path.join(process.cwd(), "dist", "dapps", "categories.json");
     assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "dapps", "all.json")), false);
     assert.equal(fs.readFileSync(packagedFile, "utf8"), fs.readFileSync(categoryFile, "utf8"));
-    const parsedCategories = JSON.parse(fs.readFileSync(categoryFile, "utf8"));
-    assert.deepEqual(packaged.getDappCategories(), parsedCategories);
+    const parsedCategories = JSON.parse(fs.readFileSync(categoryFile, "utf8")) as {
+      categories: { id: string; label: string; dapps: string[] }[];
+      unlisted: string[];
+    };
+    assert.deepEqual(packaged.getDappCategories(), parsedCategories.categories);
+    assert.deepEqual(packaged.getUnlistedDapps(), parsedCategories.unlisted);
     assert.deepEqual(packaged.DAPP_CATEGORIES, [...DAPP_CATEGORIES]);
     assert.deepEqual(packaged.DAPP_CATEGORY_LABELS, DAPP_CATEGORY_LABELS);
     assert.equal(
