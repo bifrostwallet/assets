@@ -47,7 +47,7 @@ The signature requirement is a **self-signature** by the entry's identity addres
 
 **Upload PNG or WebP → store WebP.** Provide at least **128×128**; larger images are fine. The listing form cover-fits and converts to the catalog form before you hash and sign:
 
-- Opaque **128×128** WebP on a solid white background
+- **128×128** WebP. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
 - Maximum file size **24 KB**
 - Stored as `logo.webp`; `logoHash` is the SHA-256 of those WebP bytes
 

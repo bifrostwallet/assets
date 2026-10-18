@@ -99,15 +99,6 @@
     "logoHash": "8a8b6865454081be4260d0471c59e1ae1d24472af21d225e8f4f9dea02b2f990"
   },
   {
-    "name": "FlareX Legacy",
-    "symbol": "FLRX",
-    "decimals": 18,
-    "address": "0x32c16ba8a4b1f2501a16bcdaf53b51fb982eaec4",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-19/0x32c16ba8a4b1f2501a16bcdaf53b51fb982eaec4/logo.webp",
-    "logoHash": "3ab814d18d9e24da18c3132b619ace865543bef3e9549ba9db538044ca9340f7"
-  },
-  {
     "name": "Experimental ETH",
     "symbol": "exETH",
     "decimals": 18,
@@ -225,15 +216,6 @@
     "logoHash": "e360f348b7a23584fbcfb6c47a05a958461d443d2715114572a7fa4a35a476e0"
   },
   {
-    "name": "Experimental Finance Token Legacy",
-    "symbol": "EXFI",
-    "decimals": 18,
-    "address": "0x72d932019ae098a6368e6676e16169d112e7720a",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-19/0x72d932019ae098a6368e6676e16169d112e7720a/logo.webp",
-    "logoHash": "242c5cfc39e236422cd26d4ad31f0a04cf590976d3cba2ea4a7ab10189b6fc99"
-  },
-  {
     "name": "Songbird Phoenix Token",
     "symbol": "sPHX",
     "decimals": 18,
@@ -279,15 +261,6 @@
     "logoHash": "598f3facb92b0a7c8175eec94146384272e3ecbc679a1e50da353aa25ff6189f"
   },
   {
-    "name": "FDOGE",
-    "symbol": "FDOGE",
-    "decimals": 8,
-    "address": "0xaa25ee3b68c515e69a463876ab262bc4e8339030",
-    "coingeckoId": "dogecoin",
-    "logoURL": "tokens/eip155-19/0xaa25ee3b68c515e69a463876ab262bc4e8339030/logo.webp",
-    "logoHash": "d022eea2ce5ce12ad35599419b1e5a4ded90c8b17c92573285d96a208aa9bf4f"
-  },
-  {
     "name": "Xenos Finance",
     "symbol": "XNF",
     "decimals": 18,
@@ -322,15 +295,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-19/0xb2cd91b79df296ea181aa5f6d729e5136e1853a4/logo.webp",
     "logoHash": "fb0834e35f0dbdb5b6d591f9becb2f1bd363e1dc9c4c95b424afadffa159db6a"
-  },
-  {
-    "name": "FBTC",
-    "symbol": "FBTC",
-    "decimals": 8,
-    "address": "0xba17af59dcf544aafe69f622eb93bfc0ed1b1a6a",
-    "coingeckoId": "bitcoin",
-    "logoURL": "tokens/eip155-19/0xba17af59dcf544aafe69f622eb93bfc0ed1b1a6a/logo.webp",
-    "logoHash": "5c6cd95eccc17aea9cf3663051bf10d3b67bb0332632faf24fd3238735953958"
   },
   {
     "name": "Experimental Finance Token",
