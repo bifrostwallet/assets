@@ -145,7 +145,7 @@ Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko
 
 ## Contracts
 
-Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `AmagiSwap: Aggregator V2`.
+Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
 Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2, same directory form as tokens and providers). Each chain has a generated `all.json` — do not edit it by hand. There is no `listed` flag and no provider link.
 
@@ -153,10 +153,10 @@ Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe
 {
   "address": "0xabc…",
   "chain": "eip155:14",
-  "projectName": "AmagiSwap",
-  "contractName": "Aggregator V2",
-  "category": "aggregator",
-  "logoURL": "contracts/logos/amagiswap.webp"
+  "projectName": "Bifrost Wallet",
+  "contractName": "Collateral Pool",
+  "category": "collateral-pool",
+  "logoURL": "contracts/logos/bifrost-wallet.webp"
 }
 ```
 

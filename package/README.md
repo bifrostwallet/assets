@@ -39,10 +39,10 @@ const flr = getNativeToken("eip155:14"); // native gas token (address === null)
 const wflr = getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
 
 // Transaction-review names. Lookup is case-insensitive. null when unknown.
-const router = getContract("eip155:14", "0x5ED8551F90aCC6395810d8274b019bf13EF1f696");
-// router.projectName === "AmagiSwap"
-// router.contractName === "Aggregator V2"
-// router.logoURL ends with "contracts/logos/amagiswap.webp"
+const pool = getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
+// pool.projectName === "Bifrost Wallet"
+// pool.contractName === "Collateral Pool"
+// pool.logoURL ends with "contracts/logos/bifrost-wallet.webp"
 const flareContracts = getContracts("eip155:14");
 const everyContract = getContracts();
 ```
@@ -61,7 +61,7 @@ import {
 const bifrost = getProvider("eip155:14", "0x1650d2760baee638c034200dedcbe17b050d0364");
 const listed = getListedProviders("eip155:14");
 const native = getNativeToken("eip155:14");
-const amagi = getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696");
+const pool = getContract("eip155:14", "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4");
 ```
 
 ## Provider picker vs confirmations

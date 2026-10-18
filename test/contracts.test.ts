@@ -14,7 +14,7 @@ import {
 } from "../src/contracts.js";
 import buildPackage from "../src/script/packageBuild.js";
 
-const AMAGI_V2 = "0x5ed8551f90acc6395810d8274b019bf13ef1f696";
+const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
 
 describe("contract catalog", { concurrency: false }, () => {
   test("data/contracts matches the schema and all.json aggregates", () => {
@@ -22,30 +22,32 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.deepEqual(errors, [], errors.join("\n"));
   });
 
-  test("seed covers aggregators, pools, vaults, and Firelight", () => {
+  test("seed covers pools, vaults, and Firelight", () => {
     const all = getContracts();
     const count = (category: ContractInfo["category"]) =>
       all.filter((contract) => contract.category === category).length;
-    assert.equal(count("aggregator"), 10);
+    assert.equal(count("aggregator"), 0);
     assert.equal(count("collateral-pool"), 10);
     assert.equal(count("agent-vault"), 10);
     assert.equal(count("staking-protocol"), 2);
-    assert.equal(all.length, 32);
+    assert.equal(all.length, 22);
+    assert.ok(CONTRACT_CATEGORIES.includes("aggregator"));
     assert.ok(CONTRACT_CATEGORIES.includes("router"));
     assert.ok(CONTRACT_CATEGORIES.includes("bridge"));
     assert.ok(CONTRACT_CATEGORIES.includes("dapp-contract"));
   });
 
   test("getContract is case-insensitive and getContracts filters by CAIP-2", () => {
-    const lower = getContract("eip155:14", AMAGI_V2);
-    const checksum = getContract("eip155:14", "0x5ED8551F90aCC6395810d8274b019bf13EF1f696");
+    const lower = getContract("eip155:14", BIFROST_POOL);
+    const checksum = getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
     assert.ok(lower);
     assert.deepEqual(checksum, lower);
-    assert.equal(lower.projectName, "AmagiSwap");
-    assert.equal(lower.contractName, "Aggregator V2");
-    assert.equal(lower.category, "aggregator");
+    assert.equal(lower.projectName, "Bifrost Wallet");
+    assert.equal(lower.contractName, "Collateral Pool");
+    assert.equal(lower.category, "collateral-pool");
     assert.equal(lower.chain, "eip155:14");
-    assert.equal(lower.logoURL, "contracts/logos/amagiswap.webp");
+    assert.equal(lower.logoURL, "contracts/logos/bifrost-wallet.webp");
+    assert.equal(getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696"), null);
 
     const auPool = getContract("eip155:14", "0xf45c1a5Ef4fB09F1c33f772175b2fec229D1885B");
     assert.equal(auPool?.projectName, "AU");
@@ -58,10 +60,10 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(firelight?.category, "staking-protocol");
     assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 16);
-    assert.equal(getContracts("eip155:19").length, 12);
-    assert.equal(getContracts("eip155:16").length, 2);
-    assert.equal(getContracts("eip155:114").length, 2);
+    assert.equal(getContracts("eip155:14").length, 11);
+    assert.equal(getContracts("eip155:19").length, 10);
+    assert.equal(getContracts("eip155:114").length, 1);
+    assert.throws(() => getContracts("eip155:16"), /Unknown contract chain/);
 
     assert.equal(getContract("eip155:14", "0x0000000000000000000000000000000000000001"), null);
     const flare = getContracts("eip155:14");
@@ -73,37 +75,44 @@ describe("contract catalog", { concurrency: false }, () => {
 
   test("rejects a non-lowercase address, a bad category, and a chain mismatch", () => {
     const base = {
-      address: "0x5ed8551f90acc6395810d8274b019bf13ef1f696",
+      address: BIFROST_POOL,
       chain: "eip155:14",
-      projectName: "AmagiSwap",
-      contractName: "Aggregator V2",
-      category: "aggregator",
+      projectName: "Bifrost Wallet",
+      contractName: "Collateral Pool",
+      category: "collateral-pool",
     };
     assert.deepEqual(
       validateContractRecord(
-        { ...base, address: "0x5ED8551F90aCC6395810d8274b019bf13EF1f696" },
-        { chainPath: "eip155-14", fileName: "0x5ed8551f90acc6395810d8274b019bf13ef1f696.json" },
+        { ...base, address: "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4" },
+        { chainPath: "eip155-14", fileName: "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4.json" },
       ).some((error) => error.includes("lowercase")),
       true,
     );
     assert.deepEqual(
       validateContractRecord(
         { ...base, category: "dex" },
-        { chainPath: "eip155-14", fileName: `${AMAGI_V2}.json` },
+        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
       ).some((error) => error.includes("category")),
       true,
     );
     assert.deepEqual(
       validateContractRecord(
+        { ...base, category: "aggregator", contractName: "Aggregator" },
+        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
+      ),
+      [],
+    );
+    assert.deepEqual(
+      validateContractRecord(
         { ...base, chain: "eip155-14" },
-        { chainPath: "eip155-14", fileName: `${AMAGI_V2}.json` },
+        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
       ).some((error) => error.includes("CAIP-2")),
       true,
     );
     assert.deepEqual(
       validateContractRecord(
         { ...base, listed: true },
-        { chainPath: "eip155-14", fileName: `${AMAGI_V2}.json` },
+        { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` },
       ).some((error) => error.includes("unexpected field")),
       true,
     );
@@ -121,14 +130,14 @@ describe("contract catalog", { concurrency: false }, () => {
     const logoURL = "contracts/eip155-14/0x0000000000000000000000000000000000000001/logo.webp";
     const logoPath = path.join(process.cwd(), "data", logoURL);
     const entry = {
-      address: AMAGI_V2,
+      address: BIFROST_POOL,
       chain: "eip155:14",
-      projectName: "AmagiSwap",
-      contractName: "Aggregator V2",
-      category: "aggregator",
+      projectName: "Bifrost Wallet",
+      contractName: "Collateral Pool",
+      category: "collateral-pool",
       logoURL,
     };
-    const ctx = { chainPath: "eip155-14", fileName: `${AMAGI_V2}.json` };
+    const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
     try {
       fs.writeFileSync(logoPath, Buffer.from("not-webp"));
       assert.ok(validateContractRecord(entry, ctx).some((error) => error.includes("WebP")));
@@ -157,9 +166,9 @@ describe("published package contract lookups", { concurrency: false }, () => {
     };
     const fromPackage = assets.getContract(
       "eip155:14",
-      "0x5ED8551F90aCC6395810d8274b019bf13EF1f696",
+      "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4",
     );
-    const fromCatalog = getContract("eip155:14", AMAGI_V2);
+    const fromCatalog = getContract("eip155:14", BIFROST_POOL);
     assert.ok(fromPackage?.logoURL);
     assert.ok(fromCatalog?.logoURL);
     assert.equal(fromPackage.logoURL, resolveAssetURL(fromCatalog.logoURL));
