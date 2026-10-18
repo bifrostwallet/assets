@@ -1,7 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
-import { providerLogoPath, rebuildAllProvidersAllJson, sortProviderInfo } from "../convert.js";
+import {
+  formatRepoJson,
+  providerLogoPath,
+  rebuildAllProvidersAllJson,
+  sortProviderInfo,
+} from "../convert.js";
 import { isMain } from "../isMain.js";
 
 const ADDRESS_FIELDS = [
@@ -67,7 +72,11 @@ function normalizeProviders(): void {
         info.domainLinked = false;
       }
 
-      const after = `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`;
+      const sorted = sortProviderInfo(info);
+      let after = `${JSON.stringify(sorted, null, 2)}\n`;
+      if (after !== before) {
+        after = formatRepoJson(sorted, infoPath);
+      }
       if (after !== before) {
         fs.writeFileSync(infoPath, after);
         updated++;

@@ -1,5 +1,7 @@
+import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import bs58 from "bs58";
 import { withAbsoluteLogoURL } from "./assetUrl.js";
@@ -160,6 +162,28 @@ export function providerLogoPath(networkPath: string, identityAddress: string): 
   return `providers/${networkPath}/${identityAddress.toLowerCase()}/logo.webp`;
 }
 
+const require = createRequire(import.meta.url);
+
+/**
+ * JSON.stringify expands short arrays. Biome collapses them when they fit on one
+ * line, and CI lints committed JSON, so catalog writers have to match that style.
+ */
+export function formatRepoJson(value: unknown, filePath: string): string {
+  const json = `${JSON.stringify(value, null, 2)}\n`;
+  const biomeBin = require.resolve("@biomejs/biome/bin/biome");
+  return execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", filePath], {
+    cwd: process.cwd(),
+    input: json,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+}
+
+/** Writes {@link formatRepoJson} to disk. */
+export function writeFormattedJson(filePath: string, value: unknown): void {
+  fs.writeFileSync(filePath, formatRepoJson(value, filePath));
+}
+
 /**
  * Rebuilds data/providers/<chainPath>/all.json from every per-provider info.json.
  * Existing all.json order is kept. Providers not already in that file are appended,
@@ -215,7 +239,7 @@ export function rebuildProvidersAllJson(chainPath: string): void {
     return provider ? [provider] : [];
   });
 
-  fs.writeFileSync(allPath, `${JSON.stringify(providers, null, 2)}\n`);
+  writeFormattedJson(allPath, providers);
 }
 
 /**
@@ -347,5 +371,5 @@ export function rebuildDappsAllJson(): void {
   dapps.sort((a, b) => a.title.localeCompare(b.title));
 
   const allPath = path.join(dappsDir, "all.json");
-  fs.writeFileSync(allPath, `${JSON.stringify(dapps, null, 2)}\n`);
+  writeFormattedJson(allPath, dapps);
 }
