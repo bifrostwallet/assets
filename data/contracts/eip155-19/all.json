@@ -1,12 +1,5 @@
 [
   {
-    "address": "0x02f0826ef6ad107cfc861152b32b52fd11bab9ed",
-    "chain": "eip155:19",
-    "projectName": "Songbird",
-    "contractName": "WSGB",
-    "category": "dapp-contract"
-  },
-  {
     "address": "0x0afca56dd247f932bc4a7754a3307ffa814e11bd",
     "chain": "eip155:19",
     "projectName": "Oracle Daemon",
