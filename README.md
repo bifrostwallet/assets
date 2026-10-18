@@ -135,7 +135,7 @@ Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwalle
 
 Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. There is no per-dapp `category` or `featured` flag. Dapps have no `all.json`. Aggregates are only for tokens and providers.
 
-Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `marketplaces`, `social`, `games`, `other`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. Every dapp folder must appear in at least one chip. Validation fails otherwise. `marketplaces` is NFT marketplaces only. `other` is the fallback chip. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
+Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. Every dapp folder must appear in at least one chip. Validation fails otherwise. `bridges` is cross-chain token and message transfer. `marketplaces` is NFT marketplaces only. `other` is the fallback chip. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
 
 Place a dapp from its official site. Do not filter chips by network.
 

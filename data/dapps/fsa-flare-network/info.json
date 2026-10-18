@@ -1,0 +1,8 @@
+{
+  "title": "Flare Smart Accounts",
+  "description": "Flare Smart Accounts assign each XRPL address a Flare account. The address controls it with an XRPL payment, including steps in the FAssets workflow.",
+  "url": "https://fsa.flare.network",
+  "logoURL": "dapps/fsa-flare-network/logo.webp",
+  "logoHash": "3004729ba6373fe7c60dda0e100a638a9bf0db77b364913ef9a25f17e68550cc",
+  "chains": ["eip155:14", "xrpl:0"]
+}

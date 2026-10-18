@@ -20,7 +20,7 @@ Dapp URLs must be confirmed from an official project source: the project's own d
 
 ## Dapp categories
 
-Browser chips are the hand-edited `data/dapps/categories.json`, an ordered array ending with `other`. Place a dapp from its official site. Never sort the file, never infer a chip, and never add network filters. `marketplaces` is NFT marketplaces only. A dapp that matches no earlier chip goes in `other`. Validation fails if a dapp is in no chip.
+Browser chips are the hand-edited `data/dapps/categories.json`, an ordered array ending with `other`. `bridges` sits after `staking`. Place a dapp from its official site. Never sort the file, never infer a chip, and never add network filters. `marketplaces` is NFT marketplaces only. A dapp that matches no earlier chip goes in `other`. Validation fails if a dapp is in no chip.
 
 ## Code and documentation
 

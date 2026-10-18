@@ -1,0 +1,8 @@
+{
+  "title": "USDT0",
+  "description": "USDT0 is Tether's omnichain USDT, transferred across chains with LayerZero's OFT standard. The transfer page is the official interface for those moves.",
+  "url": "https://usdt0.to/transfer",
+  "logoURL": "dapps/usdt0-to/logo.webp",
+  "logoHash": "19652ae0ac7b995783a1505954291ab445010bf1aee8ef4b694339084824932a",
+  "chains": ["eip155:1", "eip155:10", "eip155:137", "eip155:14", "eip155:42161", "eip155:999"]
+}

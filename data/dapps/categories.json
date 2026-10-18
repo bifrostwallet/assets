@@ -22,7 +22,12 @@
   {
     "id": "staking",
     "label": "Staking",
-    "dapps": ["firelight-finance", "au-cc"]
+    "dapps": ["firelight-finance", "au-cc", "portal-flare-network"]
+  },
+  {
+    "id": "bridges",
+    "label": "Bridges",
+    "dapps": ["layerzero-network", "stargate-finance", "usdt0-to"]
   },
   {
     "id": "marketplaces",
@@ -48,9 +53,8 @@
       "oracle-daemon-com",
       "au-cc",
       "bifrostwallet-com",
-      "layerzero-network",
-      "stargate-finance",
-      "flare-network"
+      "flare-network",
+      "fsa-flare-network"
     ]
   }
 ]

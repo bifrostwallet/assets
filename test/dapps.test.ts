@@ -51,6 +51,7 @@ const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   "enosys-global": ["eip155:1", "eip155:14", "eip155:19", "eip155:50", "xrpl:0"],
   "firelight-finance": ["eip155:14"],
   "flare-network": ["eip155:14", "eip155:19"],
+  "fsa-flare-network": ["eip155:14", "xrpl:0"],
   "kinetic-market": ["eip155:14"],
   "layerzero-network": [
     "eip155:1",
@@ -74,6 +75,7 @@ const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   ],
   "nortso-xyz": ["eip155:14", "eip155:19"],
   "oracle-daemon-com": ["eip155:14", "eip155:19"],
+  "portal-flare-network": ["eip155:14", "eip155:19"],
   "sparkdex-ai": ["eip155:14"],
   "spectra-finance": [
     "eip155:1",
@@ -95,6 +97,7 @@ const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
     "eip155:8453",
   ],
   "tsoatlas-xyz": ["eip155:14", "eip155:19"],
+  "usdt0-to": ["eip155:1", "eip155:10", "eip155:137", "eip155:14", "eip155:42161", "eip155:999"],
 };
 
 function getDappSlugs(): string[] {
@@ -183,7 +186,8 @@ describe("curated dapps", () => {
         ["sparkdex-ai", "blazeswap-xyz", "enosys-global"],
         ["kinetic-market", "morpho-org", "enosys-global"],
         ["spectra-finance", "enosys-global"],
-        ["firelight-finance", "au-cc"],
+        ["firelight-finance", "au-cc", "portal-flare-network"],
+        ["layerzero-network", "stargate-finance", "usdt0-to"],
         [],
         [],
         [],
@@ -193,9 +197,8 @@ describe("curated dapps", () => {
           "oracle-daemon-com",
           "au-cc",
           "bifrostwallet-com",
-          "layerzero-network",
-          "stargate-finance",
           "flare-network",
+          "fsa-flare-network",
         ],
       ],
     );
