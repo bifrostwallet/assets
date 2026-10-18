@@ -1,0 +1,10 @@
+{
+  "title": "NORTSO",
+  "description": "NORTSO is an FTSO data provider and FAssets agent on Flare and Songbird.",
+  "url": "https://nortso.xyz",
+  "logoURL": "dapps/nortso-xyz/logo.webp",
+  "logoHash": "a38988ceb7350e5483984ba29e55160f7fa055a79ef852e2e549ad14bb082166",
+  "chains": ["eip155:14", "eip155:19"],
+  "category": "other",
+  "featured": false
+}

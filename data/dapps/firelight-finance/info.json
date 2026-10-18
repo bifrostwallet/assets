@@ -1,0 +1,10 @@
+{
+  "title": "Firelight",
+  "description": "Firelight is a staking protocol for FXRP on Flare.",
+  "url": "https://firelight.finance",
+  "logoURL": "dapps/firelight-finance/logo.webp",
+  "logoHash": "0923f5d660e9136b9f9ec10a1fc19eca2f00b3af768443d89e4d65811733700e",
+  "chains": ["eip155:14"],
+  "category": "yield",
+  "featured": false
+}

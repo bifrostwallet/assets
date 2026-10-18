@@ -45,8 +45,8 @@ const pool = getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b
 // pool.contractName === "Collateral Pool"
 // pool.category === "fassets"
 // CONTRACT_CATEGORY_LABELS[pool.category] === "FAssets"
-// pool.logoURL ends with "projects/bifrost-wallet/logo.webp"
-// pool.logoHash is the SHA-256 of that logo
+// pool.logoURL ends with "dapps/bifrostwallet-com/logo.webp"
+// pool.logoHash is the SHA-256 of that dapp logo
 const flareContracts = getContracts("eip155:14");
 const everyContract = getContracts();
 ```
@@ -86,7 +86,7 @@ https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip15
 https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-14/all.json
 ```
 
-Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>/info.json` and resolves each logo from `data/projects/<slug>/` (or a per-contract override). There is no `data/contracts/<chain>/all.json`.
+Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>.json`. `projectName` is the dapp title, and `logoURL` / `logoHash` are copies of that dapp's logo. There is no `data/contracts/<chain>/all.json`.
 
 Relative `logoURL` values resolve against:
 

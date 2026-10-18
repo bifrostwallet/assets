@@ -556,6 +556,7 @@ export async function ingestDappSubmission(
     description,
     url,
     logoURL: `dapps/${slug}/logo.webp`,
+    logoHash,
     chains: [...chains].sort(),
     category: category as DappCategory,
     featured: existingInfo?.featured ?? false,

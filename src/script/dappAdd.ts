@@ -1,7 +1,13 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { DAPP_CATEGORIES, DAPP_CHAINS, type DappCategory, type DappInfo } from "../config.js";
-import { dappSlugFromUrl, rebuildDappsAllJson, sortDappInfo, toRelativePath } from "../convert.js";
+import {
+  calculateHash,
+  dappSlugFromUrl,
+  rebuildDappsAllJson,
+  sortDappInfo,
+  toRelativePath,
+} from "../convert.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
 import { isValidDescription, isValidImage, isValidName, isValidURL } from "../validate.js";
@@ -126,12 +132,13 @@ async function addDapp(): Promise<void> {
     );
     console.info(`✅ Size: ${logoValidation.metadata?.sizeKB.toFixed(2)}KB`);
 
-    const logoURL = `REPLACE_WITH_YOUR_BUCKET_URL/dapps/${slug}/logo.webp`;
+    const logoURL = `dapps/${slug}/logo.webp`;
     const dappInfo = sortDappInfo({
       title,
       description,
       url,
       logoURL,
+      logoHash: calculateHash(logoPath),
       chains,
       category,
       featured,

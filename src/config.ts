@@ -255,10 +255,14 @@ export type DappCategory = (typeof DAPP_CATEGORIES)[number];
  * Interface defining the structure of curated dapp bookmark information
  */
 export interface DappInfo {
+  /** Display name. Contract lookups expose this as projectName. */
   title: string;
   description: string;
   url: string;
+  /** Relative logo path in git (`dapps/<slug>/logo.webp`). Absolute in all.json. */
   logoURL: string;
+  /** SHA-256 of logo.webp. Contract files copy this with logoURL. */
+  logoHash: string;
   chains: string[];
   category: DappCategory;
   featured: boolean;
@@ -272,6 +276,7 @@ export const DAPP_INFO_KEYS = [
   "description",
   "url",
   "logoURL",
+  "logoHash",
   "chains",
   "category",
   "featured",

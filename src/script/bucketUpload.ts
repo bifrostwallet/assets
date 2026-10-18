@@ -150,16 +150,18 @@ function collectUploads(assetBase: string): {
     });
   }
 
-  // Contract and project logos. Lists stay in per-address files and the NPM package.
-  const walkLogos = (dir: string): void => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const fullPath = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walkLogos(fullPath);
-        continue;
-      }
-      const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
-      if (entry.name.endsWith(".webp")) {
+  // Dapp logos. Contract lists copy logoURL/logoHash and stay in the NPM package.
+  const dappsDir = path.join(dataDir, "dapps");
+  if (fs.existsSync(dappsDir)) {
+    const walkDappLogos = (dir: string): void => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walkDappLogos(fullPath);
+          continue;
+        }
+        if (entry.name !== "logo.webp") continue;
+        const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
         uploads.push({
           localPath: fullPath,
           destination: `${BUCKET_PREFIX}${relative}`,
@@ -167,11 +169,8 @@ function collectUploads(assetBase: string): {
           contentType: "image/webp",
         });
       }
-    }
-  };
-  for (const section of ["contracts", "projects"] as const) {
-    const sectionDir = path.join(dataDir, section);
-    if (fs.existsSync(sectionDir)) walkLogos(sectionDir);
+    };
+    walkDappLogos(dappsDir);
   }
 
   const sections: AssetsManifestBody["sections"] = {};

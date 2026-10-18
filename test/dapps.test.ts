@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { describe, test } from "node:test";
+import { withAbsoluteLogoURL } from "../src/assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_INFO_KEYS, type DappInfo } from "../src/config.js";
 import { dappSlugFromUrl, networkPathToCaip2, sortDappInfo } from "../src/convert.js";
 import { isValidDescription, isValidName, isValidURL } from "../src/validate.js";
@@ -46,8 +48,12 @@ describe("curated dapps", () => {
       assert.equal(isValidName(info.title), true);
       assert.equal(isValidDescription(info.description), true);
       assert.equal(isValidURL(info.url, "website"), true);
-      assert.equal(typeof info.logoURL, "string");
-      assert.ok(info.logoURL.includes(`/dapps/${slug}/logo.webp`));
+      assert.equal(info.logoURL, `dapps/${slug}/logo.webp`);
+      assert.match(info.logoHash, /^[0-9a-f]{64}$/);
+      const logoPath = path.join(DAPPS_DIR, slug, "logo.webp");
+      assert.equal(fs.existsSync(logoPath), true);
+      const logoHash = createHash("sha256").update(fs.readFileSync(logoPath)).digest("hex");
+      assert.equal(info.logoHash, logoHash);
       assert.ok(Array.isArray(info.chains));
       assert.ok(info.chains.length > 0);
       for (const chain of info.chains) {
@@ -67,7 +73,7 @@ describe("curated dapps", () => {
 
   test("all.json matches aggregated and sorted folder info", () => {
     const expected = folderDapps
-      .map(({ info }) => sortDappInfo(info))
+      .map(({ info }) => withAbsoluteLogoURL(sortDappInfo(info)))
       .sort((a, b) => a.title.localeCompare(b.title));
 
     assert.deepEqual(allDapps, expected);

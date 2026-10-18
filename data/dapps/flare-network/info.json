@@ -1,0 +1,10 @@
+{
+  "title": "Flare",
+  "description": "Flare is the EVM network that hosts these protocol contracts.",
+  "url": "https://flare.network",
+  "logoURL": "dapps/flare-network/logo.webp",
+  "logoHash": "2ec926db32adc4a4fa5c8b9b328660361be1e997e992d519fdaede7c98d0f007",
+  "chains": ["eip155:14"],
+  "category": "other",
+  "featured": false
+}

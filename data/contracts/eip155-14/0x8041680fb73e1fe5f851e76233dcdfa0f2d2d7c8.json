@@ -1,0 +1,8 @@
+{
+  "address": "0x8041680fb73e1fe5f851e76233dcdfa0f2d2d7c8",
+  "dapp": "kinetic-market",
+  "contractName": "Unitroller",
+  "category": "lending",
+  "logoURL": "dapps/kinetic-market/logo.webp",
+  "logoHash": "a283fa47d55c980dfcb980db892684566063baa9598be0736ef638a776bcfca7"
+}
