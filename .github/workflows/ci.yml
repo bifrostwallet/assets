@@ -72,5 +72,8 @@ jobs:
       - name: Check token catalog
         run: ./yarn check:tokens
 
+      - name: Check dapp catalog
+        run: ./yarn check:dapps
+
       - name: Check contract catalog
         run: ./yarn check:contracts
