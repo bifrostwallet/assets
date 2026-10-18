@@ -95,7 +95,7 @@ async function removeDapp(): Promise<void> {
 
     console.info(`\n✅ Dapp successfully removed from ${toRelativePath(dappDir)}`);
     console.info(
-      `Remove ${slug} from data/dapps/categories.json (chips and unlisted) by hand. That file is not updated here.`,
+      `Remove ${slug} from data/dapps/categories.json by hand. That file is not updated here.`,
     );
   } catch (error) {
     console.error(

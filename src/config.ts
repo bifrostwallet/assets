@@ -245,7 +245,7 @@ export const SIGNED_PROVIDER_INFO_KEYS = PROVIDER_INFO_KEYS.filter(
 /**
  * Browser chips for the dapp browser, in chip order.
  * Separate from contract categories. Membership is the hand-edited
- * `data/dapps/categories.json` (`categories` plus `unlisted`), not a field on each dapp.
+ * `data/dapps/categories.json`, not a field on each dapp.
  */
 export const DAPP_CATEGORIES = [
   "featured",
@@ -256,6 +256,7 @@ export const DAPP_CATEGORIES = [
   "marketplaces",
   "social",
   "games",
+  "other",
 ] as const;
 
 export type DappCategory = (typeof DAPP_CATEGORIES)[number];
@@ -270,6 +271,7 @@ export const DAPP_CATEGORY_LABELS: Record<DappCategory, string> = {
   marketplaces: "Marketplaces",
   social: "Social",
   games: "Games",
+  other: "Other",
 };
 
 /**

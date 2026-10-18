@@ -593,7 +593,7 @@ export async function ingestDappSubmission(
 
   console.info(`📁 Ingested dapp ${title} at ${toRelativePath(dappDir)}`);
   console.info(
-    `Add ${slug} to data/dapps/categories.json by hand, on a chip or in unlisted. That file is not updated here.`,
+    `Add ${slug} to data/dapps/categories.json by hand if it belongs on a browser chip. That file is not updated here.`,
   );
 
   return { status: "ingested", slug, infoPath };

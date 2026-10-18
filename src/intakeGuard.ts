@@ -377,8 +377,8 @@ export function assertDappIntakeDocument(doc: Record<string, unknown>): {
     category: string;
   };
   /**
-   * Signed listing hint. Rejected unless category is `other`, which is not a
-   * browser chip, so a document that sets it fails closed. Never written to info.json.
+   * Signed listing hint. Allowed only when category is `other`.
+   * Never written to info.json.
    */
   categoryOther?: string;
   submitter: string;

@@ -9,17 +9,7 @@ export interface DappCategoryGroup {
   dapps: string[];
 }
 
-/**
- * Hand-edited browser file. `categories` is the chip list. `unlisted` names
- * dapps that contracts may reference and that the browser must not show.
- */
-export interface DappCategoriesDocument {
-  categories: DappCategoryGroup[];
-  unlisted: string[];
-}
-
 const GROUP_KEYS = ["id", "label", "dapps"] as const;
-const DOCUMENT_KEYS = ["categories", "unlisted"] as const;
 
 export function dappCategoriesPath(root = process.cwd()): string {
   return path.join(root, "data", "dapps", "categories.json");
@@ -45,129 +35,86 @@ function isDappCategory(value: string): value is DappCategory {
 }
 
 /**
- * Errors for the hand-edited browser chips and the unlisted slug list.
- * Does not sort either list. An empty chip is valid. A slug may appear in
- * several chips. A slug in `unlisted` is not browsable and must not also sit
- * on a chip. A dapp folder in neither list fails.
+ * Errors for the hand-edited browser chips.
+ * Does not sort dapp lists. An empty chip is valid. A slug may appear in several chips.
  */
-export function dappCategoryErrors(document: unknown, slugs: readonly string[]): string[] {
+export function dappCategoryErrors(categories: unknown, slugs: readonly string[]): string[] {
   const errors: string[] = [];
-  if (document === null || typeof document !== "object" || Array.isArray(document)) {
-    return ["categories.json must be an object with categories and unlisted"];
+  if (!Array.isArray(categories)) {
+    return ["categories.json must be an array"];
   }
-  const record = document as Record<string, unknown>;
-  const keys = Object.keys(record);
-  const keySet = new Set(keys);
-  const extra = keys.filter((key) => !(DOCUMENT_KEYS as readonly string[]).includes(key));
-  const missing = DOCUMENT_KEYS.filter((key) => !keySet.has(key));
-  if (extra.length > 0 || missing.length > 0) {
-    errors.push("categories.json keys must be categories, unlisted");
+  if (categories.length !== DAPP_CATEGORIES.length) {
+    const order = DAPP_CATEGORIES.join(", ");
+    errors.push(`categories.json must list ${DAPP_CATEGORIES.length} chips in order: ${order}`);
   }
 
-  const knownSlugs = new Set(slugs);
   const seenIds = new Set<string>();
   const membership = new Set<string>();
-  const categories = record.categories;
+  const knownSlugs = new Set(slugs);
 
-  if (!Array.isArray(categories)) {
-    errors.push("categories must be an array");
-  } else {
-    if (categories.length !== DAPP_CATEGORIES.length) {
-      const order = DAPP_CATEGORIES.join(", ");
-      errors.push(`categories.json must list ${DAPP_CATEGORIES.length} chips in order: ${order}`);
+  for (const [index, entry] of categories.entries()) {
+    const expectedId = DAPP_CATEGORIES[index];
+    if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
+      errors.push(`categories[${index}] must be an object`);
+      continue;
+    }
+    const record = entry as Record<string, unknown>;
+    const keys = Object.keys(record);
+    const keySet = new Set(keys);
+    const extra = keys.filter((key) => !(GROUP_KEYS as readonly string[]).includes(key));
+    const missing = GROUP_KEYS.filter((key) => !keySet.has(key));
+    if (extra.length > 0 || missing.length > 0) {
+      errors.push(`categories[${index}] keys must be id, label, dapps`);
     }
 
-    for (const [index, entry] of categories.entries()) {
-      const expectedId = DAPP_CATEGORIES[index];
-      if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
-        errors.push(`categories[${index}] must be an object`);
-        continue;
-      }
-      const group = entry as Record<string, unknown>;
-      const groupKeys = Object.keys(group);
-      const groupKeySet = new Set(groupKeys);
-      const groupExtra = groupKeys.filter(
-        (key) => !(GROUP_KEYS as readonly string[]).includes(key),
-      );
-      const groupMissing = GROUP_KEYS.filter((key) => !groupKeySet.has(key));
-      if (groupExtra.length > 0 || groupMissing.length > 0) {
-        errors.push(`categories[${index}] keys must be id, label, dapps`);
-      }
-
-      const id = group.id;
-      const idLabel = typeof id === "string" ? id : String(index);
-      if (typeof id !== "string" || !isDappCategory(id)) {
-        errors.push(`categories[${index}] id is not an allowed category`);
-      } else if (expectedId && id !== expectedId) {
-        errors.push(`categories[${index}] id must be ${expectedId}`);
-      } else if (!expectedId) {
-        errors.push(`categories[${index}] id ${id} is past the chip list`);
-      }
-      if (typeof id === "string") {
-        if (seenIds.has(id)) errors.push(`category id ${id} is repeated`);
-        seenIds.add(id);
-        if (isDappCategory(id) && group.label !== DAPP_CATEGORY_LABELS[id]) {
-          errors.push(`category ${id} label must be ${DAPP_CATEGORY_LABELS[id]}`);
-        }
-      }
-
-      if (!Array.isArray(group.dapps)) {
-        errors.push(`category ${idLabel} dapps must be an array`);
-        continue;
-      }
-
-      const within = new Set<string>();
-      for (const slug of group.dapps) {
-        if (typeof slug !== "string" || slug.length === 0) {
-          errors.push(`category ${idLabel} has a non-string slug`);
-          continue;
-        }
-        if (within.has(slug)) {
-          errors.push(`slug ${slug} repeats within ${idLabel}`);
-        }
-        within.add(slug);
-        if (!knownSlugs.has(slug)) {
-          errors.push(`slug ${slug} in ${idLabel} does not exist`);
-          continue;
-        }
-        membership.add(slug);
+    const id = record.id;
+    const idLabel = typeof id === "string" ? id : String(index);
+    if (typeof id !== "string" || !isDappCategory(id)) {
+      errors.push(`categories[${index}] id is not an allowed category`);
+    } else if (expectedId && id !== expectedId) {
+      errors.push(`categories[${index}] id must be ${expectedId}`);
+    } else if (!expectedId) {
+      errors.push(`categories[${index}] id ${id} is past the chip list`);
+    }
+    if (typeof id === "string") {
+      if (seenIds.has(id)) errors.push(`category id ${id} is repeated`);
+      seenIds.add(id);
+      if (isDappCategory(id) && record.label !== DAPP_CATEGORY_LABELS[id]) {
+        errors.push(`category ${id} label must be ${DAPP_CATEGORY_LABELS[id]}`);
       }
     }
 
-    if (categories.length !== DAPP_CATEGORIES.length) {
-      for (const id of DAPP_CATEGORIES) {
-        if (!seenIds.has(id)) errors.push(`category id ${id} is missing`);
+    if (!Array.isArray(record.dapps)) {
+      errors.push(`category ${idLabel} dapps must be an array`);
+      continue;
+    }
+
+    const within = new Set<string>();
+    for (const slug of record.dapps) {
+      if (typeof slug !== "string" || slug.length === 0) {
+        errors.push(`category ${idLabel} has a non-string slug`);
+        continue;
       }
+      if (within.has(slug)) {
+        errors.push(`slug ${slug} repeats within ${idLabel}`);
+      }
+      within.add(slug);
+      if (!knownSlugs.has(slug)) {
+        errors.push(`slug ${slug} in ${idLabel} does not exist`);
+        continue;
+      }
+      membership.add(slug);
     }
   }
 
-  const unlistedSet = new Set<string>();
-  if (!Array.isArray(record.unlisted)) {
-    errors.push("unlisted must be an array");
-  } else {
-    for (const slug of record.unlisted) {
-      if (typeof slug !== "string" || slug.length === 0) {
-        errors.push("unlisted has a non-string slug");
-        continue;
-      }
-      if (unlistedSet.has(slug)) {
-        errors.push(`slug ${slug} repeats within unlisted`);
-      }
-      unlistedSet.add(slug);
-      if (!knownSlugs.has(slug)) {
-        errors.push(`slug ${slug} in unlisted does not exist`);
-        continue;
-      }
-      if (membership.has(slug)) {
-        errors.push(`slug ${slug} is listed and unlisted`);
-      }
+  if (categories.length !== DAPP_CATEGORIES.length) {
+    for (const id of DAPP_CATEGORIES) {
+      if (!seenIds.has(id)) errors.push(`category id ${id} is missing`);
     }
   }
 
   for (const slug of slugs) {
-    if (!membership.has(slug) && !unlistedSet.has(slug)) {
-      errors.push(`dapp ${slug} is in no category`);
-    }
+    if (!membership.has(slug)) errors.push(`dapp ${slug} is in no category`);
   }
 
   return errors;

@@ -111,7 +111,7 @@ async function addDapp(): Promise<void> {
     fs.writeFileSync(logoOutputPath, webp);
     console.info(`📁 Dapp logo saved to: ${toRelativePath(logoOutputPath)}`);
     console.info(
-      `Add ${slug} to data/dapps/categories.json by hand, on a chip or in unlisted. This script does not edit that file.`,
+      `Add ${slug} to data/dapps/categories.json by hand. Chip order is curated and this script does not edit that file.`,
     );
 
     console.info("\n✅ Dapp added successfully!");

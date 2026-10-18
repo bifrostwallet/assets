@@ -88,7 +88,7 @@ https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-1
 
 Contract names are `getContract` / `getContracts`. The package bundles them at build time from `data/contracts/<chain>/<address>.json`. `projectName` is the dapp title, and `logoURL` / `logoHash` are copies of that dapp's logo. There is no `data/contracts/<chain>/all.json` and no `data/dapps/all.json`. Aggregates are only the provider and token lists above.
 
-Dapp browser chips are `getDappCategories()`, and contract-owner dapps excluded from the browser are `getUnlistedDapps()`. Both come from `data/dapps/categories.json` (also at `dapps/categories.json` in this package). Chips are hand-ordered. `unlisted` is not a chip and the file is not an `all.json`.
+Dapp browser chips are `getDappCategories()`, bundled from `data/dapps/categories.json` (also at `dapps/categories.json` in this package). That file is hand-ordered and is not an `all.json`.
 
 Relative `logoURL` values resolve against:
 

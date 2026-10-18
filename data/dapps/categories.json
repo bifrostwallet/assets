@@ -1,53 +1,56 @@
-{
-  "categories": [
-    {
-      "id": "featured",
-      "label": "Featured",
-      "dapps": ["sparkdex-ai", "firelight-finance"]
-    },
-    {
-      "id": "dex",
-      "label": "DEX",
-      "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global"]
-    },
-    {
-      "id": "lending",
-      "label": "Lending",
-      "dapps": ["kinetic-market", "morpho-org", "enosys-global"]
-    },
-    {
-      "id": "yield",
-      "label": "Yield",
-      "dapps": ["spectra-finance", "enosys-global"]
-    },
-    {
-      "id": "staking",
-      "label": "Staking",
-      "dapps": ["firelight-finance", "au-cc"]
-    },
-    {
-      "id": "marketplaces",
-      "label": "Marketplaces",
-      "dapps": ["enosys-global"]
-    },
-    {
-      "id": "social",
-      "label": "Social",
-      "dapps": []
-    },
-    {
-      "id": "games",
-      "label": "Games",
-      "dapps": []
-    }
-  ],
-  "unlisted": [
-    "layerzero-network",
-    "stargate-finance",
-    "flare-network",
-    "bifrostwallet-com",
-    "nortso-xyz",
-    "tsoatlas-xyz",
-    "oracle-daemon-com"
-  ]
-}
+[
+  {
+    "id": "featured",
+    "label": "Featured",
+    "dapps": ["sparkdex-ai", "firelight-finance"]
+  },
+  {
+    "id": "dex",
+    "label": "DEX",
+    "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global"]
+  },
+  {
+    "id": "lending",
+    "label": "Lending",
+    "dapps": ["kinetic-market", "morpho-org", "enosys-global"]
+  },
+  {
+    "id": "yield",
+    "label": "Yield",
+    "dapps": ["spectra-finance", "enosys-global"]
+  },
+  {
+    "id": "staking",
+    "label": "Staking",
+    "dapps": ["firelight-finance", "au-cc"]
+  },
+  {
+    "id": "marketplaces",
+    "label": "Marketplaces",
+    "dapps": []
+  },
+  {
+    "id": "social",
+    "label": "Social",
+    "dapps": []
+  },
+  {
+    "id": "games",
+    "label": "Games",
+    "dapps": []
+  },
+  {
+    "id": "other",
+    "label": "Other",
+    "dapps": [
+      "nortso-xyz",
+      "tsoatlas-xyz",
+      "oracle-daemon-com",
+      "au-cc",
+      "bifrostwallet-com",
+      "layerzero-network",
+      "stargate-finance",
+      "flare-network"
+    ]
+  }
+]

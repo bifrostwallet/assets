@@ -88,7 +88,7 @@ const tokenBlocklist = ${blocklistRequire};
 const contractsByChain = {
 ${contractRequires}};
 
-/** Hand-ordered browser chips plus unlisted slugs. Not an all.json aggregate. */
+/** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
 
 /** Bundled snapshot of section content hashes (same algorithm as CDN manifest.json). */
@@ -217,11 +217,7 @@ function getContract(chainId, address) {
 }
 
 function getDappCategories() {
-  return dappCategories.categories;
-}
-
-function getUnlistedDapps() {
-  return dappCategories.unlisted;
+  return dappCategories;
 }
 
 function resolveAssetURL(relativePath, baseURL) {
@@ -295,7 +291,6 @@ module.exports = {
   getContracts,
   getContract,
   getDappCategories,
-  getUnlistedDapps,
   resolveAssetURL,
 };
 `;
@@ -485,14 +480,9 @@ export declare function getContracts(chainId?: ChainId): ContractInfo[];
 export declare function getContract(chainId: ChainId, address: string): ContractInfo | null;
 /**
  * Browser chips from data/dapps/categories.json, in curated order.
- * Unlisted contract-owner dapps are omitted. This is not a dapp all.json.
+ * This is not a dapp all.json.
  */
 export declare function getDappCategories(): DappCategoryGroup[];
-/**
- * Dapps referenced by contracts and excluded from the browser.
- * Hand-ordered slugs from the unlisted array. Not a chip.
- */
-export declare function getUnlistedDapps(): string[];
 /**
  * Joins a relative (or already-absolute) asset path to a base URL.
  * Defaults to the base baked into this package build (ASSET_BASE_URL / GitHub raw).

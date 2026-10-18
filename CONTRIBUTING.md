@@ -20,7 +20,7 @@ Dapp URLs must be confirmed from an official project source: the project's own d
 
 ## Dapp categories
 
-Browser chips and the not-browsable list are the hand-edited `data/dapps/categories.json`: `categories` is the ordered chips, and `unlisted` is an explicit list of dapps that contracts may reference but the browser must not show. Place a dapp from its official site. Never sort the file, never infer a chip, and never add network filters. `marketplaces` is NFT marketplaces only. A dapp that matches no chip goes in `unlisted`. Validation fails if a dapp is in neither a chip nor `unlisted`, or in both.
+Browser chips are the hand-edited `data/dapps/categories.json`, an ordered array ending with `other`. Place a dapp from its official site. Never sort the file, never infer a chip, and never add network filters. `marketplaces` is NFT marketplaces only. A dapp that matches no earlier chip goes in `other`. Validation fails if a dapp is in no chip.
 
 ## Code and documentation
 
