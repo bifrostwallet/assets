@@ -38,6 +38,13 @@
     "category": "dapp-contract"
   },
   {
+    "address": "0x51bb58357c81523dc7fc9d05f0c5921b122ee114",
+    "chain": "eip155:19",
+    "projectName": "Enosys",
+    "contractName": "Swap Router",
+    "category": "router"
+  },
+  {
     "address": "0x59103cb214eebba8d6d7af0cd0428e2176ffb94e",
     "chain": "eip155:19",
     "projectName": "Atlas TSO",

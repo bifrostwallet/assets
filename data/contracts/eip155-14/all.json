@@ -1,5 +1,12 @@
 [
   {
+    "address": "0x03e2ec137c6ab82978d52edb7b504ad2deb13f96",
+    "chain": "eip155:14",
+    "projectName": "Spectra",
+    "contractName": "Router",
+    "category": "router"
+  },
+  {
     "address": "0x088eecb467b3968da36c71f05023a1d3133b2b83",
     "chain": "eip155:14",
     "projectName": "Enosys",
@@ -44,6 +51,13 @@
     "category": "dapp-contract"
   },
   {
+    "address": "0x17aca82378c2859e40d84a373b49ee0b318020c4",
+    "chain": "eip155:14",
+    "projectName": "Enosys",
+    "contractName": "Universal Router",
+    "category": "router"
+  },
+  {
     "address": "0x1a44076050125825900e736c501f859c50fe728c",
     "chain": "eip155:14",
     "projectName": "LayerZero",
@@ -64,6 +78,13 @@
     "contractName": "Collateral Pool",
     "category": "collateral-pool",
     "logoURL": "contracts/logos/bifrost-wallet.webp"
+  },
+  {
+    "address": "0x3da466f5be8024405a366538ed7949b4ce9f015d",
+    "chain": "eip155:14",
+    "projectName": "Spectra",
+    "contractName": "Registry",
+    "category": "dapp-contract"
   },
   {
     "address": "0x45d417612e177672958dc0537c45a8f8d754ac2e",
@@ -88,11 +109,32 @@
     "logoURL": "contracts/logos/firelight.webp"
   },
   {
+    "address": "0x5c86800dfc65ca3e3a062feeee4d867c92771b95",
+    "chain": "eip155:14",
+    "projectName": "Spectra",
+    "contractName": "Factory",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0x5fd34090e9b195d8482ad3cc63db078534f1b113",
+    "chain": "eip155:14",
+    "projectName": "Enosys",
+    "contractName": "Swap Router",
+    "category": "router"
+  },
+  {
     "address": "0x69d57b9d705ead73a5d2f2476c30c55bd755cc2f",
     "chain": "eip155:14",
     "projectName": "SparkDEX",
     "contractName": "Swap Router V4",
     "category": "router"
+  },
+  {
+    "address": "0x6fc83ecc0e8142635d77200e5052be8a0a9d2f42",
+    "chain": "eip155:14",
+    "projectName": "Morpho",
+    "contractName": "Vault V2 Factory",
+    "category": "dapp-contract"
   },
   {
     "address": "0x71ee56f6b793386cecf536cd566ff50fe558f70e",
@@ -148,10 +190,24 @@
     "logoURL": "contracts/logos/bifrost-wallet.webp"
   },
   {
+    "address": "0xb371cfee69984d1f3447d49217889c7388ba2027",
+    "chain": "eip155:14",
+    "projectName": "Morpho",
+    "contractName": "Bundler3",
+    "category": "dapp-contract"
+  },
+  {
     "address": "0xc8f55c5aa2c752ee285bd872855c749f4ee6239b",
     "chain": "eip155:14",
     "projectName": "Flare",
     "contractName": "Reward Manager",
+    "category": "dapp-contract"
+  },
+  {
+    "address": "0xc9b6b30b9326da62cefe34a54473ef7702a386e6",
+    "chain": "eip155:14",
+    "projectName": "Morpho",
+    "contractName": "Public Allocator",
     "category": "dapp-contract"
   },
   {
@@ -190,6 +246,13 @@
     "contractName": "Agent Vault",
     "category": "agent-vault",
     "logoURL": "contracts/logos/au.webp"
+  },
+  {
+    "address": "0xf4346f5132e810f80a28487a79c7559d9797e8b0",
+    "chain": "eip155:14",
+    "projectName": "Morpho",
+    "contractName": "Morpho",
+    "category": "dapp-contract"
   },
   {
     "address": "0xf45c1a5ef4fb09f1c33f772175b2fec229d1885b",

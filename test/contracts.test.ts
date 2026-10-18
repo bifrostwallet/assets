@@ -30,10 +30,10 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("collateral-pool"), 10);
     assert.equal(count("agent-vault"), 10);
     assert.equal(count("staking-protocol"), 2);
-    assert.equal(count("router"), 6);
+    assert.equal(count("router"), 10);
     assert.equal(count("bridge"), 3);
-    assert.equal(count("dapp-contract"), 11);
-    assert.equal(all.length, 42);
+    assert.equal(count("dapp-contract"), 17);
+    assert.equal(all.length, 52);
     assert.ok(CONTRACT_CATEGORIES.includes("aggregator"));
     assert.ok(CONTRACT_CATEGORIES.includes("router"));
     assert.ok(CONTRACT_CATEGORIES.includes("bridge"));
@@ -63,8 +63,8 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(firelight?.category, "staking-protocol");
     assert.equal(firelight?.logoURL, "contracts/logos/firelight.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 27);
-    assert.equal(getContracts("eip155:19").length, 14);
+    assert.equal(getContracts("eip155:14").length, 36);
+    assert.equal(getContracts("eip155:19").length, 15);
     assert.equal(getContracts("eip155:114").length, 1);
 
     assert.equal(getContract("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d"), null);
@@ -79,6 +79,15 @@ describe("contract catalog", { concurrency: false }, () => {
     const endpoint = getContract("eip155:14", "0x1a44076050125825900e736c501f859c50fE728c");
     assert.equal(endpoint?.projectName, "LayerZero");
     assert.equal(endpoint?.category, "bridge");
+    const enosys = getContract("eip155:14", "0x5FD34090E9b195d8482Ad3CC63dB078534F1b113");
+    assert.equal(enosys?.projectName, "Enosys");
+    assert.equal(enosys?.contractName, "Swap Router");
+    const morpho = getContract("eip155:14", "0xF4346F5132e810f80a28487a79c7559d9797E8B0");
+    assert.equal(morpho?.projectName, "Morpho");
+    assert.equal(morpho?.category, "dapp-contract");
+    const spectra = getContract("eip155:14", "0x03E2eC137c6aB82978D52eDB7b504ad2DEb13F96");
+    assert.equal(spectra?.projectName, "Spectra");
+    assert.equal(spectra?.contractName, "Router");
     assert.throws(() => getContracts("eip155:16"), /Unknown contract chain/);
 
     assert.equal(getContract("eip155:14", "0x0000000000000000000000000000000000000001"), null);
