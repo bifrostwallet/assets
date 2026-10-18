@@ -135,7 +135,13 @@ Self-serve dapp bookmarks via [bifrostwallet.com/list/dapp](https://bifrostwalle
 
 Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `info.json` keeps a relative `logoURL` (`dapps/<slug>/logo.webp`) and `logoHash` (SHA-256 of that file). `title` is the display name. There is no per-dapp `category` or `featured` flag. Dapps have no `all.json`. Aggregates are only for tokens and providers.
 
-Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. Every dapp folder must appear in at least one chip. Validation fails otherwise. `bridges` is cross-chain token and message transfer. `marketplaces` is NFT marketplaces only. `other` is the fallback chip. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
+Browser chips live only in the hand-edited `data/dapps/categories.json`: an ordered array of `{ id, label, dapps }`. Chip order is `featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`. Order inside a chip is curated and is never sorted. A dapp may appear in more than one chip. Every dapp folder must appear in at least one chip. `./yarn check:contracts` fails otherwise. `./yarn check:dapps` warns in that case and still exits 0. `bridges` is cross-chain token and message transfer. `marketplaces` is NFT marketplaces only. `other` is the fallback chip. The NPM package ships that file as `getDappCategories()`. It is not an aggregate `all.json`.
+
+```bash
+./yarn check:dapps
+```
+
+`./yarn check:dapps` fails when an `info.json` breaks the schema (title, description, https URL, `logoURL`, `logoHash`, allowed CAIP-2 chains), when `logo.webp` is missing, not WebP, the wrong size, or a different hash, when `categories.json` names a missing slug, repeats a slug inside one chip, or uses a category id outside `DAPP_CATEGORIES`, and when a contract's `dapp` slug is missing or its `logoHash` does not match that dapp.
 
 Place a dapp from its official site. Do not filter chips by network.
 
