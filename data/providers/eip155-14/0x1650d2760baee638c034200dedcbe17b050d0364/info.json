@@ -1,8 +1,8 @@
 {
   "name": "Bifrost Wallet",
-  "description": "Bifrost Wallet runs a competitive, accurate and reliable oracle service since 2021. Developed by Towo Labs a Flare Network development partner.",
+  "description": "Bifrost Wallet runs a competitive, accurate and reliable oracle service since 2021.",
   "logoURL": "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
-  "logoHash": "c61db8ffb2f428b0bb346e3334de605e6b6ff969b07ed834240535f8708c4dd2",
+  "logoHash": "006a705508784a43c37bbebc9e31ddb34625c781be26a47ba8c0e935f6e95ee7",
   "websiteURL": "https://bifrostwallet.com",
   "links": {
     "github": "https://github.com/bifrostwallet",
@@ -23,6 +23,7 @@
     "NodeID-GZEWkCpn852hwKhbGNJgZvbjtvEfU6Ktg",
     "NodeID-MKeSBNK4dMPNnvPPxb2xEjbeyyJMc9tfc"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": true,
