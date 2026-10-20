@@ -20,26 +20,58 @@ Use the listing form on bifrostwallet.com; no GitHub account or repository inter
 2. Connect the wallet holding your identity address (or paste the address); entity data is fetched from the EntityManager and the network is detected automatically
 3. Fill in name, description, website, social links and upload a logo ([image requirements](#logo-requirements))
 4. Confirm the [listing acknowledgement](#listing-acknowledgement) (required checkbox)
-5. Sign EIP-712 typed data with the wallet holding your **identity address**
+5. Sign the EIP-712 `ProviderListing` typed data under [Ownership signatures](#ownership-signatures) with the wallet holding your **identity address**
 6. Submit: your listing is verified and curated into [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets), and goes live once reviewed
 
 Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, go through the app again.
 
 ### Ownership signatures
 
-Every provider entry carries a `signatures.json` proving control of the identity address. Signatures use **EIP-712** (`eth_signTypedData_v4`, domain `Bifrost Assets`). The signed payload is `name`, `description`, `websiteURL`, `links`, `identityAddress`, `acknowledgedResponsibilities`, and `logoHash`. It excludes:
+Every provider entry carries a `signatures.json` proving control of the identity address. The requirement is a **self-signature** by that address: EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`.
 
-- `logoURL` is a hosting detail; logo integrity is covered by the signed `logoHash`
-- `listed` is granted by curators (see [listed in Bifrost Wallet](#listed-in-bifrost-wallet))
-- `managementGroup` is synced from that network's on-chain PollingManagementGroup (Flare and Songbird each have their own group)
-- `domainLinked` is refreshed nightly from optional website well-known / DNS linkage
-- `dualNetwork` marks the same brand present on both Flare and Songbird (kept current by `sync:dual-network`)
-- `firstTransaction` records the earliest known on-chain activity
-- `delegationAddress`, `signingPolicyAddress`, `submitAddress`, `submitSignaturesAddress`, `publicKey`, and `validators` are the on-chain snapshot, including validator NodeIDs. A nightly job may update them without a new signature
+The domain is `name` `"Bifrost Assets"`, `version` `"1"`, `chainId` (the id in `eip155-<id>`; Flare is 14, Songbird is 19), and `salt` `keccak256` of the UTF-8 string `https://bifrostwallet.com` (`0xffc5336f20c2026b0f53d269def3cdffa3ca99b07e238af05f263a89517104f7`). The example below uses Flare's chain id.
 
-CI verifies all signatures cryptographically (`yarn verify:providers`). A change to your name, description, website, links, acknowledgement, or logo requires a new signature. Chain addresses, the public key, and validators can change without one.
+```json
+{
+  "domain": {
+    "name": "Bifrost Assets",
+    "version": "1",
+    "chainId": 14,
+    "salt": "0xffc5336f20c2026b0f53d269def3cdffa3ca99b07e238af05f263a89517104f7"
+  },
+  "primaryType": "ProviderListing",
+  "types": {
+    "ProviderListing": [
+      { "name": "name", "type": "string" },
+      { "name": "description", "type": "string" },
+      { "name": "websiteURL", "type": "string" },
+      { "name": "logoHash", "type": "bytes32" },
+      { "name": "identityAddress", "type": "address" },
+      { "name": "linksJson", "type": "string" },
+      { "name": "acknowledgedResponsibilities", "type": "bool" },
+      { "name": "contentHash", "type": "bytes32" }
+    ]
+  },
+  "message": {
+    "name": "Example",
+    "description": "Example provider",
+    "websiteURL": "https://example.com",
+    "logoHash": "0x<64 lowercase hex chars>",
+    "identityAddress": "0x<40 lowercase hex chars>",
+    "linksJson": "{\"x\":\"https://x.com/example\"}",
+    "acknowledgedResponsibilities": true,
+    "contentHash": "0x<64 lowercase hex chars>"
+  }
+}
+```
 
-The signature requirement is a **self-signature** by the entry's identity address.
+`logoHash` is the SHA-256 of the stored `logo.webp` bytes, as 64 lowercase hex characters. The typed-data field is that digest with a `0x` prefix.
+
+`messageHash` in `signatures.json` and `contentHash` are the same value: `0x` plus the SHA-256 of one canonical JSON string. That string is `JSON.stringify` of these keys, in order: `name`, `description`, `logoHash` (the unprefixed hex), `websiteURL`, `links`, `identityAddress`, `acknowledgedResponsibilities`. `links` includes only the links you set, with keys in this order: `github`, `x`, `discord`, `telegram`, `youtube`, `reddit`, `linkedin`, `tiktok`. `linksJson` is `JSON.stringify` of that same `links` object, and the typed-data `contentHash` is `messageHash` as `bytes32`.
+
+Changing any of these fields requires a new signature. Anything not listed here is not signed and can change without a new signature (for example on-chain data refreshed nightly).
+
+CI checks every signature with `yarn verify:providers`.
 
 **Deadline:** entries that predate the public launch of this repository are grandfathered until **1 November 2026**. After that date, entries without a valid self-signature are delisted (`listed: false`) until signed.
 

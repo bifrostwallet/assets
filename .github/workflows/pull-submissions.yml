@@ -96,8 +96,6 @@ jobs:
           - Valid PNG; submitter signature over content + logoHash
           - Stake check enforced at intake; fields re-validated on ingest
 
-          Outreach is sealed in the private sealed bucket (unseal CLI) — not in this PR or the git tree. Listed needs outreach on file + `domainLinked`.
-
           CI re-verifies provider signatures on this PR. Review before merge.
           EOF
           )"
