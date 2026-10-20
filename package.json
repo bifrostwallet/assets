@@ -22,7 +22,6 @@
     "sync:domain-linkage": "tsc && ./yarn node build/src/script/syncDomainLinkage.js",
     "sync:management-group": "tsc && ./yarn node build/src/script/syncManagementGroup.js",
     "sync:dual-network": "tsc && ./yarn node build/src/script/syncDualNetwork.js",
-    "sync:provider-onchain": "tsc && ./yarn node build/src/script/syncProviderOnchain.js",
     "scan:first-transaction": "tsc && ./yarn node build/src/script/scanFirstTransaction.js",
     "import:registered-providers": "tsc && ./yarn node build/src/script/importRegisteredProviders.js",
     "import:tokens": "tsc && ./yarn node build/src/script/importTokens.js",

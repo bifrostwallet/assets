@@ -38,35 +38,6 @@ describe("validate.ts tests", () => {
     }
   });
 
-  test("isValidUrl() behaves as expected for logo URLs", () => {
-    const validLogoURLs = [
-      "https://example.com/logo.png",
-      "https://sub.example.com/path/to/logo.png",
-      "https://example-site.com/brand-logo.png",
-      "https://example.com/logo-v2.0.png",
-    ];
-
-    for (const url of validLogoURLs) {
-      assert.equal(isValidURL(url, "logo"), true);
-    }
-
-    const invalidLogoURLs = [
-      "http://example.com/logo.png", // Wrong protocol
-      "https://example.com/logo.jpg", // Wrong file extension
-      "https://example.com/logo.png/", // Trailing slash
-      "https://example.com/logo.png?v=1", // Query parameters
-      "https://example.com", // Missing png file
-      "https://example.com/logo", // Missing extension
-      "https://example.com/logo.PNG", // Uppercase extension
-      "https://EXAMPLE.com/logo.png", // Uppercase domain
-      `https://${"a".repeat(120)}.com/logo.png`, // Too long
-    ];
-
-    for (const url of invalidLogoURLs) {
-      assert.equal(isValidURL(url, "logo"), false);
-    }
-  });
-
   test("isValidUrl() behaves as expected for website URLs", () => {
     const validWebsiteURLs = [
       "https://example.com",

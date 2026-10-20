@@ -24,9 +24,6 @@ import { encodePngFileToWebp, isWebpMagic } from "../webp.js";
  * `listed: false`; listing is curator-granted later. `managementGroup` starts
  * false; run `./yarn sync:management-group` after import.
  *
- * Catalog retention (prune separately): keep providers present in any of the
- * last 8 reward epochs (~1 month), not only the latest epoch.
- *
  * Usage:
  *   ./yarn import:registered-providers
  *   ./yarn import:registered-providers --dry-run
@@ -34,9 +31,6 @@ import { encodePngFileToWebp, isWebpMagic } from "../webp.js";
 
 const FSP_REWARDS_API = "https://api.github.com/repos/flare-foundation/fsp-rewards/contents";
 const FSP_REWARDS_RAW = "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main";
-
-/** ~1 month at 3.5-day reward epochs — prune threshold for inactive providers */
-export const ACTIVE_WINDOW_EPOCHS = 8;
 
 /**
  * Curator-only name/logo hints for rare on-chain imports (identity → metadata).
