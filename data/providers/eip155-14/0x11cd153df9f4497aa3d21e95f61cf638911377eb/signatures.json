@@ -1,0 +1,13 @@
+{
+  "identityAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
+  "verificationInstructions": "To verify signatures, rebuild EIP-712 typed data (domain name \"Bifrost Assets\", version \"1\", chainId of the provider network, salt keccak256(\"https://bifrostwallet.com\") when the signed info includes acknowledgedResponsibilities) with primary type ProviderListing from the provider's info.json without logoURL, listed, managementGroup, domainLinked, dualNetwork, firstTransaction, delegationAddress, signingPolicyAddress, submitAddress, submitSignaturesAddress, publicKey, and validators: human-readable signed fields, linksJson (JSON.stringify of the sorted links object), acknowledgedResponsibilities (bool) when present, and contentHash (bytes32 SHA-256 of that canonical signed JSON). Recover the signer via eth_signTypedData_v4. contentHash must equal messageHash in signatures.json.",
+  "signatures": [
+    {
+      "signerName": "FTSO Yggdrassil",
+      "signerAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
+      "messageHash": "0xf288b6f4e5f854fb7ac229d5b236c97e05892b0dd785a46075fc336f98e7f678",
+      "signature": "0x1acad748ba72e4094e4d7f5a73e1ddb779615783278a46f34b629e209c1e180339ef61f04af5d9eb74bde8f7d3393cf4be3808faa9c19a5fc67ff312730694831c",
+      "date": "2026-10-19T13:55:51.673Z"
+    }
+  ]
+}

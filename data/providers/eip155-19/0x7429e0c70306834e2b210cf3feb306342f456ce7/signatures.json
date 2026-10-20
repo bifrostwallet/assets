@@ -1,0 +1,13 @@
+{
+  "identityAddress": "0x7429e0c70306834e2b210cf3feb306342f456ce7",
+  "verificationInstructions": "To verify signatures, rebuild EIP-712 typed data (domain name \"Bifrost Assets\", version \"1\", chainId of the provider network, salt keccak256(\"https://bifrostwallet.com\") when the signed info includes acknowledgedResponsibilities) with primary type ProviderListing from the provider's info.json without logoURL, listed, managementGroup, domainLinked, dualNetwork, firstTransaction, delegationAddress, signingPolicyAddress, submitAddress, submitSignaturesAddress, publicKey, and validators: human-readable signed fields, linksJson (JSON.stringify of the sorted links object), acknowledgedResponsibilities (bool) when present, and contentHash (bytes32 SHA-256 of that canonical signed JSON). Recover the signer via eth_signTypedData_v4. contentHash must equal messageHash in signatures.json.",
+  "signatures": [
+    {
+      "signerName": "Bifrost Wallet",
+      "signerAddress": "0x7429e0c70306834e2b210cf3feb306342f456ce7",
+      "messageHash": "0x005647d5193d4b340a1cdc407df53d24d8aa5bcf5f0d1ea819defc5f24b11393",
+      "signature": "0x78dcce2fa053dfe4f0eccfab49db0b2854f48ec367dc27302a94ee009c68936f5ccf4c722727de2539733b0868bc20ba4eedbd3af956d562243c23f6cf1dbec31c",
+      "date": "2026-10-20T08:36:48.775Z"
+    }
+  ]
+}
