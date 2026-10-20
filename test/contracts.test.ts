@@ -64,7 +64,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("aggregator"), 0);
     assert.equal(count("bridge"), 3);
     assert.equal(count("lending"), 6);
-    assert.equal(count("staking"), 2);
+    assert.equal(count("staking"), 1);
     assert.equal(count("yield"), 4);
     assert.equal(count("perpetuals"), 0);
     assert.equal(count("predictions"), 0);
@@ -73,7 +73,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("fassets"), 22);
     assert.equal(count("rewards"), 6);
     assert.equal(count("other"), 0);
-    assert.equal(all.length, 52);
+    assert.equal(all.length, 51);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
       assert.match(contract.logoURL, /^dapps\/[a-z0-9-]+\/logo\.webp$/);
@@ -112,7 +112,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(firelight?.category, "staking");
     assert.equal(firelight?.logoURL, "dapps/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 36);
+    assert.equal(getContracts("eip155:14").length, 35);
     assert.equal(getContracts("eip155:19").length, 15);
     assert.equal(getContracts("eip155:114").length, 1);
 
