@@ -1,7 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { writeFormattedJson } from "./convert.js";
-import { sha256Hex } from "./manifest.js";
 
 /**
  * Curated token entry (git `info.json`).
@@ -18,11 +17,6 @@ export type TokenInfo = {
   logoURL: string;
   logoHash: string;
 };
-
-/** Native gas token entries use `address: null` (directory `native/`). */
-export function isNativeToken(info: Pick<TokenInfo, "address">): boolean {
-  return info.address === null;
-}
 
 export type TokenBlocklistEntry = {
   chainPath: string;
@@ -41,10 +35,6 @@ export function tokenDirName(address: string | null): string {
 
 export function tokenLogoRelativePath(chainPath: string, dirName: string): string {
   return `tokens/${chainPath}/${dirName}/logo.webp`;
-}
-
-export function tokenEntryDir(chainPath: string, dirName: string): string {
-  return path.join(process.cwd(), "data", "tokens", chainPath, dirName);
 }
 
 export function sortTokenInfo(info: TokenInfo): TokenInfo {
@@ -122,11 +112,6 @@ export function rebuildAllTokensAllJson(): void {
   for (const chainPath of listTokenChainPaths()) {
     rebuildTokensAllJson(chainPath);
   }
-}
-
-export function hashTokensAllJson(chainPath: string): string {
-  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  return sha256Hex(fs.readFileSync(allPath));
 }
 
 export function loadBlocklist(): TokenBlocklistEntry[] {

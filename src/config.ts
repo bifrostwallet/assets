@@ -67,21 +67,8 @@ export const PROVIDER_LOGO_REQUIREMENTS = {
   REQUIRE_SQUARE: true,
 } as const;
 
-/**
- * In-repo provider logos after WebP cutover: exact 128 WebP (same as intake).
- * Used by `isValidImage` for catalog checks. Transparent backgrounds are
- * recommended; opaque logos, including solid white, stay valid.
- */
-export const PROVIDER_LOGO_PUBLISHED_REQUIREMENTS = {
-  MAX_SIZE_KB: 24,
-  MIN_WIDTH: 128,
-  MAX_WIDTH: 128,
-  REQUIRE_SQUARE: true,
-} as const;
-
 /** Unified catalog logo rules (providers + tokens). Token bulk import flags outliers. */
 export const ASSET_LOGO_REQUIREMENTS = PROVIDER_LOGO_REQUIREMENTS;
-export const ASSET_LOGO_PUBLISHED_REQUIREMENTS = PROVIDER_LOGO_PUBLISHED_REQUIREMENTS;
 
 /**
  * Order of properties for links by popularity in the Web3 developer community
@@ -102,14 +89,6 @@ export const ALLOWED_LINKS = [
  * Type for links based on ALLOWED_LINKS
  */
 export type AllowedLink = (typeof ALLOWED_LINKS)[number];
-
-/**
- * Portal checkbox + signed `info.json` field (keep copy in sync with assets-intake).
- * Covered by EIP-712 contentHash. Legacy blobs without the field are treated as
- * acknowledged when verifying (see {@link hasAcknowledgedResponsibilitiesAck}).
- */
-export const ACKNOWLEDGED_RESPONSIBILITIES_LABEL =
-  "We do not cooperate with or share infrastructure with other providers. We operate our own FDC, FSP, feed provider, validators, and RPC node, and we run a single provider identity on this network.";
 
 /**
  * Interface defining the structure of provider information
@@ -200,15 +179,6 @@ export const PROVIDER_INFO_KEYS = [
   "dualNetwork",
   "firstTransaction",
 ] as const;
-
-/**
- * Whether the provider has acknowledged listing responsibilities.
- * Missing on legacy `info.json` defaults to true (assumed for existing listings).
- * Explicit `false` is not acknowledged.
- */
-export function hasAcknowledgedResponsibilitiesAck(info: Partial<ProviderInfo>): boolean {
-  return info.acknowledgedResponsibilities !== false;
-}
 
 /**
  * Fields excluded from the provider-signed payload:
@@ -342,15 +312,6 @@ export interface BlockchainNetworkConfig {
 }
 
 export const BLOCKCHAIN_NETWORKS: Record<string, BlockchainNetworkConfig> = {
-  ethereum: {
-    chain: 1,
-    path: "eip155-1",
-    name: "Ethereum",
-    symbol: "ETH",
-    rpc: "https://rpc.ankr.com/eth",
-    explorer: "https://api.etherscan.io/",
-    entityManager: "",
-  },
   flare: {
     chain: 14,
     path: "eip155-14",
@@ -369,18 +330,7 @@ export const BLOCKCHAIN_NETWORKS: Record<string, BlockchainNetworkConfig> = {
     explorer: "https://songbird-explorer.flare.network/",
     entityManager: "0x46c417d0760198e94fee455ce0e223262a3d0049",
   },
-  xrpl: {
-    chain: -1,
-    path: "xrpl-0",
-    name: "XRP",
-    symbol: "XRP",
-    rpc: "https://xrplcluster.com",
-    explorer: "https://xrpscan.com/",
-    entityManager: "",
-  },
 };
-
-export type SupportedNetworks = keyof typeof BLOCKCHAIN_NETWORKS;
 
 export type NetworkConfig = (typeof BLOCKCHAIN_NETWORKS)[keyof typeof BLOCKCHAIN_NETWORKS];
 
@@ -390,5 +340,3 @@ export type NetworkConfig = (typeof BLOCKCHAIN_NETWORKS)[keyof typeof BLOCKCHAIN
  * Approach adapted from the MIT-licensed BurstLabs/flareregistry.
  */
 export const FLARE_CONTRACT_REGISTRY = "0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019";
-
-export const LISTED_XRPL_TOKENS = [];

@@ -7,13 +7,11 @@ import bs58 from "bs58";
 import { withAbsoluteLogoURL } from "./assetUrl.js";
 import {
   ALLOWED_LINKS,
-  BLOCKCHAIN_NETWORKS,
   DAPP_INFO_KEYS,
   type DappInfo,
   PROVIDER_INFO_KEYS,
   type ProviderInfo,
   SIGNED_PROVIDER_INFO_KEYS,
-  type SupportedNetworks,
 } from "./config.js";
 import { type HexString, isValidNodeHex, isValidNodeID } from "./validate.js";
 
@@ -320,20 +318,6 @@ export function dappSubmissionMessageHash(payload: {
     logoHash: payload.logoHash,
   };
   return `0x${crypto.createHash("sha256").update(JSON.stringify(canonical)).digest("hex")}`;
-}
-
-/**
- * Converts a network path (e.g. eip155-14) to CAIP-2 (e.g. eip155:14)
- */
-export function networkPathToCaip2(networkPath: string): string {
-  return networkPath.replace("-", ":");
-}
-
-/**
- * Returns the CAIP-2 chain id for a supported network key
- */
-export function networkKeyToCaip2(networkKey: SupportedNetworks): string {
-  return networkPathToCaip2(BLOCKCHAIN_NETWORKS[networkKey].path);
 }
 
 /**

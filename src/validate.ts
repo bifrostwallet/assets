@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { getAddress } from "viem";
-import { type AllowedLink, PROVIDER_LOGO_PUBLISHED_REQUIREMENTS } from "./config.js";
+import { type AllowedLink, PROVIDER_LOGO_REQUIREMENTS } from "./config.js";
 import { isWebpMagic, readWebpDimensions } from "./webp.js";
 
 export type HexString = `0x${string}`;
@@ -129,10 +129,10 @@ export function isPlatformWebsiteHostname(hostname: string): boolean {
 /**
  * Validates a URL according to specific rules for different types
  * @param url The URL string to validate
- * @param type The type of URL to validate (logo, website, or links)
+ * @param type The type of URL to validate (website or social link)
  * @returns True if the URL format is valid, false otherwise
  */
-export function isValidURL(url: string, type: "logo" | "website" | AllowedLink): boolean {
+export function isValidURL(url: string, type: "website" | AllowedLink): boolean {
   if (url.length > 128) {
     return false;
   }
@@ -141,13 +141,7 @@ export function isValidURL(url: string, type: "logo" | "website" | AllowedLink):
   const domainStart = "[a-z0-9][-a-z0-9.]*";
   const tld = "\\.[a-z0-9][-a-z0-9.]*";
   const pathSegments = "(?:\\/[-a-zA-Z0-9.]+)*";
-  const pngFile = "\\/[-a-zA-Z0-9.]+\\.png";
   const optionalTrailingSlash = "\\/?";
-
-  if (type === "logo") {
-    const validUrlRegex = new RegExp(`^${protocol}${domainStart}${tld}${pathSegments}${pngFile}$`);
-    return validUrlRegex.test(url);
-  }
 
   if (type === "website") {
     const validUrlRegex = new RegExp(
@@ -165,7 +159,6 @@ export function isValidURL(url: string, type: "logo" | "website" | AllowedLink):
   // Updated links patterns with more lenient rules
   const platformPatterns: Record<string, RegExp> = {
     x: new RegExp(`^${protocol}x\\.com\\/[a-zA-Z0-9_\\-\\.]{1,15}${optionalTrailingSlash}$`),
-    twitter: new RegExp(`^${protocol}x\\.com\\/[a-zA-Z0-9_\\-\\.]{1,15}${optionalTrailingSlash}$`),
     linkedin: new RegExp(
       `^${protocol}www\\.linkedin\\.com\\/(in\\/[a-zA-Z0-9_\\-\\.]+|company\\/[a-zA-Z0-9_\\-\\.]+)${optionalTrailingSlash}$`,
     ),
@@ -223,59 +216,6 @@ export function isValidDescription(description: string): boolean {
     return false;
   }
   return /^[\x20-\x7E]{10,350}$/.test(description);
-}
-
-/**
- * Normalize a pasted website or social URL: trim, reject non-https schemes,
- * prepend https:// when the scheme is omitted.
- */
-export function normalizeHttpsURL(input: string): string {
-  const trimmed = input.trim();
-  if (!trimmed) return "";
-  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed)) {
-    if (!trimmed.toLowerCase().startsWith("https://")) return trimmed;
-    return trimmed;
-  }
-  return `https://${trimmed}`;
-}
-
-const CONTACT_EMAIL_RE =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-const TELEGRAM_USERNAME_RE = /^[a-zA-Z0-9_]{5,32}$/;
-
-/** Outreach email for listing submitters (not part of the public catalog). */
-export function isValidContactEmail(email: string): boolean {
-  const trimmed = email.trim();
-  if (trimmed.length < 5 || trimmed.length > 128) return false;
-  if (/\s/.test(trimmed) || trimmed.includes("..")) return false;
-  return CONTACT_EMAIL_RE.test(trimmed);
-}
-
-export function normalizeContactEmail(email: string): string {
-  return email.trim().toLowerCase();
-}
-
-/** Optional Telegram handle (@user / user / t.me/user). Empty is valid. */
-export function isValidContactTelegram(input: string): boolean {
-  if (!input.trim()) return true;
-  return normalizeContactTelegram(input) !== null;
-}
-
-/** Returns `@username` or null if invalid / empty. */
-export function normalizeContactTelegram(input: string): string | null {
-  const trimmed = input.trim();
-  if (!trimmed) return null;
-
-  let username = trimmed;
-  const urlMatch = trimmed.match(/^(?:https:\/\/)?t\.me\/([a-zA-Z0-9_]{5,32})\/?$/i);
-  if (urlMatch?.[1]) {
-    username = urlMatch[1];
-  } else if (username.startsWith("@")) {
-    username = username.slice(1);
-  }
-
-  if (!TELEGRAM_USERNAME_RE.test(username)) return null;
-  return `@${username}`;
 }
 
 /**
@@ -344,11 +284,10 @@ export function isValidImage(
     sizeKB: 0,
   };
 
-  const maxSizeKB = config?.maxSizeKB ?? PROVIDER_LOGO_PUBLISHED_REQUIREMENTS.MAX_SIZE_KB;
-  const minWidth = config?.minWidth ?? PROVIDER_LOGO_PUBLISHED_REQUIREMENTS.MIN_WIDTH;
-  const maxWidth = config?.maxWidth ?? PROVIDER_LOGO_PUBLISHED_REQUIREMENTS.MAX_WIDTH;
-  const requireSquare =
-    config?.requireSquare ?? PROVIDER_LOGO_PUBLISHED_REQUIREMENTS.REQUIRE_SQUARE;
+  const maxSizeKB = config?.maxSizeKB ?? PROVIDER_LOGO_REQUIREMENTS.MAX_SIZE_KB;
+  const minWidth = config?.minWidth ?? PROVIDER_LOGO_REQUIREMENTS.MIN_WIDTH;
+  const maxWidth = config?.maxWidth ?? PROVIDER_LOGO_REQUIREMENTS.MAX_WIDTH;
+  const requireSquare = config?.requireSquare ?? PROVIDER_LOGO_REQUIREMENTS.REQUIRE_SQUARE;
 
   try {
     if (!fs.existsSync(filePath)) {

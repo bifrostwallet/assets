@@ -14,7 +14,6 @@ import * as dns from "node:dns/promises";
 import type { IncomingMessage } from "node:http";
 import * as https from "node:https";
 import { isIP } from "node:net";
-import type { BlockchainNetworkConfig } from "./config.js";
 import { isPlatformWebsiteHostname } from "./validate.js";
 
 /** Well-known path published by providers */
@@ -702,8 +701,4 @@ export async function verifyProviderDomainLinkage(args: {
 
   result.linked = result.file.matched || result.dns.matched;
   return result;
-}
-
-export function providerNetworkPath(network: BlockchainNetworkConfig): string {
-  return network.path;
 }
