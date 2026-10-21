@@ -23,8 +23,6 @@
     "sync:management-group": "tsc && ./yarn node build/src/script/syncManagementGroup.js",
     "sync:dual-network": "tsc && ./yarn node build/src/script/syncDualNetwork.js",
     "scan:first-transaction": "tsc && ./yarn node build/src/script/scanFirstTransaction.js",
-    "import:registered-providers": "tsc && ./yarn node build/src/script/importRegisteredProviders.js",
-    "import:tokens": "tsc && ./yarn node build/src/script/importTokens.js",
     "check:providers": "tsc && ./yarn node build/src/script/checkProviders.js",
     "check:tokens": "tsc && ./yarn node build/src/script/checkTokens.js",
     "check:contracts": "tsc && ./yarn node build/src/script/checkContracts.js",
