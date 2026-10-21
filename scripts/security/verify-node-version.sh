@@ -29,7 +29,7 @@ fi
 
 REQUIRED=$(read_pin "$VERSION_FILE")
 if ! printf '%s' "$REQUIRED" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-  printf '%b\n' "${RED}Error: $VERSION_FILE must pin an exact Node.js version (e.g. 24.18.0). Found: ${REQUIRED:-<empty>}${NC}"
+  printf '%b\n' "${RED}Error: $VERSION_FILE must pin an exact Node.js version (e.g. 24.22.1). Found: ${REQUIRED:-<empty>}${NC}"
   exit 1
 fi
 

@@ -28,13 +28,13 @@ ENGINES_YARN=$(node -p "(require('./package.json').engines || {}).yarn || ''")
 
 if [ -z "$ENGINES_NODE" ] || [ -z "$ENGINES_YARN" ]; then
   printf '%b\n' "${RED}Error: package.json must set exact engines.node and engines.yarn pins.${NC}"
-  printf '%b\n' "${YELLOW}Example: \"engines\": { \"node\": \"24.18.0\", \"yarn\": \"4.17.1\" }${NC}"
+  printf '%b\n' "${YELLOW}Example: \"engines\": { \"node\": \"24.22.1\", \"yarn\": \"4.17.1\" }${NC}"
   exit 1
 fi
 
 if ! printf '%s' "$ENGINES_NODE" | grep -Eq "$ALLOWED_VERSION_RE"; then
-  printf '%b\n' "${RED}Error: engines.node must be an exact version (e.g. 24.18.0), found: ${ENGINES_NODE}${NC}"
-  printf '%b\n' "${YELLOW}Ranges like >=24.0.0 or ^24.18.0 are not allowed.${NC}"
+  printf '%b\n' "${RED}Error: engines.node must be an exact version (e.g. 24.22.1), found: ${ENGINES_NODE}${NC}"
+  printf '%b\n' "${YELLOW}Ranges like >=24.0.0 or ^24.22.1 are not allowed.${NC}"
   exit 1
 fi
 
