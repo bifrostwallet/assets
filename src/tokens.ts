@@ -1,6 +1,5 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { writeFormattedJson } from "./convert.js";
 
 /**
  * Curated token entry (git `info.json`).
@@ -23,31 +22,6 @@ export type TokenBlocklistEntry = {
   address: string;
   identifier: string;
 };
-
-export function caip2Path(chainId: number): string {
-  return `eip155-${chainId}`;
-}
-
-export function tokenDirName(address: string | null): string {
-  if (address === null) return "native";
-  return address.toLowerCase();
-}
-
-export function tokenLogoRelativePath(chainPath: string, dirName: string): string {
-  return `tokens/${chainPath}/${dirName}/logo.webp`;
-}
-
-export function sortTokenInfo(info: TokenInfo): TokenInfo {
-  return {
-    name: info.name,
-    symbol: info.symbol,
-    decimals: info.decimals,
-    address: info.address,
-    coingeckoId: info.coingeckoId,
-    logoURL: info.logoURL,
-    logoHash: info.logoHash,
-  };
-}
 
 /** Reject catalogs that omit coingeckoId (hydration contract). */
 export function assertTokenCoingeckoIdField(
@@ -97,21 +71,6 @@ export function loadTokenInfo(infoPath: string): TokenInfo {
   const raw: unknown = JSON.parse(fs.readFileSync(infoPath, "utf8"));
   assertTokenCoingeckoIdField(raw, infoPath);
   return raw;
-}
-
-export function rebuildTokensAllJson(chainPath: string): TokenInfo[] {
-  const tokens = listTokenDirs(chainPath).map(({ dir }) =>
-    sortTokenInfo(loadTokenInfo(path.join(dir, "info.json"))),
-  );
-  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  writeFormattedJson(allPath, tokens);
-  return tokens;
-}
-
-export function rebuildAllTokensAllJson(): void {
-  for (const chainPath of listTokenChainPaths()) {
-    rebuildTokensAllJson(chainPath);
-  }
 }
 
 export function loadBlocklist(): TokenBlocklistEntry[] {
