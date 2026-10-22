@@ -67,7 +67,7 @@ export const PROVIDER_LOGO_REQUIREMENTS = {
   REQUIRE_SQUARE: true,
 } as const;
 
-/** Unified catalog logo rules (providers + tokens). Token bulk import flags outliers. */
+/** Unified catalog logo rules (providers + tokens). */
 export const ASSET_LOGO_REQUIREMENTS = PROVIDER_LOGO_REQUIREMENTS;
 
 /**
