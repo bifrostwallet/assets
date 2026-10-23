@@ -1,5 +1,4 @@
 import { createPublicClient, http, type PublicClient } from "viem";
-import entityManagerABI from "./abi/entityManager.json" with { type: "json" };
 import type { BlockchainNetworkConfig, ProviderInfo } from "./config.js";
 import { encodeNodeID } from "./convert.js";
 import { type HexString, isValidNodeID } from "./validate.js";
@@ -9,6 +8,46 @@ interface VoterAddresses {
   submitSignaturesAddress: HexString;
   signingPolicyAddress: HexString;
 }
+
+const entityManagerAbi = [
+  {
+    type: "function",
+    name: "getDelegationAddressOf",
+    stateMutability: "view",
+    inputs: [{ type: "address" }],
+    outputs: [{ type: "address" }],
+  },
+  {
+    type: "function",
+    name: "getVoterAddresses",
+    stateMutability: "view",
+    inputs: [{ type: "address" }],
+    outputs: [
+      {
+        type: "tuple",
+        components: [
+          { name: "submitAddress", type: "address" },
+          { name: "submitSignaturesAddress", type: "address" },
+          { name: "signingPolicyAddress", type: "address" },
+        ],
+      },
+    ],
+  },
+  {
+    type: "function",
+    name: "getPublicKeyOf",
+    stateMutability: "view",
+    inputs: [{ type: "address" }],
+    outputs: [{ type: "bytes32" }, { type: "bytes32" }],
+  },
+  {
+    type: "function",
+    name: "getNodeIdsOf",
+    stateMutability: "view",
+    inputs: [{ type: "address" }],
+    outputs: [{ type: "bytes20[]" }],
+  },
+] as const;
 
 export function createNetworkClient(network: BlockchainNetworkConfig): PublicClient {
   return createPublicClient({
@@ -44,7 +83,7 @@ export async function fetchEntityData(
   try {
     const delegationAddress = (await client.readContract({
       address: entityManager,
-      abi: entityManagerABI,
+      abi: entityManagerAbi,
       functionName: "getDelegationAddressOf",
       args: [identity],
     })) as HexString;
@@ -57,7 +96,7 @@ export async function fetchEntityData(
   try {
     const voterAddresses = (await client.readContract({
       address: entityManager,
-      abi: entityManagerABI,
+      abi: entityManagerAbi,
       functionName: "getVoterAddresses",
       args: [identity],
     })) as VoterAddresses;
@@ -76,7 +115,7 @@ export async function fetchEntityData(
   try {
     const publicKeyParts = (await client.readContract({
       address: entityManager,
-      abi: entityManagerABI,
+      abi: entityManagerAbi,
       functionName: "getPublicKeyOf",
       args: [identity],
     })) as [HexString, HexString];
@@ -91,7 +130,7 @@ export async function fetchEntityData(
   try {
     const nodeIds = (await client.readContract({
       address: entityManager,
-      abi: entityManagerABI,
+      abi: entityManagerAbi,
       functionName: "getNodeIdsOf",
       args: [identity],
     })) as HexString[];

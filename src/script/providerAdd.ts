@@ -25,7 +25,7 @@ import { signProviderInfo } from "./signProviderInfo.js";
 //
 // Providers normally self-serve through the web signing app, which submits to
 // the intake service; those submissions land in the repository via
-// `yarn pull:submissions` (see src/script/pullSubmissions.ts).
+// `./yarn pull:submissions` (see src/script/pullSubmissions.ts).
 
 /** Proper display casing for social link platforms */
 const LINK_DISPLAY_NAMES: Record<AllowedLink, string> = {
@@ -214,7 +214,7 @@ async function addProvider(): Promise<void> {
       await signProviderInfo(infoPath, privateKey);
     } else {
       console.info("\n⚠️ Provider info not signed. You can sign it later using:");
-      console.info(`yarn sign:provider ${toRelativePath(infoPath)} <private-key>`);
+      console.info(`./yarn sign:provider ${toRelativePath(infoPath)} <private-key>`);
       console.info("Or ask the provider to submit through the web signing app.");
     }
 
