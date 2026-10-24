@@ -20,18 +20,6 @@ function validateProviderInfo(providerInfo: ProviderInfo): { isValid: boolean; e
     errors.push("Invalid name");
   }
 
-  // TODO: Enable once we have a description and website URL, if we care about them?
-  /*
-  // Validate description (even if empty)
-  if (!isValidDescription(providerInfo.description)) {
-    errors.push("Invalid description");
-  }
-
-  // Validate website URL (even if empty)
-  if (!isValidUrl(providerInfo.websiteURL, "website")) {
-    errors.push("Invalid website URL");
-  }
-  */
   // Validate EVM addresses — catalog form is always lowercase (canonical)
   const addressFields = [
     "identityAddress",

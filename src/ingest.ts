@@ -175,8 +175,6 @@ export async function ingestProviderSubmission(
     ? fs.readFileSync(sourceProvenancePath, "utf8")
     : null;
   const destProvenancePath = path.join(existingDir, "provenance.json");
-  // Legacy private contact file — remove if present so it is never committed once the repo is public
-  const legacySubmissionPath = path.join(existingDir, "submission.json");
 
   if (existingInfo) {
     const existingInfoJson = fs.readFileSync(path.join(existingDir, "info.json"), "utf8");
@@ -197,12 +195,7 @@ export async function ingestProviderSubmission(
       (fs.existsSync(destProvenancePath) &&
         fs.readFileSync(destProvenancePath, "utf8") === provenanceJson);
 
-    if (
-      existingInfoJson === finalInfoJson &&
-      allSignaturesKnown &&
-      provenanceUnchanged &&
-      !fs.existsSync(legacySubmissionPath)
-    ) {
+    if (existingInfoJson === finalInfoJson && allSignaturesKnown && provenanceUnchanged) {
       return {
         status: "unchanged",
         networkPath: network.path,
@@ -223,9 +216,6 @@ export async function ingestProviderSubmission(
   );
   if (provenanceJson) {
     fs.writeFileSync(destProvenancePath, provenanceJson);
-  }
-  if (fs.existsSync(legacySubmissionPath)) {
-    fs.unlinkSync(legacySubmissionPath);
   }
   rebuildProvidersAllJson(network.path);
 
@@ -571,14 +561,12 @@ export async function ingestDappSubmission(
     2,
   )}\n`;
   const provenancePath = path.join(dappDir, "provenance.json");
-  const legacySubmissionPath = path.join(dappDir, "submission.json");
 
   if (
     existingInfo &&
     fs.readFileSync(infoPath, "utf8") === finalInfoJson &&
     fs.existsSync(provenancePath) &&
-    fs.readFileSync(provenancePath, "utf8") === provenanceJson &&
-    !fs.existsSync(legacySubmissionPath)
+    fs.readFileSync(provenancePath, "utf8") === provenanceJson
   ) {
     return { status: "unchanged", slug, infoPath };
   }
@@ -587,9 +575,6 @@ export async function ingestDappSubmission(
   fs.writeFileSync(infoPath, finalInfoJson);
   fs.writeFileSync(path.join(dappDir, "logo.webp"), logo);
   fs.writeFileSync(provenancePath, provenanceJson);
-  if (fs.existsSync(legacySubmissionPath)) {
-    fs.unlinkSync(legacySubmissionPath);
-  }
 
   console.info(`📁 Ingested dapp ${title} at ${toRelativePath(dappDir)}`);
   console.info(
