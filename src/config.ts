@@ -295,8 +295,6 @@ export const DAPP_CHAINS = [
   { caip2: "bip122:1a91e3dace36e2be3bf030a65679fe82", name: "Dogecoin" },
 ] as const;
 
-export type DappChainCaip2 = (typeof DAPP_CHAINS)[number]["caip2"];
-
 /** Allowlisted CAIP-2 ids (same order as {@link DAPP_CHAINS}) */
 export const DAPP_CHAIN_IDS = DAPP_CHAINS.map((chain) => chain.caip2);
 
