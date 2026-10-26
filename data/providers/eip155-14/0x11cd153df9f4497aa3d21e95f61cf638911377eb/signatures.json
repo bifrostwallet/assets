@@ -1,13 +1,13 @@
 {
   "identityAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
-  "verificationInstructions": "To verify signatures, rebuild EIP-712 typed data (domain name \"Bifrost Assets\", version \"1\", chainId of the provider network, salt keccak256(\"https://bifrostwallet.com\") when the signed info includes acknowledgedResponsibilities) with primary type ProviderListing from the provider's info.json without logoURL, listed, managementGroup, domainLinked, dualNetwork, firstTransaction, delegationAddress, signingPolicyAddress, submitAddress, submitSignaturesAddress, publicKey, and validators: human-readable signed fields, linksJson (JSON.stringify of the sorted links object), acknowledgedResponsibilities (bool) when present, and contentHash (bytes32 SHA-256 of that canonical signed JSON). Recover the signer via eth_signTypedData_v4. contentHash must equal messageHash in signatures.json.",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. Domain: name \"Bifrost Assets\", version \"1\", chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
   "signatures": [
     {
       "signerName": "FTSO Yggdrassil",
       "signerAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
-      "messageHash": "0xf288b6f4e5f854fb7ac229d5b236c97e05892b0dd785a46075fc336f98e7f678",
-      "signature": "0x1acad748ba72e4094e4d7f5a73e1ddb779615783278a46f34b629e209c1e180339ef61f04af5d9eb74bde8f7d3393cf4be3808faa9c19a5fc67ff312730694831c",
-      "date": "2026-10-19T13:55:51.673Z"
+      "messageHash": "0x967188d11dabf6d2068aa012e065bd53a453d71a933f25cd57cdfdf06283d198",
+      "signature": "0x0d6625aac8f825a475c1f2ea823933b981130c1203ef588ccbd486069ff920dc2e6f3e171a851d1616646af5db61ce9846e21331447ff5726e543054913e58061b",
+      "date": "2026-10-21T22:28:51.335Z"
     }
   ]
 }

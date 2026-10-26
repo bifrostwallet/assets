@@ -32,16 +32,6 @@ export const PROVIDER_VERIFICATION_INSTRUCTIONS = [
   "Anything not listed is not signed and can change without a new signature.",
 ].join(" ");
 
-const PROVIDER_LISTING_FIELDS_BASE = [
-  { name: "name", type: "string" },
-  { name: "description", type: "string" },
-  { name: "websiteURL", type: "string" },
-  { name: "logoHash", type: "bytes32" },
-  { name: "identityAddress", type: "address" },
-  { name: "linksJson", type: "string" },
-  { name: "contentHash", type: "bytes32" },
-] as const;
-
 export const PROVIDER_LISTING_TYPES = {
   ProviderListing: [
     { name: "name", type: "string" },
@@ -53,10 +43,6 @@ export const PROVIDER_LISTING_TYPES = {
     { name: "acknowledgedResponsibilities", type: "bool" },
     { name: "contentHash", type: "bytes32" },
   ],
-} as const;
-
-export const PROVIDER_LISTING_TYPES_LEGACY = {
-  ProviderListing: [...PROVIDER_LISTING_FIELDS_BASE],
 } as const;
 
 export const DAPP_LISTING_TYPES = {
@@ -79,7 +65,7 @@ export type ProviderListingMessage = {
   logoHash: HexString;
   identityAddress: HexString;
   linksJson: string;
-  acknowledgedResponsibilities?: boolean;
+  acknowledgedResponsibilities: boolean;
   contentHash: HexString;
 };
 
@@ -111,10 +97,6 @@ function asAddress(value: string): HexString {
   return normalized as HexString;
 }
 
-export function providerListingUsesLegacyTypedData(info: Partial<ProviderInfo>): boolean {
-  return info.acknowledgedResponsibilities === undefined;
-}
-
 /** Parse eip155-<id> directory name (or full provider dir) to chainId. */
 export function chainIdFromProviderPath(providerDirOrChainPath: string): number {
   const base = providerDirOrChainPath.replace(/\\/g, "/");
@@ -130,34 +112,9 @@ export function buildProviderListingTypedData(
   info: Partial<ProviderInfo>,
   chainId: number,
   contentHash: string,
-  options?: { legacy?: boolean },
 ) {
-  const legacy = options?.legacy ?? providerListingUsesLegacyTypedData(info);
   const payload = signedProviderInfoPayload(info);
   const links = (payload.links ?? {}) as Record<string, string>;
-
-  const baseMessage = {
-    name: String(payload.name ?? ""),
-    description: String(payload.description ?? ""),
-    websiteURL: String(payload.websiteURL ?? ""),
-    logoHash: asBytes32(String(payload.logoHash ?? "")),
-    identityAddress: asAddress(String(payload.identityAddress ?? "")),
-    linksJson: JSON.stringify(links),
-    contentHash: asBytes32(contentHash),
-  };
-
-  if (legacy) {
-    return {
-      domain: {
-        name: EIP712_DOMAIN_NAME,
-        version: EIP712_DOMAIN_VERSION,
-        chainId,
-      },
-      types: PROVIDER_LISTING_TYPES_LEGACY,
-      primaryType: "ProviderListing" as const,
-      message: baseMessage as ProviderListingMessage,
-    };
-  }
 
   return {
     domain: {
@@ -169,8 +126,14 @@ export function buildProviderListingTypedData(
     types: PROVIDER_LISTING_TYPES,
     primaryType: "ProviderListing" as const,
     message: {
-      ...baseMessage,
+      name: String(payload.name ?? ""),
+      description: String(payload.description ?? ""),
+      websiteURL: String(payload.websiteURL ?? ""),
+      logoHash: asBytes32(String(payload.logoHash ?? "")),
+      identityAddress: asAddress(String(payload.identityAddress ?? "")),
+      linksJson: JSON.stringify(links),
       acknowledgedResponsibilities: payload.acknowledgedResponsibilities === true,
+      contentHash: asBytes32(contentHash),
     } satisfies ProviderListingMessage,
   };
 }

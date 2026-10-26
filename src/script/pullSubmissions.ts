@@ -23,7 +23,7 @@ import {
 // on-chain checks in ingest* are the second line of defense.
 //
 // Run by the scheduled pull-submissions GitHub Action, or locally:
-//   yarn pull:submissions
+//   ./yarn pull:submissions
 
 function requireIntakeBucket(): string {
   const bucket = process.env.INTAKE_BUCKET;

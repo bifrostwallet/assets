@@ -65,11 +65,6 @@ const RPC_ENV_BY_CHAIN: Record<number, string> = {
   999: "HYPERLIQUID_NODE_URL",
 };
 
-// Common aliases used in the tokens package
-const RPC_ENV_ALIASES: Record<string, string[]> = {
-  OPTIMISM_NODE_URL: ["OPTIMISIM_NODE_URL"],
-};
-
 type Mismatch = {
   chainPath: string;
   address: string;
@@ -97,13 +92,7 @@ function chainIdFromPath(chainPath: string): number | null {
 function rpcUrlForChain(chainId: number): string | undefined {
   const primary = RPC_ENV_BY_CHAIN[chainId];
   if (!primary) return undefined;
-  const direct = process.env[primary];
-  if (direct) return direct;
-  for (const alias of RPC_ENV_ALIASES[primary] ?? []) {
-    const v = process.env[alias];
-    if (v) return v;
-  }
-  return undefined;
+  return process.env[primary];
 }
 
 function clientFor(chainId: number, rpc: string): PublicClient {
@@ -151,9 +140,6 @@ function checkSchemaAndLogo(
   }
   if (typeof info.decimals !== "number" || !Number.isInteger(info.decimals) || info.decimals < 0) {
     report.schemaErrors.push(`${label}: invalid decimals`);
-  }
-  if ("native" in info) {
-    report.schemaErrors.push(`${label}: remove native field; native gas token is address === null`);
   }
   if (info.address === null) {
     // Native gas token — no contract address
