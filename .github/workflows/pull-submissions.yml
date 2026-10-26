@@ -87,13 +87,13 @@ jobs:
 
           **Providers**
           - Allowlisted object path and JSON fields
-          - Valid PNG (IHDR, size, encoding)
+          - Valid 128×128 WebP
           - Self-signature by the identity address over the canonical info
           - Identity registered in the EntityManager; entity fields re-fetched on ingest
 
           **Dapps**
           - Allowlisted object path and JSON fields
-          - Valid PNG; submitter signature over content + logoHash
+          - Valid 128×128 WebP; submitter signature over content + logoHash
           - Stake check enforced at intake; fields re-validated on ingest
 
           CI re-verifies provider signatures on this PR. Review before merge.
