@@ -3,11 +3,7 @@ import * as path from "node:path";
 import { recoverTypedDataAddress } from "viem";
 import type { ProviderInfo } from "./config.js";
 import { providerInfoMessageHash } from "./convert.js";
-import {
-  buildProviderListingTypedData,
-  chainIdFromProviderPath,
-  providerListingTypedData,
-} from "./eip712.js";
+import { chainIdFromProviderPath, providerListingTypedData } from "./eip712.js";
 import type { HexString } from "./validate.js";
 
 export interface SignatureEntry {
@@ -102,7 +98,7 @@ export async function verifyProviderSignatures(
       continue;
     }
 
-    let recovered: string | null = null;
+    let recovered: string;
     try {
       recovered = await recoverTypedDataAddress({
         domain: typed.domain,
@@ -112,31 +108,6 @@ export async function verifyProviderSignatures(
         signature: entry.signature,
       });
     } catch {
-      // try legacy shape below when current typed data does not recover
-    }
-
-    // Catalog entries signed before salt + acknowledgedResponsibilities: retry legacy typed data.
-    if (recovered === null || recovered.toLowerCase() !== entry.signerAddress.toLowerCase()) {
-      try {
-        const legacy = buildProviderListingTypedData(info, chainId, expectedMessageHash, {
-          legacy: true,
-        });
-        const legacyRecovered = await recoverTypedDataAddress({
-          domain: legacy.domain,
-          types: legacy.types,
-          primaryType: legacy.primaryType,
-          message: legacy.message,
-          signature: entry.signature,
-        });
-        if (legacyRecovered.toLowerCase() === entry.signerAddress.toLowerCase()) {
-          recovered = legacyRecovered;
-        }
-      } catch {
-        // keep prior recovered / null
-      }
-    }
-
-    if (recovered === null) {
       result.invalidSignatures.push({
         entry,
         reason: "Signature recovery failed",
