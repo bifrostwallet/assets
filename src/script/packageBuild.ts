@@ -23,7 +23,7 @@ import { listTokenChainPaths, type TokenInfo } from "../tokens.js";
 // Logos are NOT bundled. Published JSON uses absolute logoURL (GitHub raw by
 // default). Operators set ASSET_BASE_URL to publish against their own CDN host.
 //
-// Publish with: yarn build:package && npm publish ./dist
+// Publish with: ./yarn build:package && npm publish ./dist
 
 const PROVIDER_CHAINS = ["eip155-14", "eip155-19"] as const;
 
@@ -406,7 +406,6 @@ export interface ContractInfo {
   projectName: string;
   contractName: string;
   category: ContractCategory;
-  /** Absolute logo URL (the project mark, or this contract's override) */
   logoURL: string;
   /** SHA-256 of that logo file */
   logoHash: string;

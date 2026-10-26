@@ -44,7 +44,6 @@ export function encodeNodeID(hexString: HexString): string | "" {
     // Create the NodeID string
     return `NodeID-${encodedNodeId}`;
   } catch (_error) {
-    // Return null if any error occurs during encoding
     return "";
   }
 }

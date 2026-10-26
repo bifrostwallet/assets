@@ -7,6 +7,7 @@ import {
   PROVIDER_VERIFICATION_INSTRUCTIONS,
   providerListingTypedData,
 } from "../eip712.js";
+import { isMain } from "../isMain.js";
 import type { HexString } from "../validate.js";
 
 interface SignatureEntry {
@@ -108,11 +109,11 @@ async function main() {
 
   if (args.length !== 2) {
     console.info("Usage:");
-    console.info("  yarn sign:provider <path-to-info.json> <private-key>");
+    console.info("  ./yarn sign:provider <path-to-info.json> <private-key>");
     console.info("");
     console.info("Examples:");
     console.info(
-      "  yarn sign:provider ./data/providers/eip155-14/provider-name/info.json 0x1234...",
+      "  ./yarn sign:provider ./data/providers/eip155-14/provider-name/info.json 0x1234...",
     );
     process.exit(1);
   }
@@ -126,6 +127,8 @@ async function main() {
   }
 }
 
-main().catch(console.error);
+if (isMain(import.meta.url)) {
+  main().catch(console.error);
+}
 
 export { signProviderInfo };
