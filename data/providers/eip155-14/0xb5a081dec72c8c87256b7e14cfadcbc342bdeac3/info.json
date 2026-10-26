@@ -1,10 +1,12 @@
 {
-  "name": "MirSFlr",
-  "description": "On a mission to deliver fast, reliable and transparent data on the Flare Network to maximize rewards for delegators with near-zero downtime.",
+  "name": "Mirhollio Core",
+  "description": "Mirhollio Core, formerly MirSFlr. Independent Flare entity running its own infrastructure: FTSOv2 price feeds, FDC attestations and a validator node. Monitoring and performance data are public at mirhollio.com.",
   "logoURL": "providers/eip155-14/0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3/logo.webp",
-  "logoHash": "408dfa6bf7c200292822a1fd6dddddc0ae20e4eb3114013f99c6f09689dc1fbd",
+  "logoHash": "666f3ebc80117e626adfb14db40fb201f81947979d5125d8f1db709c20566933",
   "websiteURL": "https://www.mirhollio.com",
-  "links": {},
+  "links": {
+    "x": "https://x.com/Mirhollio"
+  },
   "identityAddress": "0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3",
   "delegationAddress": "0xad9105bef5e5df2eacbe2de9037a96695b00cade",
   "signingPolicyAddress": "0x593e0e7e089054c295f4fc943344aea52cf499af",
@@ -12,6 +14,7 @@
   "submitSignaturesAddress": "0x7890eec3139bcffc95c3ac3e6a0bbf74367b6975",
   "publicKey": "0x0864e7fab9b247f2aa06cc00d8a824e1064090f49938682289737621368a3c4904540a56e641671db6167b8b5bfecd920d0e3e47e80dd3124206757f873b2d0f",
   "validators": ["NodeID-8dNfgpspPNDrZD2ksKCRJoGe4Xqe6qVtz"],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
