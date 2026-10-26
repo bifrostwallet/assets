@@ -100,7 +100,7 @@ For production or sensitive applications, mirror logos to your own bucket or CDN
 
 ## Docs
 
-Full integrator guide (data model, media format, optional CDN manifest):  
+Full integrator guide (data model, media format):  
 [docs.bifrostwallet.com: Consuming Assets](https://docs.bifrostwallet.com/list/consuming-assets)
 
 Source of truth: [github.com/bifrostwallet/assets](https://github.com/bifrostwallet/assets)

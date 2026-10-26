@@ -4,7 +4,6 @@
 # Sources (already-exported shell env always wins; each step only fills unset vars):
 #   1. Secret Manager ops JSON (`assets-ops-config`) — team source of truth
 #   2. Gitignored .ops.env — local cache from `./yarn ops:pull-env` (fills gaps / offline)
-#   3. Manifest signing PEM from STATIC_BUCKET_PROJECT_ID
 #
 # Usage:
 #   ./yarn with:ops-config -- ./yarn upload:bucket
@@ -58,18 +57,6 @@ fi
 OPS_ENV_FILE="${ASSETS_OPS_ENV_FILE:-${ROOT}/.ops.env}"
 if [ -f "${OPS_ENV_FILE}" ]; then
   eval "$(cd "${ROOT}" && ./yarn node build/scripts/load-ops-env-unset.js "${OPS_ENV_FILE}")"
-fi
-
-# 3) Manifest signing key (static-bucket project)
-if [ -z "${ASSETS_MANIFEST_PRIVATE_KEY:-}" ] && [ -n "${STATIC_BUCKET_PROJECT_ID:-}" ]; then
-  MANIFEST_SECRET="${ASSETS_MANIFEST_SECRET:-assets-manifest-private-key}"
-  if ASSETS_MANIFEST_PRIVATE_KEY="$(
-    gcloud secrets versions access latest \
-      --secret="${MANIFEST_SECRET}" \
-      --project="${STATIC_BUCKET_PROJECT_ID}" 2>/dev/null
-  )"; then
-    export ASSETS_MANIFEST_PRIVATE_KEY
-  fi
 fi
 
 # Empty BUCKET_PREFIX is intentional (objects at bucket root; LB strips /<uuid>/static/).

@@ -11,7 +11,6 @@ import {
   listContractChainPaths,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
-import { rollupChainHashes, sha256Hex } from "../manifest.js";
 import { listTokenChainPaths, type TokenInfo } from "../tokens.js";
 
 // Builds the publishable @bifrostwallet/assets NPM package into dist/.
@@ -47,22 +46,7 @@ function loadContracts(chainPath: string): ContractInfo[] {
   return contracts.map((contract) => withAbsoluteLogoURL(contract, base));
 }
 
-function loadManifestPublicKey(): string {
-  const pemPath = path.join(process.cwd(), "manifest-public.pem");
-  if (!fs.existsSync(pemPath)) {
-    console.warn("⚠️  manifest-public.pem missing — run ./yarn manifest:generate-key");
-    return "";
-  }
-  return fs.readFileSync(pemPath, "utf8").trim();
-}
-
-function buildIndexJs(
-  sectionHashesJson: string,
-  publicKeyPem: string,
-  tokenChains: string[],
-  contractChains: string[],
-): string {
-  const publicKeyLiteral = JSON.stringify(publicKeyPem);
+function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
   const tokenRequires =
     tokenChains.length === 0
       ? ""
@@ -90,15 +74,6 @@ ${contractRequires}};
 
 /** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
-
-/** Bundled snapshot of section content hashes (same algorithm as CDN manifest.json). */
-const SECTION_HASHES = ${sectionHashesJson};
-
-/**
- * Ed25519 SPKI public key (PEM) used to verify CDN manifest.json signatures.
- * Verify with node:crypto (Node) or Web Crypto Ed25519 (browsers).
- */
-const MANIFEST_PUBLIC_KEY = ${publicKeyLiteral};
 
 const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(getAssetBaseURL())};
 
@@ -225,47 +200,6 @@ function resolveAssetURL(relativePath, baseURL) {
   return base.replace(/\\/?$/, "/") + String(relativePath).replace(/^\\//, "");
 }
 
-function getSectionHashes() {
-  return SECTION_HASHES;
-}
-
-const SECTION_ORDER = ["providers", "contracts", "dapps", "tokens"];
-
-/** Canonical UTF-8 JSON bytes (as string) that the Ed25519 signature covers. */
-function canonicalManifestBody(body) {
-  const sections = {};
-  for (const name of SECTION_ORDER) {
-    const section = body.sections[name];
-    if (!section) continue;
-    const entry = { contentHash: section.contentHash };
-    if (section.chains) {
-      const chains = {};
-      for (const chain of Object.keys(section.chains).sort()) {
-        chains[chain] = section.chains[chain];
-      }
-      entry.chains = chains;
-    }
-    sections[name] = entry;
-  }
-  return JSON.stringify({ generatedAt: body.generatedAt, sections });
-}
-
-/**
- * Verify CDN manifest.json with node:crypto Ed25519 (Node / bundlers that polyfill it).
- * Browsers: Web Crypto Ed25519 over Buffer.from(canonicalManifestBody(body), "utf8").
- */
-function verifyManifest(manifest, publicKeyPem) {
-  const { createPublicKey, verify } = require("node:crypto");
-  const { signature, ...body } = manifest;
-  const message = Buffer.from(canonicalManifestBody(body), "utf8");
-  return verify(
-    null,
-    message,
-    createPublicKey(publicKeyPem || MANIFEST_PUBLIC_KEY),
-    Buffer.from(signature, "base64url")
-  );
-}
-
 module.exports = {
   DEFAULT_ASSET_BASE_URL,
   PROVIDER_CHAIN_IDS,
@@ -275,10 +209,6 @@ module.exports = {
   CONTRACT_CATEGORY_LABELS,
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
-  MANIFEST_PUBLIC_KEY,
-  getSectionHashes,
-  canonicalManifestBody,
-  verifyManifest,
   getProviders,
   getProvider,
   getListedProviders,
@@ -362,11 +292,6 @@ export interface TokenBlocklistEntry {
   identifier: string;
 }
 
-export interface ManifestSectionHashes {
-  contentHash: string;
-  chains?: Record<string, string>;
-}
-
 /** CAIP-2 chain id, e.g. "eip155:14" or "eip155:19" */
 export type ChainId = string;
 
@@ -410,41 +335,6 @@ export interface ContractInfo {
   /** SHA-256 of that logo file */
   logoHash: string;
 }
-/** Ed25519 SPKI PEM for verifying CDN manifest.json (empty string if key not generated yet) */
-export declare const MANIFEST_PUBLIC_KEY: string;
-
-/** Section content hashes baked into this package release (compare to CDN manifest) */
-export declare function getSectionHashes(): {
-  providers?: ManifestSectionHashes;
-  contracts?: ManifestSectionHashes;
-  dapps?: ManifestSectionHashes;
-  tokens?: ManifestSectionHashes;
-};
-
-export interface AssetsManifestBody {
-  generatedAt: string;
-  sections: {
-    providers?: ManifestSectionHashes;
-    contracts?: ManifestSectionHashes;
-    dapps?: ManifestSectionHashes;
-    tokens?: ManifestSectionHashes;
-  };
-}
-
-export interface AssetsManifest extends AssetsManifestBody {
-  signature: string;
-}
-
-/** Canonical JSON string signed by the Bifrost Ed25519 publish key */
-export declare function canonicalManifestBody(body: AssetsManifestBody): string;
-/**
- * Verify CDN manifest with node:crypto Ed25519.
- * Defaults to MANIFEST_PUBLIC_KEY when publicKeyPem is omitted.
- */
-export declare function verifyManifest(
-  manifest: AssetsManifest,
-  publicKeyPem?: string
-): boolean;
 
 /** All curated providers for a chain (throws on unknown chain) */
 export declare function getProviders(chainId: ChainId): ProviderInfo[];
@@ -497,75 +387,43 @@ function buildPackage(): void {
   fs.rmSync(distDir, { recursive: true, force: true });
   fs.mkdirSync(path.join(distDir, "providers"), { recursive: true });
 
-  const providerChains: Record<string, string> = {};
   for (const chain of PROVIDER_CHAINS) {
     const providers = loadProviders(chain);
     const outPath = path.join(distDir, "providers", `${chain}.json`);
-    const body = `${JSON.stringify(providers, null, 2)}\n`;
-    fs.writeFileSync(outPath, body);
-    providerChains[chain] = sha256Hex(body);
+    fs.writeFileSync(outPath, `${JSON.stringify(providers, null, 2)}\n`);
     console.info(`📦 providers/${chain}.json (${providers.length} providers)`);
   }
 
   const tokenChainIds = listTokenChainPaths();
-  const tokenChains: Record<string, string> = {};
   if (tokenChainIds.length > 0) {
     fs.mkdirSync(path.join(distDir, "tokens"), { recursive: true });
     for (const chain of tokenChainIds) {
       const tokens = loadTokens(chain);
       const outPath = path.join(distDir, "tokens", `${chain}.json`);
-      const body = `${JSON.stringify(tokens, null, 2)}\n`;
-      fs.writeFileSync(outPath, body);
-      tokenChains[chain] = sha256Hex(body);
+      fs.writeFileSync(outPath, `${JSON.stringify(tokens, null, 2)}\n`);
       console.info(`📦 tokens/${chain}.json (${tokens.length} tokens)`);
     }
     const blocklistSrc = path.join(process.cwd(), "data", "tokens", "blocklist.json");
     if (fs.existsSync(blocklistSrc)) {
-      const blockBody = fs.readFileSync(blocklistSrc);
-      fs.writeFileSync(path.join(distDir, "tokens", "blocklist.json"), blockBody);
-      tokenChains.blocklist = sha256Hex(blockBody);
+      fs.writeFileSync(
+        path.join(distDir, "tokens", "blocklist.json"),
+        fs.readFileSync(blocklistSrc),
+      );
       console.info("📦 tokens/blocklist.json");
     }
   }
 
   const contractChainIds = listContractChainPaths();
-  const contractChains: Record<string, string> = {};
   if (contractChainIds.length > 0) {
     fs.mkdirSync(path.join(distDir, "contracts"), { recursive: true });
     for (const chain of contractChainIds) {
       const contracts = loadContracts(chain);
       const outPath = path.join(distDir, "contracts", `${chain}.json`);
-      const body = `${JSON.stringify(contracts, null, 2)}\n`;
-      fs.writeFileSync(outPath, body);
-      contractChains[chain] = sha256Hex(body);
+      fs.writeFileSync(outPath, `${JSON.stringify(contracts, null, 2)}\n`);
       console.info(`📦 contracts/${chain}.json (${contracts.length} contracts)`);
     }
   }
 
-  const sections: {
-    providers: { contentHash: string; chains: Record<string, string> };
-    contracts?: { contentHash: string; chains: Record<string, string> };
-    tokens?: { contentHash: string; chains: Record<string, string> };
-  } = {
-    providers: {
-      contentHash: rollupChainHashes(providerChains),
-      chains: providerChains,
-    },
-  };
-  if (Object.keys(contractChains).length > 0) {
-    sections.contracts = {
-      contentHash: rollupChainHashes(contractChains),
-      chains: contractChains,
-    };
-  }
-  if (Object.keys(tokenChains).length > 0) {
-    sections.tokens = {
-      contentHash: rollupChainHashes(tokenChains),
-      chains: tokenChains,
-    };
-  }
-  const sectionHashesJson = JSON.stringify(sections, null, 2);
-  const publicKeyPem = loadManifestPublicKey();
   console.info(`🖼️  logoURL base: ${assetBase}`);
 
   const categoriesSrc = path.join(process.cwd(), "data", "dapps", "categories.json");
@@ -577,10 +435,7 @@ function buildPackage(): void {
   fs.writeFileSync(path.join(distDir, "dapps", "categories.json"), categoriesBody);
   console.info("📦 dapps/categories.json");
 
-  fs.writeFileSync(
-    path.join(distDir, "index.js"),
-    buildIndexJs(sectionHashesJson, publicKeyPem, tokenChainIds, contractChainIds),
-  );
+  fs.writeFileSync(path.join(distDir, "index.js"), buildIndexJs(tokenChainIds, contractChainIds));
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
@@ -594,8 +449,6 @@ function buildPackage(): void {
       `${dappCategoryUnion};`,
     ),
   );
-  fs.writeFileSync(path.join(distDir, "section-hashes.json"), `${sectionHashesJson}\n`);
-
   const manifest = {
     name: "@bifrostwallet/assets",
     version: rootPackage.version,

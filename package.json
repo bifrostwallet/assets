@@ -1,6 +1,6 @@
 {
   "name": "@bifrostwallet/assets",
-  "version": "0.0.3-beta",
+  "version": "0.0.4-beta",
   "description": "Curated assets for Bifrost Wallet.",
   "repository": "https://github.com/bifrostwallet/assets.git",
   "author": "Bifrost Software Ltd",
@@ -31,7 +31,6 @@
     "normalize:providers": "tsc && ./yarn node build/src/script/normalizeProviders.js",
     "pull:submissions": "tsc && ./yarn node build/src/script/pullSubmissions.js",
     "verify:no-contact-pii": "./scripts/security/verify-no-contact-pii.sh",
-    "manifest:generate-key": "tsc && ./yarn node build/src/script/generateManifestKey.js",
     "build:package": "tsc && ./yarn node build/src/script/packageBuild.js",
     "upload:bucket": "tsc && ./yarn node build/src/script/bucketUpload.js",
     "with:ops-config": "./scripts/with-ops-config.sh",
