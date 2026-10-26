@@ -22,8 +22,7 @@ async function main(): Promise<void> {
 
     if (result.hasValidSelfSignature) {
       selfSigned++;
-      const extra = result.hasValidAttestation ? " + attested" : "";
-      console.info(`✅ ${relativePath} (self-signed${extra})`);
+      console.info(`✅ ${relativePath} (self-signed)`);
       continue;
     }
 

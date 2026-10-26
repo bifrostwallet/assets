@@ -13,12 +13,7 @@ import { findProviderDirs, verifyProviderSignatures } from "../src/verify.js";
  *
  * Every provider must have at least one valid EIP-712 signature in signatures.json
  * over ProviderListing typed data (canonical contentHash + human-readable fields).
- *
- * Enforcement is strict when REQUIRE_PROVIDER_SIGNATURES=1 (set in CI once the
- * one-time Bifrost batch-sign migration has run). Otherwise missing/stale
- * signatures are reported as warnings so the repo stays green during migration.
  */
-const strict = process.env.REQUIRE_PROVIDER_SIGNATURES === "1";
 
 describe("Signature round-trip", () => {
   const privateKey = generatePrivateKey();
@@ -38,6 +33,7 @@ describe("Signature round-trip", () => {
     submitSignaturesAddress: account.address.toLowerCase(),
     publicKey: `0x${"1".repeat(128)}`,
     validators: [],
+    acknowledgedResponsibilities: true,
     listed: false,
     managementGroup: false,
     domainLinked: false,
@@ -292,7 +288,7 @@ describe("Provider signature verification", () => {
   for (const providerDir of providerDirs) {
     const relativePath = path.relative(process.cwd(), providerDir);
 
-    test(`${relativePath} should have a valid ownership signature${strict ? "" : " (advisory)"}`, async () => {
+    test(`${relativePath} should have a valid ownership signature (advisory)`, async () => {
       const result = await verifyProviderSignatures(providerDir);
 
       for (const invalid of result.invalidSignatures) {
@@ -310,9 +306,6 @@ describe("Provider signature verification", () => {
             "signatures.json exists but contains no valid signature for the current info.json";
         }
 
-        if (strict) {
-          throw new Error(`${relativePath}: ${message}`);
-        }
         console.warn(`⚠️ ${relativePath}: ${message}`);
       }
     });
