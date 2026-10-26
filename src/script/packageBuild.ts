@@ -406,7 +406,6 @@ export interface ContractInfo {
   projectName: string;
   contractName: string;
   category: ContractCategory;
-  /** Absolute logo URL (the project mark, or this contract's override) */
   logoURL: string;
   /** SHA-256 of that logo file */
   logoHash: string;

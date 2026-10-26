@@ -224,7 +224,7 @@ The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exis
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` in git is the relative dapp path. The published package makes it absolute. `logoHash` is the SHA-256 of the dapp WebP. Logos are transparent lossless **128×128** WebP, maximum **24 KB**.
+`logoURL` in git is the relative dapp path. The published package makes it absolute. `logoHash` is the SHA-256 of the dapp WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
 
 ```bash
 ./yarn check:contracts

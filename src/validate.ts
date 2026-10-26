@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { getAddress } from "viem";
 import { type AllowedLink, PROVIDER_LOGO_REQUIREMENTS } from "./config.js";
-import { isWebpMagic, readWebpDimensions } from "./webp.js";
+import { readWebpDimensions } from "./webp.js";
 
 export type HexString = `0x${string}`;
 
@@ -254,9 +254,9 @@ export function isValidNodeHex(hexString: string): boolean {
 }
 
 /**
- * Validates a logo image (provider WebP or dapp PNG) against size/dimension rules.
+ * Validates a catalog WebP logo against size/dimension rules.
  *
- * Transparent backgrounds are recommended and accepted (WebP alpha, PNG RGBA).
+ * Transparent backgrounds are recommended and accepted (WebP alpha).
  * Opaque logos, including a solid white background, stay valid. These checks
  * do not flatten alpha and do not require a background color.
  *
@@ -305,31 +305,14 @@ export function isValidImage(
 
     const fileBuffer = fs.readFileSync(filePath);
 
-    const isPNG =
-      fileBuffer[0] === 0x89 &&
-      fileBuffer[1] === 0x50 &&
-      fileBuffer[2] === 0x4e &&
-      fileBuffer[3] === 0x47 &&
-      fileBuffer[4] === 0x0d &&
-      fileBuffer[5] === 0x0a &&
-      fileBuffer[6] === 0x1a &&
-      fileBuffer[7] === 0x0a;
-
     let width = 0;
     let height = 0;
-    if (isWebpMagic(fileBuffer)) {
-      const dims = readWebpDimensions(fileBuffer);
-      if (!dims) {
-        errors.push("Not a valid WebP file");
-      } else {
-        width = dims.width;
-        height = dims.height;
-      }
-    } else if (isPNG) {
-      width = fileBuffer.readUInt32BE(16);
-      height = fileBuffer.readUInt32BE(20);
+    const dims = readWebpDimensions(fileBuffer);
+    if (!dims) {
+      errors.push("Not a valid WebP file");
     } else {
-      errors.push("Not a valid PNG or WebP file");
+      width = dims.width;
+      height = dims.height;
     }
 
     if (width > 0 && height > 0) {
