@@ -6,6 +6,8 @@ import {
   sign,
   verify,
 } from "node:crypto";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 /**
  * Signed static-assets manifest (optional CDN root next to providers/, etc.).
@@ -77,6 +79,50 @@ export function rollupChainHashes(chains: ManifestChainHashes): string {
     parts.push(`${chain}:${chains[chain]}`);
   }
   return sha256Hex(parts.join("\n"));
+}
+
+export function hashFile(filePath: string): string {
+  return sha256Hex(fs.readFileSync(filePath));
+}
+
+export function buildManifestFromDataDir(
+  dataDir: string,
+  generatedAt = new Date().toISOString(),
+): AssetsManifestBody {
+  const sections: AssetsManifestBody["sections"] = {};
+
+  const providerChains = listChainAllJson(path.join(dataDir, "providers"));
+  if (Object.keys(providerChains).length > 0) {
+    sections.providers = {
+      contentHash: rollupChainHashes(providerChains),
+      chains: providerChains,
+    };
+  }
+
+  // Contracts and dapps have no all.json. The NPM package bundles contract files,
+  // and dapp logos are uploaded individually.
+
+  const tokenChains = listChainAllJson(path.join(dataDir, "tokens"));
+  if (Object.keys(tokenChains).length > 0) {
+    sections.tokens = {
+      contentHash: rollupChainHashes(tokenChains),
+      chains: tokenChains,
+    };
+  }
+
+  return { generatedAt, sections };
+}
+
+function listChainAllJson(sectionDir: string): ManifestChainHashes {
+  const chains: ManifestChainHashes = {};
+  if (!fs.existsSync(sectionDir)) return chains;
+  for (const entry of fs.readdirSync(sectionDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const allPath = path.join(sectionDir, entry.name, "all.json");
+    if (!fs.existsSync(allPath)) continue;
+    chains[entry.name] = hashFile(allPath);
+  }
+  return chains;
 }
 
 function loadPrivateKey(): ReturnType<typeof createPrivateKey> {

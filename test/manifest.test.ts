@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { generateKeyPairSync } from "node:crypto";
 import { describe, it } from "node:test";
 import {
+  buildManifestFromDataDir,
   canonicalManifestBody,
   rollupChainHashes,
   sha256Hex,
@@ -47,12 +48,7 @@ describe("manifest", () => {
     const publicPem = publicKey.export({ type: "spki", format: "pem" }).toString();
     process.env.ASSETS_MANIFEST_PRIVATE_KEY = privatePem;
 
-    const body = {
-      generatedAt: "2026-07-22T00:00:00.000Z",
-      sections: {
-        providers: { contentHash: "abc", chains: { "eip155-14": "x" } },
-      },
-    };
+    const body = buildManifestFromDataDir(`${process.cwd()}/data`);
     const signed = signManifestBody(body);
     assert.ok(signed.signature.length > 0);
     assert.equal(verifyManifest(signed, publicPem), true);
