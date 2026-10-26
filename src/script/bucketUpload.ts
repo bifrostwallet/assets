@@ -6,12 +6,6 @@ import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
 import { BUCKET_NAME, BUCKET_PREFIX, PROJECT_ID } from "../config.js";
 import { isMain } from "../isMain.js";
 import { legacyTokenIconDestination } from "../legacyTokenIcon.js";
-import {
-  type AssetsManifestBody,
-  rollupChainHashes,
-  sha256Hex,
-  signManifestBody,
-} from "../manifest.js";
 
 // Uploads curated assets to an operator-configured static GCS bucket (optional CDN).
 //
@@ -20,9 +14,6 @@ import {
 // GitHub raw from package.json repository). For a private CDN, set e.g.:
 //   BUCKET_PREFIX=<prefix>/
 //   ASSET_BASE_URL=https://cdn.example.com/<prefix>/
-//
-// Also uploads a signed root manifest.json (Ed25519 via ASSETS_MANIFEST_PRIVATE_KEY)
-// whose content hashes match the uploaded all.json bytes.
 //
 // Each ERC-20 logo.webp is uploaded twice, as the same WebP bytes: the catalog
 // object, and `res/icons/<address>.webp` at the bucket root (no prefix). Host
@@ -37,7 +28,7 @@ interface UploadItem {
   destination: string;
   cacheControl: string;
   contentType: string;
-  /** Temp files created for rewritten all.json / manifest — delete after upload */
+  /** Temp files created for rewritten all.json — delete after upload */
   cleanup?: boolean;
 }
 
@@ -45,13 +36,8 @@ interface UploadItem {
 const LOGO_CACHE_CONTROL = "public, max-age=604800";
 /** Lists refresh with nightly builds — cache up to a day */
 const LIST_CACHE_CONTROL = "public, max-age=86400";
-/** Manifest is the cache-bust signal — cache up to an hour */
-const MANIFEST_CACHE_CONTROL = "public, max-age=3600";
 
-function rewriteAllJsonForUpload(
-  localPath: string,
-  assetBase: string,
-): { body: string; tmpPath: string } {
+function rewriteAllJsonForUpload(localPath: string, assetBase: string): string {
   const entries = JSON.parse(fs.readFileSync(localPath, "utf8")) as Array<{ logoURL?: string }>;
   const rewritten = entries.map((entry) =>
     entry.logoURL ? withAbsoluteLogoURL({ ...entry, logoURL: entry.logoURL }, assetBase) : entry,
@@ -62,17 +48,12 @@ function rewriteAllJsonForUpload(
     `assets-${path.basename(path.dirname(localPath))}-all-${process.pid}.json`,
   );
   fs.writeFileSync(tmpPath, body);
-  return { body, tmpPath };
+  return tmpPath;
 }
 
-function collectUploads(assetBase: string): {
-  uploads: UploadItem[];
-  sectionHashes: AssetsManifestBody["sections"];
-} {
+function collectUploads(assetBase: string): UploadItem[] {
   const dataDir = path.join(process.cwd(), "data");
   const uploads: UploadItem[] = [];
-  const providerChains: Record<string, string> = {};
-  const tokenChains: Record<string, string> = {};
 
   const legacyIcons = new Map<string, string>();
 
@@ -107,12 +88,7 @@ function collectUploads(assetBase: string): {
           }
         }
       } else if (entry.name === "all.json") {
-        const { body, tmpPath } = rewriteAllJsonForUpload(fullPath, assetBase);
-        const chain = path.basename(path.dirname(fullPath));
-        const hash = sha256Hex(body);
-        if (section === "providers") providerChains[chain] = hash;
-        else tokenChains[chain] = hash;
-
+        const tmpPath = rewriteAllJsonForUpload(fullPath, assetBase);
         uploads.push({
           localPath: tmpPath,
           destination: `${BUCKET_PREFIX}${relative}`,
@@ -121,8 +97,6 @@ function collectUploads(assetBase: string): {
           cleanup: true,
         });
       } else if (section === "tokens" && entry.name === "blocklist.json") {
-        const body = fs.readFileSync(fullPath);
-        tokenChains.blocklist = sha256Hex(body);
         uploads.push({
           localPath: fullPath,
           destination: `${BUCKET_PREFIX}${relative}`,
@@ -173,38 +147,7 @@ function collectUploads(assetBase: string): {
     walkDappLogos(dappsDir);
   }
 
-  const sections: AssetsManifestBody["sections"] = {};
-  if (Object.keys(providerChains).length > 0) {
-    sections.providers = {
-      contentHash: rollupChainHashes(providerChains),
-      chains: providerChains,
-    };
-  }
-  if (Object.keys(tokenChains).length > 0) {
-    sections.tokens = {
-      contentHash: rollupChainHashes(tokenChains),
-      chains: tokenChains,
-    };
-  }
-
-  return { uploads, sectionHashes: sections };
-}
-
-function buildSignedManifestUpload(sections: AssetsManifestBody["sections"]): UploadItem {
-  const body: AssetsManifestBody = {
-    generatedAt: new Date().toISOString(),
-    sections,
-  };
-  const signed = signManifestBody(body);
-  const tmpPath = path.join(os.tmpdir(), `assets-manifest-${process.pid}.json`);
-  fs.writeFileSync(tmpPath, `${JSON.stringify(signed, null, 2)}\n`);
-  return {
-    localPath: tmpPath,
-    destination: `${BUCKET_PREFIX}manifest.json`,
-    cacheControl: MANIFEST_CACHE_CONTROL,
-    contentType: "application/json",
-    cleanup: true,
-  };
+  return uploads;
 }
 
 function requireUploadConfig(): { bucketName: string; projectId: string } {
@@ -231,27 +174,7 @@ async function uploadToBucket(): Promise<void> {
   const dryRun = process.argv.includes("--dry-run");
   const { bucketName, projectId } = requireUploadConfig();
   const assetBase = getAssetBaseURL();
-  const { uploads, sectionHashes } = collectUploads(assetBase);
-
-  let manifestItem: UploadItem | undefined;
-  try {
-    manifestItem = buildSignedManifestUpload(sectionHashes);
-    uploads.push(manifestItem);
-  } catch (error) {
-    if (dryRun) {
-      console.warn(
-        "⚠️  Manifest unsigned in dry-run (set ASSETS_MANIFEST_PRIVATE_KEY to sign):",
-        error,
-      );
-      console.info(
-        "   Manifest body preview:",
-        JSON.stringify({ generatedAt: new Date().toISOString(), sections: sectionHashes }, null, 2),
-      );
-    } else {
-      cleanupTemps(uploads);
-      throw error;
-    }
-  }
+  const uploads = collectUploads(assetBase);
 
   console.info(`🖼️  logoURL base: ${assetBase}`);
   console.info(

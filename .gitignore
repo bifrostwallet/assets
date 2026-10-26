@@ -11,10 +11,6 @@ reports/
 # Listing portal + intake stay private (deploy/ops only; not in the public repo)
 /apps/
 
-# Manifest signing: commit only manifest-public.pem at repo root
-/manifest-private.pem
-/keys/
-
 # Local cache of Secret Manager ops config (./yarn ops:pull-env) — never commit
 /.ops.env
 
