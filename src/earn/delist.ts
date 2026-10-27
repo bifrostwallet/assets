@@ -4,6 +4,7 @@ import type { ProviderInfo } from "../config.js";
 import { rebuildProvidersAllJson, sortProviderInfo } from "../convert.js";
 import { CHAINS } from "./config.js";
 import { type FspPassRecord, loadLatestFspPasses } from "./github.js";
+import { formatFeeDelistReason, loadFeeObservations } from "./listingFee.js";
 
 export interface DelistCandidate {
   chainPath: string;
@@ -40,9 +41,12 @@ export function formatPassReason(record: FspPassRecord): string {
 }
 
 /**
- * Listed providers whose latest fsp-rewards passes.json shows
- * `eligibleForReward: false`. Providers absent from passes.json are left to
- * curators / `check:providers` — never auto-delisted here.
+ * Listed providers to suggest for `listed: false`:
+ * - latest passes.json has `eligibleForReward: false` (absence from
+ *   passes.json is left to curators / `check:providers` — never auto-delisted
+ *   for that), or
+ * - the current FTSO/FSP fee, or any currently validating Flare validator fee,
+ *   is above Bifrost's 50% listing cap.
  */
 export async function findDelistCandidates(): Promise<DelistCandidate[]> {
   const candidates: DelistCandidate[] = [];
@@ -53,18 +57,25 @@ export async function findDelistCandidates(): Promise<DelistCandidate[]> {
       passes.map((record) => [record.voterAddress.toLowerCase(), record]),
     );
     const curated = loadCuratedProviders(chain.chainPath);
+    const listed = curated.filter((provider) => provider.listed);
+    const fees = await loadFeeObservations(chain, listed);
 
-    for (const provider of curated) {
-      if (!provider.listed) continue;
+    for (const provider of listed) {
       const identity = provider.identityAddress.toLowerCase();
       const record = recordByIdentity.get(identity);
-      if (!isDelistCandidate(record)) continue;
+      const reasons: string[] = [];
+      if (isDelistCandidate(record)) reasons.push(formatPassReason(record));
+      const feeReason = formatFeeDelistReason(
+        fees.get(identity) ?? { ftsoFeeBips: null, validatingNodes: [] },
+      );
+      if (feeReason) reasons.push(feeReason);
+      if (reasons.length === 0) continue;
 
       candidates.push({
         chainPath: chain.chainPath,
         identityAddress: identity,
         name: provider.name,
-        reason: formatPassReason(record),
+        reason: reasons.join("; "),
         fspEpochId: epochId,
       });
     }
@@ -110,15 +121,19 @@ export function applyDelistCandidates(candidates: DelistCandidate[]): number {
 
 export function formatDelistSummary(candidates: DelistCandidate[]): string {
   if (candidates.length === 0) {
-    return "No listed providers burned FSP rewards in the latest passes.json.";
+    return "No listed providers burned FSP rewards or charge a delegation fee above Bifrost's 50% listing cap.";
   }
 
   const lines = [
-    "Automated delist candidates — FSP rewards burned (`eligibleForReward: false`",
-    "in the latest fsp-rewards passes.json: zero passes plus another",
-    "minimal-condition failure across FTSO / FDC / staking).",
+    "Automated delist candidates. Nightly refresh opens a pull request with",
+    "`listed: false`; curators review before merge. A listed operator is included when either:",
     "",
-    "Nightly refresh opens a pull request with `listed: false`; curators review before merge.",
+    "- FSP rewards were burned (`eligibleForReward: false` in the latest fsp-rewards",
+    "  passes.json: zero passes plus another minimal-condition failure across FTSO / FDC / staking), or",
+    "- Bifrost's own listing recommendation (not a protocol rule): the current FTSO/FSP",
+    "  delegation fee is above 50%, or any currently validating Flare P-chain node in",
+    "  `validators` charges a delegation fee above 50%. Exactly 50% is allowed. 20% is the",
+    "  usual fee; lower fees stay listed. Songbird has no P-chain staking.",
     "",
   ];
 

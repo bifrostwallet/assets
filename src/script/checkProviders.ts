@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
+import { CHAINS } from "../earn/config.js";
+import { formatFeeDelistReason, loadFeeObservations } from "../earn/listingFee.js";
 import {
   ELIGIBILITY,
   evaluateEligibility,
@@ -14,6 +16,8 @@ import {
 // 2. Listed providers that fail eligibility (candidates for review)
 // 3. Eligible providers not yet listed (candidates for listing)
 // 4. Gap audit: identities earning rewards that are missing from data/providers
+// 5. Listed providers over Bifrost's 50% delegation-fee cap (same rule as the
+//    nightly delist). Advisory only — a breach does not fail CI.
 //
 // This never mutates data — curators act on the report. CI should treat the
 // output as warnings, not failures.
@@ -84,6 +88,7 @@ async function checkNetwork(network: { key: string; chainPath: string }): Promis
   const window = await fetchEpochWindow(network.key);
   if (window.length === 0) {
     console.warn(`⚠️ No epoch data available for ${network.key}`);
+    await reportListingFees(network.chainPath, loadCuratedProviders(network.chainPath));
     return;
   }
   console.info(
@@ -142,6 +147,44 @@ async function checkNetwork(network: { key: string; chainPath: string }): Promis
     }
   } else {
     console.info("\n✅ No gap: every on-chain registered entity is curated");
+  }
+
+  await reportListingFees(network.chainPath, curated);
+}
+
+/**
+ * Same fee rule as the nightly delist. Warns only — a breach or a failed
+ * read must not fail `check:providers`.
+ */
+async function reportListingFees(chainPath: string, curated: ProviderInfo[]): Promise<void> {
+  const chain = CHAINS.find((candidate) => candidate.chainPath === chainPath);
+  if (!chain) return;
+  const listed = curated.filter((provider) => provider.listed);
+  if (listed.length === 0) return;
+
+  try {
+    const observations = await loadFeeObservations(chain, listed);
+    const breaches: string[] = [];
+    for (const provider of listed) {
+      const observation = observations.get(provider.identityAddress.toLowerCase());
+      if (!observation) continue;
+      const reason = formatFeeDelistReason(observation);
+      if (!reason) continue;
+      breaches.push(`${provider.name} (${provider.identityAddress}): ${reason}`);
+    }
+    if (breaches.length === 0) {
+      console.info("\n✅ No listed provider is above Bifrost's 50% delegation-fee cap");
+      return;
+    }
+    console.warn(
+      `\n⚠️ Listed above Bifrost's 50% delegation-fee cap (${breaches.length}; advisory, does not fail CI):`,
+    );
+    for (const line of breaches) {
+      console.warn(`   ${line}`);
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`\n⚠️ Delegation-fee check skipped for ${chainPath}: ${message}`);
   }
 }
 

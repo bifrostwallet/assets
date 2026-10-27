@@ -26,8 +26,10 @@ import { syncDomainLinkage } from "./syncDomainLinkage.js";
  * 2. With --write-domain: persist domainLinked into git (unsigned flag; CI
  *    commits straight to main). Skip the check entirely with --skip-domain.
  * 3. With --write-delist: flip listed:false for providers that burned FSP
- *    rewards (eligibleForReward=false in the latest passes.json). CI applies
- *    this on a branch and opens a PR — never straight to main.
+ *    rewards (eligibleForReward=false in the latest passes.json) or whose
+ *    current FTSO fee or any currently validating Flare validator fee is above
+ *    50% (Bifrost's listing recommendation). CI applies this on a branch and
+ *    opens a PR — never straight to main.
  * 4. With --write-chain: compare EntityManager addresses and validators with
  *    info.json and write the chain values. Same PR as delist; signatures stay
  *    valid because those fields are unsigned.
