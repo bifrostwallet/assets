@@ -2,9 +2,11 @@
   "name": "FTSO Yggdrassil",
   "description": "Inspired by the mighty Yggdrassil tree, our FTSO stands firmly rooted in the Flare Network nurturing reliable and decentralized data feeds, symbolizing strength and growth.",
   "logoURL": "providers/eip155-14/0x11cd153df9f4497aa3d21e95f61cf638911377eb/logo.webp",
-  "logoHash": "14180f3c48144692005a4a076b3e449554addb4558c608fd77fd8768c17868ad",
+  "logoHash": "c04273008fe06bc8fed302f87421cf339b440c32e131adb918da44bb92f898e5",
   "websiteURL": "https://ftso-yggdrassil.com",
-  "links": {},
+  "links": {
+    "x": "https://x.com/FTSOYggdrassil"
+  },
   "identityAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
   "delegationAddress": "0x3035364f988cfc4574d459009f9d3f68d9d734d7",
   "signingPolicyAddress": "0xb7603ab85c2c0b2ed85e5a148ecdd324f4c749bd",
