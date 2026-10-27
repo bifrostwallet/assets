@@ -1,10 +1,12 @@
 name: Refresh providers
 
 # Nightly: publish private Earn APY to GCS (no human gate) and commit unsigned
-# domainLinked flags straight to main. Providers that burned FSP rewards
-# (eligibleForReward=false in the latest fsp-rewards passes.json — zero passes
-# plus another FTSO/FDC/staking minimal-condition failure) get listed:false on
-# a branch with a pull request; curators review before merge.
+# domainLinked flags straight to main. A branch pull request suggests
+# listed:false when a provider burned FSP rewards (eligibleForReward=false in
+# the latest passes.json — zero passes plus another FTSO/FDC/staking
+# minimal-condition failure) or breaks Bifrost's delegation-fee recommendation
+# (current FTSO fee, or any currently validating Flare validator fee, above
+# 50%). Curators review before merge.
 
 on:
   schedule:

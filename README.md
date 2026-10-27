@@ -138,6 +138,20 @@ Operational participation is judged from Flare Systems Protocol data ([fsp-rewar
 
 - Providers whose FSP rewards are burned (`eligibleForReward: false` in the latest `passes.json`) are delisted via an automated catalog update
 - Curators may also delist providers that persistently fail the advisory eligibility screen (`./yarn check:providers`); such providers are relisted when healthy again
+- An operator whose current FTSO/FSP delegation fee, or any currently validating Flare validator fee, is above 50% is delisted under [Bifrost's delegation-fee recommendation](#delegation-fees)
+
+##### Delegation fees
+
+This cap is **Bifrost's own listing recommendation**. It is not a Flare or Songbird protocol rule. The protocols allow a higher delegation fee; Bifrost chooses not to list operators that charge one.
+
+An operator must not stay `listed: true` when either of these is true:
+
+- Its **current** FTSO/FSP delegation fee is strictly above **50%**. Exactly 50% may stay listed.
+- On Flare, **any** of its validators that is **currently validating** on the P-chain (a NodeID in `validators` that `platform.getCurrentValidators` still returns) charges a delegation fee strictly above **50%**. One validator over the cap delists the whole operator. Nodes that are not currently validating do not count. Songbird has no P-chain staking, so only the FTSO/FSP fee applies there.
+
+**20%** is the usual fee. Fees below 20% are allowed. There is no lower bound.
+
+The nightly catalog refresh reads the FTSO fee from `WNatDelegationFee.getVoterCurrentFeePercentage` (BIPS, resolved through `FlareContractRegistry`) and Flare validator fees from `platform.getCurrentValidators` (`delegationFee`, a percent such as `20.0000`). Operators over the cap are proposed as `listed: false` on the `nightly/fsp-delist` pull request, with the reason in the pull request body. A curator still merges that pull request. `./yarn check:providers` prints the same check as an advisory and does not fail on it.
 
 ### Listed in Bifrost Wallet
 
