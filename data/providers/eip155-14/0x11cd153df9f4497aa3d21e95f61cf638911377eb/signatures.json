@@ -5,9 +5,9 @@
     {
       "signerName": "FTSO Yggdrassil",
       "signerAddress": "0x11cd153df9f4497aa3d21e95f61cf638911377eb",
-      "messageHash": "0x967188d11dabf6d2068aa012e065bd53a453d71a933f25cd57cdfdf06283d198",
-      "signature": "0x0d6625aac8f825a475c1f2ea823933b981130c1203ef588ccbd486069ff920dc2e6f3e171a851d1616646af5db61ce9846e21331447ff5726e543054913e58061b",
-      "date": "2026-10-21T22:28:51.335Z"
+      "messageHash": "0x48ae25cc96813fd1fc4663cfb1735cedd3205e29cea5c193b0a804192a5a192f",
+      "signature": "0xbd3aa4aa848959f6fb48c93780c5d134c45fbdfc769f025447a38b80d0f1e6c232b1638b6a4619125cd5fd4fbc9b32176b2f6f388afed81b072dff346968f3661b",
+      "date": "2026-10-26T20:53:52.477Z"
     }
   ]
 }
