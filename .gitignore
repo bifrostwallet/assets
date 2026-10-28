@@ -14,8 +14,8 @@ reports/
 # Local cache of Secret Manager ops config (./yarn ops:pull-env) — never commit
 /.ops.env
 
-# Yarn (zero-install artifacts are not committed; the release binary and its
-# hash file are, so installs use the reviewed, hash-verified binary)
+# Yarn (the zero-install cache is committed; the release binary and its
+# hash file are too, so installs use the reviewed, hash-verified binary)
 .yarn/*
 !.yarn/cache
 !.yarn/yarn-binary-hash.txt

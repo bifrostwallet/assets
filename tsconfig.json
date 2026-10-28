@@ -14,5 +14,5 @@
     "types": ["node"]
   },
   "include": ["src/**/*", "test/**/*"],
-  "exclude": ["node_modules", "apps", "src copy", "test copy"]
+  "exclude": ["node_modules"]
 }
