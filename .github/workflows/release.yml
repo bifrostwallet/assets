@@ -48,7 +48,7 @@ jobs:
         run: ./yarn install --immutable
 
       # Beta: cryptographic verify only. --strict (require every entry self-signed)
-      # waits until after grandfathering ends 2026-11-01 (see README).
+      # waits until after grandfathering ends 2026-12-31 (see README).
       - name: Verify provider signatures
         run: ./yarn verify:providers
 
