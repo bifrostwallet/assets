@@ -6,8 +6,8 @@ import {
   DAPP_INFO_KEYS,
   type DappInfo,
 } from "./config.js";
+import { sha256Hex } from "./convert.js";
 import { dappCategoryErrors, listDappSlugs, readDappCategories } from "./dappCategories.js";
-import { sha256Hex } from "./manifest.js";
 import { isValidDescription, isValidImage, isValidName, isValidURL } from "./validate.js";
 import { isWebpMagic } from "./webp.js";
 
