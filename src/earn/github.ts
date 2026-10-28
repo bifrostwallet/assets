@@ -137,6 +137,26 @@ const MAX_WALK_BACK = 3;
 
 // ── fsp-rewards ──
 
+/** Numeric fsp-rewards epoch folder ids for a chain, ascending. */
+export async function listFspEpochIds(chain: ChainName): Promise<number[]> {
+  const names = await listFolderNames("fsp-rewards", chain);
+  return names
+    .filter((name) => /^\d+$/.test(name))
+    .map((name) => Number(name))
+    .sort((a, b) => a - b);
+}
+
+/**
+ * Raw reward-epoch-info.json for one published epoch.
+ * Undefined when the file is not published yet (HTTP 404).
+ */
+export async function loadFspRewardEpochInfo(
+  chain: ChainName,
+  epochId: number,
+): Promise<unknown | undefined> {
+  return fetchJson(`${RAW_BASE}/fsp-rewards/main/${chain}/${epochId}/reward-epoch-info.json`);
+}
+
 export async function loadLatestFspEpoch(chain: ChainName): Promise<FspEpochData> {
   const names = await listFolderNames("fsp-rewards", chain);
   const latest = maxNumeric(names);

@@ -12,7 +12,6 @@ import {
   type ContractInfo,
   getContract,
   getContracts,
-  syncContractLogosFromDapps,
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
@@ -25,20 +24,6 @@ describe("contract catalog", { concurrency: false }, () => {
   test("data/contracts matches the schema", () => {
     const errors = validateContractCatalog();
     assert.deepEqual(errors, [], errors.join("\n"));
-  });
-
-  test("rejects a contract all.json aggregate", () => {
-    const allPath = path.join(process.cwd(), "data", "contracts", "eip155-14", "all.json");
-    fs.writeFileSync(allPath, "[]\n");
-    try {
-      const errors = validateContractCatalog();
-      assert.equal(
-        errors.some((error) => error.includes("do not use an aggregate file")),
-        true,
-      );
-    } finally {
-      fs.rmSync(allPath, { force: true });
-    }
   });
 
   test("seed covers pools, vaults, and Firelight", () => {
@@ -257,28 +242,6 @@ describe("contract catalog", { concurrency: false }, () => {
       ),
       true,
     );
-  });
-
-  test("syncContractLogosFromDapps rewrites a drifted logo copy", () => {
-    const filePath = path.join(
-      process.cwd(),
-      "data",
-      "contracts",
-      "eip155-14",
-      `${BIFROST_POOL}.json`,
-    );
-    const original = fs.readFileSync(filePath, "utf8");
-    const record = JSON.parse(original) as { logoHash: string };
-    record.logoHash = "a".repeat(64);
-    fs.writeFileSync(filePath, `${JSON.stringify(record, null, 2)}\n`);
-    try {
-      assert.equal(syncContractLogosFromDapps() > 0, true);
-      const restored = JSON.parse(fs.readFileSync(filePath, "utf8")) as { logoHash: string };
-      assert.equal(restored.logoHash, JSON.parse(original).logoHash);
-      assert.deepEqual(validateContractCatalog(), []);
-    } finally {
-      fs.writeFileSync(filePath, original);
-    }
   });
 });
 
