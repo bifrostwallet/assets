@@ -273,6 +273,11 @@ export function calculateHash(filePath: string): string {
   return crypto.createHash("sha256").update(fileContent).digest("hex");
 }
 
+/** SHA-256 hex digest of logo bytes and other catalog content. */
+export function sha256Hex(bytes: Buffer | string): string {
+  return crypto.createHash("sha256").update(bytes).digest("hex");
+}
+
 /**
  * Sorts a dapp info object according to the defined key order
  */

@@ -20,9 +20,6 @@ SECURITY_STAGED_FILES=$(git diff --cached --name-only -- \
   'scripts/install-git-hooks.sh' \
   '.node-version' \
   '.nvmrc' \
-  'Gemfile' \
-  'Gemfile.lock' \
-  '.bundle/**' \
   '.gitignore' \
   '.gitattributes' \
   '.env*' \

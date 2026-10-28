@@ -5,8 +5,8 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { describe, test } from "node:test";
 import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type DappCategory } from "../src/config.js";
+import { sha256Hex } from "../src/convert.js";
 import { checkDappCatalog } from "../src/dappCheck.js";
-import { sha256Hex } from "../src/manifest.js";
 
 const SCRIPT = path.join(process.cwd(), "build/src/script/checkDapps.js");
 

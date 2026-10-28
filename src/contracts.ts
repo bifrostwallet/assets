@@ -1,8 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { ASSET_LOGO_REQUIREMENTS } from "./config.js";
-import { writeFormattedJson } from "./convert.js";
-import { sha256Hex } from "./manifest.js";
+import { sha256Hex, writeFormattedJson } from "./convert.js";
 import { isValidEvmAddress, isValidImage } from "./validate.js";
 import { isWebpMagic } from "./webp.js";
 
