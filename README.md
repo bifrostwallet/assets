@@ -73,7 +73,7 @@ Changing any of these fields requires a new signature. Anything not listed here 
 
 CI checks every signature with `yarn verify:providers`.
 
-**Deadline:** entries that predate the public launch of this repository are grandfathered until **1 November 2026**. After that date, entries without a valid self-signature are delisted (`listed: false`) until signed.
+**Deadline:** entries that predate the public launch of this repository are grandfathered until **31 December 2026**. Listed providers without a self-signature and `domainLinked: true` are set `listed: false` after 31 December 2026.
 
 ### Logo requirements
 
@@ -164,7 +164,7 @@ To be **Listed in Bifrost Wallet**, curators require **private outreach on file*
 | **Flare** | Self-bond ≥ **10M FLR**; ≥ **2** validators; ≥ **20** unique P-chain stakers **and** ≥ **2M FLR** external stake; WFLR vote power ≥ **100M FLR**; prefer brands that already have a Songbird (canary) catalog entry |
 | **Songbird** | WSGB vote power ≥ **50M** |
 
-**Grandfathering:** providers that were listed before this repository went public keep `listed: true` until **1 November 2026** without meeting the domain linkage and ownership signature requirements. From that date, listed providers that have not completed domain linkage and do not carry a valid self-signature are delisted. Delisted providers are relisted once they meet the requirements again.
+**Grandfathering:** providers that were listed before this repository went public keep `listed: true` until **31 December 2026** without meeting the domain linkage and ownership signature requirements. Listed providers without a self-signature and `domainLinked: true` are set `listed: false` after 31 December 2026. Delisted providers are relisted once they meet the requirements again.
 
 ### Recommendations for developers
 
