@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
-import { rebuildProvidersAllJson, sortProviderInfo } from "../convert.js";
+import { rebuildProvidersAllJson, sortProviderInfo, writeFormattedJson } from "../convert.js";
 import { CHAINS } from "./config.js";
 import { type FspPassRecord, loadLatestFspPasses } from "./github.js";
 import { formatFeeDelistReason, loadFeeObservations } from "./listingFee.js";
@@ -107,7 +107,7 @@ export function applyDelistCandidates(candidates: DelistCandidate[]): number {
     if (!info.listed) continue;
 
     info.listed = false;
-    fs.writeFileSync(infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
+    writeFormattedJson(infoPath, sortProviderInfo(info));
     chainsTouched.add(candidate.chainPath);
     updated++;
   }

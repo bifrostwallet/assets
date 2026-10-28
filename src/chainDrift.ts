@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { BLOCKCHAIN_NETWORKS, type ProviderInfo } from "./config.js";
-import { rebuildProvidersAllJson, sortProviderInfo } from "./convert.js";
+import { rebuildProvidersAllJson, sortProviderInfo, writeFormattedJson } from "./convert.js";
 import { fetchEntityData } from "./onchain.js";
 import { findProviderDirs } from "./verify.js";
 
@@ -140,7 +140,7 @@ export function applyChainDrift(drifts: ProviderChainDrift[]): number {
     for (const change of drift.changes) {
       applyObservedField(info, drift, change.field);
     }
-    fs.writeFileSync(drift.infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
+    writeFormattedJson(drift.infoPath, sortProviderInfo(info));
     chainsTouched.add(drift.chainPath);
     updated += 1;
   }
