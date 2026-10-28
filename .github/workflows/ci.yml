@@ -68,6 +68,8 @@ jobs:
 
       - name: Check provider catalog
         run: ./yarn check:providers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check token catalog
         run: ./yarn check:tokens

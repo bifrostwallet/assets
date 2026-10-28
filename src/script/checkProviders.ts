@@ -1,7 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
-import { CHAINS } from "../earn/config.js";
+import { CHAINS, type ChainName } from "../earn/config.js";
+import { listFspEpochIds, loadFspRewardEpochInfo } from "../earn/github.js";
 import { formatFeeDelistReason, loadFeeObservations } from "../earn/listingFee.js";
 import {
   ELIGIBILITY,
@@ -9,6 +10,7 @@ import {
   type ParsedEpochInfo,
   parseEpochInfo,
 } from "../fspRewards.js";
+import { isMain } from "../isMain.js";
 
 // Advisory provider audit against Flare's published reward data
 // (github.com/flare-foundation/fsp-rewards). Reports:
@@ -20,47 +22,26 @@ import {
 //    nightly delist). Advisory only — a breach does not fail CI.
 //
 // This never mutates data — curators act on the report. CI should treat the
-// output as warnings, not failures.
+// output as warnings, not failures. A failed fsp-rewards read is skipped
+// (exit 0), same as the delegation-fee check.
 
-const FSP_REWARDS_API = "https://api.github.com/repos/flare-foundation/fsp-rewards/contents";
-const FSP_REWARDS_RAW = "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main";
-
-const NETWORKS: { key: "flare" | "songbird"; chainPath: string }[] = [
+const NETWORKS: { key: ChainName; chainPath: string }[] = [
   { key: "flare", chainPath: "eip155-14" },
   { key: "songbird", chainPath: "eip155-19" },
 ];
 
-async function fetchJSON<T>(url: string): Promise<T> {
-  const response = await fetch(url, {
-    headers: { "User-Agent": "assets-repo" },
-  });
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${url}`);
-  }
-  return (await response.json()) as T;
-}
-
-/** Lists available epoch ids for a network folder, ascending */
-async function listEpochIds(network: string): Promise<number[]> {
-  const entries = await fetchJSON<{ name: string; type: string }[]>(
-    `${FSP_REWARDS_API}/${network}`,
-  );
-  return entries
-    .filter((entry) => entry.type === "dir" && /^\d+$/.test(entry.name))
-    .map((entry) => Number(entry.name))
-    .sort((a, b) => a - b);
-}
-
-async function fetchEpochWindow(network: string): Promise<ParsedEpochInfo[]> {
-  const epochIds = await listEpochIds(network);
+async function fetchEpochWindow(network: ChainName): Promise<ParsedEpochInfo[]> {
+  const epochIds = await listFspEpochIds(network);
   const windowIds = epochIds.slice(-ELIGIBILITY.UPTIME_WINDOW_EPOCHS).reverse();
 
   const window: ParsedEpochInfo[] = [];
   for (const epochId of windowIds) {
     try {
-      const info = await fetchJSON(
-        `${FSP_REWARDS_RAW}/${network}/${epochId}/reward-epoch-info.json`,
-      );
+      const info = await loadFspRewardEpochInfo(network, epochId);
+      if (!info) {
+        console.warn(`⚠️ Skipping ${network} epoch ${epochId}: reward-epoch-info.json not found`);
+        continue;
+      }
       window.push(parseEpochInfo(info));
     } catch (error) {
       console.warn(`⚠️ Skipping ${network} epoch ${epochId}: ${error}`);
@@ -82,10 +63,19 @@ function checkMark(value: boolean | null): string {
   return value ? "✅" : "❌";
 }
 
-async function checkNetwork(network: { key: string; chainPath: string }): Promise<void> {
+export async function checkNetwork(network: { key: ChainName; chainPath: string }): Promise<void> {
   console.info(`\n=== ${network.key.toUpperCase()} (${network.chainPath}) ===`);
 
-  const window = await fetchEpochWindow(network.key);
+  let window: ParsedEpochInfo[];
+  try {
+    window = await fetchEpochWindow(network.key);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`\n⚠️ Epoch read skipped for ${network.key}: ${message}`);
+    await reportListingFees(network.chainPath, loadCuratedProviders(network.chainPath));
+    return;
+  }
+
   if (window.length === 0) {
     console.warn(`⚠️ No epoch data available for ${network.key}`);
     await reportListingFees(network.chainPath, loadCuratedProviders(network.chainPath));
@@ -194,7 +184,9 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((error) => {
-  console.error("❌ Provider check failed:", error);
-  process.exitCode = 1;
-});
+if (isMain(import.meta.url)) {
+  main().catch((error) => {
+    console.error("❌ Provider check failed:", error);
+    process.exitCode = 1;
+  });
+}
