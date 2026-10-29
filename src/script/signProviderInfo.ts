@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { privateKeyToAccount } from "viem/accounts";
-import { toRelativePath } from "../convert.js";
+import { toRelativePath, writeFormattedJson } from "../convert.js";
 import {
   chainIdFromProviderPath,
   PROVIDER_VERIFICATION_INSTRUCTIONS,
@@ -95,7 +95,7 @@ async function signProviderInfo(providerInfoPath: string, privateKey: string): P
       signaturesData.signatures = [signatureEntry];
     }
 
-    fs.writeFileSync(outputPath, JSON.stringify(signaturesData, null, 2));
+    writeFormattedJson(outputPath, signaturesData);
 
     console.info(`✅ Successfully signed provider info for ${providerInfo.name}`);
     console.info(`📝 Signature saved to: ${toRelativePath(outputPath)}`);

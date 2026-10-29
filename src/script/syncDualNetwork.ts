@@ -1,7 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
-import { rebuildProvidersAllJson, sortProviderInfo, toRelativePath } from "../convert.js";
+import {
+  rebuildProvidersAllJson,
+  sortProviderInfo,
+  toRelativePath,
+  writeFormattedJson,
+} from "../convert.js";
 import { isMain } from "../isMain.js";
 
 // Curator-reviewed dualNetwork sync: a provider is dualNetwork when the same
@@ -85,8 +90,6 @@ interface BrandKey {
  * Signals bound to keys or proven domain control; safe to auto-set from.
  * The linked-domain key only exists when the entry itself is domainLinked, so
  * a cross-chain hit requires BOTH sides to have proven the same domain.
- * Also used by sync:management-group to mirror Flare membership onto the
- * brand's Songbird entry.
  */
 export function strongBrandKeys(info: ProviderInfo): BrandKey[] {
   const keys: BrandKey[] = [
@@ -224,10 +227,7 @@ export function syncDualNetwork(options: { dryRun?: boolean } = {}): DualNetwork
 
       if (!dryRun) {
         provider.info.dualNetwork = isDual;
-        fs.writeFileSync(
-          provider.infoPath,
-          `${JSON.stringify(sortProviderInfo(provider.info), null, 2)}\n`,
-        );
+        writeFormattedJson(provider.infoPath, sortProviderInfo(provider.info));
         chainChanged = true;
       }
     }

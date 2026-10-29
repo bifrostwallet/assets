@@ -1,7 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { BLOCKCHAIN_NETWORKS, type ProviderInfo } from "../config.js";
-import { rebuildProvidersAllJson, sortProviderInfo, toRelativePath } from "../convert.js";
+import {
+  rebuildProvidersAllJson,
+  sortProviderInfo,
+  toRelativePath,
+  writeFormattedJson,
+} from "../convert.js";
 import { isMain } from "../isMain.js";
 
 // Write-once firstTransaction scan (Blockscout Etherscan-compatible API).
@@ -202,7 +207,7 @@ export async function scanFirstTransactions(
 
       if (!dryRun) {
         info.firstTransaction = firstTransaction;
-        fs.writeFileSync(infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
+        writeFormattedJson(infoPath, sortProviderInfo(info));
         chainChanged = true;
       }
     }
