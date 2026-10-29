@@ -13,12 +13,14 @@ import {
 import {
   calculateHash,
   dappSlugFromUrl,
+  formatRepoJson,
   providerInfoMessageHash,
   providerLogoPath,
   rebuildProvidersAllJson,
   sortDappInfo,
   sortProviderInfo,
   toRelativePath,
+  writeFormattedJson,
 } from "./convert.js";
 import {
   chainIdFromProviderPath,
@@ -144,7 +146,8 @@ export async function ingestProviderSubmission(
 
   // Verify the signature against the final content in a staging directory
   const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-provider-staging-"));
-  const finalInfoJson = `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`;
+  const infoPath = path.join(existingDir, "info.json");
+  const finalInfoJson = formatRepoJson(sortProviderInfo(info), infoPath);
   fs.writeFileSync(path.join(stagingDir, "info.json"), finalInfoJson);
   fs.copyFileSync(
     path.join(sourceDir, "signatures.json"),
@@ -200,7 +203,7 @@ export async function ingestProviderSubmission(
         status: "unchanged",
         networkPath: network.path,
         identityAddress: identity,
-        infoPath: path.join(existingDir, "info.json"),
+        infoPath,
         selfSigned: verification.hasValidSelfSignature,
       };
     }
@@ -208,12 +211,9 @@ export async function ingestProviderSubmission(
 
   // Write files and rebuild the chain aggregate
   fs.mkdirSync(existingDir, { recursive: true });
-  fs.writeFileSync(path.join(existingDir, "info.json"), finalInfoJson);
+  fs.writeFileSync(infoPath, finalInfoJson);
   fs.copyFileSync(path.join(sourceDir, "logo.webp"), path.join(existingDir, "logo.webp"));
-  fs.writeFileSync(
-    path.join(existingDir, "signatures.json"),
-    `${JSON.stringify(submittedSignatures, null, 2)}\n`,
-  );
+  writeFormattedJson(path.join(existingDir, "signatures.json"), submittedSignatures);
   if (provenanceJson) {
     fs.writeFileSync(destProvenancePath, provenanceJson);
   }
@@ -225,7 +225,7 @@ export async function ingestProviderSubmission(
     status: "ingested",
     networkPath: network.path,
     identityAddress: identity,
-    infoPath: path.join(existingDir, "info.json"),
+    infoPath,
     selfSigned: verification.hasValidSelfSignature,
   };
 }
@@ -266,18 +266,16 @@ function publicProvenanceRecord(submission: {
 /** Materializes an intake submission document into a temp submission directory */
 export function intakeSubmissionToDir(submission: IntakeSubmission): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-ingest-"));
-  fs.writeFileSync(
-    path.join(dir, "info.json"),
-    JSON.stringify({ ...submission.info, chainPath: submission.chainPath }, null, 2),
-  );
-  fs.writeFileSync(
-    path.join(dir, "signatures.json"),
-    JSON.stringify(submission.signatures, null, 2),
-  );
+  writeFormattedJson(path.join(dir, "info.json"), {
+    ...submission.info,
+    chainPath: submission.chainPath,
+  });
+  writeFormattedJson(path.join(dir, "signatures.json"), submission.signatures);
   fs.writeFileSync(path.join(dir, "logo.webp"), Buffer.from(submission.logoBase64, "base64"));
-  fs.writeFileSync(
+  // Copied byte-for-byte into the catalog by ingestProviderSubmission.
+  writeFormattedJson(
     path.join(dir, "provenance.json"),
-    `${JSON.stringify(publicProvenanceRecord({ submittedAt: submission.submittedAt }), null, 2)}\n`,
+    publicProvenanceRecord({ submittedAt: submission.submittedAt }),
   );
   return dir;
 }
@@ -404,7 +402,7 @@ export async function ingestProviderAttestation(
     signaturesData.signatures.push(entry);
   }
 
-  fs.writeFileSync(signaturesPath, `${JSON.stringify(signaturesData, null, 2)}\n`);
+  writeFormattedJson(signaturesPath, signaturesData);
   console.info(
     `🖋 Attestation by ${attestation.signerName} (${signer}) merged into ${toRelativePath(signaturesPath)}`,
   );
@@ -548,19 +546,17 @@ export async function ingestDappSubmission(
     logoHash,
     chains: [...chains].sort(),
   });
-  const finalInfoJson = `${JSON.stringify(info, null, 2)}\n`;
-
-  const provenanceJson = `${JSON.stringify(
+  const provenancePath = path.join(dappDir, "provenance.json");
+  const finalInfoJson = formatRepoJson(info, infoPath);
+  const provenanceJson = formatRepoJson(
     publicProvenanceRecord({
       submittedAt: submission.submittedAt,
       submitter: submission.submitter.toLowerCase(),
       messageHash: typed.contentHash,
       signature: submission.signature,
     }),
-    null,
-    2,
-  )}\n`;
-  const provenancePath = path.join(dappDir, "provenance.json");
+    provenancePath,
+  );
 
   if (
     existingInfo &&

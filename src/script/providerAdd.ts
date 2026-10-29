@@ -8,6 +8,7 @@ import {
   rebuildProvidersAllJson,
   sortProviderInfo,
   toRelativePath,
+  writeFormattedJson,
 } from "../convert.js";
 import { getNetworkDetails, getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
@@ -184,7 +185,7 @@ async function addProvider(): Promise<void> {
     fs.mkdirSync(outputDir, { recursive: true });
 
     const infoPath = path.join(outputDir, "info.json");
-    fs.writeFileSync(infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
+    writeFormattedJson(infoPath, sortProviderInfo(info));
     console.info(`\n📁 Provider information saved to: ${toRelativePath(infoPath)}`);
 
     const logoOutputPath = path.join(outputDir, "logo.webp");

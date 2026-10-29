@@ -7,7 +7,12 @@ import {
   type NetworkConfig,
   type ProviderInfo,
 } from "../config.js";
-import { rebuildProvidersAllJson, sortProviderInfo, toRelativePath } from "../convert.js";
+import {
+  rebuildProvidersAllJson,
+  sortProviderInfo,
+  toRelativePath,
+  writeFormattedJson,
+} from "../convert.js";
 import { isMain } from "../isMain.js";
 import type { HexString } from "../validate.js";
 
@@ -111,7 +116,7 @@ export async function syncManagementGroup(): Promise<ManagementGroupSyncResult> 
       const isMember = memberSet?.has(identity) ?? false;
       if (info.managementGroup !== isMember) {
         info.managementGroup = isMember;
-        fs.writeFileSync(infoPath, `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`);
+        writeFormattedJson(infoPath, sortProviderInfo(info));
         console.info(
           `${isMember ? "➕" : "➖"} ${info.name}: managementGroup=${isMember} (${toRelativePath(infoPath)})`,
         );
