@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { describe, mock, test } from "node:test";
@@ -156,51 +155,6 @@ describe("convert.ts tests", () => {
     assert.ok(linksKeys.indexOf("discord") < linksKeys.indexOf("telegram"));
     assert.ok(linksKeys.indexOf("telegram") < linksKeys.indexOf("linkedin"));
   });
-});
-
-describe("convert.ts tests (round two)", () => {
-  test("encodeNodeID() and decodeNodeID() work correctly", () => {
-    // Valid node hex strings and their expected NodeID encodings
-    const validPairs = [
-      {
-        hex: "0x0824b9b47ef6f99c26bc10dd042ef35aa69f16ed" as HexString,
-        nodeID: "NodeID-k4QG8eJ9bYu717nbj8Ki8VykK8g1VWK9",
-      },
-      {
-        hex: "0xf1f9c6662fe665665132291be705f87ad86f557f" as HexString,
-        nodeID: "NodeID-P4T4uKqveVxjZZXVdADHENdnCKnsCFvDE",
-      },
-      {
-        hex: "0x304629ad7c373d06d9a43a13d526b1ec4b26511a" as HexString,
-        nodeID: "NodeID-5QFVCtJieViQm5gCtTn3mNBqvGunCGWn1",
-      },
-      {
-        hex: "0x96088bd06737250f00a21254881458ae8ecdc032" as HexString,
-        nodeID: "NodeID-EgJba99Q5iDcL81A27E111WANn9eZNj4v",
-      },
-      {
-        hex: "0xaaa27a3c99f6bcc65e8b891890b8c8d5f2ebb173" as HexString,
-        nodeID: "NodeID-GZEWkCpn852hwKhbGNJgZvbjtvEfU6Ktg",
-      },
-    ];
-
-    // Test encoding
-    for (const pair of validPairs) {
-      const encoded = encodeNodeID(pair.hex);
-      assert.equal(encoded, pair.nodeID);
-      assert.equal(isValidNodeID(encoded), true);
-    }
-
-    // Test decoding
-    for (const pair of validPairs) {
-      const decoded = decodeNodeID(pair.nodeID);
-      assert.equal(decoded, pair.hex);
-    }
-
-    // Test invalid inputs
-    assert.equal(encodeNodeID("0xinvalid"), "");
-    assert.equal(decodeNodeID("NotANodeID-k4QG8eJ9bYu717nbj8Ki8VykK8g1VWK9"), "");
-  });
 
   test("toRelativePath() converts absolute paths to relative", () => {
     const cwd = process.cwd();
@@ -208,63 +162,5 @@ describe("convert.ts tests (round two)", () => {
     const expected = path.join("test", "file.txt");
 
     assert.equal(toRelativePath(absolutePath), expected);
-  });
-
-  test("sortProviderInfo() sorts provider info object correctly", () => {
-    const unsortedInfo = {
-      links: {
-        youtube: "https://www.youtube.com/@example",
-        x: "https://x.com/example",
-        github: "https://github.com/example",
-      },
-      description: "Example description",
-      name: "Example Provider",
-      validators: [
-        "NodeID-NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN",
-        "NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg",
-      ],
-    };
-
-    const sortedInfo = sortProviderInfo(unsortedInfo);
-
-    // Check that keys are in the expected order
-    const keys = Object.keys(sortedInfo);
-    assert.ok(keys.indexOf("name") < keys.indexOf("description"));
-
-    // Check that validators are sorted alphabetically
-    assert.deepEqual(sortedInfo.validators, [
-      "NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg",
-      "NodeID-NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN",
-    ]);
-
-    // Check that links are sorted according to ALLOWED_LINKS order
-    const linksKeys = Object.keys(sortedInfo.links || {});
-    assert.ok(linksKeys.indexOf("github") < linksKeys.indexOf("x"));
-    assert.ok(linksKeys.indexOf("x") < linksKeys.indexOf("youtube"));
-  });
-
-  test("calculateHash() returns SHA256 hash of a file", () => {
-    // Mock fs.existsSync and fs.readFileSync
-    const testContent = "test content";
-    const expectedHash = crypto.createHash("sha256").update(testContent).digest("hex");
-
-    const mockExistsSync = mock.method(fs, "existsSync", (() => true) as typeof fs.existsSync);
-    const mockReadFileSync = mock.method(fs, "readFileSync", (() =>
-      Buffer.from(testContent)) as unknown as typeof fs.readFileSync);
-    const consoleSpy = mock.method(console, "info", () => {});
-
-    try {
-      assert.equal(calculateHash("/path/to/file.txt"), expectedHash);
-
-      // Test with non-existent file
-      mockExistsSync.mock.mockImplementation((() => false) as typeof fs.existsSync);
-
-      assert.equal(calculateHash("/path/to/nonexistent.txt"), "");
-      assert.ok(consoleSpy.mock.calls.length > 0);
-    } finally {
-      mockExistsSync.mock.restore();
-      mockReadFileSync.mock.restore();
-      consoleSpy.mock.restore();
-    }
   });
 });
