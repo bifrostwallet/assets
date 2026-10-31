@@ -1,0 +1,22 @@
+{
+  "name": "CashLab",
+  "description": "Independent Flare provider running the full protocol stack: FTSO price feeds, Fast Updates, FDC attestations and its own validator, on dedicated hardware with an in-house feed engine.",
+  "logoURL": "providers/eip155-14/0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de/logo.webp",
+  "logoHash": "7d73e1309f22feabe9f0f813eb10d1e33ea61884d2f258c694e7352bd256db53",
+  "websiteURL": "https://cashlab.network",
+  "links": {
+    "x": "https://x.com/CashLabNetwork"
+  },
+  "identityAddress": "0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de",
+  "delegationAddress": "0x46f75ac75a9e389809b965a876303681d32bcf2e",
+  "signingPolicyAddress": "0xe7810aa15fca3ffb00278aa17acdbe6eefff38ef",
+  "submitAddress": "0xf4c512f2871af4c8dcd11cd255f1e2b1b51801b1",
+  "submitSignaturesAddress": "0x45cf4a2673b8a97dc6667f8b928f9d1e2ac34754",
+  "publicKey": "0x1e75d8a857c18d8780691b1b149f5fbaa81febe6cdf44f55af9e2ca81973c5bb1605355d3cd71a561ceadfe8645632bd058884bbb48546b49f6b0295bc6bc128",
+  "validators": ["NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec"],
+  "acknowledgedResponsibilities": true,
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false
+}
