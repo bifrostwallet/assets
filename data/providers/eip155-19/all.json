@@ -208,7 +208,9 @@
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-19/0xc2ae38bd4804f74bba2828cdfc1ffa4be4d71304/logo.webp",
     "logoHash": "a1d70fb9e9dcc4273a01bf59f57ac538cf7623738f6b2a3f8794b10f770c6f27",
     "websiteURL": "https://sun-dara.co.uk",
-    "links": {},
+    "links": {
+      "x": "https://x.com/sundaracouk1"
+    },
     "identityAddress": "0xc2ae38bd4804f74bba2828cdfc1ffa4be4d71304",
     "delegationAddress": "0x7394923453fc2f606cfb4d0ea1a5438bb8260d08",
     "signingPolicyAddress": "0x15687fcfcd693ff9f357c0b535a49072653e5d00",
@@ -216,6 +218,7 @@
     "submitSignaturesAddress": "0x3229f42a987b3900e99a40a71f88798c78701e0d",
     "publicKey": "0x1c856c12d4ce5cd94ae28ef726575027be24f1a77253538efb7f015a4e968ed2252f61f4912dbabfe633d3d1e3c5859457389cb4ece458f29eb1d94d66472667",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1335,8 +1338,10 @@
     "description": "Flare Sensei provides FTSO, FDC and staking infrastructure for both the Songbird and Flare network.",
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-19/0x48dcd1215b7f8c92150742765ffe989f55b3a5b0/logo.webp",
     "logoHash": "3ac45d8af163866cc0959bc9addd02384ad3f3caec183aefda7f812b9ee94374",
-    "websiteURL": "https://ftso-sensei.com",
-    "links": {},
+    "websiteURL": "https://flare-sensei.com",
+    "links": {
+      "x": "https://x.com/FlareSensei"
+    },
     "identityAddress": "0x48dcd1215b7f8c92150742765ffe989f55b3a5b0",
     "delegationAddress": "0x3886e101bb798ab3180b52a393b5beab39f2db1d",
     "signingPolicyAddress": "0xf5e307dc74656dde1a520b4319fba404f01dbe22",
@@ -1344,6 +1349,7 @@
     "submitSignaturesAddress": "0xe55db1292c2f84809b308971b585f57bf1d57748",
     "publicKey": "0x1e2a182e03e1f8634b458a99affe12d18c8764e4b6d90f4d8ee6307febd7c9851e13e4fb872b8a8e404fe7395e0df36cc643ea6c39ae46cc5094d04af5ca3204",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,

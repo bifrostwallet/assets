@@ -65,7 +65,9 @@
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xa65810ab797902af04843f24cec2208942eecbe1/logo.webp",
     "logoHash": "f7fc2394e3c9f9de3c5fb75b17f1a65122ae12f87677063595501df796fe5718",
     "websiteURL": "https://sun-dara.co.uk",
-    "links": {},
+    "links": {
+      "x": "https://x.com/sundaracouk1"
+    },
     "identityAddress": "0xa65810ab797902af04843f24cec2208942eecbe1",
     "delegationAddress": "0x1e8f916ce03f4ce86186531a8994d366581ed4be",
     "signingPolicyAddress": "0xec263931499ab0bc7dc1fad21767a0b9784125f4",
@@ -73,6 +75,7 @@
     "submitSignaturesAddress": "0xce2e69c29e74435807024d8cb1934f3a129abe6d",
     "publicKey": "0x0a3ad5f79fec6a7855650dad8d63f7ed072ba7d93e8140b1728d4f0224272b252bc46092947274b2edf0c90896cb11cc543ab45b28df0fd1935d00f32eb60d29",
     "validators": ["NodeID-Cg8PLmdZ9JmEtUBCZhq2jt2JDS5gDaSsQ"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1826,6 +1829,7 @@
       "NodeID-Jgnf61mFy134gFJNJKtrmBeSganNYANPZ",
       "NodeID-LyKs43vshhK1Pr6apWF1sV51m2Q2CAwY"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1984,6 +1988,7 @@
     "submitSignaturesAddress": "0xd73671364138a0b6405239c4c0df5f629adef876",
     "publicKey": "0x0a4aa7510f9c312e405f5da8c89a7c391b07f1511f17f82b3ecf29af5087b6c02be71e9a8da3739f8fbe48511b666d0c3dcdbcc1127c5b0ae514ae8c9a2436a4",
     "validators": ["NodeID-5tHXeYMb1oY5GcWjXEcTt9CHbq5GBgCjn"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -2408,5 +2413,49 @@
       "blockNumber": 63489464,
       "timestamp": "2026-06-23T00:46:27.000Z"
     }
+  },
+  {
+    "name": "G1Flare818",
+    "description": "G1Flare818 is an independent Flare data provider. I run a validator, FTSO anchor and fast-update feeds, and FDC attestation on my own hardware. Fee 20%. Delegated or staked FLR stays in your own address. I aim to keep it honest and online.",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8/logo.webp",
+    "logoHash": "d6404ecec4425ce9cee194fd6b663c7119161d91c893a806248dbb6d30c07e25",
+    "websiteURL": "https://g1flare.com",
+    "links": {
+      "x": "https://x.com/g1flare"
+    },
+    "identityAddress": "0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8",
+    "delegationAddress": "0xc8142e2b2f6f8adfd34d8e6735f389667f9e2c0a",
+    "signingPolicyAddress": "0x297a6cc26880b83835084f9418d968c350f9e0a4",
+    "submitAddress": "0x66ad76a46c55348d93a5dbb4716bad7fa1878222",
+    "submitSignaturesAddress": "0x09213f362e106a6ce31c51ca3fd42738327b5773",
+    "publicKey": "0x150a442bc5f4a6a3b53c36d2e6429fdae6ebdf86421ec105bd28ea67ab8457b12560dfaa6a551c83ff77fdf0a08311a72fe549796e45b04794c16633372264bb",
+    "validators": ["NodeID-53Yqr6UiB8KYKj3HFadr27va9zLNkypmc"],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": false,
+    "dualNetwork": false
+  },
+  {
+    "name": "CashLab",
+    "description": "Independent Flare provider running the full protocol stack: FTSO price feeds, Fast Updates, FDC attestations and its own validator, on dedicated hardware with an in-house feed engine.",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de/logo.webp",
+    "logoHash": "7d73e1309f22feabe9f0f813eb10d1e33ea61884d2f258c694e7352bd256db53",
+    "websiteURL": "https://cashlab.network",
+    "links": {
+      "x": "https://x.com/CashLabNetwork"
+    },
+    "identityAddress": "0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de",
+    "delegationAddress": "0x46f75ac75a9e389809b965a876303681d32bcf2e",
+    "signingPolicyAddress": "0xe7810aa15fca3ffb00278aa17acdbe6eefff38ef",
+    "submitAddress": "0xf4c512f2871af4c8dcd11cd255f1e2b1b51801b1",
+    "submitSignaturesAddress": "0x45cf4a2673b8a97dc6667f8b928f9d1e2ac34754",
+    "publicKey": "0x1e75d8a857c18d8780691b1b149f5fbaa81febe6cdf44f55af9e2ca81973c5bb1605355d3cd71a561ceadfe8645632bd058884bbb48546b49f6b0295bc6bc128",
+    "validators": ["NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec"],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": false,
+    "dualNetwork": false
   }
 ]
