@@ -7,7 +7,11 @@ import {
   toRelativePath,
   writeFormattedJson,
 } from "../convert.js";
-import { verifyProviderDomainLinkage } from "../domainLinkage.js";
+import {
+  type DomainLinkageCheck,
+  isInconclusiveDomainLinkage,
+  verifyProviderDomainLinkage,
+} from "../domainLinkage.js";
 import { isMain } from "../isMain.js";
 
 /**
@@ -15,10 +19,28 @@ import { isMain } from "../isMain.js";
  * well-known / DNS check against their websiteURL. Safe for signatures
  * (field is in UNSIGNED_PROVIDER_INFO_KEYS).
  *
+ * A check that never completes (timeout, connect error, DNS timeout) leaves
+ * the stored flag unchanged. HTTP non-2xx, an empty allowlist, or a
+ * contradiction updates it.
+ *
  * Usage:
  *   ./yarn sync:domain-linkage
  *   ./yarn sync:domain-linkage --dry-run
  */
+
+/**
+ * Value to write, or `undefined` when the file should stay as it is.
+ * Transport-only failures do not seed or clear the stored flag.
+ */
+export function domainLinkedValueToStore(
+  stored: boolean | undefined,
+  result: DomainLinkageCheck,
+): boolean | undefined {
+  if (isInconclusiveDomainLinkage(result)) return undefined;
+  const missing = typeof stored !== "boolean";
+  if (stored === result.linked && !missing) return undefined;
+  return result.linked;
+}
 
 export interface DomainLinkageSyncResult {
   checked: number;
@@ -62,15 +84,22 @@ export async function syncDomainLinkage(options: {
 
       if (result.linked) linked++;
 
-      const current = info.domainLinked === true;
-      const missingField = typeof info.domainLinked !== "boolean";
-      // Skip no-ops; still write once when the field is absent so catalogs stay complete
-      if (current === result.linked && !missingField) {
+      const stored = typeof info.domainLinked === "boolean" ? info.domainLinked : undefined;
+      const next = domainLinkedValueToStore(stored, result);
+      // Skip no-ops and transport failures. Still write a definitive value when
+      // the field is absent so catalogs stay complete.
+      if (next === undefined) {
+        if (isInconclusiveDomainLinkage(result) && stored !== false) {
+          console.info(
+            `⏭️  ${network.path} ${info.name}: domain linkage check did not complete, keeping domainLinked unchanged (${toRelativePath(infoPath)})`,
+          );
+        }
         continue;
       }
 
+      const missingField = stored === undefined;
       console.info(
-        `${result.linked ? "➕" : "➖"} ${network.path} ${info.name}: domainLinked=${result.linked}${dryRun ? " (dry-run)" : ""}${missingField && !result.linked ? " (seed)" : ""} (${toRelativePath(infoPath)})`,
+        `${next ? "➕" : "➖"} ${network.path} ${info.name}: domainLinked=${next}${dryRun ? " (dry-run)" : ""}${missingField && !next ? " (seed)" : ""} (${toRelativePath(infoPath)})`,
       );
 
       if (dryRun) {
@@ -78,7 +107,7 @@ export async function syncDomainLinkage(options: {
         continue;
       }
 
-      info.domainLinked = result.linked;
+      info.domainLinked = next;
       writeFormattedJson(infoPath, sortProviderInfo(info));
       updated++;
       chainChanged = true;
