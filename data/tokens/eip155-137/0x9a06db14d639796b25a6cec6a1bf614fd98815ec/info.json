@@ -1,6 +1,6 @@
 {
   "name": "Panther",
-  "symbol": "ZKP",
+  "symbol": "$ZKP",
   "decimals": 18,
   "address": "0x9a06db14d639796b25a6cec6a1bf614fd98815ec",
   "coingeckoId": "panther",

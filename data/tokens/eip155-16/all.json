@@ -127,7 +127,7 @@
   },
   {
     "name": "Bridged USDC (Enosys)",
-    "symbol": "USDC-e",
+    "symbol": "USDC.e",
     "decimals": 6,
     "address": "0xe1485a8db4e7307788f16c29020af2c5fcd01622",
     "coingeckoId": null,

@@ -1,6 +1,6 @@
 {
   "name": "IX Swap",
-  "symbol": "IXS",
+  "symbol": "WIXS",
   "decimals": 18,
   "address": "0x1ba17c639bdaecd8dc4aac37df062d17ee43a1b8",
   "coingeckoId": "ix-swap",

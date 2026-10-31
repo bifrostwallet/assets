@@ -1,6 +1,6 @@
 {
   "name": "BitMart",
-  "symbol": "BMX",
+  "symbol": "BMC",
   "decimals": 18,
   "address": "0x986ee2b944c42d017f52af21c4c69b84dbea35d8",
   "coingeckoId": "bitmart-token",

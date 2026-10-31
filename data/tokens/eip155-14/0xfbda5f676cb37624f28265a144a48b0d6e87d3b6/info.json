@@ -1,6 +1,6 @@
 {
   "name": "Bridged USDC (Stargate)",
-  "symbol": "USDC-e",
+  "symbol": "USDC.e",
   "decimals": 6,
   "address": "0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
   "coingeckoId": "usd-coin",

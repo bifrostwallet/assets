@@ -1,6 +1,6 @@
 {
   "name": "eCash",
-  "symbol": "XEC",
+  "symbol": "xec",
   "decimals": 9,
   "address": "0x1d2ed7eba253253be9dfa61dd272769d64f202ad",
   "coingeckoId": null,

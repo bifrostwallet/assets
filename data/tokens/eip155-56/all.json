@@ -1,7 +1,7 @@
 [
   {
     "name": "Jupiter",
-    "symbol": "JUP",
+    "symbol": "bwJUP",
     "decimals": 18,
     "address": "0x0231f91e02debd20345ae8ab7d71a41f8e140ce7",
     "coingeckoId": "jupiter",
@@ -64,7 +64,7 @@
   },
   {
     "name": "Pawtocol",
-    "symbol": "UPI",
+    "symbol": "BUPI",
     "decimals": 18,
     "address": "0x0d35a2b85c5a63188d566d104bebf7c694334ee4",
     "coingeckoId": null,
@@ -73,7 +73,7 @@
   },
   {
     "name": "PancakeSwap",
-    "symbol": "CAKE",
+    "symbol": "Cake",
     "decimals": 18,
     "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
     "coingeckoId": "pancakeswap-token",
@@ -361,7 +361,7 @@
   },
   {
     "name": "Chain Games",
-    "symbol": "CHAIN",
+    "symbol": "bCHAIN",
     "decimals": 18,
     "address": "0x35de111558f691f77f791fb0c08b2d6b931a9d47",
     "coingeckoId": "chain-games",
@@ -397,7 +397,7 @@
   },
   {
     "name": "Lunr",
-    "symbol": "LUNR",
+    "symbol": "eLunr",
     "decimals": 4,
     "address": "0x37807d4fbeb84124347b8899dd99616090d3e304",
     "coingeckoId": null,
@@ -469,7 +469,7 @@
   },
   {
     "name": "MAI",
-    "symbol": "MIMATIC",
+    "symbol": "MAI",
     "decimals": 18,
     "address": "0x3f56e0c36d275367b8c502090edf38289b3dea0d",
     "coingeckoId": null,
@@ -532,7 +532,7 @@
   },
   {
     "name": "Ekta",
-    "symbol": "EKTA",
+    "symbol": "EKTA v2",
     "decimals": 18,
     "address": "0x45808ce43eb2d7685ff0242631f0feb6f3d8701a",
     "coingeckoId": null,
@@ -712,7 +712,7 @@
   },
   {
     "name": "BYTZ",
-    "symbol": "BYTZ",
+    "symbol": "WBYTZ",
     "decimals": 8,
     "address": "0x586fc153cf7e9c029d8c30842c4cb6a86f03b816",
     "coingeckoId": null,
@@ -865,7 +865,7 @@
   },
   {
     "name": "Binance Bitcoin",
-    "symbol": "BTC",
+    "symbol": "BTCB",
     "decimals": 18,
     "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
     "coingeckoId": "binance-bitcoin",
@@ -1045,7 +1045,7 @@
   },
   {
     "name": "Zenon",
-    "symbol": "ZNN",
+    "symbol": "wZNN",
     "decimals": 8,
     "address": "0x84b174628911896a3b87fa6980d05dbc2ee74836",
     "coingeckoId": null,
@@ -1144,7 +1144,7 @@
   },
   {
     "name": "Rubic",
-    "symbol": "RBC",
+    "symbol": "BRBC",
     "decimals": 18,
     "address": "0x8e3bcc334657560253b83f08331d85267316e08a",
     "coingeckoId": null,
@@ -1630,7 +1630,7 @@
   },
   {
     "name": "Atari",
-    "symbol": "ATRI",
+    "symbol": "bATRI",
     "decimals": 0,
     "address": "0xc0c6e4c6e70c6231b20979bda581a66f062a7967",
     "coingeckoId": "atari",
@@ -1675,7 +1675,7 @@
   },
   {
     "name": "Baby Doge Coin",
-    "symbol": "BABYDOGE",
+    "symbol": "BabyDoge",
     "decimals": 9,
     "address": "0xc748673057861a797275cd8a068abb95a902e8de",
     "coingeckoId": "baby-doge-coin",
@@ -1864,7 +1864,7 @@
   },
   {
     "name": "Banano",
-    "symbol": "BAN",
+    "symbol": "wBAN",
     "decimals": 18,
     "address": "0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034",
     "coingeckoId": "wrapped-banano",
@@ -1891,7 +1891,7 @@
   },
   {
     "name": "Metis",
-    "symbol": "METIS",
+    "symbol": "Metis",
     "decimals": 18,
     "address": "0xe552fb52a4f19e44ef5a967632dbc320b0820639",
     "coingeckoId": null,
@@ -1981,7 +1981,7 @@
   },
   {
     "name": "pTokens BTC",
-    "symbol": "PBTC",
+    "symbol": "pBTC",
     "decimals": 18,
     "address": "0xed28a457a5a76596ac48d87c0f577020f6ea1c4c",
     "coingeckoId": "ptokens-btc",
@@ -2152,7 +2152,7 @@
   },
   {
     "name": "renBTC",
-    "symbol": "RENBTC",
+    "symbol": "renBTC",
     "decimals": 8,
     "address": "0xfce146bf3146100cfe5db4129cf6c82b0ef4ad8c",
     "coingeckoId": "renbtc",

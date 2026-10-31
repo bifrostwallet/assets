@@ -1,6 +1,6 @@
 {
   "name": "Synth Centralised Exchange Index",
-  "symbol": "SCEX",
+  "symbol": "sCEX",
   "decimals": 18,
   "address": "0xeabacd844a196d7faf3ce596edebf9900341b420",
   "coingeckoId": null,

@@ -1,6 +1,6 @@
 {
   "name": "sETH",
-  "symbol": "SETH",
+  "symbol": "sETH",
   "decimals": 18,
   "address": "0xe405de8f52ba7559f9df3c368500b6e6ae6cee49",
   "coingeckoId": "seth",
