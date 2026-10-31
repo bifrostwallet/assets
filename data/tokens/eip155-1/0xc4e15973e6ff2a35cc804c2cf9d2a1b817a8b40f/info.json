@@ -1,6 +1,6 @@
 {
   "name": "Interest Bearing Bitcoin",
-  "symbol": "IBBTC",
+  "symbol": "ibBTC",
   "decimals": 18,
   "address": "0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f",
   "coingeckoId": null,

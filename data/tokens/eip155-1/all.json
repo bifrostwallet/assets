@@ -73,7 +73,7 @@
   },
   {
     "name": "Synth THORChain",
-    "symbol": "SRUNE",
+    "symbol": "sRUNE",
     "decimals": 18,
     "address": "0x0352557b007a4aae1511c114409b932f06f9e2f4",
     "coingeckoId": "srune",
@@ -127,7 +127,7 @@
   },
   {
     "name": "Peercoin",
-    "symbol": "PPC",
+    "symbol": "wPPC",
     "decimals": 6,
     "address": "0x044d078f1c86508e13328842cc75ac021b272958",
     "coingeckoId": "peercoin",
@@ -190,7 +190,7 @@
   },
   {
     "name": "Sifchain",
-    "symbol": "EROWAN",
+    "symbol": "erowan",
     "decimals": 18,
     "address": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
     "coingeckoId": null,
@@ -289,7 +289,7 @@
   },
   {
     "name": "wLITI",
-    "symbol": "WLITI",
+    "symbol": "wLITI",
     "decimals": 18,
     "address": "0x0b63128c40737b13647552e0c926bcfeccc35f93",
     "coingeckoId": null,
@@ -334,7 +334,7 @@
   },
   {
     "name": "Wrapped NXM",
-    "symbol": "WNXM",
+    "symbol": "wNXM",
     "decimals": 18,
     "address": "0x0d438f3b5175bebc262bf23753c1e53d03432bde",
     "coingeckoId": "wrapped-nxm",
@@ -451,7 +451,7 @@
   },
   {
     "name": "Synth Swiss Franc",
-    "symbol": "SCHF",
+    "symbol": "sCHF",
     "decimals": 18,
     "address": "0x0f83287ff768d1c1e17a42f44d644d7f22e8ee1d",
     "coingeckoId": null,
@@ -469,7 +469,7 @@
   },
   {
     "name": "Dopex Rebate",
-    "symbol": "RDPX",
+    "symbol": "rDPX",
     "decimals": 18,
     "address": "0x0ff5a8451a839f5f0bb3562689d9a44089738d11",
     "coingeckoId": null,
@@ -559,7 +559,7 @@
   },
   {
     "name": "Compound Augur",
-    "symbol": "CREP",
+    "symbol": "cREP",
     "decimals": 8,
     "address": "0x158079ee67fce2f58472a96584a73c7ab9ac95c1",
     "coingeckoId": null,
@@ -604,7 +604,7 @@
   },
   {
     "name": "Synth Polkadot",
-    "symbol": "SDOT",
+    "symbol": "sDOT",
     "decimals": 18,
     "address": "0x1715ac0743102bf5cd58efbb6cf2dc2685d967b6",
     "coingeckoId": null,
@@ -703,7 +703,7 @@
   },
   {
     "name": "agEUR",
-    "symbol": "AGEUR",
+    "symbol": "EURA",
     "decimals": 18,
     "address": "0x1a7e4e63778b4f12a199c062f3efdd288afcbce8",
     "coingeckoId": "ageur",
@@ -739,7 +739,7 @@
   },
   {
     "name": "renZEC",
-    "symbol": "RENZEC",
+    "symbol": "renZEC",
     "decimals": 8,
     "address": "0x1c5db575e2ff833e46a2e9864c22f4b22e0b37c2",
     "coingeckoId": null,
@@ -829,7 +829,7 @@
   },
   {
     "name": "Synth Ethereum Classic",
-    "symbol": "SETC",
+    "symbol": "sETC",
     "decimals": 18,
     "address": "0x22602469d704bffb0936c7a7cfcd18f7aa269375",
     "coingeckoId": null,
@@ -892,7 +892,7 @@
   },
   {
     "name": "Synth Gold Ounce",
-    "symbol": "SXAU",
+    "symbol": "sXAU",
     "decimals": 18,
     "address": "0x261efcdd24cea98652b9700800a13dfbca4103ff",
     "coingeckoId": null,
@@ -901,7 +901,7 @@
   },
   {
     "name": "Synth South Korean Won",
-    "symbol": "SKRW",
+    "symbol": "sKRW",
     "decimals": 18,
     "address": "0x269895a3df4d73b077fc823dd6da1b95f72aaf9b",
     "coingeckoId": null,
@@ -1000,7 +1000,7 @@
   },
   {
     "name": "BYTZ",
-    "symbol": "BYTZ",
+    "symbol": "WBYTZ",
     "decimals": 8,
     "address": "0x2aad9dbc82611485a52325923e1187734e951b78",
     "coingeckoId": null,
@@ -1072,7 +1072,7 @@
   },
   {
     "name": "Synth Tezos",
-    "symbol": "SXTZ",
+    "symbol": "sXTZ",
     "decimals": 18,
     "address": "0x2e59005c5c0f0a4d77cca82653d48b46322ee5cd",
     "coingeckoId": null,
@@ -1099,7 +1099,7 @@
   },
   {
     "name": "Ekta",
-    "symbol": "EKTA",
+    "symbol": "EKTA v2",
     "decimals": 18,
     "address": "0x2f75113b13d136f861d212fa9b572f2c79ac81c4",
     "coingeckoId": null,
@@ -1108,7 +1108,7 @@
   },
   {
     "name": "Synth Uniswap",
-    "symbol": "SUNI",
+    "symbol": "sUNI",
     "decimals": 18,
     "address": "0x30635297e450b930f8693297eba160d9e6c8ebcf",
     "coingeckoId": null,
@@ -1279,7 +1279,7 @@
   },
   {
     "name": "Compound Uni",
-    "symbol": "CUNI",
+    "symbol": "cUNI",
     "decimals": 8,
     "address": "0x35a18000230da775cac24873d00ff85bccded550",
     "coingeckoId": "compound-uniswap",
@@ -1342,7 +1342,7 @@
   },
   {
     "name": "renDOGE",
-    "symbol": "RENDOGE",
+    "symbol": "renDOGE",
     "decimals": 8,
     "address": "0x3832d2f059e55934220881f831be501d180671a7",
     "coingeckoId": null,
@@ -1396,7 +1396,7 @@
   },
   {
     "name": "Compound USD Coin",
-    "symbol": "CUSDC",
+    "symbol": "cUSDC",
     "decimals": 8,
     "address": "0x39aa39c021dfbae8fac545936693ac917d5e7563",
     "coingeckoId": "compound-usd-coin",
@@ -1441,7 +1441,7 @@
   },
   {
     "name": "TitanSwap",
-    "symbol": "TITAN",
+    "symbol": "Titan",
     "decimals": 18,
     "address": "0x3a8cccb969a61532d1e6005e2ce12c200caece87",
     "coingeckoId": null,
@@ -1504,7 +1504,7 @@
   },
   {
     "name": "Circuits of Value",
-    "symbol": "COVAL",
+    "symbol": "Coval",
     "decimals": 8,
     "address": "0x3d658390460295fb963f54dc0899cfb1c30776df",
     "coingeckoId": "circuits-of-value",
@@ -1729,7 +1729,7 @@
   },
   {
     "name": "renBCH",
-    "symbol": "RENBCH",
+    "symbol": "renBCH",
     "decimals": 8,
     "address": "0x459086f2376525bdceba5bdda135e4e9d3fef5bf",
     "coingeckoId": null,
@@ -1936,7 +1936,7 @@
   },
   {
     "name": "Compound Ether",
-    "symbol": "CETH",
+    "symbol": "cETH",
     "decimals": 8,
     "address": "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5",
     "coingeckoId": "compound-ether",
@@ -1972,7 +1972,7 @@
   },
   {
     "name": "Decentral Games Governance",
-    "symbol": "XDG",
+    "symbol": "xDG",
     "decimals": 18,
     "address": "0x4f81c790581b240a5c948afd173620ecc8c71c8d",
     "coingeckoId": null,
@@ -2008,7 +2008,7 @@
   },
   {
     "name": "FTX Token",
-    "symbol": "FTT",
+    "symbol": "FTX Token",
     "decimals": 18,
     "address": "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9",
     "coingeckoId": "ftx-token",
@@ -2044,7 +2044,7 @@
   },
   {
     "name": "pTokens BTC",
-    "symbol": "PBTC",
+    "symbol": "pBTC",
     "decimals": 18,
     "address": "0x5228a22e72ccc52d415ecfd199f99d0665e7733b",
     "coingeckoId": "ptokens-btc",
@@ -2053,7 +2053,7 @@
   },
   {
     "name": "Synth Monero",
-    "symbol": "SXMR",
+    "symbol": "sXMR",
     "decimals": 18,
     "address": "0x5299d6f7472dcc137d7f3c4bcfbbb514babf341a",
     "coingeckoId": null,
@@ -2143,7 +2143,7 @@
   },
   {
     "name": "Synth USD",
-    "symbol": "SUSD",
+    "symbol": "sUSD",
     "decimals": 18,
     "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51",
     "coingeckoId": null,
@@ -2251,7 +2251,7 @@
   },
   {
     "name": "Compound Dai",
-    "symbol": "CDAI",
+    "symbol": "cDAI",
     "decimals": 8,
     "address": "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643",
     "coingeckoId": "cdai",
@@ -2269,7 +2269,7 @@
   },
   {
     "name": "Synth ETH",
-    "symbol": "SETH",
+    "symbol": "sETH",
     "decimals": 18,
     "address": "0x5e74c9036fb86bd7ecdcb084a0673efc32ea31cb",
     "coingeckoId": "seth",
@@ -2305,7 +2305,7 @@
   },
   {
     "name": "Synth Binance Coin",
-    "symbol": "SBNB",
+    "symbol": "sBNB",
     "decimals": 18,
     "address": "0x617aecb6137b5108d1e7d4918e3725c8cebdb848",
     "coingeckoId": null,
@@ -2386,7 +2386,7 @@
   },
   {
     "name": "Convex CRV",
-    "symbol": "CVXCRV",
+    "symbol": "cvxCRV",
     "decimals": 18,
     "address": "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7",
     "coingeckoId": "convex-crv",
@@ -2440,7 +2440,7 @@
   },
   {
     "name": "e-Radix",
-    "symbol": "EXRD",
+    "symbol": "eXRD",
     "decimals": 18,
     "address": "0x6468e79a80c0eab0f9a2b574c8d5bc374af59414",
     "coingeckoId": "e-radix",
@@ -2539,7 +2539,7 @@
   },
   {
     "name": "Tether Gold",
-    "symbol": "XAUT",
+    "symbol": "XAUt",
     "decimals": 6,
     "address": "0x68749665ff8d2d112fa859aa293f07a622782f38",
     "coingeckoId": "tether-gold",
@@ -2593,7 +2593,7 @@
   },
   {
     "name": "Synth Silver Ounce",
-    "symbol": "SXAG",
+    "symbol": "sXAG",
     "decimals": 18,
     "address": "0x6a22e5e94388464181578aa7a6b869e00fe27846",
     "coingeckoId": null,
@@ -2602,7 +2602,7 @@
   },
   {
     "name": "ShibaDoge",
-    "symbol": "SHIBDOGE",
+    "symbol": "ShibDoge",
     "decimals": 9,
     "address": "0x6adb2e268de2aa1abf6578e4a8119b960e02928f",
     "coingeckoId": "shibadoge",
@@ -2701,7 +2701,7 @@
   },
   {
     "name": "Compound Basic Attention Token",
-    "symbol": "CBAT",
+    "symbol": "cBAT",
     "decimals": 8,
     "address": "0x6c8c6b02e7b2be14d4fa6022dfd6d75921d90e4e",
     "coingeckoId": "compound-basic-attention-token",
@@ -2710,7 +2710,7 @@
   },
   {
     "name": "Synth Perpetual Oil Futures",
-    "symbol": "SOIL",
+    "symbol": "sOIL",
     "decimals": 18,
     "address": "0x6d16cf3ec5f763d4d99cb0b0b110eefd93b11b56",
     "coingeckoId": null,
@@ -2746,7 +2746,7 @@
   },
   {
     "name": "Instadapp",
-    "symbol": "INST",
+    "symbol": "FLUID",
     "decimals": 18,
     "address": "0x6f40d4a6237c257fff2db00fa0510deeecd303eb",
     "coingeckoId": "instadapp",
@@ -2755,7 +2755,7 @@
   },
   {
     "name": "Silo Finance",
-    "symbol": "SILO",
+    "symbol": "Silo",
     "decimals": 18,
     "address": "0x6f80310ca7f2c654691d1383149fa1a57d8ab1f8",
     "coingeckoId": "silo-finance",
@@ -2782,7 +2782,7 @@
   },
   {
     "name": "Compound Collateral",
-    "symbol": "CCOMP",
+    "symbol": "cCOMP",
     "decimals": 8,
     "address": "0x70e36f6bf80a52b3b46b3af8e106cc0ed743e8e4",
     "coingeckoId": "ccomp",
@@ -3088,7 +3088,7 @@
   },
   {
     "name": "BoringDAO BTC",
-    "symbol": "OBTC",
+    "symbol": "oBTC",
     "decimals": 18,
     "address": "0x8064d9ae6cdf087b1bcd5bdf3531bd5d8c537a68",
     "coingeckoId": null,
@@ -3277,7 +3277,7 @@
   },
   {
     "name": "xSUSHI",
-    "symbol": "XSUSHI",
+    "symbol": "xSUSHI",
     "decimals": 18,
     "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
     "coingeckoId": "xsushi",
@@ -3331,7 +3331,7 @@
   },
   {
     "name": "Synth EOS",
-    "symbol": "SEOS",
+    "symbol": "sEOS",
     "decimals": 18,
     "address": "0x88c8cf3a212c0369698d13fe98fcb76620389841",
     "coingeckoId": null,
@@ -3403,7 +3403,7 @@
   },
   {
     "name": "Akropolis",
-    "symbol": "AKRO",
+    "symbol": "LGKAON",
     "decimals": 18,
     "address": "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7",
     "coingeckoId": "akropolis",
@@ -3655,7 +3655,7 @@
   },
   {
     "name": "Iron Bank EURO",
-    "symbol": "IBEUR",
+    "symbol": "ibEUR",
     "decimals": 18,
     "address": "0x96e61422b6a9ba0e068b6c5add4ffabc6a4aae27",
     "coingeckoId": "iron-bank-euro",
@@ -3673,7 +3673,7 @@
   },
   {
     "name": "FUSION",
-    "symbol": "FSN",
+    "symbol": "anyFSN",
     "decimals": 18,
     "address": "0x979aca85ba37c675e78322ed5d97fa980b9bdf00",
     "coingeckoId": null,
@@ -3682,7 +3682,7 @@
   },
   {
     "name": "Synth Pound Sterling",
-    "symbol": "SGBP",
+    "symbol": "sGBP",
     "decimals": 18,
     "address": "0x97fe22e7341a0cd8db6f6c021a24dc8f4dad855f",
     "coingeckoId": null,
@@ -3700,7 +3700,7 @@
   },
   {
     "name": "BitMart",
-    "symbol": "BMX",
+    "symbol": "BMC",
     "decimals": 18,
     "address": "0x986ee2b944c42d017f52af21c4c69b84dbea35d8",
     "coingeckoId": "bitmart-token",
@@ -3727,7 +3727,7 @@
   },
   {
     "name": "Synth yearn.finance",
-    "symbol": "SYFI",
+    "symbol": "sYFI",
     "decimals": 18,
     "address": "0x992058b7db08f9734d84485bfbc243c4ee6954a7",
     "coingeckoId": null,
@@ -3826,7 +3826,7 @@
   },
   {
     "name": "Metis",
-    "symbol": "METIS",
+    "symbol": "Metis",
     "decimals": 18,
     "address": "0x9e32b13ce7f2e80a01932b42553652e053d6ed8e",
     "coingeckoId": "metis-token",
@@ -3988,7 +3988,7 @@
   },
   {
     "name": "Synth XRP",
-    "symbol": "SXRP",
+    "symbol": "sXRP",
     "decimals": 18,
     "address": "0xa2b0fde6d710e201d0d608e924a484d1a5fed57c",
     "coingeckoId": null,
@@ -4042,7 +4042,7 @@
   },
   {
     "name": "Stratis",
-    "symbol": "STRAX",
+    "symbol": "WSTRAX",
     "decimals": 18,
     "address": "0xa3c22370de5f9544f0c4de126b1e46ceadf0a51b",
     "coingeckoId": null,
@@ -4060,7 +4060,7 @@
   },
   {
     "name": "Creditcoin",
-    "symbol": "CTC",
+    "symbol": "G-CRE",
     "decimals": 18,
     "address": "0xa3ee21c306a700e682abcdfe9baa6a08f3820419",
     "coingeckoId": "creditcoin-2",
@@ -4087,7 +4087,7 @@
   },
   {
     "name": "Loom Network (OLD)",
-    "symbol": "LOOMOLD",
+    "symbol": "LOOM",
     "decimals": 18,
     "address": "0xa4e8c3ec456107ea67d3075bf9e3df3a75823db0",
     "coingeckoId": null,
@@ -4123,7 +4123,7 @@
   },
   {
     "name": "Handshake",
-    "symbol": "HNS",
+    "symbol": "WHNS",
     "decimals": 6,
     "address": "0xa771b49064da011df051052848477f18dba1d2ac",
     "coingeckoId": null,
@@ -4132,7 +4132,7 @@
   },
   {
     "name": "flexUSD",
-    "symbol": "FLEXUSD",
+    "symbol": "flexUSD",
     "decimals": 18,
     "address": "0xa774ffb4af6b0a91331c084e1aebae6ad535e6f3",
     "coingeckoId": null,
@@ -4150,7 +4150,7 @@
   },
   {
     "name": "Lunr Token",
-    "symbol": "LUNR",
+    "symbol": "eLunr",
     "decimals": 4,
     "address": "0xa87135285ae208e22068acdbff64b11ec73eaa5a",
     "coingeckoId": null,
@@ -4159,7 +4159,7 @@
   },
   {
     "name": "pBTC35A",
-    "symbol": "PBTC35A",
+    "symbol": "pBTC35A",
     "decimals": 18,
     "address": "0xa8b12cc90abf65191532a12bb5394a714a46d358",
     "coingeckoId": "pbtc35a",
@@ -4168,7 +4168,7 @@
   },
   {
     "name": "LUKSO",
-    "symbol": "LYXE",
+    "symbol": "LYXe",
     "decimals": 18,
     "address": "0xa8b919680258d369114910511cc87595aec0be6d",
     "coingeckoId": "lukso-token",
@@ -4195,7 +4195,7 @@
   },
   {
     "name": "Bounce",
-    "symbol": "AUCTION",
+    "symbol": "Auction",
     "decimals": 18,
     "address": "0xa9b1eb5908cfc3cdf91f9b8b3a74108598009096",
     "coingeckoId": "auction",
@@ -4213,7 +4213,7 @@
   },
   {
     "name": "ETH 2x Flexible Leverage Index",
-    "symbol": "ETH2X-FLI",
+    "symbol": "ETH2x-FLI",
     "decimals": 18,
     "address": "0xaa6e8127831c9de45ae56bb1b0d4d4da6e5665bd",
     "coingeckoId": "eth-2x-flexible-leverage-index",
@@ -4312,7 +4312,7 @@
   },
   {
     "name": "Baby Doge Coin",
-    "symbol": "BABYDOGE",
+    "symbol": "BabyDoge",
     "decimals": 9,
     "address": "0xac57de9c1a09fec648e93eb98875b212db0d460b",
     "coingeckoId": "baby-doge-coin",
@@ -4357,7 +4357,7 @@
   },
   {
     "name": "Lido Staked Ether",
-    "symbol": "STETH",
+    "symbol": "stETH",
     "decimals": 18,
     "address": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84",
     "coingeckoId": "staked-ether",
@@ -4420,7 +4420,7 @@
   },
   {
     "name": "Compound 0x",
-    "symbol": "CZRX",
+    "symbol": "cZRX",
     "decimals": 8,
     "address": "0xb3319f5d18bc0d84dd1b4825dcde5d5f7266d407",
     "coingeckoId": "compound-0x",
@@ -4654,7 +4654,7 @@
   },
   {
     "name": "Synth Chainlink",
-    "symbol": "SLINK",
+    "symbol": "sLINK",
     "decimals": 18,
     "address": "0xbbc455cb4f1b9e4bfc4b73970d360c8f032efee6",
     "coingeckoId": null,
@@ -4708,7 +4708,7 @@
   },
   {
     "name": "Sovryn",
-    "symbol": "SOV",
+    "symbol": "eSOV",
     "decimals": 18,
     "address": "0xbdab72602e9ad40fc6a6852caf43258113b8f7a5",
     "coingeckoId": "sovryn",
@@ -4789,7 +4789,7 @@
   },
   {
     "name": "Compound Wrapped BTC Legacy",
-    "symbol": "CWBTC",
+    "symbol": "cWBTC",
     "decimals": 8,
     "address": "0xc11b1268c1a384e55c48c2391d8d480264a3a7f4",
     "coingeckoId": null,
@@ -4798,7 +4798,7 @@
   },
   {
     "name": "Synth Litecoin",
-    "symbol": "SLTC",
+    "symbol": "sLTC",
     "decimals": 18,
     "address": "0xc14103c2141e842e228fbac594579e798616ce7a",
     "coingeckoId": null,
@@ -4825,7 +4825,7 @@
   },
   {
     "name": "Wrapped Centrifuge",
-    "symbol": "WCFG",
+    "symbol": "wCFG",
     "decimals": 18,
     "address": "0xc221b7e65ffc80de234bbb6667abdd46593d34f0",
     "coingeckoId": null,
@@ -4888,7 +4888,7 @@
   },
   {
     "name": "Interest Bearing Bitcoin",
-    "symbol": "IBBTC",
+    "symbol": "ibBTC",
     "decimals": 18,
     "address": "0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f",
     "coingeckoId": null,
@@ -4951,7 +4951,7 @@
   },
   {
     "name": "veCRV-DAO yVault",
-    "symbol": "YVE-CRVDAO",
+    "symbol": "yveCRV-DAO",
     "decimals": 18,
     "address": "0xc5bddf9843308380375a611c18b50fb9341f502a",
     "coingeckoId": null,
@@ -5095,7 +5095,7 @@
   },
   {
     "name": "Compound Wrapped BTC",
-    "symbol": "CWBTC",
+    "symbol": "cWBTC",
     "decimals": 8,
     "address": "0xccf4429db6322d5c611ee964527d42e5d685dd6a",
     "coingeckoId": "compound-wrapped-btc",
@@ -5113,7 +5113,7 @@
   },
   {
     "name": "Synth 1inch",
-    "symbol": "S1INCH",
+    "symbol": "s1INCH",
     "decimals": 18,
     "address": "0xcd39b5434a0a92cf47d1f567a7df84be356814f0",
     "coingeckoId": null,
@@ -5275,7 +5275,7 @@
   },
   {
     "name": "Synth Aave",
-    "symbol": "SAAVE",
+    "symbol": "sAAVE",
     "decimals": 18,
     "address": "0xd2df355c19471c8bd7d8a3aa27ff4e26a21b4076",
     "coingeckoId": null,
@@ -5284,7 +5284,7 @@
   },
   {
     "name": "Synth Ren",
-    "symbol": "SREN",
+    "symbol": "sREN",
     "decimals": 18,
     "address": "0xd31533e8d0f3df62060e94b3f1318137bb6e3525",
     "coingeckoId": null,
@@ -5302,7 +5302,7 @@
   },
   {
     "name": "Synth Curve DAO Token",
-    "symbol": "SCRV",
+    "symbol": "sCRV",
     "decimals": 18,
     "address": "0xd38aeb759891882e78e957c80656572503d8c1b1",
     "coingeckoId": null,
@@ -5356,7 +5356,7 @@
   },
   {
     "name": "renFIL",
-    "symbol": "RENFIL",
+    "symbol": "renFIL",
     "decimals": 18,
     "address": "0xd5147bc8e386d91cc5dbe72099dac6c9b99276f5",
     "coingeckoId": null,
@@ -5383,7 +5383,7 @@
   },
   {
     "name": "Synth Euros",
-    "symbol": "SEUR",
+    "symbol": "sEUR",
     "decimals": 18,
     "address": "0xd71ecff9342a5ced620049e616c5035f1db98620",
     "coingeckoId": "seur",
@@ -5491,7 +5491,7 @@
   },
   {
     "name": "Everscale",
-    "symbol": "EVER",
+    "symbol": "WTON",
     "decimals": 9,
     "address": "0xdb3c2515da400e11bcaf84f3b5286f18fff1868f",
     "coingeckoId": null,
@@ -5554,7 +5554,7 @@
   },
   {
     "name": "Kyber Network Crystal Legacy",
-    "symbol": "KNCL",
+    "symbol": "KNC",
     "decimals": 18,
     "address": "0xdd974d5c2e2928dea5f71b9825b8b646686bd200",
     "coingeckoId": "kyber-network",
@@ -5680,7 +5680,7 @@
   },
   {
     "name": "Synth DeFi Index",
-    "symbol": "SDEFI",
+    "symbol": "sDEFI",
     "decimals": 18,
     "address": "0xe1afe1fd76fd88f78cbf599ea1846231b8ba3b6b",
     "coingeckoId": null,
@@ -5707,7 +5707,7 @@
   },
   {
     "name": "mStable USD",
-    "symbol": "MUSD",
+    "symbol": "mUSD",
     "decimals": 18,
     "address": "0xe2f2a5c287993345a840db3b0845fbc70f5935a5",
     "coingeckoId": "musd",
@@ -5716,7 +5716,7 @@
   },
   {
     "name": "Synth Cardano",
-    "symbol": "SADA",
+    "symbol": "sADA",
     "decimals": 18,
     "address": "0xe36e2d3c7c34281fa3bc737950a68571736880a1",
     "coingeckoId": null,
@@ -5806,7 +5806,7 @@
   },
   {
     "name": "Ankr Reward-Bearing Staked ETH",
-    "symbol": "AETHC",
+    "symbol": "ankrETH",
     "decimals": 18,
     "address": "0xe95a203b1a91a908f9b9ce46459d101078c2c3cb",
     "coingeckoId": "ankreth",
@@ -5824,7 +5824,7 @@
   },
   {
     "name": "Synth Centralised Exchange Index",
-    "symbol": "SCEX",
+    "symbol": "sCEX",
     "decimals": 18,
     "address": "0xeabacd844a196d7faf3ce596edebf9900341b420",
     "coingeckoId": null,
@@ -5842,7 +5842,7 @@
   },
   {
     "name": "Synth Compound",
-    "symbol": "SCOMP",
+    "symbol": "sCOMP",
     "decimals": 18,
     "address": "0xeb029507d3e043dd6c87f2917c4e82b902c35618",
     "coingeckoId": null,
@@ -5851,7 +5851,7 @@
   },
   {
     "name": "renBTC",
-    "symbol": "RENBTC",
+    "symbol": "renBTC",
     "decimals": 8,
     "address": "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d",
     "coingeckoId": "renbtc",
@@ -6049,7 +6049,7 @@
   },
   {
     "name": "Synth TRON",
-    "symbol": "STRX",
+    "symbol": "sTRX",
     "decimals": 18,
     "address": "0xf2e08356588ec5cd9e437552da87c0076b4970b0",
     "coingeckoId": null,
@@ -6094,7 +6094,7 @@
   },
   {
     "name": "Synth Australian Dollars",
-    "symbol": "SAUD",
+    "symbol": "sAUD",
     "decimals": 18,
     "address": "0xf48e200eaf9906362bb1442fca31e0835773b8b4",
     "coingeckoId": null,
@@ -6166,7 +6166,7 @@
   },
   {
     "name": "Compound SAI",
-    "symbol": "CSAI",
+    "symbol": "cDAI",
     "decimals": 8,
     "address": "0xf5dce57282a584d2746faf1593d3121fcac444dc",
     "coingeckoId": null,
@@ -6184,7 +6184,7 @@
   },
   {
     "name": "Compound USDT",
-    "symbol": "CUSDT",
+    "symbol": "cUSDT",
     "decimals": 8,
     "address": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
     "coingeckoId": null,
@@ -6202,7 +6202,7 @@
   },
   {
     "name": "Synth Japanese Yen",
-    "symbol": "SJPY",
+    "symbol": "sJPY",
     "decimals": 18,
     "address": "0xf6b1c627e95bfc3c1b4c9b825a032ff0fbf3e07d",
     "coingeckoId": null,
@@ -6247,7 +6247,7 @@
   },
   {
     "name": "cLINK",
-    "symbol": "CLINK",
+    "symbol": "cLINK",
     "decimals": 8,
     "address": "0xface851a4921ce59e912d19329929ce6da6eb0c7",
     "coingeckoId": "compound-chainlink-token",
@@ -6328,7 +6328,7 @@
   },
   {
     "name": "Synth Bitcoin",
-    "symbol": "SBTC",
+    "symbol": "sBTC",
     "decimals": 18,
     "address": "0xfe18be6b3bd88a2d2a7f928d00292e7a9963cfc6",
     "coingeckoId": null,
@@ -6337,7 +6337,7 @@
   },
   {
     "name": "sETH2",
-    "symbol": "SETH2",
+    "symbol": "sETH2",
     "decimals": 18,
     "address": "0xfe2e637202056d30016725477c5da089ab0a043a",
     "coingeckoId": "seth2",
@@ -6346,7 +6346,7 @@
   },
   {
     "name": "Synth Dash",
-    "symbol": "SDASH",
+    "symbol": "sDASH",
     "decimals": 18,
     "address": "0xfe33ae95a9f0da8a845af33516edc240dcd711d6",
     "coingeckoId": null,

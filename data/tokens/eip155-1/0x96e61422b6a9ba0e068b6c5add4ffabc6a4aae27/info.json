@@ -1,6 +1,6 @@
 {
   "name": "Iron Bank EURO",
-  "symbol": "IBEUR",
+  "symbol": "ibEUR",
   "decimals": 18,
   "address": "0x96e61422b6a9ba0e068b6c5add4ffabc6a4aae27",
   "coingeckoId": "iron-bank-euro",

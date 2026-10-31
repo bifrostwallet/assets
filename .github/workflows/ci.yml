@@ -48,7 +48,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -73,6 +73,18 @@ jobs:
 
       - name: Check token catalog
         run: ./yarn check:tokens
+        env:
+          ETHEREUM_NODE_URL: https://ethereum-rpc.publicnode.com
+          OPTIMISM_NODE_URL: https://mainnet.optimism.io
+          FLARE_NODE_URL: https://flare-api.flare.network/ext/C/rpc
+          SONGBIRD_NODE_URL: https://songbird-api.flare.network/ext/C/rpc
+          XDC_NODE_URL: https://rpc.ankr.com/xdc
+          BNBSMARTCHAIN_NODE_URL: https://bsc-dataseed.binance.org
+          POLYGON_NODE_URL: https://polygon-bor-rpc.publicnode.com
+          FANTOM_NODE_URL: https://rpc.fantom.network
+          BASE_NODE_URL: https://mainnet.base.org
+          ARBITRUM_NODE_URL: https://arbitrum-one-rpc.publicnode.com
+          HYPERLIQUID_NODE_URL: https://rpc.hyperliquid.xyz/evm
 
       - name: Check dapp catalog
         run: ./yarn check:dapps

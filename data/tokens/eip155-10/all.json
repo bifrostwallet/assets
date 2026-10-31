@@ -73,7 +73,7 @@
   },
   {
     "name": "Bridged USDC",
-    "symbol": "USDCe",
+    "symbol": "USDC",
     "decimals": 6,
     "address": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
     "coingeckoId": "bridged-usd-coin-optimism",
@@ -100,7 +100,7 @@
   },
   {
     "name": "Synth USD",
-    "symbol": "SUSD",
+    "symbol": "sUSD",
     "decimals": 18,
     "address": "0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9",
     "coingeckoId": null,
@@ -154,7 +154,7 @@
   },
   {
     "name": "sETH",
-    "symbol": "SETH",
+    "symbol": "sETH",
     "decimals": 18,
     "address": "0xe405de8f52ba7559f9df3c368500b6e6ae6cee49",
     "coingeckoId": "seth",

@@ -127,7 +127,7 @@
   },
   {
     "name": "USDT0",
-    "symbol": "USDT0",
+    "symbol": "USD₮0",
     "decimals": 6,
     "address": "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb",
     "coingeckoId": null,
@@ -163,7 +163,7 @@
   },
   {
     "name": "Tether Gold",
-    "symbol": "XAUT0",
+    "symbol": "XAUt0",
     "decimals": 6,
     "address": "0xf4d9235269a96aadafc9adae454a0618ebe37949",
     "coingeckoId": null,
@@ -172,7 +172,7 @@
   },
   {
     "name": "Kinetiq Staked HYPE",
-    "symbol": "KHYPE",
+    "symbol": "kHYPE",
     "decimals": 18,
     "address": "0xfd739d4e423301ce9385c1fb8850539d657c296d",
     "coingeckoId": null,

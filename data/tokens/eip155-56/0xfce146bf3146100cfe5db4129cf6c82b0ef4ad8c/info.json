@@ -1,6 +1,6 @@
 {
   "name": "renBTC",
-  "symbol": "RENBTC",
+  "symbol": "renBTC",
   "decimals": 8,
   "address": "0xfce146bf3146100cfe5db4129cf6c82b0ef4ad8c",
   "coingeckoId": "renbtc",

@@ -10,7 +10,7 @@
   },
   {
     "name": "Tether",
-    "symbol": "USDT",
+    "symbol": "fUSDT",
     "decimals": 6,
     "address": "0x049d68029688eabf473097a2fc38ef61633a3c7a",
     "coingeckoId": null,
@@ -28,7 +28,7 @@
   },
   {
     "name": "Synth USD",
-    "symbol": "SUSD",
+    "symbol": "sUSD",
     "decimals": 18,
     "address": "0x0e1694483ebb3b74d3054e383840c6cf011e518e",
     "coingeckoId": null,
@@ -109,7 +109,7 @@
   },
   {
     "name": "Wrapped Bitcoin",
-    "symbol": "WBTC",
+    "symbol": "BTC",
     "decimals": 8,
     "address": "0x321162cd933e2be498cd2267a90534a804051b11",
     "coingeckoId": "fantom-bridged-wbtc-fantom",
@@ -172,7 +172,7 @@
   },
   {
     "name": "FUSION",
-    "symbol": "FSN",
+    "symbol": "anyFSN",
     "decimals": 18,
     "address": "0x50eb82cc284e3d35936827023b048106aaecfc5f",
     "coingeckoId": null,
@@ -253,7 +253,7 @@
   },
   {
     "name": "Kyber Network Crystal Legacy",
-    "symbol": "KNCL",
+    "symbol": "KNC",
     "decimals": 18,
     "address": "0x765277eebeca2e31912c9946eae1021199b39c61",
     "coingeckoId": "kyber-network",
@@ -478,7 +478,7 @@
   },
   {
     "name": "Banano",
-    "symbol": "BAN",
+    "symbol": "wBAN",
     "decimals": 18,
     "address": "0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034",
     "coingeckoId": "wrapped-banano",
@@ -532,7 +532,7 @@
   },
   {
     "name": "MAI",
-    "symbol": "MIMATIC",
+    "symbol": "miMATIC",
     "decimals": 18,
     "address": "0xfb98b335551a418cd0737375a2ea0ded62ea213b",
     "coingeckoId": "mai-fantom",

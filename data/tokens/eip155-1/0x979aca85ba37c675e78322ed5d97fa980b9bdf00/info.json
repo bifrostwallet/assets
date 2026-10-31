@@ -1,6 +1,6 @@
 {
   "name": "FUSION",
-  "symbol": "FSN",
+  "symbol": "anyFSN",
   "decimals": 18,
   "address": "0x979aca85ba37c675e78322ed5d97fa980b9bdf00",
   "coingeckoId": null,

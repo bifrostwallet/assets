@@ -28,7 +28,7 @@
   },
   {
     "name": "Bridged USDT (Stargate)",
-    "symbol": "USDT-e",
+    "symbol": "USDT",
     "decimals": 6,
     "address": "0x0b38e83b86d491735feaa0a791f65c2b99535396",
     "coingeckoId": "tether",
@@ -55,7 +55,7 @@
   },
   {
     "name": "Bridged WETH (Stargate)",
-    "symbol": "WETH-e",
+    "symbol": "WETH",
     "decimals": 18,
     "address": "0x1502fa4be69d526124d453619276faccab275d3d",
     "coingeckoId": "ethereum",
@@ -424,7 +424,7 @@
   },
   {
     "name": "USDT0",
-    "symbol": "USDT0",
+    "symbol": "USD₮0",
     "decimals": 6,
     "address": "0xe7cd86e13ac4309349f30b3435a9d337750fc82d",
     "coingeckoId": "tether",
@@ -460,7 +460,7 @@
   },
   {
     "name": "Bridged USDC (Stargate)",
-    "symbol": "USDC-e",
+    "symbol": "USDC.e",
     "decimals": 6,
     "address": "0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
     "coingeckoId": "usd-coin",

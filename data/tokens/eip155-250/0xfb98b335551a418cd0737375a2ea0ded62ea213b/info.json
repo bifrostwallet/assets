@@ -1,6 +1,6 @@
 {
   "name": "MAI",
-  "symbol": "MIMATIC",
+  "symbol": "miMATIC",
   "decimals": 18,
   "address": "0xfb98b335551a418cd0737375a2ea0ded62ea213b",
   "coingeckoId": "mai-fantom",
