@@ -155,6 +155,23 @@ function decodeBytes32Symbol(value: Hex): string {
   return hexToString(`0x${body}`);
 }
 
+/**
+ * Drop NUL padding. A value that is only NULs or whitespace is an incomplete
+ * RPC response, not a symbol, so the caller can retry it.
+ */
+function normalizeSymbol(symbol: string): string {
+  const stripped = symbol.replaceAll("\u0000", "").trim();
+  if (stripped.length === 0) {
+    throw new Error("symbol() returned an empty value");
+  }
+  return stripped;
+}
+
+function isEmptySymbolError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return message.includes("returned an empty value");
+}
+
 function isSymbolException(chainId: number, address: string, symbol: string): boolean {
   return SYMBOL_EXCEPTIONS.some(
     (entry) => entry.chainId === chainId && entry.address === address && entry.symbol === symbol,
@@ -192,15 +209,17 @@ async function withRpcRetry<T>(fn: () => Promise<T>): Promise<T> {
  */
 async function readSymbol(client: PublicClient, address: Hex): Promise<string> {
   try {
-    return await client.readContract({ address, abi: ERC20_ABI, functionName: "symbol" });
+    const symbol = await client.readContract({ address, abi: ERC20_ABI, functionName: "symbol" });
+    return normalizeSymbol(symbol);
   } catch (stringError) {
+    if (isEmptySymbolError(stringError)) throw stringError;
     try {
       const raw = await client.readContract({
         address,
         abi: ERC20_BYTES32_SYMBOL_ABI,
         functionName: "symbol",
       });
-      return decodeBytes32Symbol(raw);
+      return normalizeSymbol(decodeBytes32Symbol(raw));
     } catch {
       throw stringError;
     }
@@ -316,7 +335,7 @@ async function checkTokens(): Promise<void> {
     }
   }
 
-  await mapPool(onchainJobs, 8, async ({ chainPath, chainId, info, address, client }) => {
+  await mapPool(onchainJobs, 4, async ({ chainPath, chainId, info, address, client }) => {
     const contract = address as Hex;
     try {
       const symbol = await withRpcRetry(() => readSymbol(client, contract));
