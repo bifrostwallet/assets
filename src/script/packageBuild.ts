@@ -145,9 +145,21 @@ function getTokens(chainId) {
 }
 
 function getToken(chainId, address) {
+  const chainPath = normalizeChainId(chainId);
+  const tokens = tokensByChain[chainPath];
+  if (!tokens) {
+    throw new Error(
+      "Unknown token chain " + chainId + ". Available: " + TOKEN_CHAIN_IDS.join(", ")
+    );
+  }
+  // XRPL issuer addresses and currency codes are case-sensitive.
+  if (chainPath === "xrpl-0") {
+    const target = String(address);
+    return tokens.find((token) => token.address === target) ?? null;
+  }
   const target = String(address).toLowerCase();
   return (
-    getTokens(chainId).find(
+    tokens.find(
       (token) => token.address && token.address.toLowerCase() === target
     ) ?? null
   );
@@ -278,8 +290,14 @@ export interface TokenInfo {
   name: string;
   symbol: string;
   decimals: number;
-  /** Lowercase 0x… for contracts; null for the chain native gas token */
+  /** Lowercase 0x… for contracts; null for the native gas token.
+   *  XRPL IOU: exact-case \`issuer.currency\` (not lowercased).
+   */
   address: string | null;
+  /** XRPL classic r-address. Omitted on EVM entries. */
+  issuer?: string;
+  /** XRPL currency code, 3-character or 40-hex. Omitted on EVM entries. */
+  currency?: string;
   /** Always present — string CoinGecko id, or null when unmapped / unpriced */
   coingeckoId: string | null;
   logoURL: string;
@@ -354,7 +372,7 @@ export declare function findProviderByValidator(
 ): ProviderInfo | null;
 /** All curated tokens for a chain (throws on unknown chain) */
 export declare function getTokens(chainId: ChainId): TokenInfo[];
-/** A single ERC-20 by address (case-insensitive), or null */
+/** One token by address. EVM lookup is case-insensitive. XRPL (\`xrpl:0\`) keeps exact case. */
 export declare function getToken(chainId: ChainId, address: string): TokenInfo | null;
 /** Native gas token entry for a chain, or null */
 export declare function getNativeToken(chainId: ChainId): TokenInfo | null;

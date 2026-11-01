@@ -1,0 +1,11 @@
+{
+  "name": "Sologenic",
+  "symbol": "SOLO",
+  "decimals": 15,
+  "address": "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz.534F4C4F00000000000000000000000000000000",
+  "issuer": "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz",
+  "currency": "534F4C4F00000000000000000000000000000000",
+  "coingeckoId": "solo-coin",
+  "logoURL": "tokens/xrpl-0/rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz.534F4C4F00000000000000000000000000000000/logo.webp",
+  "logoHash": "aaa78703ecf6a6b409bf14fe1f442d69c2291d2a0b907b91d5a0d78a62f30d27"
+}

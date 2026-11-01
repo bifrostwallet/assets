@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, type Hex, http, type PublicClient } from "viem";
@@ -12,6 +13,7 @@ import {
   type TokenInfo,
 } from "../tokens.js";
 import { isValidImage } from "../validate.js";
+import { validateXrplIouInfo, XRPL_MAINNET_CHAIN_PATH } from "../xrplToken.js";
 
 /**
  * Advisory token catalog audit:
@@ -141,7 +143,15 @@ function checkSchemaAndLogo(
   if (typeof info.decimals !== "number" || !Number.isInteger(info.decimals) || info.decimals < 0) {
     report.schemaErrors.push(`${label}: invalid decimals`);
   }
-  if (info.address === null) {
+  if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
+    const logoFile = path.join(dir, "logo.webp");
+    const logoSha256 = fs.existsSync(logoFile)
+      ? createHash("sha256").update(fs.readFileSync(logoFile)).digest("hex")
+      : undefined;
+    for (const error of validateXrplIouInfo(info, path.basename(dir), logoSha256)) {
+      report.schemaErrors.push(`${label}: ${error}`);
+    }
+  } else if (info.address === null) {
     // Native gas token — no contract address
   } else if (typeof info.address !== "string" || !/^0x[0-9a-f]{40}$/.test(info.address)) {
     report.schemaErrors.push(`${label}: address must be lowercase 0x…40 or null (native)`);
@@ -165,6 +175,34 @@ function checkSchemaAndLogo(
 
 function tokenDirLabel(info: TokenInfo): string {
   return info.address === null ? "native" : info.address;
+}
+
+/** `all.json` is what the package publishes, so it has to match every info.json. */
+function checkXrplAggregate(chainPath: string, entries: TokenInfo[], report: CheckReport): void {
+  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
+  if (!fs.existsSync(allPath)) {
+    report.schemaErrors.push(`${chainPath}/all.json: missing aggregate`);
+    return;
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(fs.readFileSync(allPath, "utf8"));
+  } catch (error) {
+    report.schemaErrors.push(
+      `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return;
+  }
+  if (!Array.isArray(parsed)) {
+    report.schemaErrors.push(`${chainPath}/all.json: expected an array`);
+    return;
+  }
+  const sorted = [...entries].sort((a, b) => String(a.address).localeCompare(String(b.address)));
+  if (JSON.stringify(parsed) !== JSON.stringify(sorted)) {
+    report.schemaErrors.push(
+      `${chainPath}/all.json: does not match info.json entries in address order`,
+    );
+  }
 }
 
 async function checkTokens(): Promise<void> {
@@ -191,10 +229,12 @@ async function checkTokens(): Promise<void> {
       report.onchainSkippedChains.push(chainPath);
     }
 
+    const xrplEntries: TokenInfo[] = [];
     for (const { dir } of listTokenDirs(chainPath)) {
       const info = loadTokenInfo(path.join(dir, "info.json"));
       report.checked += 1;
       checkSchemaAndLogo(chainPath, info, dir, report);
+      if (chainPath === XRPL_MAINNET_CHAIN_PATH) xrplEntries.push(info);
 
       if (skipOnchain || info.address === null || !info.address || chainId === null) continue;
       const client = clients.get(chainId);
@@ -235,6 +275,10 @@ async function checkTokens(): Promise<void> {
           `${chainPath}/${info.address}: ${error instanceof Error ? error.message : String(error)}`,
         );
       }
+    }
+
+    if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
+      checkXrplAggregate(chainPath, xrplEntries, report);
     }
   }
 

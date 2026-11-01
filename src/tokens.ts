@@ -1,16 +1,25 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { XRPL_MAINNET_CHAIN_PATH } from "./xrplToken.js";
 
 /**
  * Curated token entry (git `info.json`).
  * `coingeckoId` is always present: string for price/logo enrichment, or null when none.
+ *
+ * EVM: `address` is a lowercase `0x` contract, or null for the native gas token.
+ * XRPL IOU (`xrpl-0`): `address` is exact-case `issuer.currency`, and `issuer`
+ * plus `currency` are stored beside it so callers do not parse the folder name.
  */
 export type TokenInfo = {
   name: string;
   symbol: string;
   decimals: number;
-  /** Lowercase 0x… for contracts; null for the chain native gas token */
+  /** Lowercase 0x… for contracts; null for the native gas token; XRPL IOU key otherwise */
   address: string | null;
+  /** XRPL classic r-address. Omitted on EVM entries. */
+  issuer?: string;
+  /** XRPL currency code (3-character or 40-hex). Omitted on EVM entries. */
+  currency?: string;
   /** Required field — never omit. null = no CoinGecko mapping / no price feed */
   coingeckoId: string | null;
   logoURL: string;
@@ -49,7 +58,10 @@ export function listTokenChainPaths(): string[] {
   if (!fs.existsSync(root)) return [];
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((e) => e.isDirectory() && e.name.startsWith("eip155-"))
+    .filter(
+      (e) =>
+        e.isDirectory() && (e.name.startsWith("eip155-") || e.name === XRPL_MAINNET_CHAIN_PATH),
+    )
     .map((e) => e.name)
     .sort();
 }

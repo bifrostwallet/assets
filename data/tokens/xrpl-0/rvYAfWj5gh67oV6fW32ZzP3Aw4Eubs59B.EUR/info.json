@@ -1,0 +1,11 @@
+{
+  "name": "Bitstamp EUR",
+  "symbol": "EUR",
+  "decimals": 6,
+  "address": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.EUR",
+  "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
+  "currency": "EUR",
+  "coingeckoId": null,
+  "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.EUR/logo.webp",
+  "logoHash": "30019c8e9a9a787130daaf1dc85179a1185455edf037a3a088d2d2edfee8120c"
+}

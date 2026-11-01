@@ -1,0 +1,112 @@
+[
+  {
+    "name": "GateHub ETH",
+    "symbol": "ETH",
+    "decimals": 8,
+    "address": "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h.ETH",
+    "issuer": "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h",
+    "currency": "ETH",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h.ETH/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  },
+  {
+    "name": "GateHub BTC",
+    "symbol": "BTC",
+    "decimals": 8,
+    "address": "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL.BTC",
+    "issuer": "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL",
+    "currency": "BTC",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL.BTC/logo.webp",
+    "logoHash": "eeedbff7a71a03fd66249d342103945e2b21a08ed4868870618b366abb4b291c"
+  },
+  {
+    "name": "GateHub EUR",
+    "symbol": "EUR",
+    "decimals": 6,
+    "address": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.EUR",
+    "issuer": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
+    "currency": "EUR",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.EUR/logo.webp",
+    "logoHash": "211480b6e0fe76e9f3a06bf0e53e16c2f987478aa52166908018e1451bee24e4"
+  },
+  {
+    "name": "GateHub USD",
+    "symbol": "USD",
+    "decimals": 6,
+    "address": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.USD",
+    "issuer": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
+    "currency": "USD",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.USD/logo.webp",
+    "logoHash": "211480b6e0fe76e9f3a06bf0e53e16c2f987478aa52166908018e1451bee24e4"
+  },
+  {
+    "name": "Ripple USD",
+    "symbol": "RLUSD",
+    "decimals": 6,
+    "address": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000",
+    "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+    "currency": "524C555344000000000000000000000000000000",
+    "coingeckoId": "ripple-usd",
+    "logoURL": "tokens/xrpl-0/rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000/logo.webp",
+    "logoHash": "946f5051afea7be6050433cba56ad0867b5de3bb8abf333cb8d36e57d4a6d7db"
+  },
+  {
+    "name": "Sologenic",
+    "symbol": "SOLO",
+    "decimals": 15,
+    "address": "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz.534F4C4F00000000000000000000000000000000",
+    "issuer": "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz",
+    "currency": "534F4C4F00000000000000000000000000000000",
+    "coingeckoId": "solo-coin",
+    "logoURL": "tokens/xrpl-0/rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz.534F4C4F00000000000000000000000000000000/logo.webp",
+    "logoHash": "aaa78703ecf6a6b409bf14fe1f442d69c2291d2a0b907b91d5a0d78a62f30d27"
+  },
+  {
+    "name": "Bitstamp BTC",
+    "symbol": "BTC",
+    "decimals": 8,
+    "address": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.BTC",
+    "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
+    "currency": "BTC",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.BTC/logo.webp",
+    "logoHash": "eeedbff7a71a03fd66249d342103945e2b21a08ed4868870618b366abb4b291c"
+  },
+  {
+    "name": "Bitstamp ETH",
+    "symbol": "ETH",
+    "decimals": 8,
+    "address": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.ETH",
+    "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
+    "currency": "ETH",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.ETH/logo.webp",
+    "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  },
+  {
+    "name": "Bitstamp EUR",
+    "symbol": "EUR",
+    "decimals": 6,
+    "address": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.EUR",
+    "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
+    "currency": "EUR",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.EUR/logo.webp",
+    "logoHash": "30019c8e9a9a787130daaf1dc85179a1185455edf037a3a088d2d2edfee8120c"
+  },
+  {
+    "name": "Bitstamp USD",
+    "symbol": "USD",
+    "decimals": 6,
+    "address": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.USD",
+    "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
+    "currency": "USD",
+    "coingeckoId": null,
+    "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.USD/logo.webp",
+    "logoHash": "30019c8e9a9a787130daaf1dc85179a1185455edf037a3a088d2d2edfee8120c"
+  }
+]

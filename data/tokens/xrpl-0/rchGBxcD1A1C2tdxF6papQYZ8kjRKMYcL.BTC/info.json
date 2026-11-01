@@ -1,0 +1,11 @@
+{
+  "name": "GateHub BTC",
+  "symbol": "BTC",
+  "decimals": 8,
+  "address": "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL.BTC",
+  "issuer": "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL",
+  "currency": "BTC",
+  "coingeckoId": null,
+  "logoURL": "tokens/xrpl-0/rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL.BTC/logo.webp",
+  "logoHash": "eeedbff7a71a03fd66249d342103945e2b21a08ed4868870618b366abb4b291c"
+}

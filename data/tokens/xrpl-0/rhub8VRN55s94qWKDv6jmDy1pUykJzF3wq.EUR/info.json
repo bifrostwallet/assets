@@ -1,0 +1,11 @@
+{
+  "name": "GateHub EUR",
+  "symbol": "EUR",
+  "decimals": 6,
+  "address": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.EUR",
+  "issuer": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
+  "currency": "EUR",
+  "coingeckoId": null,
+  "logoURL": "tokens/xrpl-0/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.EUR/logo.webp",
+  "logoHash": "211480b6e0fe76e9f3a06bf0e53e16c2f987478aa52166908018e1451bee24e4"
+}
