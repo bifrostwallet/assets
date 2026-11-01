@@ -4,7 +4,9 @@
   "logoURL": "providers/eip155-14/0xa65810ab797902af04843f24cec2208942eecbe1/logo.webp",
   "logoHash": "f7fc2394e3c9f9de3c5fb75b17f1a65122ae12f87677063595501df796fe5718",
   "websiteURL": "https://sun-dara.co.uk",
-  "links": {},
+  "links": {
+    "x": "https://x.com/sundaracouk1"
+  },
   "identityAddress": "0xa65810ab797902af04843f24cec2208942eecbe1",
   "delegationAddress": "0x1e8f916ce03f4ce86186531a8994d366581ed4be",
   "signingPolicyAddress": "0xec263931499ab0bc7dc1fad21767a0b9784125f4",
@@ -12,6 +14,7 @@
   "submitSignaturesAddress": "0xce2e69c29e74435807024d8cb1934f3a129abe6d",
   "publicKey": "0x0a3ad5f79fec6a7855650dad8d63f7ed072ba7d93e8140b1728d4f0224272b252bc46092947274b2edf0c90896cb11cc543ab45b28df0fd1935d00f32eb60d29",
   "validators": ["NodeID-Cg8PLmdZ9JmEtUBCZhq2jt2JDS5gDaSsQ"],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,

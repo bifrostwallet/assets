@@ -1,0 +1,22 @@
+{
+  "name": "G1Flare818",
+  "description": "G1Flare818 is an independent Flare data provider. I run a validator, FTSO anchor and fast-update feeds, and FDC attestation on my own hardware. Fee 20%. Delegated or staked FLR stays in your own address. I aim to keep it honest and online.",
+  "logoURL": "providers/eip155-14/0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8/logo.webp",
+  "logoHash": "d6404ecec4425ce9cee194fd6b663c7119161d91c893a806248dbb6d30c07e25",
+  "websiteURL": "https://g1flare.com",
+  "links": {
+    "x": "https://x.com/g1flare"
+  },
+  "identityAddress": "0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8",
+  "delegationAddress": "0xc8142e2b2f6f8adfd34d8e6735f389667f9e2c0a",
+  "signingPolicyAddress": "0x297a6cc26880b83835084f9418d968c350f9e0a4",
+  "submitAddress": "0x66ad76a46c55348d93a5dbb4716bad7fa1878222",
+  "submitSignaturesAddress": "0x09213f362e106a6ce31c51ca3fd42738327b5773",
+  "publicKey": "0x150a442bc5f4a6a3b53c36d2e6429fdae6ebdf86421ec105bd28ea67ab8457b12560dfaa6a551c83ff77fdf0a08311a72fe549796e45b04794c16633372264bb",
+  "validators": ["NodeID-53Yqr6UiB8KYKj3HFadr27va9zLNkypmc"],
+  "acknowledgedResponsibilities": true,
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false
+}
