@@ -288,14 +288,33 @@ type PinnedHttpResult = {
   body: Buffer;
 };
 
+/** Test seam: production dials with `https.request`. */
+type PinnedHttpsRequest = (
+  options: https.RequestOptions,
+  callback: (res: IncomingMessage) => void,
+) => {
+  on(event: "timeout" | "error", listener: () => void): void;
+  destroy(): void;
+  end(): void;
+};
+
+function defaultPinnedRequest(
+  options: https.RequestOptions,
+  callback: (res: IncomingMessage) => void,
+): ReturnType<PinnedHttpsRequest> {
+  return https.request(options, callback);
+}
+
 /** Dial only pre-validated public IPs; SNI/Host use the public hostname. No redirects. */
 function httpsGetPinned(args: {
   hostname: string;
   publicIps: string[];
   path: string;
   timeoutMs: number;
+  request?: PinnedHttpsRequest;
 }): Promise<PinnedHttpResult> {
   const { hostname, publicIps, path, timeoutMs } = args;
+  const request = args.request ?? defaultPinnedRequest;
   if (publicIps.length === 0 || publicIps.some((ip) => isBlockedIpAddress(ip))) {
     return Promise.reject(new Error("BLOCKED_IP"));
   }
@@ -311,6 +330,7 @@ function httpsGetPinned(args: {
   return new Promise((resolve, reject) => {
     let attempt = 0;
     let settled = false;
+    let timedOut = false;
 
     const tryNext = () => {
       const ip = ordered[attempt];
@@ -318,7 +338,9 @@ function httpsGetPinned(args: {
       if (!ip) {
         if (!settled) {
           settled = true;
-          reject(new Error("CONNECT_FAILED"));
+          // A timed-out dial stays TIMEOUT (transport failure). Connect errors
+          // stay CONNECT_FAILED, which callers also treat as transport failure.
+          reject(new Error(timedOut ? "TIMEOUT" : "CONNECT_FAILED"));
         }
         return;
       }
@@ -327,7 +349,16 @@ function httpsGetPinned(args: {
         return;
       }
 
-      const req = https.request(
+      // destroy() emits "error" asynchronously (ECONNRESET). Advance once so
+      // that error does not skip the next pinned address.
+      let attemptClosed = false;
+      const failAttempt = () => {
+        if (settled || attemptClosed) return;
+        attemptClosed = true;
+        tryNext();
+      };
+
+      const req = request(
         {
           host: ip,
           servername: hostname,
@@ -392,20 +423,18 @@ function httpsGetPinned(args: {
             });
           });
           res.on("error", () => {
-            if (!settled) tryNext();
+            failAttempt();
           });
         },
       );
 
       req.on("timeout", () => {
+        timedOut = true;
         req.destroy();
-        if (!settled) {
-          settled = true;
-          reject(new Error("TIMEOUT"));
-        }
+        failAttempt();
       });
       req.on("error", () => {
-        if (!settled) tryNext();
+        failAttempt();
       });
       req.end();
     };
@@ -467,17 +496,55 @@ export interface DomainLinkageCheck {
   linked: boolean;
 }
 
+const TRANSPORT_LINKAGE_ERRORS = new Set(["Timeout", "Fetch failed"]);
+
+function isDefinitiveLinkageMiss(channel: {
+  checked: boolean;
+  matched: boolean;
+  error?: string;
+}): boolean {
+  if (channel.matched) return false;
+  const error = channel.error;
+  if (!error) return channel.checked;
+  if (TRANSPORT_LINKAGE_ERRORS.has(error)) return false;
+  if (error === "No TXT records" || error === "websiteURL host is not allowed") return true;
+  if (error === "Redirect not followed" || error === "Disallowed Content-Type") return true;
+  if (error === "Invalid UTF-8" || error.startsWith("HTTP ") || error.startsWith("File exceeds ")) {
+    return true;
+  }
+  return error.includes("contradict");
+}
+
+/**
+ * True when neither the well-known file nor DNS produced a definitive answer.
+ * Timeouts, connect errors, and other transport failures stay inconclusive.
+ * HTTP non-2xx, an empty allowlist, and a contradiction do not.
+ */
+export function isInconclusiveDomainLinkage(result: DomainLinkageCheck): boolean {
+  if (result.linked) return false;
+  const fileTransport =
+    !result.file.matched && !isDefinitiveLinkageMiss(result.file) && Boolean(result.file.error);
+  const dnsTransport =
+    !result.dns.matched && !isDefinitiveLinkageMiss(result.dns) && Boolean(result.dns.error);
+  return fileTransport && dnsTransport;
+}
+
 async function fetchWellKnownViaPinned(args: {
   hostname: string;
   expectedRecord: string;
+  resolveAddresses?: (hostname: string) => Promise<string[]>;
+  request?: PinnedHttpsRequest;
 }): Promise<{ matched: boolean; present: boolean; error?: string }> {
   try {
-    const publicIps = await resolvePublicAddresses(args.hostname);
+    const publicIps = args.resolveAddresses
+      ? await args.resolveAddresses(args.hostname)
+      : await resolvePublicAddresses(args.hostname);
     const result = await httpsGetPinned({
       hostname: args.hostname,
       publicIps,
       path: DOMAIN_LINKAGE_WELL_KNOWN_PATH,
       timeoutMs: DOMAIN_LINKAGE_FETCH_TIMEOUT_MS,
+      request: args.request,
     });
 
     if (result.status >= 300 && result.status < 400) {
@@ -642,6 +709,10 @@ export async function verifyProviderDomainLinkage(args: {
   websiteURL: string;
   fetchImpl?: typeof fetch;
   resolveTxt?: (hostname: string) => Promise<string[][]>;
+  /** Test seam for the pinned dial. Production resolves public DNS addresses. */
+  resolveAddresses?: (hostname: string) => Promise<string[]>;
+  /** Test seam for the pinned dial. Production uses `https.request`. */
+  request?: PinnedHttpsRequest;
 }): Promise<DomainLinkageCheck> {
   const identity = args.identityAddress.toLowerCase();
   const expectedRecord = expectedDomainLinkageRecord(args.chainPath, identity);
@@ -674,7 +745,12 @@ export async function verifyProviderDomainLinkage(args: {
         expectedRecord,
         fetchImpl: args.fetchImpl,
       })
-    : await fetchWellKnownViaPinned({ hostname, expectedRecord });
+    : await fetchWellKnownViaPinned({
+        hostname,
+        expectedRecord,
+        resolveAddresses: args.resolveAddresses,
+        request: args.request,
+      });
   result.file.matched = fileResult.matched;
   if (!fileResult.matched) {
     result.file.error = fileResult.error;
