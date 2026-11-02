@@ -19,7 +19,7 @@
     "currency": "BTC",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL.BTC/logo.webp",
-    "logoHash": "eeedbff7a71a03fd66249d342103945e2b21a08ed4868870618b366abb4b291c"
+    "logoHash": "e28623100879e12c896a2396d30b38a7b53b6520174dbf11b14dfeeaea6bdcd0"
   },
   {
     "name": "GateHub EUR",
@@ -30,7 +30,7 @@
     "currency": "EUR",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.EUR/logo.webp",
-    "logoHash": "211480b6e0fe76e9f3a06bf0e53e16c2f987478aa52166908018e1451bee24e4"
+    "logoHash": "adb22303236eaa6012a7bc39aa1efb94e85a27e76f054f0aa5faa3703d2df919"
   },
   {
     "name": "GateHub USD",
@@ -41,7 +41,7 @@
     "currency": "USD",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq.USD/logo.webp",
-    "logoHash": "211480b6e0fe76e9f3a06bf0e53e16c2f987478aa52166908018e1451bee24e4"
+    "logoHash": "adb22303236eaa6012a7bc39aa1efb94e85a27e76f054f0aa5faa3703d2df919"
   },
   {
     "name": "Ripple USD",
@@ -52,7 +52,7 @@
     "currency": "524C555344000000000000000000000000000000",
     "coingeckoId": "ripple-usd",
     "logoURL": "tokens/xrpl-0/rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000/logo.webp",
-    "logoHash": "946f5051afea7be6050433cba56ad0867b5de3bb8abf333cb8d36e57d4a6d7db"
+    "logoHash": "3f2baa0ea9f3c3e84b83f0aac4d0f26a9f072f013383a4d5be6ba9464fc16093"
   },
   {
     "name": "Sologenic",
@@ -63,7 +63,7 @@
     "currency": "534F4C4F00000000000000000000000000000000",
     "coingeckoId": "solo-coin",
     "logoURL": "tokens/xrpl-0/rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz.534F4C4F00000000000000000000000000000000/logo.webp",
-    "logoHash": "aaa78703ecf6a6b409bf14fe1f442d69c2291d2a0b907b91d5a0d78a62f30d27"
+    "logoHash": "76a1b04625ed6b8e78b0f2d049a15743a95f4cb6ea6e5300ae724079f5132a1c"
   },
   {
     "name": "Bitstamp BTC",
@@ -74,7 +74,7 @@
     "currency": "BTC",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.BTC/logo.webp",
-    "logoHash": "eeedbff7a71a03fd66249d342103945e2b21a08ed4868870618b366abb4b291c"
+    "logoHash": "e28623100879e12c896a2396d30b38a7b53b6520174dbf11b14dfeeaea6bdcd0"
   },
   {
     "name": "Bitstamp ETH",
@@ -96,7 +96,7 @@
     "currency": "EUR",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.EUR/logo.webp",
-    "logoHash": "30019c8e9a9a787130daaf1dc85179a1185455edf037a3a088d2d2edfee8120c"
+    "logoHash": "2c91dd09c1f906bfdc2846f30b8d721130ceb72aba4414651ffc6b00e542c49a"
   },
   {
     "name": "Bitstamp USD",
@@ -107,6 +107,6 @@
     "currency": "USD",
     "coingeckoId": null,
     "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B.USD/logo.webp",
-    "logoHash": "30019c8e9a9a787130daaf1dc85179a1185455edf037a3a088d2d2edfee8120c"
+    "logoHash": "2c91dd09c1f906bfdc2846f30b8d721130ceb72aba4414651ffc6b00e542c49a"
   }
 ]
