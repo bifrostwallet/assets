@@ -92,7 +92,7 @@ Catalog media in this repository is **WebP** (`logo.webp`).
 ##### Trustworthy
 
 - The team developing and running the provider is known to other providers
-- **Domain linkage** (same payload for file and DNS; see below). Nightly refresh always checks both methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity.
+- **Domain linkage** (same payload for file and DNS; see below). Nightly refresh always checks both methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity. That edit is proposed on the `nightly/fsp-delist` pull request with the delist and chain-drift updates; it is not pushed to the default branch.
 
 ###### Domain linkage format
 

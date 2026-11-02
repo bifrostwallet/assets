@@ -23,16 +23,18 @@ import { syncDomainLinkage } from "./syncDomainLinkage.js";
  * 1. Compute Earn APY from fsp-rewards (+ reward-scripts on Flare) and write
  *    private earn JSON to GCS (or ./out with --dry-run). No human gate.
  *    Skip with --skip-earn.
- * 2. With --write-domain: persist domainLinked into git (unsigned flag; CI
- *    commits straight to main). Skip the check entirely with --skip-domain.
+ * 2. With --write-domain: persist domainLinked into git (unsigned flag). CI
+ *    leaves those edits in the working tree for the nightly/fsp-delist pull
+ *    request — never straight to main. Skip the check entirely with
+ *    --skip-domain.
  * 3. With --write-delist: flip listed:false for providers that burned FSP
  *    rewards (eligibleForReward=false in the latest passes.json) or whose
  *    current FTSO fee or any currently validating Flare validator fee is above
- *    50% (Bifrost's listing recommendation). CI applies this on a branch and
- *    opens a PR — never straight to main.
+ *    50% (Bifrost's listing recommendation). CI applies this on the same
+ *    branch and opens one PR — never straight to main.
  * 4. With --write-chain: compare EntityManager addresses and validators with
- *    info.json and write the chain values. Same PR as delist; signatures stay
- *    valid because those fields are unsigned.
+ *    info.json and write the chain values. Same PR as domain linkage and
+ *    delist; signatures stay valid because those fields are unsigned.
  *
  * Usage:
  *   ./yarn refresh:providers
