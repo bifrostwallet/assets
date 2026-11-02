@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { DAPP_CHAINS, type DappInfo } from "../config.js";
-import { dappSlugFromUrl, sortDappInfo, toRelativePath } from "../convert.js";
+import { dappSlugFromUrl, sortDappInfo, toRelativePath, writeFormattedJson } from "../convert.js";
 import { convertDappLogoPng } from "../dappLogo.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
@@ -104,7 +104,7 @@ async function addDapp(): Promise<void> {
     fs.mkdirSync(outputDir, { recursive: true });
 
     const infoPath = path.join(outputDir, "info.json");
-    fs.writeFileSync(infoPath, `${JSON.stringify(dappInfo, null, 2)}\n`);
+    writeFormattedJson(infoPath, dappInfo);
     console.info(`\n📁 Dapp information saved to: ${toRelativePath(infoPath)}`);
 
     const logoOutputPath = path.join(outputDir, "logo.webp");
