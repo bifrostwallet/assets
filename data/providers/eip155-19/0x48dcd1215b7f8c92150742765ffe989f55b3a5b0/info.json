@@ -3,8 +3,10 @@
   "description": "Flare Sensei provides FTSO, FDC and staking infrastructure for both the Songbird and Flare network.",
   "logoURL": "providers/eip155-19/0x48dcd1215b7f8c92150742765ffe989f55b3a5b0/logo.webp",
   "logoHash": "3ac45d8af163866cc0959bc9addd02384ad3f3caec183aefda7f812b9ee94374",
-  "websiteURL": "https://ftso-sensei.com",
-  "links": {},
+  "websiteURL": "https://flare-sensei.com",
+  "links": {
+    "x": "https://x.com/FlareSensei"
+  },
   "identityAddress": "0x48dcd1215b7f8c92150742765ffe989f55b3a5b0",
   "delegationAddress": "0x3886e101bb798ab3180b52a393b5beab39f2db1d",
   "signingPolicyAddress": "0xf5e307dc74656dde1a520b4319fba404f01dbe22",
@@ -12,6 +14,7 @@
   "submitSignaturesAddress": "0xe55db1292c2f84809b308971b585f57bf1d57748",
   "publicKey": "0x1e2a182e03e1f8634b458a99affe12d18c8764e4b6d90f4d8ee6307febd7c9851e13e4fb872b8a8e404fe7395e0df36cc643ea6c39ae46cc5094d04af5ca3204",
   "validators": [],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
