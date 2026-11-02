@@ -62,6 +62,19 @@ export function networkFromChainPath(chainPath: string): BlockchainNetworkConfig
   return network;
 }
 
+function websiteHost(url: string | undefined): string {
+  try {
+    return new URL(url ?? "").hostname.toLowerCase().replace(/\.$/, "");
+  } catch {
+    return "";
+  }
+}
+
+function sameWebsiteHost(a: string | undefined, b: string | undefined): boolean {
+  const host = websiteHost(a);
+  return host !== "" && host === websiteHost(b);
+}
+
 /**
  * Ingests a provider submission directory containing info.json, logo.webp and
  * signatures.json (as produced by the web signing app).
@@ -133,7 +146,9 @@ export async function ingestProviderSubmission(
     logoHash: calculateHash(path.join(sourceDir, "logo.webp")),
     listed: existingInfo?.listed ?? false,
     managementGroup: existingInfo?.managementGroup ?? false,
-    domainLinked: existingInfo?.domainLinked ?? false,
+    domainLinked: sameWebsiteHost(existingInfo?.websiteURL, submitted.websiteURL)
+      ? (existingInfo?.domainLinked ?? false)
+      : false,
     dualNetwork: existingInfo?.dualNetwork ?? false,
   };
   if (existingInfo?.firstTransaction) {
