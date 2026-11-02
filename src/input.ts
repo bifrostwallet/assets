@@ -2,10 +2,8 @@ import { stdin as input, stdout as output } from "node:process";
 import * as readline from "node:readline/promises";
 import { BLOCKCHAIN_NETWORKS, type NetworkConfig } from "./config.js";
 
-// Create readline interface for user input
 const rl = readline.createInterface({ input, output });
 
-// Helper function to get validated input with improved readability
 export async function getValidatedInput({
   prompt,
   validator,
@@ -40,7 +38,6 @@ export async function getValidatedInput({
   }
 }
 
-// Helper function to get network details
 export function getNetworkDetails(networkInput: string): NetworkConfig {
   // Allow selection by chain ID, name, or number (1=Flare, 2=Songbird)
   const network = networkInput.toLowerCase();
