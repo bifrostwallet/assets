@@ -11,7 +11,8 @@ import {
   listContractChainPaths,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
-import { listTokenChainPaths, type TokenInfo } from "../tokens.js";
+import { type EvmToken, listTokenChainPaths } from "../tokens.js";
+import type { XrplToken } from "../xrplToken.js";
 
 // Builds the publishable @bifrostwallet/assets NPM package into dist/.
 //
@@ -33,9 +34,9 @@ function loadProviders(chainPath: string): ProviderInfo[] {
   return providers.map((provider) => withAbsoluteLogoURL(provider, base));
 }
 
-function loadTokens(chainPath: string): TokenInfo[] {
+function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as TokenInfo[];
+  const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as Array<EvmToken | XrplToken>;
   const base = getAssetBaseURL();
   return tokens.map((token) => withAbsoluteLogoURL(token, base));
 }
@@ -145,22 +146,21 @@ function getTokens(chainId) {
 }
 
 function getToken(chainId, address) {
-  const chainPath = normalizeChainId(chainId);
-  const tokens = tokensByChain[chainPath];
-  if (!tokens) {
-    throw new Error(
-      "Unknown token chain " + chainId + ". Available: " + TOKEN_CHAIN_IDS.join(", ")
-    );
-  }
-  // XRPL issuer addresses and currency codes are case-sensitive.
-  if (chainPath === "xrpl-0") {
-    const target = String(address);
-    return tokens.find((token) => token.address === target) ?? null;
-  }
+  const tokens = getTokens(chainId);
   const target = String(address).toLowerCase();
   return (
     tokens.find(
       (token) => token.address && token.address.toLowerCase() === target
+    ) ?? null
+  );
+}
+
+function getXrplToken(issuer, currency) {
+  const issuerKey = String(issuer);
+  const currencyKey = String(currency);
+  return (
+    getTokens("xrpl:0").find(
+      (token) => token.issuer === issuerKey && token.currency === currencyKey
     ) ?? null
   );
 }
@@ -228,6 +228,7 @@ module.exports = {
   findProviderByValidator,
   getTokens,
   getToken,
+  getXrplToken,
   getNativeToken,
   getTokenBlocklist,
   getContracts,
@@ -286,18 +287,26 @@ export interface ProviderInfo {
   };
 }
 
-export interface TokenInfo {
+export interface EvmToken {
   name: string;
   symbol: string;
   decimals: number;
-  /** Lowercase 0x… for contracts; null for the native gas token.
-   *  XRPL IOU: exact-case \`issuer.currency\` (not lowercased).
-   */
+  /** Lowercase 0x… for contracts; null for the native gas token. */
   address: string | null;
-  /** XRPL classic r-address. Omitted on EVM entries. */
-  issuer?: string;
-  /** XRPL currency code, 3-character or 40-hex. Omitted on EVM entries. */
-  currency?: string;
+  /** Always present — string CoinGecko id, or null when unmapped / unpriced */
+  coingeckoId: string | null;
+  logoURL: string;
+  logoHash: string;
+}
+
+export interface XrplToken {
+  name: string;
+  symbol: string;
+  decimals: number;
+  /** Classic r-address, exact case. */
+  issuer: string;
+  /** On-ledger currency: 3-character exact case, or 40-hex uppercase. */
+  currency: string;
   /** Always present — string CoinGecko id, or null when unmapped / unpriced */
   coingeckoId: string | null;
   logoURL: string;
@@ -370,12 +379,21 @@ export declare function findProviderByValidator(
   chainId: ChainId,
   nodeId: string
 ): ProviderInfo | null;
-/** All curated tokens for a chain (throws on unknown chain) */
-export declare function getTokens(chainId: ChainId): TokenInfo[];
-/** One token by address. EVM lookup is case-insensitive. XRPL (\`xrpl:0\`) keeps exact case. */
-export declare function getToken(chainId: ChainId, address: string): TokenInfo | null;
+/**
+ * All curated tokens for a chain (throws on unknown chain).
+ * \`xrpl:0\` returns XrplToken. Every other chain returns EvmToken.
+ */
+export declare function getTokens(chainId: "xrpl:0"): XrplToken[];
+export declare function getTokens(chainId: ChainId): EvmToken[];
+/** One EVM token by address (case-insensitive), or null. */
+export declare function getToken(chainId: ChainId, address: string): EvmToken | null;
+/**
+ * One XRPL mainnet issued token by exact-case issuer and currency, or null.
+ * There is no combined address key.
+ */
+export declare function getXrplToken(issuer: string, currency: string): XrplToken | null;
 /** Native gas token entry for a chain, or null */
-export declare function getNativeToken(chainId: ChainId): TokenInfo | null;
+export declare function getNativeToken(chainId: ChainId): EvmToken | null;
 /** Curated token blocklist entries */
 export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 /**

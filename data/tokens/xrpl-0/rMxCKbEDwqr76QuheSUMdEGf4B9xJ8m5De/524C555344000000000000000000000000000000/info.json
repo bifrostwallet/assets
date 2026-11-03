@@ -2,10 +2,9 @@
   "name": "Ripple USD",
   "symbol": "RLUSD",
   "decimals": 6,
-  "address": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000",
   "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
   "currency": "524C555344000000000000000000000000000000",
   "coingeckoId": "ripple-usd",
-  "logoURL": "tokens/xrpl-0/rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000/logo.webp",
+  "logoURL": "tokens/xrpl-0/rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De/524C555344000000000000000000000000000000/logo.webp",
   "logoHash": "3f2baa0ea9f3c3e84b83f0aac4d0f26a9f072f013383a4d5be6ba9464fc16093"
 }

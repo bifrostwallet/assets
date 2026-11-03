@@ -21,6 +21,7 @@ const {
   findProviderByValidator,
   getNativeToken,
   getToken,
+  getXrplToken,
   getContract,
   getContracts,
   CONTRACT_CATEGORY_LABELS,
@@ -38,10 +39,10 @@ const picker = getListedProviders("eip155:14"); // listed: true only
 const flr = getNativeToken("eip155:14"); // native gas token (address === null)
 // WNAT / WFLR on Flare (EVM lookup is case-insensitive)
 const wflr = getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
-// XRPL issued tokens keep exact case: issuer r-address, a dot, then the currency code.
-const rlusd = getToken(
-  "xrpl:0",
-  "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De.524C555344000000000000000000000000000000",
+// XRPL issued tokens are issuer + currency, exact case. There is no address.
+const rlusd = getXrplToken(
+  "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+  "524C555344000000000000000000000000000000",
 );
 
 // Transaction-review names. Lookup is case-insensitive. null when unknown.

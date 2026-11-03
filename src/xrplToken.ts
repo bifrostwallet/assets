@@ -1,16 +1,10 @@
 import { createHash } from "node:crypto";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import bs58 from "bs58";
 
 /** Mainnet only. CAIP-2 `xrpl:0`, repo path `xrpl-0`. */
 export const XRPL_MAINNET_CHAIN_PATH = "xrpl-0";
-
-/**
- * IOU folder and `address` key: exact-case issuer, a dot, then the on-ledger
- * currency code. CoinGecko stores the reverse order (`<currency>.<issuer>`).
- */
-export function xrplIouKey(issuer: string, currency: string): string {
-  return `${issuer}.${currency}`;
-}
 
 const BITCOIN_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 const RIPPLE_ALPHABET = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz";
@@ -21,18 +15,41 @@ const HEX_CURRENCY = /^[0-9A-F]{40}$/;
 
 /** First byte of an AMM LP token currency code. Those are not catalog entries. */
 const AMM_LP_CURRENCY_PREFIX = 0x03;
+const AMM_LP_CURRENCY = /^03[0-9A-Fa-f]{38}$/;
 
-const XRPL_IOU_KEYS = [
+const XRPL_TOKEN_KEYS = [
   "name",
   "symbol",
   "decimals",
-  "address",
   "issuer",
   "currency",
   "coingeckoId",
   "logoURL",
   "logoHash",
 ] as const;
+
+/**
+ * Issued token on XRPL mainnet. Identified by `issuer` and `currency`.
+ * There is no `address` field.
+ */
+export type XrplToken = {
+  name: string;
+  symbol: string;
+  decimals: number;
+  /** Classic r-address, exact case. */
+  issuer: string;
+  /** On-ledger currency: 3-character exact case, or 40-hex uppercase. */
+  currency: string;
+  coingeckoId: string | null;
+  logoURL: string;
+  logoHash: string;
+};
+
+export type XrplTokenDir = {
+  issuerDir: string;
+  currencyDir: string;
+  dir: string;
+};
 
 /**
  * Classic account r-address: ripple base58, version byte 0, 20-byte payload,
@@ -84,53 +101,104 @@ export function decodeXrplCurrency(currency: string): string | null {
   return bytes.subarray(0, end).toString("ascii");
 }
 
-export type XrplIouInfo = {
-  name: string;
-  symbol: string;
-  decimals: number;
-  address: string;
-  issuer: string;
-  currency: string;
-  coingeckoId: string | null;
-  logoURL: string;
-  logoHash: string;
-};
+/**
+ * Directories and files under `xrpl-0` that are not `<issuer>/<currency>/`.
+ * `all.json` is the only file allowed next to the issuer folders.
+ */
+export function xrplCatalogPathErrors(root = process.cwd()): string[] {
+  const chainDir = path.join(root, "data", "tokens", XRPL_MAINNET_CHAIN_PATH);
+  if (!fs.existsSync(chainDir)) return [`missing ${XRPL_MAINNET_CHAIN_PATH}`];
+  const errors: string[] = [];
+  for (const issuerEntry of fs.readdirSync(chainDir, { withFileTypes: true })) {
+    if (issuerEntry.name === "all.json" && issuerEntry.isFile()) continue;
+    const issuerLabel = `${XRPL_MAINNET_CHAIN_PATH}/${issuerEntry.name}`;
+    if (!issuerEntry.isDirectory()) {
+      errors.push(`${issuerLabel}: unexpected file`);
+      continue;
+    }
+    const issuerPath = path.join(chainDir, issuerEntry.name);
+    if (fs.existsSync(path.join(issuerPath, "info.json"))) {
+      errors.push(`${issuerLabel}: expected <issuer>/<currency>/info.json`);
+    }
+    for (const currencyEntry of fs.readdirSync(issuerPath, { withFileTypes: true })) {
+      const currencyLabel = `${issuerLabel}/${currencyEntry.name}`;
+      if (!currencyEntry.isDirectory()) {
+        errors.push(`${currencyLabel}: unexpected file`);
+        continue;
+      }
+      if (!fs.existsSync(path.join(issuerPath, currencyEntry.name, "info.json"))) {
+        errors.push(`${currencyLabel}: missing info.json`);
+      }
+    }
+  }
+  return errors;
+}
+
+/** `data/tokens/xrpl-0/<issuer>/<currency>/` entries that contain info.json. */
+export function listXrplTokenDirs(root = process.cwd()): XrplTokenDir[] {
+  const chainDir = path.join(root, "data", "tokens", XRPL_MAINNET_CHAIN_PATH);
+  if (!fs.existsSync(chainDir)) return [];
+  const out: XrplTokenDir[] = [];
+  for (const issuerEntry of fs.readdirSync(chainDir, { withFileTypes: true })) {
+    if (!issuerEntry.isDirectory()) continue;
+    const issuerPath = path.join(chainDir, issuerEntry.name);
+    for (const currencyEntry of fs.readdirSync(issuerPath, { withFileTypes: true })) {
+      if (!currencyEntry.isDirectory()) continue;
+      const dir = path.join(issuerPath, currencyEntry.name);
+      if (!fs.existsSync(path.join(dir, "info.json"))) continue;
+      out.push({ issuerDir: issuerEntry.name, currencyDir: currencyEntry.name, dir });
+    }
+  }
+  return out.sort(
+    (a, b) => a.issuerDir.localeCompare(b.issuerDir) || a.currencyDir.localeCompare(b.currencyDir),
+  );
+}
 
 /**
- * Schema errors for one XRPL IOU `info.json`. Empty means the entry matches
- * the catalog rules. Does not read the logo bytes; pass `logoSha256` when the
- * file is present so the hash can be checked.
+ * Schema errors for one XRPL issued-token `info.json`. Empty means the entry
+ * matches the catalog rules. `issuerDir` and `currencyDir` are the folder names
+ * under `xrpl-0`. Pass `logoSha256` when logo.webp is present so the hash can
+ * be checked.
  */
-export function validateXrplIouInfo(info: unknown, dirName: string, logoSha256?: string): string[] {
+export function validateXrplToken(
+  info: unknown,
+  issuerDir: string,
+  currencyDir: string,
+  logoSha256?: string,
+): string[] {
   const errors: string[] = [];
   if (!info || typeof info !== "object" || Array.isArray(info)) {
     return ["not an object"];
   }
   const record = info as Record<string, unknown>;
   for (const key of Object.keys(record)) {
-    if (!XRPL_IOU_KEYS.includes(key as (typeof XRPL_IOU_KEYS)[number])) {
+    if (!XRPL_TOKEN_KEYS.includes(key as (typeof XRPL_TOKEN_KEYS)[number])) {
       errors.push(`unexpected field ${key}`);
     }
   }
 
-  const { name, symbol, decimals, address, issuer, currency, coingeckoId, logoURL, logoHash } =
-    record;
+  const { name, symbol, decimals, issuer, currency, coingeckoId, logoURL, logoHash } = record;
 
   if (typeof issuer !== "string" || !isValidXrplAccountAddress(issuer)) {
     errors.push("issuer must be an exact-case classic r-address");
   }
-  const decoded = typeof currency === "string" ? decodeXrplCurrency(currency) : null;
-  if (typeof currency !== "string" || decoded === null) {
-    errors.push(
-      "currency must be a 3-character code in exact case (not XRP) or 40-hex uppercase (not an AMM LP token)",
-    );
+  if (typeof issuer === "string" && issuerDir !== issuer) {
+    errors.push(`folder ${issuerDir} must equal issuer ${issuer}`);
   }
-  const key =
-    typeof issuer === "string" && typeof currency === "string" ? xrplIouKey(issuer, currency) : "";
-  if (typeof address !== "string" || address !== key || key === "") {
-    errors.push("address must equal issuer.currency in exact case");
-  } else if (dirName !== address) {
-    errors.push(`folder ${dirName} must equal address ${address}`);
+
+  const currencyError =
+    "currency must be a 3-character code in exact case (not XRP) or 40-hex uppercase (not an AMM LP token)";
+  let decoded: string | null = null;
+  if (typeof currency !== "string") {
+    errors.push(currencyError);
+  } else if (AMM_LP_CURRENCY.test(currency)) {
+    errors.push("currency must not be an AMM LP token (40-hex starting with 03)");
+  } else {
+    decoded = decodeXrplCurrency(currency);
+    if (decoded === null) errors.push(currencyError);
+  }
+  if (typeof currency === "string" && currencyDir !== currency) {
+    errors.push(`folder ${currencyDir} must equal currency ${currency}`);
   }
 
   if (typeof name !== "string" || name.trim() === "" || name !== name.trim()) {
@@ -155,8 +223,8 @@ export function validateXrplIouInfo(info: unknown, dirName: string, logoSha256?:
   ) {
     errors.push("coingeckoId must be a non-empty string or null");
   }
-  if (typeof address === "string" && address !== "") {
-    const expectedLogo = `tokens/${XRPL_MAINNET_CHAIN_PATH}/${address}/logo.webp`;
+  if (typeof issuer === "string" && typeof currency === "string") {
+    const expectedLogo = `tokens/${XRPL_MAINNET_CHAIN_PATH}/${issuer}/${currency}/logo.webp`;
     if (logoURL !== expectedLogo) errors.push(`logoURL must be ${expectedLogo}`);
   }
   if (typeof logoHash !== "string" || !/^[0-9a-f]{64}$/.test(logoHash)) {
