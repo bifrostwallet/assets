@@ -11,7 +11,10 @@
   "submitAddress": "0x24dc4e640ac8f95dfa20f0aa1f5bb300d9689bd2",
   "submitSignaturesAddress": "0xfa04c0ea9be8412340d5738ffcf635f9e9299616",
   "publicKey": "0x3037b46c9e1ff3f043d5b605f785776dfabeacab14ffedc8ddb62e397117559e194117e219d024228767d5f110a191542865c93e2d98a685e535d9271695a33b",
-  "validators": ["NodeID-6aKkPwTjFa3A5SH9H678r48MmNwyKFjQj"],
+  "validators": [
+    "NodeID-6aKkPwTjFa3A5SH9H678r48MmNwyKFjQj",
+    "NodeID-KWuQ1CaxMUvDRRh7pzgcGMXpv38SFmb3r"
+  ],
   "listed": true,
   "managementGroup": false,
   "domainLinked": false,

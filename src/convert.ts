@@ -26,22 +26,12 @@ export function encodeNodeID(hexString: HexString): string | "" {
       return "";
     }
 
-    // Convert hex to buffer (remove '0x' prefix if present)
     const rawBuffer = Buffer.from(hexString.slice(2), "hex");
-
-    // Calculate SHA-256 hash of the buffer
     const hash = crypto.createHash("sha256").update(rawBuffer).digest();
-
-    // Get the last 4 bytes of the hash as the checksum
     const checksum = hash.subarray(-4);
-
-    // Append the checksum to the original buffer
     const bufferWithChecksum = Buffer.concat([rawBuffer, checksum]);
-
-    // Encode the result with Base58
     const encodedNodeId = bs58.encode(bufferWithChecksum);
 
-    // Create the NodeID string
     return `NodeID-${encodedNodeId}`;
   } catch (_error) {
     return "";
@@ -59,19 +49,12 @@ export function decodeNodeID(nodeID: string): HexString | "" {
       return "";
     }
 
-    // Remove the "NodeID-" prefix
     const encodedPart = nodeID.slice(7);
-
-    // Decode from Base58
     const bufferWithChecksum = bs58.decode(encodedPart);
-
-    // The last 4 bytes are the checksum, so remove them
     const rawBuffer = bufferWithChecksum.slice(0, -4);
 
-    // Convert to hex string and add 0x prefix
     return `0x${Buffer.from(rawBuffer).toString("hex")}` as HexString;
   } catch (_error) {
-    // Return empty string if any error occurs during decoding
     return "";
   }
 }
