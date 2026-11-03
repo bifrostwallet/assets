@@ -1,7 +1,6 @@
 {
   "name": "GateHub EUR",
   "symbol": "EUR",
-  "decimals": 6,
   "issuer": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
   "currency": "EUR",
   "coingeckoId": null,

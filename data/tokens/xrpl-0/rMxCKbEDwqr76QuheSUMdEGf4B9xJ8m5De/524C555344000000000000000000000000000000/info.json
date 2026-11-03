@@ -1,7 +1,6 @@
 {
   "name": "Ripple USD",
   "symbol": "RLUSD",
-  "decimals": 6,
   "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
   "currency": "524C555344000000000000000000000000000000",
   "coingeckoId": "ripple-usd",

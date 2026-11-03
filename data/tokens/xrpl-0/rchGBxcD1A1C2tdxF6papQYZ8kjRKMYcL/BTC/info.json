@@ -1,7 +1,6 @@
 {
   "name": "GateHub BTC",
   "symbol": "BTC",
-  "decimals": 8,
   "issuer": "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL",
   "currency": "BTC",
   "coingeckoId": null,

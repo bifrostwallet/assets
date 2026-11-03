@@ -1,7 +1,6 @@
 {
   "name": "GateHub USD",
   "symbol": "USD",
-  "decimals": 6,
   "issuer": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
   "currency": "USD",
   "coingeckoId": null,

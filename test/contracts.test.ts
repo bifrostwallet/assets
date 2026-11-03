@@ -309,6 +309,7 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.equal(rlusd.issuer, issuer);
     assert.equal(rlusd.currency, currency);
     assert.equal(Object.hasOwn(rlusd, "address"), false);
+    assert.equal(Object.hasOwn(rlusd, "decimals"), false);
     assert.equal(assets.getXrplToken(issuer.toLowerCase(), currency), null);
     assert.equal(assets.getXrplToken(issuer, currency.toLowerCase()), null);
     assert.equal(assets.getToken("xrpl:0", `${issuer}.${currency}`), null);
@@ -316,7 +317,14 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.equal(wflr?.address, "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
     const xrpl = assets.getTokens("xrpl:0");
     assert.equal(xrpl.length, 10);
-    assert.ok(xrpl.every((token) => !Object.hasOwn(token, "address") && "issuer" in token));
+    assert.ok(
+      xrpl.every(
+        (token) =>
+          !Object.hasOwn(token, "address") &&
+          !Object.hasOwn(token, "decimals") &&
+          "issuer" in token,
+      ),
+    );
   });
 });
 

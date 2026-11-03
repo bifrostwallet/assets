@@ -1,7 +1,6 @@
 {
   "name": "Sologenic",
   "symbol": "SOLO",
-  "decimals": 15,
   "issuer": "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz",
   "currency": "534F4C4F00000000000000000000000000000000",
   "coingeckoId": "solo-coin",

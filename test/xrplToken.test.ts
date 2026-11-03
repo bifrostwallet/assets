@@ -22,7 +22,6 @@ function rlusdInfo(overrides: Record<string, unknown> = {}): Record<string, unkn
   return {
     name: "Ripple USD",
     symbol: "RLUSD",
-    decimals: 6,
     issuer: RLUSD_ISSUER,
     currency: RLUSD_CURRENCY,
     coingeckoId: "ripple-usd",
@@ -53,7 +52,7 @@ describe("XRPL issued-token identity", () => {
     assert.equal(decodeXrplCurrency(`00${"11".repeat(19)}`), null);
   });
 
-  test("rejects an address field, an AMM code, a bad folder, and decimals outside 0-15", () => {
+  test("rejects an address field, a decimals key, an AMM code, and a bad folder", () => {
     const amm = `03${"AB".repeat(19)}`;
     assert.deepEqual(validateXrplToken(rlusdInfo(), RLUSD_ISSUER, RLUSD_CURRENCY), []);
     assert.ok(
@@ -79,13 +78,8 @@ describe("XRPL issued-token identity", () => {
       ),
     );
     assert.ok(
-      validateXrplToken(rlusdInfo({ decimals: 16 }), RLUSD_ISSUER, RLUSD_CURRENCY).some((error) =>
-        error.includes("0 through 15"),
-      ),
-    );
-    assert.ok(
-      validateXrplToken(rlusdInfo({ decimals: -1 }), RLUSD_ISSUER, RLUSD_CURRENCY).some((error) =>
-        error.includes("0 through 15"),
+      validateXrplToken(rlusdInfo({ decimals: 6 }), RLUSD_ISSUER, RLUSD_CURRENCY).some(
+        (error) => error === "unexpected field decimals",
       ),
     );
   });
@@ -108,6 +102,7 @@ describe("XRPL mainnet catalog", () => {
       const errors = validateXrplToken(info, issuerDir, currencyDir, logoSha256);
       assert.deepEqual(errors, [], `${issuerDir}/${currencyDir}: ${errors.join("; ")}`);
       assert.equal(Object.hasOwn(info, "address"), false);
+      assert.equal(Object.hasOwn(info, "decimals"), false);
       assert.equal(info.issuer, issuerDir);
       assert.equal(info.currency, currencyDir);
       assert.equal(info.logoURL, `tokens/xrpl-0/${issuerDir}/${currencyDir}/logo.webp`);

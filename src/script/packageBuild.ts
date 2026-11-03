@@ -302,7 +302,6 @@ export interface EvmToken {
 export interface XrplToken {
   name: string;
   symbol: string;
-  decimals: number;
   /** Classic r-address, exact case. */
   issuer: string;
   /** On-ledger currency: 3-character exact case, or 40-hex uppercase. */

@@ -20,7 +20,6 @@ const AMM_LP_CURRENCY = /^03[0-9A-Fa-f]{38}$/;
 const XRPL_TOKEN_KEYS = [
   "name",
   "symbol",
-  "decimals",
   "issuer",
   "currency",
   "coingeckoId",
@@ -30,12 +29,12 @@ const XRPL_TOKEN_KEYS = [
 
 /**
  * Issued token on XRPL mainnet. Identified by `issuer` and `currency`.
- * There is no `address` field.
+ * There is no `address` field. Amounts use the ledger float, so there is no
+ * `decimals` field.
  */
 export type XrplToken = {
   name: string;
   symbol: string;
-  decimals: number;
   /** Classic r-address, exact case. */
   issuer: string;
   /** On-ledger currency: 3-character exact case, or 40-hex uppercase. */
@@ -177,7 +176,7 @@ export function validateXrplToken(
     }
   }
 
-  const { name, symbol, decimals, issuer, currency, coingeckoId, logoURL, logoHash } = record;
+  const { name, symbol, issuer, currency, coingeckoId, logoURL, logoHash } = record;
 
   if (typeof issuer !== "string" || !isValidXrplAccountAddress(issuer)) {
     errors.push("issuer must be an exact-case classic r-address");
@@ -206,14 +205,6 @@ export function validateXrplToken(
   }
   if (typeof symbol !== "string" || symbol !== decoded) {
     errors.push("symbol must be the decoded on-ledger currency code");
-  }
-  if (
-    typeof decimals !== "number" ||
-    !Number.isInteger(decimals) ||
-    decimals < 0 ||
-    decimals > 15
-  ) {
-    errors.push("decimals must be an integer from 0 through 15");
   }
   if (!("coingeckoId" in record)) {
     errors.push("missing required coingeckoId (use string or null)");

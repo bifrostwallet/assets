@@ -195,7 +195,7 @@ Place a dapp from its official site. Do not filter chips by network.
 
 Token metadata is curated by Bifrost Wallet (not self-serve). EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` + `logo.webp`, per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and directory `native/` (no separate `native` boolean).
 
-XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. There is no `address` field. Lookup is `getXrplToken(issuer, currency)` and keeps that exact case. EVM lookup stays `getToken(chain, address)`. `symbol` is the decoded currency. IOU `decimals` are display precision only (0–15). AMM LP tokens (40-hex currency codes starting with `03`) are not listed.
+XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. There is no `address` field. Lookup is `getXrplToken(issuer, currency)` and keeps that exact case. EVM lookup stays `getToken(chain, address)`. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are not listed.
 
 Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko is only for id resolution / optional price hints, never for growing the list or overriding on-chain name/symbol/decimals.
 

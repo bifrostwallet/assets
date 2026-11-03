@@ -1,7 +1,6 @@
 {
   "name": "GateHub ETH",
   "symbol": "ETH",
-  "decimals": 8,
   "issuer": "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h",
   "currency": "ETH",
   "coingeckoId": null,
