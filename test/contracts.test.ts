@@ -16,6 +16,8 @@ import {
   validateContractRecord,
 } from "../src/contracts.js";
 import buildPackage from "../src/script/packageBuild.js";
+import type { EvmToken } from "../src/tokens.js";
+import type { XrplToken } from "../src/xrplToken.js";
 
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
 const BIFROST_DAPP = "bifrostwallet-com";
@@ -245,7 +247,7 @@ describe("contract catalog", { concurrency: false }, () => {
   });
 });
 
-describe("published package contract lookups", { concurrency: false }, () => {
+describe("published package lookups", { concurrency: false }, () => {
   test("getContract and getContracts match the catalog", () => {
     buildPackage();
     const require = createRequire(path.join(process.cwd(), "package.json"));
@@ -289,6 +291,40 @@ describe("published package contract lookups", { concurrency: false }, () => {
       null,
     );
     assert.throws(() => assets.getContracts("not-a-chain"));
+  });
+
+  test("getToken stays address-based and getXrplToken is exact-case", () => {
+    buildPackage();
+    const require = createRequire(path.join(process.cwd(), "package.json"));
+    const assets = require(path.join(process.cwd(), "dist/index.js")) as {
+      getToken: (chainId: string, address: string) => EvmToken | null;
+      getXrplToken: (issuer: string, currency: string) => XrplToken | null;
+      getTokens: (chainId: string) => EvmToken[] | XrplToken[];
+    };
+    const issuer = "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De";
+    const currency = "524C555344000000000000000000000000000000";
+    const rlusd = assets.getXrplToken(issuer, currency);
+    assert.ok(rlusd);
+    assert.equal(rlusd.symbol, "RLUSD");
+    assert.equal(rlusd.issuer, issuer);
+    assert.equal(rlusd.currency, currency);
+    assert.equal(Object.hasOwn(rlusd, "address"), false);
+    assert.equal(Object.hasOwn(rlusd, "decimals"), false);
+    assert.equal(assets.getXrplToken(issuer.toLowerCase(), currency), null);
+    assert.equal(assets.getXrplToken(issuer, currency.toLowerCase()), null);
+    assert.equal(assets.getToken("xrpl:0", `${issuer}.${currency}`), null);
+    const wflr = assets.getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
+    assert.equal(wflr?.address, "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
+    const xrpl = assets.getTokens("xrpl:0");
+    assert.equal(xrpl.length, 10);
+    assert.ok(
+      xrpl.every(
+        (token) =>
+          !Object.hasOwn(token, "address") &&
+          !Object.hasOwn(token, "decimals") &&
+          "issuer" in token,
+      ),
+    );
   });
 });
 
