@@ -43,7 +43,7 @@ Dropped from the catalog:
 
 - Re-read every listed mismatch with `symbol()` before editing.
 - `./yarn check:tokens` with the public RPCs configured in CI: 1284 contracts checked, 0 schema errors, 0 symbol mismatches, 0 symbol read failures. Name and decimals mismatches stay advisory.
-- `./yarn test`: 569 passed. `./yarn typecheck` and Biome passed.
+- `./yarn test`: 603 passed. `./yarn typecheck` and Biome passed.
 
 The symbol check exits non-zero on a mismatch outside the exception list, and on a symbol read that still fails after retries. An empty or NUL-only response is retried. A contract that reverts or returns no data is reported and does not fail the run.
 

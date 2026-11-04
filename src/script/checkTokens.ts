@@ -369,7 +369,7 @@ async function checkTokens(): Promise<void> {
   const onchainJobs: {
     chainPath: string;
     chainId: number;
-    info: TokenInfo;
+    info: EvmToken;
     address: string;
     client: PublicClient;
   }[] = [];
