@@ -351,15 +351,6 @@
     "logoHash": "5a48ca1ae0213318cff8fb3cc1ec2b5911f0e4c4f9cfd52672139f1730aae95a"
   },
   {
-    "name": "Aventus",
-    "symbol": "AVT",
-    "decimals": 18,
-    "address": "0x0d88ed6e74bbfd96b831231638b66c05571e824f",
-    "coingeckoId": "aventus",
-    "logoURL": "tokens/eip155-1/0x0d88ed6e74bbfd96b831231638b66c05571e824f/logo.webp",
-    "logoHash": "84041d32bec3afd0bfeef107d17390dd050b09accc6319e1c0c9f913342f99ae"
-  },
-  {
     "name": "SOTA Finance",
     "symbol": "SOTA",
     "decimals": 18,
@@ -1654,15 +1645,6 @@
     "coingeckoId": "vulcan-forged",
     "logoURL": "tokens/eip155-1/0x430ef9263e76dae63c84292c3409d61c598e9682/logo.webp",
     "logoHash": "05501be69a476a340797141ee9dcac8799d2f005219569fb6de487050346b168"
-  },
-  {
-    "name": "dForce",
-    "symbol": "DF",
-    "decimals": 18,
-    "address": "0x431ad2ff6a9c365805ebad47ee021148d6f7dbe0",
-    "coingeckoId": "dforce-token",
-    "logoURL": "tokens/eip155-1/0x431ad2ff6a9c365805ebad47ee021148d6f7dbe0/logo.webp",
-    "logoHash": "94d034e74e53d925126ced422e4ae9bc86d245c3405e6a6ae532581ca13854ed"
   },
   {
     "name": "DODO",
@@ -3348,15 +3330,6 @@
     "logoHash": "e9e23a95942405cbc7ae4b15eff277959f792850f5cc9bdbee04c3c0a653fac2"
   },
   {
-    "name": "Sai",
-    "symbol": "SAI",
-    "decimals": 18,
-    "address": "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359",
-    "coingeckoId": "sai",
-    "logoURL": "tokens/eip155-1/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359/logo.webp",
-    "logoHash": "9f7de900ebf4a4a6883f54e22dbc9b7853bf04b4804cbf565b1a9c375a875bda"
-  },
-  {
     "name": "Chromia",
     "symbol": "CHR",
     "decimals": 6,
@@ -3832,15 +3805,6 @@
     "coingeckoId": "sipher",
     "logoURL": "tokens/eip155-1/0x9f52c8ecbee10e00d9faaac5ee9ba0ff6550f511/logo.webp",
     "logoHash": "63f1bceba8f03704c286d53fcf0980cc3e8b22c4747c9f0ee45135752a445e4d"
-  },
-  {
-    "name": "Maker",
-    "symbol": "MKR",
-    "decimals": 18,
-    "address": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2",
-    "coingeckoId": "maker",
-    "logoURL": "tokens/eip155-1/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2/logo.webp",
-    "logoHash": "0c1abfc526939dac5bab05c2467ebb0113ab34b2a65bcace18880b7001837fac"
   },
   {
     "name": "DeRace",

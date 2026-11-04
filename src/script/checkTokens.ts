@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { createPublicClient, type Hex, hexToString, http, type PublicClient } from "viem";
+import { createPublicClient, type Hex, http, type PublicClient } from "viem";
 import { ASSET_LOGO_REQUIREMENTS } from "../config.js";
 import { isMain } from "../isMain.js";
 import {
@@ -27,9 +27,10 @@ import {
  * 2. Logo file + published size rules (outliers reported, not fatal)
  * 3. On-chain name / symbol / decimals vs curated (when RPC env is set)
  *
- * Never mutates data. Symbol mismatches outside the exception list, and symbol
- * reads that still fail after retries, exit non-zero. Name and decimals
- * mismatches stay advisory.
+ * Never mutates data. Symbol mismatches outside the exception list, symbol
+ * reads that still fail after retries, and a symbol() that is not an ABI
+ * string exit non-zero. Name and decimals mismatches stay advisory.
+ * symbol() is read as a string only. bytes32 symbols are not supported.
  *
  * RPC env (optional, per chain):
  *   ETHEREUM_NODE_URL, OPTIMISM_NODE_URL, FLARE_NODE_URL, SONGBIRD_NODE_URL,
@@ -61,19 +62,10 @@ const ERC20_ABI = [
   },
 ] as const;
 
-const ERC20_BYTES32_SYMBOL_ABI = [
-  {
-    type: "function",
-    name: "symbol",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ type: "bytes32" }],
-  },
-] as const;
-
 /**
- * Curated symbols that intentionally differ from on-chain symbol().
+ * Curated symbols that intentionally differ from on-chain string symbol().
  * One reason each. Do not add entries for symbols that fail format checks.
+ * bytes32 symbol() is not supported and is not an exception.
  */
 const SYMBOL_EXCEPTIONS: readonly {
   chainId: number;
@@ -81,12 +73,6 @@ const SYMBOL_EXCEPTIONS: readonly {
   symbol: string;
   reason: string;
 }[] = [
-  {
-    chainId: 1,
-    address: "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359",
-    symbol: "SAI",
-    reason: "On-chain bytes32 is DAI; curated symbol stays SAI so it is not confused with DAI.",
-  },
   {
     chainId: 1,
     address: "0x88acdd2a6425c3faae4bc9650fd7e27e0bebb7ab",
@@ -124,7 +110,7 @@ type CheckReport = {
   onchainSkippedChains: string[];
   onchainChecked: number;
   onchainRpcErrors: string[];
-  /** symbol() reads that failed after retries. These fail the process. */
+  /** symbol() reads that failed. These fail the process. */
   symbolReadErrors: string[];
   mismatches: Mismatch[];
 };
@@ -152,16 +138,6 @@ function clientFor(chainId: number, rpc: string): PublicClient {
   });
 }
 
-/** Strip trailing NUL padding from a bytes32 symbol and decode UTF-8. */
-function decodeBytes32Symbol(value: Hex): string {
-  const body = value
-    .toLowerCase()
-    .replace(/^0x/, "")
-    .replace(/(00)+$/, "");
-  if (body.length === 0) return "";
-  return hexToString(`0x${body}`);
-}
-
 /**
  * Drop NUL padding. A value that is only NULs or whitespace is an incomplete
  * RPC response, not a symbol, so the caller can retry it.
@@ -174,9 +150,34 @@ function normalizeSymbol(symbol: string): string {
   return stripped;
 }
 
-function isEmptySymbolError(error: unknown): boolean {
+const UNSUPPORTED_SYMBOL = "symbol() is not an ABI string (bytes32 symbols are not supported)";
+
+function errorChainText(error: unknown): string {
+  const parts: string[] = [];
+  let current: unknown = error;
+  const seen = new Set<unknown>();
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    const record = current as { name?: unknown; message?: unknown; cause?: unknown };
+    if (typeof record.name === "string") parts.push(record.name);
+    if (typeof record.message === "string") parts.push(record.message);
+    current = record.cause;
+  }
+  return parts.length > 0 ? parts.join("\n") : String(error);
+}
+
+/** ABI decode failed because symbol() did not return a string. */
+function isNonStringSymbolDecode(error: unknown): boolean {
+  const text = errorChainText(error);
+  if (/revert|returned no data|out of gas/i.test(text)) return false;
+  return /DataSizeTooSmall|PositionOutOfBounds|SliceOffsetOutOfBounds|too small for given parameters|out of bounds|out-of-bounds/i.test(
+    text,
+  );
+}
+
+function isUnsupportedSymbolError(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
-  return message.includes("returned an empty value");
+  return message.includes(UNSUPPORTED_SYMBOL);
 }
 
 function isSymbolException(chainId: number, address: string, symbol: string): boolean {
@@ -189,8 +190,9 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** Reverts are deterministic. Timeouts and rate limits are not. */
+/** Reverts and a non-string symbol() are deterministic. Timeouts, rate limits, and an empty symbol are not. */
 function isRetryableRpcError(error: unknown): boolean {
+  if (isUnsupportedSymbolError(error)) return false;
   const message = error instanceof Error ? error.message : String(error);
   return !/revert|returned no data|out of gas/i.test(message);
 }
@@ -211,26 +213,23 @@ async function withRpcRetry<T>(fn: () => Promise<T>): Promise<T> {
 }
 
 /**
- * symbol() is string on most tokens and bytes32 on a few (MKR, AVT, DF).
- * A failed string decode is retried as bytes32 and decoded to text.
+ * symbol() is an ABI string. A bytes32 return cannot be decoded as a string
+ * and is not supported.
  */
 async function readSymbol(client: PublicClient, address: Hex): Promise<string> {
+  let symbol: unknown;
   try {
-    const symbol = await client.readContract({ address, abi: ERC20_ABI, functionName: "symbol" });
-    return normalizeSymbol(symbol);
-  } catch (stringError) {
-    if (isEmptySymbolError(stringError)) throw stringError;
-    try {
-      const raw = await client.readContract({
-        address,
-        abi: ERC20_BYTES32_SYMBOL_ABI,
-        functionName: "symbol",
-      });
-      return normalizeSymbol(decodeBytes32Symbol(raw));
-    } catch {
-      throw stringError;
+    symbol = await client.readContract({ address, abi: ERC20_ABI, functionName: "symbol" });
+  } catch (error) {
+    if (isNonStringSymbolDecode(error)) {
+      throw new Error(UNSUPPORTED_SYMBOL);
     }
+    throw error;
   }
+  if (typeof symbol !== "string") {
+    throw new Error(UNSUPPORTED_SYMBOL);
+  }
+  return normalizeSymbol(symbol);
 }
 
 function checkLogoFile(label: string, dir: string, logoURL: string, report: CheckReport): void {
@@ -416,9 +415,10 @@ async function checkTokens(): Promise<void> {
       }
     } catch (error) {
       const message = (error instanceof Error ? error.message : String(error)).split("\n")[0];
-      // A revert or empty return is the contract, not a flaky RPC. Transport
-      // failures stay fatal so a dead endpoint cannot pass the symbol check.
-      if (isRetryableRpcError(error)) {
+      // A revert or empty return is the contract, not a flaky RPC. A non-string
+      // symbol() is not supported and fails the run. Transport failures stay
+      // fatal so a dead endpoint cannot pass the symbol check.
+      if (isUnsupportedSymbolError(error) || isRetryableRpcError(error)) {
         report.symbolReadErrors.push(`${chainPath}/${address}: ${message}`);
       } else {
         report.onchainRpcErrors.push(`${chainPath}/${address}: ${message}`);
@@ -492,7 +492,7 @@ async function checkTokens(): Promise<void> {
     }
   }
   if (report.symbolReadErrors.length > 0) {
-    console.error("\nSymbol reads failed after retries:");
+    console.error("\nSymbol reads failed:");
     for (const line of report.symbolReadErrors) {
       console.error(`  ${line}`);
     }
