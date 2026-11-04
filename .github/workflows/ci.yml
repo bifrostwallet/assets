@@ -81,7 +81,6 @@ jobs:
           XDC_NODE_URL: https://rpc.ankr.com/xdc
           BNBSMARTCHAIN_NODE_URL: https://bsc-dataseed.binance.org
           POLYGON_NODE_URL: https://polygon-bor-rpc.publicnode.com
-          FANTOM_NODE_URL: https://rpc.fantom.network
           BASE_NODE_URL: https://mainnet.base.org
           ARBITRUM_NODE_URL: https://arbitrum-one-rpc.publicnode.com
           HYPERLIQUID_NODE_URL: https://rpc.hyperliquid.xyz/evm

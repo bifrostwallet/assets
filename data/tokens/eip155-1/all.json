@@ -1098,15 +1098,6 @@
     "logoHash": "174e064b05cc2e097761f61c5f36bf788329523e4f5c4c7b798d0fe1c490b8b3"
   },
   {
-    "name": "Ekta",
-    "symbol": "EKTA v2",
-    "decimals": 18,
-    "address": "0x2f75113b13d136f861d212fa9b572f2c79ac81c4",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-1/0x2f75113b13d136f861d212fa9b572f2c79ac81c4/logo.webp",
-    "logoHash": "0beed20a6f587fb2f4cd23df749c4a26a42bcac5f7b3be6d91bf3f983396ef96"
-  },
-  {
     "name": "Synth Uniswap",
     "symbol": "sUNI",
     "decimals": 18,
@@ -2007,15 +1998,6 @@
     "logoHash": "5970ef5bd4c38b5f9004978e22f97674a1efcd76731703e2e374131b1fc6e791"
   },
   {
-    "name": "FTX Token",
-    "symbol": "FTX Token",
-    "decimals": 18,
-    "address": "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9",
-    "coingeckoId": "ftx-token",
-    "logoURL": "tokens/eip155-1/0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9/logo.webp",
-    "logoHash": "04f30d2401b16a4a90cd401cb03ada0218fe14cf362b715737bdfb02b990616a"
-  },
-  {
     "name": "Razor Network",
     "symbol": "RAZOR",
     "decimals": 18,
@@ -2248,15 +2230,6 @@
     "coingeckoId": "mixmarvel",
     "logoURL": "tokens/eip155-1/0x5d285f735998f36631f678ff41fb56a10a4d0429/logo.webp",
     "logoHash": "4a28bea844350c9f1b503530e3d8d475e1341d4c24726d9899090d7029f41396"
-  },
-  {
-    "name": "Compound Dai",
-    "symbol": "cDAI",
-    "decimals": 8,
-    "address": "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643",
-    "coingeckoId": "cdai",
-    "logoURL": "tokens/eip155-1/0x5d3a536e4d6dbd6114cc1ead35777bab948e3643/logo.webp",
-    "logoHash": "0c2e99ca1023968c0367350adc6a15ea1233d0574832c6d5eaf5b9c7e2345df2"
   },
   {
     "name": "LockTrip",
@@ -5553,15 +5526,6 @@
     "logoHash": "1c6e341ca21f7a906a4c3d03423515cb59ee1903ce01456dbb902236bbf0d124"
   },
   {
-    "name": "Kyber Network Crystal Legacy",
-    "symbol": "KNC",
-    "decimals": 18,
-    "address": "0xdd974d5c2e2928dea5f71b9825b8b646686bd200",
-    "coingeckoId": "kyber-network",
-    "logoURL": "tokens/eip155-1/0xdd974d5c2e2928dea5f71b9825b8b646686bd200/logo.webp",
-    "logoHash": "13d1de3426ff7611fca8ebe0a982b1e1d95e15836c84f95b09525ccffc81ba0c"
-  },
-  {
     "name": "COTI Token",
     "symbol": "COTI",
     "decimals": 18,
@@ -5641,15 +5605,6 @@
     "coingeckoId": "cow-protocol",
     "logoURL": "tokens/eip155-1/0xdef1ca1fb7fbcdc777520aa7f396b4e015f497ab/logo.webp",
     "logoHash": "b21efdb70a953f0a2c7f51e0e08511c806930dcbf24a0555607e9b61810cbdac"
-  },
-  {
-    "name": "Kyber Network Crystal",
-    "symbol": "KNC",
-    "decimals": 18,
-    "address": "0xdefa4e8a7bcba345f687a2f1456f5edd9ce97202",
-    "coingeckoId": "kyber-network-crystal",
-    "logoURL": "tokens/eip155-1/0xdefa4e8a7bcba345f687a2f1456f5edd9ce97202/logo.webp",
-    "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
   },
   {
     "name": "Hifi Finance",
@@ -6163,15 +6118,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-1/0xf59ae934f6fe444afc309586cc60a84a0f89aaea/logo.webp",
     "logoHash": "4aa3cb0fe760d454a4e7787a5f198243b1ddd0dafac472e83e1c130c485b156c"
-  },
-  {
-    "name": "Compound SAI",
-    "symbol": "cDAI",
-    "decimals": 8,
-    "address": "0xf5dce57282a584d2746faf1593d3121fcac444dc",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-1/0xf5dce57282a584d2746faf1593d3121fcac444dc/logo.webp",
-    "logoHash": "5d13ae1f9aaa0156b9bf07e1b7ab7455710fd241ba15cb9229149c1f4d73274d"
   },
   {
     "name": "Enjin Coin",

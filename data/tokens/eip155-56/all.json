@@ -531,15 +531,6 @@
     "logoHash": "a2b1c6ea75d1843fbc2b08fc0034303e292cd9110f54a07607b76e323d9e214c"
   },
   {
-    "name": "Ekta",
-    "symbol": "EKTA v2",
-    "decimals": 18,
-    "address": "0x45808ce43eb2d7685ff0242631f0feb6f3d8701a",
-    "coingeckoId": null,
-    "logoURL": "tokens/eip155-56/0x45808ce43eb2d7685ff0242631f0feb6f3d8701a/logo.webp",
-    "logoHash": "0beed20a6f587fb2f4cd23df749c4a26a42bcac5f7b3be6d91bf3f983396ef96"
-  },
-  {
     "name": "Realm",
     "symbol": "REALM",
     "decimals": 18,
@@ -2158,15 +2149,6 @@
     "coingeckoId": "renbtc",
     "logoURL": "tokens/eip155-56/0xfce146bf3146100cfe5db4129cf6c82b0ef4ad8c/logo.webp",
     "logoHash": "4bb47bb8618f700521c07ed12e0864345c09d0165a00f448fc810fa880a5975b"
-  },
-  {
-    "name": "Kyber Network Crystal",
-    "symbol": "KNC",
-    "decimals": 18,
-    "address": "0xfe56d5892bdffc7bf58f2e84be1b2c32d21c308b",
-    "coingeckoId": "kyber-network-crystal",
-    "logoURL": "tokens/eip155-56/0xfe56d5892bdffc7bf58f2e84be1b2c32d21c308b/logo.webp",
-    "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
   },
   {
     "name": "Ternoa",

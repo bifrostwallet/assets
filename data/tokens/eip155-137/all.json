@@ -81,15 +81,6 @@
     "logoHash": "f789367c168fba32aa13337e5779f79b50f40d0da96d4777e7c10a8cab96e9d7"
   },
   {
-    "name": "Router Protocol",
-    "symbol": "ROUTE (PoS)",
-    "decimals": 18,
-    "address": "0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4",
-    "coingeckoId": "route",
-    "logoURL": "tokens/eip155-137/0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4/logo.webp",
-    "logoHash": "f88ebb0b467df8545354f646d63d1de95669e14d8ae9c3a2f6251c8529c0b28b"
-  },
-  {
     "name": "Curve DAO",
     "symbol": "CRV",
     "decimals": 18,
@@ -133,15 +124,6 @@
     "coingeckoId": "polygon-bridged-wbtc-polygon-pos",
     "logoURL": "tokens/eip155-137/0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6/logo.webp",
     "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
-  },
-  {
-    "name": "Kyber Network Crystal",
-    "symbol": "KNC",
-    "decimals": 18,
-    "address": "0x1c954e8fe737f99f68fa1ccda3e51ebdb291948c",
-    "coingeckoId": "kyber-network-crystal",
-    "logoURL": "tokens/eip155-137/0x1c954e8fe737f99f68fa1ccda3e51ebdb291948c/logo.webp",
-    "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
   },
   {
     "name": "Liquity USD",
@@ -673,15 +655,6 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-137/0x980111ae1b84e50222c8843e3a7a038f36fecd2b/logo.webp",
     "logoHash": "0a67cc46f9ee340f4b67ced1f29ee0c03a8577af8ef50f9422ce56bc67f222a0"
-  },
-  {
-    "name": "Panther",
-    "symbol": "$ZKP",
-    "decimals": 18,
-    "address": "0x9a06db14d639796b25a6cec6a1bf614fd98815ec",
-    "coingeckoId": "panther",
-    "logoURL": "tokens/eip155-137/0x9a06db14d639796b25a6cec6a1bf614fd98815ec/logo.webp",
-    "logoHash": "6a1775948a124f39ad885a6a9b3a24448c0334051544cacfd1160a9d57419864"
   },
   {
     "name": "Balancer",
