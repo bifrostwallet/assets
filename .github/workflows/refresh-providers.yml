@@ -1,12 +1,13 @@
 name: Refresh providers
 
-# Nightly: publish private Earn APY to GCS (no human gate) and commit unsigned
-# domainLinked flags straight to main. A branch pull request suggests
-# listed:false when a provider burned FSP rewards (eligibleForReward=false in
-# the latest passes.json — zero passes plus another FTSO/FDC/staking
-# minimal-condition failure) or breaks Bifrost's delegation-fee recommendation
-# (current FTSO fee, or any currently validating Flare validator fee, above
-# 50%). Curators review before merge.
+# Nightly: publish private Earn APY to GCS (no human gate). Domain linkage,
+# delist, and chain-drift edits stay in the working tree and land together on
+# one pull request (nightly/fsp-delist). Nothing in this job pushes to main.
+# A provider is suggested listed:false when it burned FSP rewards
+# (eligibleForReward=false in the latest passes.json — zero passes plus another
+# FTSO/FDC/staking minimal-condition failure) or breaks Bifrost's
+# delegation-fee recommendation (current FTSO fee, or any currently validating
+# Flare validator fee, above 50%). Curators review before merge.
 
 on:
   schedule:
@@ -37,7 +38,7 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # Commit + push back to the default branch
+          # Push nightly/fsp-delist and open the catalog pull request. Not main.
           token: ${{ github.token }}
 
       - name: Set up Node.js
@@ -59,6 +60,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Apply delist candidates and chain drift
+        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # After both refresh runs so the job summary matches the PR body.
       - name: Publish catalog refresh summary
         if: always()
         run: |
@@ -66,39 +73,24 @@ jobs:
             cat delist-summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Commit domain linkage updates to main
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/providers/
-          if git diff --staged --quiet; then
-            echo "No domain linkage changes to commit"
-            exit 0
-          fi
-          git commit -m "Nightly domain linkage refresh"
-          git push origin HEAD:main
-
-      - name: Apply delist candidates and chain drift
-        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Open delist pull request
+      - name: Open or update catalog pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # Domain linkage is still uncommitted. Delist and chain edits from the
+          # previous step are in the same tree. One branch, one pull request.
           git add data/providers/
           if git diff --staged --quiet; then
-            echo "No catalog suggestions; skipping pull request"
+            echo "No catalog updates; skipping pull request"
             exit 0
           fi
 
           BRANCH=nightly/fsp-delist
           git checkout -B "$BRANCH"
-          git commit -m "Suggest catalog updates from chain and FSP rewards"
+          git commit -m "Suggest catalog updates from domain linkage, chain, and FSP rewards"
           git fetch origin "$BRANCH" || true
           git push -u origin "HEAD:refs/heads/$BRANCH" --force-with-lease
 
@@ -109,5 +101,7 @@ jobs:
               --title "Suggested catalog updates" \
               --body-file delist-summary.md
           else
+            # Replace the body. A later night must not keep the previous night's text.
+            gh pr edit --body-file delist-summary.md
             echo "Updated existing pull request for $BRANCH"
           fi

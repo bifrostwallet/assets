@@ -1,17 +1,25 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, type Hex, hexToString, http, type PublicClient } from "viem";
 import { ASSET_LOGO_REQUIREMENTS } from "../config.js";
 import { isMain } from "../isMain.js";
 import {
-  assertTokenCoingeckoIdField,
+  type EvmToken,
   listTokenChainPaths,
   listTokenDirs,
   loadBlocklist,
-  loadTokenInfo,
-  type TokenInfo,
+  loadEvmToken,
+  validateEvmToken,
 } from "../tokens.js";
 import { isValidImage } from "../validate.js";
+import {
+  listXrplTokenDirs,
+  validateXrplToken,
+  XRPL_MAINNET_CHAIN_PATH,
+  type XrplToken,
+  xrplCatalogPathErrors,
+} from "../xrplToken.js";
 
 /**
  * Token catalog audit:
@@ -225,34 +233,7 @@ async function readSymbol(client: PublicClient, address: Hex): Promise<string> {
   }
 }
 
-function checkSchemaAndLogo(
-  chainPath: string,
-  info: TokenInfo,
-  dir: string,
-  report: CheckReport,
-): void {
-  const label = `${chainPath}/${tokenDirLabel(info)}`;
-  try {
-    assertTokenCoingeckoIdField(info, label);
-  } catch (error) {
-    report.schemaErrors.push(error instanceof Error ? error.message : String(error));
-  }
-
-  if (typeof info.name !== "string" || !info.name.trim()) {
-    report.schemaErrors.push(`${label}: invalid name`);
-  }
-  if (typeof info.symbol !== "string" || !info.symbol.trim()) {
-    report.schemaErrors.push(`${label}: invalid symbol`);
-  }
-  if (typeof info.decimals !== "number" || !Number.isInteger(info.decimals) || info.decimals < 0) {
-    report.schemaErrors.push(`${label}: invalid decimals`);
-  }
-  if (info.address === null) {
-    // Native gas token — no contract address
-  } else if (typeof info.address !== "string" || !/^0x[0-9a-f]{40}$/.test(info.address)) {
-    report.schemaErrors.push(`${label}: address must be lowercase 0x…40 or null (native)`);
-  }
-
+function checkLogoFile(label: string, dir: string, logoURL: string, report: CheckReport): void {
   const logoPath = path.join(dir, "logo.webp");
   if (!fs.existsSync(logoPath)) {
     report.missingLogos.push(label);
@@ -265,12 +246,92 @@ function checkSchemaAndLogo(
     requireSquare: ASSET_LOGO_REQUIREMENTS.REQUIRE_SQUARE,
   });
   if (!check.isValid) {
-    report.logoOutliers.push({ path: info.logoURL, errors: check.errors });
+    report.logoOutliers.push({ path: logoURL, errors: check.errors });
   }
 }
 
-function tokenDirLabel(info: TokenInfo): string {
-  return info.address === null ? "native" : info.address;
+function checkEvmSchemaAndLogo(
+  chainPath: string,
+  info: EvmToken,
+  dir: string,
+  report: CheckReport,
+): void {
+  const label = `${chainPath}/${info.address === null ? "native" : info.address}`;
+  for (const error of validateEvmToken(info)) {
+    report.schemaErrors.push(`${label}: ${error}`);
+  }
+  checkLogoFile(label, dir, info.logoURL, report);
+}
+
+function checkXrplChain(report: CheckReport): void {
+  const chainPath = XRPL_MAINNET_CHAIN_PATH;
+  for (const error of xrplCatalogPathErrors()) {
+    report.schemaErrors.push(error);
+  }
+  const entries: XrplToken[] = [];
+  for (const { issuerDir, currencyDir, dir } of listXrplTokenDirs()) {
+    const label = `${chainPath}/${issuerDir}/${currencyDir}`;
+    const infoPath = path.join(dir, "info.json");
+    let info: unknown;
+    try {
+      info = JSON.parse(fs.readFileSync(infoPath, "utf8"));
+    } catch (error) {
+      report.schemaErrors.push(
+        `${label}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      report.checked += 1;
+      continue;
+    }
+    report.checked += 1;
+    const logoFile = path.join(dir, "logo.webp");
+    const logoSha256 = fs.existsSync(logoFile)
+      ? createHash("sha256").update(fs.readFileSync(logoFile)).digest("hex")
+      : undefined;
+    for (const error of validateXrplToken(info, issuerDir, currencyDir, logoSha256)) {
+      report.schemaErrors.push(`${label}: ${error}`);
+    }
+    if (info && typeof info === "object" && !Array.isArray(info)) {
+      entries.push(info as XrplToken);
+    }
+    const logoURL =
+      info && typeof info === "object" && !Array.isArray(info) && "logoURL" in info
+        ? String((info as { logoURL?: unknown }).logoURL ?? "")
+        : "";
+    checkLogoFile(label, dir, logoURL, report);
+  }
+  checkXrplAggregate(chainPath, entries, report);
+}
+
+/** `all.json` is what the package publishes, so it has to match every info.json. */
+function checkXrplAggregate(chainPath: string, entries: XrplToken[], report: CheckReport): void {
+  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
+  if (!fs.existsSync(allPath)) {
+    report.schemaErrors.push(`${chainPath}/all.json: missing aggregate`);
+    return;
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(fs.readFileSync(allPath, "utf8"));
+  } catch (error) {
+    report.schemaErrors.push(
+      `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return;
+  }
+  if (!Array.isArray(parsed)) {
+    report.schemaErrors.push(`${chainPath}/all.json: expected an array`);
+    return;
+  }
+  const sorted = [...entries].sort(
+    (a, b) =>
+      String(a.issuer).localeCompare(String(b.issuer)) ||
+      String(a.currency).localeCompare(String(b.currency)),
+  );
+  if (JSON.stringify(parsed) !== JSON.stringify(sorted)) {
+    report.schemaErrors.push(
+      `${chainPath}/all.json: does not match info.json entries in issuer and currency order`,
+    );
+  }
 }
 
 async function mapPool<T>(
@@ -322,10 +383,15 @@ async function checkTokens(): Promise<void> {
       report.onchainSkippedChains.push(chainPath);
     }
 
+    if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
+      checkXrplChain(report);
+      continue;
+    }
+
     for (const { dir } of listTokenDirs(chainPath)) {
-      const info = loadTokenInfo(path.join(dir, "info.json"));
+      const info = loadEvmToken(path.join(dir, "info.json"));
       report.checked += 1;
-      checkSchemaAndLogo(chainPath, info, dir, report);
+      checkEvmSchemaAndLogo(chainPath, info, dir, report);
 
       if (skipOnchain || info.address === null || !info.address || chainId === null) continue;
       const client = clients.get(chainId);

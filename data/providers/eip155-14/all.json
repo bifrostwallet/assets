@@ -65,7 +65,9 @@
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xa65810ab797902af04843f24cec2208942eecbe1/logo.webp",
     "logoHash": "f7fc2394e3c9f9de3c5fb75b17f1a65122ae12f87677063595501df796fe5718",
     "websiteURL": "https://sun-dara.co.uk",
-    "links": {},
+    "links": {
+      "x": "https://x.com/sundaracouk1"
+    },
     "identityAddress": "0xa65810ab797902af04843f24cec2208942eecbe1",
     "delegationAddress": "0x1e8f916ce03f4ce86186531a8994d366581ed4be",
     "signingPolicyAddress": "0xec263931499ab0bc7dc1fad21767a0b9784125f4",
@@ -73,9 +75,10 @@
     "submitSignaturesAddress": "0xce2e69c29e74435807024d8cb1934f3a129abe6d",
     "publicKey": "0x0a3ad5f79fec6a7855650dad8d63f7ed072ba7d93e8140b1728d4f0224272b252bc46092947274b2edf0c90896cb11cc543ab45b28df0fd1935d00f32eb60d29",
     "validators": ["NodeID-Cg8PLmdZ9JmEtUBCZhq2jt2JDS5gDaSsQ"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x34f0288883116065f96825fab520dc6c03f49a1c23d7c6690c331c60b658c881",
@@ -373,7 +376,7 @@
     "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x3d055cba4e143043f510a6e04bc34f887f5cad414c16e2f8d3bd86ee8f2882ff",
@@ -452,7 +455,7 @@
     ],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x98996df66d3141b32c2e7e790c4491e58724ef6fbbc73236a71a14bbf3dc53fa",
@@ -499,6 +502,7 @@
     "publicKey": "0x014c6cd58e450a43ca840de27292f794e4b8b3109ff66ea75cc45fb096a216602dacaa3ff33eb28c9cc672afe85a59a99a587553286280d9f2249fd509ab29a3",
     "validators": [
       "NodeID-B7FoyLiwCjtCd1fN8TtD5BUxVVQmxczhr",
+      "NodeID-ChethtSQXgWeMeKjGS8NaGi6D6P21ZjPL",
       "NodeID-KtTdea6FeDDy5pERrZKHkkhtJFCbJNv1a"
     ],
     "listed": true,
@@ -674,7 +678,10 @@
     "submitAddress": "0x8b5484a822d1d8dbbfafcb1ef66e71566f026603",
     "submitSignaturesAddress": "0xf7dab5d10d0b5f4bca851372867d51ecb894aa13",
     "publicKey": "0x0de90ea8b68dd7f31f06aef75c54d9ab689dec18af0feb6dc871cb0e4098ce150821d1931b6c28b2877b1ee49201ca90041749302b7b29cd4c13e345a6d8efc0",
-    "validators": ["NodeID-2q436GJKA5faTceNaAbu7CYxftv3K8fS4"],
+    "validators": [
+      "NodeID-2q436GJKA5faTceNaAbu7CYxftv3K8fS4",
+      "NodeID-EGuZpWWQEmBYcx9atH41LuHy8h4KxxME"
+    ],
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1103,7 +1110,10 @@
     "submitAddress": "0x92bf54ae8aed699a038e8d8b0e62e5b511f56dc5",
     "submitSignaturesAddress": "0x351cc97c268f5dc8eeeddded15b0bd0825e683f6",
     "publicKey": "0x25f1ef05b491c632d3d4b014769032b87170003922b8c43d44a6714a57c488a60c2638c0424e3e9e4785b5383d64ab3dbcb237c2137050ec3027d8b9d691eaf0",
-    "validators": ["NodeID-Lj9wReAAhUQokvp2up5RokYYxkTTPqZRC"],
+    "validators": [
+      "NodeID-JacLSXQupkEWp14ewzzer6KHxDFksxb8m",
+      "NodeID-Lj9wReAAhUQokvp2up5RokYYxkTTPqZRC"
+    ],
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1127,7 +1137,10 @@
     "submitAddress": "0x606cbea1e4cc2377d1ef0910073933d15ebef483",
     "submitSignaturesAddress": "0x6dcab9e6843bd5b726cecdf009bb7d3ed97b7476",
     "publicKey": "0x16bc5e81bc8c514fb49e1ab1000cd2cbb7af2abe65b9cb8cdae4d4b3fb179575158aaed31cca973f654a3658790c1f73380fd0ab4069c92d536d7d1cf86677d8",
-    "validators": ["NodeID-J4nyqo44xFUxhAi9gDJXAkYyxP5z2a7UG"],
+    "validators": [
+      "NodeID-6WmWUtQ6hKUJ3dAmRD5YHnQtshtBfqVf8",
+      "NodeID-J4nyqo44xFUxhAi9gDJXAkYyxP5z2a7UG"
+    ],
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1254,10 +1267,7 @@
     "submitAddress": "0xeb431aca7d7b626c8635de8842a8ca4a25c53ab1",
     "submitSignaturesAddress": "0xdf4a3adb26d23cf51380b31d5ffc3c94d06697b7",
     "publicKey": "0x0e7a4499d35d90c55a060f7e6b9e5a0c9d04e5154b7fa049e75ded80cc15b58305e5acbbb75a703cd424266f6ff2ac9bbc39a1ee881fdd1e3ec91869f8f9bf89",
-    "validators": [
-      "NodeID-4mKZ7GYeKtdHMxhmHajDh1WVrVx1xWJxJ",
-      "NodeID-DAVrAR2VCxe7rnmkDaVUbW8jWd9b86cS"
-    ],
+    "validators": ["NodeID-4mKZ7GYeKtdHMxhmHajDh1WVrVx1xWJxJ"],
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1619,7 +1629,8 @@
     "validators": [
       "NodeID-7HLcuEFt7c1qTggK8AkLim9ekhPu2NYLM",
       "NodeID-7iiWBpS5GSwZHGLqibPxnU388hyXjCKHs",
-      "NodeID-81YSLP3x2DBCmkTJsxaytopnELkfopijP"
+      "NodeID-81YSLP3x2DBCmkTJsxaytopnELkfopijP",
+      "NodeID-G13CRTzioVH8Yk6agKr1ZjbPuZbgKYQWV"
     ],
     "listed": true,
     "managementGroup": false,
@@ -1826,9 +1837,10 @@
       "NodeID-Jgnf61mFy134gFJNJKtrmBeSganNYANPZ",
       "NodeID-LyKs43vshhK1Pr6apWF1sV51m2Q2CAwY"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xabe62a29d594569baf49f27c95140df4a76d2d1c53fa7aad454947652685efeb",
@@ -1882,7 +1894,7 @@
     "acknowledgedResponsibilities": true,
     "listed": false,
     "managementGroup": false,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0x6500fd065b55f1c0b0effbd30b1a2c22ab0f198be95b0e987a0c5f3baf806170",
@@ -1984,9 +1996,10 @@
     "submitSignaturesAddress": "0xd73671364138a0b6405239c4c0df5f629adef876",
     "publicKey": "0x0a4aa7510f9c312e405f5da8c89a7c391b07f1511f17f82b3ecf29af5087b6c02be71e9a8da3739f8fbe48511b666d0c3dcdbcc1127c5b0ae514ae8c9a2436a4",
     "validators": ["NodeID-5tHXeYMb1oY5GcWjXEcTt9CHbq5GBgCjn"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0x563eddad69f42147d1cfeb87fc893a0afe7634ef191fe538f6a407a109e4f402",
@@ -2067,7 +2080,7 @@
     "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0xf8c3d2c41150c2115212f67cc61e8593706f5505814831b666d51a7380deff11",
@@ -2292,7 +2305,7 @@
       "NodeID-JLAi1KM18TocQu9zvmSw6wND4hEvgkER6",
       "NodeID-KywEC9cXm8P4KezUkovM5oA1rLTTFDe6e"
     ],
-    "listed": true,
+    "listed": false,
     "managementGroup": false,
     "domainLinked": false,
     "dualNetwork": false,
@@ -2353,7 +2366,7 @@
     "acknowledgedResponsibilities": true,
     "listed": false,
     "managementGroup": false,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0x99364617ecaf221ac23b56f374526848ed7cac21bf59540e84685ab5d8bb1a23",
@@ -2374,7 +2387,10 @@
     "submitAddress": "0x24dc4e640ac8f95dfa20f0aa1f5bb300d9689bd2",
     "submitSignaturesAddress": "0xfa04c0ea9be8412340d5738ffcf635f9e9299616",
     "publicKey": "0x3037b46c9e1ff3f043d5b605f785776dfabeacab14ffedc8ddb62e397117559e194117e219d024228767d5f110a191542865c93e2d98a685e535d9271695a33b",
-    "validators": ["NodeID-6aKkPwTjFa3A5SH9H678r48MmNwyKFjQj"],
+    "validators": [
+      "NodeID-6aKkPwTjFa3A5SH9H678r48MmNwyKFjQj",
+      "NodeID-KWuQ1CaxMUvDRRh7pzgcGMXpv38SFmb3r"
+    ],
     "listed": true,
     "managementGroup": false,
     "domainLinked": false,
@@ -2408,5 +2424,49 @@
       "blockNumber": 63489464,
       "timestamp": "2026-06-23T00:46:27.000Z"
     }
+  },
+  {
+    "name": "G1Flare818",
+    "description": "G1Flare818 is an independent Flare data provider. I run a validator, FTSO anchor and fast-update feeds, and FDC attestation on my own hardware. Fee 20%. Delegated or staked FLR stays in your own address. I aim to keep it honest and online.",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8/logo.webp",
+    "logoHash": "d6404ecec4425ce9cee194fd6b663c7119161d91c893a806248dbb6d30c07e25",
+    "websiteURL": "https://g1flare.com",
+    "links": {
+      "x": "https://x.com/g1flare"
+    },
+    "identityAddress": "0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8",
+    "delegationAddress": "0xc8142e2b2f6f8adfd34d8e6735f389667f9e2c0a",
+    "signingPolicyAddress": "0x297a6cc26880b83835084f9418d968c350f9e0a4",
+    "submitAddress": "0x66ad76a46c55348d93a5dbb4716bad7fa1878222",
+    "submitSignaturesAddress": "0x09213f362e106a6ce31c51ca3fd42738327b5773",
+    "publicKey": "0x150a442bc5f4a6a3b53c36d2e6429fdae6ebdf86421ec105bd28ea67ab8457b12560dfaa6a551c83ff77fdf0a08311a72fe549796e45b04794c16633372264bb",
+    "validators": ["NodeID-53Yqr6UiB8KYKj3HFadr27va9zLNkypmc"],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": true,
+    "dualNetwork": false
+  },
+  {
+    "name": "CashLab",
+    "description": "Independent Flare provider running the full protocol stack: FTSO price feeds, Fast Updates, FDC attestations and its own validator, on dedicated hardware with an in-house feed engine.",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de/logo.webp",
+    "logoHash": "7d73e1309f22feabe9f0f813eb10d1e33ea61884d2f258c694e7352bd256db53",
+    "websiteURL": "https://cashlab.network",
+    "links": {
+      "x": "https://x.com/CashLabNetwork"
+    },
+    "identityAddress": "0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de",
+    "delegationAddress": "0x46f75ac75a9e389809b965a876303681d32bcf2e",
+    "signingPolicyAddress": "0xe7810aa15fca3ffb00278aa17acdbe6eefff38ef",
+    "submitAddress": "0xf4c512f2871af4c8dcd11cd255f1e2b1b51801b1",
+    "submitSignaturesAddress": "0x45cf4a2673b8a97dc6667f8b928f9d1e2ac34754",
+    "publicKey": "0x1e75d8a857c18d8780691b1b149f5fbaa81febe6cdf44f55af9e2ca81973c5bb1605355d3cd71a561ceadfe8645632bd058884bbb48546b49f6b0295bc6bc128",
+    "validators": ["NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec"],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": true,
+    "dualNetwork": false
   }
 ]

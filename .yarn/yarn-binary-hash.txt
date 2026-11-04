@@ -1,7 +1,7 @@
-# This file contains the SHA-256 hash of the Yarn binary (.yarn/releases/yarn-4.17.1.cjs)
+# This file contains the SHA-256 hash of the Yarn binary (.yarn/releases/yarn-4.18.1.cjs)
 # This hash is used to verify the integrity of the Yarn binary in both local development and CI.
 # If you update the Yarn binary, you MUST update this hash to match.
 # The hash is also stored in package.json for Yarn's own verification.
 
-# Current hash for yarn-4.17.1.cjs
-471ffb15e0523663865bbf46a69e7d157ecf532412eb436c48dfab6e3f2abe88
+# Current hash for yarn-4.18.1.cjs
+a28ad591febb769f939c11f82f89bacad0b0fac0c884d3b78fa2aaaee970907e

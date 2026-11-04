@@ -55,11 +55,6 @@ jobs:
       - name: Pull submissions from intake bucket
         run: ./yarn pull:submissions
 
-      # JSON.stringify expands short arrays. Biome collapses them, and CI lints
-      # the catalog, so format before the intake commit.
-      - name: Format catalog JSON
-        run: ./yarn biome format --write data/providers/ data/dapps/
-
       - name: Verify no outreach PII under data/
         run: ./yarn verify:no-contact-pii
 

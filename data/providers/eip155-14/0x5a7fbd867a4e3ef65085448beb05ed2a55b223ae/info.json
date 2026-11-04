@@ -16,9 +16,10 @@
     "NodeID-Jgnf61mFy134gFJNJKtrmBeSganNYANPZ",
     "NodeID-LyKs43vshhK1Pr6apWF1sV51m2Q2CAwY"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": true,
   "firstTransaction": {
     "hash": "0xabe62a29d594569baf49f27c95140df4a76d2d1c53fa7aad454947652685efeb",

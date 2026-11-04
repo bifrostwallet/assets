@@ -16,5 +16,11 @@ describe("legacy token icon destination", () => {
     assert.equal(legacyTokenIconDestination(`providers/eip155-14/${APS}/logo.webp`), undefined);
     assert.equal(legacyTokenIconDestination("tokens/eip155-14/all.json"), undefined);
     assert.equal(legacyTokenIconDestination("tokens/eip155-14/0xabc/logo.webp"), undefined);
+    assert.equal(
+      legacyTokenIconDestination(
+        "tokens/xrpl-0/rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De/524C555344000000000000000000000000000000/logo.webp",
+      ),
+      undefined,
+    );
   });
 });

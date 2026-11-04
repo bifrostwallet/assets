@@ -7,18 +7,19 @@ import {
   type BlockchainNetworkConfig,
   DAPP_CATEGORIES,
   DAPP_CHAIN_IDS,
-  type DappInfo,
   type ProviderInfo,
 } from "./config.js";
 import {
   calculateHash,
   dappSlugFromUrl,
+  formatRepoJson,
   providerInfoMessageHash,
   providerLogoPath,
   rebuildProvidersAllJson,
   sortDappInfo,
   sortProviderInfo,
   toRelativePath,
+  writeFormattedJson,
 } from "./convert.js";
 import {
   chainIdFromProviderPath,
@@ -60,6 +61,38 @@ export function networkFromChainPath(chainPath: string): BlockchainNetworkConfig
   return network;
 }
 
+function websiteHost(url: string | undefined): string {
+  try {
+    return new URL(url ?? "").hostname.toLowerCase().replace(/\.$/, "");
+  } catch {
+    return "";
+  }
+}
+
+function sameWebsiteHost(a: string | undefined, b: string | undefined): boolean {
+  const host = websiteHost(a);
+  return host !== "" && host === websiteHost(b);
+}
+
+/** True when `filePath` exists and its bytes equal `bytes`. */
+function fileBytesEqual(filePath: string, bytes: Buffer): boolean {
+  return fs.existsSync(filePath) && fs.readFileSync(filePath).equals(bytes);
+}
+
+/**
+ * True when the catalog info.json and logo.webp are byte-identical to the
+ * listing ingest would write. A resubmission in that state must keep the
+ * existing provenance.json so submittedAt alone does not dirty the tree.
+ */
+function listingContentUnchanged(
+  infoPath: string,
+  infoJson: string,
+  logoPath: string,
+  logo: Buffer,
+): boolean {
+  return fileBytesEqual(infoPath, Buffer.from(infoJson)) && fileBytesEqual(logoPath, logo);
+}
+
 /**
  * Ingests a provider submission directory containing info.json, logo.webp and
  * signatures.json (as produced by the web signing app).
@@ -75,12 +108,21 @@ export function networkFromChainPath(chainPath: string): BlockchainNetworkConfig
  * Curator-managed flags (listed, managementGroup, domainLinked) are preserved
  * from an existing repo entry and never taken from the submission.
  *
- * Idempotent: re-ingesting a submission that matches the repo state returns
- * "unchanged" without touching files.
+ * Idempotent: re-ingesting a submission whose info.json, logo, and signatures
+ * already match the repo returns "unchanged" without touching files. When
+ * info.json and the logo are byte-identical, the existing provenance.json is
+ * left in place so a new submittedAt does not change the catalog by itself.
  */
 export async function ingestProviderSubmission(
   sourceDir: string,
-  options: { chainPath?: string } = {},
+  options: {
+    chainPath?: string;
+    /**
+     * EntityManager reader. Defaults to the on-chain lookup. Tests pass a
+     * stub so the resubmission check does not depend on a network.
+     */
+    readEntityData?: typeof fetchEntityData;
+  } = {},
 ): Promise<IngestResult> {
   for (const required of ["info.json", "logo.webp", "signatures.json"]) {
     if (!fs.existsSync(path.join(sourceDir, required))) {
@@ -131,7 +173,9 @@ export async function ingestProviderSubmission(
     logoHash: calculateHash(path.join(sourceDir, "logo.webp")),
     listed: existingInfo?.listed ?? false,
     managementGroup: existingInfo?.managementGroup ?? false,
-    domainLinked: existingInfo?.domainLinked ?? false,
+    domainLinked: sameWebsiteHost(existingInfo?.websiteURL, submitted.websiteURL)
+      ? (existingInfo?.domainLinked ?? false)
+      : false,
     dualNetwork: existingInfo?.dualNetwork ?? false,
   };
   if (existingInfo?.firstTransaction) {
@@ -139,12 +183,14 @@ export async function ingestProviderSubmission(
   }
 
   // On-chain entity data is authoritative
-  const onchain = await fetchEntityData(identity, network);
+  const readEntityData = options.readEntityData ?? fetchEntityData;
+  const onchain = await readEntityData(identity, network);
   Object.assign(info, onchain);
 
   // Verify the signature against the final content in a staging directory
   const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-provider-staging-"));
-  const finalInfoJson = `${JSON.stringify(sortProviderInfo(info), null, 2)}\n`;
+  const infoPath = path.join(existingDir, "info.json");
+  const finalInfoJson = formatRepoJson(sortProviderInfo(info), infoPath);
   fs.writeFileSync(path.join(stagingDir, "info.json"), finalInfoJson);
   fs.copyFileSync(
     path.join(sourceDir, "signatures.json"),
@@ -165,7 +211,8 @@ export async function ingestProviderSubmission(
     );
   }
 
-  // Idempotency: same info content and same signatures already in the repo
+  // Idempotency: identical info, logo, and signatures. Provenance is preserved
+  // when info.json and the logo are byte-identical, even if submittedAt differs.
   const submittedSignatures = JSON.parse(
     fs.readFileSync(path.join(sourceDir, "signatures.json"), "utf8"),
   ) as SignaturesData;
@@ -175,9 +222,17 @@ export async function ingestProviderSubmission(
     ? fs.readFileSync(sourceProvenancePath, "utf8")
     : null;
   const destProvenancePath = path.join(existingDir, "provenance.json");
+  const logoBytes = fs.readFileSync(path.join(sourceDir, "logo.webp"));
+  const contentUnchanged = listingContentUnchanged(
+    infoPath,
+    finalInfoJson,
+    path.join(existingDir, "logo.webp"),
+    logoBytes,
+  );
+  // Identical info.json + logo: do not bump provenance submittedAt.
+  const preserveProvenance = contentUnchanged && fs.existsSync(destProvenancePath);
 
   if (existingInfo) {
-    const existingInfoJson = fs.readFileSync(path.join(existingDir, "info.json"), "utf8");
     const existingSignaturesPath = path.join(existingDir, "signatures.json");
     const existingSignatureHexes = fs.existsSync(existingSignaturesPath)
       ? new Set(
@@ -191,16 +246,17 @@ export async function ingestProviderSubmission(
       existingSignatureHexes.has(entry.signature.toLowerCase()),
     );
     const provenanceUnchanged =
+      preserveProvenance ||
       !provenanceJson ||
       (fs.existsSync(destProvenancePath) &&
         fs.readFileSync(destProvenancePath, "utf8") === provenanceJson);
 
-    if (existingInfoJson === finalInfoJson && allSignaturesKnown && provenanceUnchanged) {
+    if (contentUnchanged && allSignaturesKnown && provenanceUnchanged) {
       return {
         status: "unchanged",
         networkPath: network.path,
         identityAddress: identity,
-        infoPath: path.join(existingDir, "info.json"),
+        infoPath,
         selfSigned: verification.hasValidSelfSignature,
       };
     }
@@ -208,13 +264,10 @@ export async function ingestProviderSubmission(
 
   // Write files and rebuild the chain aggregate
   fs.mkdirSync(existingDir, { recursive: true });
-  fs.writeFileSync(path.join(existingDir, "info.json"), finalInfoJson);
-  fs.copyFileSync(path.join(sourceDir, "logo.webp"), path.join(existingDir, "logo.webp"));
-  fs.writeFileSync(
-    path.join(existingDir, "signatures.json"),
-    `${JSON.stringify(submittedSignatures, null, 2)}\n`,
-  );
-  if (provenanceJson) {
+  fs.writeFileSync(infoPath, finalInfoJson);
+  fs.writeFileSync(path.join(existingDir, "logo.webp"), logoBytes);
+  writeFormattedJson(path.join(existingDir, "signatures.json"), submittedSignatures);
+  if (provenanceJson && !preserveProvenance) {
     fs.writeFileSync(destProvenancePath, provenanceJson);
   }
   rebuildProvidersAllJson(network.path);
@@ -225,7 +278,7 @@ export async function ingestProviderSubmission(
     status: "ingested",
     networkPath: network.path,
     identityAddress: identity,
-    infoPath: path.join(existingDir, "info.json"),
+    infoPath,
     selfSigned: verification.hasValidSelfSignature,
   };
 }
@@ -266,18 +319,16 @@ function publicProvenanceRecord(submission: {
 /** Materializes an intake submission document into a temp submission directory */
 export function intakeSubmissionToDir(submission: IntakeSubmission): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-ingest-"));
-  fs.writeFileSync(
-    path.join(dir, "info.json"),
-    JSON.stringify({ ...submission.info, chainPath: submission.chainPath }, null, 2),
-  );
-  fs.writeFileSync(
-    path.join(dir, "signatures.json"),
-    JSON.stringify(submission.signatures, null, 2),
-  );
+  writeFormattedJson(path.join(dir, "info.json"), {
+    ...submission.info,
+    chainPath: submission.chainPath,
+  });
+  writeFormattedJson(path.join(dir, "signatures.json"), submission.signatures);
   fs.writeFileSync(path.join(dir, "logo.webp"), Buffer.from(submission.logoBase64, "base64"));
-  fs.writeFileSync(
+  // Copied into the catalog unless info.json and the logo already match.
+  writeFormattedJson(
     path.join(dir, "provenance.json"),
-    `${JSON.stringify(publicProvenanceRecord({ submittedAt: submission.submittedAt }), null, 2)}\n`,
+    publicProvenanceRecord({ submittedAt: submission.submittedAt }),
   );
   return dir;
 }
@@ -404,7 +455,7 @@ export async function ingestProviderAttestation(
     signaturesData.signatures.push(entry);
   }
 
-  fs.writeFileSync(signaturesPath, `${JSON.stringify(signaturesData, null, 2)}\n`);
+  writeFormattedJson(signaturesPath, signaturesData);
   console.info(
     `🖋 Attestation by ${attestation.signerName} (${signer}) merged into ${toRelativePath(signaturesPath)}`,
   );
@@ -464,8 +515,9 @@ const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
  * Public provenance (submitter signature) is stored as provenance.json —
  * sealed outreach is not pulled or committed.
  *
- * Idempotent: re-ingesting a submission that matches the repo state returns
- * "unchanged" without touching files.
+ * Idempotent: re-ingesting a submission whose info.json and logo already match
+ * the repo returns "unchanged" and leaves provenance.json untouched, so a new
+ * submittedAt alone does not change the catalog.
  */
 export async function ingestDappSubmission(
   submission: IntakeDappSubmission,
@@ -536,10 +588,6 @@ export async function ingestDappSubmission(
   const dappDir = path.join(process.cwd(), "data", "dapps", slug);
   const infoPath = path.join(dappDir, "info.json");
 
-  const existingInfo: DappInfo | null = fs.existsSync(infoPath)
-    ? (JSON.parse(fs.readFileSync(infoPath, "utf8")) as DappInfo)
-    : null;
-
   const info = sortDappInfo({
     title,
     description,
@@ -548,26 +596,25 @@ export async function ingestDappSubmission(
     logoHash,
     chains: [...chains].sort(),
   });
-  const finalInfoJson = `${JSON.stringify(info, null, 2)}\n`;
-
-  const provenanceJson = `${JSON.stringify(
+  const provenancePath = path.join(dappDir, "provenance.json");
+  const finalInfoJson = formatRepoJson(info, infoPath);
+  const provenanceJson = formatRepoJson(
     publicProvenanceRecord({
       submittedAt: submission.submittedAt,
       submitter: submission.submitter.toLowerCase(),
       messageHash: typed.contentHash,
       signature: submission.signature,
     }),
-    null,
-    2,
-  )}\n`;
-  const provenancePath = path.join(dappDir, "provenance.json");
+    provenancePath,
+  );
 
-  if (
-    existingInfo &&
-    fs.readFileSync(infoPath, "utf8") === finalInfoJson &&
-    fs.existsSync(provenancePath) &&
-    fs.readFileSync(provenancePath, "utf8") === provenanceJson
-  ) {
+  const contentUnchanged = listingContentUnchanged(
+    infoPath,
+    finalInfoJson,
+    path.join(dappDir, "logo.webp"),
+    logo,
+  );
+  if (contentUnchanged && fs.existsSync(provenancePath)) {
     return { status: "unchanged", slug, infoPath };
   }
 
