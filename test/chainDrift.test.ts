@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { diffProviderChainFields } from "../src/chainDrift.js";
+import { diffProviderChainFields, formatChainDriftSummary } from "../src/chainDrift.js";
 import type { ProviderInfo } from "../src/config.js";
 
 const catalog = {
@@ -36,5 +36,64 @@ describe("diffProviderChainFields", () => {
       validators: ["NodeID-A", "NodeID-B"],
     });
     assert.deepEqual(changes, []);
+  });
+});
+
+describe("formatChainDriftSummary", () => {
+  test("says nothing differs when the comparison ran and matched", () => {
+    assert.equal(
+      formatChainDriftSummary([]),
+      "No provider chain fields differ from EntityManager.\n",
+    );
+  });
+
+  test("says the comparison was skipped instead of claiming a match", () => {
+    assert.equal(formatChainDriftSummary([], { skipped: true }), "Chain comparison was skipped.\n");
+    assert.equal(
+      formatChainDriftSummary([], { skipped: true }).includes("No provider chain fields differ"),
+      false,
+    );
+  });
+
+  test("skipped comparison does not list drift from a previous read", () => {
+    const summary = formatChainDriftSummary(
+      [
+        {
+          chainPath: "flare",
+          identityAddress: "0xabc",
+          name: "Example",
+          infoPath: "unused",
+          changes: [{ field: "publicKey", catalog: "0x1", chain: "0x2" }],
+          observed: {},
+        },
+      ],
+      { skipped: true },
+    );
+    assert.equal(summary, "Chain comparison was skipped.\n");
+  });
+
+  test("lists each drifted field", () => {
+    const summary = formatChainDriftSummary([
+      {
+        chainPath: "flare",
+        identityAddress: "0xabc",
+        name: "Example",
+        infoPath: "unused",
+        changes: [{ field: "delegationAddress", catalog: "", chain: "0x999" }],
+        observed: {},
+      },
+    ]);
+    assert.equal(
+      summary,
+      `${[
+        "Chain drift — EntityManager differs from info.json for unsigned fields",
+        "(delegation, submit, signing policy, public key, validators).",
+        "",
+        "Merging applies the chain values. Signatures stay valid because these fields are unsigned.",
+        "",
+        "- **Example** (`0xabc`, flare)",
+        "  - `delegationAddress`: `(empty)` → `0x999`",
+      ].join("\n")}\n`,
+    );
   });
 });
