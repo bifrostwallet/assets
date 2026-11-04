@@ -16,7 +16,7 @@ import {
 } from "../earn/github.js";
 import { buildEarnData, createStore, type EarnStore } from "../earn/output.js";
 import { isMain } from "../isMain.js";
-import { syncDomainLinkage } from "./syncDomainLinkage.js";
+import { type DomainLinkageSyncResult, syncDomainLinkage } from "./syncDomainLinkage.js";
 
 /**
  * Nightly provider refresh:
@@ -25,8 +25,9 @@ import { syncDomainLinkage } from "./syncDomainLinkage.js";
  *    Skip with --skip-earn.
  * 2. With --write-domain: persist domainLinked into git (unsigned flag). CI
  *    leaves those edits in the working tree for the nightly/fsp-delist pull
- *    request — never straight to main. Skip the check entirely with
- *    --skip-domain.
+ *    request — never straight to main. The domain-linkage section is also
+ *    written to domain-linkage-summary.md so a later --skip-domain run can
+ *    keep it in delist-summary.md. Skip the check entirely with --skip-domain.
  * 3. With --write-delist: flip listed:false for providers that burned FSP
  *    rewards (eligibleForReward=false in the latest passes.json) or whose
  *    current FTSO fee or any currently validating Flare validator fee is above
@@ -146,6 +147,56 @@ async function publishEarn(config: EarnConfig): Promise<void> {
   }
 }
 
+/** Sidecar written by the domain run and read by a later --skip-domain run. */
+export const DOMAIN_LINKAGE_SUMMARY_FILE = "domain-linkage-summary.md";
+
+export function formatDomainLinkageSection(
+  result: DomainLinkageSyncResult,
+  persisted: boolean,
+): string {
+  const action = persisted ? "Updated" : "Would update";
+  return [
+    "## Domain linkage",
+    "",
+    `- Checked: ${result.checked}`,
+    `- Linked: ${result.linked}`,
+    `- ${action}: ${result.updated}`,
+    "",
+  ].join("\n");
+}
+
+function domainLinkageSummaryPath(directory: string = process.cwd()): string {
+  return path.join(directory, DOMAIN_LINKAGE_SUMMARY_FILE);
+}
+
+export function writeDomainLinkageSection(
+  section: string,
+  directory: string = process.cwd(),
+): void {
+  fs.writeFileSync(domainLinkageSummaryPath(directory), section);
+}
+
+/** Prior run's domain section, if that run left a non-empty sidecar. */
+export function readCarriedDomainLinkageSection(
+  directory: string = process.cwd(),
+): string | undefined {
+  const summaryPath = domainLinkageSummaryPath(directory);
+  if (!fs.existsSync(summaryPath)) return undefined;
+  const carried = fs.readFileSync(summaryPath, "utf8");
+  if (carried.trim().length === 0) return undefined;
+  return carried.endsWith("\n") ? carried : `${carried}\n`;
+}
+
+export function buildCatalogRefreshSummary(
+  delistSummary: string,
+  chainSummary: string,
+  domainSection?: string,
+): string {
+  const parts = [delistSummary, "", chainSummary, ""];
+  if (domainSection) parts.push(domainSection);
+  return parts.join("\n");
+}
+
 async function refreshProviders(): Promise<void> {
   const { dryRun, writeDomain, writeDelist, writeChain, skipEarn, skipDomain, skipChain } =
     parseArgs(process.argv.slice(2));
@@ -157,10 +208,11 @@ async function refreshProviders(): Promise<void> {
     await publishEarn(earnConfig);
   }
 
-  const summaryParts: string[] = [];
+  let domainSection: string | undefined;
 
   if (skipDomain) {
     console.info("ℹ️  --skip-domain: not checking domain linkage");
+    domainSection = readCarriedDomainLinkageSection();
   } else {
     console.info("\n🔗 Domain linkage");
     const domainResult = await syncDomainLinkage({ dryRun: dryRun || !writeDomain });
@@ -169,14 +221,9 @@ async function refreshProviders(): Promise<void> {
         "ℹ️  Domain linkage was checked only — re-run with --write-domain to persist domainLinked (CI)",
       );
     }
-    summaryParts.push(
-      "## Domain linkage",
-      "",
-      `- Checked: ${domainResult.checked}`,
-      `- Linked: ${domainResult.linked}`,
-      `- ${dryRun || !writeDomain ? "Would update" : "Updated"}: ${domainResult.updated}`,
-      "",
-    );
+    domainSection = formatDomainLinkageSection(domainResult, !dryRun && writeDomain);
+    // Nightly run 2 passes --skip-domain and rewrites delist-summary.md.
+    writeDomainLinkageSection(domainSection);
   }
 
   const candidates = await findDelistCandidates();
@@ -191,13 +238,11 @@ async function refreshProviders(): Promise<void> {
     console.info(formatChainDriftSummary(chainDrift));
   }
 
-  const summary = [
+  const summary = buildCatalogRefreshSummary(
     formatDelistSummary(candidates),
-    "",
-    formatChainDriftSummary(chainDrift),
-    "",
-    ...summaryParts,
-  ].join("\n");
+    formatChainDriftSummary(chainDrift, { skipped: skipChain }),
+    domainSection,
+  );
   const summaryPath = path.join(process.cwd(), "delist-summary.md");
   fs.writeFileSync(summaryPath, summary);
 
@@ -213,7 +258,9 @@ async function refreshProviders(): Promise<void> {
   }
 
   if (chainDrift.length === 0) {
-    console.info("✅ No chain drift");
+    if (!skipChain) {
+      console.info("✅ No chain drift");
+    }
   } else if (!writeChain || dryRun) {
     console.info(
       `ℹ️  ${chainDrift.length} provider(s) differ from chain — re-run with --write-chain to apply (CI opens a PR)`,

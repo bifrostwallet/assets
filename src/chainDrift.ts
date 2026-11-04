@@ -152,7 +152,16 @@ export function applyChainDrift(drifts: ProviderChainDrift[]): number {
   return updated;
 }
 
-export function formatChainDriftSummary(drifts: ProviderChainDrift[]): string {
+export function formatChainDriftSummary(
+  drifts: ProviderChainDrift[],
+  options?: { skipped?: boolean },
+): string {
+  if (options?.skipped) {
+    // An empty drift list means the read ran and matched. A skipped read must
+    // not use that sentence.
+    return "Chain comparison was skipped.\n";
+  }
+
   if (drifts.length === 0) {
     return "No provider chain fields differ from EntityManager.\n";
   }

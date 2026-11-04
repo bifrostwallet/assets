@@ -60,17 +60,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Apply delist candidates and chain drift
+        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # After both refresh runs so the job summary matches the PR body.
       - name: Publish catalog refresh summary
         if: always()
         run: |
           if [ -f delist-summary.md ]; then
             cat delist-summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
-
-      - name: Apply delist candidates and chain drift
-        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Open or update catalog pull request
         env:
@@ -100,5 +101,7 @@ jobs:
               --title "Suggested catalog updates" \
               --body-file delist-summary.md
           else
+            # Replace the body. A later night must not keep the previous night's text.
+            gh pr edit --body-file delist-summary.md
             echo "Updated existing pull request for $BRANCH"
           fi
