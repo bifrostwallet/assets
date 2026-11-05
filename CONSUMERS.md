@@ -60,3 +60,50 @@ Always pass that host to `resolveAssetURL(logoURL, base)`. The example base `htt
 `resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included).
 
 Catalog logos are WebP (`logo.webp`).
+
+## Optional checks
+
+Most apps can skip this. There are two checks. There is no signature over the curated catalog yet.
+
+### Logo hash
+
+`logoHash` is the SHA-256 of `logo.webp`, as 64 lowercase hex characters, with no `0x` prefix. Hash the bytes you serve and compare them to `provider.logoHash`. A match means that CDN file was not swapped. Use the platform you already have. Do not add a dependency for this.
+
+Node:
+
+```js
+import { createHash } from "node:crypto";
+
+const digest = createHash("sha256").update(logoBytes).digest("hex");
+if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
+```
+
+Browsers, with Web Crypto:
+
+```js
+const digest = await crypto.subtle.digest("SHA-256", logoBytes);
+const hex = [...new Uint8Array(digest)]
+  .map((byte) => byte.toString(16).padStart(2, "0"))
+  .join("");
+if (hex !== provider.logoHash) throw new Error("logo hash mismatch");
+```
+
+### Provider signature
+
+The operator signature covers the signed fields: name, description, logo hash, website, links, identity, and the responsibilities acknowledgement. `logoHash` is one of those fields. Curator fields such as `listed` are not in that payload.
+
+`signatures.json` is in the git listing. It is not in the npm package. Clone or download the same tag (`v` plus the package version) and, in that checkout, run:
+
+```bash
+./yarn verify:providers
+```
+
+That script uses `viem` as a dev dependency of this repository. Do not add `viem` to your production app.
+
+Self-signatures are grandfathered until 31 December 2026. `./yarn verify:providers` without `--strict` is the current check. `--strict` requires a self-signature on every provider, and that mode waits until after 31 December 2026.
+
+## Provenance
+
+Releases are staged with npm Trusted Publishing (OIDC). The publish step sets `NPM_CONFIG_PROVENANCE`. The workflow is [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml).
+
+Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
