@@ -209,16 +209,20 @@ Host those files yourself and pass that origin to `resolveAssetURL`. The helpers
 
 ## Utils
 
-`resolveAssetURL` is the published helper that is not a catalog lookup. There is no separate utils entry point.
+`resolveAssetURL` is the published helper that is not a catalog lookup. There is no separate utils entry point. Pass a listing's `logoURL`, such as `provider.logoURL`.
 
 ```typescript
-import { resolveAssetURL } from "@bifrostwallet/assets";
+import { getProvider, resolveAssetURL } from "@bifrostwallet/assets";
 
-const href = resolveAssetURL(
-  "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
-  "https://cdn.example.com/assets/",
+// This identity is Bifrost Wallet. null when this version has no such record.
+const provider = getProvider(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
-// https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp
+if (provider) {
+  const href = resolveAssetURL(provider.logoURL, "https://cdn.example.com/assets/");
+  // https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp
+}
 ```
 
 The base is the directory that contains `providers/`, `tokens/`, and `dapps/`. The same call works for a token or dapp `logoURL`.
