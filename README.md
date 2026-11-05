@@ -1,6 +1,6 @@
 # @bifrostwallet/assets
 
-Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.
+Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
 **Using the catalog (npm package or all.json):** [CONSUMERS.md](CONSUMERS.md).
 
@@ -87,7 +87,7 @@ Releases are staged as described under [Supply chain security](#supply-chain-sec
 
 ### Catalog refresh
 
-The nightly refresh checks both domain-linkage methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity. It reads the FTSO fee from `WNatDelegationFee.getVoterCurrentFeePercentage` (basis points, through `FlareContractRegistry`) and Flare validator fees from `platform.getCurrentValidators`. A Flare validator counts as currently validating when its NodeID is still returned for that provider. Providers whose FSP rewards are burned (`eligibleForReward: false` in the latest `passes.json`), operators over the delegation-fee cap, and chain-drift updates are proposed together on the `nightly/fsp-delist` pull request. A curator merges that pull request. `./yarn check:providers` prints the fee check as an advisory and does not fail on it.
+The nightly refresh checks both domain-linkage methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity. It reads the FTSO fee from `WNatDelegationFee.getVoterCurrentFeePercentage` (basis points, through `FlareContractRegistry`) and Flare validator fees from `platform.getCurrentValidators`. A Flare validator counts as currently validating when its NodeID is still returned for that provider. Providers whose [FSP](#glossary) rewards are burned (`eligibleForReward: false` in the latest `passes.json`), operators over the delegation-fee cap, and chain-drift updates are proposed together on the `nightly/fsp-delist` pull request. A curator merges that pull request. `./yarn check:providers` prints the fee check as an advisory and does not fail on it.
 
 ### Working in this repository
 
@@ -97,3 +97,18 @@ Use the repo [`yarn`](yarn) wrapper (`./yarn`). CI sets `COREPACK_ENABLE=0`. Upg
 2. Make your changes.
 3. Run `./yarn lint && ./yarn test` (`./yarn lint:fix` applies the automatic fixes) and keep the tests passing.
 4. Maintainers push reviewed changes directly to `main`.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| [FTSO](https://dev.flare.network/ftso/overview) | Flare Time Series Oracle, the price feeds a provider submits. |
+| [FSP](https://dev.flare.network/network/fsp) | Flare Systems Protocol, which records provider rewards and participation. |
+| [FDC](https://dev.flare.network/fdc/overview) | Flare Data Connector, the attestation service a provider runs. |
+| P-chain | The staking chain where a Flare validator is currently validating. |
+| NodeID | A validator id, stored with the `NodeID-` prefix. |
+| Identity address | The on-chain address that owns a provider and signs its listing. |
+| Vote power | WFLR or WSGB weight delegated to a provider. |
+| [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) | Chain id form used by the package, such as `eip155:14`. |
+| [EIP-155](https://eips.ethereum.org/EIPS/eip-155) | The `eip155` namespace in those chain ids. |
+| [EIP-712](https://eips.ethereum.org/EIPS/eip-712) | Typed-data signing used for a provider listing. |
