@@ -20,16 +20,18 @@ export type SymbolUse = {
 };
 
 /**
- * Duplicate symbols already curated on main. `check:tokens` allows these exact
- * id sets and rejects every other duplicate on an EVM chain. Do not add another
- * token to one of these symbols. XRPL is omitted: issued tokens share a currency
- * code across issuers on purpose.
+ * Duplicate symbols the catalog already carries. `check:tokens` allows these
+ * exact id sets and rejects every other duplicate on an EVM chain. Do not add
+ * another token to one of these symbols. cWBTC is the on-chain spelling of the
+ * two Compound WBTC tokens. Bridged USDC on Optimism, Polygon, and Arbitrum
+ * uses the on-chain symbol USDC, alongside native USDC. XRPL is omitted:
+ * issued tokens share a currency code across issuers on purpose.
  */
 export const GRANDFATHERED_DUPLICATE_SYMBOLS: Readonly<
   Record<string, Readonly<Record<string, readonly string[]>>>
 > = {
   "eip155-1": {
-    CWBTC: [
+    cWBTC: [
       "0xc11b1268c1a384e55c48c2391d8d480264a3a7f4",
       "0xccf4429db6322d5c611ee964527d42e5d685dd6a",
     ],
@@ -70,6 +72,12 @@ export const GRANDFATHERED_DUPLICATE_SYMBOLS: Readonly<
       "0x8e870d67f660d95d5be530380d0ec0bd388289e1",
     ],
   },
+  "eip155-10": {
+    USDC: [
+      "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
+      "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
+    ],
+  },
   "eip155-11155111": {
     USDC: [
       "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
@@ -81,11 +89,15 @@ export const GRANDFATHERED_DUPLICATE_SYMBOLS: Readonly<
       "0x5d47baba0d66083c52009271faf3f50dcc01023c",
       "0xbc91347e80886453f3f8bbd6d7ac07c122d87735",
     ],
+    USDC: [
+      "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+      "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
+    ],
   },
   "eip155-42161": {
-    USDS: [
-      "0x6491c05a82219b8d1479057361ff1654749b876b",
-      "0xd74f5255d557944cf7dd0e45ff521520002d5748",
+    USDC: [
+      "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
     ],
   },
 };
