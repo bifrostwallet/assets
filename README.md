@@ -262,7 +262,7 @@ Use the listing form on bifrostwallet.com; no GitHub account or repository inter
 5. Sign the EIP-712 `ProviderListing` typed data under [Ownership signatures](#ownership-signatures) with the wallet holding your **identity address**
 6. Submit: your listing is verified and curated into [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets), and goes live once reviewed
 
-Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, go through the app again.
+Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, submit the listing form again.
 
 ### Ownership signatures
 
