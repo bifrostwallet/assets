@@ -4,8 +4,9 @@ name: Publish release
 # (npm Trusted Publishing / OIDC). A maintainer approves the staged version
 # on npmjs.com before it becomes installable.
 #
-# Gate: create a GitHub Release whose tag is v<package.json version>, or use
-# workflow_dispatch with publish=true.
+# Gate: create a GitHub Release whose tag is v<package.json version>
+# (for example v0.0.5-beta), or use workflow_dispatch with publish=true.
+# Published logoURLs are relative to data/ on that tag.
 
 on:
   release:
@@ -65,6 +66,14 @@ jobs:
             echo "Release tag $TAG must be $EXPECTED (dist/package.json version)" >&2
             exit 1
           fi
+          BASE="$(node -p "require('./dist/index.js').GITHUB_ASSET_BASE_URL")"
+          case "$BASE" in
+            *"${EXPECTED}/data/") ;;
+            *)
+              echo "GITHUB_ASSET_BASE_URL $BASE must end with ${EXPECTED}/data/" >&2
+              exit 1
+              ;;
+          esac
 
       - name: Reject accidental non-prerelease until signatures are strict
         run: |

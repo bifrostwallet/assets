@@ -23,13 +23,13 @@ const [token] = getTokens("eip155:14");
 const logoURL = resolveAssetURL(token.logoURL, "https://cdn.example.com/assets/");
 ```
 
-`getTokens(chainId)` returns that chain's tokens. `eip155:14` returns EVM tokens. An unknown chain id throws. Each `logoURL` is a relative path. `getToken(chainId, address)` returns one EVM token, or `null`. The address match ignores case.
+`getTokens(chainId)` returns that chain's tokens, and `getToken(chainId, address)` returns one EVM token or `null`.
 
 Upload commands, app use, and optional verification are in [CONSUMERS.md](https://github.com/bifrostwallet/assets/blob/main/CONSUMERS.md).
 
 ## GitHub (backwards compatible)
 
-Leave out the base. `resolveAssetURL` then uses `DEFAULT_ASSET_BASE_URL`, the GitHub raw prefix `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`.
+Leave out the base. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package.
 
 ```typescript
 import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";

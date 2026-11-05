@@ -471,9 +471,10 @@ describe("published package lookups", { concurrency: false }, () => {
     );
     const unknown = "https://images.example.com/unrelated.png";
     assert.equal(assets.resolveAssetURL(unknown, base), unknown);
+    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
     assert.equal(
       assets.resolveAssetURL(bifrost.logoURL),
-      `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/${bifrost.logoURL}`,
+      `${assets.GITHUB_ASSET_BASE_URL}${bifrost.logoURL}`,
     );
     assert.equal(
       assets.resolveAssetURL(bifrost.logoURL, base),
@@ -535,6 +536,32 @@ describe("published package lookups", { concurrency: false }, () => {
     );
   });
 
+  test("omitted base uses the package version tag and an explicit base wins", () => {
+    const assets = loadBuiltPackage();
+    const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
+      version: string;
+    };
+    const built = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
+    ) as { version: string };
+    assert.equal(built.version, root.version);
+    const expected = `https://raw.githubusercontent.com/bifrostwallet/assets/v${root.version}/data/`;
+    assert.equal(assets.GITHUB_ASSET_BASE_URL, expected);
+    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes(expected), true);
+    assert.equal(indexSource.includes("package.json"), false);
+    assert.equal(indexSource.includes("/main/data/"), false);
+    const relative = "providers/eip155-14/0xabc/logo.webp";
+    assert.equal(assets.resolveAssetURL(relative), `${expected}${relative}`);
+    assert.equal(assets.resolveAssetURL(relative, ""), `${expected}${relative}`);
+    const base = "https://cdn.example.com/assets";
+    assert.equal(
+      assets.resolveAssetURL(relative, base),
+      `https://cdn.example.com/assets/${relative}`,
+    );
+  });
+
   test("getToken stays address-based and getXrplToken is exact-case", () => {
     buildPackage();
     const require = createRequire(path.join(process.cwd(), "package.json"));
@@ -580,6 +607,7 @@ interface PackageAssets {
   getContract: (chainId: string, address: string) => ContractInfo | null;
   getContracts: (chainId?: string) => ContractInfo[];
   resolveAssetURL: (logoURL: string, baseURL?: string) => string;
+  GITHUB_ASSET_BASE_URL: string;
   DEFAULT_ASSET_BASE_URL: string;
 }
 

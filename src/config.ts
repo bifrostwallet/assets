@@ -3,18 +3,21 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
- * Derive GitHub raw `…/data/` base from a package.json `repository` field
+ * Derive a GitHub raw `…/<ref>/data/` base from a package.json `repository` field
  * (`git@github.com:owner/repo.git` or `https://github.com/owner/repo.git`).
+ * `ref` defaults to `main` for operator tooling. The package build passes `v<version>`.
  */
-export function githubRawDataBaseFromRepository(repository: string): string | null {
+export function githubRawDataBaseFromRepository(repository: string, ref = "main"): string | null {
   const trimmed = repository.trim();
   const match =
     trimmed.match(/^git@github\.com:([^/]+)\/([^/]+?)(?:\.git)?$/i) ??
     trimmed.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/i);
   if (!match?.[1] || !match[2]) return null;
+  const safeRef = ref.trim();
+  if (!safeRef || /[\s/?#]/.test(safeRef)) return null;
   const owner = match[1];
   const repo = match[2].replace(/\.git$/i, "");
-  return `https://raw.githubusercontent.com/${owner}/${repo}/main/data/`;
+  return `https://raw.githubusercontent.com/${owner}/${repo}/${safeRef}/data/`;
 }
 
 function defaultAssetBaseURL(): string {
@@ -36,7 +39,8 @@ function defaultAssetBaseURL(): string {
 }
 
 /**
- * Default asset prefix derived from this repo (GitHub raw `…/data/`).
+ * Operator tooling prefix (GitHub raw `main/data/`).
+ * The published package pins GITHUB_ASSET_BASE_URL to `v<version>` at build time.
  * Operator tooling may expand logoURL with ASSET_BASE_URL. The npm package
  * keeps logoURL relative; integrators pass their own base to resolveAssetURL.
  */

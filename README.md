@@ -50,7 +50,8 @@ An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory na
 | `TOKEN_CHAIN_IDS`, `CONTRACT_CHAIN_IDS` | CAIP-2 ids present in this version |
 | `CONTRACT_CATEGORIES`, `CONTRACT_CATEGORY_LABELS` | Contract category ids and display names |
 | `DAPP_CATEGORIES`, `DAPP_CATEGORY_LABELS` | Dapp chip ids and display names |
-| `DEFAULT_ASSET_BASE_URL` | GitHub raw `…/data/` prefix. Pass your own base |
+| `GITHUB_ASSET_BASE_URL` | GitHub raw `v<version>/data/` prefix used when the base is omitted |
+| `DEFAULT_ASSET_BASE_URL` | Deprecated alias of `GITHUB_ASSET_BASE_URL` |
 
 `@bifrostwallet/assets/signatures` exports `getProviderSignatures(chainId, identityAddress)`.
 
@@ -193,7 +194,7 @@ Self-hosted logos are the standard way to serve icons. Logo files are not in the
 - `data/dapps/**/logo.webp` (dapp icons)
 - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
 
-Leaving out the base is backwards compatible. `resolveAssetURL` then uses the GitHub raw `main/data/` prefix. Both options are in [CONSUMERS.md](CONSUMERS.md).
+Leaving out the base is backwards compatible. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package. Both options are in [CONSUMERS.md](CONSUMERS.md).
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -225,7 +226,7 @@ if (provider) {
 
 The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
-`DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Passing your own base is the standard way to serve logos.
+When the base is omitted or blank, `resolveAssetURL` loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). Passing your own base is the standard way to serve logos.
 
 An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or `contracts/` is reduced to that relative path and joined to your base. The published listings already store relative paths.
 
@@ -241,7 +242,7 @@ An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or 
   - `typescript` — compile and typecheck
   - `viem` — chain reads and EIP-712 recovery in curation scripts
 
-This package has no third-party security audit. Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
+Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
 
 ## FTSO Data Providers
 

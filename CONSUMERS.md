@@ -70,7 +70,7 @@ const record = getProviderSignatures("eip155:14", provider.identityAddress);
 
 ## 2. GitHub (backwards compatible)
 
-Leave out `baseURL`, or pass a blank string. `resolveAssetURL` then uses `DEFAULT_ASSET_BASE_URL`, `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. The join rules above still apply.
+Leave out `baseURL`, or pass a blank string. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). The join rules above still apply. `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package.
 
 ```typescript
 import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";
