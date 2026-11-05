@@ -83,6 +83,28 @@ The GitHub raw fallback runs only when you omit the base or pass an empty base. 
 
 If you uploaded `flare-providers.json`, fetch that URL. One request. Its `logoURL` values already point at your host.
 
+## Do and do not
+
+DO: pin with `--save-exact` / `--exact` and commit the lockfile.
+
+DO NOT: depend on a `^` range. A newer catalog can slip in without a logo refresh.
+
+DO: at each pin bump, copy `providers/**/logo.webp` from the tag `v` plus the version onto a host you control, and keep the relative paths. If you want one JSON file, generate it with `getListedProviders` or `getProviders` plus `resolveAssetURL`, and upload it next to the logos.
+
+DO NOT: fetch `all.json`, or logos, from GitHub raw, from this repository, or from Bifrost’s CDN at runtime. `all.json` in git is not a public consume API.
+
+DO: call `resolveAssetURL(logoURL, yourBase)` and serve icons from your host.
+
+DO NOT: omit the base. That falls back to GitHub. Do not serve icons from `node_modules`.
+
+DO: import `getListedProviders` and `getProvider` for a picker. Import `@bifrostwallet/assets/signatures` only if you will verify.
+
+DO NOT: assume signatures are fields on each provider from the main listing.
+
+DO: in CI at pin-bump, compare logo bytes to `logoHash`. You can also recover the operator signature with `viem`.
+
+DO NOT: require every frontend to install `viem`, or to recover EIP-712 signatures in the browser. There is no catalog signature to require.
+
 ## Upload examples
 
 From a checkout of tag `v<version>`:
