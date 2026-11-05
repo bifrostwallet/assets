@@ -120,7 +120,7 @@ See [Upload objects](https://cloud.google.com/storage/docs/uploading-objects).
 ```bash
 aws s3 sync data/providers s3://YOUR_BUCKET/assets/providers \
   --exclude "*" \
-  --include "*/logo.webp"
+  --include "*/*/logo.webp"
 ```
 
 See [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
