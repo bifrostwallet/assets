@@ -32,7 +32,7 @@ Chain ids are CAIP-2. Call `getListedProviders(chainId)` once per chain. It retu
 
 `resolveAssetURL(relativePath, baseURL?)` joins a listing `logoURL` to `baseURL`. The value used as the base is trimmed, and a trailing slash is added when it does not already end with one. A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped, and the relative path is appended to the base. An absolute URL that matches neither pattern is returned unchanged. When `baseURL` is omitted or blank, the helper uses `GITHUB_ASSET_BASE_URL`, GitHub raw at the tag matching the installed version. The base you host is the directory that contains `providers/`.
 
-A browser and a Node server use the same functions. The published entry is CommonJS, so `require("@bifrostwallet/assets")` returns these functions.
+The same calls run in a browser, a dapp, or a server.
 
 ```typescript
 import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
@@ -61,9 +61,9 @@ const provider = findProviderByValidator(
 
 ### Optional verification
 
-A picker can skip this. The checks fit CI or a backend when you change the pin.
+A picker can skip this. The checks fit CI when you change the pin.
 
-`logoHash` is the SHA-256 of the provider `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you uploaded. In a browser, `crypto.subtle.digest("SHA-256", logoBytes)` produces the same digest.
+`logoHash` is the SHA-256 of the provider `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you uploaded.
 
 Operator signatures ship from `@bifrostwallet/assets/signatures`. Importing `@bifrostwallet/assets` does not load that entry. `getProviderSignatures(chainId, identityAddress)` returns the payload, or `null` when this version has no signature file for that identity. An unknown chain id throws. Some listings stay unsigned until 31 December 2026. The signature covers name, description, logo hash, website, links, identity, and the responsibilities acknowledgement. `logoHash` is one of those fields. Curator fields such as `listed` sit outside the signature. The version pin and npm provenance bind the published record. `record.verificationInstructions` states the domain and the field order.
 
