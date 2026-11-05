@@ -1,0 +1,9 @@
+{
+  "name": "trUSD",
+  "symbol": "trUSD",
+  "decimals": 18,
+  "address": "0xd0580192e98ea6ceb9c7b6191ed2e27560911697",
+  "coingeckoId": "tori-trusd",
+  "logoURL": "tokens/eip155-1/0xd0580192e98ea6ceb9c7b6191ed2e27560911697/logo.webp",
+  "logoHash": "aec345182eb59922daf9e3337b8e3092b34cb1e1cecedfe5859c09a42f8e93e3"
+}

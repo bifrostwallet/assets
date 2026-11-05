@@ -1,0 +1,9 @@
+{
+  "name": "SHX",
+  "symbol": "SHX",
+  "decimals": 7,
+  "address": "0x516d31321928700c6b4fb0db0c8c6bc5d6799787",
+  "coingeckoId": "stronghold-token",
+  "logoURL": "tokens/eip155-1/0x516d31321928700c6b4fb0db0c8c6bc5d6799787/logo.webp",
+  "logoHash": "b088aea8e67c64e83b47b246353628ebc0e222d7405462b5ebcad52c06b5a9a8"
+}

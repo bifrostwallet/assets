@@ -1,0 +1,9 @@
+{
+  "name": "Animecoin",
+  "symbol": "ANIME",
+  "decimals": 18,
+  "address": "0x4dc26fc5854e7648a064a4abd590bbe71724c277",
+  "coingeckoId": "anime",
+  "logoURL": "tokens/eip155-1/0x4dc26fc5854e7648a064a4abd590bbe71724c277/logo.webp",
+  "logoHash": "baca720c8650350cb3e49298d72026f30eb0d1a33c4e4a52179e1290c06f4ec9"
+}

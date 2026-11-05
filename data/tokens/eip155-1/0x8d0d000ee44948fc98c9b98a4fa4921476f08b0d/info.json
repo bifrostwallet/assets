@@ -1,0 +1,9 @@
+{
+  "name": "World Liberty Financial USD",
+  "symbol": "USD1",
+  "decimals": 18,
+  "address": "0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d",
+  "coingeckoId": "usd1-wlfi",
+  "logoURL": "tokens/eip155-1/0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d/logo.webp",
+  "logoHash": "8c582331b9de4e3b4ce44caa80b41581f3b113e5e7603df3529dbb48f2a67398"
+}

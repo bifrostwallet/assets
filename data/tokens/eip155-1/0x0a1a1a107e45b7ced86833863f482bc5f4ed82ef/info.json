@@ -1,0 +1,9 @@
+{
+  "name": "USDai",
+  "symbol": "USDai",
+  "decimals": 18,
+  "address": "0x0a1a1a107e45b7ced86833863f482bc5f4ed82ef",
+  "coingeckoId": "usdai",
+  "logoURL": "tokens/eip155-1/0x0a1a1a107e45b7ced86833863f482bc5f4ed82ef/logo.webp",
+  "logoHash": "491934c6c08dce9e1f534d3a3cb618f0ed14b1b47c3e8f806b96c061971722c2"
+}

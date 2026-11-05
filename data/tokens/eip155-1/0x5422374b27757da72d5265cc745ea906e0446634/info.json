@@ -1,0 +1,9 @@
+{
+  "name": "USD CoinVertible",
+  "symbol": "USDCV",
+  "decimals": 18,
+  "address": "0x5422374b27757da72d5265cc745ea906e0446634",
+  "coingeckoId": "usd-coinvertible",
+  "logoURL": "tokens/eip155-1/0x5422374b27757da72d5265cc745ea906e0446634/logo.webp",
+  "logoHash": "b5fdcadae76f4b401d92093b5d719cbddef47d55c3f8c4ef72e913f28f938d9a"
+}

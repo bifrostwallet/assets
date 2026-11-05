@@ -1,0 +1,9 @@
+{
+  "name": "Geodnet Token",
+  "symbol": "GEOD",
+  "decimals": 18,
+  "address": "0xac0f66379a6d7801d7726d5a943356a172549adb",
+  "coingeckoId": "geodnet",
+  "logoURL": "tokens/eip155-137/0xac0f66379a6d7801d7726d5a943356a172549adb/logo.webp",
+  "logoHash": "a59d353b990fda85ee13f66cea08b97ae5183089753d1720b05fcaed435eb50d"
+}

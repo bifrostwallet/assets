@@ -1,0 +1,9 @@
+{
+  "name": "EUR CoinVertible",
+  "symbol": "EURCV",
+  "decimals": 18,
+  "address": "0x5f7827fdeb7c20b443265fc2f40845b715385ff2",
+  "coingeckoId": "societe-generale-forge-eurcv",
+  "logoURL": "tokens/eip155-1/0x5f7827fdeb7c20b443265fc2f40845b715385ff2/logo.webp",
+  "logoHash": "a96a6fea4644ed074f7ebcb79a088c9c453ededc383a0c252943330657073c79"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Horizen",
+  "symbol": "ZEN",
+  "decimals": 18,
+  "address": "0xf43eb8de897fbc7f2502483b2bef7bb9ea179229",
+  "coingeckoId": "zencash",
+  "logoURL": "tokens/eip155-8453/0xf43eb8de897fbc7f2502483b2bef7bb9ea179229/logo.webp",
+  "logoHash": "d9ad752f787f8d21f95e54edf1a32f38c45db97621496b547f1a5e85e35fb0dc"
+}

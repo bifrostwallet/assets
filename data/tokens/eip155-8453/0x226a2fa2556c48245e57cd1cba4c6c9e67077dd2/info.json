@@ -1,0 +1,9 @@
+{
+  "name": "BIO",
+  "symbol": "BIO",
+  "decimals": 18,
+  "address": "0x226a2fa2556c48245e57cd1cba4c6c9e67077dd2",
+  "coingeckoId": "bio-protocol",
+  "logoURL": "tokens/eip155-8453/0x226a2fa2556c48245e57cd1cba4c6c9e67077dd2/logo.webp",
+  "logoHash": "e7db0cf956af27dd5444e1ae43ec14a5d3fb4501167cdd8954d3ad3199f63785"
+}

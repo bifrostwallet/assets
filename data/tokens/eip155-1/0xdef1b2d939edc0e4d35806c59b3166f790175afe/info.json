@@ -1,0 +1,9 @@
+{
+  "name": "Infinex",
+  "symbol": "INX",
+  "decimals": 18,
+  "address": "0xdef1b2d939edc0e4d35806c59b3166f790175afe",
+  "coingeckoId": "infinex-2",
+  "logoURL": "tokens/eip155-1/0xdef1b2d939edc0e4d35806c59b3166f790175afe/logo.webp",
+  "logoHash": "12e3178095087156fc046b9dc005dd617587b388ceba17cb50d5686408625efc"
+}

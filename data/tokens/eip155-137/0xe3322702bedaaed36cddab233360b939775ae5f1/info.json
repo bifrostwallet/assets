@@ -1,0 +1,9 @@
+{
+  "name": "Tellor Tributes (PoS)",
+  "symbol": "TRB",
+  "decimals": 18,
+  "address": "0xe3322702bedaaed36cddab233360b939775ae5f1",
+  "coingeckoId": "tellor",
+  "logoURL": "tokens/eip155-137/0xe3322702bedaaed36cddab233360b939775ae5f1/logo.webp",
+  "logoHash": "dc8b892558869748f48dfcf1be32e9a3ddf3706b2c30e42225b9c37169545cd3"
+}

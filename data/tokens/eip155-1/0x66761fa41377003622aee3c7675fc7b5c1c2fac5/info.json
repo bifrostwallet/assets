@@ -1,0 +1,9 @@
+{
+  "name": "Clearpool",
+  "symbol": "CPOOL",
+  "decimals": 18,
+  "address": "0x66761fa41377003622aee3c7675fc7b5c1c2fac5",
+  "coingeckoId": "clearpool",
+  "logoURL": "tokens/eip155-1/0x66761fa41377003622aee3c7675fc7b5c1c2fac5/logo.webp",
+  "logoHash": "9643d2b4fd996712c1e9468ec8108a1257fd6846c65df13152043ce2c2c2b101"
+}

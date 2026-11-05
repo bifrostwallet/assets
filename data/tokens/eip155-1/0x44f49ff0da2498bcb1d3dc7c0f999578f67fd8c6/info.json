@@ -1,0 +1,9 @@
+{
+  "name": "Corn",
+  "symbol": "CORN",
+  "decimals": 18,
+  "address": "0x44f49ff0da2498bcb1d3dc7c0f999578f67fd8c6",
+  "coingeckoId": "corn-3",
+  "logoURL": "tokens/eip155-1/0x44f49ff0da2498bcb1d3dc7c0f999578f67fd8c6/logo.webp",
+  "logoHash": "aa8f44368506d09c1c9cb71dc12142d3c03a329d642f75ec925098e7368e9680"
+}

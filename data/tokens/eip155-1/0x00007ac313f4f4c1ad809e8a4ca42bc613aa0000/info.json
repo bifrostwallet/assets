@@ -1,0 +1,9 @@
+{
+  "name": "Unitas",
+  "symbol": "UP",
+  "decimals": 18,
+  "address": "0x00007ac313f4f4c1ad809e8a4ca42bc613aa0000",
+  "coingeckoId": "unitas",
+  "logoURL": "tokens/eip155-1/0x00007ac313f4f4c1ad809e8a4ca42bc613aa0000/logo.webp",
+  "logoHash": "c21d4cabbbbb8a684512cb126112b4480fc420707963a56f08c15445e02aa981"
+}

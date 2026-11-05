@@ -1,0 +1,9 @@
+{
+  "name": "SEDA",
+  "symbol": "SEDA",
+  "decimals": 18,
+  "address": "0x14862c03a0caccc1ab328b062e64e31b2a1afcd7",
+  "coingeckoId": "seda-2",
+  "logoURL": "tokens/eip155-1/0x14862c03a0caccc1ab328b062e64e31b2a1afcd7/logo.webp",
+  "logoHash": "61be0a9a2772822010224f2296449970031a91d106ef36ce2766a6d37f0e3cae"
+}

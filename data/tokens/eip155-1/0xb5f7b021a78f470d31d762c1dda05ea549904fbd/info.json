@@ -1,0 +1,9 @@
+{
+  "name": "Rayls",
+  "symbol": "RLS",
+  "decimals": 18,
+  "address": "0xb5f7b021a78f470d31d762c1dda05ea549904fbd",
+  "coingeckoId": "rayls",
+  "logoURL": "tokens/eip155-1/0xb5f7b021a78f470d31d762c1dda05ea549904fbd/logo.webp",
+  "logoHash": "25078d0a4bcbc8bcdb69e2f18c097ded54e4a708802f9c829ad197e3b66abd99"
+}

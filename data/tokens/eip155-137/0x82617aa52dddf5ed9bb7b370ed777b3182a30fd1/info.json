@@ -1,0 +1,9 @@
+{
+  "name": "Yield Guild Games Token (PoS)",
+  "symbol": "YGG",
+  "decimals": 18,
+  "address": "0x82617aa52dddf5ed9bb7b370ed777b3182a30fd1",
+  "coingeckoId": "yield-guild-games",
+  "logoURL": "tokens/eip155-137/0x82617aa52dddf5ed9bb7b370ed777b3182a30fd1/logo.webp",
+  "logoHash": "e057f57f59325464d062747f1371cd27b69f9599e1e714ecdb9379e9266dffb1"
+}

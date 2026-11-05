@@ -1,0 +1,9 @@
+{
+  "name": "Bitgert",
+  "symbol": "BRISE",
+  "decimals": 9,
+  "address": "0xf2b2f7b47715256ce4ea43363a867fdce9353e3a",
+  "coingeckoId": "bitrise-token",
+  "logoURL": "tokens/eip155-1/0xf2b2f7b47715256ce4ea43363a867fdce9353e3a/logo.webp",
+  "logoHash": "f1d5b6da7ec44f8447e75fccc0c538f7e443b378815058869f6a97fbdc581e57"
+}

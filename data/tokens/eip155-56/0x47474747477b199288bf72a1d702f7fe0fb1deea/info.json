@@ -1,0 +1,9 @@
+{
+  "name": "World Liberty Financial",
+  "symbol": "WLFI",
+  "decimals": 18,
+  "address": "0x47474747477b199288bf72a1d702f7fe0fb1deea",
+  "coingeckoId": "world-liberty-financial",
+  "logoURL": "tokens/eip155-56/0x47474747477b199288bf72a1d702f7fe0fb1deea/logo.webp",
+  "logoHash": "a3a380946869e7868dd94824f2d261faff0ae4b27b1e6736827490c211aebaca"
+}

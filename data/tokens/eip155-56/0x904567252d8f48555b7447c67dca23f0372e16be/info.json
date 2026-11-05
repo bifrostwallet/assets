@@ -1,0 +1,9 @@
+{
+  "name": "Kite",
+  "symbol": "KITE",
+  "decimals": 18,
+  "address": "0x904567252d8f48555b7447c67dca23f0372e16be",
+  "coingeckoId": "kite-2",
+  "logoURL": "tokens/eip155-56/0x904567252d8f48555b7447c67dca23f0372e16be/logo.webp",
+  "logoHash": "300157547891ebb3bd9e772c7d4b46442ba6c2cfa3fd6728afa9595ddc6ba963"
+}

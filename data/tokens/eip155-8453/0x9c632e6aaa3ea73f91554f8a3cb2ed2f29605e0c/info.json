@@ -1,0 +1,9 @@
+{
+  "name": "Onyxcoin",
+  "symbol": "XCN",
+  "decimals": 18,
+  "address": "0x9c632e6aaa3ea73f91554f8a3cb2ed2f29605e0c",
+  "coingeckoId": "chain-2",
+  "logoURL": "tokens/eip155-8453/0x9c632e6aaa3ea73f91554f8a3cb2ed2f29605e0c/logo.webp",
+  "logoHash": "9d806ce194724e193e1a70e57c157341bb5d9db0b44f33ae54adb6c9782e833f"
+}

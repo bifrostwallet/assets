@@ -1,0 +1,9 @@
+{
+  "name": "Turbo",
+  "symbol": "TURBO",
+  "decimals": 18,
+  "address": "0xa35923162c49cf95e6bf26623385eb431ad920d3",
+  "coingeckoId": "turbo",
+  "logoURL": "tokens/eip155-1/0xa35923162c49cf95e6bf26623385eb431ad920d3/logo.webp",
+  "logoHash": "8589811cfc0cd8448644c74bd804c7809b4084bea134e05f5742a5c81c6cb8a6"
+}

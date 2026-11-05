@@ -1,0 +1,9 @@
+{
+  "name": "ether.fi governance token",
+  "symbol": "ETHFI",
+  "decimals": 18,
+  "address": "0x6c240dda6b5c336df09a4d011139beaaa1ea2aa2",
+  "coingeckoId": "ether-fi",
+  "logoURL": "tokens/eip155-8453/0x6c240dda6b5c336df09a4d011139beaaa1ea2aa2/logo.webp",
+  "logoHash": "7c8aaa904d72598d4d8f9873026558bf35b6077118e207dde1c60e72c7a5c0a8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Aethir Token",
+  "symbol": "ATH",
+  "decimals": 18,
+  "address": "0xc87b37a581ec3257b734886d9d3a581f5a9d056c",
+  "coingeckoId": "aethir",
+  "logoURL": "tokens/eip155-42161/0xc87b37a581ec3257b734886d9d3a581f5a9d056c/logo.webp",
+  "logoHash": "221bd65ea5a8ae643219640bdf905ba8a99cd88421df26fc5ceee9587bfb045c"
+}

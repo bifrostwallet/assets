@@ -1,0 +1,9 @@
+{
+  "name": "Chainflip",
+  "symbol": "FLIP",
+  "decimals": 18,
+  "address": "0x826180541412d574cf1336d22c0c0a287822678a",
+  "coingeckoId": "chainflip",
+  "logoURL": "tokens/eip155-1/0x826180541412d574cf1336d22c0c0a287822678a/logo.webp",
+  "logoHash": "4ac9b8f46accd2787057404fefd45b3ecb2e196aac44d810112dceb9c8e8a478"
+}

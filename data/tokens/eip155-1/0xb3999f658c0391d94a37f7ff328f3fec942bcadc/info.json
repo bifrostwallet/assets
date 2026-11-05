@@ -1,0 +1,9 @@
+{
+  "name": "Hashflow",
+  "symbol": "HFT",
+  "decimals": 18,
+  "address": "0xb3999f658c0391d94a37f7ff328f3fec942bcadc",
+  "coingeckoId": "hashflow",
+  "logoURL": "tokens/eip155-1/0xb3999f658c0391d94a37f7ff328f3fec942bcadc/logo.webp",
+  "logoHash": "540995fdfb2a970886267109193c28c74252bc11938b242ad910a1698d0ba519"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "NUMINE Token",
+  "symbol": "NUMI",
+  "decimals": 18,
+  "address": "0xa29c9a740de8194e4016747e9a04a84946ada0a5",
+  "coingeckoId": "numine-token",
+  "logoURL": "tokens/eip155-1/0xa29c9a740de8194e4016747e9a04a84946ada0a5/logo.webp",
+  "logoHash": "313e5318dc2c8afe5ccfb3b91dba76c58cc48e39678d592b4593a861e9f6fc5e"
+}

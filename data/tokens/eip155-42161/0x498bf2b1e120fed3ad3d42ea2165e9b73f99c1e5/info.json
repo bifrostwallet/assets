@@ -1,0 +1,9 @@
+{
+  "name": "Curve.Fi USD Stablecoin",
+  "symbol": "crvUSD",
+  "decimals": 18,
+  "address": "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
+  "coingeckoId": "crvusd",
+  "logoURL": "tokens/eip155-42161/0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5/logo.webp",
+  "logoHash": "88d88332f7de69d79293ff688c4d4e3269857248077cbb7abe8dd3a2b67072e4"
+}

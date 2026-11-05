@@ -1,0 +1,9 @@
+{
+  "name": "MERL",
+  "symbol": "MERL",
+  "decimals": 18,
+  "address": "0xa0c56a8c0692bd10b3fa8f8ba79cf5332b7107f9",
+  "coingeckoId": "merlin-chain",
+  "logoURL": "tokens/eip155-1/0xa0c56a8c0692bd10b3fa8f8ba79cf5332b7107f9/logo.webp",
+  "logoHash": "ce083012213f2cd3b7ae847ee88f72372f23d2b53648888639f2503869053dee"
+}

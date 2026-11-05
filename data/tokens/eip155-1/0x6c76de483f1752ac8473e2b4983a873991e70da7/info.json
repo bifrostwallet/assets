@@ -1,0 +1,9 @@
+{
+  "name": "BTR token",
+  "symbol": "BTR",
+  "decimals": 18,
+  "address": "0x6c76de483f1752ac8473e2b4983a873991e70da7",
+  "coingeckoId": "bitlayer-bitvm",
+  "logoURL": "tokens/eip155-1/0x6c76de483f1752ac8473e2b4983a873991e70da7/logo.webp",
+  "logoHash": "146bf97ff6e61d1fc7fef633ea58f7e3c5a62fb04a32491839d2ab2caf2a1637"
+}

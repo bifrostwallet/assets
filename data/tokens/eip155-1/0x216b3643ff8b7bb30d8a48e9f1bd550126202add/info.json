@@ -1,0 +1,9 @@
+{
+  "name": "ACU",
+  "symbol": "ACU",
+  "decimals": 12,
+  "address": "0x216b3643ff8b7bb30d8a48e9f1bd550126202add",
+  "coingeckoId": "acurast",
+  "logoURL": "tokens/eip155-1/0x216b3643ff8b7bb30d8a48e9f1bd550126202add/logo.webp",
+  "logoHash": "6f3a91d98e5f1aecfcb06ef76313abbc511a853708364f57258c261614abd240"
+}

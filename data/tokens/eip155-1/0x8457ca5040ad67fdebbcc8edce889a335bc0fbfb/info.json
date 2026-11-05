@@ -1,0 +1,9 @@
+{
+  "name": "AltLayer Token",
+  "symbol": "ALT",
+  "decimals": 18,
+  "address": "0x8457ca5040ad67fdebbcc8edce889a335bc0fbfb",
+  "coingeckoId": "altlayer",
+  "logoURL": "tokens/eip155-1/0x8457ca5040ad67fdebbcc8edce889a335bc0fbfb/logo.webp",
+  "logoHash": "133075918122f861be0729128b008211ad40ef10e29d88caf9a2b3a6c80d52c6"
+}

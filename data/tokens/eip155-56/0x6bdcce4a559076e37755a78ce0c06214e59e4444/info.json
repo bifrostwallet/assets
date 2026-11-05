@@ -1,0 +1,9 @@
+{
+  "name": "B",
+  "symbol": "B",
+  "decimals": 18,
+  "address": "0x6bdcce4a559076e37755a78ce0c06214e59e4444",
+  "coingeckoId": "build-on",
+  "logoURL": "tokens/eip155-56/0x6bdcce4a559076e37755a78ce0c06214e59e4444/logo.webp",
+  "logoHash": "90d725ec0902c0112c4b8c201188d52b9cba96d2adcd74fa3205e3e6d5b161f0"
+}

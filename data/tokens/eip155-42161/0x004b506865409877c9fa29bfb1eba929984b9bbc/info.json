@@ -1,0 +1,9 @@
+{
+  "name": "Global Dollar",
+  "symbol": "USDG",
+  "decimals": 6,
+  "address": "0x004b506865409877c9fa29bfb1eba929984b9bbc",
+  "coingeckoId": "global-dollar",
+  "logoURL": "tokens/eip155-42161/0x004b506865409877c9fa29bfb1eba929984b9bbc/logo.webp",
+  "logoHash": "4699ebdd4605ecc69f92f063fe6101291e8c804986ce4449e846393039105bea"
+}

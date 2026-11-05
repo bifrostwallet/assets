@@ -1,0 +1,9 @@
+{
+  "name": "PeaqOFT",
+  "symbol": "PEAQ",
+  "decimals": 18,
+  "address": "0x8b9ee39195ea99d6ddd68030f44131116bc218f6",
+  "coingeckoId": "peaq-2",
+  "logoURL": "tokens/eip155-56/0x8b9ee39195ea99d6ddd68030f44131116bc218f6/logo.webp",
+  "logoHash": "313762b558ce8cb660e26c37fac5e893f418eee713b38386db44759e4c78561a"
+}

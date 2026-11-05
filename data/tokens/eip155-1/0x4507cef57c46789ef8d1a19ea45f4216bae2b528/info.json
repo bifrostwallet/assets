@@ -1,0 +1,9 @@
+{
+  "name": "TokenFi",
+  "symbol": "TOKEN",
+  "decimals": 9,
+  "address": "0x4507cef57c46789ef8d1a19ea45f4216bae2b528",
+  "coingeckoId": "tokenfi",
+  "logoURL": "tokens/eip155-1/0x4507cef57c46789ef8d1a19ea45f4216bae2b528/logo.webp",
+  "logoHash": "6c348582e2a1faf449f2ce825eb3ea3d68e519270e7a97322b773f5c3f181d3c"
+}

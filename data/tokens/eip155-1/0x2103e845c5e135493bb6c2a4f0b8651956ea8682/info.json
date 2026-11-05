@@ -1,0 +1,9 @@
+{
+  "name": "Matrixdock Gold",
+  "symbol": "XAUM",
+  "decimals": 18,
+  "address": "0x2103e845c5e135493bb6c2a4f0b8651956ea8682",
+  "coingeckoId": "matrixdock-gold",
+  "logoURL": "tokens/eip155-1/0x2103e845c5e135493bb6c2a4f0b8651956ea8682/logo.webp",
+  "logoHash": "34f53982cded3b139a3656d061cd70cf796eed6b6cff7cf58f56657b84d04bd0"
+}

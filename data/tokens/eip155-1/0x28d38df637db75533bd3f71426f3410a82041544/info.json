@@ -1,0 +1,9 @@
+{
+  "name": "Prompt",
+  "symbol": "PROMPT",
+  "decimals": 18,
+  "address": "0x28d38df637db75533bd3f71426f3410a82041544",
+  "coingeckoId": "wayfinder",
+  "logoURL": "tokens/eip155-1/0x28d38df637db75533bd3f71426f3410a82041544/logo.webp",
+  "logoHash": "31f81ec0ce53657a3dc186f635a1a7d59a2c70be2856e5bb4b6a1bf32f080a1d"
+}

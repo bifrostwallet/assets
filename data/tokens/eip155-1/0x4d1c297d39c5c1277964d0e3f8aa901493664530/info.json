@@ -1,0 +1,9 @@
+{
+  "name": "PUFFER",
+  "symbol": "PUFFER",
+  "decimals": 18,
+  "address": "0x4d1c297d39c5c1277964d0e3f8aa901493664530",
+  "coingeckoId": "puffer-finance",
+  "logoURL": "tokens/eip155-1/0x4d1c297d39c5c1277964d0e3f8aa901493664530/logo.webp",
+  "logoHash": "e0aa7d29f485f74c77d2200ac350b53f34f3de4f4037bc11c06b67cc13c2d35a"
+}

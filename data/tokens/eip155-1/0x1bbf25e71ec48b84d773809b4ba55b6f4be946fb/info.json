@@ -1,0 +1,9 @@
+{
+  "name": "Vow",
+  "symbol": "VOW",
+  "decimals": 18,
+  "address": "0x1bbf25e71ec48b84d773809b4ba55b6f4be946fb",
+  "coingeckoId": "vow",
+  "logoURL": "tokens/eip155-1/0x1bbf25e71ec48b84d773809b4ba55b6f4be946fb/logo.webp",
+  "logoHash": "ca3216bb42dde30b355c2b3bb92a45df46639f6b946e5fc7d74291a177bf76b8"
+}

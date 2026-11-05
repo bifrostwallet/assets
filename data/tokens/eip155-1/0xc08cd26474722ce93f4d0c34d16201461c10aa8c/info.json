@@ -1,0 +1,9 @@
+{
+  "name": "CARV",
+  "symbol": "CARV",
+  "decimals": 18,
+  "address": "0xc08cd26474722ce93f4d0c34d16201461c10aa8c",
+  "coingeckoId": "carv",
+  "logoURL": "tokens/eip155-1/0xc08cd26474722ce93f4d0c34d16201461c10aa8c/logo.webp",
+  "logoHash": "bf858ac54b20e34d09b476ff180b49e063a733a3d89ccf228101b4184db775d8"
+}

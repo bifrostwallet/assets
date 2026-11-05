@@ -1,0 +1,9 @@
+{
+  "name": "Ape and Pepe",
+  "symbol": "APEPE",
+  "decimals": 18,
+  "address": "0xa3f751662e282e83ec3cbc387d225ca56dd63d3a",
+  "coingeckoId": "ape-and-pepe",
+  "logoURL": "tokens/eip155-137/0xa3f751662e282e83ec3cbc387d225ca56dd63d3a/logo.webp",
+  "logoHash": "d4cd171c26c8719b6599f6e2377c4964ccca2d4946aef46aa6b7be07d41b887c"
+}

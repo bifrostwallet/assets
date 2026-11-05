@@ -1,0 +1,9 @@
+{
+  "name": "Solv",
+  "symbol": "SOLV",
+  "decimals": 18,
+  "address": "0x169e36f327caa83d004f5c2668ac25a1424c940d",
+  "coingeckoId": "solv-protocol",
+  "logoURL": "tokens/eip155-1/0x169e36f327caa83d004f5c2668ac25a1424c940d/logo.webp",
+  "logoHash": "6e099b051f07fd1754edf216694da30a02287b48e52cee6d788217f7860f6996"
+}

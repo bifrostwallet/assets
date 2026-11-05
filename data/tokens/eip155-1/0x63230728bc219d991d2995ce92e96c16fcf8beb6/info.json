@@ -1,0 +1,9 @@
+{
+  "name": "Konnect",
+  "symbol": "KCT",
+  "decimals": 18,
+  "address": "0x63230728bc219d991d2995ce92e96c16fcf8beb6",
+  "coingeckoId": "konnect",
+  "logoURL": "tokens/eip155-1/0x63230728bc219d991d2995ce92e96c16fcf8beb6/logo.webp",
+  "logoHash": "c075913d473fa4604ca7b8a989801c4bc0f3863c5bedf6cc7f98171f98137547"
+}

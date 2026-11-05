@@ -1,0 +1,9 @@
+{
+  "name": "StakeStone",
+  "symbol": "STO",
+  "decimals": 18,
+  "address": "0x1d88713b483a8e45cff0e5cd7c2e15e5fab4534d",
+  "coingeckoId": "stakestone",
+  "logoURL": "tokens/eip155-1/0x1d88713b483a8e45cff0e5cd7c2e15e5fab4534d/logo.webp",
+  "logoHash": "431ac8db508166d9a210db8dd0825dc440c5fb49471202816d579268860bcfa9"
+}

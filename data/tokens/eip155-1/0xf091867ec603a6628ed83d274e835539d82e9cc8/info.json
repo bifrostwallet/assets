@@ -1,0 +1,9 @@
+{
+  "name": "Zeta",
+  "symbol": "ZETA",
+  "decimals": 18,
+  "address": "0xf091867ec603a6628ed83d274e835539d82e9cc8",
+  "coingeckoId": "zetachain",
+  "logoURL": "tokens/eip155-1/0xf091867ec603a6628ed83d274e835539d82e9cc8/logo.webp",
+  "logoHash": "dbe629c114390a1713c820a656591ead4cc1af9ec47bf4e5ed05b02d3b06cc1f"
+}

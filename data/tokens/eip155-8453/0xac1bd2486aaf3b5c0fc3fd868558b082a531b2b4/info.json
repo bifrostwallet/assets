@@ -1,0 +1,9 @@
+{
+  "name": "Toshi",
+  "symbol": "TOSHI",
+  "decimals": 18,
+  "address": "0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4",
+  "coingeckoId": "toshi",
+  "logoURL": "tokens/eip155-8453/0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4/logo.webp",
+  "logoHash": "c549ec6ec49191a89fdf3aec45e44c5d585b5fd68bd1bebaf459209b12561f9a"
+}

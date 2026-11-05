@@ -1,0 +1,9 @@
+{
+  "name": "Pieverse Token",
+  "symbol": "PIEVERSE",
+  "decimals": 18,
+  "address": "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9",
+  "coingeckoId": "pieverse",
+  "logoURL": "tokens/eip155-1/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9/logo.webp",
+  "logoHash": "ce66e56b05fcb35cdde6d6decd1dfcd685724fde12e94e39c1a3890ae594d3fc"
+}

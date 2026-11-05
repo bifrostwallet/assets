@@ -1,0 +1,9 @@
+{
+  "name": "Mog Coin",
+  "symbol": "Mog",
+  "decimals": 18,
+  "address": "0xaaee1a9723aadb7afa2810263653a34ba2c21c7a",
+  "coingeckoId": "mog-coin",
+  "logoURL": "tokens/eip155-1/0xaaee1a9723aadb7afa2810263653a34ba2c21c7a/logo.webp",
+  "logoHash": "757e459b5dac63d31a8ce583266221eaf5cd62dd092d54ed8b97f2a171ae862f"
+}

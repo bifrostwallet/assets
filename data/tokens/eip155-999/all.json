@@ -27,6 +27,15 @@
     "logoHash": "d31dad09cdff453b19675d7338797a69e085b3d4141b601517eabbb31fb8b930"
   },
   {
+    "name": "Based Token",
+    "symbol": "BASED",
+    "decimals": 18,
+    "address": "0x053f6755320d06b8fd6675581b0475b2e32399b1",
+    "coingeckoId": "based-one",
+    "logoURL": "tokens/eip155-999/0x053f6755320d06b8fd6675581b0475b2e32399b1/logo.webp",
+    "logoHash": "9d2058bf5c1f9c0ed1e7979675799041968854fa8070ff3124d5ca4140fadc19"
+  },
+  {
     "name": "USDH",
     "symbol": "USDH",
     "decimals": 6,
@@ -36,6 +45,33 @@
     "logoHash": "58314c8cefc61d61dd49277445e594d2c2d44dd17db0d63f5eae064c9ef0738b"
   },
   {
+    "name": "Matrixdock Gold",
+    "symbol": "XAUM",
+    "decimals": 9,
+    "address": "0x14f0dfc32e8af769961b31ba3e89389bd6797652",
+    "coingeckoId": "matrixdock-gold",
+    "logoURL": "tokens/eip155-999/0x14f0dfc32e8af769961b31ba3e89389bd6797652/logo.webp",
+    "logoHash": "34f53982cded3b139a3656d061cd70cf796eed6b6cff7cf58f56657b84d04bd0"
+  },
+  {
+    "name": "ChainLink Token",
+    "symbol": "LINK",
+    "decimals": 18,
+    "address": "0x1ac2ee68b8d038c982c1e1f73f596927dd70de59",
+    "coingeckoId": "chainlink",
+    "logoURL": "tokens/eip155-999/0x1ac2ee68b8d038c982c1e1f73f596927dd70de59/logo.webp",
+    "logoHash": "314777c584f34202f249efbca7e4d9cd8af7ed3e4af3ff67ce44d42da36bdada"
+  },
+  {
+    "name": "Neiro",
+    "symbol": "NEIRO",
+    "decimals": 9,
+    "address": "0x226702c0ca528c29eb9252b773c4f06492510f4c",
+    "coingeckoId": "neiro-3",
+    "logoURL": "tokens/eip155-999/0x226702c0ca528c29eb9252b773c4f06492510f4c/logo.webp",
+    "logoHash": "07246dea153b3aa51515bed5cf9ff3b9db70d66fa830bb8a265bb8f09c529970"
+  },
+  {
     "name": "Kinetiq Markets LST",
     "symbol": "kmHYPE",
     "decimals": 18,
@@ -43,6 +79,33 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-999/0x360c140e5344a1a0593d44b4ea6fc7c3daf0c473/logo.webp",
     "logoHash": "55ca71c543cb7eda3b4fd2464af28be708e36b7cbd1b324d80e769d3d959f6d0"
+  },
+  {
+    "name": "SEDA",
+    "symbol": "SEDA",
+    "decimals": 18,
+    "address": "0x4f96b683714377c38123631f2d17cdf18b3f46a7",
+    "coingeckoId": "seda-2",
+    "logoURL": "tokens/eip155-999/0x4f96b683714377c38123631f2d17cdf18b3f46a7/logo.webp",
+    "logoHash": "61be0a9a2772822010224f2296449970031a91d106ef36ce2766a6d37f0e3cae"
+  },
+  {
+    "name": "Lisk",
+    "symbol": "LSK",
+    "decimals": 18,
+    "address": "0x502c7b9a06b509532f969eb4d2419af52d762bf8",
+    "coingeckoId": "lisk",
+    "logoURL": "tokens/eip155-999/0x502c7b9a06b509532f969eb4d2419af52d762bf8/logo.webp",
+    "logoHash": "f8426c59f92018f6bdbab65b16c5563dffedbb48f33d9085df4516534fff2bb8"
+  },
+  {
+    "name": "AZTEC",
+    "symbol": "AZTEC",
+    "decimals": 18,
+    "address": "0x5515b8079793caa680df5391a6ef4c73911a3920",
+    "coingeckoId": "aztec",
+    "logoURL": "tokens/eip155-999/0x5515b8079793caa680df5391a6ef4c73911a3920/logo.webp",
+    "logoHash": "23cbbd840ce82e977b2faffa3090c127d308f23ac8684fe0b2665f9693a36ebe"
   },
   {
     "name": "Wrapped HYPE",
@@ -63,6 +126,15 @@
     "logoHash": "c22a4dcc7cbf42a7182066a203391fc6cd35868a426b709c0f4a98bff53e2b89"
   },
   {
+    "name": "FLock.io",
+    "symbol": "FLOCK",
+    "decimals": 18,
+    "address": "0x5ab3d4c385b400f3abb49e80de2faf6a88a7b691",
+    "coingeckoId": "flock-2",
+    "logoURL": "tokens/eip155-999/0x5ab3d4c385b400f3abb49e80de2faf6a88a7b691/logo.webp",
+    "logoHash": "6baaa0608b7067f06291b37a9047e84b5d5ec062f7cf6d9835cab2e8ce70f239"
+  },
+  {
     "name": "USDe",
     "symbol": "USDe",
     "decimals": 18,
@@ -81,6 +153,15 @@
     "logoHash": "4b9504ef7c0398230f87d54a30dbf0b7e4725b4f934c1ddb6e8ce34fbada5934"
   },
   {
+    "name": "Synapse",
+    "symbol": "SYN",
+    "decimals": 18,
+    "address": "0x6cd6c5fde1621053ed4bc7c09adc76612d8c663f",
+    "coingeckoId": "synapse-2",
+    "logoURL": "tokens/eip155-999/0x6cd6c5fde1621053ed4bc7c09adc76612d8c663f/logo.webp",
+    "logoHash": "678365f12680d4d0694fce85dfc8f1e78f9b5c4e5ff878c3678bc9c12b0fe4ed"
+  },
+  {
     "name": "Staked HYPE Shares",
     "symbol": "wstHYPE",
     "decimals": 18,
@@ -88,6 +169,15 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-999/0x94e8396e0869c9f2200760af0621afd240e1cf38/logo.webp",
     "logoHash": "806b2a2bca9cc7e0083fc77d96f1d1604d77fe35b8e9f9f32eda69c79a7a7b35"
+  },
+  {
+    "name": "Derive",
+    "symbol": "DRV",
+    "decimals": 18,
+    "address": "0x9628bba16db41ea7fe1fd84f9ce53bc27c63f59b",
+    "coingeckoId": "derive",
+    "logoURL": "tokens/eip155-999/0x9628bba16db41ea7fe1fd84f9ce53bc27c63f59b/logo.webp",
+    "logoHash": "976012d36b7557be5fcbab7f9990399fc97282045fd1b9210d5924402cb7741f"
   },
   {
     "name": "Purr",
@@ -135,6 +225,15 @@
     "logoHash": "74e70292b99d244a9dfd9014428b9e5df48c1d83872dfdcd4f0f256704736a48"
   },
   {
+    "name": "Kite",
+    "symbol": "KITE",
+    "decimals": 18,
+    "address": "0xbc28beac0b6765429c8ee7a6acab2af5a4e7a679",
+    "coingeckoId": "kite-2",
+    "logoURL": "tokens/eip155-999/0xbc28beac0b6765429c8ee7a6acab2af5a4e7a679/logo.webp",
+    "logoHash": "300157547891ebb3bd9e772c7d4b46442ba6c2cfa3fd6728afa9595ddc6ba963"
+  },
+  {
     "name": "Unit Ethereum",
     "symbol": "UETH",
     "decimals": 18,
@@ -142,6 +241,15 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-999/0xbe6727b535545c67d5caa73dea54865b92cf7907/logo.webp",
     "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
+  },
+  {
+    "name": "Rekt",
+    "symbol": "REKT",
+    "decimals": 18,
+    "address": "0xc12e26ab94d1e62f18373cf25e43afa7b2af1cdc",
+    "coingeckoId": "rekt-4",
+    "logoURL": "tokens/eip155-999/0xc12e26ab94d1e62f18373cf25e43afa7b2af1cdc/logo.webp",
+    "logoHash": "68ea75c505e6f153f5db69cf8e2a693fe4de31bb109cbe09378ca18caaf7d477"
   },
   {
     "name": "Pendle",
@@ -169,6 +277,15 @@
     "coingeckoId": null,
     "logoURL": "tokens/eip155-999/0xf4d9235269a96aadafc9adae454a0618ebe37949/logo.webp",
     "logoHash": "91bb9c402a964de9be6c0fc8099ca5dc1bbd16cc4d53a28a8057ef8bedde3db2"
+  },
+  {
+    "name": "SOON Token",
+    "symbol": "SOON",
+    "decimals": 18,
+    "address": "0xf6f58c4a961759e4127523224bb0ec0f55460ac8",
+    "coingeckoId": "soon-2",
+    "logoURL": "tokens/eip155-999/0xf6f58c4a961759e4127523224bb0ec0f55460ac8/logo.webp",
+    "logoHash": "a11837dd3d557e6b6c1be53befa63d28a739cb978e7f34515eb7c3be78f08947"
   },
   {
     "name": "Kinetiq Staked HYPE",

@@ -1,0 +1,9 @@
+{
+  "name": "0G",
+  "symbol": "0G",
+  "decimals": 18,
+  "address": "0x4b948d64de1f71fcd12fb586f4c776421a35b3ee",
+  "coingeckoId": "zero-gravity",
+  "logoURL": "tokens/eip155-1/0x4b948d64de1f71fcd12fb586f4c776421a35b3ee/logo.webp",
+  "logoHash": "79e3d3fd49bae700e8c11bf6a9cbcb94c8efedc044206c424ea2d7380c6f51e4"
+}

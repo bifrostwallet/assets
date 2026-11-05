@@ -1,0 +1,9 @@
+{
+  "name": "Big Time",
+  "symbol": "BIGTIME",
+  "decimals": 18,
+  "address": "0x64bc2ca1be492be7185faa2c8835d9b824c8a194",
+  "coingeckoId": "big-time",
+  "logoURL": "tokens/eip155-1/0x64bc2ca1be492be7185faa2c8835d9b824c8a194/logo.webp",
+  "logoHash": "19d20f08c5922f575e0943e832f9de3ff164201c4fd8eb42ddbeb5d8ee4028e6"
+}

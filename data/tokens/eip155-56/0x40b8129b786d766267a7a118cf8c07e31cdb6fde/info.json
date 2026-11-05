@@ -1,0 +1,9 @@
+{
+  "name": "Unibase",
+  "symbol": "UB",
+  "decimals": 18,
+  "address": "0x40b8129b786d766267a7a118cf8c07e31cdb6fde",
+  "coingeckoId": "unibase",
+  "logoURL": "tokens/eip155-56/0x40b8129b786d766267a7a118cf8c07e31cdb6fde/logo.webp",
+  "logoHash": "caea22eb4841af698aa86272d0d06f6fa3e200522a4ff6ff69514bbb62265313"
+}

@@ -3,7 +3,9 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, type Hex, http, type PublicClient } from "viem";
 import { ASSET_LOGO_REQUIREMENTS } from "../config.js";
+import { chainIdFromPath, rpcUrlForChain } from "../evmRpc.js";
 import { isMain } from "../isMain.js";
+import { duplicateSymbolErrors, listEvmSymbolUses } from "../tokenSymbols.js";
 import {
   type EvmToken,
   listTokenChainPaths,
@@ -31,8 +33,12 @@ import {
  * reads that still fail after retries, and a symbol() that is not an ABI
  * string exit non-zero. Name and decimals mismatches stay advisory.
  * symbol() is read as a string only. bytes32 symbols are not supported.
+ * This pass reads chain state only when a `*_NODE_URL` is already set; CI
+ * does not set them. A new duplicate EVM symbol, or a symbol containing `.`,
+ * exits 1. Duplicate symbols already on main are grandfathered in
+ * `tokenSymbols.ts`.
  *
- * RPC env (optional, per chain):
+ * RPC env (optional, per chain; see `RPC_ENV_BY_CHAIN`):
  *   ETHEREUM_NODE_URL, OPTIMISM_NODE_URL, FLARE_NODE_URL, SONGBIRD_NODE_URL,
  *   XDC_NODE_URL, BNBSMARTCHAIN_NODE_URL, POLYGON_NODE_URL, BASE_NODE_URL,
  *   ARBITRUM_NODE_URL, HYPERLIQUID_NODE_URL
@@ -81,19 +87,6 @@ const SYMBOL_EXCEPTIONS: readonly {
   },
 ];
 
-const RPC_ENV_BY_CHAIN: Record<number, string> = {
-  1: "ETHEREUM_NODE_URL",
-  10: "OPTIMISM_NODE_URL",
-  14: "FLARE_NODE_URL",
-  19: "SONGBIRD_NODE_URL",
-  50: "XDC_NODE_URL",
-  56: "BNBSMARTCHAIN_NODE_URL",
-  137: "POLYGON_NODE_URL",
-  8453: "BASE_NODE_URL",
-  42161: "ARBITRUM_NODE_URL",
-  999: "HYPERLIQUID_NODE_URL",
-};
-
 type Mismatch = {
   chainPath: string;
   address: string;
@@ -113,18 +106,9 @@ type CheckReport = {
   /** symbol() reads that failed. These fail the process. */
   symbolReadErrors: string[];
   mismatches: Mismatch[];
+  symbolDotErrors: string[];
+  duplicateSymbols: string[];
 };
-
-function chainIdFromPath(chainPath: string): number | null {
-  const m = /^eip155-(\d+)$/.exec(chainPath);
-  return m ? Number(m[1]) : null;
-}
-
-function rpcUrlForChain(chainId: number): string | undefined {
-  const primary = RPC_ENV_BY_CHAIN[chainId];
-  if (!primary) return undefined;
-  return process.env[primary];
-}
 
 function clientFor(chainId: number, rpc: string): PublicClient {
   return createPublicClient({
@@ -258,6 +242,11 @@ function checkEvmSchemaAndLogo(
   const label = `${chainPath}/${info.address === null ? "native" : info.address}`;
   for (const error of validateEvmToken(info)) {
     report.schemaErrors.push(`${label}: ${error}`);
+    if (error === 'symbol contains "."' && typeof info.symbol === "string") {
+      report.symbolDotErrors.push(
+        `${label}: symbol ${JSON.stringify(info.symbol)} contains "."; symbols with a dot are not supported`,
+      );
+    }
   }
   checkLogoFile(label, dir, info.logoURL, report);
 }
@@ -361,6 +350,8 @@ async function checkTokens(): Promise<void> {
     onchainRpcErrors: [],
     symbolReadErrors: [],
     mismatches: [],
+    symbolDotErrors: [],
+    duplicateSymbols: [],
   };
 
   const clients = new Map<number, PublicClient>();
@@ -454,6 +445,7 @@ async function checkTokens(): Promise<void> {
       );
     }
   });
+  report.duplicateSymbols = duplicateSymbolErrors(listEvmSymbolUses());
 
   // Touch blocklist so missing file surfaces early
   loadBlocklist();
@@ -475,6 +467,16 @@ async function checkTokens(): Promise<void> {
   console.info(`Symbol read errors: ${report.symbolReadErrors.length}`);
   console.info(`Metadata mismatches: ${report.mismatches.length}`);
   const symbolMismatches = report.mismatches.filter((row) => row.field === "symbol");
+  console.info(`Symbol dot violations: ${report.symbolDotErrors.length}`);
+  console.info(`Duplicate symbol violations: ${report.duplicateSymbols.length}`);
+  const symbolFailures = [...report.symbolDotErrors, ...report.duplicateSymbols];
+  if (symbolFailures.length > 0) {
+    console.error("\nToken symbol rules failed:");
+    for (const line of symbolFailures) {
+      console.error(`  ${line}`);
+    }
+    process.exitCode = 1;
+  }
   if (report.mismatches.length > 0) {
     console.info("\nSample mismatches (first 20):");
     for (const row of report.mismatches.slice(0, 20)) {

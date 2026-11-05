@@ -1,0 +1,9 @@
+{
+  "name": "SuperVerse",
+  "symbol": "SUPER",
+  "decimals": 18,
+  "address": "0x391359ab0ccef572dcac78f74e47d7c06db0b982",
+  "coingeckoId": "superfarm",
+  "logoURL": "tokens/eip155-8453/0x391359ab0ccef572dcac78f74e47d7c06db0b982/logo.webp",
+  "logoHash": "a87e668c5b2ccc03d2b11c36f1ea8905d032133c2ce07d07cacd60861fe5aca0"
+}

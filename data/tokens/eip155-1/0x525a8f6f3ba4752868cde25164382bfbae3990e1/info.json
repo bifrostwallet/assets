@@ -1,0 +1,9 @@
+{
+  "name": "NYM",
+  "symbol": "NYM",
+  "decimals": 6,
+  "address": "0x525a8f6f3ba4752868cde25164382bfbae3990e1",
+  "coingeckoId": "nym",
+  "logoURL": "tokens/eip155-1/0x525a8f6f3ba4752868cde25164382bfbae3990e1/logo.webp",
+  "logoHash": "d6534397d99dc1ac09c12ffcb63c76edd4b24b1efbc2953bb7f227bb9e991172"
+}

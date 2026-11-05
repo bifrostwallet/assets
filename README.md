@@ -1,12 +1,250 @@
-# Assets
+# @bifrostwallet/assets
 
-Bifrost Wallet maintains curated providers, tokens, dapps and contracts to enrich the user experience of our self-custody multi-chain wallet and various applications in the Flare/Songbird ecosystems. The purpose of curating this data is to map on-chain addresses to logos and other off-chain data.
+Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.
 
-This repository is the single source of truth. It publishes primarily as:
+The package is JSON plus lookup helpers, with no runtime dependencies. Chain ids in the public API are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) (`eip155:14`, `xrpl:0`). Each `logoURL` is a relative path such as `providers/eip155-14/<identity>/logo.webp`. Logo files are not in the npm tarball. Host them yourself and pass that base to `resolveAssetURL`.
 
-- **NPM package** [`@bifrostwallet/assets`](#npm-package): zero-dependency JSON data plus lookup helpers; logos resolve to **GitHub raw** by default
+- MIT license
+- CommonJS entry (`index.js`) and TypeScript declarations (`index.d.ts`)
+- No runtime dependencies
 
-**Using the package:** see [CONSUMERS.md](CONSUMERS.md) and the full guide on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/list/consuming-assets). Operators may optionally upload to their **own** GCS/CDN via env; that path is not a public third-party API.
+Upload commands, the do/don't list, and optional logo-hash and signature checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
+
+- [Usage](#usage)
+- [Logo files on a version bump](#logo-files-on-a-version-bump)
+- [Utils](#utils)
+- [Supply chain security](#supply-chain-security)
+- [FTSO data providers](#ftso-data-providers)
+- [Dapps](#dapps)
+- [Tokens](#tokens)
+- [Contracts](#contracts)
+- [Repository layout](#repository-layout)
+- [Self-serve pipeline](#self-serve-pipeline)
+- [Development](#development)
+- [Vulnerability disclosure](#vulnerability-disclosure)
+- [License](#license)
+
+## Usage
+
+The main entry does not load `@bifrostwallet/assets/signatures`. `require("@bifrostwallet/assets")` returns the same functions as the named imports below.
+
+An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory names in `logoURL` use a hyphen (`eip155-14`) because they are file paths. The function arguments use a colon (`eip155:14`).
+
+| Export | Returns |
+| --- | --- |
+| `getProviders(chainId)` | Every provider on that chain |
+| `getProvider(chainId, identityAddress)` | One provider, or `null`. The address match is case-insensitive |
+| `getListedProviders(chainId)` | Providers with `listed: true` |
+| `getManagementGroupProviders(chainId)` | Providers with `managementGroup: true` |
+| `findProviderByValidator(chainId, nodeId)` | The provider whose `validators` array contains that NodeID, or `null` |
+| `getTokens(chainId)` | EVM tokens, or XRPL issued tokens when `chainId` is `"xrpl:0"` |
+| `getToken(chainId, address)` | One EVM token, or `null`. The address match is case-insensitive |
+| `getNativeToken(chainId)` | The gas token (`address: null`), or `null` |
+| `getXrplToken(issuer, currency)` | One XRPL issued token, or `null`. Issuer and currency are exact case |
+| `getTokenBlocklist()` | Blocklist entries (`chainPath`, `address`, `identifier`) |
+| `getContracts(chainId?)` | One chain, or every chain when `chainId` is omitted |
+| `getContract(chainId, address)` | One contract, or `null`. The address match is case-insensitive |
+| `getDappCategories()` | Browser chips from `data/dapps/categories.json` |
+| `resolveAssetURL(logoURL, baseURL?)` | `logoURL` joined to your base. See [Utils](#utils) |
+| `PROVIDER_CHAIN_IDS` | `"eip155:14"` (Flare) and `"eip155:19"` (Songbird) |
+| `TOKEN_CHAIN_IDS`, `CONTRACT_CHAIN_IDS` | CAIP-2 ids present in this version |
+| `CONTRACT_CATEGORIES`, `CONTRACT_CATEGORY_LABELS` | Contract category ids and display names |
+| `DAPP_CATEGORIES`, `DAPP_CATEGORY_LABELS` | Dapp chip ids and display names |
+| `DEFAULT_ASSET_BASE_URL` | GitHub raw `…/data/` prefix. Pass your own base |
+
+`@bifrostwallet/assets/signatures` exports `getProviderSignatures(chainId, identityAddress)`.
+
+### Providers
+
+Hide `listed: false` in picker and discovery UIs. Show a provider the user already selected, including one that is not listed, on confirmations and details.
+
+```typescript
+import {
+  findProviderByValidator,
+  getListedProviders,
+  getManagementGroupProviders,
+  getProvider,
+  getProviders,
+  resolveAssetURL,
+} from "@bifrostwallet/assets";
+
+const base = "https://cdn.example.com/assets/";
+
+const listed = getListedProviders("eip155:14");
+const all = getProviders("eip155:14");
+const management = getManagementGroupProviders("eip155:14");
+
+// This identity is Bifrost Wallet. null when this version has no such record.
+const provider = getProvider(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+if (provider) {
+  const logoURL = resolveAssetURL(provider.logoURL, base);
+  console.log(provider.name, logoURL);
+}
+
+// The NodeID string must match the catalog, including the "NodeID-" prefix.
+const byValidator = findProviderByValidator(
+  "eip155:14",
+  "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+);
+```
+
+`getListedProviders` is the comparison list. `getProviders` includes providers that are not listed.
+
+### Tokens
+
+`getToken` looks up EVM contracts. The native gas token has `address: null` and is `getNativeToken`. XRPL issued tokens have no `address` and no `decimals`. `getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "eth")` is `null` because the currency case differs.
+
+`getTokenBlocklist()` entries use the directory form in `chainPath` (`eip155-56`), which is the path shape, while lookup chain ids stay CAIP-2.
+
+```typescript
+import {
+  getNativeToken,
+  getToken,
+  getTokenBlocklist,
+  getTokens,
+  getXrplToken,
+  resolveAssetURL,
+} from "@bifrostwallet/assets";
+
+const base = "https://cdn.example.com/assets/";
+
+const flareTokens = getTokens("eip155:14");
+const flare = getNativeToken("eip155:14"); // FLR
+const wflr = getToken(
+  "eip155:14",
+  "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
+);
+const issued = getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
+const blocklist = getTokenBlocklist();
+
+if (wflr) {
+  const logoURL = resolveAssetURL(wflr.logoURL, base);
+  console.log(flare?.symbol, wflr.symbol, issued?.name, blocklist.length, logoURL);
+}
+console.log(flareTokens.length);
+```
+
+### Dapps
+
+`getDappCategories()` returns the hand-ordered chips (`featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`). A chip's `dapps` array is slug order. A slug may appear in more than one chip. Some chips are empty.
+
+There is no per-dapp lookup. Title, URL, description, and chains stay in `data/dapps/<slug>/info.json` in git.
+
+```typescript
+import { DAPP_CATEGORY_LABELS, getDappCategories } from "@bifrostwallet/assets";
+
+const chips = getDappCategories();
+const dex = chips.find((chip) => chip.id === "dex");
+const dexLabel = DAPP_CATEGORY_LABELS.dex; // "DEX"
+console.log(dexLabel, dex?.dapps);
+```
+
+### Contracts
+
+`getContract` reads the curated name catalog. One call returns `project`, `projectName`, `logoURL`, and `logoHash`. The package build fills those in (`projectName` is the project `name`). `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`. `logoURL` is `contracts/projects/<slug>/logo.webp`, or that contract's own `logo.webp` when the file exists.
+
+```typescript
+import {
+  CONTRACT_CATEGORY_LABELS,
+  getContract,
+  getContracts,
+  resolveAssetURL,
+} from "@bifrostwallet/assets";
+
+const base = "https://cdn.example.com/assets/";
+
+const flareContracts = getContracts("eip155:14");
+const allContracts = getContracts();
+
+const router = getContract(
+  "eip155:14",
+  "0x03e2ec137c6ab82978d52edb7b504ad2deb13f96",
+);
+if (router) {
+  const categoryLabel = CONTRACT_CATEGORY_LABELS[router.category]; // "Yield"
+  const logoURL = resolveAssetURL(router.logoURL, base);
+  console.log(router.projectName, router.contractName, categoryLabel, logoURL);
+}
+console.log(flareContracts.length, allContracts.length);
+```
+
+### Provider signatures
+
+Operator signatures ship on a separate entry so a picker import does not download them. `getProviderSignatures` returns `null` when this version has no signature file for that identity. Some listings stay unsigned until 31 December 2026. Recovering the EIP-712 signer is described in [CONSUMERS.md](CONSUMERS.md). `viem` is a dev dependency of this repository, not of the published package.
+
+```typescript
+import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
+
+const record = getProviderSignatures(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+```
+
+## Logo files on a version bump
+
+> [!WARNING]
+> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
+>
+> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
+>
+> Copy every logo tree you actually serve, and keep the relative paths:
+>
+> - `data/providers/**/logo.webp` (provider icons)
+> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
+> - `data/dapps/**/logo.webp` (dapp icons)
+> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+
+Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
+
+```bash
+npm install @bifrostwallet/assets@<version> --save-exact
+```
+
+pnpm uses `--save-exact` as well. Yarn uses `--exact`. The three install lines are in [CONSUMERS.md](CONSUMERS.md#1-pin-the-package).
+
+Host those files yourself and pass that origin to `resolveAssetURL`. The helpers do not fetch `all.json` or logos from GitHub raw or from Bifrost's CDN. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
+
+## Utils
+
+`resolveAssetURL` is the published helper that is not a catalog lookup. There is no separate utils entry point. Pass a listing's `logoURL`, such as `provider.logoURL`.
+
+```typescript
+import { getProvider, resolveAssetURL } from "@bifrostwallet/assets";
+
+// This identity is Bifrost Wallet. null when this version has no such record.
+const provider = getProvider(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+if (provider) {
+  const href = resolveAssetURL(provider.logoURL, "https://cdn.example.com/assets/");
+  // https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp
+}
+```
+
+The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
+
+`DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Pass your base on every call.
+
+An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or `contracts/` is reduced to that relative path and joined to your base. The published listings already store relative paths.
+
+## Supply chain security
+
+- **Releases.** [`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page, or run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
+- **Dependencies.** The published package has zero runtime dependencies. `dist/package.json` is written with `"dependencies": {}`, and the build fails if that manifest declares `dependencies`, `devDependencies`, or `peerDependencies`.
+- **Dev dependencies.** They are pinned to exact versions and are left out of `dist/package.json`, so an end-user install does not install them. They exist for curation, lint, and the package build:
+  - `@biomejs/biome` — lint and format
+  - `@google-cloud/storage` — maintainer bucket upload
+  - `@types/node` — Node types for the TypeScript build
+  - `bs58` — base58 checks in curation scripts (NodeIDs and XRPL addresses)
+  - `typescript` — compile and typecheck
+  - `viem` — chain reads and EIP-712 recovery in curation scripts
+
+This package has no third-party security audit. Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
 
 ## FTSO Data Providers
 
@@ -173,7 +411,7 @@ If you're a wallet or dapp developer using our curated provider data:
 1. **Hide** providers with `listed: false` from picker / discovery UIs.
 2. **Show** all providers in contexts where a choice has already been made (confirmations, transaction details).
 
-NPM install and examples: [CONSUMERS.md](CONSUMERS.md). Full integrator guide: [docs.bifrostwallet.com](https://docs.bifrostwallet.com/list/consuming-assets).
+Install, lookups, and logo hosting: [Usage](#usage). Upload commands: [CONSUMERS.md](CONSUMERS.md).
 
 ## Dapps
 
@@ -187,7 +425,7 @@ Browser chips live only in the hand-edited `data/dapps/categories.json`: an orde
 ./yarn check:dapps
 ```
 
-`./yarn check:dapps` fails when an `info.json` breaks the schema (title, description, https URL, `logoURL`, `logoHash`, allowed CAIP-2 chains), when `logo.webp` is missing, not WebP, the wrong size, or a different hash, when `categories.json` names a missing slug, repeats a slug inside one chip, or uses a category id outside `DAPP_CATEGORIES`, and when a contract's `dapp` slug is missing or its `logoHash` does not match that dapp.
+`./yarn check:dapps` fails when an `info.json` breaks the schema (title, description, https URL, `logoURL`, `logoHash`, allowed CAIP-2 chains), when `logo.webp` is missing, not WebP, the wrong size, or a different hash, and when `categories.json` names a missing slug, repeats a slug inside one chip, or uses a category id outside `DAPP_CATEGORIES`.
 
 Place a dapp from its official site. Do not filter chips by network.
 
@@ -199,26 +437,36 @@ XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`.
 
 Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko is only for id resolution / optional price hints, never for growing the list or overriding on-chain name/symbol/decimals.
 
+Curators add one EVM token with the chain directory and the contract address:
+
+```bash
+./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
+```
+
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only and does not read the rest of the catalog on-chain.
+
 ```bash
 ./yarn check:tokens -- --skip-onchain
 ```
+
+`./yarn check:tokens` rejects a new duplicate EVM symbol. Symbols that were already duplicated stay allowed.
 
 ## Contracts
 
 Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. Do not store `chain` or `projectName`. There is no aggregate `all.json` and no per-contract logo file. `getContract` / `getContracts` read these files, inject `chain`, and set `projectName` from the dapp `title`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. Store `address`, `contractName`, `category`, and an optional `project` slug. Do not store `chain`, `dapp`, `projectName`, `logoURL`, or `logoHash`. There is no aggregate `all.json`. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
 
-The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exist under `data/dapps/`) and a copy of that dapp's `logoURL` and `logoHash`. Validation rejects a copy that does not match. `./yarn check:contracts -- --fix` rewrites the copies from the dapp.
+`project` names a folder `data/contracts/projects/<slug>/` with `info.json` (`name` only) and `logo.webp`. Several contracts share one project. The package build writes `project`, `projectName`, `logoURL`, and `logoHash` onto each published contract, so `getContract` returns them in one lookup.
+
+A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>/`, next to its JSON. That file wins over the project logo.
 
 ```json
 {
   "address": "0xabc…",
-  "dapp": "bifrostwallet-com",
+  "project": "bifrostwallet-com",
   "contractName": "Collateral Pool",
-  "category": "fassets",
-  "logoURL": "dapps/bifrostwallet-com/logo.webp",
-  "logoHash": "…"
+  "category": "fassets"
 }
 ```
 
@@ -240,11 +488,10 @@ The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exis
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` in git is the relative dapp path. The published package makes it absolute. `logoHash` is the SHA-256 of the dapp WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
+Published `logoURL` is the relative path of the logo that won. `logoHash` is the SHA-256 of that WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
 
 ```bash
 ./yarn check:contracts
-./yarn check:contracts -- --fix
 ```
 
 ## Repository layout
@@ -254,15 +501,17 @@ data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.jso
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated EVM token metadata + logos
 data/tokens/xrpl-0/<issuer>/<currency>/      curated XRPL issued tokens + logos
-data/contracts/eip155-<id>/<address>.json   contract names plus a copy of the dapp logo (no all.json)
+data/contracts/projects/<slug>/             info.json (name), logo.webp
+data/contracts/eip155-<id>/<address>.json   contract record (optional project slug, no all.json)
+data/contracts/eip155-<id>/<address>/logo.webp   optional per-contract logo
 data/dapps/categories.json                  hand-ordered browser chips (not an all.json)
-data/dapps/<slug>/                          info.json, logo.webp (no contact PII, no all.json)
+data/dapps/<slug>/                          info.json, logo.webp (dapp icons, no contact PII, no all.json)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
 
 The listing UI and intake API are operated separately (not in this repository). Contact details stay on private intake objects only.
 
-Asset paths (e.g. `logoURL`) are **relative** in git; the published NPM package uses absolute GitHub raw URLs by default.
+Per-entry `logoURL` values are **relative** in git and stay relative in the npm package. Provider `all.json` in this repository may contain absolute URLs for bucket upload. That file is an input to the package build, not a public HTTP API.
 
 ## Self-serve pipeline
 
@@ -273,9 +522,7 @@ provider → listing form (acknowledgements + EIP-712 sign) → verify signature
 
 Listings are re-validated in this repository before they go live; CI re-checks ownership signatures on every change.
 
-## NPM package
-
-`./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, helpers). The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. Logos in the package are absolute GitHub raw URLs unless you set `ASSET_BASE_URL` at build time.
+Operators may upload to their own GCS bucket with `./yarn upload:bucket` and env configuration. That bucket is not a public third-party API.
 
 ## Development
 
@@ -285,14 +532,21 @@ Dapp URLs must be confirmed from an official project source: the project's own d
 
 Dapp browser chips are hand-edited in `data/dapps/categories.json`. Do not store `category` or `featured` on `info.json`, and do not sort that file. A dapp in no chip fails validation.
 
-Use the repo [`yarn`](yarn) wrapper (`./yarn`), not Corepack or a global install.
-CI sets `COREPACK_ENABLE=0`. Upgrade Yarn with `./yarn security:yarn-binary:upgrade <version>`.
+Use the repo [`yarn`](yarn) wrapper (`./yarn`). CI sets `COREPACK_ENABLE=0`. Upgrade Yarn with `./yarn security:yarn-binary:upgrade <version>`.
 
 1. Run `./yarn install` to install all dependencies
 2. Make your changes
 3. Run `./yarn lint && ./yarn test` (use `./yarn lint:fix` to auto-fix) and make sure all tests pass
 4. Maintainers push reviewed changes directly to `main`
 
+### Building the package
+
+`./yarn build:package` writes a zero-dependency package to `dist/` (JSON, CommonJS helpers, and TypeScript declarations). Published `logoURL` values stay relative. Logo files are not included. Provider signatures are [`@bifrostwallet/assets/signatures`](#provider-signatures), and the main entry does not load that file. The file npm shows is [`package/README.md`](package/README.md). `ASSET_BASE_URL` rewrites hosted lists during `upload:bucket`. It does not rewrite the npm package. npm releases are staged by [`.github/workflows/release.yml`](.github/workflows/release.yml), as described under [Supply chain security](#supply-chain-security).
+
 ## Vulnerability disclosure
 
 Report security vulnerabilities privately per [SECURITY.md](SECURITY.md); **security@bifrostwallet.com** (OpenPGP preferred). Do not open public issues for security reports.
+
+## License
+
+MIT. Copyright (c) 2026 Bifrost Software Ltd. See [LICENSE](LICENSE).

@@ -1,0 +1,9 @@
+{
+  "name": "WAXP Token",
+  "symbol": "WAXP",
+  "decimals": 8,
+  "address": "0x2a79324c19ef2b89ea98b23bc669b7e7c9f8a517",
+  "coingeckoId": "wax",
+  "logoURL": "tokens/eip155-1/0x2a79324c19ef2b89ea98b23bc669b7e7c9f8a517/logo.webp",
+  "logoHash": "a90224d84535a2e8c5e73b94066ecfc0746733ea7c0296f1a58ca58a8fa150eb"
+}

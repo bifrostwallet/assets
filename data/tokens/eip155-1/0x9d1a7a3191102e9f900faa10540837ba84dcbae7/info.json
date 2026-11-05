@@ -1,0 +1,9 @@
+{
+  "name": "EURITE",
+  "symbol": "EURI",
+  "decimals": 18,
+  "address": "0x9d1a7a3191102e9f900faa10540837ba84dcbae7",
+  "coingeckoId": "eurite",
+  "logoURL": "tokens/eip155-1/0x9d1a7a3191102e9f900faa10540837ba84dcbae7/logo.webp",
+  "logoHash": "a3d9213de89eea0b4fce75f2b20ee4f9620b379a4c35b057c32ca5735bbf4cf8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Cobak Token (PoS)",
+  "symbol": "CBK",
+  "decimals": 18,
+  "address": "0x4ec203dd0699fac6adaf483cdd2519bc05d2c573",
+  "coingeckoId": "cobak-token",
+  "logoURL": "tokens/eip155-137/0x4ec203dd0699fac6adaf483cdd2519bc05d2c573/logo.webp",
+  "logoHash": "9f336dd2ccd6984991f33c0463878e9da619995efc1a6177c8166e16d44efece"
+}

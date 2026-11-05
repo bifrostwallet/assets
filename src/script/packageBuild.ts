@@ -1,7 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
-import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
+import { withRelativeLogoURL } from "../assetUrl.js";
+import {
+  DAPP_CATEGORIES,
+  DAPP_CATEGORY_LABELS,
+  DEFAULT_ASSET_BASE_URL,
+  type ProviderInfo,
+} from "../config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
@@ -9,6 +14,7 @@ import {
   chainPathToCaip2,
   getContracts,
   listContractChainPaths,
+  validateContractCatalog,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
 import { type EvmToken, listTokenChainPaths } from "../tokens.js";
@@ -20,31 +26,172 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// Logos are NOT bundled. Published JSON uses absolute logoURL (GitHub raw by
-// default). Operators set ASSET_BASE_URL to publish against their own CDN host.
+// logoURL stays a relative path (providers/…, tokens/…, dapps/…, contracts/…).
+// Logo files are not bundled; they stay in git. Contract source JSON stores a
+// project slug. This build denormalizes projectName, logoURL, and logoHash onto
+// each published contract. Provider signatures ship as a separate entry
+// (signatures.js). index.js does not load that file. ASSET_BASE_URL is not
+// applied here; bucket upload still rewrites hosted all.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
 const PROVIDER_CHAINS = ["eip155-14", "eip155-19"] as const;
 
+function publishEntry<T extends { logoURL: string }>(entry: T, label: string): T {
+  const published = withRelativeLogoURL(entry);
+  if (/^https?:\/\//i.test(published.logoURL)) {
+    throw new Error(`${label}: published logoURL must stay relative, got ${entry.logoURL}`);
+  }
+  return published;
+}
+
 function loadProviders(chainPath: string): ProviderInfo[] {
   const allPath = path.join(process.cwd(), "data", "providers", chainPath, "all.json");
   const providers = JSON.parse(fs.readFileSync(allPath, "utf8")) as ProviderInfo[];
-  const base = getAssetBaseURL();
-  return providers.map((provider) => withAbsoluteLogoURL(provider, base));
+  return providers.map((provider) =>
+    publishEntry(provider, `providers/${chainPath}/${provider.identityAddress}`),
+  );
 }
 
 function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
   const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as Array<EvmToken | XrplToken>;
-  const base = getAssetBaseURL();
-  return tokens.map((token) => withAbsoluteLogoURL(token, base));
+  return tokens.map((token, index) => publishEntry(token, `tokens/${chainPath}[${index}]`));
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
+  // getContracts reads the project slug and fills in projectName, logoURL, and logoHash.
   const contracts = getContracts(chainPathToCaip2(chainPath));
-  const base = getAssetBaseURL();
-  return contracts.map((contract) => withAbsoluteLogoURL(contract, base));
+  return contracts.map((contract) => {
+    const label = `contracts/${chainPath}/${contract.address}`;
+    if (contract.project && !contract.projectName) {
+      throw new Error(`${label}: projectName was not resolved`);
+    }
+    if (!contract.logoURL || !contract.logoHash) {
+      throw new Error(`${label}: logo was not resolved`);
+    }
+    return publishEntry(contract, label);
+  });
+}
+
+function chainDirToCaip2(chainPath: string): string {
+  const splitAt = chainPath.indexOf("-");
+  return splitAt === -1
+    ? chainPath
+    : `${chainPath.slice(0, splitAt)}:${chainPath.slice(splitAt + 1)}`;
+}
+
+/** Operator signatures, keyed by CAIP-2 chain then lowercase identity. */
+function collectProviderSignatures(): Record<string, Record<string, unknown>> {
+  const byChain: Record<string, Record<string, unknown>> = {};
+  const root = path.join(process.cwd(), "data", "providers");
+  for (const chain of PROVIDER_CHAINS) {
+    const identities: Record<string, unknown> = {};
+    const chainDir = path.join(root, chain);
+    if (fs.existsSync(chainDir)) {
+      const dirs = fs
+        .readdirSync(chainDir, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name)
+        .sort();
+      for (const dir of dirs) {
+        const sigPath = path.join(chainDir, dir, "signatures.json");
+        if (!fs.existsSync(sigPath)) continue;
+        identities[dir.toLowerCase()] = JSON.parse(fs.readFileSync(sigPath, "utf8")) as unknown;
+      }
+    }
+    byChain[chainDirToCaip2(chain)] = identities;
+  }
+  return byChain;
+}
+
+const SIGNATURES_JS = `"use strict";
+// @bifrostwallet/assets/signatures — generated file, do not edit.
+// Opt-in entry. The package main entry does not load this file.
+
+const signaturesByChain = require("./signatures.json");
+
+function normalizeChainId(chainId) {
+  if (typeof chainId !== "string" || !chainId.includes(":")) {
+    throw new Error(
+      'Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ' + JSON.stringify(chainId)
+    );
+  }
+  return chainId;
+}
+
+function getProviderSignatures(chainId, identityAddress) {
+  const chain = signaturesByChain[normalizeChainId(chainId)];
+  if (!chain) {
+    throw new Error(
+      "Unknown chain " + chainId + ". Available: " + Object.keys(signaturesByChain).join(", ")
+    );
+  }
+  const target = String(identityAddress).toLowerCase();
+  return Object.hasOwn(chain, target) ? chain[target] : null;
+}
+
+module.exports = { getProviderSignatures };
+`;
+
+const SIGNATURES_DTS = `// @bifrostwallet/assets/signatures — generated file, do not edit.
+// Opt-in entry. Importing "@bifrostwallet/assets" does not load this module.
+
+export interface ProviderSignature {
+  signerName: string;
+  signerAddress: string;
+  messageHash: string;
+  signature: string;
+  date: string;
+}
+
+export interface ProviderSignatures {
+  identityAddress: string;
+  verificationInstructions: string;
+  signatures: ProviderSignature[];
+}
+
+/** Operator signature payload for one identity, or null when this version has none. */
+export declare function getProviderSignatures(
+  chainId: string,
+  identityAddress: string,
+): ProviderSignatures | null;
+`;
+
+function writeSignatureSidecar(distDir: string): number {
+  const signatures = collectProviderSignatures();
+  const count = Object.values(signatures).reduce(
+    (sum, chain) => sum + Object.keys(chain).length,
+    0,
+  );
+  fs.writeFileSync(
+    path.join(distDir, "signatures.json"),
+    `${JSON.stringify(signatures, null, 2)}\n`,
+  );
+  fs.writeFileSync(path.join(distDir, "signatures.js"), SIGNATURES_JS);
+  fs.writeFileSync(path.join(distDir, "signatures.d.ts"), SIGNATURES_DTS);
+  return count;
+}
+
+/** Logo bytes stay in git. The published package is listings, helpers, and the signature sidecar. */
+function assertNoBundledLogos(distDir: string): void {
+  const bundled: string[] = [];
+  const walk = (dir: string): void => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (entry.name !== "logo.webp") continue;
+      bundled.push(path.relative(distDir, fullPath).split(path.sep).join("/"));
+    }
+  };
+  walk(distDir);
+  if (bundled.length > 0) {
+    throw new Error(`Refusing to publish logo.webp files: ${bundled.slice(0, 5).join(", ")}`);
+  }
 }
 
 function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
@@ -76,7 +223,7 @@ ${contractRequires}};
 /** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
 
-const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(getAssetBaseURL())};
+const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(DEFAULT_ASSET_BASE_URL)};
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
@@ -207,9 +354,34 @@ function getDappCategories() {
   return dappCategories;
 }
 
-function resolveAssetURL(relativePath, baseURL) {
-  const base = baseURL || DEFAULT_ASSET_BASE_URL;
-  return base.replace(/\\/?$/, "/") + String(relativePath).replace(/^\\//, "");
+function toRelativeAssetPath(logoURL) {
+  const trimmed = String(logoURL).trim();
+  if (!/^https?:\\/\\//i.test(trimmed)) {
+    return trimmed.replace(/^\\//, "");
+  }
+  try {
+    const pathname = new URL(trimmed).pathname;
+    for (const marker of ["/static/", "/data/"]) {
+      const idx = pathname.indexOf(marker);
+      if (idx !== -1) {
+        return pathname.slice(idx + marker.length).replace(/^\\//, "");
+      }
+    }
+  } catch {
+    // fall through
+  }
+  const match = trimmed.match(/((?:providers|dapps|tokens|contracts)\\/[^?#]+)/);
+  return match ? match[1] : trimmed;
+}
+
+function resolveAssetURL(logoURL, baseURL) {
+  const supplied = baseURL && String(baseURL).trim();
+  const base = (supplied || DEFAULT_ASSET_BASE_URL).replace(/\\/?$/, "/");
+  const relative = toRelativeAssetPath(logoURL);
+  if (/^https?:\\/\\//i.test(relative)) {
+    return relative;
+  }
+  return base + relative.replace(/^\\//, "");
 }
 
 module.exports = {
@@ -256,8 +428,8 @@ export interface ProviderInfo {
     tiktok?: string;
   };
   /**
-   * Absolute logo URL in published lists (GitHub raw by default).
-   * info.json in git keeps a relative path; resolveAssetURL() still works for either form.
+   * Relative logo path, for example providers/eip155-14/<identity>/logo.webp.
+   * Host the file yourself and pass your base to resolveAssetURL.
    */
   logoURL: string;
   /** SHA-256 of the logo file, covered by provider signatures */
@@ -354,11 +526,18 @@ export interface ContractInfo {
   address: string;
   /** CAIP-2 chain id, e.g. "eip155:14" */
   chain: string;
-  projectName: string;
+  /**
+   * Project slug. Omitted only when the contract has its own logo and no project.
+   * Resolved at package build. Consumers do not look up the project folder.
+   */
+  project?: string;
+  /** Display name from that project. Present when project is set. */
+  projectName?: string;
   contractName: string;
   category: ContractCategory;
+  /** Relative logo path, resolved at package build. */
   logoURL: string;
-  /** SHA-256 of that logo file */
+  /** SHA-256 of that logo file, resolved at package build. */
   logoHash: string;
 }
 
@@ -398,6 +577,7 @@ export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 /**
  * Curated contracts. Omit chainId for every chain.
  * Throws on an unknown CAIP-2 id.
+ * Each record already includes project, projectName, logoURL, and logoHash.
  */
 export declare function getContracts(chainId?: ChainId): ContractInfo[];
 /** One contract by address (case-insensitive), or null */
@@ -408,15 +588,15 @@ export declare function getContract(chainId: ChainId, address: string): Contract
  */
 export declare function getDappCategories(): DappCategoryGroup[];
 /**
- * Joins a relative (or already-absolute) asset path to a base URL.
- * Defaults to the base baked into this package build (ASSET_BASE_URL / GitHub raw).
+ * Joins a relative logoURL to baseURL.
+ * An absolute logoURL on a known asset prefix is stripped and rebased onto baseURL.
+ * Pass a base you control (your CDN or backend).
  */
 export declare function resolveAssetURL(relativePath: string, baseURL?: string): string;
 `;
 
 function buildPackage(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
-  const assetBase = getAssetBaseURL();
 
   const distDir = path.join(process.cwd(), "dist");
   fs.rmSync(distDir, { recursive: true, force: true });
@@ -450,6 +630,14 @@ function buildPackage(): void {
 
   const contractChainIds = listContractChainPaths();
   if (contractChainIds.length > 0) {
+    const contractErrors = validateContractCatalog();
+    if (contractErrors.length > 0) {
+      throw new Error(
+        `Refusing to publish an invalid contract catalog:\n${contractErrors
+          .map((error) => `  ${error}`)
+          .join("\n")}`,
+      );
+    }
     fs.mkdirSync(path.join(distDir, "contracts"), { recursive: true });
     for (const chain of contractChainIds) {
       const contracts = loadContracts(chain);
@@ -458,8 +646,6 @@ function buildPackage(): void {
       console.info(`📦 contracts/${chain}.json (${contracts.length} contracts)`);
     }
   }
-
-  console.info(`🖼️  logoURL base: ${assetBase}`);
 
   const categoriesSrc = path.join(process.cwd(), "data", "dapps", "categories.json");
   if (!fs.existsSync(categoriesSrc)) {
@@ -484,15 +670,33 @@ function buildPackage(): void {
       `${dappCategoryUnion};`,
     ),
   );
+  const signatureCount = writeSignatureSidecar(distDir);
+  const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
+  if (indexSource.includes('require("./signatures')) {
+    throw new Error("index.js must not load the signatures sidecar");
+  }
+
   const manifest = {
     name: "@bifrostwallet/assets",
     version: rootPackage.version,
-    description: rootPackage.description ?? "Curated assets for Bifrost Wallet.",
+    description:
+      rootPackage.description ??
+      "Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.",
     repository: rootPackage.repository,
     author: rootPackage.author,
     license: "MIT",
     main: "index.js",
     types: "index.d.ts",
+    exports: {
+      ".": {
+        types: "./index.d.ts",
+        default: "./index.js",
+      },
+      "./signatures": {
+        types: "./signatures.d.ts",
+        default: "./signatures.js",
+      },
+    },
     sideEffects: false,
     dependencies: {},
   };
@@ -510,7 +714,11 @@ function buildPackage(): void {
     throw new Error("dist/package.json must not declare any dependencies");
   }
 
+  assertNoBundledLogos(distDir);
+
   console.info("\n✅ Built zero-dependency package in dist/");
+  console.info("   published logoURL stays relative; logo files are not bundled");
+  console.info(`   ${signatureCount} provider signature payload(s) in ./signatures`);
   console.info("   Publish with: npm publish ./dist");
 }
 

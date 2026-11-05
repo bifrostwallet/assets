@@ -1,0 +1,9 @@
+{
+  "name": "BELDEX",
+  "symbol": "BDX",
+  "decimals": 9,
+  "address": "0x9d10a1ec41fe7878429bb457e31f9b050d38c633",
+  "coingeckoId": "beldex",
+  "logoURL": "tokens/eip155-56/0x9d10a1ec41fe7878429bb457e31f9b050d38c633/logo.webp",
+  "logoHash": "1fffb06a20d30d3b3468483a9dd6687a2727b0b7a795f48aa8bad29ca14febe4"
+}

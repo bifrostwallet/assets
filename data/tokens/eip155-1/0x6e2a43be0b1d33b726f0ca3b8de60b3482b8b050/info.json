@@ -1,0 +1,9 @@
+{
+  "name": "Arkham",
+  "symbol": "ARKM",
+  "decimals": 18,
+  "address": "0x6e2a43be0b1d33b726f0ca3b8de60b3482b8b050",
+  "coingeckoId": "arkham",
+  "logoURL": "tokens/eip155-1/0x6e2a43be0b1d33b726f0ca3b8de60b3482b8b050/logo.webp",
+  "logoHash": "2d58274c5a8536d7c59e6aba050c0fed9d631fae77f7af9093fd8d8cc3b48bb5"
+}

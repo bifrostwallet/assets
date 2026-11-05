@@ -1,0 +1,9 @@
+{
+  "name": "APRO oracle Token",
+  "symbol": "AT",
+  "decimals": 18,
+  "address": "0x0581ccdf2d9bca21baeff8b32b2551fd49cf70aa",
+  "coingeckoId": "apro",
+  "logoURL": "tokens/eip155-1/0x0581ccdf2d9bca21baeff8b32b2551fd49cf70aa/logo.webp",
+  "logoHash": "e1e782a870ae2464403ce0cbf00ebf6a993b29c2fd27a811d687b5c25b56fa63"
+}

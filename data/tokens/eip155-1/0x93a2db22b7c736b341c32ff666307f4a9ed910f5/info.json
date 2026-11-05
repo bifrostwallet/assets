@@ -1,0 +1,9 @@
+{
+  "name": "Hyperlane",
+  "symbol": "HYPER",
+  "decimals": 18,
+  "address": "0x93a2db22b7c736b341c32ff666307f4a9ed910f5",
+  "coingeckoId": "hyperlane",
+  "logoURL": "tokens/eip155-1/0x93a2db22b7c736b341c32ff666307f4a9ed910f5/logo.webp",
+  "logoHash": "17598c821ab523c6338df9a80f1bcdf65e6705a613cc0f35ac149331ba6b7f08"
+}

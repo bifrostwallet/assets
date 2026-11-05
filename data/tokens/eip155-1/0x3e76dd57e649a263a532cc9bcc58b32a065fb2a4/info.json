@@ -1,0 +1,9 @@
+{
+  "name": "AITECH Cloud Network",
+  "symbol": "ACN",
+  "decimals": 18,
+  "address": "0x3e76dd57e649a263a532cc9bcc58b32a065fb2a4",
+  "coingeckoId": "solidus-aitech",
+  "logoURL": "tokens/eip155-1/0x3e76dd57e649a263a532cc9bcc58b32a065fb2a4/logo.webp",
+  "logoHash": "0bef97a7ced12b9875a751d4d9054abd3d94cde09de81a8e512923b3eeab7a02"
+}

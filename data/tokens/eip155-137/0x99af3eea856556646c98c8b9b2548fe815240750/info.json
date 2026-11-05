@@ -1,0 +1,9 @@
+{
+  "name": "PayPal USD",
+  "symbol": "PYUSD",
+  "decimals": 6,
+  "address": "0x99af3eea856556646c98c8b9b2548fe815240750",
+  "coingeckoId": "paypal-usd",
+  "logoURL": "tokens/eip155-137/0x99af3eea856556646c98c8b9b2548fe815240750/logo.webp",
+  "logoHash": "38ef00e5d5eff6f51ee439a3d9ffda2cf34aaa7aab1e54c63dec8f54aef9253c"
+}

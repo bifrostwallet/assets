@@ -1,0 +1,9 @@
+{
+  "name": "Venus XVS",
+  "symbol": "XVS",
+  "decimals": 18,
+  "address": "0xd3cc9d8f3689b83c91b7b59cab4946b063eb894a",
+  "coingeckoId": "venus",
+  "logoURL": "tokens/eip155-1/0xd3cc9d8f3689b83c91b7b59cab4946b063eb894a/logo.webp",
+  "logoHash": "7683bcdf5671dbcb11dae792d071638265b25b5284700c170fea4e195fe333b5"
+}

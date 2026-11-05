@@ -1,0 +1,9 @@
+{
+  "name": "Falcon Finance",
+  "symbol": "FF",
+  "decimals": 18,
+  "address": "0xfa1c09fc8b491b6a4d3ff53a10cad29381b3f949",
+  "coingeckoId": "falcon-finance-ff",
+  "logoURL": "tokens/eip155-1/0xfa1c09fc8b491b6a4d3ff53a10cad29381b3f949/logo.webp",
+  "logoHash": "4f58ab41bb7a673f29365ea25b8112b4be18691095fdc548c680e4618530ecab"
+}

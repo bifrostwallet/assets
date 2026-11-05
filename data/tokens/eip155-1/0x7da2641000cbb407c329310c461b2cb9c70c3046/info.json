@@ -1,0 +1,9 @@
+{
+  "name": "AGI Token",
+  "symbol": "AGI",
+  "decimals": 18,
+  "address": "0x7da2641000cbb407c329310c461b2cb9c70c3046",
+  "coingeckoId": "delysium",
+  "logoURL": "tokens/eip155-1/0x7da2641000cbb407c329310c461b2cb9c70c3046/logo.webp",
+  "logoHash": "98d352e65bfa61bd7ed62c37bd21e7a6a40a440d54d2bbc21d4cd5a7ee008ed4"
+}

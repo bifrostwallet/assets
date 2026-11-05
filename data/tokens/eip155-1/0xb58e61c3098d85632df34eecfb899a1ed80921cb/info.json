@@ -1,0 +1,9 @@
+{
+  "name": "Frankencoin",
+  "symbol": "ZCHF",
+  "decimals": 18,
+  "address": "0xb58e61c3098d85632df34eecfb899a1ed80921cb",
+  "coingeckoId": "frankencoin",
+  "logoURL": "tokens/eip155-1/0xb58e61c3098d85632df34eecfb899a1ed80921cb/logo.webp",
+  "logoHash": "b84d34c5d30da043cc38c9adcfd504be7fd7b32fc060cb3ec4ea12b3a628c422"
+}

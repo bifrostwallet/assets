@@ -1,0 +1,9 @@
+{
+  "name": "MAP Protocol",
+  "symbol": "MAPO",
+  "decimals": 18,
+  "address": "0x7046933234a82af77f14625e8d0fa9bcc5044a7e",
+  "coingeckoId": "marcopolo",
+  "logoURL": "tokens/eip155-1/0x7046933234a82af77f14625e8d0fa9bcc5044a7e/logo.webp",
+  "logoHash": "16ce6938f2b9fa28536549970b776447c8e99ae03411578d7ac59ab74460abb4"
+}

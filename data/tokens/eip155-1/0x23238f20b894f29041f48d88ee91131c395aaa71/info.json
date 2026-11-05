@@ -1,0 +1,9 @@
+{
+  "name": "USDat",
+  "symbol": "USDat",
+  "decimals": 6,
+  "address": "0x23238f20b894f29041f48d88ee91131c395aaa71",
+  "coingeckoId": "saturn-dollar",
+  "logoURL": "tokens/eip155-1/0x23238f20b894f29041f48d88ee91131c395aaa71/logo.webp",
+  "logoHash": "89bde92be27747ce38eedd91f90b955a5fff1022aaadf16d51fdf1b8504dc053"
+}

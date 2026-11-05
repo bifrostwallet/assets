@@ -1,0 +1,9 @@
+{
+  "name": "Virtual Protocol",
+  "symbol": "VIRTUAL",
+  "decimals": 18,
+  "address": "0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b",
+  "coingeckoId": "virtual-protocol",
+  "logoURL": "tokens/eip155-8453/0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b/logo.webp",
+  "logoHash": "baf872495214022393bc58eae635e207864511ed7ff76b03696f5dbe94f6bab1"
+}

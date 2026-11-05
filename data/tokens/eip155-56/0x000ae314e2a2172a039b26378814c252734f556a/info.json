@@ -1,0 +1,9 @@
+{
+  "name": "Aster",
+  "symbol": "ASTER",
+  "decimals": 18,
+  "address": "0x000ae314e2a2172a039b26378814c252734f556a",
+  "coingeckoId": "aster-2",
+  "logoURL": "tokens/eip155-56/0x000ae314e2a2172a039b26378814c252734f556a/logo.webp",
+  "logoHash": "eef6b900dd15f436c08cf9fd1d89515637904db93efae2daf4d37f2e3837e6cb"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Pepe",
+  "symbol": "PEPE",
+  "decimals": 18,
+  "address": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
+  "coingeckoId": "pepe",
+  "logoURL": "tokens/eip155-42161/0x25d887ce7a35172c62febfd67a1856f20faebb00/logo.webp",
+  "logoHash": "1beba55198ec02995bd32f2b85b7817abad65c1a44c1322ed905ca374e38aca0"
+}

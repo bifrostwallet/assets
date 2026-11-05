@@ -1,0 +1,9 @@
+{
+  "name": "Kekius Maximus",
+  "symbol": "KEKIUS",
+  "decimals": 9,
+  "address": "0x26e550ac11b26f78a04489d5f20f24e3559f7dd9",
+  "coingeckoId": "kekius-maximus",
+  "logoURL": "tokens/eip155-1/0x26e550ac11b26f78a04489d5f20f24e3559f7dd9/logo.webp",
+  "logoHash": "4d88b2b83534e25768d656bb9453f9e3adaa37296d84904db017e9440fc1ed63"
+}

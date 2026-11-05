@@ -1,0 +1,9 @@
+{
+  "name": "Livepeer Token",
+  "symbol": "LPT",
+  "decimals": 18,
+  "address": "0x289ba1701c2f088cf0faf8b3705246331cb8a839",
+  "coingeckoId": "livepeer",
+  "logoURL": "tokens/eip155-42161/0x289ba1701c2f088cf0faf8b3705246331cb8a839/logo.webp",
+  "logoHash": "4a98b019f785f5f06e7bb485c11da80d4f07411194eab3d9a814e468b8a83038"
+}

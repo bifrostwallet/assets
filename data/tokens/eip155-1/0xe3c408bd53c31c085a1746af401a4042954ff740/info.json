@@ -1,0 +1,9 @@
+{
+  "name": "GreenMetaverseToken",
+  "symbol": "GMT",
+  "decimals": 8,
+  "address": "0xe3c408bd53c31c085a1746af401a4042954ff740",
+  "coingeckoId": "stepn",
+  "logoURL": "tokens/eip155-1/0xe3c408bd53c31c085a1746af401a4042954ff740/logo.webp",
+  "logoHash": "a9ca4c6dd463e5a8263928a0c1a67f1b16cbda7112ad2e15e5af8d74878580a6"
+}

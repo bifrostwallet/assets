@@ -1,0 +1,9 @@
+{
+  "name": "Power",
+  "symbol": "POWER",
+  "decimals": 18,
+  "address": "0x9dc44ae5be187eca9e2a67e33f27a4c91cea1223",
+  "coingeckoId": "power-protocol",
+  "logoURL": "tokens/eip155-1/0x9dc44ae5be187eca9e2a67e33f27a4c91cea1223/logo.webp",
+  "logoHash": "c12db4801c035bd19c660baa9cb6c04ba2465425944ed9d146f87ead7f0a3f78"
+}

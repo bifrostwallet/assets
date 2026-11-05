@@ -1,0 +1,9 @@
+{
+  "name": "OMI Token",
+  "symbol": "OMI",
+  "decimals": 18,
+  "address": "0x3792dbdd07e87413247df995e692806aa13d3299",
+  "coingeckoId": "ecomi",
+  "logoURL": "tokens/eip155-8453/0x3792dbdd07e87413247df995e692806aa13d3299/logo.webp",
+  "logoHash": "726002739a661851c523e9ec5ecbea4e4926e2e51ebad7adeedfe5de0bb3c3ab"
+}

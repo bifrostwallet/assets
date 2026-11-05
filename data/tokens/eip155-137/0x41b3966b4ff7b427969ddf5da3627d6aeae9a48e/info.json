@@ -1,0 +1,9 @@
+{
+  "name": "Nexo (PoS)",
+  "symbol": "NEXO",
+  "decimals": 18,
+  "address": "0x41b3966b4ff7b427969ddf5da3627d6aeae9a48e",
+  "coingeckoId": "nexo",
+  "logoURL": "tokens/eip155-137/0x41b3966b4ff7b427969ddf5da3627d6aeae9a48e/logo.webp",
+  "logoHash": "114003fbfb222c48d037467ab668e567a7dc2f323629750730a0773106d312f0"
+}

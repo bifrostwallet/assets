@@ -1,0 +1,9 @@
+{
+  "name": "BNB",
+  "symbol": "BNB",
+  "decimals": 18,
+  "address": "0xb8c77482e45f1f44de1745f52c74426c631bdd52",
+  "coingeckoId": "binancecoin",
+  "logoURL": "tokens/eip155-1/0xb8c77482e45f1f44de1745f52c74426c631bdd52/logo.webp",
+  "logoHash": "8926a7bc9572fbc38319d019f3cd92f6eeaca99d2f7ca57358b5771856721a98"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Decentralized USD",
+  "symbol": "USDD",
+  "decimals": 18,
+  "address": "0x45e51bc23d592eb2dba86da3985299f7895d66ba",
+  "coingeckoId": "usdd",
+  "logoURL": "tokens/eip155-56/0x45e51bc23d592eb2dba86da3985299f7895d66ba/logo.webp",
+  "logoHash": "d32924f41a382131b5931b72d596bc09eb8d67cb0c106f461dec83f11295cd69"
+}

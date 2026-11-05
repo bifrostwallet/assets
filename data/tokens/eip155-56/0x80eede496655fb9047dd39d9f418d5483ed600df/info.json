@@ -1,0 +1,9 @@
+{
+  "name": "Frax USD",
+  "symbol": "frxUSD",
+  "decimals": 18,
+  "address": "0x80eede496655fb9047dd39d9f418d5483ed600df",
+  "coingeckoId": "frax-usd",
+  "logoURL": "tokens/eip155-56/0x80eede496655fb9047dd39d9f418d5483ed600df/logo.webp",
+  "logoHash": "e7e054e4625eb1f236f4d61faca7afef1a442a93d451b3c6434d1b8803221dec"
+}

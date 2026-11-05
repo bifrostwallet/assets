@@ -1,0 +1,9 @@
+{
+  "name": "Yield Basis",
+  "symbol": "YB",
+  "decimals": 18,
+  "address": "0x01791f726b4103694969820be083196cc7c045ff",
+  "coingeckoId": "yield-basis",
+  "logoURL": "tokens/eip155-1/0x01791f726b4103694969820be083196cc7c045ff/logo.webp",
+  "logoHash": "2c33c10ad32541f6d23da77a49b93b4e85ec9fb3089c5abcbd43075a93c936b7"
+}

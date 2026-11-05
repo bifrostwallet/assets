@@ -1,0 +1,9 @@
+{
+  "name": "Unity USD",
+  "symbol": "UUSD",
+  "decimals": 18,
+  "address": "0x61a10e8556bed032ea176330e7f17d6a12a10000",
+  "coingeckoId": "unity-usd",
+  "logoURL": "tokens/eip155-8453/0x61a10e8556bed032ea176330e7f17d6a12a10000/logo.webp",
+  "logoHash": "b79e7db00df24edb2d3393552d41e3f90efe804582d88989ed4b6371450f4948"
+}

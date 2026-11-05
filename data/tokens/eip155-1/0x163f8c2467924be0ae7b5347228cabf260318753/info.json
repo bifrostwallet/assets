@@ -1,0 +1,9 @@
+{
+  "name": "Worldcoin",
+  "symbol": "WLD",
+  "decimals": 18,
+  "address": "0x163f8c2467924be0ae7b5347228cabf260318753",
+  "coingeckoId": "worldcoin-wld",
+  "logoURL": "tokens/eip155-1/0x163f8c2467924be0ae7b5347228cabf260318753/logo.webp",
+  "logoHash": "355ee0e090e549a669f548e803a379cc6e6f61c38daf87f4ed969ba2d833cb5f"
+}

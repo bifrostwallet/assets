@@ -1,0 +1,9 @@
+{
+  "name": "AWE Network",
+  "symbol": "AWE",
+  "decimals": 18,
+  "address": "0x1b4617734c43f6159f3a70b7e06d883647512778",
+  "coingeckoId": "stp-network",
+  "logoURL": "tokens/eip155-8453/0x1b4617734c43f6159f3a70b7e06d883647512778/logo.webp",
+  "logoHash": "fb3b40c6a70129bc55460dd6e2ac244356c4992db89a8b97deba519308374acc"
+}

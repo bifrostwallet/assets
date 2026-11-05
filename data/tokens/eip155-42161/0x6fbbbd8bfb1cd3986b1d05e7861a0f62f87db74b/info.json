@@ -1,0 +1,9 @@
+{
+  "name": "Vision",
+  "symbol": "VSN",
+  "decimals": 18,
+  "address": "0x6fbbbd8bfb1cd3986b1d05e7861a0f62f87db74b",
+  "coingeckoId": "vision-3",
+  "logoURL": "tokens/eip155-42161/0x6fbbbd8bfb1cd3986b1d05e7861a0f62f87db74b/logo.webp",
+  "logoHash": "6c572294e1df3d636b094126366dfc283c574e02f91669d8afb37c25ba0a3d80"
+}

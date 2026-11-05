@@ -1,8 +1,6 @@
 {
   "address": "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4",
-  "dapp": "bifrostwallet-com",
+  "project": "bifrostwallet-com",
   "contractName": "Collateral Pool",
-  "category": "fassets",
-  "logoURL": "dapps/bifrostwallet-com/logo.webp",
-  "logoHash": "3d802d3fe11b64d0238cae5b34c374f3d0d661d68391a99b9a4bde6912f1468f"
+  "category": "fassets"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "Derive",
+  "symbol": "DRV",
+  "decimals": 18,
+  "address": "0x33800de7e817a70a694f31476313a7c572bba100",
+  "coingeckoId": "derive",
+  "logoURL": "tokens/eip155-10/0x33800de7e817a70a694f31476313a7c572bba100/logo.webp",
+  "logoHash": "976012d36b7557be5fcbab7f9990399fc97282045fd1b9210d5924402cb7741f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "XUSD",
+  "symbol": "XUSD",
+  "decimals": 6,
+  "address": "0xc08e7e23c235073c6807c2efe7021304cb7c2815",
+  "coingeckoId": "straitsx-xusd",
+  "logoURL": "tokens/eip155-1/0xc08e7e23c235073c6807c2efe7021304cb7c2815/logo.webp",
+  "logoHash": "4394f6321c9a82817eb6c98d8ae824831801aa54cc2802d13ab9045a879999e1"
+}

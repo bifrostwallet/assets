@@ -1,0 +1,9 @@
+{
+  "name": "USELESS COIN",
+  "symbol": "USELESS",
+  "decimals": 6,
+  "address": "0xba38b3c706f7a515ff7c8db04daa0a134ec46d2b",
+  "coingeckoId": "useless-3",
+  "logoURL": "tokens/eip155-56/0xba38b3c706f7a515ff7c8db04daa0a134ec46d2b/logo.webp",
+  "logoHash": "7e2f0aedb0f4b8d3964e02c35c3a7b4aac585ea5879755b98c5dab80a8376d67"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Theoriq Token",
+  "symbol": "THQ",
+  "decimals": 18,
+  "address": "0xaffbe9a60f1f45e057fd9b6dc70004bb0ccc8b99",
+  "coingeckoId": "theoriq",
+  "logoURL": "tokens/eip155-1/0xaffbe9a60f1f45e057fd9b6dc70004bb0ccc8b99/logo.webp",
+  "logoHash": "30302e72c4f494b1b18891cea134ecdba66f166cf9c5c9f83cd5ecec4004d20d"
+}
