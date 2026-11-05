@@ -295,7 +295,7 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.throws(() => assets.getContracts("not-a-chain"));
   });
 
-  test("published package keeps relative logoURL and bundles provider logos only", () => {
+  test("published package keeps relative logoURL and ships no logo files", () => {
     const previousBase = process.env.ASSET_BASE_URL;
     process.env.ASSET_BASE_URL = "https://operator.example/cdn/";
     let assets: PackageAssets;
@@ -337,20 +337,9 @@ describe("published package lookups", { concurrency: false }, () => {
     );
     const packagedLogo = path.join(process.cwd(), "dist", bifrost.logoURL);
     const sourceLogo = path.join(process.cwd(), "data", bifrost.logoURL);
-    assert.equal(fs.existsSync(packagedLogo), true);
-    assert.equal(fs.readFileSync(packagedLogo).equals(fs.readFileSync(sourceLogo)), true);
-
-    const dataLogos = logoWebps(path.join(process.cwd(), "data", "providers"));
-    const distLogos = logoWebps(path.join(process.cwd(), "dist", "providers"));
-    assert.deepEqual(distLogos, dataLogos);
-    assert.ok(dataLogos.length > 0);
-
-    const bundledLogos = logoWebps(path.join(process.cwd(), "dist"));
-    assert.ok(bundledLogos.every((logo) => logo.startsWith("providers/")));
-    assert.equal(
-      bundledLogos.some((logo) => logo.startsWith("tokens/") || logo.startsWith("dapps/")),
-      false,
-    );
+    assert.equal(fs.existsSync(sourceLogo), true);
+    assert.equal(fs.existsSync(packagedLogo), false);
+    assert.deepEqual(logoWebps(path.join(process.cwd(), "dist")), []);
 
     const wflr = assets.getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
     assert.ok(wflr);
@@ -403,14 +392,8 @@ describe("published package lookups", { concurrency: false }, () => {
       }),
     ) as Array<{ files: Array<{ path: string }> }>;
     const packedPaths = packed.flatMap((entry) => entry.files.map((file) => file.path));
-    for (const logo of dataLogos) {
-      assert.ok(
-        packedPaths.some((packedPath) => packedPath.endsWith(`providers/${logo}`)),
-        logo,
-      );
-    }
     assert.equal(
-      packedPaths.some((packedPath) => /\/(?:tokens|dapps)\/.*logo\.webp$/.test(packedPath)),
+      packedPaths.some((packedPath) => packedPath.endsWith("logo.webp")),
       false,
     );
   });

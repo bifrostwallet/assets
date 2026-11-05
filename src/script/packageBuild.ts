@@ -25,10 +25,9 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// logoURL stays a relative path (providers/…, tokens/…, dapps/…). Provider
-// logo.webp files are bundled so integrators can upload them to their own host.
-// Token logos and dapp logos are not bundled. ASSET_BASE_URL is not applied
-// here; bucket upload still rewrites hosted all.json.
+// logoURL stays a relative path (providers/…, tokens/…, dapps/…). Logo files
+// are not bundled; they stay in git. ASSET_BASE_URL is not applied here;
+// bucket upload still rewrites hosted all.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
@@ -63,32 +62,9 @@ function loadContracts(chainPath: string): ContractInfo[] {
   );
 }
 
-/** Provider icons only. Token and dapp logos stay out of the tarball. */
-function copyProviderLogos(distDir: string): number {
-  const sourceRoot = path.join(process.cwd(), "data", "providers");
-  if (!fs.existsSync(sourceRoot)) return 0;
-  let count = 0;
-  const walk = (dir: string): void => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const fullPath = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(fullPath);
-        continue;
-      }
-      if (entry.name !== "logo.webp") continue;
-      const relative = path.relative(path.join(process.cwd(), "data"), fullPath);
-      const destination = path.join(distDir, relative);
-      fs.mkdirSync(path.dirname(destination), { recursive: true });
-      fs.copyFileSync(fullPath, destination);
-      count += 1;
-    }
-  };
-  walk(sourceRoot);
-  return count;
-}
-
-function assertNoForeignLogos(distDir: string): void {
-  const foreign: string[] = [];
+/** Logo bytes stay in git. The published package is listings and helpers only. */
+function assertNoBundledLogos(distDir: string): void {
+  const bundled: string[] = [];
   const walk = (dir: string): void => {
     if (!fs.existsSync(dir)) return;
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -98,13 +74,12 @@ function assertNoForeignLogos(distDir: string): void {
         continue;
       }
       if (entry.name !== "logo.webp") continue;
-      const relative = path.relative(distDir, fullPath).split(path.sep).join("/");
-      if (!relative.startsWith("providers/")) foreign.push(relative);
+      bundled.push(path.relative(distDir, fullPath).split(path.sep).join("/"));
     }
   };
   walk(distDir);
-  if (foreign.length > 0) {
-    throw new Error(`Refusing to publish non-provider logos: ${foreign.slice(0, 5).join(", ")}`);
+  if (bundled.length > 0) {
+    throw new Error(`Refusing to publish logo.webp files: ${bundled.slice(0, 5).join(", ")}`);
   }
 }
 
@@ -594,11 +569,10 @@ function buildPackage(): void {
     throw new Error("dist/package.json must not declare any dependencies");
   }
 
-  const logoCount = copyProviderLogos(distDir);
-  assertNoForeignLogos(distDir);
+  assertNoBundledLogos(distDir);
 
   console.info("\n✅ Built zero-dependency package in dist/");
-  console.info(`   ${logoCount} provider logo.webp file(s); published logoURL stays relative`);
+  console.info("   published logoURL stays relative; logo files are not bundled");
   console.info("   Publish with: npm publish ./dist");
 }
 

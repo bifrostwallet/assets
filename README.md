@@ -275,7 +275,7 @@ Listings are re-validated in this repository before they go live; CI re-checks o
 
 ## NPM package
 
-`./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, helpers, and provider `logo.webp` files). Published `logoURL` values stay relative. Token and dapp logos are not included. The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. `ASSET_BASE_URL` rewrites hosted lists during `upload:bucket`; it does not rewrite the npm package.
+`./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, and helpers). Published `logoURL` values stay relative. Logo files are not included. The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. `ASSET_BASE_URL` rewrites hosted lists during `upload:bucket`; it does not rewrite the npm package.
 
 ## Development
 
