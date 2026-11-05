@@ -227,24 +227,15 @@ An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or 
 
 ## Supply chain security
 
-- **Pinned Yarn, in this repository.** Development and CI run [`./yarn`](https://github.com/bifrostwallet/assets/blob/main/yarn). The wrapper hashes `.yarn/releases/yarn-4.18.1.cjs` and compares the digest to `.yarn/yarn-binary-hash.txt` and to `packageManager` (`yarn@4.18.1+sha256.a28ad591febb769f939c11f82f89bacad0b0fac0c884d3b78fa2aaaee970907e`). `preinstall` exits unless that wrapper has set `BIFROST_YARN_VERIFIED=1`. CI sets `COREPACK_ENABLE=0`. This repository pins Node `24.22.1` in `.node-version` and `engines`. Upgrade the binary with `./yarn security:yarn-binary:upgrade <version>`. Installing `@bifrostwallet/assets` from npm does not use this wrapper.
-- **Repository installs.** `.yarnrc.yml` sets `enableScripts: false`, `enableImmutableInstalls: true`, and `npmMinimalAgeGate: 30d`. Dependency lifecycle scripts do not run, installs stay on the lockfile, and a newly published registry version waits 30 days. Those settings apply to this repo's install, not to a consumer install of the published package.
-- **Commits.** History uses more than one signature type. CI does not require a signature on each commit.
-  - Merge commits created by GitHub (committer `GitHub <noreply@github.com>`) carry a PGP signature from GitHub.
-  - Commits whose committer is Marco carry a PGP signature.
-  - Commits whose committer is Cursor Agent carry an SSH signature. GitHub shows Verified when that key belongs to the committer. At least one commit whose committer is RareData is SSH-signed. Pull-request merges authored by RareData are committed by GitHub and carry GitHub's PGP signature.
-  - A `Signed-off-by` trailer is a Developer Certificate of Origin sign-off (`git commit -s`). It is a separate line from the PGP or SSH signature.
-  - Commits by `github-actions[bot]` (intake imports and catalog-update suggestions) have no signature block.
-  - The OpenPGP key in [SECURITY.md](https://github.com/bifrostwallet/assets/blob/main/SECURITY.md) encrypts vulnerability reports. It is a different key from the one on Marco's commits.
 - **Releases.** [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page, or run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
 - **Dependencies.** The published package has zero runtime dependencies. `dist/package.json` is written with `"dependencies": {}`, and the build fails if that manifest declares `dependencies`, `devDependencies`, or `peerDependencies`.
 - **Dev dependencies.** They are pinned to exact versions and are left out of `dist/package.json`, so an end-user install does not install them. They exist for curation, lint, and the package build:
-  - `@biomejs/biome@2.5.13` — lint and format
-  - `@google-cloud/storage@7.22.0` — maintainer bucket upload
-  - `@types/node@22.20.2` — Node types for the TypeScript build
-  - `bs58@6.0.0` — base58 checks in curation scripts (NodeIDs and XRPL addresses)
-  - `typescript@5.9.3` — compile and typecheck
-  - `viem@2.56.5` — chain reads and EIP-712 recovery in curation scripts
+  - `@biomejs/biome` — lint and format
+  - `@google-cloud/storage` — maintainer bucket upload
+  - `@types/node` — Node types for the TypeScript build
+  - `bs58` — base58 checks in curation scripts (NodeIDs and XRPL addresses)
+  - `typescript` — compile and typecheck
+  - `viem` — chain reads and EIP-712 recovery in curation scripts
 
 This package has no third-party security audit. Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](https://github.com/bifrostwallet/assets/blob/main/SECURITY.md).
 

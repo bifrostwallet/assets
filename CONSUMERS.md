@@ -210,4 +210,4 @@ Recover the EIP-712 `ProviderListing` signer and compare it to `identityAddress`
 
 Releases are staged with npm Trusted Publishing (OIDC). [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml) runs `npm stage publish` with `NPM_CONFIG_PROVENANCE=true`. A maintainer approves the staged version on npmjs.com before it is installable. Pin with `--exact` or `--save-exact`, as above.
 
-Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/). Pinned Yarn, commit signatures, and dev dependencies are in the [README](https://github.com/bifrostwallet/assets/blob/main/README.md#supply-chain-security).
+Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/). Dev dependencies are named in the [README](https://github.com/bifrostwallet/assets/blob/main/README.md#supply-chain-security).
