@@ -64,11 +64,39 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(all.length, 51);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
-      assert.match(contract.logoURL, /^dapps\/[a-z0-9-]+\/logo\.webp$/);
+      assert.equal(typeof contract.project, "string");
+      assert.equal(typeof contract.projectName, "string");
       assert.match(contract.logoHash, /^[0-9a-f]{64}$/);
-      const previous = logoByProject.get(contract.projectName);
-      if (previous === undefined) logoByProject.set(contract.projectName, contract.logoHash);
-      else assert.equal(contract.logoHash, previous, contract.projectName);
+      const chainPath = contract.chain.replace(":", "-");
+      const ownLogo = `contracts/${chainPath}/${contract.address}/logo.webp`;
+      const sharedLogo = `contracts/projects/${contract.project}/logo.webp`;
+      const expectedLogo = fs.existsSync(path.join(process.cwd(), "data", ownLogo))
+        ? ownLogo
+        : sharedLogo;
+      assert.equal(contract.logoURL, expectedLogo);
+      assert.equal(
+        contract.logoHash,
+        sha256File(path.join(process.cwd(), "data", contract.logoURL)),
+      );
+      const projectInfo = JSON.parse(
+        fs.readFileSync(
+          path.join(
+            process.cwd(),
+            "data",
+            "contracts",
+            "projects",
+            contract.project ?? "",
+            "info.json",
+          ),
+          "utf8",
+        ),
+      ) as { name: string };
+      assert.equal(contract.projectName, projectInfo.name);
+      if (expectedLogo === sharedLogo && contract.project) {
+        const previous = logoByProject.get(contract.project);
+        if (previous === undefined) logoByProject.set(contract.project, contract.logoHash);
+        else assert.equal(contract.logoHash, previous, contract.project);
+      }
     }
     assert.equal(logoByProject.size, 15);
     for (const category of CONTRACT_CATEGORIES) {
@@ -85,20 +113,23 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(lower.contractName, "Collateral Pool");
     assert.equal(lower.category, "fassets");
     assert.equal(lower.chain, "eip155:14");
-    assert.equal(lower.logoURL, `dapps/${BIFROST_DAPP}/logo.webp`);
+    assert.equal(lower.project, BIFROST_DAPP);
+    assert.equal(lower.logoURL, `contracts/projects/${BIFROST_DAPP}/logo.webp`);
     assert.equal(lower.logoHash, sha256File(path.join(process.cwd(), "data", lower.logoURL)));
     assert.equal(getContract("eip155:14", "0x5ed8551f90acc6395810d8274b019bf13ef1f696"), null);
 
     const auPool = getContract("eip155:14", "0xf45c1a5Ef4fB09F1c33f772175b2fec229D1885B");
     assert.equal(auPool?.projectName, "AU");
     assert.equal(auPool?.contractName, "Collateral Pool");
-    assert.equal(auPool?.logoURL, "dapps/au-cc/logo.webp");
+    assert.equal(auPool?.project, "au-cc");
+    assert.equal(auPool?.logoURL, "contracts/projects/au-cc/logo.webp");
 
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
     assert.equal(firelight?.category, "staking");
-    assert.equal(firelight?.logoURL, "dapps/firelight-finance/logo.webp");
+    assert.equal(firelight?.project, "firelight-finance");
+    assert.equal(firelight?.logoURL, "contracts/projects/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
     assert.equal(getContracts("eip155:14").length, 35);
     assert.equal(getContracts("eip155:19").length, 15);
@@ -110,7 +141,8 @@ describe("contract catalog", { concurrency: false }, () => {
     const spark = getContract("eip155:14", "0x0f3D8a38D4c74afBebc2c42695642f0e3acb15D3");
     assert.equal(spark?.projectName, "SparkDEX");
     assert.equal(spark?.category, "dex");
-    assert.equal(spark?.logoURL, "dapps/sparkdex-ai/logo.webp");
+    assert.equal(spark?.project, "sparkdex-ai");
+    assert.equal(spark?.logoURL, "contracts/projects/sparkdex-ai/logo.webp");
     const unitroller = getContract("eip155:14", "0x8041680Fb73E1Fe5F851e76233DCDfA0f2D2D7c8");
     assert.equal(unitroller?.projectName, "Kinetic");
     assert.equal(unitroller?.contractName, "Unitroller");
@@ -145,16 +177,18 @@ describe("contract catalog", { concurrency: false }, () => {
     ) as Record<string, unknown>;
     assert.equal(Object.hasOwn(file, "chain"), false);
     assert.equal(Object.hasOwn(file, "projectName"), false);
-    assert.equal(Object.hasOwn(file, "project"), false);
-    assert.equal(file.dapp, BIFROST_DAPP);
+    assert.equal(Object.hasOwn(file, "dapp"), false);
+    assert.equal(Object.hasOwn(file, "logoURL"), false);
+    assert.equal(Object.hasOwn(file, "logoHash"), false);
+    assert.equal(file.project, BIFROST_DAPP);
     assert.equal(file.address, BIFROST_POOL);
-    assert.equal(file.logoURL, `dapps/${BIFROST_DAPP}/logo.webp`);
-    const dapp = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "data", "dapps", BIFROST_DAPP, "info.json"), "utf8"),
-    ) as { title: string; logoURL: string; logoHash: string };
-    assert.equal(file.logoURL, dapp.logoURL);
-    assert.equal(file.logoHash, dapp.logoHash);
-    assert.equal(dapp.title, "Bifrost Wallet");
+    const project = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "data", "contracts", "projects", BIFROST_DAPP, "info.json"),
+        "utf8",
+      ),
+    ) as { name: string };
+    assert.equal(project.name, "Bifrost Wallet");
     const contract = getContract("eip155:14", BIFROST_POOL);
     assert.ok(contract);
     assert.equal(contract.chain, "eip155:14");
@@ -176,9 +210,10 @@ describe("contract catalog", { concurrency: false }, () => {
         ),
         "utf8",
       ),
-    ) as { dapp: string; logoURL: string };
-    assert.equal(flareReward.dapp, "flare-network");
-    assert.equal(flareReward.logoURL, "dapps/flare-network/logo.webp");
+    ) as { project: string };
+    assert.equal(flareReward.project, "flare-network");
+    assert.equal(Object.hasOwn(flareReward, "dapp"), false);
+    assert.equal(Object.hasOwn(flareReward, "logoURL"), false);
     assert.equal(
       getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a")?.chain,
       "eip155:114",
@@ -186,16 +221,11 @@ describe("contract catalog", { concurrency: false }, () => {
   });
 
   test("rejects a non-lowercase address, a bad category, and a stored chain", () => {
-    const dapp = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "data", "dapps", BIFROST_DAPP, "info.json"), "utf8"),
-    ) as { logoURL: string; logoHash: string };
     const base = {
       address: BIFROST_POOL,
-      dapp: BIFROST_DAPP,
+      project: BIFROST_DAPP,
       contractName: "Collateral Pool",
-      category: "fassets",
-      logoURL: dapp.logoURL,
-      logoHash: dapp.logoHash,
+      category: "fassets" as const,
     };
     const ctx = { chainPath: "eip155-14", fileName: `${BIFROST_POOL}.json` };
     assert.deepEqual(
@@ -228,15 +258,34 @@ describe("contract catalog", { concurrency: false }, () => {
       true,
     );
     assert.deepEqual(
+      validateContractRecord(
+        { ...base, logoURL: `contracts/projects/${BIFROST_DAPP}/logo.webp` },
+        ctx,
+      ).some((error) => error.includes("logoURL")),
+      true,
+    );
+    assert.deepEqual(
       validateContractRecord({ ...base, logoHash: "a".repeat(64) }, ctx).some((error) =>
-        error.includes("must match dapp"),
+        error.includes("logoHash"),
       ),
       true,
     );
     assert.deepEqual(
-      validateContractRecord({ ...base, dapp: "missing-dapp" }, ctx).some((error) =>
-        error.includes("unknown dapp"),
+      validateContractRecord({ ...base, dapp: BIFROST_DAPP }, ctx).some((error) =>
+        error.includes("dapp"),
       ),
+      true,
+    );
+    assert.deepEqual(
+      validateContractRecord({ ...base, project: "missing-project" }, ctx).some((error) =>
+        error.includes("unknown project"),
+      ),
+      true,
+    );
+    const withoutProject: Record<string, unknown> = { ...base };
+    delete withoutProject.project;
+    assert.deepEqual(
+      validateContractRecord(withoutProject, ctx).some((error) => error.includes("own logo")),
       true,
     );
     assert.deepEqual(
@@ -295,6 +344,52 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.throws(() => assets.getContracts("not-a-chain"));
   });
 
+  test("published getContract returns the project slug, name, and logo", () => {
+    const assets = loadBuiltPackage();
+    const contract = assets.getContract("eip155:14", BIFROST_POOL);
+    assert.ok(contract);
+    assert.equal(contract.project, BIFROST_DAPP);
+    assert.equal(contract.projectName, "Bifrost Wallet");
+    assert.equal(contract.logoURL, `contracts/projects/${BIFROST_DAPP}/logo.webp`);
+    assert.equal(contract.logoHash, sha256File(path.join(process.cwd(), "data", contract.logoURL)));
+    assert.equal(contract.contractName, "Collateral Pool");
+
+    const generated = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "contracts", "eip155-14.json"), "utf8"),
+    ) as ContractInfo[];
+    const row = generated.find((entry) => entry.address === BIFROST_POOL);
+    assert.ok(row);
+    assert.equal(row.project, contract.project);
+    assert.equal(row.projectName, contract.projectName);
+    assert.equal(row.logoURL, contract.logoURL);
+    assert.equal(row.logoHash, contract.logoHash);
+
+    for (const published of assets.getContracts()) {
+      assert.equal(typeof published.project, "string");
+      assert.equal(typeof published.projectName, "string");
+      assert.match(published.logoURL, /^contracts\//);
+      assert.match(published.logoHash, /^[0-9a-f]{64}$/);
+      assert.equal(
+        published.logoHash,
+        sha256File(path.join(process.cwd(), "data", published.logoURL)),
+      );
+    }
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "contracts", "projects")), false);
+
+    const source = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "data", "contracts", "eip155-14", `${BIFROST_POOL}.json`),
+        "utf8",
+      ),
+    ) as Record<string, unknown>;
+    assert.deepEqual(Object.keys(source).sort(), [
+      "address",
+      "category",
+      "contractName",
+      "project",
+    ]);
+  });
+
   test("published package keeps relative logoURL and ships no logo files", () => {
     const previousBase = process.env.ASSET_BASE_URL;
     process.env.ASSET_BASE_URL = "https://operator.example/cdn/";
@@ -348,7 +443,7 @@ describe("published package lookups", { concurrency: false }, () => {
 
     const pool = assets.getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
     assert.ok(pool);
-    assert.match(pool.logoURL, /^dapps\//);
+    assert.match(pool.logoURL, /^contracts\/projects\//);
     assert.equal(fs.existsSync(path.join(process.cwd(), "dist", pool.logoURL)), false);
 
     const base = "https://cdn.example.com/assets";
@@ -482,7 +577,8 @@ function sha256File(filePath: string): string {
 interface PackageAssets {
   getProvider: (chainId: string, identityAddress: string) => { logoURL: string } | null;
   getToken: (chainId: string, address: string) => { logoURL: string } | null;
-  getContract: (chainId: string, address: string) => { logoURL: string } | null;
+  getContract: (chainId: string, address: string) => ContractInfo | null;
+  getContracts: (chainId?: string) => ContractInfo[];
   resolveAssetURL: (logoURL: string, baseURL?: string) => string;
   DEFAULT_ASSET_BASE_URL: string;
 }

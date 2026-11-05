@@ -1,19 +1,13 @@
-import { syncContractLogosFromDapps, validateContractCatalog } from "../contracts.js";
+import { validateContractCatalog } from "../contracts.js";
 import { validateDappCategories } from "../dappCategories.js";
 import { isMain } from "../isMain.js";
 
 /**
  * Fail the process when data/contracts does not match the contract schema.
  * Unlike check:tokens, this is a hard gate: names are shown in transaction review.
- *
- * `./yarn check:contracts -- --fix` rewrites each contract's logoURL and logoHash
- * from its dapp before validating, so copies cannot drift.
+ * Source records store a project slug. The package build resolves the name and logo.
  */
 function checkContracts(): void {
-  if (process.argv.includes("--fix")) {
-    const changed = syncContractLogosFromDapps();
-    console.info(`✅ Synced logo copies on ${changed} contract(s)`);
-  }
   const contractErrors = validateContractCatalog();
   const categoryErrors = validateDappCategories();
   if (contractErrors.length > 0) {

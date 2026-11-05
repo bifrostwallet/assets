@@ -163,29 +163,15 @@ describe("check:dapps", () => {
     );
   });
 
-  test("fails when a contract dapp slug is missing or its logoHash differs", () => {
-    const { root, logoHash } = validRoot();
+  test("ignores contract records", () => {
+    const { root } = validRoot();
     const chainDir = path.join(root, "data", "contracts", "eip155-14");
     fs.mkdirSync(chainDir, { recursive: true });
     const filePath = path.join(chainDir, "0x1111111111111111111111111111111111111111.json");
-    fs.writeFileSync(filePath, `${JSON.stringify({ dapp: "missing-dapp", logoHash }, null, 2)}\n`);
-    assert.ok(
-      checkDappCatalog(root).errors.some((error) =>
-        error.includes("dapp slug missing-dapp does not exist"),
-      ),
-    );
-
     fs.writeFileSync(
       filePath,
-      `${JSON.stringify({ dapp: "example-com", logoHash: "b".repeat(64) }, null, 2)}\n`,
+      `${JSON.stringify({ project: "missing-project", contractName: "Router" }, null, 2)}\n`,
     );
-    const drifted = checkDappCatalog(root);
-    assert.ok(
-      drifted.errors.some((error) => error.includes("logoHash differs from dapp example-com")),
-    );
-    assert.deepEqual(drifted.warnings, []);
-
-    fs.writeFileSync(filePath, `${JSON.stringify({ dapp: "example-com", logoHash }, null, 2)}\n`);
     assert.deepEqual(checkDappCatalog(root).errors, []);
   });
 
