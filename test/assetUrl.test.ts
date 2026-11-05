@@ -51,6 +51,22 @@ describe("resolveAssetURL", () => {
     assert.equal(withRelativeLogoURL({ logoURL: github }).logoURL, RELATIVE);
   });
 
+  test("requires https for a passed base and an absolute logo URL", () => {
+    assert.throws(() => resolveAssetURL(RELATIVE, "http://cdn.example.com/assets"), /https:\/\//);
+    assert.throws(
+      () => resolveAssetURL("http://cdn.example.com/providers/eip155-14/0xabc/logo.webp", BASE),
+      /https:\/\//,
+    );
+    assert.throws(
+      () => toRelativeAssetPath("http://cdn.example.com/providers/eip155-14/0xabc/logo.webp"),
+      /https:\/\//,
+    );
+    assert.equal(
+      resolveAssetURL(RELATIVE, "HTTPS://cdn.example.com/assets"),
+      `HTTPS://cdn.example.com/assets/${RELATIVE}`,
+    );
+  });
+
   test("bucket upload can still rewrite logoURL onto an operator base", () => {
     const operator = "https://operator.example/static/";
     const once = withAbsoluteLogoURL({ logoURL: RELATIVE }, operator);

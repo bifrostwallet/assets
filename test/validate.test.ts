@@ -71,6 +71,12 @@ describe("validate.ts tests", () => {
     }
   });
 
+  test("rejects http URLs", () => {
+    assert.equal(isValidURL("http://example.com", "website"), false);
+    assert.equal(isValidURL("http://x.com/username", "x"), false);
+    assert.equal(isValidURL("https://example.com", "website"), true);
+  });
+
   test("isValidName() behaves as expected", () => {
     const validNames = [
       "Example Name",

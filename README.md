@@ -2,7 +2,7 @@
 
 Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
-**Using the catalog (npm package or all.json):** [CONSUMERS.md](CONSUMERS.md).
+**Using the catalog (npm package or all.json):** [CONSUMERS.md](CONSUMERS.md). Only https URLs are accepted.
 
 **Adding or listing something (providers, tokens, dapps):** [CONTRIBUTING.md](CONTRIBUTING.md).
 
