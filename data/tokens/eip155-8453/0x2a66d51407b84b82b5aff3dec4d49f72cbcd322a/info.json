@@ -1,0 +1,9 @@
+{
+  "name": "Beam",
+  "symbol": "BEAM",
+  "decimals": 18,
+  "address": "0x2a66d51407b84b82b5aff3dec4d49f72cbcd322a",
+  "coingeckoId": "beam-2",
+  "logoURL": "tokens/eip155-8453/0x2a66d51407b84b82b5aff3dec4d49f72cbcd322a/logo.webp",
+  "logoHash": "28d4b67228ae4a02e14bfb15e5db51c6d9b8b4a25b9bd567913c283a977abffa"
+}

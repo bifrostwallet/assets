@@ -1,0 +1,9 @@
+{
+  "name": "Synapse",
+  "symbol": "SYN",
+  "decimals": 18,
+  "address": "0x5a5fff6f753d7c11a56a52fe47a177a87e431655",
+  "coingeckoId": "synapse-2",
+  "logoURL": "tokens/eip155-10/0x5a5fff6f753d7c11a56a52fe47a177a87e431655/logo.webp",
+  "logoHash": "678365f12680d4d0694fce85dfc8f1e78f9b5c4e5ff878c3678bc9c12b0fe4ed"
+}

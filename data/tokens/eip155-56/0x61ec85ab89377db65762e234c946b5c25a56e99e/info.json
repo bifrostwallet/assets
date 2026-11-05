@@ -1,0 +1,9 @@
+{
+  "name": "HTX",
+  "symbol": "HTX",
+  "decimals": 18,
+  "address": "0x61ec85ab89377db65762e234c946b5c25a56e99e",
+  "coingeckoId": "htx-dao",
+  "logoURL": "tokens/eip155-56/0x61ec85ab89377db65762e234c946b5c25a56e99e/logo.webp",
+  "logoHash": "d8caf42565a10f00899ba918b313b17580f50a3c60fc6fc82aabf4cec06694e1"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SKY Governance Token",
+  "symbol": "SKY",
+  "decimals": 18,
+  "address": "0x56072c95faa701256059aa122697b133aded9279",
+  "coingeckoId": "sky",
+  "logoURL": "tokens/eip155-1/0x56072c95faa701256059aa122697b133aded9279/logo.webp",
+  "logoHash": "e25c01d254671f3fa1bb5a9060a36ae037d53effba4969859d3b7034749d4b49"
+}

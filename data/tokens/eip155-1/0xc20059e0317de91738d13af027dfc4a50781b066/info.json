@@ -1,0 +1,9 @@
+{
+  "name": "Spark",
+  "symbol": "SPK",
+  "decimals": 18,
+  "address": "0xc20059e0317de91738d13af027dfc4a50781b066",
+  "coingeckoId": "spark-2",
+  "logoURL": "tokens/eip155-1/0xc20059e0317de91738d13af027dfc4a50781b066/logo.webp",
+  "logoHash": "3071fb21c5f312d10f0eb8cb5d4dc0c98d03723d18efa76a459b71fa8d857743"
+}

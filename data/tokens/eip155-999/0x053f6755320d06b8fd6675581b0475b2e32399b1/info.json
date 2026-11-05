@@ -1,0 +1,9 @@
+{
+  "name": "Based Token",
+  "symbol": "BASED",
+  "decimals": 18,
+  "address": "0x053f6755320d06b8fd6675581b0475b2e32399b1",
+  "coingeckoId": "based-one",
+  "logoURL": "tokens/eip155-999/0x053f6755320d06b8fd6675581b0475b2e32399b1/logo.webp",
+  "logoHash": "9d2058bf5c1f9c0ed1e7979675799041968854fa8070ff3124d5ca4140fadc19"
+}

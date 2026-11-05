@@ -1,0 +1,9 @@
+{
+  "name": "Across Protocol Token",
+  "symbol": "ACX",
+  "decimals": 18,
+  "address": "0xff733b2a3557a7ed6697007ab5d11b79fdd1b76b",
+  "coingeckoId": "across-protocol",
+  "logoURL": "tokens/eip155-10/0xff733b2a3557a7ed6697007ab5d11b79fdd1b76b/logo.webp",
+  "logoHash": "167c7b9f155a41923ee9a7371e808e715f496ac9cd29eeb98572df00d5b4b60e"
+}

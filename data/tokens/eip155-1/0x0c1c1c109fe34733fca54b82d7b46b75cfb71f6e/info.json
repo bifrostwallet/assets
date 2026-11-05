@@ -1,0 +1,9 @@
+{
+  "name": "Chip",
+  "symbol": "CHIP",
+  "decimals": 18,
+  "address": "0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e",
+  "coingeckoId": "chip-2",
+  "logoURL": "tokens/eip155-1/0x0c1c1c109fe34733fca54b82d7b46b75cfb71f6e/logo.webp",
+  "logoHash": "5c798743008d77c8be83956d972605814f1654f7dfd1cb455905422c921881bd"
+}

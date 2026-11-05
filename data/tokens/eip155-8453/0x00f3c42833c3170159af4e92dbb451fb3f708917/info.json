@@ -1,0 +1,9 @@
+{
+  "name": "ICP",
+  "symbol": "ICP",
+  "decimals": 8,
+  "address": "0x00f3c42833c3170159af4e92dbb451fb3f708917",
+  "coingeckoId": "internet-computer",
+  "logoURL": "tokens/eip155-8453/0x00f3c42833c3170159af4e92dbb451fb3f708917/logo.webp",
+  "logoHash": "6d498ebde28d214c0ab2915270e07621be9fdea766c86d1118644df908f415a1"
+}

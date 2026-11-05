@@ -1,0 +1,9 @@
+{
+  "name": "MindNetwork FHE Token",
+  "symbol": "FHE",
+  "decimals": 18,
+  "address": "0xd55c9fb62e176a8eb6968f32958fefdd0962727e",
+  "coingeckoId": "mind-network",
+  "logoURL": "tokens/eip155-1/0xd55c9fb62e176a8eb6968f32958fefdd0962727e/logo.webp",
+  "logoHash": "260ea3ec1c09f249063e719680272dfe62ae1937faf6df56a0b513198f22ad81"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Reserve Rights",
+  "symbol": "RSR",
+  "decimals": 18,
+  "address": "0xca5ca9083702c56b481d1eec86f1776fdbd2e594",
+  "coingeckoId": "reserve-rights-token",
+  "logoURL": "tokens/eip155-42161/0xca5ca9083702c56b481d1eec86f1776fdbd2e594/logo.webp",
+  "logoHash": "ae4d3b50453d20387b272ba3a2387635e08f2475f8cf0fc0540a04671a3f8557"
+}

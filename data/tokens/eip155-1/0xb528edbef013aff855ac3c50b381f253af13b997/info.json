@@ -1,0 +1,9 @@
+{
+  "name": "Aevo",
+  "symbol": "AEVO",
+  "decimals": 18,
+  "address": "0xb528edbef013aff855ac3c50b381f253af13b997",
+  "coingeckoId": "aevo-exchange",
+  "logoURL": "tokens/eip155-1/0xb528edbef013aff855ac3c50b381f253af13b997/logo.webp",
+  "logoHash": "cf5f31e60f5fbf16eb8fd97e4323775e7d454fc937d79d20f0bb049a69ec66ce"
+}

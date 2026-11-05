@@ -1,0 +1,9 @@
+{
+  "name": "Quack AI Token",
+  "symbol": "Q",
+  "decimals": 18,
+  "address": "0xc07e1300dc138601fa6b0b59f8d0fa477e690589",
+  "coingeckoId": "quack-ai",
+  "logoURL": "tokens/eip155-56/0xc07e1300dc138601fa6b0b59f8d0fa477e690589/logo.webp",
+  "logoHash": "b4afb0e5a4e5f5c2c271c39fe2309878df6cc2b201f62f8e90de6da73cb7af45"
+}

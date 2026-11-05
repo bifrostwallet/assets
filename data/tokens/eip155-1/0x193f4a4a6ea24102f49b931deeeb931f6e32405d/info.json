@@ -1,0 +1,9 @@
+{
+  "name": "TLOS",
+  "symbol": "TLOS",
+  "decimals": 18,
+  "address": "0x193f4a4a6ea24102f49b931deeeb931f6e32405d",
+  "coingeckoId": "telos",
+  "logoURL": "tokens/eip155-1/0x193f4a4a6ea24102f49b931deeeb931f6e32405d/logo.webp",
+  "logoHash": "03b241c34fb42fb9b04429c826b8ff5800c141e6a7473ab268bb859fc47cfe70"
+}

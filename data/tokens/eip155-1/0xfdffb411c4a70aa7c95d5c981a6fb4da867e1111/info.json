@@ -1,0 +1,9 @@
+{
+  "name": "Sahara AI",
+  "symbol": "SAHARA",
+  "decimals": 18,
+  "address": "0xfdffb411c4a70aa7c95d5c981a6fb4da867e1111",
+  "coingeckoId": "sahara-ai",
+  "logoURL": "tokens/eip155-1/0xfdffb411c4a70aa7c95d5c981a6fb4da867e1111/logo.webp",
+  "logoHash": "2db5d24f0a280f757cd4efc0b0b64a31d55e517b0c36cddcd1a0f4d0f9b79f26"
+}

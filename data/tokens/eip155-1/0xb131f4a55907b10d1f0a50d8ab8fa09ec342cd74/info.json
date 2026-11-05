@@ -1,0 +1,9 @@
+{
+  "name": "Memecoin",
+  "symbol": "MEME",
+  "decimals": 18,
+  "address": "0xb131f4a55907b10d1f0a50d8ab8fa09ec342cd74",
+  "coingeckoId": "memecoin-2",
+  "logoURL": "tokens/eip155-1/0xb131f4a55907b10d1f0a50d8ab8fa09ec342cd74/logo.webp",
+  "logoHash": "5e855d67d8bf36ca1e4638f864153e89380dba05a2841e23e6744e1f9d35c8b9"
+}

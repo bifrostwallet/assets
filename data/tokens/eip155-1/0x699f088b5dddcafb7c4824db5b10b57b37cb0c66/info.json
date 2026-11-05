@@ -1,0 +1,9 @@
+{
+  "name": "Enso",
+  "symbol": "ENSO",
+  "decimals": 18,
+  "address": "0x699f088b5dddcafb7c4824db5b10b57b37cb0c66",
+  "coingeckoId": "enso",
+  "logoURL": "tokens/eip155-1/0x699f088b5dddcafb7c4824db5b10b57b37cb0c66/logo.webp",
+  "logoHash": "09f0461f4250352665ee956acc763498537996d22b348a50a924286fbe2d4170"
+}

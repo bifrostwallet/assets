@@ -1,0 +1,9 @@
+{
+  "name": "Eigen",
+  "symbol": "EIGEN",
+  "decimals": 18,
+  "address": "0x2081ab0d9ec9e4303234ab26d86b20b3367946ee",
+  "coingeckoId": "eigenlayer",
+  "logoURL": "tokens/eip155-8453/0x2081ab0d9ec9e4303234ab26d86b20b3367946ee/logo.webp",
+  "logoHash": "6a2400605d9b55ec6acea28caadc66ccbfbb667951a97764fdef3abb9e7753fd"
+}

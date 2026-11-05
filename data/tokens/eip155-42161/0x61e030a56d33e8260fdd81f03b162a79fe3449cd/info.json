@@ -1,0 +1,9 @@
+{
+  "name": "Fluid",
+  "symbol": "FLUID",
+  "decimals": 18,
+  "address": "0x61e030a56d33e8260fdd81f03b162a79fe3449cd",
+  "coingeckoId": "instadapp",
+  "logoURL": "tokens/eip155-42161/0x61e030a56d33e8260fdd81f03b162a79fe3449cd/logo.webp",
+  "logoHash": "9b06384dd7c8e6d795b596b87d189b2e33e7143779b763cc90897eaeb71e1f91"
+}

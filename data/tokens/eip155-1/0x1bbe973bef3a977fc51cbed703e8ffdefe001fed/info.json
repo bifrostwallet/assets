@@ -1,0 +1,9 @@
+{
+  "name": "PORTAL",
+  "symbol": "PORTAL",
+  "decimals": 18,
+  "address": "0x1bbe973bef3a977fc51cbed703e8ffdefe001fed",
+  "coingeckoId": "portal-2",
+  "logoURL": "tokens/eip155-1/0x1bbe973bef3a977fc51cbed703e8ffdefe001fed/logo.webp",
+  "logoHash": "9dfb56acee07d4dd611ecefd8bed3d6f66723ca450a2771245552b5e4851b04a"
+}

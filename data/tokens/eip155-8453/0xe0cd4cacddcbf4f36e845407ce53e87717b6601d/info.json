@@ -1,0 +1,9 @@
+{
+  "name": "Impossible Cloud Network Token",
+  "symbol": "ICNT",
+  "decimals": 18,
+  "address": "0xe0cd4cacddcbf4f36e845407ce53e87717b6601d",
+  "coingeckoId": "impossible-cloud-network-token",
+  "logoURL": "tokens/eip155-8453/0xe0cd4cacddcbf4f36e845407ce53e87717b6601d/logo.webp",
+  "logoHash": "5ee8e2dfcf969e1c5bf6fa9812e5f8b8791a634c517a4a7e6d2a62250ce6eec6"
+}

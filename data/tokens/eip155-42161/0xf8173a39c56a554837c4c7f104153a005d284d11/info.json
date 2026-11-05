@@ -1,0 +1,9 @@
+{
+  "name": "EDU Coin",
+  "symbol": "EDU",
+  "decimals": 18,
+  "address": "0xf8173a39c56a554837c4c7f104153a005d284d11",
+  "coingeckoId": "edu-coin",
+  "logoURL": "tokens/eip155-42161/0xf8173a39c56a554837c4c7f104153a005d284d11/logo.webp",
+  "logoHash": "58ec016f33058878292498b8e2450a287a2e07a8ee61c9ca5bfaecb296e99eb1"
+}

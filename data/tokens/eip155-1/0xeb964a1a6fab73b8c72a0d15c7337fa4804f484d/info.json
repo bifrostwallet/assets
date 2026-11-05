@@ -1,0 +1,9 @@
+{
+  "name": "Hemi",
+  "symbol": "HEMI",
+  "decimals": 18,
+  "address": "0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d",
+  "coingeckoId": "hemi",
+  "logoURL": "tokens/eip155-1/0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d/logo.webp",
+  "logoHash": "b3aac8853dfeb9d6871818660e8d90bdae0ee88269f6286e5927c6825733a987"
+}

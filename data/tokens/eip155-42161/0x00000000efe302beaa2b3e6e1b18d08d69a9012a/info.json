@@ -1,0 +1,9 @@
+{
+  "name": "AUSD",
+  "symbol": "AUSD",
+  "decimals": 6,
+  "address": "0x00000000efe302beaa2b3e6e1b18d08d69a9012a",
+  "coingeckoId": "agora-dollar",
+  "logoURL": "tokens/eip155-42161/0x00000000efe302beaa2b3e6e1b18d08d69a9012a/logo.webp",
+  "logoHash": "aa361aebf5b57647c3e0a1e2bdc9d292329aab79242772f8779702128eca48ac"
+}

@@ -1,5 +1,14 @@
 [
   {
+    "name": "Falcon USD",
+    "symbol": "USDf",
+    "decimals": 18,
+    "address": "0x8210c0634ab8f273806e4b7866e9db353773c44b",
+    "coingeckoId": "falcon-finance",
+    "logoURL": "tokens/eip155-50/0x8210c0634ab8f273806e4b7866e9db353773c44b/logo.webp",
+    "logoHash": "d17b10a823f4b18f2194a8e01edfd1daf32b6a28b8d5dfaaa3b03648bed4fd5c"
+  },
+  {
     "name": "Wrapped XDC",
     "symbol": "WXDC",
     "decimals": 18,
@@ -7,6 +16,15 @@
     "coingeckoId": "xdce-crowd-sale",
     "logoURL": "tokens/eip155-50/0x951857744785e80e2de051c32ee7b25f9c458c42/logo.webp",
     "logoHash": "40bff044cb6e2ca9a7b74563dc085a8652f9d8f6bf6a9fecefe271e53f320c99"
+  },
+  {
+    "name": "ChainLink Token",
+    "symbol": "LINK",
+    "decimals": 18,
+    "address": "0xe27dd9bf01b55ce6803c0d81386a04212c718b95",
+    "coingeckoId": "chainlink",
+    "logoURL": "tokens/eip155-50/0xe27dd9bf01b55ce6803c0d81386a04212c718b95/logo.webp",
+    "logoHash": "314777c584f34202f249efbca7e4d9cd8af7ed3e4af3ff67ce44d42da36bdada"
   },
   {
     "name": "USDC",

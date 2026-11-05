@@ -1,0 +1,9 @@
+{
+  "name": "Nomina",
+  "symbol": "NOM",
+  "decimals": 18,
+  "address": "0x6e6f6d696e61decd6605bd4a57836c5db6923340",
+  "coingeckoId": "nomina",
+  "logoURL": "tokens/eip155-1/0x6e6f6d696e61decd6605bd4a57836c5db6923340/logo.webp",
+  "logoHash": "d14cc6217cb2ffcd649310b26bf88b9fba8339490ccf165bbb169155c23383a0"
+}

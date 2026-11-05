@@ -1,0 +1,9 @@
+{
+  "name": "Plume",
+  "symbol": "PLUME",
+  "decimals": 18,
+  "address": "0x4c1746a800d224393fe2470c70a35717ed4ea5f1",
+  "coingeckoId": "plume",
+  "logoURL": "tokens/eip155-1/0x4c1746a800d224393fe2470c70a35717ed4ea5f1/logo.webp",
+  "logoHash": "a82be9b6622638181ba1114189f79054399233c2dd2f027671aea5f127793554"
+}

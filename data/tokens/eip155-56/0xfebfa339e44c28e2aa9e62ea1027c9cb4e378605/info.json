@@ -1,0 +1,9 @@
+{
+  "name": "Non-Playable Coin",
+  "symbol": "NPC",
+  "decimals": 18,
+  "address": "0xfebfa339e44c28e2aa9e62ea1027c9cb4e378605",
+  "coingeckoId": "non-playable-coin",
+  "logoURL": "tokens/eip155-56/0xfebfa339e44c28e2aa9e62ea1027c9cb4e378605/logo.webp",
+  "logoHash": "eac38d17ef2cf53ad5abde8e6f54ec39bd2cb466ff97237e194e9c102a6fbd2e"
+}

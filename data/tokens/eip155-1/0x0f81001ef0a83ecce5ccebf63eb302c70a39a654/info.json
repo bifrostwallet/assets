@@ -1,0 +1,9 @@
+{
+  "name": "Dolomite",
+  "symbol": "DOLO",
+  "decimals": 18,
+  "address": "0x0f81001ef0a83ecce5ccebf63eb302c70a39a654",
+  "coingeckoId": "dolomite",
+  "logoURL": "tokens/eip155-1/0x0f81001ef0a83ecce5ccebf63eb302c70a39a654/logo.webp",
+  "logoHash": "c2e92caa2b68d6ad8cd1a39bc78a5610e57854b7adba6fef3dddcdb3fb1fdcad"
+}

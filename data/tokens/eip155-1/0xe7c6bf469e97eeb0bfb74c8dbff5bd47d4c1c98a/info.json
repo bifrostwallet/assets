@@ -1,0 +1,9 @@
+{
+  "name": "HashKey Platform Token",
+  "symbol": "HSK",
+  "decimals": 18,
+  "address": "0xe7c6bf469e97eeb0bfb74c8dbff5bd47d4c1c98a",
+  "coingeckoId": "hashkey-ecopoints",
+  "logoURL": "tokens/eip155-1/0xe7c6bf469e97eeb0bfb74c8dbff5bd47d4c1c98a/logo.webp",
+  "logoHash": "9f845e06e352fad9e06a0be26df9ae50d11dee551909a80810ca1b120407d68f"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "LimeWire Token",
+  "symbol": "LMWR",
+  "decimals": 18,
+  "address": "0x628a3b2e302c7e896acc432d2d0dd22b6cb9bc88",
+  "coingeckoId": "limewire-token",
+  "logoURL": "tokens/eip155-1/0x628a3b2e302c7e896acc432d2d0dd22b6cb9bc88/logo.webp",
+  "logoHash": "f50717a4b9512bd24dd6da7c746e22753ae4fec0eb80bbb31768ece5e4495df1"
+}

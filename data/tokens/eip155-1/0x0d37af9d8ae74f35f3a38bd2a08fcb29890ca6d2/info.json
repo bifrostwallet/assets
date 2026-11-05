@@ -1,0 +1,9 @@
+{
+  "name": "AIXBT",
+  "symbol": "AIXBT",
+  "decimals": 18,
+  "address": "0x0d37af9d8ae74f35f3a38bd2a08fcb29890ca6d2",
+  "coingeckoId": "aixbt",
+  "logoURL": "tokens/eip155-1/0x0d37af9d8ae74f35f3a38bd2a08fcb29890ca6d2/logo.webp",
+  "logoHash": "59ef90d28a04df9710edbe717e3c76c813b1d72005609bac69d8401821f149a9"
+}

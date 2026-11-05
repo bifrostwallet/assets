@@ -1,0 +1,9 @@
+{
+  "name": "ZEROBASE",
+  "symbol": "ZBT",
+  "decimals": 18,
+  "address": "0xfab99fcf605fd8f4593edb70a43ba56542777777",
+  "coingeckoId": "zerobase",
+  "logoURL": "tokens/eip155-1/0xfab99fcf605fd8f4593edb70a43ba56542777777/logo.webp",
+  "logoHash": "d25632cbe6de509d980ba1223d8714847832b12ff6755c24812fad50839f69c8"
+}

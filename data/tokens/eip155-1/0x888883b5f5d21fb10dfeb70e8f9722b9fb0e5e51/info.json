@@ -1,0 +1,9 @@
+{
+  "name": "EURØP",
+  "symbol": "EUROP",
+  "decimals": 6,
+  "address": "0x888883b5f5d21fb10dfeb70e8f9722b9fb0e5e51",
+  "coingeckoId": "schuman-europ",
+  "logoURL": "tokens/eip155-1/0x888883b5f5d21fb10dfeb70e8f9722b9fb0e5e51/logo.webp",
+  "logoHash": "7bd80bd52bc6b645205c944c225dd6e57ad7bc8b0c64594347a42ae2de6da386"
+}

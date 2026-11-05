@@ -1,0 +1,9 @@
+{
+  "name": "Cookie",
+  "symbol": "COOKIE",
+  "decimals": 18,
+  "address": "0xc0041ef357b183448b235a8ea73ce4e4ec8c265f",
+  "coingeckoId": "cookie",
+  "logoURL": "tokens/eip155-1/0xc0041ef357b183448b235a8ea73ce4e4ec8c265f/logo.webp",
+  "logoHash": "7e3f8fd95e67543d1cdedb5eec7669d83179d2865ee3f36f0a374e4705f0c44c"
+}

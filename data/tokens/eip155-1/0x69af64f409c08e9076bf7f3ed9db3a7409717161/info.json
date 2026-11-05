@@ -1,0 +1,9 @@
+{
+  "name": "GoldZip ",
+  "symbol": "XGZ",
+  "decimals": 8,
+  "address": "0x69af64f409c08e9076bf7f3ed9db3a7409717161",
+  "coingeckoId": "goldzip-gold",
+  "logoURL": "tokens/eip155-1/0x69af64f409c08e9076bf7f3ed9db3a7409717161/logo.webp",
+  "logoHash": "954d4fc4cf1660fac720ee3eaeba60361b4779d519837f50b41b9044524a3b81"
+}

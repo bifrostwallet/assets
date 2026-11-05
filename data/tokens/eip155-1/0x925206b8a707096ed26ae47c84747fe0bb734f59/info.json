@@ -1,0 +1,9 @@
+{
+  "name": "WBT",
+  "symbol": "WBT",
+  "decimals": 8,
+  "address": "0x925206b8a707096ed26ae47c84747fe0bb734f59",
+  "coingeckoId": "whitebit",
+  "logoURL": "tokens/eip155-1/0x925206b8a707096ed26ae47c84747fe0bb734f59/logo.webp",
+  "logoHash": "032f01ca4e57a29a3c32d0d117b53b873f471d2d4cd400c7292c8b8294fc7c2c"
+}

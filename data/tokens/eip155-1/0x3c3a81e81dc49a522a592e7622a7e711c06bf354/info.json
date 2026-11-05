@@ -1,0 +1,9 @@
+{
+  "name": "Mantle",
+  "symbol": "MNT",
+  "decimals": 18,
+  "address": "0x3c3a81e81dc49a522a592e7622a7e711c06bf354",
+  "coingeckoId": "mantle",
+  "logoURL": "tokens/eip155-1/0x3c3a81e81dc49a522a592e7622a7e711c06bf354/logo.webp",
+  "logoHash": "9d92b22f0dca42d41c510ca1e68c7ee059fbd9ebe04c5683fbe59ab06d0a4cd3"
+}

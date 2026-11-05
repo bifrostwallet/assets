@@ -1,0 +1,9 @@
+{
+  "name": "KAIO",
+  "symbol": "KAIO",
+  "decimals": 18,
+  "address": "0x00bac91fd8f5b4a0dc03c8021139b76f6549ee7e",
+  "coingeckoId": "kaio",
+  "logoURL": "tokens/eip155-1/0x00bac91fd8f5b4a0dc03c8021139b76f6549ee7e/logo.webp",
+  "logoHash": "5d47e5d4df6bce2f041ea49c2eb0da7a59ab27e4d888d7f11c24706b46954191"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Rekt",
+  "symbol": "REKT",
+  "decimals": 18,
+  "address": "0xdd3b11ef34cd511a2da159034a05fcb94d806686",
+  "coingeckoId": "rekt-4",
+  "logoURL": "tokens/eip155-1/0xdd3b11ef34cd511a2da159034a05fcb94d806686/logo.webp",
+  "logoHash": "68ea75c505e6f153f5db69cf8e2a693fe4de31bb109cbe09378ca18caaf7d477"
+}

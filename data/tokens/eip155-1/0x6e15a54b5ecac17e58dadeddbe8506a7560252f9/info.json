@@ -1,0 +1,9 @@
+{
+  "name": "SynFutures",
+  "symbol": "F",
+  "decimals": 18,
+  "address": "0x6e15a54b5ecac17e58dadeddbe8506a7560252f9",
+  "coingeckoId": "synfutures",
+  "logoURL": "tokens/eip155-1/0x6e15a54b5ecac17e58dadeddbe8506a7560252f9/logo.webp",
+  "logoHash": "3d4633c9b66c05aa36ffd5758f58f113f268c2dec9a41161a5905af35c3a6ed1"
+}

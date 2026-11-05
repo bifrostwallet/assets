@@ -1,0 +1,9 @@
+{
+  "name": "Lisk",
+  "symbol": "LSK",
+  "decimals": 18,
+  "address": "0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f",
+  "coingeckoId": "lisk",
+  "logoURL": "tokens/eip155-1/0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f/logo.webp",
+  "logoHash": "f8426c59f92018f6bdbab65b16c5563dffedbb48f33d9085df4516534fff2bb8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Succinct",
+  "symbol": "PROVE",
+  "decimals": 18,
+  "address": "0x6bef15d938d4e72056ac92ea4bdd0d76b1c4ad29",
+  "coingeckoId": "succinct",
+  "logoURL": "tokens/eip155-1/0x6bef15d938d4e72056ac92ea4bdd0d76b1c4ad29/logo.webp",
+  "logoHash": "082097c6711a038f7a28b875b3cf2b5adeb432ee606c57baeaf7dff1f9aff346"
+}

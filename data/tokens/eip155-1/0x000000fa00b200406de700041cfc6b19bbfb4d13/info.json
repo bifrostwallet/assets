@@ -1,0 +1,9 @@
+{
+  "name": "Towns",
+  "symbol": "TOWNS",
+  "decimals": 18,
+  "address": "0x000000fa00b200406de700041cfc6b19bbfb4d13",
+  "coingeckoId": "towns",
+  "logoURL": "tokens/eip155-1/0x000000fa00b200406de700041cfc6b19bbfb4d13/logo.webp",
+  "logoHash": "ada0d846bae31d88c294b5891f4d1049268d8e062d48050933f07aef2258a4d6"
+}

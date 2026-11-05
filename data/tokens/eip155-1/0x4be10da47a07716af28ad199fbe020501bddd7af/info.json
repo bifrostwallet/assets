@@ -1,0 +1,9 @@
+{
+  "name": "XT Token",
+  "symbol": "XT",
+  "decimals": 18,
+  "address": "0x4be10da47a07716af28ad199fbe020501bddd7af",
+  "coingeckoId": "xtcom-token",
+  "logoURL": "tokens/eip155-1/0x4be10da47a07716af28ad199fbe020501bddd7af/logo.webp",
+  "logoHash": "f7afa0d3b744fcfbe9d6bf5e9315e4a6755a03da6a780484aafd5b64b0ad3641"
+}

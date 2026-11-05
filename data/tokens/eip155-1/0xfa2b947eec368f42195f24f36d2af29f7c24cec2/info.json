@@ -1,0 +1,9 @@
+{
+  "name": "Falcon USD",
+  "symbol": "USDf",
+  "decimals": 18,
+  "address": "0xfa2b947eec368f42195f24f36d2af29f7c24cec2",
+  "coingeckoId": "falcon-finance",
+  "logoURL": "tokens/eip155-1/0xfa2b947eec368f42195f24f36d2af29f7c24cec2/logo.webp",
+  "logoHash": "d17b10a823f4b18f2194a8e01edfd1daf32b6a28b8d5dfaaa3b03648bed4fd5c"
+}

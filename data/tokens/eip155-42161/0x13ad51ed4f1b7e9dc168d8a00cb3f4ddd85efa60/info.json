@@ -1,0 +1,9 @@
+{
+  "name": "Lido DAO Token",
+  "symbol": "LDO",
+  "decimals": 18,
+  "address": "0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60",
+  "coingeckoId": "lido-dao",
+  "logoURL": "tokens/eip155-42161/0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60/logo.webp",
+  "logoHash": "a3127b30028f130bcd2e6b5fae45dc37320471a62bdc60320e1dfc0f4e0de2ee"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Verified Emeralds",
+  "symbol": "VEREM",
+  "decimals": 18,
+  "address": "0x862829e8dcf0fd939d61d1b0d4a3aaf983ee4f73",
+  "coingeckoId": "verified-emeralds",
+  "logoURL": "tokens/eip155-56/0x862829e8dcf0fd939d61d1b0d4a3aaf983ee4f73/logo.webp",
+  "logoHash": "568f5c9256f46b36b13955643fde2e16aff31c657efba8ff9c3d51341a76736e"
+}

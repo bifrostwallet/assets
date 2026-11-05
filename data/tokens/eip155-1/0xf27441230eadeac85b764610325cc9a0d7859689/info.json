@@ -1,0 +1,9 @@
+{
+  "name": "Astar Token",
+  "symbol": "ASTR",
+  "decimals": 18,
+  "address": "0xf27441230eadeac85b764610325cc9a0d7859689",
+  "coingeckoId": "astar",
+  "logoURL": "tokens/eip155-1/0xf27441230eadeac85b764610325cc9a0d7859689/logo.webp",
+  "logoHash": "4bd283a6c56be09a636a27b33b57f6751f4d8208c91f96361bb6ed73683e2c3f"
+}

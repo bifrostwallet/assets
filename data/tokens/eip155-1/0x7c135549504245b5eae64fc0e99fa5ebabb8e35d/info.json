@@ -1,0 +1,9 @@
+{
+  "name": "Fidelity Digital Dollar",
+  "symbol": "FIDD",
+  "decimals": 18,
+  "address": "0x7c135549504245b5eae64fc0e99fa5ebabb8e35d",
+  "coingeckoId": "fidelity-digital-dollar",
+  "logoURL": "tokens/eip155-1/0x7c135549504245b5eae64fc0e99fa5ebabb8e35d/logo.webp",
+  "logoHash": "85e2ed56386c71fd8b2cc45f096fcfb0b46749cf44760199d426ef1a344127da"
+}

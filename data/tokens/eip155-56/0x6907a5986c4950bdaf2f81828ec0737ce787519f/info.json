@@ -1,0 +1,9 @@
+{
+  "name": "Zama",
+  "symbol": "ZAMA",
+  "decimals": 18,
+  "address": "0x6907a5986c4950bdaf2f81828ec0737ce787519f",
+  "coingeckoId": "zama",
+  "logoURL": "tokens/eip155-56/0x6907a5986c4950bdaf2f81828ec0737ce787519f/logo.webp",
+  "logoHash": "03ed06ab66fb7ea4d307dccb3e67db19e0af463533e69dc1085fa083b9b4460b"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Destra Network",
+  "symbol": "DSync",
+  "decimals": 18,
+  "address": "0xf94e7d0710709388bce3161c32b4eea56d3f91cc",
+  "coingeckoId": "destra-network",
+  "logoURL": "tokens/eip155-1/0xf94e7d0710709388bce3161c32b4eea56d3f91cc/logo.webp",
+  "logoHash": "8186fda3edd83080e0279357ef12cda8460a91d012aab6186dc297cb54bcc2db"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SafePalToken",
+  "symbol": "SFP",
+  "decimals": 18,
+  "address": "0x12e2b8033420270db2f3b328e32370cb5b2ca134",
+  "coingeckoId": "safepal",
+  "logoURL": "tokens/eip155-1/0x12e2b8033420270db2f3b328e32370cb5b2ca134/logo.webp",
+  "logoHash": "dc788662709f17670c92ff9f1bb1544551d2c2a670571073a201415717cbfd19"
+}

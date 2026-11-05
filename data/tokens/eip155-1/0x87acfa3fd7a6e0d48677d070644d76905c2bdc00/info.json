@@ -1,0 +1,9 @@
+{
+  "name": "Spacecoin",
+  "symbol": "SPACE",
+  "decimals": 18,
+  "address": "0x87acfa3fd7a6e0d48677d070644d76905c2bdc00",
+  "coingeckoId": "spacecoin-2",
+  "logoURL": "tokens/eip155-1/0x87acfa3fd7a6e0d48677d070644d76905c2bdc00/logo.webp",
+  "logoHash": "af12c686da74e2f45161f8b12037fc347be20ae534248d0ddd1642c8b2eef56c"
+}

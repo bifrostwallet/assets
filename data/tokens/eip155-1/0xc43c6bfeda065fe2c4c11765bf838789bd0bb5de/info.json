@@ -1,0 +1,9 @@
+{
+  "name": "Redstone",
+  "symbol": "RED",
+  "decimals": 18,
+  "address": "0xc43c6bfeda065fe2c4c11765bf838789bd0bb5de",
+  "coingeckoId": "redstone-oracles",
+  "logoURL": "tokens/eip155-1/0xc43c6bfeda065fe2c4c11765bf838789bd0bb5de/logo.webp",
+  "logoHash": "ab72699058bff8fd9ad5bef1903cf04383f029e109b41977871cfa2372bdec98"
+}

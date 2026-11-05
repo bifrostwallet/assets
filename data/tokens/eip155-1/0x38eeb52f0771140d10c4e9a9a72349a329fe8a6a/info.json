@@ -1,0 +1,9 @@
+{
+  "name": "apyUSD",
+  "symbol": "apyUSD",
+  "decimals": 18,
+  "address": "0x38eeb52f0771140d10c4e9a9a72349a329fe8a6a",
+  "coingeckoId": "apyusd",
+  "logoURL": "tokens/eip155-1/0x38eeb52f0771140d10c4e9a9a72349a329fe8a6a/logo.webp",
+  "logoHash": "ab6940cdbf32618d94e802dc0c028439c5f9cfa8d68b6b7dab84c76942dd2c3b"
+}

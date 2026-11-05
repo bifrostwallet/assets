@@ -1,0 +1,9 @@
+{
+  "name": "KERNEL",
+  "symbol": "KERNEL",
+  "decimals": 18,
+  "address": "0x3f80b1c54ae920be41a77f8b902259d48cf24ccf",
+  "coingeckoId": "kernel-2",
+  "logoURL": "tokens/eip155-1/0x3f80b1c54ae920be41a77f8b902259d48cf24ccf/logo.webp",
+  "logoHash": "b015a18b6c6c0202a0621c26dea442b139aa2dec935653dcda388cd04f26093c"
+}

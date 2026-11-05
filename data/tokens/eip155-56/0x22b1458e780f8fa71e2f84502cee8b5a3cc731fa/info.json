@@ -1,0 +1,9 @@
+{
+  "name": "MemeCore",
+  "symbol": "M",
+  "decimals": 18,
+  "address": "0x22b1458e780f8fa71e2f84502cee8b5a3cc731fa",
+  "coingeckoId": "memecore",
+  "logoURL": "tokens/eip155-56/0x22b1458e780f8fa71e2f84502cee8b5a3cc731fa/logo.webp",
+  "logoHash": "255c69d64c560dad2598e5f159482a463f9a5fe8a04e5c1641cca448716552cf"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Euler",
+  "symbol": "EUL",
+  "decimals": 18,
+  "address": "0x462cd9e0247b2e63831c3189ae738e5e9a5a4b64",
+  "coingeckoId": "euler",
+  "logoURL": "tokens/eip155-42161/0x462cd9e0247b2e63831c3189ae738e5e9a5a4b64/logo.webp",
+  "logoHash": "5a1c13520290b7a0603719f2311703d2a25a3622a8ddf76d301c815fdcd4bfa5"
+}

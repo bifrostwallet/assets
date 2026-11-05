@@ -1,0 +1,9 @@
+{
+  "name": "Gho Token",
+  "symbol": "GHO",
+  "decimals": 18,
+  "address": "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f",
+  "coingeckoId": "gho",
+  "logoURL": "tokens/eip155-1/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f/logo.webp",
+  "logoHash": "6c07ffe376bff28bee29da19e1bf3b24304c7aef2422d672ba7788d3b251db7f"
+}

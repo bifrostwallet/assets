@@ -1,0 +1,9 @@
+{
+  "name": "Kava",
+  "symbol": "KAVA",
+  "decimals": 18,
+  "address": "0x9bafc8d4b487cebff201721702507a3e2c67ad79",
+  "coingeckoId": "kava",
+  "logoURL": "tokens/eip155-56/0x9bafc8d4b487cebff201721702507a3e2c67ad79/logo.webp",
+  "logoHash": "f1d8ad7b9bc67bf971493f42aa113ee5b728c4dac084d3c72914ecc0d95bcf13"
+}

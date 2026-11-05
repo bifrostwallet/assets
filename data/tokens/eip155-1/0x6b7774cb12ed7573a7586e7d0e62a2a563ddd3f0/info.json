@@ -1,0 +1,9 @@
+{
+  "name": "Sophon",
+  "symbol": "SOPH",
+  "decimals": 18,
+  "address": "0x6b7774cb12ed7573a7586e7d0e62a2a563ddd3f0",
+  "coingeckoId": "sophon",
+  "logoURL": "tokens/eip155-1/0x6b7774cb12ed7573a7586e7d0e62a2a563ddd3f0/logo.webp",
+  "logoHash": "f04a979823f5202ffebaee6c351dbc9cd94bb23bfee7d64e4a6084a30e3e85f6"
+}

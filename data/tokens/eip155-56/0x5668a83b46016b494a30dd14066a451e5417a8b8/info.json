@@ -1,0 +1,9 @@
+{
+  "name": "Ultima",
+  "symbol": "ULTIMA",
+  "decimals": 6,
+  "address": "0x5668a83b46016b494a30dd14066a451e5417a8b8",
+  "coingeckoId": "ultima",
+  "logoURL": "tokens/eip155-56/0x5668a83b46016b494a30dd14066a451e5417a8b8/logo.webp",
+  "logoHash": "e3713b0783f679ebcdad79e006a18fbbfc23e0d3df95f88c7d860c311f98f7ea"
+}

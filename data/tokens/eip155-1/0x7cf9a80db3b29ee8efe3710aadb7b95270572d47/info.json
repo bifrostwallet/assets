@@ -1,0 +1,9 @@
+{
+  "name": "Nillion",
+  "symbol": "NIL",
+  "decimals": 6,
+  "address": "0x7cf9a80db3b29ee8efe3710aadb7b95270572d47",
+  "coingeckoId": "nillion",
+  "logoURL": "tokens/eip155-1/0x7cf9a80db3b29ee8efe3710aadb7b95270572d47/logo.webp",
+  "logoHash": "d11f7b53273e35a1ea94428b036488d53ba529d6918e2f97203d3bea2395f9e5"
+}

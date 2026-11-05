@@ -1,0 +1,9 @@
+{
+  "name": "BOB",
+  "symbol": "BOB",
+  "decimals": 18,
+  "address": "0xc9746f73cc33a36c2cd55b8aefd732586946cedd",
+  "coingeckoId": "bob-build-on-bitcoin",
+  "logoURL": "tokens/eip155-1/0xc9746f73cc33a36c2cd55b8aefd732586946cedd/logo.webp",
+  "logoHash": "ad094e483542165dca04a4093f5cdb359e55382517a9c29a405430b129146afb"
+}

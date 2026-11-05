@@ -1,0 +1,9 @@
+{
+  "name": "Chiliz",
+  "symbol": "CHZ",
+  "decimals": 18,
+  "address": "0x70c8392de9b39a1e48d12a70af6ff4be25d6d0a2",
+  "coingeckoId": "chiliz",
+  "logoURL": "tokens/eip155-8453/0x70c8392de9b39a1e48d12a70af6ff4be25d6d0a2/logo.webp",
+  "logoHash": "0310ac0f9c05ac537b8367598a9e8319f9f3602a025d22e346fa6d09a8ab13c5"
+}

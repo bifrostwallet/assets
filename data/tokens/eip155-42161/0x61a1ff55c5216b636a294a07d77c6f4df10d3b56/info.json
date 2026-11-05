@@ -1,0 +1,9 @@
+{
+  "name": "ApeX Token",
+  "symbol": "APEX",
+  "decimals": 18,
+  "address": "0x61a1ff55c5216b636a294a07d77c6f4df10d3b56",
+  "coingeckoId": "apex-token-2",
+  "logoURL": "tokens/eip155-42161/0x61a1ff55c5216b636a294a07d77c6f4df10d3b56/logo.webp",
+  "logoHash": "10535c3edd1132d8e0dabaed00f6c4f2de8c85d0ff2effe54f0252f12e29a330"
+}

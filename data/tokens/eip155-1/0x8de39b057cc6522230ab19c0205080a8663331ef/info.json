@@ -1,0 +1,9 @@
+{
+  "name": "wojak",
+  "symbol": "wojak",
+  "decimals": 18,
+  "address": "0x8de39b057cc6522230ab19c0205080a8663331ef",
+  "coingeckoId": "wojak-5",
+  "logoURL": "tokens/eip155-1/0x8de39b057cc6522230ab19c0205080a8663331ef/logo.webp",
+  "logoHash": "8691f38fd8680237845ddc3e5cd1eed236a7bdae44041fff1c98fc70faf5e749"
+}

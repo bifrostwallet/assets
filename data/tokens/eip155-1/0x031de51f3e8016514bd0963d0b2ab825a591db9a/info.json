@@ -1,0 +1,9 @@
+{
+  "name": "Espresso",
+  "symbol": "ESP",
+  "decimals": 18,
+  "address": "0x031de51f3e8016514bd0963d0b2ab825a591db9a",
+  "coingeckoId": "espresso",
+  "logoURL": "tokens/eip155-1/0x031de51f3e8016514bd0963d0b2ab825a591db9a/logo.webp",
+  "logoHash": "f8f670a4465aaabf77dcd059be313bd24fcbba284ac8ee7b0338a633e30546fc"
+}

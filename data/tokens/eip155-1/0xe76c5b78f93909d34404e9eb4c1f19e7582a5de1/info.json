@@ -1,0 +1,9 @@
+{
+  "name": "Humanity",
+  "symbol": "H",
+  "decimals": 18,
+  "address": "0xe76c5b78f93909d34404e9eb4c1f19e7582a5de1",
+  "coingeckoId": "humanity",
+  "logoURL": "tokens/eip155-1/0xe76c5b78f93909d34404e9eb4c1f19e7582a5de1/logo.webp",
+  "logoHash": "97261db9f85bbedeea09d9d4544d93d83d34aaf33a0623ef535dafb26a318a4f"
+}

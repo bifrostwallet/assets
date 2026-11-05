@@ -1,0 +1,9 @@
+{
+  "name": "FUEL",
+  "symbol": "FUEL",
+  "decimals": 9,
+  "address": "0x675b68aa4d9c2d3bb3f0397048e62e6b7192079c",
+  "coingeckoId": "fuel-network",
+  "logoURL": "tokens/eip155-1/0x675b68aa4d9c2d3bb3f0397048e62e6b7192079c/logo.webp",
+  "logoHash": "6d7bb6226590f86a10692a3b8e9edafbeac535e367dc03ff5d8ff00e95488306"
+}

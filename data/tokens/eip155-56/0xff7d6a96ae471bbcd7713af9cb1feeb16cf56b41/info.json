@@ -1,0 +1,9 @@
+{
+  "name": "Bedrock",
+  "symbol": "BR",
+  "decimals": 18,
+  "address": "0xff7d6a96ae471bbcd7713af9cb1feeb16cf56b41",
+  "coingeckoId": "bedrock-token",
+  "logoURL": "tokens/eip155-56/0xff7d6a96ae471bbcd7713af9cb1feeb16cf56b41/logo.webp",
+  "logoHash": "9ed277cbeab18afe52638642e5d5be965f7e3257167b1e5a9640edeafa2ba397"
+}

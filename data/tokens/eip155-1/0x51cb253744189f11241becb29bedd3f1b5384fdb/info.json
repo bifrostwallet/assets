@@ -1,0 +1,9 @@
+{
+  "name": "Dimitra Token",
+  "symbol": "DMTR",
+  "decimals": 18,
+  "address": "0x51cb253744189f11241becb29bedd3f1b5384fdb",
+  "coingeckoId": "dimitra",
+  "logoURL": "tokens/eip155-1/0x51cb253744189f11241becb29bedd3f1b5384fdb/logo.webp",
+  "logoHash": "06e4341bbabecdfe23a0df08b9a29b98bece358188dd0822d2f534b5c8b07568"
+}

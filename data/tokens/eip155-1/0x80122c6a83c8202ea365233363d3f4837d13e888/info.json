@@ -1,0 +1,9 @@
+{
+  "name": "Messier",
+  "symbol": "M87",
+  "decimals": 18,
+  "address": "0x80122c6a83c8202ea365233363d3f4837d13e888",
+  "coingeckoId": "messier",
+  "logoURL": "tokens/eip155-1/0x80122c6a83c8202ea365233363d3f4837d13e888/logo.webp",
+  "logoHash": "40385750d6733f2cc7802016cbc0630f760159114a8f298cdc485feab390d6b1"
+}

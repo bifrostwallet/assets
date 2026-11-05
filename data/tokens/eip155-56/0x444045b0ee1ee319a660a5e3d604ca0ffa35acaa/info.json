@@ -1,0 +1,9 @@
+{
+  "name": "Bitway Token",
+  "symbol": "BTW",
+  "decimals": 18,
+  "address": "0x444045b0ee1ee319a660a5e3d604ca0ffa35acaa",
+  "coingeckoId": "bitway",
+  "logoURL": "tokens/eip155-56/0x444045b0ee1ee319a660a5e3d604ca0ffa35acaa/logo.webp",
+  "logoHash": "f7ff2908925071007397ee33072a4faf0cbabd97b23e382c42a9dd1ff555e286"
+}

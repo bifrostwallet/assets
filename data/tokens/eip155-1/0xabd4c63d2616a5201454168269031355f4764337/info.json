@@ -1,0 +1,9 @@
+{
+  "name": "Orderly Network",
+  "symbol": "ORDER",
+  "decimals": 18,
+  "address": "0xabd4c63d2616a5201454168269031355f4764337",
+  "coingeckoId": "orderly-network",
+  "logoURL": "tokens/eip155-1/0xabd4c63d2616a5201454168269031355f4764337/logo.webp",
+  "logoHash": "cfa2bd578d4c97e16bf5f80c6e43f2630fd7e7ddef936ae01f7a723a3312a7cc"
+}

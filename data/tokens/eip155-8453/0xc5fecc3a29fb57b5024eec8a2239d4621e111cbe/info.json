@@ -1,0 +1,9 @@
+{
+  "name": "1INCH Token",
+  "symbol": "1INCH",
+  "decimals": 18,
+  "address": "0xc5fecc3a29fb57b5024eec8a2239d4621e111cbe",
+  "coingeckoId": "1inch",
+  "logoURL": "tokens/eip155-8453/0xc5fecc3a29fb57b5024eec8a2239d4621e111cbe/logo.webp",
+  "logoHash": "14df80b89dda6c3131a944c0f11df0d1c869ee85ea09cd037ec257389c80ddfd"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "CoW Protocol Token(PoS)",
+  "symbol": "COW",
+  "decimals": 18,
+  "address": "0x2f4efd3aa42e15a1ec6114547151b63ee5d39958",
+  "coingeckoId": "cow-protocol",
+  "logoURL": "tokens/eip155-137/0x2f4efd3aa42e15a1ec6114547151b63ee5d39958/logo.webp",
+  "logoHash": "190465a5898d180d7b0ec8b521990fd58800fd7aa78855fc9307ef89ca864955"
+}

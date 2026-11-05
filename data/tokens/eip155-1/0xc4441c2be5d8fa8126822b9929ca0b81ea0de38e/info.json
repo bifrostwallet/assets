@@ -1,0 +1,9 @@
+{
+  "name": "USUAL",
+  "symbol": "USUAL",
+  "decimals": 18,
+  "address": "0xc4441c2be5d8fa8126822b9929ca0b81ea0de38e",
+  "coingeckoId": "usual",
+  "logoURL": "tokens/eip155-1/0xc4441c2be5d8fa8126822b9929ca0b81ea0de38e/logo.webp",
+  "logoHash": "b6b7bec138ba9f843b711105e236964e214bc73ec20a60a111849a14597b330c"
+}

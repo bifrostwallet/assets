@@ -1,0 +1,9 @@
+{
+  "name": "Monerium EURe",
+  "symbol": "EURe",
+  "decimals": 18,
+  "address": "0x0c06ccf38114ddfc35e07427b9424adcca9f44f8",
+  "coingeckoId": "monerium-eur-money-2",
+  "logoURL": "tokens/eip155-42161/0x0c06ccf38114ddfc35e07427b9424adcca9f44f8/logo.webp",
+  "logoHash": "f99c8954d102a16835ca846222f4ba7a371916e9b1fedc8fa4dbda1a152597d9"
+}

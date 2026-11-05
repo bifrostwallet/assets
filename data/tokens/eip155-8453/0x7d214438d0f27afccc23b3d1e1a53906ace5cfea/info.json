@@ -1,0 +1,9 @@
+{
+  "name": "Re Protocol reUSD",
+  "symbol": "reUSD",
+  "decimals": 18,
+  "address": "0x7d214438d0f27afccc23b3d1e1a53906ace5cfea",
+  "coingeckoId": "re-protocol-reusd",
+  "logoURL": "tokens/eip155-8453/0x7d214438d0f27afccc23b3d1e1a53906ace5cfea/logo.webp",
+  "logoHash": "935a9ac318bf75dfdf1f5a61a4162be707c624d6f43781ac91182f96180a64b1"
+}

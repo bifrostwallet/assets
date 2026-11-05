@@ -1,0 +1,9 @@
+{
+  "name": "Ondo",
+  "symbol": "ONDO",
+  "decimals": 18,
+  "address": "0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3",
+  "coingeckoId": "ondo-finance",
+  "logoURL": "tokens/eip155-1/0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3/logo.webp",
+  "logoHash": "e24aa0e8beb56ea899b7262aecbf9fb7ed370cc47584953a47499ca573596797"
+}

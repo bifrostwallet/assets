@@ -1,0 +1,9 @@
+{
+  "name": "Forta",
+  "symbol": "FORT",
+  "decimals": 18,
+  "address": "0x9ff62d1fc52a907b6dcba8077c2ddca6e6a9d3e1",
+  "coingeckoId": "forta",
+  "logoURL": "tokens/eip155-137/0x9ff62d1fc52a907b6dcba8077c2ddca6e6a9d3e1/logo.webp",
+  "logoHash": "0682364e4fd975d9deb139d8fa377074ccbe9f91be414ec40b3aa3a7aa98b438"
+}

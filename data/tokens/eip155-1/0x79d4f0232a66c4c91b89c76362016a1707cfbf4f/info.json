@@ -1,0 +1,9 @@
+{
+  "name": "VNX Franc",
+  "symbol": "VCHF",
+  "decimals": 18,
+  "address": "0x79d4f0232a66c4c91b89c76362016a1707cfbf4f",
+  "coingeckoId": "vnx-swiss-franc",
+  "logoURL": "tokens/eip155-1/0x79d4f0232a66c4c91b89c76362016a1707cfbf4f/logo.webp",
+  "logoHash": "eec21d420985a7bf3667664000f7784eb8fd3512ff4c3b68c4ad907cedd2ad35"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Tagger",
+  "symbol": "TAG",
+  "decimals": 18,
+  "address": "0x208bf3e7da9639f1eaefa2de78c23396b0682025",
+  "coingeckoId": "tagger",
+  "logoURL": "tokens/eip155-56/0x208bf3e7da9639f1eaefa2de78c23396b0682025/logo.webp",
+  "logoHash": "ecbc9514f5c2805ee2e33ae4d941acd56386f7e13da563c42b5ac99779d90bb6"
+}

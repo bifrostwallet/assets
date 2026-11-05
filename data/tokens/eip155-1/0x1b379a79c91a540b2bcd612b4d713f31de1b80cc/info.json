@@ -1,0 +1,9 @@
+{
+  "name": "Naoris Protocol",
+  "symbol": "NAORIS",
+  "decimals": 18,
+  "address": "0x1b379a79c91a540b2bcd612b4d713f31de1b80cc",
+  "coingeckoId": "naoris",
+  "logoURL": "tokens/eip155-1/0x1b379a79c91a540b2bcd612b4d713f31de1b80cc/logo.webp",
+  "logoHash": "af4d00d8272fffafb102df0850fa36ae5fd8e98240482d131da16698692d5961"
+}

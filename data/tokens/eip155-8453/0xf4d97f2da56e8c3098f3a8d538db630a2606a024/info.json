@@ -1,0 +1,9 @@
+{
+  "name": "Diem",
+  "symbol": "DIEM",
+  "decimals": 18,
+  "address": "0xf4d97f2da56e8c3098f3a8d538db630a2606a024",
+  "coingeckoId": "diem",
+  "logoURL": "tokens/eip155-8453/0xf4d97f2da56e8c3098f3a8d538db630a2606a024/logo.webp",
+  "logoHash": "c87723a4804b007d6012eadb0bf9db99e109a0a3bde0140b37da1d9575898bd3"
+}

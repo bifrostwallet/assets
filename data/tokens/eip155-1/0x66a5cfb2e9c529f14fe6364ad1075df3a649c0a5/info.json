@@ -1,0 +1,9 @@
+{
+  "name": "ZKsync",
+  "symbol": "ZK",
+  "decimals": 18,
+  "address": "0x66a5cfb2e9c529f14fe6364ad1075df3a649c0a5",
+  "coingeckoId": "zksync",
+  "logoURL": "tokens/eip155-1/0x66a5cfb2e9c529f14fe6364ad1075df3a649c0a5/logo.webp",
+  "logoHash": "5448432d32f26659aa866b8dad005b0fd249ce413f903abb99e700ca44246b88"
+}

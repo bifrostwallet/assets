@@ -1,0 +1,9 @@
+{
+  "name": "Anoma",
+  "symbol": "XAN",
+  "decimals": 18,
+  "address": "0xcedbea37c8872c4171259cdfd5255cb8923cf8e7",
+  "coingeckoId": "anoma",
+  "logoURL": "tokens/eip155-1/0xcedbea37c8872c4171259cdfd5255cb8923cf8e7/logo.webp",
+  "logoHash": "1e936ff977d817a25680b481b559745eaf3d72a95c9a1b1829bf7b972c6d9e0b"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Brett",
+  "symbol": "BRETT",
+  "decimals": 18,
+  "address": "0x532f27101965dd16442e59d40670faf5ebb142e4",
+  "coingeckoId": "based-brett",
+  "logoURL": "tokens/eip155-8453/0x532f27101965dd16442e59d40670faf5ebb142e4/logo.webp",
+  "logoHash": "dae3877e438d476913772955671eba07fde138957463917def8af4bbf6d38825"
+}

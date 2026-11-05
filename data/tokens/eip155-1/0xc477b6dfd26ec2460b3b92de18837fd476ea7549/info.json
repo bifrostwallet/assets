@@ -1,0 +1,9 @@
+{
+  "name": "JANCTION",
+  "symbol": "JCT",
+  "decimals": 18,
+  "address": "0xc477b6dfd26ec2460b3b92de18837fd476ea7549",
+  "coingeckoId": "janction",
+  "logoURL": "tokens/eip155-1/0xc477b6dfd26ec2460b3b92de18837fd476ea7549/logo.webp",
+  "logoHash": "fa7c26fac89049073719fa47fad097a4e482c2d97a3f9be2623f008dfb355da5"
+}

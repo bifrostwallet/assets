@@ -1,0 +1,9 @@
+{
+  "name": "Avail",
+  "symbol": "AVAIL",
+  "decimals": 18,
+  "address": "0xeeb4d8400aeefafc1b2953e0094134a887c76bd8",
+  "coingeckoId": "avail",
+  "logoURL": "tokens/eip155-1/0xeeb4d8400aeefafc1b2953e0094134a887c76bd8/logo.webp",
+  "logoHash": "b610d08ae77c22baa14fe51d022595c847fe3d2f690ddc0fec13a30a7f109775"
+}

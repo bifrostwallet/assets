@@ -1,0 +1,9 @@
+{
+  "name": "Caldera",
+  "symbol": "ERA",
+  "decimals": 18,
+  "address": "0xe2ad0bf751834f2fbdc62a41014f84d67ca1de2a",
+  "coingeckoId": "caldera",
+  "logoURL": "tokens/eip155-1/0xe2ad0bf751834f2fbdc62a41014f84d67ca1de2a/logo.webp",
+  "logoHash": "27ed1d11e41c71efbab96a2fda25de4c88b77c6879be621df791e00f7f7dfe36"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SoSoValue",
+  "symbol": "SOSO",
+  "decimals": 18,
+  "address": "0x624e2e7fdc8903165f64891672267ab0fcb98831",
+  "coingeckoId": "sosovalue",
+  "logoURL": "tokens/eip155-8453/0x624e2e7fdc8903165f64891672267ab0fcb98831/logo.webp",
+  "logoHash": "4693a7b372bb6d4fcde198e5bf6bb808f1f7f971e41ef0873c1b32373a52df79"
+}

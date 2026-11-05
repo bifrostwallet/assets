@@ -1,0 +1,9 @@
+{
+  "name": "SOON Token",
+  "symbol": "SOON",
+  "decimals": 18,
+  "address": "0xb9e1fd5a02d3a33b25a14d661414e6ed6954a721",
+  "coingeckoId": "soon-2",
+  "logoURL": "tokens/eip155-56/0xb9e1fd5a02d3a33b25a14d661414e6ed6954a721/logo.webp",
+  "logoHash": "a11837dd3d557e6b6c1be53befa63d28a739cb978e7f34515eb7c3be78f08947"
+}

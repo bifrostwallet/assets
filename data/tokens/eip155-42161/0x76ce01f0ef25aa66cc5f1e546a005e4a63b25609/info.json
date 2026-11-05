@@ -1,0 +1,9 @@
+{
+  "name": "Re Protocol Deposit Token",
+  "symbol": "reUSD",
+  "decimals": 18,
+  "address": "0x76ce01f0ef25aa66cc5f1e546a005e4a63b25609",
+  "coingeckoId": "re-protocol-reusd",
+  "logoURL": "tokens/eip155-42161/0x76ce01f0ef25aa66cc5f1e546a005e4a63b25609/logo.webp",
+  "logoHash": "935a9ac318bf75dfdf1f5a61a4162be707c624d6f43781ac91182f96180a64b1"
+}

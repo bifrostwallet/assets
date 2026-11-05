@@ -1,0 +1,9 @@
+{
+  "name": "Tellor",
+  "symbol": "TRB",
+  "decimals": 18,
+  "address": "0xaf8ca653fa2772d58f4368b0a71980e9e3ceb888",
+  "coingeckoId": "tellor",
+  "logoURL": "tokens/eip155-10/0xaf8ca653fa2772d58f4368b0a71980e9e3ceb888/logo.webp",
+  "logoHash": "dc8b892558869748f48dfcf1be32e9a3ddf3706b2c30e42225b9c37169545cd3"
+}

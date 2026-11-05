@@ -1,0 +1,9 @@
+{
+  "name": "Lagrange",
+  "symbol": "LA",
+  "decimals": 18,
+  "address": "0x0fc2a55d5bd13033f1ee0cdd11f60f7efe66f467",
+  "coingeckoId": "lagrange",
+  "logoURL": "tokens/eip155-1/0x0fc2a55d5bd13033f1ee0cdd11f60f7efe66f467/logo.webp",
+  "logoHash": "ffaedc020e8ccbce1c038afff5cffff8598e461d4ff9210ae183608af3bbd596"
+}

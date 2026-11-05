@@ -1,0 +1,9 @@
+{
+  "name": "Everything",
+  "symbol": "EV",
+  "decimals": 18,
+  "address": "0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7",
+  "coingeckoId": "everything",
+  "logoURL": "tokens/eip155-1/0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7/logo.webp",
+  "logoHash": "276fdb13d16ae0a5129b79a48783f4f7ac7edac1adbaf8b59c37bb255a5fc321"
+}
