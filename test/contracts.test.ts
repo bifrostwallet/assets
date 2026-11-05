@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import { describe, test } from "node:test";
-import { resolveAssetURL } from "../src/assetUrl.js";
+import { resolveAssetURL, toRelativeAssetPath } from "../src/assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS } from "../src/config.js";
 import {
   CONTRACT_CATEGORIES,
@@ -265,7 +266,8 @@ describe("published package lookups", { concurrency: false }, () => {
     const fromCatalog = getContract("eip155:14", BIFROST_POOL);
     assert.ok(fromPackage?.logoURL);
     assert.ok(fromCatalog?.logoURL);
-    assert.equal(fromPackage.logoURL, resolveAssetURL(fromCatalog.logoURL));
+    assert.equal(fromPackage.logoURL, toRelativeAssetPath(fromCatalog.logoURL));
+    assert.equal(/^https?:\/\//i.test(fromPackage.logoURL), false);
     const { logoURL: _packageLogo, ...packageRest } = fromPackage;
     const { logoURL: _catalogLogo, ...catalogRest } = fromCatalog;
     assert.deepEqual(packageRest, catalogRest);
@@ -291,6 +293,151 @@ describe("published package lookups", { concurrency: false }, () => {
       null,
     );
     assert.throws(() => assets.getContracts("not-a-chain"));
+  });
+
+  test("published package keeps relative logoURL and ships no logo files", () => {
+    const previousBase = process.env.ASSET_BASE_URL;
+    process.env.ASSET_BASE_URL = "https://operator.example/cdn/";
+    let assets: PackageAssets;
+    try {
+      assets = loadBuiltPackage();
+    } finally {
+      if (previousBase === undefined) delete process.env.ASSET_BASE_URL;
+      else process.env.ASSET_BASE_URL = previousBase;
+    }
+
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+      peerDependencies?: Record<string, string>;
+      version: string;
+    };
+    const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
+      version: string;
+    };
+    assert.equal(manifest.version, root.version);
+    assert.deepEqual(manifest.dependencies, {});
+    assert.equal(manifest.devDependencies, undefined);
+    assert.equal(manifest.peerDependencies, undefined);
+
+    const logoURLs = publishedLogoURLs(path.join(process.cwd(), "dist"));
+    assert.ok(logoURLs.length > 0);
+    for (const logoURL of logoURLs) {
+      assert.equal(/^https?:\/\//i.test(logoURL), false, logoURL);
+      assert.match(logoURL, /^(providers|tokens|dapps|contracts)\//);
+    }
+
+    const bifrost = assets.getProvider("eip155:14", "0x1650d2760baee638c034200dedcbe17b050d0364");
+    assert.ok(bifrost);
+    assert.equal(
+      bifrost.logoURL,
+      "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+    );
+    const packagedLogo = path.join(process.cwd(), "dist", bifrost.logoURL);
+    const sourceLogo = path.join(process.cwd(), "data", bifrost.logoURL);
+    assert.equal(fs.existsSync(sourceLogo), true);
+    assert.equal(fs.existsSync(packagedLogo), false);
+    assert.deepEqual(logoWebps(path.join(process.cwd(), "dist")), []);
+
+    const wflr = assets.getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
+    assert.ok(wflr);
+    assert.match(wflr.logoURL, /^tokens\//);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", wflr.logoURL)), false);
+
+    const pool = assets.getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
+    assert.ok(pool);
+    assert.match(pool.logoURL, /^dapps\//);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", pool.logoURL)), false);
+
+    const base = "https://cdn.example.com/assets";
+    const joined = `https://cdn.example.com/assets/${bifrost.logoURL}`;
+    assert.equal(assets.resolveAssetURL(bifrost.logoURL, base), joined);
+    assert.equal(assets.resolveAssetURL(bifrost.logoURL, `${base}/`), joined);
+    assert.equal(
+      assets.resolveAssetURL(
+        `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/${bifrost.logoURL}`,
+        base,
+      ),
+      joined,
+    );
+    assert.equal(
+      assets.resolveAssetURL(`https://cdn.example.com/static/${bifrost.logoURL}`, base),
+      joined,
+    );
+    assert.equal(
+      assets.resolveAssetURL(`https://assets.example.com/bucket/${wflr.logoURL}?v=1`, `${base}/`),
+      `https://cdn.example.com/assets/${wflr.logoURL}`,
+    );
+    assert.equal(
+      assets.resolveAssetURL(pool.logoURL, base),
+      `https://cdn.example.com/assets/${pool.logoURL}`,
+    );
+    const unknown = "https://images.example.com/unrelated.png";
+    assert.equal(assets.resolveAssetURL(unknown, base), unknown);
+    assert.equal(
+      assets.resolveAssetURL(bifrost.logoURL),
+      `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/${bifrost.logoURL}`,
+    );
+    assert.equal(
+      assets.resolveAssetURL(bifrost.logoURL, base),
+      resolveAssetURL(bifrost.logoURL, base),
+    );
+
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes('require("./signatures'), false);
+    assert.equal(Object.hasOwn(bifrost, "signatures"), false);
+    const manifestWithExports = manifest as typeof manifest & {
+      exports?: { "./signatures"?: { default?: string } };
+    };
+    assert.equal(manifestWithExports.exports?.["./signatures"]?.default, "./signatures.js");
+
+    const signaturesPath = path.join(process.cwd(), "dist", "signatures.js");
+    const packageRequire = createRequire(path.join(process.cwd(), "package.json"));
+    delete packageRequire.cache[signaturesPath];
+    const { getProviderSignatures } = packageRequire(signaturesPath) as {
+      getProviderSignatures: (
+        chainId: string,
+        identityAddress: string,
+      ) => { signatures: { signerAddress: string }[] } | null;
+    };
+    const bifrostSignatures = getProviderSignatures(
+      "eip155:14",
+      "0x1650d2760baee638c034200dedcbe17b050d0364",
+    );
+    assert.ok(bifrostSignatures);
+    assert.equal(
+      bifrostSignatures.signatures.some(
+        (entry) =>
+          entry.signerAddress.toLowerCase() === "0x1650d2760baee638c034200dedcbe17b050d0364",
+      ),
+      true,
+    );
+    assert.equal(
+      getProviderSignatures("eip155:14", "0x1111111111111111111111111111111111111111"),
+      null,
+    );
+
+    const packed = JSON.parse(
+      execFileSync("npm", ["pack", "--dry-run", "--json"], {
+        cwd: path.join(process.cwd(), "dist"),
+        encoding: "utf8",
+      }),
+    ) as Array<{ files: Array<{ path: string }> }>;
+    const packedPaths = packed.flatMap((entry) => entry.files.map((file) => file.path));
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("logo.webp")),
+      false,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("signatures.js")),
+      true,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("signatures.json")),
+      true,
+    );
   });
 
   test("getToken stays address-based and getXrplToken is exact-case", () => {
@@ -330,4 +477,60 @@ describe("published package lookups", { concurrency: false }, () => {
 
 function sha256File(filePath: string): string {
   return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+}
+
+interface PackageAssets {
+  getProvider: (chainId: string, identityAddress: string) => { logoURL: string } | null;
+  getToken: (chainId: string, address: string) => { logoURL: string } | null;
+  getContract: (chainId: string, address: string) => { logoURL: string } | null;
+  resolveAssetURL: (logoURL: string, baseURL?: string) => string;
+  DEFAULT_ASSET_BASE_URL: string;
+}
+
+function loadBuiltPackage(): PackageAssets {
+  buildPackage();
+  const indexPath = path.join(process.cwd(), "dist", "index.js");
+  const require = createRequire(path.join(process.cwd(), "package.json"));
+  delete require.cache[indexPath];
+  return require(indexPath) as PackageAssets;
+}
+
+function logoWebps(root: string): string[] {
+  const found: string[] = [];
+  const walk = (dir: string): void => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (entry.name !== "logo.webp") continue;
+      found.push(path.relative(root, fullPath).split(path.sep).join("/"));
+    }
+  };
+  walk(root);
+  return found.sort();
+}
+
+function publishedLogoURLs(distDir: string): string[] {
+  const found: string[] = [];
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
+      const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+      if (!Array.isArray(parsed)) continue;
+      for (const item of parsed) {
+        if (!item || typeof item !== "object" || !("logoURL" in item)) continue;
+        found.push(String((item as { logoURL: unknown }).logoURL));
+      }
+    }
+  };
+  walk(distDir);
+  return found;
 }

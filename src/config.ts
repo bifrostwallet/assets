@@ -36,9 +36,9 @@ function defaultAssetBaseURL(): string {
 }
 
 /**
- * Default logo host for published lists (all.json / NPM): GitHub raw for this repo.
- * Per-entry info.json keeps a relative logoURL; aggregates expand via ASSET_BASE_URL
- * (see src/assetUrl.ts). Operators publishing to their own CDN set ASSET_BASE_URL.
+ * Default asset prefix derived from this repo (GitHub raw `…/data/`).
+ * Operator tooling may expand logoURL with ASSET_BASE_URL. The npm package
+ * keeps logoURL relative; integrators pass their own base to resolveAssetURL.
  */
 export const DEFAULT_ASSET_BASE_URL = defaultAssetBaseURL();
 
@@ -255,7 +255,7 @@ export interface DappInfo {
   title: string;
   description: string;
   url: string;
-  /** Relative logo path in git (`dapps/<slug>/logo.webp`). Absolute in the published package. */
+  /** Relative logo path (`dapps/<slug>/logo.webp`) in git and in the npm package. */
   logoURL: string;
   /** SHA-256 of logo.webp. Contract files copy this with logoURL. */
   logoHash: string;
