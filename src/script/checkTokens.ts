@@ -3,6 +3,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, type Hex, http, type PublicClient } from "viem";
 import { ASSET_LOGO_REQUIREMENTS } from "../config.js";
+import { buildTokensAllJson } from "../convert.js";
 import { chainIdFromPath, rpcUrlForChain } from "../evmRpc.js";
 import { isMain } from "../isMain.js";
 import { duplicateSymbolErrors, listEvmSymbolUses } from "../tokenSymbols.js";
@@ -10,7 +11,6 @@ import {
   type EvmToken,
   listTokenChainPaths,
   listTokenDirs,
-  loadBlocklist,
   loadEvmToken,
   validateEvmToken,
 } from "../tokens.js";
@@ -19,7 +19,6 @@ import {
   listXrplTokenDirs,
   validateXrplToken,
   XRPL_MAINNET_CHAIN_PATH,
-  type XrplToken,
   xrplCatalogPathErrors,
 } from "../xrplToken.js";
 
@@ -34,9 +33,10 @@ import {
  * string exit non-zero. Name and decimals mismatches stay advisory.
  * symbol() is read as a string only. bytes32 symbols are not supported.
  * This pass reads chain state only when a `*_NODE_URL` is already set; CI
- * does not set them. A new duplicate EVM symbol exits 1. Duplicate symbols
- * already on main are grandfathered in `tokenSymbols.ts`. A `.` in a symbol
- * is kept, because that character is part of the on-chain text.
+ * does not set them. A new duplicate EVM symbol, or a token `all.json` that
+ * does not match `rebuildTokensAllJson`, exits 1. Duplicate symbols already
+ * on main are grandfathered in `tokenSymbols.ts`. A `.` in a symbol is kept,
+ * because that character is part of the on-chain text.
  *
  * RPC env (optional, per chain; see `RPC_ENV_BY_CHAIN`):
  *   ETHEREUM_NODE_URL, OPTIMISM_NODE_URL, FLARE_NODE_URL, SONGBIRD_NODE_URL,
@@ -107,6 +107,7 @@ type CheckReport = {
   symbolReadErrors: string[];
   mismatches: Mismatch[];
   duplicateSymbols: string[];
+  aggregateErrors: string[];
 };
 
 function clientFor(chainId: number, rpc: string): PublicClient {
@@ -250,7 +251,6 @@ function checkXrplChain(report: CheckReport): void {
   for (const error of xrplCatalogPathErrors()) {
     report.schemaErrors.push(error);
   }
-  const entries: XrplToken[] = [];
   for (const { issuerDir, currencyDir, dir } of listXrplTokenDirs()) {
     const label = `${chainPath}/${issuerDir}/${currencyDir}`;
     const infoPath = path.join(dir, "info.json");
@@ -272,46 +272,49 @@ function checkXrplChain(report: CheckReport): void {
     for (const error of validateXrplToken(info, issuerDir, currencyDir, logoSha256)) {
       report.schemaErrors.push(`${label}: ${error}`);
     }
-    if (info && typeof info === "object" && !Array.isArray(info)) {
-      entries.push(info as XrplToken);
-    }
     const logoURL =
       info && typeof info === "object" && !Array.isArray(info) && "logoURL" in info
         ? String((info as { logoURL?: unknown }).logoURL ?? "")
         : "";
     checkLogoFile(label, dir, logoURL, report);
   }
-  checkXrplAggregate(chainPath, entries, report);
 }
 
-/** `all.json` is what the package publishes, so it has to match every info.json. */
-function checkXrplAggregate(chainPath: string, entries: XrplToken[], report: CheckReport): void {
+/**
+ * EVM and XRPL `all.json` must equal {@link buildTokensAllJson}.
+ * `info.json` stays relative; the aggregate uses absolute GitHub logo URLs.
+ */
+function checkTokenAggregate(chainPath: string, report: CheckReport): void {
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
   if (!fs.existsSync(allPath)) {
-    report.schemaErrors.push(`${chainPath}/all.json: missing aggregate`);
+    report.aggregateErrors.push(`${chainPath}/all.json: missing aggregate`);
     return;
   }
   let parsed: unknown;
   try {
     parsed = JSON.parse(fs.readFileSync(allPath, "utf8"));
   } catch (error) {
-    report.schemaErrors.push(
+    report.aggregateErrors.push(
       `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
     );
     return;
   }
   if (!Array.isArray(parsed)) {
-    report.schemaErrors.push(`${chainPath}/all.json: expected an array`);
+    report.aggregateErrors.push(`${chainPath}/all.json: expected an array`);
     return;
   }
-  const sorted = [...entries].sort(
-    (a, b) =>
-      String(a.issuer).localeCompare(String(b.issuer)) ||
-      String(a.currency).localeCompare(String(b.currency)),
-  );
-  if (JSON.stringify(parsed) !== JSON.stringify(sorted)) {
-    report.schemaErrors.push(
-      `${chainPath}/all.json: does not match info.json entries in issuer and currency order`,
+  let expected: unknown;
+  try {
+    expected = buildTokensAllJson(chainPath);
+  } catch (error) {
+    report.aggregateErrors.push(
+      `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return;
+  }
+  if (JSON.stringify(parsed) !== JSON.stringify(expected)) {
+    report.aggregateErrors.push(
+      `${chainPath}/all.json: does not match rebuildTokensAllJson output`,
     );
   }
 }
@@ -345,6 +348,7 @@ async function checkTokens(): Promise<void> {
     symbolReadErrors: [],
     mismatches: [],
     duplicateSymbols: [],
+    aggregateErrors: [],
   };
 
   const clients = new Map<number, PublicClient>();
@@ -368,6 +372,7 @@ async function checkTokens(): Promise<void> {
 
     if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
       checkXrplChain(report);
+      checkTokenAggregate(chainPath, report);
       continue;
     }
 
@@ -381,6 +386,7 @@ async function checkTokens(): Promise<void> {
       if (!client) continue;
       onchainJobs.push({ chainPath, chainId, info, address: info.address, client });
     }
+    checkTokenAggregate(chainPath, report);
   }
 
   await mapPool(onchainJobs, 4, async ({ chainPath, chainId, info, address, client }) => {
@@ -440,9 +446,6 @@ async function checkTokens(): Promise<void> {
   });
   report.duplicateSymbols = duplicateSymbolErrors(listEvmSymbolUses());
 
-  // Touch blocklist so missing file surfaces early
-  loadBlocklist();
-
   const reportsDir = path.join(process.cwd(), "reports");
   fs.mkdirSync(reportsDir, { recursive: true });
   const reportPath = path.join(reportsDir, "tokens-check.json");
@@ -461,10 +464,18 @@ async function checkTokens(): Promise<void> {
   console.info(`Metadata mismatches: ${report.mismatches.length}`);
   const symbolMismatches = report.mismatches.filter((row) => row.field === "symbol");
   console.info(`Duplicate symbol violations: ${report.duplicateSymbols.length}`);
+  console.info(`Aggregate mismatches: ${report.aggregateErrors.length}`);
   const symbolFailures = report.duplicateSymbols;
   if (symbolFailures.length > 0) {
     console.error("\nToken symbol rules failed:");
     for (const line of symbolFailures) {
+      console.error(`  ${line}`);
+    }
+    process.exitCode = 1;
+  }
+  if (report.aggregateErrors.length > 0) {
+    console.error("\nToken all.json does not match the rebuild helper:");
+    for (const line of report.aggregateErrors) {
       console.error(`  ${line}`);
     }
     process.exitCode = 1;

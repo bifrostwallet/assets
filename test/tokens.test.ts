@@ -1,5 +1,10 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { describe, test } from "node:test";
+import { DEFAULT_ASSET_BASE_URL } from "../src/config.js";
+import { buildTokensAllJson, rebuildTokensAllJson } from "../src/convert.js";
 import {
   duplicateSymbolErrors,
   duplicateSymbolGroups,
@@ -7,7 +12,13 @@ import {
   listEvmSymbolUses,
   type SymbolUse,
 } from "../src/tokenSymbols.js";
-import { type EvmToken, insertEvmToken, validateEvmToken } from "../src/tokens.js";
+import {
+  type EvmToken,
+  insertEvmToken,
+  listTokenChainPaths,
+  validateEvmToken,
+} from "../src/tokens.js";
+import { XRPL_MAINNET_CHAIN_PATH, type XrplToken } from "../src/xrplToken.js";
 
 const WFLR = "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d";
 
@@ -98,5 +109,112 @@ describe("EVM aggregate insert", () => {
       next.map((token) => token.address),
       [low.address, added.address, high.address, null],
     );
+  });
+});
+
+describe("token all.json", () => {
+  test("matches the rebuild helper and uses absolute GitHub logoURL", () => {
+    const chains = listTokenChainPaths();
+    assert.ok(chains.length > 0);
+    for (const chainPath of chains) {
+      const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
+      const all = JSON.parse(fs.readFileSync(allPath, "utf8")) as { logoURL: string }[];
+      assert.deepEqual(all, buildTokensAllJson(chainPath), chainPath);
+      assert.ok(all.length > 0, chainPath);
+      for (const entry of all) {
+        assert.equal(
+          entry.logoURL.startsWith(`${DEFAULT_ASSET_BASE_URL}tokens/${chainPath}/`),
+          true,
+          entry.logoURL,
+        );
+      }
+    }
+  });
+
+  test("rebuild keeps info.json relative and does not double-prefix an absolute logoURL", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "token-all-"));
+    const chain = "eip155-14";
+    const address = `0x${"ab".repeat(20)}`;
+    const nativeDir = path.join(root, "data", "tokens", chain, "native");
+    const tokenDir = path.join(root, "data", "tokens", chain, address);
+    fs.mkdirSync(nativeDir, { recursive: true });
+    fs.mkdirSync(tokenDir, { recursive: true });
+    const nativeLogo = `tokens/${chain}/native/logo.webp`;
+    const tokenLogo = `tokens/${chain}/${address}/logo.webp`;
+    const native = {
+      name: "Flare",
+      symbol: "FLR",
+      decimals: 18,
+      address: null,
+      coingeckoId: "flare-networks",
+      logoURL: nativeLogo,
+      logoHash: "11".repeat(32),
+    };
+    const token = {
+      name: "Wrapped",
+      symbol: "WFLR",
+      decimals: 18,
+      address,
+      coingeckoId: null,
+      logoURL: tokenLogo,
+      logoHash: "22".repeat(32),
+    };
+    fs.writeFileSync(path.join(nativeDir, "info.json"), `${JSON.stringify(native)}\n`);
+    fs.writeFileSync(path.join(tokenDir, "info.json"), `${JSON.stringify(token)}\n`);
+
+    rebuildTokensAllJson(chain, root);
+    const allPath = path.join(root, "data", "tokens", chain, "all.json");
+    const all = JSON.parse(fs.readFileSync(allPath, "utf8")) as {
+      address: string | null;
+      logoURL: string;
+    }[];
+    assert.deepEqual(
+      all.map((entry) => entry.address),
+      [address, null],
+    );
+    assert.equal(all[0]?.logoURL, `${DEFAULT_ASSET_BASE_URL}${tokenLogo}`);
+    assert.equal(all[1]?.logoURL, `${DEFAULT_ASSET_BASE_URL}${nativeLogo}`);
+    const info = JSON.parse(fs.readFileSync(path.join(tokenDir, "info.json"), "utf8")) as {
+      logoURL: string;
+    };
+    assert.equal(info.logoURL, tokenLogo);
+
+    fs.writeFileSync(
+      path.join(tokenDir, "info.json"),
+      `${JSON.stringify({ ...token, logoURL: all[0]?.logoURL })}\n`,
+    );
+    rebuildTokensAllJson(chain, root);
+    const again = JSON.parse(fs.readFileSync(allPath, "utf8")) as { logoURL: string }[];
+    assert.equal(again[0]?.logoURL, all[0]?.logoURL);
+    fs.rmSync(root, { recursive: true, force: true });
+  });
+
+  test("XRPL aggregate is issuer then currency with one absolute logoURL", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "token-xrpl-"));
+    const chain = XRPL_MAINNET_CHAIN_PATH;
+    const write = (issuer: string, currency: string) => {
+      const dir = path.join(root, "data", "tokens", chain, issuer, currency);
+      fs.mkdirSync(dir, { recursive: true });
+      const info: XrplToken = {
+        name: currency,
+        symbol: currency,
+        issuer,
+        currency,
+        coingeckoId: null,
+        logoURL: `tokens/${chain}/${issuer}/${currency}/logo.webp`,
+        logoHash: "aa".repeat(32),
+      };
+      fs.writeFileSync(path.join(dir, "info.json"), `${JSON.stringify(info)}\n`);
+    };
+    write("rB", "USD");
+    write("rA", "ETH");
+    write("rA", "BTC");
+    const all = buildTokensAllJson(chain, root) as XrplToken[];
+    assert.deepEqual(
+      all.map((entry) => `${entry.issuer}/${entry.currency}`),
+      ["rA/BTC", "rA/ETH", "rB/USD"],
+    );
+    assert.equal(all[0]?.logoURL, `${DEFAULT_ASSET_BASE_URL}tokens/${chain}/rA/BTC/logo.webp`);
+    fs.rmSync(root, { recursive: true, force: true });
   });
 });

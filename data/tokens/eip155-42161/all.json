@@ -5,7 +5,7 @@
     "decimals": 6,
     "address": "0x00000000efe302beaa2b3e6e1b18d08d69a9012a",
     "coingeckoId": "agora-dollar",
-    "logoURL": "tokens/eip155-42161/0x00000000efe302beaa2b3e6e1b18d08d69a9012a/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x00000000efe302beaa2b3e6e1b18d08d69a9012a/logo.webp",
     "logoHash": "aa361aebf5b57647c3e0a1e2bdc9d292329aab79242772f8779702128eca48ac"
   },
   {
@@ -14,7 +14,7 @@
     "decimals": 6,
     "address": "0x004b506865409877c9fa29bfb1eba929984b9bbc",
     "coingeckoId": "global-dollar",
-    "logoURL": "tokens/eip155-42161/0x004b506865409877c9fa29bfb1eba929984b9bbc/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x004b506865409877c9fa29bfb1eba929984b9bbc/logo.webp",
     "logoHash": "4699ebdd4605ecc69f92f063fe6101291e8c804986ce4449e846393039105bea"
   },
   {
@@ -23,7 +23,7 @@
     "decimals": 18,
     "address": "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8",
     "coingeckoId": "balancer",
-    "logoURL": "tokens/eip155-42161/0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8/logo.webp",
     "logoHash": "4bab08211df4b99f3424c1906138bb6a2a106603a80934576779b293a260c807"
   },
   {
@@ -32,7 +32,7 @@
     "decimals": 18,
     "address": "0x080f6aed32fc474dd5717105dba5ea57268f46eb",
     "coingeckoId": "synapse-2",
-    "logoURL": "tokens/eip155-42161/0x080f6aed32fc474dd5717105dba5ea57268f46eb/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x080f6aed32fc474dd5717105dba5ea57268f46eb/logo.webp",
     "logoHash": "e496a840e4e6506e30a5483021f656c453f8baca732e1f80b56d05483fcbecde"
   },
   {
@@ -41,7 +41,7 @@
     "decimals": 5,
     "address": "0x09199d9a5f4448d0848e4395d065e1ad9c4a1f74",
     "coingeckoId": "bonk",
-    "logoURL": "tokens/eip155-42161/0x09199d9a5f4448d0848e4395d065e1ad9c4a1f74/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x09199d9a5f4448d0848e4395d065e1ad9c4a1f74/logo.webp",
     "logoHash": "a77fbe8a41060a36f284fca5effd219c9f5914fea95fbe941f1acf78af24418f"
   },
   {
@@ -50,7 +50,7 @@
     "decimals": 18,
     "address": "0x0a1a1a107e45b7ced86833863f482bc5f4ed82ef",
     "coingeckoId": "usdai",
-    "logoURL": "tokens/eip155-42161/0x0a1a1a107e45b7ced86833863f482bc5f4ed82ef/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x0a1a1a107e45b7ced86833863f482bc5f4ed82ef/logo.webp",
     "logoHash": "491934c6c08dce9e1f534d3a3cb618f0ed14b1b47c3e8f806b96c061971722c2"
   },
   {
@@ -59,7 +59,7 @@
     "decimals": 18,
     "address": "0x0c06ccf38114ddfc35e07427b9424adcca9f44f8",
     "coingeckoId": "monerium-eur-money-2",
-    "logoURL": "tokens/eip155-42161/0x0c06ccf38114ddfc35e07427b9424adcca9f44f8/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x0c06ccf38114ddfc35e07427b9424adcca9f44f8/logo.webp",
     "logoHash": "f99c8954d102a16835ca846222f4ba7a371916e9b1fedc8fa4dbda1a152597d9"
   },
   {
@@ -68,7 +68,7 @@
     "decimals": 18,
     "address": "0x0c880f6761f1af8d9aa9c466984b80dab9a8c9e8",
     "coingeckoId": "pendle",
-    "logoURL": "tokens/eip155-42161/0x0c880f6761f1af8d9aa9c466984b80dab9a8c9e8/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x0c880f6761f1af8d9aa9c466984b80dab9a8c9e8/logo.webp",
     "logoHash": "4cdd1c7517da1c6048c1dce94c35dfccb08e739eb969ba2e6b9b83017768c37b"
   },
   {
@@ -77,7 +77,7 @@
     "decimals": 18,
     "address": "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978",
     "coingeckoId": "curve-dao-token",
-    "logoURL": "tokens/eip155-42161/0x11cdb42b0eb46d95f990bedd4695a6e3fa034978/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x11cdb42b0eb46d95f990bedd4695a6e3fa034978/logo.webp",
     "logoHash": "1da7fbf1cd6ad0722a9c661285d79c4ce647cf9629d074a9a2c1536da886bdb6"
   },
   {
@@ -86,7 +86,7 @@
     "decimals": 18,
     "address": "0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1",
     "coingeckoId": "subsquid",
-    "logoURL": "tokens/eip155-42161/0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1/logo.webp",
     "logoHash": "ab7513ddbfd8c2ce3641d99ca0ceeb7065de380e3cd8d15656c051c32b3b910d"
   },
   {
@@ -95,7 +95,7 @@
     "decimals": 18,
     "address": "0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60",
     "coingeckoId": "lido-dao",
-    "logoURL": "tokens/eip155-42161/0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60/logo.webp",
     "logoHash": "a3127b30028f130bcd2e6b5fae45dc37320471a62bdc60320e1dfc0f4e0de2ee"
   },
   {
@@ -104,7 +104,7 @@
     "decimals": 18,
     "address": "0x17e1e5c6bc9ebb11647c94e1c5e3ba619f2781ea",
     "coingeckoId": "holotoken",
-    "logoURL": "tokens/eip155-42161/0x17e1e5c6bc9ebb11647c94e1c5e3ba619f2781ea/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x17e1e5c6bc9ebb11647c94e1c5e3ba619f2781ea/logo.webp",
     "logoHash": "904c077d1c030a666498e7779c45e637f9dfd0fa25f3b6a1dc4b4843182ad36a"
   },
   {
@@ -113,7 +113,7 @@
     "decimals": 18,
     "address": "0x17fc002b466eec40dae837fc4be5c67993ddbd6f",
     "coingeckoId": "frax",
-    "logoURL": "tokens/eip155-42161/0x17fc002b466eec40dae837fc4be5c67993ddbd6f/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x17fc002b466eec40dae837fc4be5c67993ddbd6f/logo.webp",
     "logoHash": "803a0eee7d4249aded597261dcea63465fb2de800e7e0af886775e666b104d42"
   },
   {
@@ -122,7 +122,7 @@
     "decimals": 18,
     "address": "0x1b896893dfc86bb67cf57767298b9073d2c1ba2c",
     "coingeckoId": "pancakeswap-token",
-    "logoURL": "tokens/eip155-42161/0x1b896893dfc86bb67cf57767298b9073d2c1ba2c/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x1b896893dfc86bb67cf57767298b9073d2c1ba2c/logo.webp",
     "logoHash": "f682aa632b382c045eee75020728b688ece83979315ed79cd70ab6f83e952268"
   },
   {
@@ -131,7 +131,7 @@
     "decimals": 9,
     "address": "0x1d2ed7eba253253be9dfa61dd272769d64f202ad",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x1d2ed7eba253253be9dfa61dd272769d64f202ad/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x1d2ed7eba253253be9dfa61dd272769d64f202ad/logo.webp",
     "logoHash": "4dc91b82b838ac4f8b3fd6fda5dbaeb720f97890d2c66c422b8815f025119dca"
   },
   {
@@ -140,7 +140,7 @@
     "decimals": 18,
     "address": "0x23a941036ae778ac51ab04cea08ed6e2fe103614",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x23a941036ae778ac51ab04cea08ed6e2fe103614/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x23a941036ae778ac51ab04cea08ed6e2fe103614/logo.webp",
     "logoHash": "4223476bb355bca82aea883e8ddf74181c1395a2c2667a40898946b9a31a15e1"
   },
   {
@@ -149,7 +149,7 @@
     "decimals": 6,
     "address": "0x23ee2343b892b1bb63503a4fabc840e0e2c6810f",
     "coingeckoId": "axelar",
-    "logoURL": "tokens/eip155-42161/0x23ee2343b892b1bb63503a4fabc840e0e2c6810f/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x23ee2343b892b1bb63503a4fabc840e0e2c6810f/logo.webp",
     "logoHash": "1b369e7505e939064764002682857ef9f09524a9e9c920132c94e168711a0841"
   },
   {
@@ -158,7 +158,7 @@
     "decimals": 18,
     "address": "0x25118290e6a5f4139381d072181157035864099d",
     "coingeckoId": "rain",
-    "logoURL": "tokens/eip155-42161/0x25118290e6a5f4139381d072181157035864099d/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x25118290e6a5f4139381d072181157035864099d/logo.webp",
     "logoHash": "0d2cccd5aec389706e973daff4c269250eb5e4cfd4890131028f17f7a719b885"
   },
   {
@@ -167,7 +167,7 @@
     "decimals": 18,
     "address": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
     "coingeckoId": "pepe",
-    "logoURL": "tokens/eip155-42161/0x25d887ce7a35172c62febfd67a1856f20faebb00/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x25d887ce7a35172c62febfd67a1856f20faebb00/logo.webp",
     "logoHash": "1beba55198ec02995bd32f2b85b7817abad65c1a44c1322ed905ca374e38aca0"
   },
   {
@@ -176,7 +176,7 @@
     "decimals": 18,
     "address": "0x289ba1701c2f088cf0faf8b3705246331cb8a839",
     "coingeckoId": "livepeer",
-    "logoURL": "tokens/eip155-42161/0x289ba1701c2f088cf0faf8b3705246331cb8a839/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x289ba1701c2f088cf0faf8b3705246331cb8a839/logo.webp",
     "logoHash": "4a98b019f785f5f06e7bb485c11da80d4f07411194eab3d9a814e468b8a83038"
   },
   {
@@ -185,7 +185,7 @@
     "decimals": 8,
     "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
     "coingeckoId": "arbitrum-bridged-wbtc-arbitrum-one",
-    "logoURL": "tokens/eip155-42161/0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f/logo.webp",
     "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
   },
   {
@@ -194,7 +194,7 @@
     "decimals": 18,
     "address": "0x319f865b287fcc10b30d8ce6144e8b6d1b476999",
     "coingeckoId": "cartesi",
-    "logoURL": "tokens/eip155-42161/0x319f865b287fcc10b30d8ce6144e8b6d1b476999/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x319f865b287fcc10b30d8ce6144e8b6d1b476999/logo.webp",
     "logoHash": "e8b3295282756bab9465f146e853eec480288334e35bf278f5d0e5262a858001"
   },
   {
@@ -203,7 +203,7 @@
     "decimals": 18,
     "address": "0x32eb7902d4134bf98a28b963d26de779af92a212",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x32eb7902d4134bf98a28b963d26de779af92a212/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x32eb7902d4134bf98a28b963d26de779af92a212/logo.webp",
     "logoHash": "eb1483374d911b4a2c962b9f450e319a4592daa0edcad1215dc77de5135db9ed"
   },
   {
@@ -212,7 +212,7 @@
     "decimals": 18,
     "address": "0x354a6da3fcde098f8389cad84b0182725c6c91de",
     "coingeckoId": "compound-governance-token",
-    "logoURL": "tokens/eip155-42161/0x354a6da3fcde098f8389cad84b0182725c6c91de/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x354a6da3fcde098f8389cad84b0182725c6c91de/logo.webp",
     "logoHash": "aafe47230b770823a478e19209f957721b665aba0818d5320e03394f7cc3857f"
   },
   {
@@ -221,7 +221,7 @@
     "decimals": 18,
     "address": "0x3a8b787f78d775aecfeea15706d4221b40f345ab",
     "coingeckoId": "celer-network",
-    "logoURL": "tokens/eip155-42161/0x3a8b787f78d775aecfeea15706d4221b40f345ab/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x3a8b787f78d775aecfeea15706d4221b40f345ab/logo.webp",
     "logoHash": "7458e6c382f99de1b8666df43dbc43abf9cd89a532e3a7ab335ebd4cd281843a"
   },
   {
@@ -230,7 +230,7 @@
     "decimals": 18,
     "address": "0x3b8db18e69d6686ad9371a423afe3dd1065c94f1",
     "coingeckoId": "espresso",
-    "logoURL": "tokens/eip155-42161/0x3b8db18e69d6686ad9371a423afe3dd1065c94f1/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x3b8db18e69d6686ad9371a423afe3dd1065c94f1/logo.webp",
     "logoHash": "f8f670a4465aaabf77dcd059be313bd24fcbba284ac8ee7b0338a633e30546fc"
   },
   {
@@ -239,7 +239,7 @@
     "decimals": 18,
     "address": "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af",
     "coingeckoId": "spell-token",
-    "logoURL": "tokens/eip155-42161/0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af/logo.webp",
     "logoHash": "4d94afc63b38f2bbbc935e7c3fa6b3100d1cd398431226a5d8f170db8f5e237d"
   },
   {
@@ -248,7 +248,7 @@
     "decimals": 18,
     "address": "0x3f56e0c36d275367b8c502090edf38289b3dea0d",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x3f56e0c36d275367b8c502090edf38289b3dea0d/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x3f56e0c36d275367b8c502090edf38289b3dea0d/logo.webp",
     "logoHash": "c4573d61c955ea9890803add192be2d0328c3d939b4e96c3a65b1d30dedc8fc3"
   },
   {
@@ -257,7 +257,7 @@
     "decimals": 18,
     "address": "0x40bd670a58238e6e230c430bbb5ce6ec0d40df48",
     "coingeckoId": "morpho",
-    "logoURL": "tokens/eip155-42161/0x40bd670a58238e6e230c430bbb5ce6ec0d40df48/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x40bd670a58238e6e230c430bbb5ce6ec0d40df48/logo.webp",
     "logoHash": "9a4d965299905a8202d9ccfffd0938e7a6bc281d0c05a442b3c6e534a35bf018"
   },
   {
@@ -266,7 +266,7 @@
     "decimals": 18,
     "address": "0x4425742f1ec8d98779690b5a3a6276db85ddc01a",
     "coingeckoId": "the-doge-nft",
-    "logoURL": "tokens/eip155-42161/0x4425742f1ec8d98779690b5a3a6276db85ddc01a/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x4425742f1ec8d98779690b5a3a6276db85ddc01a/logo.webp",
     "logoHash": "6d136b60a7cb8c9a700eae0924416720cfc689a3323e43d10d2382d9bfc78158"
   },
   {
@@ -275,7 +275,7 @@
     "decimals": 18,
     "address": "0x462cd9e0247b2e63831c3189ae738e5e9a5a4b64",
     "coingeckoId": "euler",
-    "logoURL": "tokens/eip155-42161/0x462cd9e0247b2e63831c3189ae738e5e9a5a4b64/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x462cd9e0247b2e63831c3189ae738e5e9a5a4b64/logo.webp",
     "logoHash": "5a1c13520290b7a0603719f2311703d2a25a3622a8ddf76d301c815fdcd4bfa5"
   },
   {
@@ -284,7 +284,7 @@
     "decimals": 6,
     "address": "0x46850ad61c2b7d64d08c9c754f45254596696984",
     "coingeckoId": "paypal-usd",
-    "logoURL": "tokens/eip155-42161/0x46850ad61c2b7d64d08c9c754f45254596696984/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x46850ad61c2b7d64d08c9c754f45254596696984/logo.webp",
     "logoHash": "38ef00e5d5eff6f51ee439a3d9ffda2cf34aaa7aab1e54c63dec8f54aef9253c"
   },
   {
@@ -293,7 +293,7 @@
     "decimals": 18,
     "address": "0x46d0ce7de6247b0a95f67b43b589b4041bae7fbe",
     "coingeckoId": "loopring",
-    "logoURL": "tokens/eip155-42161/0x46d0ce7de6247b0a95f67b43b589b4041bae7fbe/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x46d0ce7de6247b0a95f67b43b589b4041bae7fbe/logo.webp",
     "logoHash": "4b06396f4c8cfd76e068fef1f7b3fed1330d49ab902f90b4941074610a60fbff"
   },
   {
@@ -302,7 +302,7 @@
     "decimals": 18,
     "address": "0x488cc08935458403a0458e45e20c0159c8ab2c92",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x488cc08935458403a0458e45e20c0159c8ab2c92/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x488cc08935458403a0458e45e20c0159c8ab2c92/logo.webp",
     "logoHash": "a7c0daff77bbe94fa7675f7f53cbed4d81838192a24907f51740688cd781720a"
   },
   {
@@ -311,7 +311,7 @@
     "decimals": 18,
     "address": "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
     "coingeckoId": "crvusd",
-    "logoURL": "tokens/eip155-42161/0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5/logo.webp",
     "logoHash": "88d88332f7de69d79293ff688c4d4e3269857248077cbb7abe8dd3a2b67072e4"
   },
   {
@@ -320,7 +320,7 @@
     "decimals": 18,
     "address": "0x4d15a3a2286d883af0aa1b3f21367843fac63e07",
     "coingeckoId": "bridged-trueusd",
-    "logoURL": "tokens/eip155-42161/0x4d15a3a2286d883af0aa1b3f21367843fac63e07/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x4d15a3a2286d883af0aa1b3f21367843fac63e07/logo.webp",
     "logoHash": "d51e20c3eabf9ac2bddb217f01f27a8cd0b6197c82dc02e67232c4033469257a"
   },
   {
@@ -329,7 +329,7 @@
     "decimals": 18,
     "address": "0x4e352cf164e64adcbad318c3a1e222e9eba4ce42",
     "coingeckoId": "mcdex",
-    "logoURL": "tokens/eip155-42161/0x4e352cf164e64adcbad318c3a1e222e9eba4ce42/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x4e352cf164e64adcbad318c3a1e222e9eba4ce42/logo.webp",
     "logoHash": "ef2d4e1d382c4b9877c566ae255abbb62a21d8bfd77b2b72d1040286e240e17d"
   },
   {
@@ -338,7 +338,7 @@
     "decimals": 18,
     "address": "0x51fc0f6660482ea73330e414efd7808811a57fa2",
     "coingeckoId": "premia",
-    "logoURL": "tokens/eip155-42161/0x51fc0f6660482ea73330e414efd7808811a57fa2/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x51fc0f6660482ea73330e414efd7808811a57fa2/logo.webp",
     "logoHash": "d9b1efea4a835868132629aa357dad2a333d9ce4d14bead292d8b12cf6e90370"
   },
   {
@@ -347,7 +347,7 @@
     "decimals": 18,
     "address": "0x53691596d1bce8cea565b84d4915e69e03d9c99d",
     "coingeckoId": "across-protocol",
-    "logoURL": "tokens/eip155-42161/0x53691596d1bce8cea565b84d4915e69e03d9c99d/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x53691596d1bce8cea565b84d4915e69e03d9c99d/logo.webp",
     "logoHash": "167c7b9f155a41923ee9a7371e808e715f496ac9cd29eeb98572df00d5b4b60e"
   },
   {
@@ -356,7 +356,7 @@
     "decimals": 18,
     "address": "0x539bde0d7dbd336b79148aa742883198bbf60342",
     "coingeckoId": "magic",
-    "logoURL": "tokens/eip155-42161/0x539bde0d7dbd336b79148aa742883198bbf60342/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x539bde0d7dbd336b79148aa742883198bbf60342/logo.webp",
     "logoHash": "ee65dc48a38921fa7bca5dbc8500ef6d976f41b88ebe259f421ea7032ffc12d9"
   },
   {
@@ -365,7 +365,7 @@
     "decimals": 18,
     "address": "0x5575552988a3a80504bbaeb1311674fcfd40ad4b",
     "coingeckoId": "sperax",
-    "logoURL": "tokens/eip155-42161/0x5575552988a3a80504bbaeb1311674fcfd40ad4b/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x5575552988a3a80504bbaeb1311674fcfd40ad4b/logo.webp",
     "logoHash": "01941a34c0ce22784f33ddf0fb3c942f01dce37c0121fe1b2436e23666287116"
   },
   {
@@ -374,7 +374,7 @@
     "decimals": 18,
     "address": "0x58538e6a46e07434d7e7375bc268d3cb839c0133",
     "coingeckoId": "ethena",
-    "logoURL": "tokens/eip155-42161/0x58538e6a46e07434d7e7375bc268d3cb839c0133/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x58538e6a46e07434d7e7375bc268d3cb839c0133/logo.webp",
     "logoHash": "edabb224c001e36bc723f733bd60057517cbe87fe14a40908ca8f3961e6c5cdd"
   },
   {
@@ -383,7 +383,7 @@
     "decimals": 18,
     "address": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
     "coingeckoId": "ethena-usde",
-    "logoURL": "tokens/eip155-42161/0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34/logo.webp",
     "logoHash": "108a3ccfec40272bf11f9275a9e6f2e77602d74b6f2639abc7948f735ffd60b5"
   },
   {
@@ -392,7 +392,7 @@
     "decimals": 18,
     "address": "0x61a1ff55c5216b636a294a07d77c6f4df10d3b56",
     "coingeckoId": "apex-token-2",
-    "logoURL": "tokens/eip155-42161/0x61a1ff55c5216b636a294a07d77c6f4df10d3b56/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x61a1ff55c5216b636a294a07d77c6f4df10d3b56/logo.webp",
     "logoHash": "10535c3edd1132d8e0dabaed00f6c4f2de8c85d0ff2effe54f0252f12e29a330"
   },
   {
@@ -401,7 +401,7 @@
     "decimals": 18,
     "address": "0x61e030a56d33e8260fdd81f03b162a79fe3449cd",
     "coingeckoId": "instadapp",
-    "logoURL": "tokens/eip155-42161/0x61e030a56d33e8260fdd81f03b162a79fe3449cd/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x61e030a56d33e8260fdd81f03b162a79fe3449cd/logo.webp",
     "logoHash": "9b06384dd7c8e6d795b596b87d189b2e33e7143779b763cc90897eaeb71e1f91"
   },
   {
@@ -410,7 +410,7 @@
     "decimals": 18,
     "address": "0x6314c31a7a1652ce482cffe247e9cb7c3f4bb9af",
     "coingeckoId": "1inch",
-    "logoURL": "tokens/eip155-42161/0x6314c31a7a1652ce482cffe247e9cb7c3f4bb9af/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6314c31a7a1652ce482cffe247e9cb7c3f4bb9af/logo.webp",
     "logoHash": "14df80b89dda6c3131a944c0f11df0d1c869ee85ea09cd037ec257389c80ddfd"
   },
   {
@@ -419,7 +419,7 @@
     "decimals": 18,
     "address": "0x6491c05a82219b8d1479057361ff1654749b876b",
     "coingeckoId": "usds",
-    "logoURL": "tokens/eip155-42161/0x6491c05a82219b8d1479057361ff1654749b876b/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6491c05a82219b8d1479057361ff1654749b876b/logo.webp",
     "logoHash": "617e7fac2005e2897e54fe9ce38cabfd907acc24868a7693fd74d73b04ed67a3"
   },
   {
@@ -428,7 +428,7 @@
     "decimals": 18,
     "address": "0x6694340fc020c5e6b96567843da2df01b2ce1eb6",
     "coingeckoId": "stargate-finance",
-    "logoURL": "tokens/eip155-42161/0x6694340fc020c5e6b96567843da2df01b2ce1eb6/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6694340fc020c5e6b96567843da2df01b2ce1eb6/logo.webp",
     "logoHash": "07b140fdc0899f4070ff9fa0fde26bf161dc62be1d0337fb355aeb0d4a9ff3a3"
   },
   {
@@ -437,7 +437,7 @@
     "decimals": 18,
     "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
     "coingeckoId": "layerzero",
-    "logoURL": "tokens/eip155-42161/0x6985884c4392d348587b19cb9eaaf157f13271cd/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6985884c4392d348587b19cb9eaaf157f13271cd/logo.webp",
     "logoHash": "f14480ff39adf664071b8e0156d00355a56fcbd76003cce8896e7e4d667eaeea"
   },
   {
@@ -446,7 +446,7 @@
     "decimals": 18,
     "address": "0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581",
     "coingeckoId": "dodo",
-    "logoURL": "tokens/eip155-42161/0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581/logo.webp",
     "logoHash": "ca550d75252e21577f707b8462eba052a92f9850994fd3461737f76bae5634bd"
   },
   {
@@ -455,7 +455,7 @@
     "decimals": 18,
     "address": "0x6a7661795c374c0bfc635934efaddff3a7ee23b6",
     "coingeckoId": "dola-usd",
-    "logoURL": "tokens/eip155-42161/0x6a7661795c374c0bfc635934efaddff3a7ee23b6/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6a7661795c374c0bfc635934efaddff3a7ee23b6/logo.webp",
     "logoHash": "09ad52d72997289a1e555c1d9d147481daa88c305332ad2e91d8efb9f14546d6"
   },
   {
@@ -464,7 +464,7 @@
     "decimals": 18,
     "address": "0x6c2c06790b3e3e3c38e12ee22f8183b37a13ee55",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x6c2c06790b3e3e3c38e12ee22f8183b37a13ee55/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6c2c06790b3e3e3c38e12ee22f8183b37a13ee55/logo.webp",
     "logoHash": "fdc8c6edf6a7acd14f56961a74e4cb11666473fcc3d037195011c6b30f9381e8"
   },
   {
@@ -473,7 +473,7 @@
     "decimals": 18,
     "address": "0x6fbbbd8bfb1cd3986b1d05e7861a0f62f87db74b",
     "coingeckoId": "vision-3",
-    "logoURL": "tokens/eip155-42161/0x6fbbbd8bfb1cd3986b1d05e7861a0f62f87db74b/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x6fbbbd8bfb1cd3986b1d05e7861a0f62f87db74b/logo.webp",
     "logoHash": "6c572294e1df3d636b094126366dfc283c574e02f91669d8afb37c25ba0a3d80"
   },
   {
@@ -482,7 +482,7 @@
     "decimals": 18,
     "address": "0x7189fb5b6504bbff6a852b13b7b82a3c118fdc27",
     "coingeckoId": "ether-fi",
-    "logoURL": "tokens/eip155-42161/0x7189fb5b6504bbff6a852b13b7b82a3c118fdc27/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x7189fb5b6504bbff6a852b13b7b82a3c118fdc27/logo.webp",
     "logoHash": "7c8aaa904d72598d4d8f9873026558bf35b6077118e207dde1c60e72c7a5c0a8"
   },
   {
@@ -491,7 +491,7 @@
     "decimals": 18,
     "address": "0x76ce01f0ef25aa66cc5f1e546a005e4a63b25609",
     "coingeckoId": "re-protocol-reusd",
-    "logoURL": "tokens/eip155-42161/0x76ce01f0ef25aa66cc5f1e546a005e4a63b25609/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x76ce01f0ef25aa66cc5f1e546a005e4a63b25609/logo.webp",
     "logoHash": "935a9ac318bf75dfdf1f5a61a4162be707c624d6f43781ac91182f96180a64b1"
   },
   {
@@ -500,7 +500,7 @@
     "decimals": 18,
     "address": "0x77b7787a09818502305c95d68a2571f090abb135",
     "coingeckoId": "derive",
-    "logoURL": "tokens/eip155-42161/0x77b7787a09818502305c95d68a2571f090abb135/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x77b7787a09818502305c95d68a2571f090abb135/logo.webp",
     "logoHash": "976012d36b7557be5fcbab7f9990399fc97282045fd1b9210d5924402cb7741f"
   },
   {
@@ -509,7 +509,7 @@
     "decimals": 18,
     "address": "0x7ba4a00d54a07461d9db2aef539e91409943adc9",
     "coingeckoId": "stake-dao",
-    "logoURL": "tokens/eip155-42161/0x7ba4a00d54a07461d9db2aef539e91409943adc9/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x7ba4a00d54a07461d9db2aef539e91409943adc9/logo.webp",
     "logoHash": "01cba6ee0b7e1f59f6ce03b57138577b03f7fb57bde880e2d85e3115d438deff"
   },
   {
@@ -518,7 +518,7 @@
     "decimals": 18,
     "address": "0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33",
     "coingeckoId": "gho",
-    "logoURL": "tokens/eip155-42161/0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33/logo.webp",
     "logoHash": "6c07ffe376bff28bee29da19e1bf3b24304c7aef2422d672ba7788d3b251db7f"
   },
   {
@@ -527,7 +527,7 @@
     "decimals": 18,
     "address": "0x80eede496655fb9047dd39d9f418d5483ed600df",
     "coingeckoId": "frax-usd",
-    "logoURL": "tokens/eip155-42161/0x80eede496655fb9047dd39d9f418d5483ed600df/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x80eede496655fb9047dd39d9f418d5483ed600df/logo.webp",
     "logoHash": "e7e054e4625eb1f236f4d61faca7afef1a442a93d451b3c6434d1b8803221dec"
   },
   {
@@ -536,7 +536,7 @@
     "decimals": 18,
     "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
     "coingeckoId": "arbitrum-bridged-weth-arbitrum-one",
-    "logoURL": "tokens/eip155-42161/0x82af49447d8a07e3bd95bd0d56f35241523fbab1/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x82af49447d8a07e3bd95bd0d56f35241523fbab1/logo.webp",
     "logoHash": "b52ac8126dc868db827e5a90711fa6b59d030e9c4a2da8295f73d7b39701939c"
   },
   {
@@ -545,7 +545,7 @@
     "decimals": 18,
     "address": "0x82e3a8f066a6989666b031d916c43672085b1582",
     "coingeckoId": "yearn-finance",
-    "logoURL": "tokens/eip155-42161/0x82e3a8f066a6989666b031d916c43672085b1582/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x82e3a8f066a6989666b031d916c43672085b1582/logo.webp",
     "logoHash": "51efcb62f508379461e8381061560188a0df50b332641093848e8320cc020c0c"
   },
   {
@@ -554,7 +554,7 @@
     "decimals": 18,
     "address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
     "coingeckoId": "arbitrum",
-    "logoURL": "tokens/eip155-42161/0x912ce59144191c1204e64559fe8253a0e49e6548/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x912ce59144191c1204e64559fe8253a0e49e6548/logo.webp",
     "logoHash": "8f496977373e0729fe3541a5f18eefaf8449e4e7dbe14b984f7a5c81061f8040"
   },
   {
@@ -563,7 +563,7 @@
     "decimals": 18,
     "address": "0x93c9932e4afa59201f0b5e63f7d816516f1669fe",
     "coingeckoId": "first-digital-usd",
-    "logoURL": "tokens/eip155-42161/0x93c9932e4afa59201f0b5e63f7d816516f1669fe/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x93c9932e4afa59201f0b5e63f7d816516f1669fe/logo.webp",
     "logoHash": "a8ed4f7c3e7cf5cbfd96f1501be6ec286c5ea37fe590e467de6410d74db30a44"
   },
   {
@@ -572,7 +572,7 @@
     "decimals": 18,
     "address": "0x99c409e5f62e4bd2ac142f17cafb6810b8f0baae",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0x99c409e5f62e4bd2ac142f17cafb6810b8f0baae/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x99c409e5f62e4bd2ac142f17cafb6810b8f0baae/logo.webp",
     "logoHash": "e36f68044d238a4b5ae0b82c460557acd80cea7bf1c40d5c0c451db6b497cd9b"
   },
   {
@@ -581,7 +581,7 @@
     "decimals": 18,
     "address": "0x99f40b01ba9c469193b360f72740e416b17ac332",
     "coingeckoId": "math",
-    "logoURL": "tokens/eip155-42161/0x99f40b01ba9c469193b360f72740e416b17ac332/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x99f40b01ba9c469193b360f72740e416b17ac332/logo.webp",
     "logoHash": "de1904539925e45cfcca14091575aba787a8b46b3610f47695e575ce5435b505"
   },
   {
@@ -590,7 +590,7 @@
     "decimals": 18,
     "address": "0x9d2f299715d94d8a7e6f5eaa8e654e8c74a988a7",
     "coingeckoId": "frax-share",
-    "logoURL": "tokens/eip155-42161/0x9d2f299715d94d8a7e6f5eaa8e654e8c74a988a7/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x9d2f299715d94d8a7e6f5eaa8e654e8c74a988a7/logo.webp",
     "logoHash": "114667f3906f6428163fbb918121f390029a9e3e96f3ff28e83f7fd83bd166a5"
   },
   {
@@ -599,7 +599,7 @@
     "decimals": 18,
     "address": "0x9f07f8a82cb1af1466252e505b7b7ddee103bc91",
     "coingeckoId": "degen-base",
-    "logoURL": "tokens/eip155-42161/0x9f07f8a82cb1af1466252e505b7b7ddee103bc91/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x9f07f8a82cb1af1466252e505b7b7ddee103bc91/logo.webp",
     "logoHash": "67617d55eeab59bd6ef53eadcc73b04929beb6e9d48904ed7aa83f63c77e0f81"
   },
   {
@@ -608,7 +608,7 @@
     "decimals": 18,
     "address": "0x9fb9a33956351cf4fa040f65a13b835a3c8764e3",
     "coingeckoId": "multichain",
-    "logoURL": "tokens/eip155-42161/0x9fb9a33956351cf4fa040f65a13b835a3c8764e3/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x9fb9a33956351cf4fa040f65a13b835a3c8764e3/logo.webp",
     "logoHash": "248133e4a909665903f9e00c3efaed2283331c768e7c5d1670fb9c2ba7e7f5ff"
   },
   {
@@ -617,7 +617,7 @@
     "decimals": 18,
     "address": "0xa0b862f60edef4452f25b4160f177db44deb6cf1",
     "coingeckoId": "gnosis",
-    "logoURL": "tokens/eip155-42161/0xa0b862f60edef4452f25b4160f177db44deb6cf1/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xa0b862f60edef4452f25b4160f177db44deb6cf1/logo.webp",
     "logoHash": "375acdc62aefd4f92b269884907648282cbbb6149f01d19eebcaa626aac70e41"
   },
   {
@@ -626,7 +626,7 @@
     "decimals": 18,
     "address": "0xa72159fc390f0e3c6d415e658264c7c4051e9b87",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0xa72159fc390f0e3c6d415e658264c7c4051e9b87/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xa72159fc390f0e3c6d415e658264c7c4051e9b87/logo.webp",
     "logoHash": "ffda571e2f226d1a52f69aca98bd84a6ba7b831e4e1799a4256d61bcd92d247e"
   },
   {
@@ -635,7 +635,7 @@
     "decimals": 18,
     "address": "0xa7aa2921618e3d63da433829d448b58c9445a4c3",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0xa7aa2921618e3d63da433829d448b58c9445a4c3/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xa7aa2921618e3d63da433829d448b58c9445a4c3/logo.webp",
     "logoHash": "ede9388a85897a651888925528e7346e9a3534eaebf25be97d7c7ae86b724577"
   },
   {
@@ -644,7 +644,7 @@
     "decimals": 18,
     "address": "0xa970af1a584579b618be4d69ad6f73459d112f95",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0xa970af1a584579b618be4d69ad6f73459d112f95/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xa970af1a584579b618be4d69ad6f73459d112f95/logo.webp",
     "logoHash": "58bb6e67cfd7cde74d516fd1c29d387ba33d3835ff68e8c44dfe95dbffce8e80"
   },
   {
@@ -653,7 +653,7 @@
     "decimals": 18,
     "address": "0xae6aab43c4f3e0cea4ab83752c278f8debaba689",
     "coingeckoId": "dforce-token",
-    "logoURL": "tokens/eip155-42161/0xae6aab43c4f3e0cea4ab83752c278f8debaba689/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xae6aab43c4f3e0cea4ab83752c278f8debaba689/logo.webp",
     "logoHash": "94d034e74e53d925126ced422e4ae9bc86d245c3405e6a6ae532581ca13854ed"
   },
   {
@@ -662,7 +662,7 @@
     "decimals": 18,
     "address": "0xaeaeed23478c3a4b798e4ed40d8b7f41366ae861",
     "coingeckoId": "ankr",
-    "logoURL": "tokens/eip155-42161/0xaeaeed23478c3a4b798e4ed40d8b7f41366ae861/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xaeaeed23478c3a4b798e4ed40d8b7f41366ae861/logo.webp",
     "logoHash": "321859767c3181ce106cbddae42abf338e690b71df92b2a516052dc654ba23b6"
   },
   {
@@ -671,7 +671,7 @@
     "decimals": 6,
     "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
     "coingeckoId": "usd-coin",
-    "logoURL": "tokens/eip155-42161/0xaf88d065e77c8cc2239327c5edb3a432268e5831/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xaf88d065e77c8cc2239327c5edb3a432268e5831/logo.webp",
     "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
   },
   {
@@ -680,7 +680,7 @@
     "decimals": 18,
     "address": "0xb0ffa8000886e57f86dd5264b9582b2ad87b2b91",
     "coingeckoId": "wormhole",
-    "logoURL": "tokens/eip155-42161/0xb0ffa8000886e57f86dd5264b9582b2ad87b2b91/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xb0ffa8000886e57f86dd5264b9582b2ad87b2b91/logo.webp",
     "logoHash": "225cdcd3c69881b7196759ce40ed14004cfb77e36404c5fdef046f6e7dd54d94"
   },
   {
@@ -689,7 +689,7 @@
     "decimals": 18,
     "address": "0xb766039cc6db368759c1e56b79affe831d0cc507",
     "coingeckoId": "rocket-pool",
-    "logoURL": "tokens/eip155-42161/0xb766039cc6db368759c1e56b79affe831d0cc507/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xb766039cc6db368759c1e56b79affe831d0cc507/logo.webp",
     "logoHash": "4f35cd9ccf2e9f4e60920c346430838a8e5b9c016641707912025fdff3393bf8"
   },
   {
@@ -698,7 +698,7 @@
     "decimals": 18,
     "address": "0xba5ddd1f9d7f570dc94a51479a000e3bce967196",
     "coingeckoId": "aave",
-    "logoURL": "tokens/eip155-42161/0xba5ddd1f9d7f570dc94a51479a000e3bce967196/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xba5ddd1f9d7f570dc94a51479a000e3bce967196/logo.webp",
     "logoHash": "e856c9ae7536f612998a57ccae4f6655688c320137eecb8ef6eeff6eab820c91"
   },
   {
@@ -707,7 +707,7 @@
     "decimals": 18,
     "address": "0xbfa641051ba0a0ad1b0acf549a89536a0d76472e",
     "coingeckoId": "badger-dao",
-    "logoURL": "tokens/eip155-42161/0xbfa641051ba0a0ad1b0acf549a89536a0d76472e/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xbfa641051ba0a0ad1b0acf549a89536a0d76472e/logo.webp",
     "logoHash": "444147cf48a3b2d8448a84e2b09304bf84c9de8a614d5a0a9b6f9864e6b2e651"
   },
   {
@@ -716,7 +716,7 @@
     "decimals": 18,
     "address": "0xc1eb7689147c81ac840d4ff0d298489fc7986d52",
     "coingeckoId": "venus",
-    "logoURL": "tokens/eip155-42161/0xc1eb7689147c81ac840d4ff0d298489fc7986d52/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xc1eb7689147c81ac840d4ff0d298489fc7986d52/logo.webp",
     "logoHash": "7683bcdf5671dbcb11dae792d071638265b25b5284700c170fea4e195fe333b5"
   },
   {
@@ -725,7 +725,7 @@
     "decimals": 18,
     "address": "0xc3ae0333f0f34aa734d5493276223d95b8f9cb37",
     "coingeckoId": null,
-    "logoURL": "tokens/eip155-42161/0xc3ae0333f0f34aa734d5493276223d95b8f9cb37/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xc3ae0333f0f34aa734d5493276223d95b8f9cb37/logo.webp",
     "logoHash": "210facee184062c68e86f6952520e55bea56575f33cfa138b700ed236584f239"
   },
   {
@@ -734,7 +734,7 @@
     "decimals": 18,
     "address": "0xc87b37a581ec3257b734886d9d3a581f5a9d056c",
     "coingeckoId": "aethir",
-    "logoURL": "tokens/eip155-42161/0xc87b37a581ec3257b734886d9d3a581f5a9d056c/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xc87b37a581ec3257b734886d9d3a581f5a9d056c/logo.webp",
     "logoHash": "221bd65ea5a8ae643219640bdf905ba8a99cd88421df26fc5ceee9587bfb045c"
   },
   {
@@ -743,7 +743,7 @@
     "decimals": 18,
     "address": "0xca5ca9083702c56b481d1eec86f1776fdbd2e594",
     "coingeckoId": "reserve-rights-token",
-    "logoURL": "tokens/eip155-42161/0xca5ca9083702c56b481d1eec86f1776fdbd2e594/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xca5ca9083702c56b481d1eec86f1776fdbd2e594/logo.webp",
     "logoHash": "ae4d3b50453d20387b272ba3a2387635e08f2475f8cf0fc0540a04671a3f8557"
   },
   {
@@ -752,7 +752,7 @@
     "decimals": 18,
     "address": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
     "coingeckoId": "woo-network",
-    "logoURL": "tokens/eip155-42161/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b/logo.webp",
     "logoHash": "6b9b069f242a28609c9d5fe1a6626b66458c13fcfc795bcf6ec3f6fe1526e23e"
   },
   {
@@ -761,7 +761,7 @@
     "decimals": 18,
     "address": "0xcb8b5cd20bdcaea9a010ac1f8d835824f5c87a04",
     "coingeckoId": "cow-protocol",
-    "logoURL": "tokens/eip155-42161/0xcb8b5cd20bdcaea9a010ac1f8d835824f5c87a04/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xcb8b5cd20bdcaea9a010ac1f8d835824f5c87a04/logo.webp",
     "logoHash": "190465a5898d180d7b0ec8b521990fd58800fd7aa78855fc9307ef89ca864955"
   },
   {
@@ -770,7 +770,7 @@
     "decimals": 18,
     "address": "0xd4d42f0b6def4ce0383636770ef773390d85c61a",
     "coingeckoId": "sushi",
-    "logoURL": "tokens/eip155-42161/0xd4d42f0b6def4ce0383636770ef773390d85c61a/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xd4d42f0b6def4ce0383636770ef773390d85c61a/logo.webp",
     "logoHash": "4b5864ed55d8bd7d8229d87de976bad42ebeeb483a69e4c4c6135f5e2ac31972"
   },
   {
@@ -779,7 +779,7 @@
     "decimals": 18,
     "address": "0xd4dd9e2f021bb459d5a5f6c24c12fe09c5d45553",
     "coingeckoId": "frankencoin",
-    "logoURL": "tokens/eip155-42161/0xd4dd9e2f021bb459d5a5f6c24c12fe09c5d45553/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xd4dd9e2f021bb459d5a5f6c24c12fe09c5d45553/logo.webp",
     "logoHash": "b84d34c5d30da043cc38c9adcfd504be7fd7b32fc060cb3ec4ea12b3a628c422"
   },
   {
@@ -788,7 +788,7 @@
     "decimals": 18,
     "address": "0xd58d345fd9c82262e087d2d0607624b410d88242",
     "coingeckoId": "tellor",
-    "logoURL": "tokens/eip155-42161/0xd58d345fd9c82262e087d2d0607624b410d88242/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xd58d345fd9c82262e087d2d0607624b410d88242/logo.webp",
     "logoHash": "dc8b892558869748f48dfcf1be32e9a3ddf3706b2c30e42225b9c37169545cd3"
   },
   {
@@ -797,7 +797,7 @@
     "decimals": 18,
     "address": "0xd74f5255d557944cf7dd0e45ff521520002d5748",
     "coingeckoId": "sperax-usd",
-    "logoURL": "tokens/eip155-42161/0xd74f5255d557944cf7dd0e45ff521520002d5748/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xd74f5255d557944cf7dd0e45ff521520002d5748/logo.webp",
     "logoHash": "c4e2db7f3cb5a43d2d566cb65f34b784c5339a131ca39b10804ac53890958622"
   },
   {
@@ -806,7 +806,7 @@
     "decimals": 18,
     "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
     "coingeckoId": "makerdao-arbitrum-bridged-dai-arbitrum-one",
-    "logoURL": "tokens/eip155-42161/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1/logo.webp",
     "logoHash": "1babd1bce22ae3d605f040ac6511bc3b77bd3ded92a12148ad8588ce78efb794"
   },
   {
@@ -815,7 +815,7 @@
     "decimals": 18,
     "address": "0xddb46999f8891663a8f2828d25298f70416d7610",
     "coingeckoId": "susds",
-    "logoURL": "tokens/eip155-42161/0xddb46999f8891663a8f2828d25298f70416d7610/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xddb46999f8891663a8f2828d25298f70416d7610/logo.webp",
     "logoHash": "7466190679bae687c2da9cab0f832978d1f6367a4e5cf09e1f6e99eaf4e1cb25"
   },
   {
@@ -824,7 +824,7 @@
     "decimals": 18,
     "address": "0xe5e851b01dd3eda24fde709a407db44555b6d1e0",
     "coingeckoId": "rif-token",
-    "logoURL": "tokens/eip155-42161/0xe5e851b01dd3eda24fde709a407db44555b6d1e0/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xe5e851b01dd3eda24fde709a407db44555b6d1e0/logo.webp",
     "logoHash": "f5cff0315e2670dd516449ba1aaedcb613d36cca21bd26199199c6d1d9e0d6f8"
   },
   {
@@ -833,7 +833,7 @@
     "decimals": 9,
     "address": "0xe649e6a1f2afc63ca268c2363691cecaf75cf47c",
     "coingeckoId": "iexec-rlc",
-    "logoURL": "tokens/eip155-42161/0xe649e6a1f2afc63ca268c2363691cecaf75cf47c/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xe649e6a1f2afc63ca268c2363691cecaf75cf47c/logo.webp",
     "logoHash": "89eb84b976b7585ed6d5754e42586a924c4a8b8ae903ad79c3192e0760433b5b"
   },
   {
@@ -842,7 +842,7 @@
     "decimals": 18,
     "address": "0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7",
     "coingeckoId": "everything",
-    "logoURL": "tokens/eip155-42161/0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xe7e7e741c23a4767831a56a8c99f522c5ac1e7e7/logo.webp",
     "logoHash": "276fdb13d16ae0a5129b79a48783f4f7ac7edac1adbaf8b59c37bb255a5fc321"
   },
   {
@@ -851,7 +851,7 @@
     "decimals": 18,
     "address": "0xef888bca6ab6b1d26dbec977c455388ecd794794",
     "coingeckoId": "rari-governance-token",
-    "logoURL": "tokens/eip155-42161/0xef888bca6ab6b1d26dbec977c455388ecd794794/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xef888bca6ab6b1d26dbec977c455388ecd794794/logo.webp",
     "logoHash": "7f65c0a05f2eef60d7680aca8b982933b9220419bff635570754d1758f1a1b85"
   },
   {
@@ -860,7 +860,7 @@
     "decimals": 18,
     "address": "0xf3c091ed43de9c270593445163a41a876a0bb3dd",
     "coingeckoId": "orbs",
-    "logoURL": "tokens/eip155-42161/0xf3c091ed43de9c270593445163a41a876a0bb3dd/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xf3c091ed43de9c270593445163a41a876a0bb3dd/logo.webp",
     "logoHash": "b1b8846d8f00dfdc9cb36612fd9a730bb6987cdd211a46f1c2dd7c6df30f6d8f"
   },
   {
@@ -869,7 +869,7 @@
     "decimals": 18,
     "address": "0xf4d48ce3ee1ac3651998971541badbb9a14d7234",
     "coingeckoId": "cream-2",
-    "logoURL": "tokens/eip155-42161/0xf4d48ce3ee1ac3651998971541badbb9a14d7234/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xf4d48ce3ee1ac3651998971541badbb9a14d7234/logo.webp",
     "logoHash": "8cdd6f5527b5c43573e09f6828c245748a1c4d3dd246a58ee7b58ef0e0a430b1"
   },
   {
@@ -878,7 +878,7 @@
     "decimals": 18,
     "address": "0xf8173a39c56a554837c4c7f104153a005d284d11",
     "coingeckoId": "edu-coin",
-    "logoURL": "tokens/eip155-42161/0xf8173a39c56a554837c4c7f104153a005d284d11/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xf8173a39c56a554837c4c7f104153a005d284d11/logo.webp",
     "logoHash": "58ec016f33058878292498b8e2450a287a2e07a8ee61c9ca5bfaecb296e99eb1"
   },
   {
@@ -887,7 +887,7 @@
     "decimals": 18,
     "address": "0xf97f4df75117a78c1a5a0dbb814af92458539fb4",
     "coingeckoId": "chainlink",
-    "logoURL": "tokens/eip155-42161/0xf97f4df75117a78c1a5a0dbb814af92458539fb4/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xf97f4df75117a78c1a5a0dbb814af92458539fb4/logo.webp",
     "logoHash": "cea438082d8c0f869f89569a386629c544fc72fb09bfb798fa45ae31ac0162d6"
   },
   {
@@ -896,7 +896,7 @@
     "decimals": 18,
     "address": "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0",
     "coingeckoId": "uniswap",
-    "logoURL": "tokens/eip155-42161/0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0/logo.webp",
     "logoHash": "d209fee53a9ed5f4e0a31d6a823aa109a6651609009ec976cbab3dc2a2490166"
   },
   {
@@ -905,16 +905,16 @@
     "decimals": 18,
     "address": "0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a",
     "coingeckoId": "gmx",
-    "logoURL": "tokens/eip155-42161/0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a/logo.webp",
     "logoHash": "0d267efb68e063eb29028cd8a5a99314db0b74a81973aadcb3be3f1e394160e0"
   },
   {
     "name": "Tether",
-    "symbol": "USD₮0",
+    "symbol": "USD\u20ae0",
     "decimals": 6,
     "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
     "coingeckoId": "usdt0",
-    "logoURL": "tokens/eip155-42161/0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9/logo.webp",
     "logoHash": "1a07b84645cda09bf1c4902706f4565ff23e52d2bb821f33bca347d8cca2ad6e"
   },
   {
@@ -923,7 +923,7 @@
     "decimals": 18,
     "address": "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a",
     "coingeckoId": "magic-internet-money-arbitrum",
-    "logoURL": "tokens/eip155-42161/0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a/logo.webp",
     "logoHash": "1a41631432da553f3ebc95a0fbfa9861a97397b3e1361c73d2796c08e2c9bcc8"
   },
   {
@@ -932,7 +932,7 @@
     "decimals": 6,
     "address": "0xff7f8f301f7a706e3cfd3d2275f5dc0b9ee8009b",
     "coingeckoId": "folks",
-    "logoURL": "tokens/eip155-42161/0xff7f8f301f7a706e3cfd3d2275f5dc0b9ee8009b/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xff7f8f301f7a706e3cfd3d2275f5dc0b9ee8009b/logo.webp",
     "logoHash": "6a2e0894a83fe42bbef99af0d2bed882ad814956a56f77ad9940ab8d3b3e9bb1"
   },
   {
@@ -941,7 +941,7 @@
     "decimals": 6,
     "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
     "coingeckoId": "usd-coin-ethereum-bridged",
-    "logoURL": "tokens/eip155-42161/0xff970a61a04b1ca14834a43f5de4533ebddb5cc8/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0xff970a61a04b1ca14834a43f5de4533ebddb5cc8/logo.webp",
     "logoHash": "e5f5ad009d5a181cff254fe4d79b95541c695e0893298f11cac038012cd6dc23"
   },
   {
@@ -950,7 +950,7 @@
     "decimals": 18,
     "address": null,
     "coingeckoId": "ethereum",
-    "logoURL": "tokens/eip155-42161/native/logo.webp",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/native/logo.webp",
     "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
   }
 ]

@@ -6,6 +6,7 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { describe, mock, test } from "node:test";
 import { encodeAbiParameters, getAddress, type Hex } from "viem";
+import { DEFAULT_ASSET_BASE_URL } from "../src/config.js";
 import {
   decodeErc20Decimals,
   decodeErc20String,
@@ -311,12 +312,18 @@ describe("add:token", () => {
     );
     const aggregate = JSON.parse(
       fs.readFileSync(path.join(root, "data", "tokens", CHAIN, "all.json"), "utf8"),
-    ) as { address: string | null; symbol: string }[];
+    ) as { address: string | null; symbol: string; logoURL: string }[];
     assert.deepEqual(
       aggregate.map((entry) => entry.address),
       [USDC, ADDED, null],
     );
     assert.equal(aggregate[1]?.symbol, "US D");
+    assert.equal(
+      aggregate[1]?.logoURL,
+      `${DEFAULT_ASSET_BASE_URL}tokens/${CHAIN}/${ADDED}/logo.webp`,
+    );
+    assert.ok(aggregate.every((entry) => entry.logoURL.startsWith(DEFAULT_ASSET_BASE_URL)));
+    assert.equal(info.logoURL.startsWith("tokens/"), true);
     fs.rmSync(root, { recursive: true, force: true });
   });
 

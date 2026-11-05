@@ -44,6 +44,19 @@ export type XrplToken = {
   logoHash: string;
 };
 
+/** Catalog key order for an XRPL `info.json` / `all.json` entry. */
+export function sortXrplToken(token: XrplToken): XrplToken {
+  return {
+    name: token.name,
+    symbol: token.symbol,
+    issuer: token.issuer,
+    currency: token.currency,
+    coingeckoId: token.coingeckoId,
+    logoURL: token.logoURL,
+    logoHash: token.logoHash,
+  };
+}
+
 export type XrplTokenDir = {
   issuerDir: string;
   currencyDir: string;

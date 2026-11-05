@@ -16,6 +16,7 @@ import {
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
+import { releaseTagForVersion } from "../src/releaseTag.js";
 import buildPackage from "../src/script/packageBuild.js";
 import type { EvmToken } from "../src/tokens.js";
 import type { XrplToken } from "../src/xrplToken.js";
@@ -390,6 +391,32 @@ describe("published package lookups", { concurrency: false }, () => {
     ]);
   });
 
+  test("published token logoURLs are relative", () => {
+    loadBuiltPackage();
+    const distTokens = path.join(process.cwd(), "dist", "tokens");
+    const files = fs.readdirSync(distTokens).filter((name) => name.endsWith(".json"));
+    assert.ok(files.length > 0);
+    for (const file of files) {
+      const chainPath = file.replace(/\.json$/, "");
+      const published = JSON.parse(fs.readFileSync(path.join(distTokens, file), "utf8")) as Array<{
+        logoURL: string;
+      }>;
+      const source = JSON.parse(
+        fs.readFileSync(path.join(process.cwd(), "data", "tokens", chainPath, "all.json"), "utf8"),
+      ) as Array<{ logoURL: string }>;
+      assert.equal(published.length, source.length, chainPath);
+      assert.ok(published.length > 0, chainPath);
+      for (let index = 0; index < published.length; index += 1) {
+        const catalogLogo = source[index]?.logoURL ?? "";
+        const publishedLogo = published[index]?.logoURL ?? "";
+        assert.match(catalogLogo, /^https:\/\/raw\.githubusercontent\.com\/.+\/data\/tokens\//);
+        assert.equal(publishedLogo, toRelativeAssetPath(catalogLogo));
+        assert.equal(/^https?:\/\//i.test(publishedLogo), false, publishedLogo);
+        assert.match(publishedLogo, /^tokens\//);
+      }
+    }
+  });
+
   test("published package keeps relative logoURL and ships no logo files", () => {
     const previousBase = process.env.ASSET_BASE_URL;
     process.env.ASSET_BASE_URL = "https://operator.example/cdn/";
@@ -471,9 +498,10 @@ describe("published package lookups", { concurrency: false }, () => {
     );
     const unknown = "https://images.example.com/unrelated.png";
     assert.equal(assets.resolveAssetURL(unknown, base), unknown);
+    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
     assert.equal(
       assets.resolveAssetURL(bifrost.logoURL),
-      `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/${bifrost.logoURL}`,
+      `${assets.GITHUB_ASSET_BASE_URL}${bifrost.logoURL}`,
     );
     assert.equal(
       assets.resolveAssetURL(bifrost.logoURL, base),
@@ -535,6 +563,38 @@ describe("published package lookups", { concurrency: false }, () => {
     );
   });
 
+  test("omitted base uses the package version tag and an explicit base wins", () => {
+    const assets = loadBuiltPackage();
+    const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
+      version: string;
+    };
+    const built = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
+    ) as { version: string };
+    assert.equal(built.version, root.version);
+    const tag = releaseTagForVersion(root.version);
+    const expected = `https://raw.githubusercontent.com/bifrostwallet/assets/${tag}/data/`;
+    assert.equal(tag.startsWith("vv"), false);
+    assert.equal(assets.GITHUB_ASSET_BASE_URL, expected);
+    const versionSegments = new URL(assets.GITHUB_ASSET_BASE_URL).pathname
+      .split("/")
+      .filter((part) => part.startsWith("v"));
+    assert.deepEqual(versionSegments, [tag]);
+    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes(expected), true);
+    assert.equal(indexSource.includes("package.json"), false);
+    assert.equal(indexSource.includes("/main/data/"), false);
+    const relative = "providers/eip155-14/0xabc/logo.webp";
+    assert.equal(assets.resolveAssetURL(relative), `${expected}${relative}`);
+    assert.equal(assets.resolveAssetURL(relative, ""), `${expected}${relative}`);
+    const base = "https://cdn.example.com/assets";
+    assert.equal(
+      assets.resolveAssetURL(relative, base),
+      `https://cdn.example.com/assets/${relative}`,
+    );
+  });
+
   test("getToken stays address-based and getXrplToken is exact-case", () => {
     buildPackage();
     const require = createRequire(path.join(process.cwd(), "package.json"));
@@ -580,6 +640,7 @@ interface PackageAssets {
   getContract: (chainId: string, address: string) => ContractInfo | null;
   getContracts: (chainId?: string) => ContractInfo[];
   resolveAssetURL: (logoURL: string, baseURL?: string) => string;
+  GITHUB_ASSET_BASE_URL: string;
   DEFAULT_ASSET_BASE_URL: string;
 }
 
