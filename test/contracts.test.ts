@@ -394,9 +394,7 @@ describe("published package lookups", { concurrency: false }, () => {
   test("published token logoURLs are relative", () => {
     loadBuiltPackage();
     const distTokens = path.join(process.cwd(), "dist", "tokens");
-    const files = fs
-      .readdirSync(distTokens)
-      .filter((name) => name.endsWith(".json"));
+    const files = fs.readdirSync(distTokens).filter((name) => name.endsWith(".json"));
     assert.ok(files.length > 0);
     for (const file of files) {
       const chainPath = file.replace(/\.json$/, "");
