@@ -132,9 +132,12 @@ export type EncodePngToWebpOptions = {
   resize?: { width: number; height: number };
 };
 
-/** Encode a PNG file to WebP bytes via cwebp (quality 85, method 6). */
-export function encodePngFileToWebp(
-  pngPath: string,
+/**
+ * Encode an image file cwebp can read (PNG, JPEG, or WebP) to WebP bytes.
+ * Default quality is 85, method 6.
+ */
+export function encodeImageFileToWebp(
+  inputPath: string,
   qualityOrOptions: number | EncodePngToWebpOptions = 85,
 ): Buffer {
   const options: EncodePngToWebpOptions =
@@ -147,7 +150,7 @@ export function encodePngFileToWebp(
     if (options.resize) {
       args.push("-resize", String(options.resize.width), String(options.resize.height));
     }
-    args.push(pngPath, "-o", tmp);
+    args.push(inputPath, "-o", tmp);
     const result = spawnSync(cwebp, args, { encoding: "utf8" });
     if (result.status !== 0) {
       throw new Error(result.stderr?.trim() || `cwebp failed with status ${result.status}`);
@@ -156,4 +159,12 @@ export function encodePngFileToWebp(
   } finally {
     if (fs.existsSync(tmp)) fs.unlinkSync(tmp);
   }
+}
+
+/** Encode a PNG file to WebP bytes via cwebp (quality 85, method 6). */
+export function encodePngFileToWebp(
+  pngPath: string,
+  qualityOrOptions: number | EncodePngToWebpOptions = 85,
+): Buffer {
+  return encodeImageFileToWebp(pngPath, qualityOrOptions);
 }

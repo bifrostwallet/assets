@@ -48,11 +48,11 @@ export function assertTokenCoingeckoIdField(
   }
 }
 
-export function listTokenChainPaths(): string[] {
-  const root = path.join(process.cwd(), "data", "tokens");
-  if (!fs.existsSync(root)) return [];
+export function listTokenChainPaths(root = process.cwd()): string[] {
+  const tokensRoot = path.join(root, "data", "tokens");
+  if (!fs.existsSync(tokensRoot)) return [];
   return fs
-    .readdirSync(root, { withFileTypes: true })
+    .readdirSync(tokensRoot, { withFileTypes: true })
     .filter(
       (e) =>
         e.isDirectory() && (e.name.startsWith("eip155-") || e.name === XRPL_MAINNET_CHAIN_PATH),
@@ -62,8 +62,11 @@ export function listTokenChainPaths(): string[] {
 }
 
 /** One directory per EVM token (`<address>` or `native`). XRPL is two levels deep. */
-export function listTokenDirs(chainPath: string): { dirName: string; dir: string }[] {
-  const chainDir = path.join(process.cwd(), "data", "tokens", chainPath);
+export function listTokenDirs(
+  chainPath: string,
+  root = process.cwd(),
+): { dirName: string; dir: string }[] {
+  const chainDir = path.join(root, "data", "tokens", chainPath);
   if (!fs.existsSync(chainDir)) return [];
   const out: { dirName: string; dir: string }[] = [];
   for (const entry of fs.readdirSync(chainDir, { withFileTypes: true })) {
@@ -95,6 +98,7 @@ export function validateEvmToken(info: unknown): string[] {
 
   if (typeof name !== "string" || !name.trim()) errors.push("invalid name");
   if (typeof symbol !== "string" || !symbol.trim()) errors.push("invalid symbol");
+  else if (symbol.includes(".")) errors.push('symbol contains "."');
   if (typeof decimals !== "number" || !Number.isInteger(decimals) || decimals < 0) {
     errors.push("invalid decimals");
   }
@@ -118,4 +122,44 @@ export function loadBlocklist(): TokenBlocklistEntry[] {
   if (!fs.existsSync(p)) return [];
   const raw = JSON.parse(fs.readFileSync(p, "utf8")) as { tokens?: TokenBlocklistEntry[] };
   return raw.tokens ?? [];
+}
+
+/** Catalog key order for an EVM `info.json` / `all.json` entry. */
+export function sortEvmToken(token: EvmToken): EvmToken {
+  return {
+    name: token.name,
+    symbol: token.symbol,
+    decimals: token.decimals,
+    address: token.address,
+    coingeckoId: token.coingeckoId,
+    logoURL: token.logoURL,
+    logoHash: token.logoHash,
+  };
+}
+
+/**
+ * Insert one contract token into an `all.json` array.
+ * Existing entries stay in place. The new address is inserted in lexicographic
+ * order among contract addresses, and before the native gas token when that
+ * entry is last.
+ */
+export function insertEvmToken(tokens: readonly EvmToken[], token: EvmToken): EvmToken[] {
+  if (token.address === null) {
+    throw new Error("add:token does not add the native gas token");
+  }
+  if (tokens.some((entry) => entry.address === token.address)) {
+    throw new Error(`all.json already lists ${token.address}`);
+  }
+  const address = token.address;
+  const next = [...tokens];
+  let insertAt = next.length;
+  for (let index = 0; index < next.length; index++) {
+    const current = next[index]?.address;
+    if (current === null || (typeof current === "string" && current.localeCompare(address) > 0)) {
+      insertAt = index;
+      break;
+    }
+  }
+  next.splice(insertAt, 0, token);
+  return next;
 }
