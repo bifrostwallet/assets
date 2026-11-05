@@ -9,32 +9,30 @@ To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/f
 Self-hosted logos are the standard way to serve icons. Logo files are not in the npm package. The git tag is `v` plus the package version.
 
 1. Check out the tag `v<version>` for the version you pinned.
-2. Upload `data/` from that checkout to a bucket you control. The commands copy `logo.webp` and skip JSON files. Object keys stay `providers/…`, `tokens/…`, `dapps/…`, and `contracts/…` under the base you pass to `resolveAssetURL`.
+2. From CI, upload the provider logos in `data/providers`. The commands copy `logo.webp` and skip JSON files. Object keys stay `providers/<chain>/<identity>/logo.webp` under the base you pass to `resolveAssetURL`.
 3. Pass that host as the base. Repeat the upload when you change the pin.
 
-The logo files live at `data/providers/**/logo.webp`, `data/tokens/**/logo.webp`, `data/dapps/**/logo.webp`, and `data/contracts/**/logo.webp`.
+The same pattern applies to tokens.
 
 ```bash
-gcloud storage rsync data gs://YOUR_BUCKET/assets \
+gcloud storage rsync data/providers gs://YOUR_BUCKET/assets/providers \
   --recursive \
   --exclude=".*\.json$"
 
-aws s3 sync data s3://YOUR_BUCKET/assets \
+aws s3 sync data/providers s3://YOUR_BUCKET/assets/providers \
   --exclude "*" \
-  --include "*/*/logo.webp" \
-  --include "*/*/*/logo.webp" \
-  --include "*/*/*/*/logo.webp"
+  --include "*/*/logo.webp"
 ```
 
 Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/uploading-objects). AWS: [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
 
-### Passing your base
+### Get all listed providers
 
-Chain ids are CAIP-2. A missing record returns `null`. An unknown chain id throws. `getListedProviders(chainId)` returns providers with `listed: true`, for a picker. `getProvider(chainId, identityAddress)` matches the identity address without regard to case, including a provider whose `listed` flag is false. `getToken(chainId, address)` ignores address case. `getTokens(chainId)` is the list in the [package README](package/README.md).
+Chain ids are CAIP-2. Call `getListedProviders(chainId)` once per chain. It returns providers with `listed: true`. An unknown chain id throws. `getProviders(chainId)` returns every provider on the chain, including entries whose `listed` flag is false. `getProvider(chainId, identityAddress)` matches the identity address without regard to case and returns `null` when the identity is absent.
 
-`resolveAssetURL(relativePath, baseURL?)` joins a listing `logoURL` to `baseURL`. The value used as the base is trimmed, and a trailing slash is added when it does not already end with one. A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped, and the relative path is appended to the base. An absolute URL that matches neither pattern is returned unchanged. The same call works for a provider, token, dapp, or contract `logoURL`. The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`.
+`resolveAssetURL(relativePath, baseURL?)` joins a listing `logoURL` to `baseURL`. The value used as the base is trimmed, and a trailing slash is added when it does not already end with one. A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped, and the relative path is appended to the base. An absolute URL that matches neither pattern is returned unchanged. When `baseURL` is omitted or blank, the helper uses `GITHUB_ASSET_BASE_URL`, GitHub raw at the tag matching the installed version. The base you host is the directory that contains `providers/`.
 
-A browser and a Node server use the same functions. `getProviders(chainId)` returns every provider on the chain, including entries whose `listed` flag is false. The published entry is CommonJS, so `require("@bifrostwallet/assets")` returns these functions. A server can write the mapped list to a JSON file beside the logos.
+A browser and a Node server use the same functions. The published entry is CommonJS, so `require("@bifrostwallet/assets")` returns these functions.
 
 ```typescript
 import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
@@ -46,11 +44,26 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 }));
 ```
 
+### Listed validator NodeIDs
+
+Each provider record includes `validators`, an array of NodeIDs. Listed validators are those NodeIDs on the result of `getListedProviders`. `findProviderByValidator(chainId, nodeId)` returns the provider that operates that NodeID, or `null`. The NodeID must match the stored string.
+
+```typescript
+import { findProviderByValidator, getListedProviders } from "@bifrostwallet/assets";
+
+const listed = getListedProviders("eip155:14");
+const nodeIds = listed.flatMap((provider) => provider.validators);
+const provider = findProviderByValidator(
+  "eip155:14",
+  "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+);
+```
+
 ### Optional verification
 
 A picker can skip this. The checks fit CI or a backend when you change the pin.
 
-`logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you uploaded. In a browser, `crypto.subtle.digest("SHA-256", logoBytes)` produces the same digest.
+`logoHash` is the SHA-256 of the provider `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you uploaded. In a browser, `crypto.subtle.digest("SHA-256", logoBytes)` produces the same digest.
 
 Operator signatures ship from `@bifrostwallet/assets/signatures`. Importing `@bifrostwallet/assets` does not load that entry. `getProviderSignatures(chainId, identityAddress)` returns the payload, or `null` when this version has no signature file for that identity. An unknown chain id throws. Some listings stay unsigned until 31 December 2026. The signature covers name, description, logo hash, website, links, identity, and the responsibilities acknowledgement. `logoHash` is one of those fields. Curator fields such as `listed` sit outside the signature. The version pin and npm provenance bind the published record. `record.verificationInstructions` states the domain and the field order.
 
@@ -70,11 +83,18 @@ const record = getProviderSignatures("eip155:14", provider.identityAddress);
 
 ## 2. GitHub (backwards compatible)
 
-Leave out `baseURL`, or pass a blank string. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). The join rules above still apply. `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package.
+This path does not use the package. Provider files on GitHub already store absolute `logoURL` values.
 
-```typescript
-import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";
+1. Fetch `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
+2. For listed providers, keep records with `listed: true` and use `logoURL` as published.
+3. For listed validator NodeIDs, read `validators` on those same records.
 
-const [token] = getTokens("eip155:14");
-const logoURL = resolveAssetURL(token.logoURL);
+```js
+const response = await fetch(
+  "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/all.json",
+);
+const providers = await response.json();
+const listed = providers.filter((provider) => provider.listed);
+const logoURL = listed[0].logoURL;
+const nodeIds = listed.flatMap((provider) => provider.validators);
 ```

@@ -2,7 +2,7 @@
 
 Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.
 
-Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) (`eip155:14`, `xrpl:0`). Pin one version and commit the lockfile.
+Chain ids in the package are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) (`eip155:14`, `eip155:19`). Pin one version and commit the lockfile.
 
 ## Install
 
@@ -14,26 +14,60 @@ Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifro
 
 ## Self-hosted logos
 
-Self-hosted logos are the standard way to serve icons. Logo files are not in the npm package. Upload `data/` from the git tag `v<version>` that matches the pin to GCS or S3, and pass that host to `resolveAssetURL`.
+Self-hosted logos are the standard way to serve icons. Logo files are not in the npm package. From CI, upload `data/providers` from the git tag `v<version>` that matches the pin, and pass that host to `resolveAssetURL`. An unknown chain id throws. The same pattern applies to tokens.
+
+### Get all listed providers
+
+Call `getListedProviders(chainId)` once per chain. It returns providers with `listed: true`. Resolve each `logoURL` against your host.
 
 ```typescript
-import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";
+import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
 
-const [token] = getTokens("eip155:14");
-const logoURL = resolveAssetURL(token.logoURL, "https://cdn.example.com/assets/");
+const base = "https://cdn.example.com/assets/";
+const listed = getListedProviders("eip155:14").map((provider) => ({
+  ...provider,
+  logoURL: resolveAssetURL(provider.logoURL, base),
+}));
 ```
 
-`getTokens(chainId)` returns that chain's tokens, and `getToken(chainId, address)` returns one EVM token or `null`.
+### Listed validator NodeIDs
 
-Upload commands, app use, and optional verification are in [CONSUMERS.md](https://github.com/bifrostwallet/assets/blob/main/CONSUMERS.md).
+Each provider has `validators`, an array of NodeIDs. Listed validators are the NodeIDs on the providers from `getListedProviders`. `findProviderByValidator(chainId, nodeId)` returns the provider for one NodeID, or `null`. The NodeID must match the stored string.
+
+```typescript
+import {
+  findProviderByValidator,
+  getListedProviders,
+  resolveAssetURL,
+} from "@bifrostwallet/assets";
+
+const base = "https://cdn.example.com/assets/";
+const listed = getListedProviders("eip155:14");
+const nodeIds = listed.flatMap((provider) => provider.validators);
+const provider = findProviderByValidator(
+  "eip155:14",
+  "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+);
+const logoURL = provider ? resolveAssetURL(provider.logoURL, base) : null;
+console.log(nodeIds.length, logoURL);
+```
+
+Upload commands and optional signature checks are in [CONSUMERS.md](https://github.com/bifrostwallet/assets/blob/main/CONSUMERS.md).
 
 ## GitHub (backwards compatible)
 
-Leave out the base. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package.
+This path does not use the package. Provider files on GitHub already store absolute `logoURL` values.
 
-```typescript
-import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";
+1. Fetch `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
+2. For listed providers, keep records with `listed: true` and use `logoURL` as published.
+3. For listed validator NodeIDs, read `validators` on those same records.
 
-const [token] = getTokens("eip155:14");
-const logoURL = resolveAssetURL(token.logoURL);
+```js
+const response = await fetch(
+  "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/all.json",
+);
+const providers = await response.json();
+const listed = providers.filter((provider) => provider.listed);
+const logoURL = listed[0].logoURL;
+const nodeIds = listed.flatMap((provider) => provider.validators);
 ```

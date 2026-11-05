@@ -194,7 +194,7 @@ Self-hosted logos are the standard way to serve icons. Logo files are not in the
 - `data/dapps/**/logo.webp` (dapp icons)
 - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
 
-Leaving out the base is backwards compatible. `resolveAssetURL` then loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). `data/tokens/<chain>/all.json` and `data/providers/<chain>/all.json` on GitHub carry absolute logo URLs for use without the package. Both options are in [CONSUMERS.md](CONSUMERS.md).
+Reading providers without the package is in [CONSUMERS.md](CONSUMERS.md): fetch `data/providers/<chain>/all.json` from GitHub and use its `logoURL` values as published.
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
