@@ -12,7 +12,7 @@
   "submitSignaturesAddress": "0xcd07dd0b6efe464c92ff700f4c691228f943b803",
   "publicKey": "0x0585a32440188feb88e991e09bb5a0d637ddc75b9ee3182afc0e488ab0e11f4f3049435a85f4b92ee5e2ba99f00c5b7dc288fd09edaa822e179b4bc80ee7e365",
   "validators": [],
-  "listed": false,
+  "listed": true,
   "managementGroup": true,
   "domainLinked": false,
   "dualNetwork": true,
