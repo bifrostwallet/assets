@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { Hex } from "viem";
-import { sha256Hex, writeFormattedJson } from "../convert.js";
+import { rebuildTokensAllJson, sha256Hex, writeFormattedJson } from "../convert.js";
 import { type Erc20Metadata, readErc20MetadataFromRpc } from "../erc20Metadata.js";
 import {
   chainIdFromPath,
@@ -12,13 +12,7 @@ import {
 import { isMain } from "../isMain.js";
 import { fetchTokenLogo } from "../tokenLogo.js";
 import { assertCuratedName, assertCuratedSymbol, TokenMetadataError } from "../tokenSymbols.js";
-import {
-  type EvmToken,
-  insertEvmToken,
-  listTokenDirs,
-  loadEvmToken,
-  sortEvmToken,
-} from "../tokens.js";
+import { type EvmToken, listTokenDirs, loadEvmToken, sortEvmToken } from "../tokens.js";
 import { isValidEvmAddress } from "../validate.js";
 
 /**
@@ -67,15 +61,6 @@ function assertNewSymbol(chainPath: string, symbol: string, existing: readonly S
   throw new Error(
     `A token with symbol ${JSON.stringify(symbol)} already exists on ${chainPath}: ${where}.`,
   );
-}
-
-function readAggregate(allPath: string): EvmToken[] {
-  if (!fs.existsSync(allPath)) return [];
-  const parsed: unknown = JSON.parse(fs.readFileSync(allPath, "utf8"));
-  if (!Array.isArray(parsed)) {
-    throw new Error(`${path.basename(path.dirname(allPath))}/all.json is not an array`);
-  }
-  return parsed as EvmToken[];
 }
 
 export async function addToken(input: AddTokenInput): Promise<EvmToken> {
@@ -169,12 +154,10 @@ export async function addToken(input: AddTokenInput): Promise<EvmToken> {
   fs.mkdirSync(outputDir, { recursive: true });
   const logoPath = path.join(outputDir, "logo.webp");
   const infoPath = path.join(outputDir, "info.json");
-  const allPath = path.join(root, "data", "tokens", chain, "all.json");
   try {
     fs.writeFileSync(logoPath, logo.bytes);
     writeFormattedJson(infoPath, token);
-    const aggregate = insertEvmToken(readAggregate(allPath), token);
-    writeFormattedJson(allPath, aggregate);
+    rebuildTokensAllJson(chain, root);
   } catch (error) {
     fs.rmSync(outputDir, { recursive: true, force: true });
     throw error;
@@ -182,7 +165,7 @@ export async function addToken(input: AddTokenInput): Promise<EvmToken> {
 
   console.info(`\n📁 Token information saved to: ${path.relative(root, infoPath)}`);
   console.info(`📁 Token logo saved to: ${path.relative(root, logoPath)}`);
-  console.info(`📁 Updated data/tokens/${chain}/all.json`);
+  console.info(`📁 Rebuilt data/tokens/${chain}/all.json`);
   console.info("\n✅ Token added successfully!");
   return token;
 }

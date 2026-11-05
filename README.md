@@ -8,7 +8,7 @@ The package is JSON plus lookup helpers, with no runtime dependencies. Chain ids
 - CommonJS entry (`index.js`) and TypeScript declarations (`index.d.ts`)
 - No runtime dependencies
 
-Upload commands, the do/don't list, and optional logo-hash and signature checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
+Hosting logos, frontend and backend use, and optional checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
 
 - [Usage](#usage)
 - [Logo files on a version bump](#logo-files-on-a-version-bump)
@@ -37,6 +37,9 @@ An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory na
 | `getListedProviders(chainId)` | Providers with `listed: true` |
 | `getManagementGroupProviders(chainId)` | Providers with `managementGroup: true` |
 | `findProviderByValidator(chainId, nodeId)` | The provider whose `validators` array contains that NodeID, or `null` |
+| `getValidators(chainId)` | Every validator on that chain: `nodeId`, `identityAddress`, and `name` |
+| `getListedValidators(chainId)` | Validators of providers with `listed: true` |
+| `getValidatorsByIdentity(chainId, identityAddress)` | That provider's validators, or `[]`. The address match is case-insensitive |
 | `getTokens(chainId)` | EVM tokens, or XRPL issued tokens when `chainId` is `"xrpl:0"` |
 | `getToken(chainId, address)` | One EVM token, or `null`. The address match is case-insensitive |
 | `getNativeToken(chainId)` | The gas token (`address: null`), or `null` |
@@ -50,7 +53,8 @@ An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory na
 | `TOKEN_CHAIN_IDS`, `CONTRACT_CHAIN_IDS` | CAIP-2 ids present in this version |
 | `CONTRACT_CATEGORIES`, `CONTRACT_CATEGORY_LABELS` | Contract category ids and display names |
 | `DAPP_CATEGORIES`, `DAPP_CATEGORY_LABELS` | Dapp chip ids and display names |
-| `DEFAULT_ASSET_BASE_URL` | GitHub raw `…/data/` prefix. Pass your own base |
+| `GITHUB_ASSET_BASE_URL` | GitHub raw `v<version>/data/` prefix used when the base is omitted |
+| `DEFAULT_ASSET_BASE_URL` | Deprecated alias of `GITHUB_ASSET_BASE_URL` |
 
 `@bifrostwallet/assets/signatures` exports `getProviderSignatures(chainId, identityAddress)`.
 
@@ -186,17 +190,14 @@ const record = getProviderSignatures(
 
 ## Logo files on a version bump
 
-> [!WARNING]
-> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
->
-> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
->
-> Copy every logo tree you actually serve, and keep the relative paths:
->
-> - `data/providers/**/logo.webp` (provider icons)
-> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons)
-> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+Self-hosted logos are the standard way to serve icons. Logo files are not in the npm tarball. The git tag is `v` plus the package version. From that tag, upload `data/` and pass that host to `resolveAssetURL`. The logo files are:
+
+- `data/providers/**/logo.webp` (provider icons)
+- `data/tokens/**/logo.webp` (EVM and XRPL token icons)
+- `data/dapps/**/logo.webp` (dapp icons)
+- `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+
+Reading providers without the package is in [CONSUMERS.md](CONSUMERS.md): fetch `data/providers/<chain>/all.json` from GitHub and use its `logoURL` values as published.
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -204,9 +205,9 @@ Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile
 npm install @bifrostwallet/assets@<version> --save-exact
 ```
 
-pnpm uses `--save-exact` as well. Yarn uses `--exact`. The three install lines are in [CONSUMERS.md](CONSUMERS.md#1-pin-the-package).
+pnpm uses `--save-exact` as well. Yarn uses `--exact`. The install lines are in [package/README.md](package/README.md).
 
-Host those files yourself and pass that origin to `resolveAssetURL`. The helpers do not fetch `all.json` or logos from GitHub raw or from Bifrost's CDN. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
+Host those files yourself and pass that origin to `resolveAssetURL`. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
 
 ## Utils
 
@@ -228,13 +229,13 @@ if (provider) {
 
 The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
-`DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Pass your base on every call.
+When the base is omitted or blank, `resolveAssetURL` loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). Passing your own base is the standard way to serve logos.
 
 An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or `contracts/` is reduced to that relative path and joined to your base. The published listings already store relative paths.
 
 ## Supply chain security
 
-- **Releases.** [`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page, or run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
+- **Releases.** [`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
 - **Dependencies.** The published package has zero runtime dependencies. `dist/package.json` is written with `"dependencies": {}`, and the build fails if that manifest declares `dependencies`, `devDependencies`, or `peerDependencies`.
 - **Dev dependencies.** They are pinned to exact versions and are left out of `dist/package.json`, so an end-user install does not install them. They exist for curation, lint, and the package build:
   - `@biomejs/biome` — lint and format
@@ -244,7 +245,7 @@ An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or 
   - `typescript` — compile and typecheck
   - `viem` — chain reads and EIP-712 recovery in curation scripts
 
-This package has no third-party security audit. Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
+Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
 
 ## FTSO Data Providers
 
@@ -431,7 +432,7 @@ Place a dapp from its official site. Do not filter chips by network.
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet (not self-serve). EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` + `logo.webp`, per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and directory `native/` (no separate `native` boolean).
+Token metadata is curated by Bifrost Wallet (not self-serve). EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` + `logo.webp`, per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and directory `native/` (no separate `native` boolean). `info.json` keeps a relative `logoURL`. Each chain's `all.json` stores an absolute GitHub raw `logoURL` (`https://raw.githubusercontent.com/bifrostwallet/assets/main/data/…`) so fetching `all.json` renders the logo directly. The npm package rewrites those URLs back to relative paths.
 
 XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. There is no `address` field. Lookup is `getXrplToken(issuer, currency)` and keeps that exact case. EVM lookup stays `getToken(chain, address)`. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are not listed.
 
@@ -443,7 +444,7 @@ Curators add one EVM token with the chain directory and the contract address:
 ./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 ```
 
-The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only and does not read the rest of the catalog on-chain.
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and does not read the rest of the catalog on-chain.
 
 ```bash
 ./yarn check:tokens -- --skip-onchain
@@ -511,7 +512,7 @@ src/                                        curation tooling (TypeScript, dev-on
 
 The listing UI and intake API are operated separately (not in this repository). Contact details stay on private intake objects only.
 
-Per-entry `logoURL` values are **relative** in git and stay relative in the npm package. Provider `all.json` in this repository may contain absolute URLs for bucket upload. That file is an input to the package build, not a public HTTP API.
+Per-entry `info.json` `logoURL` values are **relative** in git and stay relative in the npm package. Provider and token `all.json` files use absolute GitHub logo URLs so fetching `all.json` renders logos without the package. The package build rewrites those URLs back to relative paths. `upload:bucket` rebases hosted `all.json` onto `ASSET_BASE_URL`.
 
 ## Self-serve pipeline
 

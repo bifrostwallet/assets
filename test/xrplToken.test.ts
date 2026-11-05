@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { describe, test } from "node:test";
+import { DEFAULT_ASSET_BASE_URL } from "../src/config.js";
+import { buildTokensAllJson } from "../src/convert.js";
 import { listTokenChainPaths } from "../src/tokens.js";
 import { isValidImage } from "../src/validate.js";
 import {
@@ -120,10 +122,15 @@ describe("XRPL mainnet catalog", () => {
         path.join(process.cwd(), "data", "tokens", XRPL_MAINNET_CHAIN_PATH, "all.json"),
         "utf8",
       ),
-    );
-    const sorted = [...entries].sort(
-      (a, b) => a.issuer.localeCompare(b.issuer) || a.currency.localeCompare(b.currency),
-    );
-    assert.deepEqual(all, sorted);
+    ) as XrplToken[];
+    assert.deepEqual(all, buildTokensAllJson(XRPL_MAINNET_CHAIN_PATH));
+    assert.equal(all.length, entries.length);
+    for (let index = 0; index < entries.length; index += 1) {
+      const info = entries[index];
+      const published = all[index];
+      assert.ok(info);
+      assert.ok(published);
+      assert.equal(published.logoURL, `${DEFAULT_ASSET_BASE_URL}${info.logoURL}`);
+    }
   });
 });
