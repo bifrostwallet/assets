@@ -1,7 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
-import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
+import { withRelativeLogoURL } from "../assetUrl.js";
+import {
+  DAPP_CATEGORIES,
+  DAPP_CATEGORY_LABELS,
+  DEFAULT_ASSET_BASE_URL,
+  type ProviderInfo,
+} from "../config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
@@ -20,31 +25,87 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// Logos are NOT bundled. Published JSON uses absolute logoURL (GitHub raw by
-// default). Operators set ASSET_BASE_URL to publish against their own CDN host.
+// logoURL stays a relative path (providers/…, tokens/…, dapps/…). Provider
+// logo.webp files are bundled so integrators can upload them to their own host.
+// Token logos and dapp logos are not bundled. ASSET_BASE_URL is not applied
+// here; bucket upload still rewrites hosted all.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
 const PROVIDER_CHAINS = ["eip155-14", "eip155-19"] as const;
 
+function publishEntry<T extends { logoURL: string }>(entry: T, label: string): T {
+  const published = withRelativeLogoURL(entry);
+  if (/^https?:\/\//i.test(published.logoURL)) {
+    throw new Error(`${label}: published logoURL must stay relative, got ${entry.logoURL}`);
+  }
+  return published;
+}
+
 function loadProviders(chainPath: string): ProviderInfo[] {
   const allPath = path.join(process.cwd(), "data", "providers", chainPath, "all.json");
   const providers = JSON.parse(fs.readFileSync(allPath, "utf8")) as ProviderInfo[];
-  const base = getAssetBaseURL();
-  return providers.map((provider) => withAbsoluteLogoURL(provider, base));
+  return providers.map((provider) =>
+    publishEntry(provider, `providers/${chainPath}/${provider.identityAddress}`),
+  );
 }
 
 function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
   const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as Array<EvmToken | XrplToken>;
-  const base = getAssetBaseURL();
-  return tokens.map((token) => withAbsoluteLogoURL(token, base));
+  return tokens.map((token, index) => publishEntry(token, `tokens/${chainPath}[${index}]`));
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
   const contracts = getContracts(chainPathToCaip2(chainPath));
-  const base = getAssetBaseURL();
-  return contracts.map((contract) => withAbsoluteLogoURL(contract, base));
+  return contracts.map((contract) =>
+    publishEntry(contract, `contracts/${chainPath}/${contract.address}`),
+  );
+}
+
+/** Provider icons only. Token and dapp logos stay out of the tarball. */
+function copyProviderLogos(distDir: string): number {
+  const sourceRoot = path.join(process.cwd(), "data", "providers");
+  if (!fs.existsSync(sourceRoot)) return 0;
+  let count = 0;
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (entry.name !== "logo.webp") continue;
+      const relative = path.relative(path.join(process.cwd(), "data"), fullPath);
+      const destination = path.join(distDir, relative);
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.copyFileSync(fullPath, destination);
+      count += 1;
+    }
+  };
+  walk(sourceRoot);
+  return count;
+}
+
+function assertNoForeignLogos(distDir: string): void {
+  const foreign: string[] = [];
+  const walk = (dir: string): void => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (entry.name !== "logo.webp") continue;
+      const relative = path.relative(distDir, fullPath).split(path.sep).join("/");
+      if (!relative.startsWith("providers/")) foreign.push(relative);
+    }
+  };
+  walk(distDir);
+  if (foreign.length > 0) {
+    throw new Error(`Refusing to publish non-provider logos: ${foreign.slice(0, 5).join(", ")}`);
+  }
 }
 
 function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
@@ -76,7 +137,7 @@ ${contractRequires}};
 /** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
 
-const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(getAssetBaseURL())};
+const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(DEFAULT_ASSET_BASE_URL)};
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
@@ -207,9 +268,34 @@ function getDappCategories() {
   return dappCategories;
 }
 
-function resolveAssetURL(relativePath, baseURL) {
-  const base = baseURL || DEFAULT_ASSET_BASE_URL;
-  return base.replace(/\\/?$/, "/") + String(relativePath).replace(/^\\//, "");
+function toRelativeAssetPath(logoURL) {
+  const trimmed = String(logoURL).trim();
+  if (!/^https?:\\/\\//i.test(trimmed)) {
+    return trimmed.replace(/^\\//, "");
+  }
+  try {
+    const pathname = new URL(trimmed).pathname;
+    for (const marker of ["/static/", "/data/"]) {
+      const idx = pathname.indexOf(marker);
+      if (idx !== -1) {
+        return pathname.slice(idx + marker.length).replace(/^\\//, "");
+      }
+    }
+  } catch {
+    // fall through
+  }
+  const match = trimmed.match(/((?:providers|dapps|tokens|contracts)\\/[^?#]+)/);
+  return match ? match[1] : trimmed;
+}
+
+function resolveAssetURL(logoURL, baseURL) {
+  const supplied = baseURL && String(baseURL).trim();
+  const base = (supplied || DEFAULT_ASSET_BASE_URL).replace(/\\/?$/, "/");
+  const relative = toRelativeAssetPath(logoURL);
+  if (/^https?:\\/\\//i.test(relative)) {
+    return relative;
+  }
+  return base + relative.replace(/^\\//, "");
 }
 
 module.exports = {
@@ -256,8 +342,8 @@ export interface ProviderInfo {
     tiktok?: string;
   };
   /**
-   * Absolute logo URL in published lists (GitHub raw by default).
-   * info.json in git keeps a relative path; resolveAssetURL() still works for either form.
+   * Relative logo path, for example providers/eip155-14/<identity>/logo.webp.
+   * Host the file yourself and pass your base to resolveAssetURL.
    */
   logoURL: string;
   /** SHA-256 of the logo file, covered by provider signatures */
@@ -408,15 +494,15 @@ export declare function getContract(chainId: ChainId, address: string): Contract
  */
 export declare function getDappCategories(): DappCategoryGroup[];
 /**
- * Joins a relative (or already-absolute) asset path to a base URL.
- * Defaults to the base baked into this package build (ASSET_BASE_URL / GitHub raw).
+ * Joins a relative logoURL to baseURL.
+ * An absolute logoURL on a known asset prefix is stripped and rebased onto baseURL.
+ * Pass a base you control (your CDN or backend).
  */
 export declare function resolveAssetURL(relativePath: string, baseURL?: string): string;
 `;
 
 function buildPackage(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
-  const assetBase = getAssetBaseURL();
 
   const distDir = path.join(process.cwd(), "dist");
   fs.rmSync(distDir, { recursive: true, force: true });
@@ -458,8 +544,6 @@ function buildPackage(): void {
       console.info(`📦 contracts/${chain}.json (${contracts.length} contracts)`);
     }
   }
-
-  console.info(`🖼️  logoURL base: ${assetBase}`);
 
   const categoriesSrc = path.join(process.cwd(), "data", "dapps", "categories.json");
   if (!fs.existsSync(categoriesSrc)) {
@@ -510,7 +594,11 @@ function buildPackage(): void {
     throw new Error("dist/package.json must not declare any dependencies");
   }
 
+  const logoCount = copyProviderLogos(distDir);
+  assertNoForeignLogos(distDir);
+
   console.info("\n✅ Built zero-dependency package in dist/");
+  console.info(`   ${logoCount} provider logo.webp file(s); published logoURL stays relative`);
   console.info("   Publish with: npm publish ./dist");
 }
 

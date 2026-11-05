@@ -4,9 +4,9 @@ Bifrost Wallet maintains curated providers, tokens, dapps and contracts to enric
 
 This repository is the single source of truth. It publishes primarily as:
 
-- **NPM package** [`@bifrostwallet/assets`](#npm-package): zero-dependency JSON data plus lookup helpers; logos resolve to **GitHub raw** by default
+- **NPM package** [`@bifrostwallet/assets`](#npm-package): zero-dependency JSON plus lookup helpers. Integrators version-lock it and host provider logos on their own CDN. See [CONSUMERS.md](CONSUMERS.md).
 
-**Using the package:** see [CONSUMERS.md](CONSUMERS.md) and the full guide on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/list/consuming-assets). Operators may optionally upload to their **own** GCS/CDN via env; that path is not a public third-party API.
+**Using the package:** [CONSUMERS.md](CONSUMERS.md). Operators may optionally upload to their **own** GCS/CDN via env; that path is not a public third-party API.
 
 ## FTSO Data Providers
 
@@ -173,7 +173,7 @@ If you're a wallet or dapp developer using our curated provider data:
 1. **Hide** providers with `listed: false` from picker / discovery UIs.
 2. **Show** all providers in contexts where a choice has already been made (confirmations, transaction details).
 
-NPM install and examples: [CONSUMERS.md](CONSUMERS.md). Full integrator guide: [docs.bifrostwallet.com](https://docs.bifrostwallet.com/list/consuming-assets).
+NPM install and examples: [CONSUMERS.md](CONSUMERS.md).
 
 ## Dapps
 
@@ -240,7 +240,7 @@ The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exis
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` in git is the relative dapp path. The published package makes it absolute. `logoHash` is the SHA-256 of the dapp WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
+`logoURL` in git and in the published package is the relative dapp path. `logoHash` is the SHA-256 of the dapp WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
 
 ```bash
 ./yarn check:contracts
@@ -262,7 +262,7 @@ src/                                        curation tooling (TypeScript, dev-on
 
 The listing UI and intake API are operated separately (not in this repository). Contact details stay on private intake objects only.
 
-Asset paths (e.g. `logoURL`) are **relative** in git; the published NPM package uses absolute GitHub raw URLs by default.
+Per-entry `logoURL` values are **relative** in git and stay relative in the npm package. Provider `all.json` in this repository may contain absolute URLs for bucket upload. That file is an input to the package build, not a public HTTP API.
 
 ## Self-serve pipeline
 
@@ -275,7 +275,7 @@ Listings are re-validated in this repository before they go live; CI re-checks o
 
 ## NPM package
 
-`./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, helpers). The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. Logos in the package are absolute GitHub raw URLs unless you set `ASSET_BASE_URL` at build time.
+`./yarn build:package` produces a **zero-dependency** package in `dist/` (lists, types, helpers, and provider `logo.webp` files). Published `logoURL` values stay relative. Token and dapp logos are not included. The published README is [`package/README.md`](package/README.md). Publish with `npm publish ./dist`. `ASSET_BASE_URL` rewrites hosted lists during `upload:bucket`; it does not rewrite the npm package.
 
 ## Development
 
