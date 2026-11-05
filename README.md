@@ -186,17 +186,14 @@ const record = getProviderSignatures(
 
 ## Logo files on a version bump
 
-> [!WARNING]
-> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
->
-> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
->
-> Copy every logo tree you actually serve, and keep the relative paths:
->
-> - `data/providers/**/logo.webp` (provider icons)
-> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons)
-> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+Self-hosted logos are the standard way to serve icons. Logo files are not in the npm tarball. The git tag is `v` plus the package version. From that tag, upload `data/` and pass that host to `resolveAssetURL`. The logo files are:
+
+- `data/providers/**/logo.webp` (provider icons)
+- `data/tokens/**/logo.webp` (EVM and XRPL token icons)
+- `data/dapps/**/logo.webp` (dapp icons)
+- `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+
+Leaving out the base is backwards compatible. `resolveAssetURL` then uses the GitHub raw `main/data/` prefix. Both options are in [CONSUMERS.md](CONSUMERS.md).
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -206,7 +203,7 @@ npm install @bifrostwallet/assets@<version> --save-exact
 
 pnpm uses `--save-exact` as well. Yarn uses `--exact`. The install lines are in [package/README.md](package/README.md).
 
-Host those files yourself and pass that origin to `resolveAssetURL`. The helpers do not fetch `all.json` or logos from GitHub raw or from Bifrost's CDN. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
+Host those files yourself and pass that origin to `resolveAssetURL`. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
 
 ## Utils
 
@@ -228,7 +225,7 @@ if (provider) {
 
 The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
-`DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Pass your base on every call.
+`DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Passing your own base is the standard way to serve logos.
 
 An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or `contracts/` is reduced to that relative path and joined to your base. The published listings already store relative paths.
 

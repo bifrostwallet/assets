@@ -4,23 +4,15 @@ Pin [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/asset
 
 To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/ftso-provider).
 
-## 1. Hosting logos
+## 1. Self-hosted logos
 
-> [!WARNING]
-> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
->
-> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
->
-> Copy every logo tree you actually serve, and keep the relative paths:
->
-> - `data/providers/**/logo.webp` (provider icons)
-> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons)
-> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+Self-hosted logos are the standard way to serve icons. Logo files are not in the npm package. The git tag is `v` plus the package version.
 
-1. Check out the git tag `v<version>` for the version you pinned.
-2. Upload `data/` from that checkout to a bucket you control. The commands below copy `logo.webp` and skip JSON files. Object keys stay `providers/…`, `tokens/…`, `dapps/…`, and `contracts/…` under the base you pass to `resolveAssetURL`.
-3. Run the same upload again whenever you change the pin.
+1. Check out the tag `v<version>` for the version you pinned.
+2. Upload `data/` from that checkout to a bucket you control. The commands copy `logo.webp` and skip JSON files. Object keys stay `providers/…`, `tokens/…`, `dapps/…`, and `contracts/…` under the base you pass to `resolveAssetURL`.
+3. Pass that host as the base. Repeat the upload when you change the pin.
+
+The logo files live at `data/providers/**/logo.webp`, `data/tokens/**/logo.webp`, `data/dapps/**/logo.webp`, and `data/contracts/**/logo.webp`.
 
 ```bash
 gcloud storage rsync data gs://YOUR_BUCKET/assets \
@@ -36,11 +28,13 @@ aws s3 sync data s3://YOUR_BUCKET/assets \
 
 Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/uploading-objects). AWS: [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
 
-## 2. Frontend use
+### Passing your base
 
-Import the helpers and pass your host to `resolveAssetURL`. Chain ids are CAIP-2. A missing record returns `null`. An unknown chain id throws. `getListedProviders(chainId)` returns providers with `listed: true`, for a picker. `getProvider(chainId, identityAddress)` matches the identity address without regard to case, including a provider whose `listed` flag is false, for a confirmation screen. `getToken(chainId, address)` is the EVM token lookup and ignores address case. The token example in the [package README](package/README.md) uses `getTokens(chainId)`.
+Chain ids are CAIP-2. A missing record returns `null`. An unknown chain id throws. `getListedProviders(chainId)` returns providers with `listed: true`, for a picker. `getProvider(chainId, identityAddress)` matches the identity address without regard to case, including a provider whose `listed` flag is false. `getToken(chainId, address)` ignores address case. `getTokens(chainId)` is the list in the [package README](package/README.md).
 
-`resolveAssetURL(relativePath, baseURL?)` joins a listing `logoURL` to `baseURL`. When `baseURL` is omitted, empty, or only whitespace, the helper uses `DEFAULT_ASSET_BASE_URL` (`https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`). The value used as the base is trimmed, and a trailing slash is added when it does not already end with one. A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped, and the relative path is appended to the base. An absolute URL that matches neither pattern is returned unchanged. The same call works for a provider, token, dapp, or contract `logoURL`. The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`.
+`resolveAssetURL(relativePath, baseURL?)` joins a listing `logoURL` to `baseURL`. The value used as the base is trimmed, and a trailing slash is added when it does not already end with one. A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped, and the relative path is appended to the base. An absolute URL that matches neither pattern is returned unchanged. The same call works for a provider, token, dapp, or contract `logoURL`. The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`.
+
+A browser and a Node server use the same functions. `getProviders(chainId)` returns every provider on the chain, including entries whose `listed` flag is false. The published entry is CommonJS, so `require("@bifrostwallet/assets")` returns these functions. A server can write the mapped list to a JSON file beside the logos.
 
 ```typescript
 import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
@@ -52,23 +46,7 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 }));
 ```
 
-## 3. Backend use
-
-A Node server calls the same functions. One use at pin time is to write a JSON file beside the logos, with each `logoURL` already joined to your host, and let clients fetch that file. `getProviders(chainId)` returns every provider on the chain, including entries whose `listed` flag is false, when the file should include them. The published entry is CommonJS, so `require("@bifrostwallet/assets")` returns these same functions.
-
-```js
-import { writeFileSync } from "node:fs";
-import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
-
-const base = "https://cdn.example.com/assets/";
-const listed = getListedProviders("eip155:14").map((provider) => ({
-  ...provider,
-  logoURL: resolveAssetURL(provider.logoURL, base),
-}));
-writeFileSync("flare-providers.json", JSON.stringify(listed));
-```
-
-## 4. Optional verification
+### Optional verification
 
 A picker can skip this. The checks fit CI or a backend when you change the pin.
 
@@ -88,4 +66,15 @@ const digest = createHash("sha256").update(logoBytes).digest("hex");
 if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
 
 const record = getProviderSignatures("eip155:14", provider.identityAddress);
+```
+
+## 2. GitHub (backwards compatible)
+
+Leave out `baseURL`, or pass a blank string. `resolveAssetURL` then uses `DEFAULT_ASSET_BASE_URL`, `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. The join rules above still apply.
+
+```typescript
+import { getTokens, resolveAssetURL } from "@bifrostwallet/assets";
+
+const [token] = getTokens("eip155:14");
+const logoURL = resolveAssetURL(token.logoURL);
 ```
