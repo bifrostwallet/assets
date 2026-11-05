@@ -1,7 +1,7 @@
 {
   "name": "@bifrostwallet/assets",
   "version": "0.0.5-beta",
-  "description": "Curated assets for Bifrost Wallet.",
+  "description": "Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.",
   "repository": "https://github.com/bifrostwallet/assets.git",
   "author": "Bifrost Software Ltd",
   "license": "MIT",

@@ -1,6 +1,8 @@
 # Consuming Assets
 
-Most consumers are dapps and frontends. Pin [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/assets), copy provider logos onto a host you control, and read listings from the package or from one JSON file on that same host. Source of truth: [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets).
+Most consumers are dapps and frontends. Pin [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/assets), copy the logo trees you serve onto a host you control, and read listings from the package or from one JSON file on that same host. Source of truth: [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets).
+
+Lookups for providers, tokens, XRPL issued tokens, dapp categories, and contracts are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#usage). This file is the upload guide.
 
 To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/ftso-provider).
 
@@ -12,13 +14,28 @@ npm install @bifrostwallet/assets@<version> --save-exact
 
 Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifrostwallet/assets@<version> --save-exact`.
 
-`--save-exact` and `--exact` pin one version so a newer catalog cannot slip in unnoticed. Commit the lockfile.
+`--save-exact` and `--exact` pin one version so a newer catalog cannot slip in unnoticed. Commit the lockfile. Copy logos from that same version before you ship. The next section is the warning for that upload.
 
 ## 2. Copy logos when you adopt or bump
 
-Do this the first time, and again every time you bump the pin, before you ship. The git tag is `v` plus the package version. Logo files are not in the npm package.
+> [!WARNING]
+> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
+>
+> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
+>
+> Copy every logo tree you actually serve, and keep the relative paths:
+>
+> - `data/providers/**/logo.webp` (provider icons)
+> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
+> - `data/dapps/**/logo.webp` (dapp icons and contract icons; contracts have no logo file of their own)
 
-From that tag, copy `providers/**/logo.webp` to your CDN or backend. Keep the relative paths. A `logoURL` looks like `providers/eip155-14/<identity>/logo.webp`.
+Use the exact pin from the previous step (`--save-exact` on npm and pnpm, `--exact` on Yarn) for that tag. Do this the first time, and again on every bump, before you ship.
+
+| You serve | Copy from the tag | `logoURL` shape |
+| --- | --- | --- |
+| Providers | `data/providers/**/logo.webp` | `providers/eip155-14/<identity>/logo.webp` |
+| Tokens | `data/tokens/**/logo.webp` | `tokens/eip155-14/<address>/logo.webp`, `tokens/eip155-14/native/logo.webp`, `tokens/xrpl-0/<issuer>/<currency>/logo.webp` |
+| Dapps and contract icons | `data/dapps/**/logo.webp` | `dapps/<slug>/logo.webp` |
 
 If you want one hosted JSON file, write it from the package in the same step and upload it next to the logos. Name the file whatever you want.
 
@@ -35,8 +52,6 @@ writeFileSync("flare-providers.json", JSON.stringify(listed));
 ```
 
 `getListedProviders` is the comparison list and picker (`listed: true` only). Use `getProviders` when the file should also include providers that are not listed.
-
-A version bump without this upload is incomplete. A new provider whose file you did not upload is a 404 from your host. A path you already uploaded keeps the old file, and `logoHash` no longer matches if the logo changed.
 
 Copy commands are in [Upload examples](#upload-examples).
 
@@ -79,7 +94,7 @@ Chain ids are CAIP-2. `getProvider` matches `identityAddress` case-insensitively
 
 The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base.
 
-`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included). Catalog logos are WebP.
+`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included). Catalog logos are WebP. Token, XRPL, contract, and dapp-category calls use the same CAIP-2 chain ids and the same base rule. Examples are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#usage).
 
 If you uploaded `flare-providers.json`, fetch that URL. One request. Its `logoURL` values already point at your host.
 
@@ -89,7 +104,7 @@ DO: pin with `--save-exact` / `--exact` and commit the lockfile.
 
 DO NOT: depend on a `^` range. A newer catalog can slip in without a logo refresh.
 
-DO: at each pin bump, copy `providers/**/logo.webp` from the tag `v` plus the version onto a host you control, and keep the relative paths. If you want one JSON file, generate it with `getListedProviders` or `getProviders` plus `resolveAssetURL`, and upload it next to the logos.
+DO: at each pin bump, copy every logo tree you serve from the tag `v` plus the version onto a host you control, and keep the relative paths. Provider icons are `data/providers/**/logo.webp`. Token icons are `data/tokens/**/logo.webp`. Dapp icons and contract icons are `data/dapps/**/logo.webp`. If you want one JSON file, generate it with the lookup helpers plus `resolveAssetURL`, and upload it next to the logos.
 
 DO NOT: fetch `all.json`, or logos, from GitHub raw, from this repository, or from Bifrost’s CDN at runtime. `all.json` in git is not a public consume API.
 
@@ -113,19 +128,38 @@ From a checkout of tag `v<version>`:
 gcloud storage rsync data/providers gs://YOUR_BUCKET/assets/providers \
   --recursive \
   --exclude=".*\.json$"
+gcloud storage rsync data/tokens gs://YOUR_BUCKET/assets/tokens \
+  --recursive \
+  --exclude=".*\.json$"
+gcloud storage rsync data/dapps gs://YOUR_BUCKET/assets/dapps \
+  --recursive \
+  --exclude=".*\.json$"
 ```
 
 See [Upload objects](https://cloud.google.com/storage/docs/uploading-objects).
 
 ```bash
+# Providers: chain/identity/logo.webp
 aws s3 sync data/providers s3://YOUR_BUCKET/assets/providers \
   --exclude "*" \
   --include "*/*/logo.webp"
+
+# EVM tokens: chain/address/logo.webp and chain/native/logo.webp.
+# XRPL issued tokens: xrpl-0/issuer/currency/logo.webp.
+aws s3 sync data/tokens s3://YOUR_BUCKET/assets/tokens \
+  --exclude "*" \
+  --include "*/*/logo.webp" \
+  --include "*/*/*/logo.webp"
+
+# Dapps: slug/logo.webp
+aws s3 sync data/dapps s3://YOUR_BUCKET/assets/dapps \
+  --exclude "*" \
+  --include "*/logo.webp"
 ```
 
 See [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
 
-Run the same copy on every pin bump. Object keys stay `providers/<chain>/<identity>/logo.webp` under the base you pass to `resolveAssetURL`.
+Run the same copy on every pin bump. Object keys stay under the base you pass to `resolveAssetURL` (`providers/…`, `tokens/…`, `dapps/…`).
 
 ## Optional checks
 
@@ -174,6 +208,6 @@ Recover the EIP-712 `ProviderListing` signer and compare it to `identityAddress`
 
 ## Provenance
 
-Releases are staged with npm Trusted Publishing (OIDC). The publish step sets `NPM_CONFIG_PROVENANCE`. The workflow is [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml). Pin with `--exact` or `--save-exact`, as above.
+Releases are staged with npm Trusted Publishing (OIDC). [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml) runs `npm stage publish` with `NPM_CONFIG_PROVENANCE=true`. A maintainer approves the staged version on npmjs.com before it is installable. Pin with `--exact` or `--save-exact`, as above.
 
-Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
+Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/). Pinned Yarn, commit signatures, and dev dependencies are in the [README](https://github.com/bifrostwallet/assets/blob/main/README.md#supply-chain-security).

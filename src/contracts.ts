@@ -67,7 +67,7 @@ export type ContractInfo = {
   contractName: string;
   category: ContractCategory;
   /**
-   * Copy of the dapp logo path. Relative in git, absolute in the published package.
+   * Copy of the dapp logo path. Relative in git and in the published package.
    */
   logoURL: string;
   /** Copy of the dapp logoHash (SHA-256 of that WebP). */

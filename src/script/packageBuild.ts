@@ -652,7 +652,9 @@ function buildPackage(): void {
   const manifest = {
     name: "@bifrostwallet/assets",
     version: rootPackage.version,
-    description: rootPackage.description ?? "Curated assets for Bifrost Wallet.",
+    description:
+      rootPackage.description ??
+      "Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.",
     repository: rootPackage.repository,
     author: rootPackage.author,
     license: "MIT",
