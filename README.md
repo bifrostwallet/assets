@@ -8,7 +8,7 @@ The package is JSON plus lookup helpers, with no runtime dependencies. Chain ids
 - CommonJS entry (`index.js`) and TypeScript declarations (`index.d.ts`)
 - No runtime dependencies
 
-Upload commands, the do/don't list, and optional logo-hash and signature checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
+Hosting logos, frontend and backend use, and optional checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
 
 - [Usage](#usage)
 - [Logo files on a version bump](#logo-files-on-a-version-bump)
@@ -50,7 +50,8 @@ An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory na
 | `TOKEN_CHAIN_IDS`, `CONTRACT_CHAIN_IDS` | CAIP-2 ids present in this version |
 | `CONTRACT_CATEGORIES`, `CONTRACT_CATEGORY_LABELS` | Contract category ids and display names |
 | `DAPP_CATEGORIES`, `DAPP_CATEGORY_LABELS` | Dapp chip ids and display names |
-| `DEFAULT_ASSET_BASE_URL` | GitHub raw `…/data/` prefix. Pass your own base |
+| `GITHUB_ASSET_BASE_URL` | GitHub raw `v<version>/data/` prefix used when the base is omitted |
+| `DEFAULT_ASSET_BASE_URL` | Deprecated alias of `GITHUB_ASSET_BASE_URL` |
 
 `@bifrostwallet/assets/signatures` exports `getProviderSignatures(chainId, identityAddress)`.
 
@@ -186,17 +187,14 @@ const record = getProviderSignatures(
 
 ## Logo files on a version bump
 
-> [!WARNING]
-> Bumping `@bifrostwallet/assets` without uploading logos from the matching git tag to storage you control is an incomplete upgrade. The tag is `v` plus the package version. Logo files are not in the npm tarball.
->
-> A path that is new in that version 404s. A path you already uploaded can keep the previous bytes, and `logoHash` will not match when the logo changed.
->
-> Copy every logo tree you actually serve, and keep the relative paths:
->
-> - `data/providers/**/logo.webp` (provider icons)
-> - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons)
-> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+Self-hosted logos are the standard way to serve icons. Logo files are not in the npm tarball. The git tag is `v` plus the package version. From that tag, upload `data/` and pass that host to `resolveAssetURL`. The logo files are:
+
+- `data/providers/**/logo.webp` (provider icons)
+- `data/tokens/**/logo.webp` (EVM and XRPL token icons)
+- `data/dapps/**/logo.webp` (dapp icons)
+- `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
+
+Reading providers without the package is in [CONSUMERS.md](CONSUMERS.md): fetch `data/providers/<chain>/all.json` from GitHub and use its `logoURL` values as published.
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -204,9 +202,9 @@ Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile
 npm install @bifrostwallet/assets@<version> --save-exact
 ```
 
-pnpm uses `--save-exact` as well. Yarn uses `--exact`. The three install lines are in [CONSUMERS.md](CONSUMERS.md#1-pin-the-package).
+pnpm uses `--save-exact` as well. Yarn uses `--exact`. The install lines are in [package/README.md](package/README.md).
 
-Host those files yourself and pass that origin to `resolveAssetURL`. The helpers do not fetch `all.json` or logos from GitHub raw or from Bifrost's CDN. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
+Host those files yourself and pass that origin to `resolveAssetURL`. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
 
 ## Utils
 
@@ -228,13 +226,13 @@ if (provider) {
 
 The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
-When the base is omitted or blank, `resolveAssetURL` uses GitHub at the matching version tag. Passing your own base is recommended.
+When the base is omitted or blank, `resolveAssetURL` loads logos from GitHub at the tag matching the installed version (`GITHUB_ASSET_BASE_URL`). Passing your own base is the standard way to serve logos.
 
 An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or `contracts/` is reduced to that relative path and joined to your base. The published listings already store relative paths.
 
 ## Supply chain security
 
-- **Releases.** [`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page, or run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
+- **Releases.** [`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
 - **Dependencies.** The published package has zero runtime dependencies. `dist/package.json` is written with `"dependencies": {}`, and the build fails if that manifest declares `dependencies`, `devDependencies`, or `peerDependencies`.
 - **Dev dependencies.** They are pinned to exact versions and are left out of `dist/package.json`, so an end-user install does not install them. They exist for curation, lint, and the package build:
   - `@biomejs/biome` — lint and format
@@ -244,7 +242,7 @@ An absolute `logoURL` whose path contains `providers/`, `tokens/`, `dapps/`, or 
   - `typescript` — compile and typecheck
   - `viem` — chain reads and EIP-712 recovery in curation scripts
 
-This package has no third-party security audit. Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
+Report vulnerabilities privately to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
 
 ## FTSO Data Providers
 
