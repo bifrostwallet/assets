@@ -385,6 +385,40 @@ describe("published package lookups", { concurrency: false }, () => {
       resolveAssetURL(bifrost.logoURL, base),
     );
 
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes('require("./signatures'), false);
+    assert.equal(Object.hasOwn(bifrost, "signatures"), false);
+    const manifestWithExports = manifest as typeof manifest & {
+      exports?: { "./signatures"?: { default?: string } };
+    };
+    assert.equal(manifestWithExports.exports?.["./signatures"]?.default, "./signatures.js");
+
+    const signaturesPath = path.join(process.cwd(), "dist", "signatures.js");
+    const packageRequire = createRequire(path.join(process.cwd(), "package.json"));
+    delete packageRequire.cache[signaturesPath];
+    const { getProviderSignatures } = packageRequire(signaturesPath) as {
+      getProviderSignatures: (
+        chainId: string,
+        identityAddress: string,
+      ) => { signatures: { signerAddress: string }[] } | null;
+    };
+    const bifrostSignatures = getProviderSignatures(
+      "eip155:14",
+      "0x1650d2760baee638c034200dedcbe17b050d0364",
+    );
+    assert.ok(bifrostSignatures);
+    assert.equal(
+      bifrostSignatures.signatures.some(
+        (entry) =>
+          entry.signerAddress.toLowerCase() === "0x1650d2760baee638c034200dedcbe17b050d0364",
+      ),
+      true,
+    );
+    assert.equal(
+      getProviderSignatures("eip155:14", "0x1111111111111111111111111111111111111111"),
+      null,
+    );
+
     const packed = JSON.parse(
       execFileSync("npm", ["pack", "--dry-run", "--json"], {
         cwd: path.join(process.cwd(), "dist"),
@@ -395,6 +429,14 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("logo.webp")),
       false,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("signatures.js")),
+      true,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("signatures.json")),
+      true,
     );
   });
 

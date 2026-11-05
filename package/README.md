@@ -1,12 +1,10 @@
 # Consuming Assets
 
-The supported way to consume Bifrost’s curated listings is [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/assets): an audited, zero-dependency package. Version-lock the release you ship, and read listings from that package. Source of truth: [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets).
+Most consumers are dapps and frontends. Pin [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/assets), copy provider logos onto a host you control, and read listings from the package or from one JSON file on that same host. Source of truth: [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets).
 
-Most consumers are dapps and frontends. Their main job is listing every listed provider in comparison lists and pickers.
+To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/ftso-provider).
 
-To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/ftso-provider) and the [assets README](https://github.com/bifrostwallet/assets/blob/main/README.md).
-
-## Install
+## 1. Pin the package
 
 ```bash
 npm install @bifrostwallet/assets@<version> --save-exact
@@ -14,13 +12,37 @@ npm install @bifrostwallet/assets@<version> --save-exact
 
 Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifrostwallet/assets@<version> --save-exact`.
 
-`--save-exact` and `--exact` pin one version so a newer catalog cannot slip in unnoticed. Commit the lockfile with that pin.
+`--save-exact` and `--exact` pin one version so a newer catalog cannot slip in unnoticed. Commit the lockfile.
 
-When you bump that pin, download the new tag and upload that release’s logo files before you ship. A version bump without refreshing icons is incomplete. The steps are under [Logos](#logos).
+## 2. Copy logos when you adopt or bump
 
-## Provider lookup
+Do this the first time, and again every time you bump the pin, before you ship. The git tag is `v` plus the package version. Logo files are not in the npm package.
 
-Chain ids are CAIP-2. These examples use Bifrost Wallet on Flare (`eip155:14`). `getProvider` matches `identityAddress` case-insensitively and returns `null` when that identity is not in this package version. An unknown chain id throws.
+From that tag, copy `providers/**/logo.webp` to your CDN or backend. Keep the relative paths. A `logoURL` looks like `providers/eip155-14/<identity>/logo.webp`.
+
+If you want one hosted JSON file, write it from the package in the same step and upload it next to the logos. Name the file whatever you want.
+
+```js
+import { writeFileSync } from "node:fs";
+import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
+
+const base = "https://cdn.example.com/assets/";
+const listed = getListedProviders("eip155:14").map((provider) => ({
+  ...provider,
+  logoURL: resolveAssetURL(provider.logoURL, base),
+}));
+writeFileSync("flare-providers.json", JSON.stringify(listed));
+```
+
+`getListedProviders` is the comparison list and picker (`listed: true` only). Use `getProviders` when the file should also include providers that are not listed.
+
+A version bump without this upload is incomplete. A new provider whose file you did not upload is a 404 from your host. A path you already uploaded keeps the old file, and `logoHash` no longer matches if the logo changed.
+
+Copy commands are in [Upload examples](#upload-examples).
+
+## 3. Read listings
+
+Import the helpers, or fetch the one file you uploaded. You do not call GitHub or Bifrost.
 
 ```typescript
 import {
@@ -46,42 +68,50 @@ const logoURL = resolveAssetURL(
 );
 ```
 
-The package entry is CommonJS. `require("@bifrostwallet/assets")` exposes the same `getListedProviders`, `getProvider`, and `resolveAssetURL`.
+Chain ids are CAIP-2. `getProvider` matches `identityAddress` case-insensitively. An unknown chain id throws. The package entry is CommonJS. `require("@bifrostwallet/assets")` exposes the same functions.
 
 | UI | Call |
 | --- | --- |
 | Comparison lists and provider **picker** / discovery | `getListedProviders` (`listed: true` only) |
 | Confirmations and details | `getProvider`, including entries with `listed: false` |
 
-## Logos
+`logoURL` in the package is a relative path. Always pass your host to `resolveAssetURL(logoURL, base)`. When you pass a base, it only joins that path to your host. It does not fall back to GitHub or Bifrost’s CDN. The example base is the directory that contains `providers/`. GitHub and Bifrost’s CDN are not logo hosts.
 
-Logo files are not in the npm package. Each listing’s `logoURL` is a relative path, such as `providers/eip155-14/<identity>/logo.webp`. `logoHash` is the SHA-256 of that file.
+The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base.
 
-Download or clone the git tag that matches your pinned package version. The tag is `v` plus that version. Upload `providers/**/logo.webp` from that tag to a CDN or backend you control, and keep the relative paths.
+`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included). Catalog logos are WebP.
 
-### When you bump the pinned version
+If you uploaded `flare-providers.json`, fetch that URL. One request. Its `logoURL` values already point at your host.
 
-Do this before you ship. Download that new tag and upload that release’s `providers/**/logo.webp` files again. A version bump without refreshing icons is incomplete.
+## Upload examples
 
-If a listing’s file is missing on your host, the image is broken. Your host returns 404. That is what a newly added provider looks like after a bump you did not follow with an upload. A path you already uploaded keeps serving the old file. If the catalog logo changed, that file is stale and `logoHash` no longer matches.
+From a checkout of tag `v<version>`:
 
-### How resolveAssetURL uses your host
+```bash
+gcloud storage rsync data/providers gs://YOUR_BUCKET/assets/providers \
+  --recursive \
+  --exclude=".*\.json$"
+```
 
-Always pass your host: `resolveAssetURL(logoURL, base)`. When you pass a base, the function only joins the relative path to that host. It does not fall back to GitHub or Bifrost’s CDN. The example base `https://cdn.example.com/assets/` is the directory that contains `providers/`. GitHub and Bifrost’s CDN are not logo hosts.
+See [Upload objects](https://cloud.google.com/storage/docs/uploading-objects).
 
-The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base. Do not use that fallback as a logo host.
+```bash
+aws s3 sync data/providers s3://YOUR_BUCKET/assets/providers \
+  --exclude "*" \
+  --include "*/logo.webp"
+```
 
-`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included).
+See [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
 
-Catalog logos are WebP (`logo.webp`).
+Run the same copy on every pin bump. Object keys stay `providers/<chain>/<identity>/logo.webp` under the base you pass to `resolveAssetURL`.
 
 ## Optional checks
 
-Most apps can skip this. There are two checks. There is no signature over the curated catalog yet.
+Most picker UIs skip this. Run it in CI, or on a backend, when you bump the pin.
 
 ### Logo hash
 
-`logoHash` is the SHA-256 of `logo.webp`, as 64 lowercase hex characters, with no `0x` prefix. Hash the bytes you serve and compare them to `provider.logoHash`. A match means that CDN file was not swapped. Use the platform you already have. Do not add a dependency for this.
+`logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, no `0x` prefix. Compare it with the bytes you uploaded.
 
 Node:
 
@@ -92,7 +122,7 @@ const digest = createHash("sha256").update(logoBytes).digest("hex");
 if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
 ```
 
-Browsers, with Web Crypto:
+Browsers:
 
 ```js
 const digest = await crypto.subtle.digest("SHA-256", logoBytes);
@@ -102,22 +132,26 @@ const hex = [...new Uint8Array(digest)]
 if (hex !== provider.logoHash) throw new Error("logo hash mismatch");
 ```
 
+A check in the client at request time is optional. Use it when you do not fully trust the host that serves the icon.
+
 ### Provider signature
 
-The operator signature covers the signed fields: name, description, logo hash, website, links, identity, and the responsibilities acknowledgement. `logoHash` is one of those fields. Curator fields such as `listed` are not in that payload.
+The operator signature covers name, description, logo hash, website, links, identity, and the responsibilities acknowledgement. `logoHash` is one of those fields. Curator fields such as `listed` are not. The pin and npm provenance bind those fields.
 
-`signatures.json` is in the git listing. It is not in the npm package. Clone or download the same tag (`v` plus the package version) and, in that checkout, run:
+Signatures ship as a separate entry. Importing `@bifrostwallet/assets` does not download them.
 
-```bash
-./yarn verify:providers
+```js
+import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
+
+const record = getProviderSignatures("eip155:14", provider.identityAddress);
 ```
 
-That script uses `viem` as a dev dependency of this repository. Do not add `viem` to your production app.
+`getProviderSignatures` returns `null` when this version has no signature file for that identity. Some listings stay unsigned until 31 December 2026.
 
-Self-signatures are grandfathered until 31 December 2026. `./yarn verify:providers` without `--strict` is the current check. `--strict` requires a self-signature on every provider, and that mode waits until after 31 December 2026.
+Recover the EIP-712 `ProviderListing` signer and compare it to `identityAddress`. [`viem`](https://viem.sh) `recoverTypedDataAddress` does that recovery. `record.verificationInstructions` states the domain and the field order. Do this in CI or on a backend. A picker should not recover signatures in the browser.
 
 ## Provenance
 
-Releases are staged with npm Trusted Publishing (OIDC). The publish step sets `NPM_CONFIG_PROVENANCE`. The workflow is [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml).
+Releases are staged with npm Trusted Publishing (OIDC). The publish step sets `NPM_CONFIG_PROVENANCE`. The workflow is [`.github/workflows/release.yml`](https://github.com/bifrostwallet/assets/blob/main/.github/workflows/release.yml). Pin with `--exact` or `--save-exact`, as above.
 
 Confirm the green check on the npm version page. You can also run `npm audit signatures`. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).

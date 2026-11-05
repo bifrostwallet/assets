@@ -26,8 +26,9 @@ import type { XrplToken } from "../xrplToken.js";
 // stays in this repository's devDependencies and is never shipped.
 //
 // logoURL stays a relative path (providers/…, tokens/…, dapps/…). Logo files
-// are not bundled; they stay in git. ASSET_BASE_URL is not applied here;
-// bucket upload still rewrites hosted all.json.
+// are not bundled; they stay in git. Provider signatures ship as a separate
+// entry (signatures.js). index.js does not load that file. ASSET_BASE_URL is
+// not applied here; bucket upload still rewrites hosted all.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
@@ -62,7 +63,106 @@ function loadContracts(chainPath: string): ContractInfo[] {
   );
 }
 
-/** Logo bytes stay in git. The published package is listings and helpers only. */
+function chainDirToCaip2(chainPath: string): string {
+  const splitAt = chainPath.indexOf("-");
+  return splitAt === -1
+    ? chainPath
+    : `${chainPath.slice(0, splitAt)}:${chainPath.slice(splitAt + 1)}`;
+}
+
+/** Operator signatures, keyed by CAIP-2 chain then lowercase identity. */
+function collectProviderSignatures(): Record<string, Record<string, unknown>> {
+  const byChain: Record<string, Record<string, unknown>> = {};
+  const root = path.join(process.cwd(), "data", "providers");
+  for (const chain of PROVIDER_CHAINS) {
+    const identities: Record<string, unknown> = {};
+    const chainDir = path.join(root, chain);
+    if (fs.existsSync(chainDir)) {
+      const dirs = fs
+        .readdirSync(chainDir, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name)
+        .sort();
+      for (const dir of dirs) {
+        const sigPath = path.join(chainDir, dir, "signatures.json");
+        if (!fs.existsSync(sigPath)) continue;
+        identities[dir.toLowerCase()] = JSON.parse(fs.readFileSync(sigPath, "utf8")) as unknown;
+      }
+    }
+    byChain[chainDirToCaip2(chain)] = identities;
+  }
+  return byChain;
+}
+
+const SIGNATURES_JS = `"use strict";
+// @bifrostwallet/assets/signatures — generated file, do not edit.
+// Opt-in entry. The package main entry does not load this file.
+
+const signaturesByChain = require("./signatures.json");
+
+function normalizeChainId(chainId) {
+  if (typeof chainId !== "string" || !chainId.includes(":")) {
+    throw new Error(
+      'Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ' + JSON.stringify(chainId)
+    );
+  }
+  return chainId;
+}
+
+function getProviderSignatures(chainId, identityAddress) {
+  const chain = signaturesByChain[normalizeChainId(chainId)];
+  if (!chain) {
+    throw new Error(
+      "Unknown chain " + chainId + ". Available: " + Object.keys(signaturesByChain).join(", ")
+    );
+  }
+  const target = String(identityAddress).toLowerCase();
+  return Object.hasOwn(chain, target) ? chain[target] : null;
+}
+
+module.exports = { getProviderSignatures };
+`;
+
+const SIGNATURES_DTS = `// @bifrostwallet/assets/signatures — generated file, do not edit.
+// Opt-in entry. Importing "@bifrostwallet/assets" does not load this module.
+
+export interface ProviderSignature {
+  signerName: string;
+  signerAddress: string;
+  messageHash: string;
+  signature: string;
+  date: string;
+}
+
+export interface ProviderSignatures {
+  identityAddress: string;
+  verificationInstructions: string;
+  signatures: ProviderSignature[];
+}
+
+/** Operator signature payload for one identity, or null when this version has none. */
+export declare function getProviderSignatures(
+  chainId: string,
+  identityAddress: string,
+): ProviderSignatures | null;
+`;
+
+function writeSignatureSidecar(distDir: string): number {
+  const signatures = collectProviderSignatures();
+  const count = Object.values(signatures).reduce(
+    (sum, chain) => sum + Object.keys(chain).length,
+    0,
+  );
+  fs.writeFileSync(
+    path.join(distDir, "signatures.json"),
+    `${JSON.stringify(signatures, null, 2)}\n`,
+  );
+  fs.writeFileSync(path.join(distDir, "signatures.js"), SIGNATURES_JS);
+  fs.writeFileSync(path.join(distDir, "signatures.d.ts"), SIGNATURES_DTS);
+  return count;
+}
+
+/** Logo bytes stay in git. The published package is listings, helpers, and the signature sidecar. */
 function assertNoBundledLogos(distDir: string): void {
   const bundled: string[] = [];
   const walk = (dir: string): void => {
@@ -543,6 +643,12 @@ function buildPackage(): void {
       `${dappCategoryUnion};`,
     ),
   );
+  const signatureCount = writeSignatureSidecar(distDir);
+  const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
+  if (indexSource.includes('require("./signatures')) {
+    throw new Error("index.js must not load the signatures sidecar");
+  }
+
   const manifest = {
     name: "@bifrostwallet/assets",
     version: rootPackage.version,
@@ -552,6 +658,16 @@ function buildPackage(): void {
     license: "MIT",
     main: "index.js",
     types: "index.d.ts",
+    exports: {
+      ".": {
+        types: "./index.d.ts",
+        default: "./index.js",
+      },
+      "./signatures": {
+        types: "./signatures.d.ts",
+        default: "./signatures.js",
+      },
+    },
     sideEffects: false,
     dependencies: {},
   };
@@ -573,6 +689,7 @@ function buildPackage(): void {
 
   console.info("\n✅ Built zero-dependency package in dist/");
   console.info("   published logoURL stays relative; logo files are not bundled");
+  console.info(`   ${signatureCount} provider signature payload(s) in ./signatures`);
   console.info("   Publish with: npm publish ./dist");
 }
 
