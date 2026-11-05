@@ -8,7 +8,7 @@ The package is JSON plus lookup helpers, with no runtime dependencies. Chain ids
 - CommonJS entry (`index.js`) and TypeScript declarations (`index.d.ts`)
 - No runtime dependencies
 
-Upload commands, the do/don't list, and optional logo-hash and signature checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
+Hosting logos, frontend and backend use, and optional checks are in [CONSUMERS.md](CONSUMERS.md). Listing rules for providers, tokens, dapps, and contracts start at [FTSO data providers](#ftso-data-providers).
 
 - [Usage](#usage)
 - [Logo files on a version bump](#logo-files-on-a-version-bump)
@@ -204,7 +204,7 @@ Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile
 npm install @bifrostwallet/assets@<version> --save-exact
 ```
 
-pnpm uses `--save-exact` as well. Yarn uses `--exact`. The three install lines are in [CONSUMERS.md](CONSUMERS.md#1-pin-the-package).
+pnpm uses `--save-exact` as well. Yarn uses `--exact`. The install lines are in [package/README.md](package/README.md).
 
 Host those files yourself and pass that origin to `resolveAssetURL`. The helpers do not fetch `all.json` or logos from GitHub raw or from Bifrost's CDN. Copy commands are in [CONSUMERS.md](CONSUMERS.md).
 
