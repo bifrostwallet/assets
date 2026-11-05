@@ -4,7 +4,7 @@ import { withRelativeLogoURL } from "../assetUrl.js";
 import {
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
-  DEFAULT_ASSET_BASE_URL,
+  githubRawDataBaseFromRepository,
   type ProviderInfo,
 } from "../config.js";
 import {
@@ -31,7 +31,9 @@ import type { XrplToken } from "../xrplToken.js";
 // project slug. This build denormalizes projectName, logoURL, and logoHash onto
 // each published contract. Provider signatures ship as a separate entry
 // (signatures.js). index.js does not load that file. ASSET_BASE_URL is not
-// applied here; bucket upload still rewrites hosted all.json.
+// applied here; bucket upload still rewrites hosted all.json. The omitted-base
+// fallback is injected as GITHUB_ASSET_BASE_URL for this version's git tag
+// (`v<version>/data/`). The published file does not read package.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
@@ -194,7 +196,97 @@ function assertNoBundledLogos(distDir: string): void {
   }
 }
 
-function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
+function publishedGithubAssetBaseURL(repository: unknown, version: string): string {
+  if (typeof repository !== "string") {
+    throw new Error(
+      "Could not derive GITHUB_ASSET_BASE_URL from package.json repository (expected a GitHub URL)",
+    );
+  }
+  const base = githubRawDataBaseFromRepository(repository, `v${version}`);
+  if (!base?.endsWith(`/v${version}/data/`)) {
+    throw new Error(`Could not pin GITHUB_ASSET_BASE_URL to package.json version ${version}`);
+  }
+  return base;
+}
+
+/** dist/index.js embeds this package.json version in GITHUB_ASSET_BASE_URL. */
+function assertBuiltAssetBase(distDir: string, githubAssetBaseURL: string): void {
+  const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
+    version?: unknown;
+  };
+  const built = JSON.parse(fs.readFileSync(path.join(distDir, "package.json"), "utf8")) as {
+    version?: unknown;
+  };
+  if (typeof root.version !== "string" || built.version !== root.version) {
+    throw new Error(
+      `Built package version ${String(built.version)} does not match package.json version ${String(
+        root.version,
+      )}`,
+    );
+  }
+  const pinned = `/v${root.version}/data/`;
+  if (!githubAssetBaseURL.endsWith(pinned)) {
+    throw new Error(
+      `GITHUB_ASSET_BASE_URL ${githubAssetBaseURL} does not pin package.json version ${root.version}`,
+    );
+  }
+  const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
+  if (!indexSource.includes(JSON.stringify(githubAssetBaseURL))) {
+    throw new Error("Built index.js does not embed GITHUB_ASSET_BASE_URL from package.json");
+  }
+  if (indexSource.includes("/main/data/")) {
+    throw new Error("Built index.js still falls back to the GitHub main branch");
+  }
+  if (!indexSource.includes("const DEFAULT_ASSET_BASE_URL = GITHUB_ASSET_BASE_URL;")) {
+    throw new Error("DEFAULT_ASSET_BASE_URL must remain an alias of GITHUB_ASSET_BASE_URL");
+  }
+  if (indexSource.includes("package.json") || indexSource.includes("readFileSync")) {
+    throw new Error("Built index.js must not read package.json at runtime");
+  }
+}
+
+/**
+ * Release tags are `v<version>` and published logoURLs are relative to `data/`.
+ * The tagged commit must contain `data/<logoURL>` or the pinned GitHub URL 404s.
+ */
+function assertPublishedLogosExistUnderData(distDir: string): void {
+  const missing: string[] = [];
+  let count = 0;
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
+      const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+      if (!Array.isArray(parsed)) continue;
+      for (const item of parsed) {
+        if (!item || typeof item !== "object" || !("logoURL" in item)) continue;
+        const logoURL = (item as { logoURL: unknown }).logoURL;
+        if (typeof logoURL !== "string" || logoURL.length === 0) continue;
+        count += 1;
+        if (logoURL.includes("..") || path.isAbsolute(logoURL)) {
+          missing.push(logoURL);
+          continue;
+        }
+        if (!fs.existsSync(path.join(process.cwd(), "data", logoURL))) missing.push(logoURL);
+      }
+    }
+  };
+  walk(distDir);
+  if (count === 0 || missing.length > 0) {
+    const sample = missing.slice(0, 5).join(", ") || "(none published)";
+    throw new Error(`Release tag is missing data/ files for published logoURLs: ${sample}`);
+  }
+}
+
+function buildIndexJs(
+  tokenChains: string[],
+  contractChains: string[],
+  githubAssetBaseURL: string,
+): string {
   const tokenRequires =
     tokenChains.length === 0
       ? ""
@@ -223,7 +315,9 @@ ${contractRequires}};
 /** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
 
-const DEFAULT_ASSET_BASE_URL = ${JSON.stringify(DEFAULT_ASSET_BASE_URL)};
+const GITHUB_ASSET_BASE_URL = ${JSON.stringify(githubAssetBaseURL)};
+// Deprecated alias of GITHUB_ASSET_BASE_URL.
+const DEFAULT_ASSET_BASE_URL = GITHUB_ASSET_BASE_URL;
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
@@ -376,7 +470,7 @@ function toRelativeAssetPath(logoURL) {
 
 function resolveAssetURL(logoURL, baseURL) {
   const supplied = baseURL && String(baseURL).trim();
-  const base = (supplied || DEFAULT_ASSET_BASE_URL).replace(/\\/?$/, "/");
+  const base = (supplied || GITHUB_ASSET_BASE_URL).replace(/\\/?$/, "/");
   const relative = toRelativeAssetPath(logoURL);
   if (/^https?:\\/\\//i.test(relative)) {
     return relative;
@@ -385,6 +479,7 @@ function resolveAssetURL(logoURL, baseURL) {
 }
 
 module.exports = {
+  GITHUB_ASSET_BASE_URL,
   DEFAULT_ASSET_BASE_URL,
   PROVIDER_CHAIN_IDS,
   TOKEN_CHAIN_IDS,
@@ -493,6 +588,12 @@ export interface TokenBlocklistEntry {
 /** CAIP-2 chain id, e.g. "eip155:14" or "eip155:19" */
 export type ChainId = string;
 
+/**
+ * GitHub raw base for this package version (\`…/v<version>/data/\`).
+ * resolveAssetURL uses it when baseURL is omitted. Passing your own base is recommended.
+ */
+export declare const GITHUB_ASSET_BASE_URL: string;
+/** @deprecated Same value as {@link GITHUB_ASSET_BASE_URL}. */
 export declare const DEFAULT_ASSET_BASE_URL: string;
 export declare const PROVIDER_CHAIN_IDS: string[];
 export declare const TOKEN_CHAIN_IDS: string[];
@@ -590,6 +691,7 @@ export declare function getDappCategories(): DappCategoryGroup[];
 /**
  * Joins a relative logoURL to baseURL.
  * An absolute logoURL on a known asset prefix is stripped and rebased onto baseURL.
+ * When baseURL is omitted, the URL uses GitHub at this package's version tag.
  * Pass a base you control (your CDN or backend).
  */
 export declare function resolveAssetURL(relativePath: string, baseURL?: string): string;
@@ -597,6 +699,11 @@ export declare function resolveAssetURL(relativePath: string, baseURL?: string):
 
 function buildPackage(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+  const packageVersion = rootPackage.version;
+  if (typeof packageVersion !== "string" || packageVersion.trim() === "") {
+    throw new Error("package.json version is required to pin GITHUB_ASSET_BASE_URL");
+  }
+  const githubAssetBaseURL = publishedGithubAssetBaseURL(rootPackage.repository, packageVersion);
 
   const distDir = path.join(process.cwd(), "dist");
   fs.rmSync(distDir, { recursive: true, force: true });
@@ -656,7 +763,10 @@ function buildPackage(): void {
   fs.writeFileSync(path.join(distDir, "dapps", "categories.json"), categoriesBody);
   console.info("📦 dapps/categories.json");
 
-  fs.writeFileSync(path.join(distDir, "index.js"), buildIndexJs(tokenChainIds, contractChainIds));
+  fs.writeFileSync(
+    path.join(distDir, "index.js"),
+    buildIndexJs(tokenChainIds, contractChainIds, githubAssetBaseURL),
+  );
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
@@ -715,6 +825,8 @@ function buildPackage(): void {
   }
 
   assertNoBundledLogos(distDir);
+  assertBuiltAssetBase(distDir, githubAssetBaseURL);
+  assertPublishedLogosExistUnderData(distDir);
 
   console.info("\n✅ Built zero-dependency package in dist/");
   console.info("   published logoURL stays relative; logo files are not bundled");

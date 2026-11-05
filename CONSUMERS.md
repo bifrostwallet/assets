@@ -94,7 +94,7 @@ Chain ids are CAIP-2. `getProvider` matches `identityAddress` case-insensitively
 
 `logoURL` in the package is a relative path. Always pass your host to `resolveAssetURL(logoURL, base)`. When you pass a base, it only joins that path to your host. It does not fall back to GitHub or Bifrost’s CDN. The example base is the directory that contains `providers/`. GitHub and Bifrost’s CDN are not logo hosts.
 
-The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base.
+When you omit the base or pass an empty base, `resolveAssetURL` uses GitHub at the matching version tag. Passing your own base is recommended.
 
 `resolveAssetURL` works the same way for any listing’s `logoURL` (tokens, dapps, and contracts included). Catalog logos are WebP. Token, XRPL, contract, and dapp-category calls use the same CAIP-2 chain ids and the same base rule. Examples are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#usage).
 
