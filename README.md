@@ -199,9 +199,19 @@ XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`.
 
 Every `info.json` **must** include `coingeckoId` (`string` or `null`). CoinGecko is only for id resolution / optional price hints, never for growing the list or overriding on-chain name/symbol/decimals.
 
+Curators add one EVM token with the chain directory and the contract address:
+
+```bash
+./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
+```
+
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only and does not read the rest of the catalog on-chain.
+
 ```bash
 ./yarn check:tokens -- --skip-onchain
 ```
+
+`./yarn check:tokens` rejects a new duplicate EVM symbol. Symbols that were already duplicated stay allowed.
 
 ## Contracts
 

@@ -14,6 +14,7 @@
     "build": "tsc",
     "add:provider": "tsc && ./yarn node build/src/script/providerAdd.js",
     "add:dapp": "tsc && ./yarn node build/src/script/dappAdd.js",
+    "add:token": "tsc && ./yarn node build/src/script/tokenAdd.js",
     "remove:provider": "tsc && ./yarn node build/src/script/providerRemove.js",
     "remove:dapp": "tsc && ./yarn node build/src/script/dappRemove.js",
     "sign:provider": "tsc && ./yarn node build/src/script/signProviderInfo.js",
