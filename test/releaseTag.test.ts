@@ -8,12 +8,12 @@ import { assertGithubAssetBasePinsReleaseTag, releaseTagForVersion } from "../sr
 
 describe("releaseTagForVersion", () => {
   test("prefixes a valid semver once", () => {
-    assert.equal(releaseTagForVersion("0.0.5-beta"), "v0.0.5-beta");
+    assert.equal(releaseTagForVersion("0.0.6-beta"), "v0.0.6-beta");
     assert.equal(releaseTagForVersion("1.2.3"), "v1.2.3");
     assert.equal(releaseTagForVersion("1.2.3-rc.1"), "v1.2.3-rc.1");
     assertGithubAssetBasePinsReleaseTag(
-      "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.5-beta/data/",
-      "0.0.5-beta",
+      "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.6-beta/data/",
+      "0.0.6-beta",
     );
   });
 

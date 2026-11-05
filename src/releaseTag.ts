@@ -1,5 +1,5 @@
 /**
- * Release tags are `v` plus the package.json version (`v0.0.5-beta`).
+ * Release tags are `v` plus the package.json version (`v0.0.6-beta`).
  * The version must already be valid semver and must not include that prefix,
  * so the tag cannot become `vv0.0.6-beta`.
  */
