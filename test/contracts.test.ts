@@ -396,7 +396,7 @@ describe("published package lookups", { concurrency: false }, () => {
     const distTokens = path.join(process.cwd(), "dist", "tokens");
     const files = fs
       .readdirSync(distTokens)
-      .filter((name) => name.endsWith(".json") && name !== "blocklist.json");
+      .filter((name) => name.endsWith(".json"));
     assert.ok(files.length > 0);
     for (const file of files) {
       const chainPath = file.replace(/\.json$/, "");

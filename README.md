@@ -281,19 +281,18 @@ Releases are staged as described under [Supply chain security](#supply-chain-sec
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet. EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`, a per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean. Logo URL shape is described under [Logo URLs](#logo-urls).
+Token metadata is curated by Bifrost Wallet. EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`, and a per-chain `all.json`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean. Logo URL shape is described under [Logo URLs](#logo-urls).
 
 XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. There is no `address` field. Lookup is `getXrplToken(issuer, currency)` and keeps that exact case. EVM lookup is `getToken(chain, address)`. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are left unlisted.
 
 Every `info.json` includes `coingeckoId` (`string` or `null`). CoinGecko is used for id resolution and optional price hints. The catalog list, and on-chain name, symbol, and decimals, stay as curated.
 
-`getToken` looks up EVM contracts. The native gas token is `getNativeToken`. `getTokenBlocklist()` entries use the directory form in `chainPath` (`eip155-56`). Lookup chain ids stay CAIP-2.
+`getToken` looks up EVM contracts. The native gas token is `getNativeToken`. Lookup chain ids stay CAIP-2.
 
 ```typescript
 import {
   getNativeToken,
   getToken,
-  getTokenBlocklist,
   getTokens,
   getXrplToken,
   resolveAssetURL,
@@ -308,11 +307,10 @@ const wflr = getToken(
   "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
 );
 const issued = getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
-const blocklist = getTokenBlocklist();
 
 if (wflr) {
   const logoURL = resolveAssetURL(wflr.logoURL, base);
-  console.log(flare?.symbol, wflr.symbol, issued?.name, blocklist.length, logoURL);
+  console.log(flare?.symbol, wflr.symbol, issued?.name, logoURL);
 }
 console.log(flareTokens.length);
 ```

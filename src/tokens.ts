@@ -21,12 +21,6 @@ export type EvmToken = {
   logoHash: string;
 };
 
-export type TokenBlocklistEntry = {
-  chainPath: string;
-  address: string;
-  identifier: string;
-};
-
 /** Reject catalogs that omit coingeckoId (hydration contract). */
 export function assertTokenCoingeckoIdField(
   info: unknown,
@@ -115,13 +109,6 @@ export function validateEvmToken(info: unknown): string[] {
     errors.push("coingeckoId string must be non-empty (or null)");
   }
   return errors;
-}
-
-export function loadBlocklist(): TokenBlocklistEntry[] {
-  const p = path.join(process.cwd(), "data", "tokens", "blocklist.json");
-  if (!fs.existsSync(p)) return [];
-  const raw = JSON.parse(fs.readFileSync(p, "utf8")) as { tokens?: TokenBlocklistEntry[] };
-  return raw.tokens ?? [];
 }
 
 /** Catalog key order for an EVM `info.json` / `all.json` entry. */

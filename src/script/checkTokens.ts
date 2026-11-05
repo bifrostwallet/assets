@@ -11,7 +11,6 @@ import {
   type EvmToken,
   listTokenChainPaths,
   listTokenDirs,
-  loadBlocklist,
   loadEvmToken,
   validateEvmToken,
 } from "../tokens.js";
@@ -301,9 +300,6 @@ async function checkTokens(): Promise<void> {
   }
 
   report.duplicateSymbols = duplicateSymbolErrors(listEvmSymbolUses());
-
-  // Touch blocklist so missing file surfaces early
-  loadBlocklist();
 
   const reportsDir = path.join(process.cwd(), "reports");
   fs.mkdirSync(reportsDir, { recursive: true });
