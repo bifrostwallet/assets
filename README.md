@@ -56,38 +56,19 @@ Changing any of these fields needs a new signature. Fields outside this list are
 
 CI checks every signature with `./yarn verify:providers`. Listings are checked again in this repository before they go live. Entries that predate the public launch stay listed through the date in [Grandfathering](CONTRIBUTING.md#grandfathering).
 
-## Supply chain security
+## Building and releasing
 
-### Releases
-
-[`.github/workflows/release.yml`](.github/workflows/release.yml) stages `@bifrostwallet/assets` with npm Trusted Publishing (OIDC, `id-token: write`). The publish step sets `NPM_CONFIG_PROVENANCE=true` and runs `npm stage publish ./dist --access public --tag beta`. A GitHub Release whose tag is `v` plus the package version triggers it, as does a manual run with `publish=true`. A manual run with `publish=false` only builds `dist/`. A maintainer approves the staged version on npmjs.com before it is installable. The workflow refuses a version that is not `alpha`, `beta`, or `rc` until provider signature checks are strict. Confirm the green check on the npm version page. See [Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/).
-
-### Package manifest
-
-`dist/package.json` is written with `"dependencies": {}`. The build fails if that manifest declares `dependencies`, `devDependencies`, or `peerDependencies`.
-
-### Dev dependencies
-
-Dev dependencies are pinned to exact versions and are left out of `dist/package.json`, so an install of the published package does not install them. They are used for curation, lint, and the package build:
-
-- `@biomejs/biome` — lint and format
-- `@google-cloud/storage` — maintainer bucket upload
-- `@types/node` — Node types for the TypeScript build
-- `bs58` — base58 checks in curation scripts (NodeIDs and XRPL addresses)
-- `typescript` — compile and typecheck
-- `viem` — chain reads and EIP-712 recovery in curation scripts
-
-## Building the package
-
-`./yarn build:package` writes the package to `dist/`. Logo files are left out, provider signatures stay on `@bifrostwallet/assets/signatures` so the main entry does not load them, and the file npm shows is [`package/README.md`](package/README.md).
-
-Releases are staged as described under [Supply chain security](#supply-chain-security).
+1. Run `./yarn build:package`. It writes `dist/` without logo files. Provider signatures are published on `@bifrostwallet/assets/signatures`, and the main entry does not load that subpath. The file npm shows is [`package/README.md`](package/README.md).
+2. The published package has no runtime dependencies. The build fails if `dist/package.json` declares any.
+3. Dev dependencies are pinned to exact versions and are not shipped.
+4. A GitHub Release tagged `v` plus the package version stages the package through npm Trusted Publishing, with provenance, under the beta tag.
+5. A maintainer approves the staged version on npmjs.com. Confirm provenance on the [npm version page](https://docs.npmjs.com/viewing-package-provenance/).
 
 ## Development
 
 ### Catalog refresh
 
-The nightly refresh checks both domain-linkage methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity. It reads the FTSO fee from `WNatDelegationFee.getVoterCurrentFeePercentage` (basis points, through `FlareContractRegistry`) and Flare validator fees from `platform.getCurrentValidators`. A Flare validator counts as currently validating when its NodeID is still returned for that provider. Providers whose [FSP](#glossary) rewards are burned (`eligibleForReward: false` in the latest `passes.json`), operators over the delegation-fee cap, and chain-drift updates are proposed together on the `nightly/fsp-delist` pull request. A curator merges that pull request. `./yarn check:providers` prints the fee check as an advisory and does not fail on it.
+The nightly refresh checks both domain-linkage methods and sets unsigned `domainLinked` when at least one matches and the two do not contradict for this identity. It reads the FTSO fee from `WNatDelegationFee.getVoterCurrentFeePercentage` (basis points, through `FlareContractRegistry`) and Flare validator fees from `platform.getCurrentValidators`. A Flare validator counts as currently validating when its NodeID is still returned for that provider. Providers whose [FSP](#glossary) rewards are burned (`eligibleForReward: false` in the latest `passes.json`), operators over the delegation-fee cap, and chain-drift updates are proposed together on the `nightly/fsp-delist` pull request. A curator merges that pull request.
 
 ### Working in this repository
 

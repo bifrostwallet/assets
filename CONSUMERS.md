@@ -40,11 +40,11 @@ Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/upl
 
 ### Logo URLs
 
-In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute GitHub raw logo URLs. `logoURL` values in the npm package are relative: the build rewrites `all.json` back to relative paths. `upload:bucket` rebases a hosted `all.json` onto `ASSET_BASE_URL`.
+In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute GitHub raw logo URLs. `logoURL` values in the npm package are relative: the build rewrites `all.json` back to relative paths. `upload:bucket` rebases a hosted `all.json` onto the base configured for that upload.
 
-`resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to `baseURL`. The base is trimmed, and a trailing slash is added when it does not already end with one. The base you host is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a provider, token, dapp, or contract. Pass your own base when you host the files. When the base is omitted or blank, the helper uses `GITHUB_ASSET_BASE_URL`, GitHub raw at the tag for the installed version. `DEFAULT_ASSET_BASE_URL` is a deprecated alias of that prefix.
+`resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to the base you pass. Pass the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The base is trimmed, and a trailing slash is added when it does not already end with one. The same call works for a provider, token, dapp, or contract. Leave the base out, or pass a blank one, and logos are loaded from GitHub raw at the tag for the installed version.
 
-A path that is not an `http` or `https` URL loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An absolute URL that matches none of those patterns is returned unchanged.
+A value that does not start with `http://` or `https://` loses one leading slash and is joined to the base. An absolute URL that starts with either scheme is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An absolute URL that matches none of those patterns is returned unchanged. The comparison is case-insensitive, so `HTTP://` is treated the same way as `https://`.
 
 ### Listed providers
 
@@ -58,6 +58,18 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
   ...provider,
   logoURL: resolveAssetURL(provider.logoURL, base),
 }));
+// [
+//   {
+//     name: "Bifrost Wallet",
+//     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//     listed: true,
+//     logoURL:
+//       "https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+//     validators: ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...],
+//     ...
+//   },
+//   ...
+// ]
 ```
 
 `getListedProviders(chainId)` returns providers with `listed: true`. `getProviders(chainId)` returns every provider on that chain. `getProvider(chainId, identityAddress)` returns one provider, or `null`, and the address match ignores case. `getManagementGroupProviders(chainId)` returns providers with `managementGroup: true`.
@@ -70,6 +82,14 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 import { getListedValidators } from "@bifrostwallet/assets";
 
 const validators = getListedValidators("eip155:14");
+// [
+//   {
+//     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+//     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//     name: "Bifrost Wallet",
+//   },
+//   // ...
+// ]
 ```
 
 ### Validators for one identity
@@ -90,6 +110,14 @@ const provider = findProviderByValidator(
   "eip155:14",
   "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
 );
+// own[0] is
+// {
+//   nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+//   identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//   name: "Bifrost Wallet",
+// }
+// followed by three more NodeIDs for that identity.
+// provider is { name: "Bifrost Wallet", identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364", listed: true, ... }
 ```
 
 ### Optional verification
@@ -100,16 +128,56 @@ A picker can skip this. The checks fit CI when you change the pin.
 
 Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. `getProviderSignatures(chainId, identityAddress)` returns the record, or `null` when this version has no signature file for that identity. An unknown chain id throws. Some listings stay unsigned until 31 December 2026. The signed fields are under [Ownership signatures](README.md#ownership-signatures). Curator fields such as `listed` sit outside the signature.
 
-`viem` is optional. `recoverTypedDataAddress` is a recommended way to recover the EIP-712 `ProviderListing` signer and compare it with `identityAddress`. `viem` is a dev dependency of this repository, not of the published package. Dev dependency names, without version numbers, are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#supply-chain-security).
+Compare `logoHash` with the SHA-256 of the logo bytes you host. Recover the signer with `viem`, which is installed separately and is not part of this package. `linksJson` is `JSON.stringify` of the signed links, keys in this order and only when set: `github`, `x`, `discord`, `telegram`, `youtube`, `reddit`, `linkedin`, `tiktok`. Compare the recovered address with `identityAddress` without regard to case.
 
-```js
+```typescript
 import { createHash } from "node:crypto";
+import { keccak256, recoverTypedDataAddress, toBytes } from "viem";
+import { getProvider } from "@bifrostwallet/assets";
 import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
+
+const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
+const provider = getProvider("eip155:14", identity);
+const record = getProviderSignatures("eip155:14", identity);
+const entry = record?.signatures[0];
+if (!provider || !entry) throw new Error("missing listing");
 
 const digest = createHash("sha256").update(logoBytes).digest("hex");
 if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
 
-const record = getProviderSignatures("eip155:14", provider.identityAddress);
+const recovered = await recoverTypedDataAddress({
+  domain: {
+    name: "Bifrost Assets",
+    version: "1",
+    chainId: 14,
+    salt: keccak256(toBytes("https://bifrostwallet.com")),
+  },
+  types: {
+    ProviderListing: [
+      { name: "name", type: "string" },
+      { name: "description", type: "string" },
+      { name: "websiteURL", type: "string" },
+      { name: "logoHash", type: "bytes32" },
+      { name: "identityAddress", type: "address" },
+      { name: "linksJson", type: "string" },
+      { name: "acknowledgedResponsibilities", type: "bool" },
+      { name: "contentHash", type: "bytes32" },
+    ],
+  },
+  primaryType: "ProviderListing",
+  message: {
+    name: provider.name,
+    description: provider.description,
+    websiteURL: provider.websiteURL,
+    logoHash: `0x${provider.logoHash}`,
+    identityAddress: provider.identityAddress,
+    linksJson: JSON.stringify(provider.links),
+    acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
+    contentHash: entry.messageHash,
+  },
+  signature: entry.signature as `0x${string}`,
+});
+// "0x1650d2760BAee638c034200DEdCBe17B050d0364"
 ```
 
 ## GitHub raw all.json
@@ -128,8 +196,39 @@ const providers = await response.json();
 const listed = providers.filter((provider) => provider.listed);
 const logoURL = listed[0]?.logoURL;
 const nodeIds = listed.flatMap((provider) => provider.validators);
+// logoURL is
+// "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp"
+// nodeIds starts ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...]
 ```
 
 ## Other lookups
 
 `getTokens(chainId)`, `getToken(chainId, address)`, `getNativeToken(chainId)`, and `getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `getContracts` and `getContract` read contract names. `getDappCategories()` returns the browser chips. Logos use `resolveAssetURL` the same way as provider logos. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+```typescript
+import {
+  getDappCategories,
+  getNativeToken,
+  getToken,
+  getXrplToken,
+} from "@bifrostwallet/assets";
+
+const flare = getNativeToken("eip155:14");
+// { name: "Flare", symbol: "FLR", decimals: 18, address: null, ... }
+
+const wflr = getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
+// {
+//   name: "Wrapped Flare",
+//   symbol: "WFLR",
+//   decimals: 18,
+//   address: "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
+//   logoURL: "tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
+//   ...
+// }
+
+const issued = getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
+// { name: "GateHub ETH", symbol: "ETH", issuer: "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", currency: "ETH", ... }
+
+const chips = getDappCategories();
+// [{ id: "featured", label: "Featured", dapps: [] }, { id: "dex", label: "DEX", dapps: ["sparkdex-ai", "blazeswap-xyz", ...] }, ...]
+```

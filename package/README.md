@@ -22,6 +22,17 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
   ...provider,
   logoURL: resolveAssetURL(provider.logoURL, base),
 }));
+// [
+//   {
+//     name: "Bifrost Wallet",
+//     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//     listed: true,
+//     logoURL:
+//       "https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+//     ...
+//   },
+//   ...
+// ]
 ```
 
 ## Listed validators
@@ -30,6 +41,14 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 import { getListedValidators } from "@bifrostwallet/assets";
 
 const validators = getListedValidators("eip155:14");
+// [
+//   {
+//     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+//     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//     name: "Bifrost Wallet",
+//   },
+//   // ...
+// ]
 ```
 
 ## Validators for one identity
@@ -41,6 +60,14 @@ const own = getValidatorsByIdentity(
   "eip155:14",
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
+// [
+//   {
+//     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
+//     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
+//     name: "Bifrost Wallet",
+//   },
+//   // ...
+// ]
 ```
 
 Logo hosting, GitHub raw `all.json`, and the rest of the lookup guide are in [CONSUMERS.md](https://github.com/bifrostwallet/assets/blob/main/CONSUMERS.md).
