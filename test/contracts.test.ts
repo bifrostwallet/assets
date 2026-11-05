@@ -16,6 +16,7 @@ import {
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
+import { releaseTagForVersion } from "../src/releaseTag.js";
 import buildPackage from "../src/script/packageBuild.js";
 import type { EvmToken } from "../src/tokens.js";
 import type { XrplToken } from "../src/xrplToken.js";
@@ -545,8 +546,14 @@ describe("published package lookups", { concurrency: false }, () => {
       fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
     ) as { version: string };
     assert.equal(built.version, root.version);
-    const expected = `https://raw.githubusercontent.com/bifrostwallet/assets/v${root.version}/data/`;
+    const tag = releaseTagForVersion(root.version);
+    const expected = `https://raw.githubusercontent.com/bifrostwallet/assets/${tag}/data/`;
+    assert.equal(tag.startsWith("vv"), false);
     assert.equal(assets.GITHUB_ASSET_BASE_URL, expected);
+    const versionSegments = new URL(assets.GITHUB_ASSET_BASE_URL).pathname
+      .split("/")
+      .filter((part) => part.startsWith("v"));
+    assert.deepEqual(versionSegments, [tag]);
     assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
     const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
     assert.equal(indexSource.includes(expected), true);

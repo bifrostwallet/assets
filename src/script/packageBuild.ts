@@ -17,6 +17,7 @@ import {
   validateContractCatalog,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
+import { assertGithubAssetBasePinsReleaseTag, releaseTagForVersion } from "../releaseTag.js";
 import { type EvmToken, listTokenChainPaths } from "../tokens.js";
 import type { XrplToken } from "../xrplToken.js";
 
@@ -196,16 +197,30 @@ function assertNoBundledLogos(distDir: string): void {
   }
 }
 
+function embeddedGithubAssetBaseURL(indexSource: string): string {
+  const marker = "const GITHUB_ASSET_BASE_URL = ";
+  const start = indexSource.indexOf(marker);
+  const lineEnd = start === -1 ? -1 : indexSource.indexOf(";\n", start);
+  if (start === -1 || lineEnd === -1) {
+    throw new Error("Built index.js does not embed GITHUB_ASSET_BASE_URL from package.json");
+  }
+  return JSON.parse(indexSource.slice(start + marker.length, lineEnd)) as string;
+}
+
 function publishedGithubAssetBaseURL(repository: unknown, version: string): string {
+  const tag = releaseTagForVersion(version);
   if (typeof repository !== "string") {
     throw new Error(
       "Could not derive GITHUB_ASSET_BASE_URL from package.json repository (expected a GitHub URL)",
     );
   }
-  const base = githubRawDataBaseFromRepository(repository, `v${version}`);
-  if (!base?.endsWith(`/v${version}/data/`)) {
-    throw new Error(`Could not pin GITHUB_ASSET_BASE_URL to package.json version ${version}`);
+  const base = githubRawDataBaseFromRepository(repository, tag);
+  if (!base) {
+    throw new Error(
+      "Could not derive GITHUB_ASSET_BASE_URL from package.json repository (expected a GitHub URL)",
+    );
   }
+  assertGithubAssetBasePinsReleaseTag(base, version);
   return base;
 }
 
@@ -224,16 +239,12 @@ function assertBuiltAssetBase(distDir: string, githubAssetBaseURL: string): void
       )}`,
     );
   }
-  const pinned = `/v${root.version}/data/`;
-  if (!githubAssetBaseURL.endsWith(pinned)) {
-    throw new Error(
-      `GITHUB_ASSET_BASE_URL ${githubAssetBaseURL} does not pin package.json version ${root.version}`,
-    );
-  }
   const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
-  if (!indexSource.includes(JSON.stringify(githubAssetBaseURL))) {
+  const embedded = embeddedGithubAssetBaseURL(indexSource);
+  if (embedded !== githubAssetBaseURL) {
     throw new Error("Built index.js does not embed GITHUB_ASSET_BASE_URL from package.json");
   }
+  assertGithubAssetBasePinsReleaseTag(embedded, root.version);
   if (indexSource.includes("/main/data/")) {
     throw new Error("Built index.js still falls back to the GitHub main branch");
   }
@@ -700,7 +711,7 @@ export declare function resolveAssetURL(relativePath: string, baseURL?: string):
 function buildPackage(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
   const packageVersion = rootPackage.version;
-  if (typeof packageVersion !== "string" || packageVersion.trim() === "") {
+  if (typeof packageVersion !== "string") {
     throw new Error("package.json version is required to pin GITHUB_ASSET_BASE_URL");
   }
   const githubAssetBaseURL = publishedGithubAssetBaseURL(rootPackage.repository, packageVersion);
