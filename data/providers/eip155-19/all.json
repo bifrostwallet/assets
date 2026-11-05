@@ -1479,5 +1479,29 @@
       "blockNumber": 120662561,
       "timestamp": "2026-04-22T23:28:10.000Z"
     }
+  },
+  {
+    "name": "Scintilla",
+    "description": "High accuracy signal provider to the Songbird Network.",
+    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-19/0x75306a2ae227b444e2501908ade7c4c2b1e22423/logo.webp",
+    "logoHash": "f24ca36d33de49f7d410bcf1105cb9cde4754e8cabe5738af4cd520474fb3c86",
+    "websiteURL": "https://www.scintilla.io",
+    "links": {},
+    "identityAddress": "0x75306a2ae227b444e2501908ade7c4c2b1e22423",
+    "delegationAddress": "0xe70d5351a842131c66aaebc4bd604912bf3cba72",
+    "signingPolicyAddress": "0x0fb8fe4480de02093a828beb554d09cb5c31895a",
+    "submitAddress": "0xa96bd136f602b17a1d405a11844f0f60a479b1fa",
+    "submitSignaturesAddress": "0x43c7c5bbafd15ea506ce14b47a45081713678f7d",
+    "publicKey": "0x2c7d487f812bdd5fe1657fac089232d801eeed16500efe5f0e6b89517ddd7af82242f718255d2f647c7204f55f5c410eca0988a8bbd242835a6565521bb59b07",
+    "validators": [],
+    "listed": true,
+    "managementGroup": false,
+    "domainLinked": false,
+    "dualNetwork": true,
+    "firstTransaction": {
+      "hash": "0x57271eb4a65b3634ab960af3ec89636717cbe7157b167cbaac095abf71ff4962",
+      "blockNumber": 480928,
+      "timestamp": "2021-10-07T12:37:31.000Z"
+    }
   }
 ]
