@@ -61,5 +61,18 @@ describe("resolveAssetURL", () => {
       withAbsoluteLogoURL({ logoURL: `${DEFAULT_ASSET_BASE_URL}${DAPP}` }, operator).logoURL,
       `${operator}${DAPP}`,
     );
+
+    const tokenGithub = `${DEFAULT_ASSET_BASE_URL}${TOKEN}`;
+    const tokenOnOperator = `${operator}${TOKEN}`;
+    assert.equal(withAbsoluteLogoURL({ logoURL: tokenGithub }).logoURL, tokenGithub);
+    assert.equal(
+      withAbsoluteLogoURL({ logoURL: tokenGithub }, DEFAULT_ASSET_BASE_URL).logoURL,
+      tokenGithub,
+    );
+    assert.equal(withAbsoluteLogoURL({ logoURL: tokenGithub }, operator).logoURL, tokenOnOperator);
+    assert.equal(
+      withAbsoluteLogoURL({ logoURL: tokenOnOperator }, operator).logoURL,
+      tokenOnOperator,
+    );
   });
 });

@@ -185,7 +185,7 @@ export const PROVIDER_INFO_KEYS = [
  * - "listed", "managementGroup", "domainLinked", "dualNetwork", and
  *   "firstTransaction" are curator/automation-derived and may change or
  *   appear after signing
- * - "logoURL" is a hosting detail (relative in info.json; absolute in published all.json);
+ * - "logoURL" is a hosting detail (relative in info.json; absolute in all.json);
  *   logo content integrity is covered by the signed "logoHash"
  * - delegation, submit, signing-policy, public key, and validators are chain
  *   facts. The nightly job may update them without a new signature.

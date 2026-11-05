@@ -27,8 +27,9 @@ import type { XrplToken } from "../xrplToken.js";
 // stays in this repository's devDependencies and is never shipped.
 //
 // logoURL stays a relative path (providers/…, tokens/…, dapps/…, contracts/…).
-// Logo files are not bundled; they stay in git. Contract source JSON stores a
-// project slug. This build denormalizes projectName, logoURL, and logoHash onto
+// Provider and token all.json in git are absolute GitHub URLs; withRelativeLogoURL
+// strips them, including token entries. Logo files are not bundled; they stay in git.
+// Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
 // each published contract. Provider signatures ship as a separate entry
 // (signatures.js). index.js does not load that file. ASSET_BASE_URL is not
 // applied here; bucket upload still rewrites hosted all.json.

@@ -431,7 +431,7 @@ Place a dapp from its official site. Do not filter chips by network.
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet (not self-serve). EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` + `logo.webp`, per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and directory `native/` (no separate `native` boolean).
+Token metadata is curated by Bifrost Wallet (not self-serve). EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` + `logo.webp`, per-chain `all.json`, and `data/tokens/blocklist.json`. The native gas token uses `address: null` and directory `native/` (no separate `native` boolean). `info.json` keeps a relative `logoURL`. Each chain's `all.json` stores an absolute GitHub raw `logoURL` (`https://raw.githubusercontent.com/bifrostwallet/assets/main/data/…`) so fetching `all.json` renders the logo directly. The npm package rewrites those URLs back to relative paths.
 
 XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. There is no `address` field. Lookup is `getXrplToken(issuer, currency)` and keeps that exact case. EVM lookup stays `getToken(chain, address)`. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are not listed.
 
@@ -443,7 +443,7 @@ Curators add one EVM token with the chain directory and the contract address:
 ./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 ```
 
-The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only and does not read the rest of the catalog on-chain.
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and does not read the rest of the catalog on-chain.
 
 ```bash
 ./yarn check:tokens -- --skip-onchain
@@ -511,7 +511,7 @@ src/                                        curation tooling (TypeScript, dev-on
 
 The listing UI and intake API are operated separately (not in this repository). Contact details stay on private intake objects only.
 
-Per-entry `logoURL` values are **relative** in git and stay relative in the npm package. Provider `all.json` in this repository may contain absolute URLs for bucket upload. That file is an input to the package build, not a public HTTP API.
+Per-entry `info.json` `logoURL` values are **relative** in git and stay relative in the npm package. Provider and token `all.json` files use absolute GitHub logo URLs so fetching `all.json` renders logos without the package. The package build rewrites those URLs back to relative paths. `upload:bucket` rebases hosted `all.json` onto `ASSET_BASE_URL`.
 
 ## Self-serve pipeline
 

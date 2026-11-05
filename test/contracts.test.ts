@@ -390,6 +390,34 @@ describe("published package lookups", { concurrency: false }, () => {
     ]);
   });
 
+  test("published token logoURLs are relative", () => {
+    loadBuiltPackage();
+    const distTokens = path.join(process.cwd(), "dist", "tokens");
+    const files = fs
+      .readdirSync(distTokens)
+      .filter((name) => name.endsWith(".json") && name !== "blocklist.json");
+    assert.ok(files.length > 0);
+    for (const file of files) {
+      const chainPath = file.replace(/\.json$/, "");
+      const published = JSON.parse(fs.readFileSync(path.join(distTokens, file), "utf8")) as Array<{
+        logoURL: string;
+      }>;
+      const source = JSON.parse(
+        fs.readFileSync(path.join(process.cwd(), "data", "tokens", chainPath, "all.json"), "utf8"),
+      ) as Array<{ logoURL: string }>;
+      assert.equal(published.length, source.length, chainPath);
+      assert.ok(published.length > 0, chainPath);
+      for (let index = 0; index < published.length; index += 1) {
+        const catalogLogo = source[index]?.logoURL ?? "";
+        const publishedLogo = published[index]?.logoURL ?? "";
+        assert.match(catalogLogo, /^https:\/\/raw\.githubusercontent\.com\/.+\/data\/tokens\//);
+        assert.equal(publishedLogo, toRelativeAssetPath(catalogLogo));
+        assert.equal(/^https?:\/\//i.test(publishedLogo), false, publishedLogo);
+        assert.match(publishedLogo, /^tokens\//);
+      }
+    }
+  });
+
   test("published package keeps relative logoURL and ships no logo files", () => {
     const previousBase = process.env.ASSET_BASE_URL;
     process.env.ASSET_BASE_URL = "https://operator.example/cdn/";
