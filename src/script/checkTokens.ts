@@ -85,16 +85,19 @@ const SYMBOL_EXCEPTIONS: readonly {
     symbol: "MIST",
     reason: "On-chain symbol is an emoji, which the symbol format does not allow.",
   },
+  {
+    chainId: 14,
+    address: "0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
+    symbol: "USDC-e",
+    reason: "On-chain symbol is USDC.e, which contains a dot the symbol format does not allow.",
+  },
+  {
+    chainId: 16,
+    address: "0xe1485a8db4e7307788f16c29020af2c5fcd01622",
+    symbol: "USDC-e",
+    reason: "On-chain symbol is USDC.e, which contains a dot the symbol format does not allow.",
+  },
 ];
-
-/**
- * On-chain symbol() is USDC.e. A new token still cannot use a dot.
- * These two stay until the catalog is released with the dot-safe backend.
- */
-const ONCHAIN_DOT_SYMBOLS: ReadonlySet<string> = new Set([
-  "eip155-14/0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
-  "eip155-16/0xe1485a8db4e7307788f16c29020af2c5fcd01622",
-]);
 
 type Mismatch = {
   chainPath: string;
@@ -250,9 +253,6 @@ function checkEvmSchemaAndLogo(
 ): void {
   const label = `${chainPath}/${info.address === null ? "native" : info.address}`;
   for (const error of validateEvmToken(info)) {
-    if (error === 'symbol contains "."' && ONCHAIN_DOT_SYMBOLS.has(label)) {
-      continue;
-    }
     report.schemaErrors.push(`${label}: ${error}`);
     if (error === 'symbol contains "."' && typeof info.symbol === "string") {
       report.symbolDotErrors.push(
