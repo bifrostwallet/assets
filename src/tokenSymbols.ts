@@ -112,18 +112,12 @@ export function assertCuratedName(name: string): string {
 }
 
 /**
- * Trimmed symbol, kept 1:1 with on-chain text (spaces included).
- * A `.` is refused because it breaks older wallets. The symbol is not renamed.
+ * Trimmed symbol, kept 1:1 with on-chain text, including spaces and `.`.
  */
 export function assertCuratedSymbol(symbol: string): string {
   const trimmed = symbol.trim();
   if (!trimmed) {
     throw new TokenMetadataError("Symbol is empty after trimming whitespace");
-  }
-  if (trimmed.includes(".")) {
-    throw new TokenMetadataError(
-      `Symbol ${JSON.stringify(trimmed)} contains "."; symbols with a dot are not supported`,
-    );
   }
   return trimmed;
 }

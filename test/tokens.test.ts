@@ -41,7 +41,7 @@ describe("EVM token validation", () => {
       validateEvmToken(evmToken({ decimals: -1 })).some((error) => error === "invalid decimals"),
     );
     assert.deepEqual(validateEvmToken(evmToken({ symbol: "USD Coin" })), []);
-    assert.deepEqual(validateEvmToken(evmToken({ symbol: "USD.e" })), ['symbol contains "."']);
+    assert.deepEqual(validateEvmToken(evmToken({ symbol: "USD.e" })), []);
   });
 });
 

@@ -34,9 +34,9 @@ import {
  * string exit non-zero. Name and decimals mismatches stay advisory.
  * symbol() is read as a string only. bytes32 symbols are not supported.
  * This pass reads chain state only when a `*_NODE_URL` is already set; CI
- * does not set them. A new duplicate EVM symbol, or a symbol containing `.`,
- * exits 1. Duplicate symbols already on main are grandfathered in
- * `tokenSymbols.ts`.
+ * does not set them. A new duplicate EVM symbol exits 1. Duplicate symbols
+ * already on main are grandfathered in `tokenSymbols.ts`. A `.` in a symbol
+ * is kept, because that character is part of the on-chain text.
  *
  * RPC env (optional, per chain; see `RPC_ENV_BY_CHAIN`):
  *   ETHEREUM_NODE_URL, OPTIMISM_NODE_URL, FLARE_NODE_URL, SONGBIRD_NODE_URL,
@@ -85,18 +85,6 @@ const SYMBOL_EXCEPTIONS: readonly {
     symbol: "MIST",
     reason: "On-chain symbol is an emoji, which the symbol format does not allow.",
   },
-  {
-    chainId: 14,
-    address: "0xfbda5f676cb37624f28265a144a48b0d6e87d3b6",
-    symbol: "USDC-e",
-    reason: "On-chain symbol is USDC.e, which contains a dot the symbol format does not allow.",
-  },
-  {
-    chainId: 16,
-    address: "0xe1485a8db4e7307788f16c29020af2c5fcd01622",
-    symbol: "USDC-e",
-    reason: "On-chain symbol is USDC.e, which contains a dot the symbol format does not allow.",
-  },
 ];
 
 type Mismatch = {
@@ -118,7 +106,6 @@ type CheckReport = {
   /** symbol() reads that failed. These fail the process. */
   symbolReadErrors: string[];
   mismatches: Mismatch[];
-  symbolDotErrors: string[];
   duplicateSymbols: string[];
 };
 
@@ -254,11 +241,6 @@ function checkEvmSchemaAndLogo(
   const label = `${chainPath}/${info.address === null ? "native" : info.address}`;
   for (const error of validateEvmToken(info)) {
     report.schemaErrors.push(`${label}: ${error}`);
-    if (error === 'symbol contains "."' && typeof info.symbol === "string") {
-      report.symbolDotErrors.push(
-        `${label}: symbol ${JSON.stringify(info.symbol)} contains "."; symbols with a dot are not supported`,
-      );
-    }
   }
   checkLogoFile(label, dir, info.logoURL, report);
 }
@@ -362,7 +344,6 @@ async function checkTokens(): Promise<void> {
     onchainRpcErrors: [],
     symbolReadErrors: [],
     mismatches: [],
-    symbolDotErrors: [],
     duplicateSymbols: [],
   };
 
@@ -479,9 +460,8 @@ async function checkTokens(): Promise<void> {
   console.info(`Symbol read errors: ${report.symbolReadErrors.length}`);
   console.info(`Metadata mismatches: ${report.mismatches.length}`);
   const symbolMismatches = report.mismatches.filter((row) => row.field === "symbol");
-  console.info(`Symbol dot violations: ${report.symbolDotErrors.length}`);
   console.info(`Duplicate symbol violations: ${report.duplicateSymbols.length}`);
-  const symbolFailures = [...report.symbolDotErrors, ...report.duplicateSymbols];
+  const symbolFailures = report.duplicateSymbols;
   if (symbolFailures.length > 0) {
     console.error("\nToken symbol rules failed:");
     for (const line of symbolFailures) {

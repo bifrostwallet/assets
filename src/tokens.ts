@@ -98,7 +98,6 @@ export function validateEvmToken(info: unknown): string[] {
 
   if (typeof name !== "string" || !name.trim()) errors.push("invalid name");
   if (typeof symbol !== "string" || !symbol.trim()) errors.push("invalid symbol");
-  else if (symbol.includes(".")) errors.push('symbol contains "."');
   if (typeof decimals !== "number" || !Number.isInteger(decimals) || decimals < 0) {
     errors.push("invalid decimals");
   }

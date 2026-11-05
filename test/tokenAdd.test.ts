@@ -108,7 +108,7 @@ describe("ERC-20 metadata decoding", () => {
     assert.deepEqual(meta, { name: "Wrapped Example", symbol: "US D", decimals: 6 });
   });
 
-  test("rejects empty text, dotted symbols, and bytes32 returns", async () => {
+  test("rejects empty text and bytes32 returns, and keeps a dotted symbol", async () => {
     const mkr = "0x4d4b520000000000000000000000000000000000000000000000000000000000" as Hex;
     assert.throws(
       () => decodeErc20String(mkr, "symbol"),
@@ -136,17 +136,15 @@ describe("ERC-20 metadata decoding", () => {
     );
 
     const dotted = encodeAbiParameters([{ type: "string" }], ["USD.e"]);
-    await assert.rejects(
-      () =>
-        readErc20Metadata(async (data) => {
-          if (data === erc20CallData("symbol")) return dotted;
-          if (data === erc20CallData("name")) {
-            return encodeAbiParameters([{ type: "string" }], ["Name"]);
-          }
-          return encodeAbiParameters([{ type: "uint8" }], [18]);
-        }),
-      /Symbol "USD\.e" contains "\."; symbols with a dot are not supported/,
-    );
+    const dottedMeta = await readErc20Metadata(async (data) => {
+      if (data === erc20CallData("symbol")) return dotted;
+      if (data === erc20CallData("name")) {
+        return encodeAbiParameters([{ type: "string" }], ["Name"]);
+      }
+      return encodeAbiParameters([{ type: "uint8" }], [18]);
+    });
+    assert.equal(dottedMeta.symbol, "USD.e");
+    assert.equal(dottedMeta.name, "Name");
   });
 });
 
@@ -322,7 +320,7 @@ describe("add:token", () => {
     fs.rmSync(root, { recursive: true, force: true });
   });
 
-  test("refuses an existing directory, a duplicate symbol, a dot, and a missing logo before writing", async () => {
+  test("refuses an existing directory, a duplicate symbol, and a missing logo before writing", async () => {
     const root = catalogFixture();
     const target = path.join(root, "data", "tokens", CHAIN, ADDED);
     fs.mkdirSync(target);
@@ -370,18 +368,6 @@ describe("add:token", () => {
           readMetadata: metadata({ symbol: "ETH" }),
         }),
       /symbol "ETH" already exists on eip155-1: native/,
-    );
-    await assert.rejects(
-      () =>
-        addToken({
-          chain: CHAIN,
-          address: ADDED,
-          root,
-          env: { ETHEREUM_NODE_URL: "http://rpc.test" },
-          fetchImpl,
-          readMetadata: metadata({ symbol: "USD.e" }),
-        }),
-      /Symbol "USD\.e" contains "\."; symbols with a dot are not supported/,
     );
     await assert.rejects(
       () =>
