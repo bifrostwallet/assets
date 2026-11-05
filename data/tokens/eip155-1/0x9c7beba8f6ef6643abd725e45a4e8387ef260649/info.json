@@ -1,0 +1,9 @@
+{
+  "name": "Gravity",
+  "symbol": "G",
+  "decimals": 18,
+  "address": "0x9c7beba8f6ef6643abd725e45a4e8387ef260649",
+  "coingeckoId": "g-token",
+  "logoURL": "tokens/eip155-1/0x9c7beba8f6ef6643abd725e45a4e8387ef260649/logo.webp",
+  "logoHash": "580974248570eac35fada98bc25c123744f1b11d4d345af9363bbed8d6ce93b8"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Neiro",
+  "symbol": "Neiro",
+  "decimals": 9,
+  "address": "0x812ba41e071c7b7fa4ebcfb62df5f45f6fa853ee",
+  "coingeckoId": "neiro-3",
+  "logoURL": "tokens/eip155-1/0x812ba41e071c7b7fa4ebcfb62df5f45f6fa853ee/logo.webp",
+  "logoHash": "07246dea153b3aa51515bed5cf9ff3b9db70d66fa830bb8a265bb8f09c529970"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "OpenUSD",
+  "symbol": "OUSD",
+  "decimals": 6,
+  "address": "0xb2000000000000000000002feb517dfec7415344",
+  "coingeckoId": "open-usd",
+  "logoURL": "tokens/eip155-8453/0xb2000000000000000000002feb517dfec7415344/logo.webp",
+  "logoHash": "d643ebd9e53df4c9135c44e221098cad89a8debc3892de0e6398ce26181be2b2"
+}

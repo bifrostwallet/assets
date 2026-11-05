@@ -1,0 +1,9 @@
+{
+  "name": "IoTeX Network",
+  "symbol": "IOTX",
+  "decimals": 18,
+  "address": "0x6fb3e0a217407efff7ca062d46c26e5d60a14d69",
+  "coingeckoId": "iotex",
+  "logoURL": "tokens/eip155-1/0x6fb3e0a217407efff7ca062d46c26e5d60a14d69/logo.webp",
+  "logoHash": "fdca5fd470b270d8e218773a6ac1c86b3b7d0f0fd6105bcdbf7a1c658ce5d557"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Newton",
+  "symbol": "NEWT",
+  "decimals": 18,
+  "address": "0xd0ec028a3d21533fdd200838f39c85b03679285d",
+  "coingeckoId": "newton-protocol",
+  "logoURL": "tokens/eip155-1/0xd0ec028a3d21533fdd200838f39c85b03679285d/logo.webp",
+  "logoHash": "d7537fece4054783b50286f1b9578f9b9cb8f32f6d677992573ad04ce9bf9a57"
+}

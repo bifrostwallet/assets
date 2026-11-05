@@ -1,0 +1,9 @@
+{
+  "name": "Venice Token",
+  "symbol": "VVV",
+  "decimals": 18,
+  "address": "0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf",
+  "coingeckoId": "venice-token",
+  "logoURL": "tokens/eip155-8453/0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf/logo.webp",
+  "logoHash": "7f3a2c09fdb07cf8ebd388721cc3d329824edc3c18f9efadd1b4354deb769bb3"
+}

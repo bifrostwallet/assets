@@ -1,0 +1,9 @@
+{
+  "name": "OpenServ",
+  "symbol": "SERV",
+  "decimals": 18,
+  "address": "0x40e3d1a4b2c47d9aa61261f5606136ef73e28042",
+  "coingeckoId": "openserv",
+  "logoURL": "tokens/eip155-1/0x40e3d1a4b2c47d9aa61261f5606136ef73e28042/logo.webp",
+  "logoHash": "f17d7076b8c8abce15a231eb8b57fcb6365478c556ab4c85bcb4439cb37f9e73"
+}

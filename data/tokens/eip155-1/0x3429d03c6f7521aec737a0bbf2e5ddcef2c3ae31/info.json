@@ -1,0 +1,9 @@
+{
+  "name": "PIXEL",
+  "symbol": "PIXEL",
+  "decimals": 18,
+  "address": "0x3429d03c6f7521aec737a0bbf2e5ddcef2c3ae31",
+  "coingeckoId": "pixels",
+  "logoURL": "tokens/eip155-1/0x3429d03c6f7521aec737a0bbf2e5ddcef2c3ae31/logo.webp",
+  "logoHash": "dcca3361c49d46e925d7d7a12df3c3c337182c3fd432b4c54cfde9bfe100d5dc"
+}

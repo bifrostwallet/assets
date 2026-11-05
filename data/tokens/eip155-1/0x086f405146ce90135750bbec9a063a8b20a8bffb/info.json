@@ -1,0 +1,9 @@
+{
+  "name": "Brevis Token",
+  "symbol": "BREV",
+  "decimals": 18,
+  "address": "0x086f405146ce90135750bbec9a063a8b20a8bffb",
+  "coingeckoId": "brevis",
+  "logoURL": "tokens/eip155-1/0x086f405146ce90135750bbec9a063a8b20a8bffb/logo.webp",
+  "logoHash": "f0689a606b3d5e77470dd1a3322e5880a7adc7daa91aa217c718986b51bd9437"
+}

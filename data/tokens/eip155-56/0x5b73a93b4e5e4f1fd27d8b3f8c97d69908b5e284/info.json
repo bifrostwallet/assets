@@ -1,0 +1,9 @@
+{
+  "name": "FORM Token",
+  "symbol": "FORM",
+  "decimals": 18,
+  "address": "0x5b73a93b4e5e4f1fd27d8b3f8c97d69908b5e284",
+  "coingeckoId": "four",
+  "logoURL": "tokens/eip155-56/0x5b73a93b4e5e4f1fd27d8b3f8c97d69908b5e284/logo.webp",
+  "logoHash": "8f2aa0bd3e0ba97d1b845ffbb1b791b8899b514f40bf839dbd8cbbad45676c47"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Dola USD Stablecoin",
+  "symbol": "DOLA",
+  "decimals": 18,
+  "address": "0x6a7661795c374c0bfc635934efaddff3a7ee23b6",
+  "coingeckoId": "dola-usd",
+  "logoURL": "tokens/eip155-42161/0x6a7661795c374c0bfc635934efaddff3a7ee23b6/logo.webp",
+  "logoHash": "09ad52d72997289a1e555c1d9d147481daa88c305332ad2e91d8efb9f14546d6"
+}

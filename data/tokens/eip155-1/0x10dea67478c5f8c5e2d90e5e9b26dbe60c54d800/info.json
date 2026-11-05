@@ -1,0 +1,9 @@
+{
+  "name": "Taiko Token",
+  "symbol": "TAIKO",
+  "decimals": 18,
+  "address": "0x10dea67478c5f8c5e2d90e5e9b26dbe60c54d800",
+  "coingeckoId": "taiko",
+  "logoURL": "tokens/eip155-1/0x10dea67478c5f8c5e2d90e5e9b26dbe60c54d800/logo.webp",
+  "logoHash": "4bdc2ebfb68639d9b72af252a3ca706b97d6f212bf7a5a055cd6c8025b83660e"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Treehouse Token",
+  "symbol": "TREE",
+  "decimals": 18,
+  "address": "0x77146784315ba81904d654466968e3a7c196d1f3",
+  "coingeckoId": "treehouse",
+  "logoURL": "tokens/eip155-1/0x77146784315ba81904d654466968e3a7c196d1f3/logo.webp",
+  "logoHash": "fcd239e44347fc97b96ae2f55e5165dffb6608450cc638e55481807c1b2e2c71"
+}

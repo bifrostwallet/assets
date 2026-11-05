@@ -1,0 +1,9 @@
+{
+  "name": "AVA",
+  "symbol": "AVA",
+  "decimals": 18,
+  "address": "0xa6c0c097741d55ecd9a3a7def3a8253fd022ceb9",
+  "coingeckoId": "concierge-io",
+  "logoURL": "tokens/eip155-1/0xa6c0c097741d55ecd9a3a7def3a8253fd022ceb9/logo.webp",
+  "logoHash": "5442e89fef1124c68d376e67e4cbe8a9ea929c29331532dd55246eb0054a6d6d"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Bonk",
+  "symbol": "Bonk",
+  "decimals": 5,
+  "address": "0x09199d9a5f4448d0848e4395d065e1ad9c4a1f74",
+  "coingeckoId": "bonk",
+  "logoURL": "tokens/eip155-42161/0x09199d9a5f4448d0848e4395d065e1ad9c4a1f74/logo.webp",
+  "logoHash": "a77fbe8a41060a36f284fca5effd219c9f5914fea95fbe941f1acf78af24418f"
+}

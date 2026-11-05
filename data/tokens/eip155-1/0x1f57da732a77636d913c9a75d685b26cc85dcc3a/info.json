@@ -1,0 +1,9 @@
+{
+  "name": "OPENLOOT",
+  "symbol": "OL",
+  "decimals": 18,
+  "address": "0x1f57da732a77636d913c9a75d685b26cc85dcc3a",
+  "coingeckoId": "open-loot",
+  "logoURL": "tokens/eip155-1/0x1f57da732a77636d913c9a75d685b26cc85dcc3a/logo.webp",
+  "logoHash": "699ff7383e7859a0a90ae8534c82648937af32fd9af10065b4eec935b447487c"
+}

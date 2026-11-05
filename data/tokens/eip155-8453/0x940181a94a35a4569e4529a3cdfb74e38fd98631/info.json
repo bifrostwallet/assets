@@ -1,0 +1,9 @@
+{
+  "name": "Aerodrome",
+  "symbol": "AERO",
+  "decimals": 18,
+  "address": "0x940181a94a35a4569e4529a3cdfb74e38fd98631",
+  "coingeckoId": "aerodrome-finance",
+  "logoURL": "tokens/eip155-8453/0x940181a94a35a4569e4529a3cdfb74e38fd98631/logo.webp",
+  "logoHash": "9e105aafd99d772c4527892bf8296de766d2aa8b3ef4f733556d5aaee55f6aed"
+}

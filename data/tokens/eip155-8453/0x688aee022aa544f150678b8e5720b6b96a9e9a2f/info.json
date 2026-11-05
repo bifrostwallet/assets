@@ -1,0 +1,9 @@
+{
+  "name": "Syrup Token",
+  "symbol": "SYRUP",
+  "decimals": 18,
+  "address": "0x688aee022aa544f150678b8e5720b6b96a9e9a2f",
+  "coingeckoId": "syrup",
+  "logoURL": "tokens/eip155-8453/0x688aee022aa544f150678b8e5720b6b96a9e9a2f/logo.webp",
+  "logoHash": "de613e2cdb588f11e5e931d7cbafeff5319401deda5a5a0b2c0948b935cb03da"
+}

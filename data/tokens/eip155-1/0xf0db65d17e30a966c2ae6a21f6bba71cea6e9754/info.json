@@ -1,0 +1,9 @@
+{
+  "name": "Lombard",
+  "symbol": "BARD",
+  "decimals": 18,
+  "address": "0xf0db65d17e30a966c2ae6a21f6bba71cea6e9754",
+  "coingeckoId": "lombard-protocol",
+  "logoURL": "tokens/eip155-1/0xf0db65d17e30a966c2ae6a21f6bba71cea6e9754/logo.webp",
+  "logoHash": "ae1b5e8f8ed47470b4f5fb3067f54ed2c4248b2f2af8d864342b32fa7f8e9f62"
+}

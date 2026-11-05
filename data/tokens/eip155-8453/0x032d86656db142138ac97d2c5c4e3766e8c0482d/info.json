@@ -1,0 +1,9 @@
+{
+  "name": "Allora",
+  "symbol": "ALLO",
+  "decimals": 18,
+  "address": "0x032d86656db142138ac97d2c5c4e3766e8c0482d",
+  "coingeckoId": "allora",
+  "logoURL": "tokens/eip155-8453/0x032d86656db142138ac97d2c5c4e3766e8c0482d/logo.webp",
+  "logoHash": "947581a8506a7acaa54ee3bf008a66baa79fe05865e26bd313ffa3b9bbf3c50f"
+}

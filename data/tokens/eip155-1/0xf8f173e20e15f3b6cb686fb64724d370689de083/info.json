@@ -1,0 +1,9 @@
+{
+  "name": "Heima",
+  "symbol": "HEI",
+  "decimals": 18,
+  "address": "0xf8f173e20e15f3b6cb686fb64724d370689de083",
+  "coingeckoId": "heima",
+  "logoURL": "tokens/eip155-1/0xf8f173e20e15f3b6cb686fb64724d370689de083/logo.webp",
+  "logoHash": "9eb82442354ded0caaef55a505e3db096717d340a004392bb074f80477070103"
+}

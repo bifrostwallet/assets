@@ -1,0 +1,9 @@
+{
+  "name": "Movement",
+  "symbol": "MOVE",
+  "decimals": 8,
+  "address": "0x3073f7aaa4db83f95e9fff17424f71d4751a3073",
+  "coingeckoId": "movement",
+  "logoURL": "tokens/eip155-1/0x3073f7aaa4db83f95e9fff17424f71d4751a3073/logo.webp",
+  "logoHash": "91fa053f2102fad0eb8802b5ae86f025e4ad82ad4a471e2cb804b94771a7aeb1"
+}

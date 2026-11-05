@@ -1,0 +1,9 @@
+{
+  "name": "Lumia Token",
+  "symbol": "LUMIA",
+  "decimals": 18,
+  "address": "0xd9343a049d5dbd89cd19dc6bca8c48fb3a0a42a7",
+  "coingeckoId": "lumia",
+  "logoURL": "tokens/eip155-1/0xd9343a049d5dbd89cd19dc6bca8c48fb3a0a42a7/logo.webp",
+  "logoHash": "56e6e3e8b36d88e9e73a51a9884c6e3c3c9d65f5796b815d3b4bb4d1adc64b15"
+}

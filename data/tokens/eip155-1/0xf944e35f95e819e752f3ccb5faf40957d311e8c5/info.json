@@ -1,0 +1,9 @@
+{
+  "name": "Moca",
+  "symbol": "MOCA",
+  "decimals": 18,
+  "address": "0xf944e35f95e819e752f3ccb5faf40957d311e8c5",
+  "coingeckoId": "mocaverse",
+  "logoURL": "tokens/eip155-1/0xf944e35f95e819e752f3ccb5faf40957d311e8c5/logo.webp",
+  "logoHash": "4d7f0c37d81f23a7513772e7c4ac8fd583e8a2731ab19625a89b2f745595fc2c"
+}

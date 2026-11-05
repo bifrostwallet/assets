@@ -1,0 +1,9 @@
+{
+  "name": "Milady",
+  "symbol": "LADYS",
+  "decimals": 18,
+  "address": "0x12970e6868f88f6557b76120662c1b3e50a646bf",
+  "coingeckoId": "milady-meme-coin",
+  "logoURL": "tokens/eip155-1/0x12970e6868f88f6557b76120662c1b3e50a646bf/logo.webp",
+  "logoHash": "b7976ea9ea28e9cf812905cc5c961f6f628736f2404e45a47c3623fe4d7a8d1e"
+}

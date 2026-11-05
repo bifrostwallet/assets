@@ -1,0 +1,9 @@
+{
+  "name": "Metronome Synth USD",
+  "symbol": "msUSD",
+  "decimals": 18,
+  "address": "0x526728dbc96689597f85ae4cd716d4f7fccbae9d",
+  "coingeckoId": "metronome-synth-usd",
+  "logoURL": "tokens/eip155-8453/0x526728dbc96689597f85ae4cd716d4f7fccbae9d/logo.webp",
+  "logoHash": "077861c0eb0b3492e918ee2df2bc5d6bf0c6e2d1236f62ed9fb4c87cc7fda98c"
+}

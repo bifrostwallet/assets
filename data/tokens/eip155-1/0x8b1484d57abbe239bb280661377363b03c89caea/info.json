@@ -1,0 +1,9 @@
+{
+  "name": "ADI",
+  "symbol": "ADI",
+  "decimals": 18,
+  "address": "0x8b1484d57abbe239bb280661377363b03c89caea",
+  "coingeckoId": "adi-token",
+  "logoURL": "tokens/eip155-1/0x8b1484d57abbe239bb280661377363b03c89caea/logo.webp",
+  "logoHash": "2a70e30aa495f1e563cc619d2b092288bd2da1afe0dedf364b95337196fbcd84"
+}

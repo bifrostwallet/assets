@@ -1,0 +1,9 @@
+{
+  "name": "RIF",
+  "symbol": "RIF",
+  "decimals": 18,
+  "address": "0xe5e851b01dd3eda24fde709a407db44555b6d1e0",
+  "coingeckoId": "rif-token",
+  "logoURL": "tokens/eip155-42161/0xe5e851b01dd3eda24fde709a407db44555b6d1e0/logo.webp",
+  "logoHash": "f5cff0315e2670dd516449ba1aaedcb613d36cca21bd26199199c6d1d9e0d6f8"
+}

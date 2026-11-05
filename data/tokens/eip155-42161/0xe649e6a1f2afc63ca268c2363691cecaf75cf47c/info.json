@@ -1,0 +1,9 @@
+{
+  "name": "iEx.ec Network Token",
+  "symbol": "RLC",
+  "decimals": 9,
+  "address": "0xe649e6a1f2afc63ca268c2363691cecaf75cf47c",
+  "coingeckoId": "iexec-rlc",
+  "logoURL": "tokens/eip155-42161/0xe649e6a1f2afc63ca268c2363691cecaf75cf47c/logo.webp",
+  "logoHash": "89eb84b976b7585ed6d5754e42586a924c4a8b8ae903ad79c3192e0760433b5b"
+}

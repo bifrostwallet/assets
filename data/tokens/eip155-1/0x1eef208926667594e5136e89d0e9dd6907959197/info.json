@@ -1,0 +1,9 @@
+{
+  "name": "PEAQ",
+  "symbol": "PEAQ",
+  "decimals": 18,
+  "address": "0x1eef208926667594e5136e89d0e9dd6907959197",
+  "coingeckoId": "peaq-2",
+  "logoURL": "tokens/eip155-1/0x1eef208926667594e5136e89d0e9dd6907959197/logo.webp",
+  "logoHash": "313762b558ce8cb660e26c37fac5e893f418eee713b38386db44759e4c78561a"
+}

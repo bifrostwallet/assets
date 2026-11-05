@@ -1,0 +1,9 @@
+{
+  "name": "aPriori",
+  "symbol": "APR",
+  "decimals": 18,
+  "address": "0x5a9610919f5e81183823a2be4bd1beb2b4da2a20",
+  "coingeckoId": "apriori",
+  "logoURL": "tokens/eip155-1/0x5a9610919f5e81183823a2be4bd1beb2b4da2a20/logo.webp",
+  "logoHash": "8527fc8c6aef2cafe3333088869dccfac32af78938ed9108e6d5afc3a2ef862a"
+}

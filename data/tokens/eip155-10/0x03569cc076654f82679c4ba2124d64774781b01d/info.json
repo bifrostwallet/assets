@@ -1,0 +1,9 @@
+{
+  "name": "BOLD Stablecoin",
+  "symbol": "BOLD",
+  "decimals": 18,
+  "address": "0x03569cc076654f82679c4ba2124d64774781b01d",
+  "coingeckoId": "liquity-bold-2",
+  "logoURL": "tokens/eip155-10/0x03569cc076654f82679c4ba2124d64774781b01d/logo.webp",
+  "logoHash": "bf7080294927825ddb7c8405aaac96f6546e0f38bda8a5f7cf215fce4eae1ddf"
+}

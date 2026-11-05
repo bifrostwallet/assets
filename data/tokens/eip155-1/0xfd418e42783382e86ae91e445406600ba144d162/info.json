@@ -1,0 +1,9 @@
+{
+  "name": "Zircuit",
+  "symbol": "ZRC",
+  "decimals": 18,
+  "address": "0xfd418e42783382e86ae91e445406600ba144d162",
+  "coingeckoId": "zircuit",
+  "logoURL": "tokens/eip155-1/0xfd418e42783382e86ae91e445406600ba144d162/logo.webp",
+  "logoHash": "86b4c832e204fd35cec9dad6c680339f474be249d41d5962f00503f9c210b707"
+}

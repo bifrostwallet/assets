@@ -1,0 +1,9 @@
+{
+  "name": "I love puppies",
+  "symbol": "puppies",
+  "decimals": 9,
+  "address": "0xcf91b70017eabde82c9671e30e5502d312ea6eb2",
+  "coingeckoId": "i-love-puppies",
+  "logoURL": "tokens/eip155-1/0xcf91b70017eabde82c9671e30e5502d312ea6eb2/logo.webp",
+  "logoHash": "47fcde708dcc09a29f66091a48009f8ead2f698828df2f27d372b5c49474c44f"
+}

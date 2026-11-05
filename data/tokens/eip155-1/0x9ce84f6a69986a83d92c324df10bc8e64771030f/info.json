@@ -1,0 +1,9 @@
+{
+  "name": "Chintai Exchange Token",
+  "symbol": "CHEX",
+  "decimals": 18,
+  "address": "0x9ce84f6a69986a83d92c324df10bc8e64771030f",
+  "coingeckoId": "chex-token",
+  "logoURL": "tokens/eip155-1/0x9ce84f6a69986a83d92c324df10bc8e64771030f/logo.webp",
+  "logoHash": "9712f21a1c7daf38b20e2212a0a5b4914decdfce8a5573ed89175230acdccfd4"
+}

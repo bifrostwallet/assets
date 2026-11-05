@@ -1,0 +1,9 @@
+{
+  "name": "Prime",
+  "symbol": "PRIME",
+  "decimals": 18,
+  "address": "0xb23d80f5fefcddaa212212f028021b41ded428cf",
+  "coingeckoId": "echelon-prime",
+  "logoURL": "tokens/eip155-1/0xb23d80f5fefcddaa212212f028021b41ded428cf/logo.webp",
+  "logoHash": "1e57d733d227532f3060303e55e5ff0bdac3e368e1289bf0624fd89b8d9ee6eb"
+}

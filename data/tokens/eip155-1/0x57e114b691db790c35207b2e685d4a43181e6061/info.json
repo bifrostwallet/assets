@@ -1,0 +1,9 @@
+{
+  "name": "ENA",
+  "symbol": "ENA",
+  "decimals": 18,
+  "address": "0x57e114b691db790c35207b2e685d4a43181e6061",
+  "coingeckoId": "ethena",
+  "logoURL": "tokens/eip155-1/0x57e114b691db790c35207b2e685d4a43181e6061/logo.webp",
+  "logoHash": "edabb224c001e36bc723f733bd60057517cbe87fe14a40908ca8f3961e6c5cdd"
+}

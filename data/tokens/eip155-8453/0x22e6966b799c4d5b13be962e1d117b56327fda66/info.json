@@ -1,0 +1,9 @@
+{
+  "name": "Synthetix Network Token",
+  "symbol": "SNX",
+  "decimals": 18,
+  "address": "0x22e6966b799c4d5b13be962e1d117b56327fda66",
+  "coingeckoId": "havven",
+  "logoURL": "tokens/eip155-8453/0x22e6966b799c4d5b13be962e1d117b56327fda66/logo.webp",
+  "logoHash": "e14c806240a8b673a966ebfeb8ae0069fd6a74a52f9d13bea26a465992fd4153"
+}

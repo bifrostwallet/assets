@@ -1,0 +1,9 @@
+{
+  "name": "ResearchCoin",
+  "symbol": "RSC",
+  "decimals": 18,
+  "address": "0xd101dcc414f310268c37eeb4cd376ccfa507f571",
+  "coingeckoId": "researchcoin",
+  "logoURL": "tokens/eip155-1/0xd101dcc414f310268c37eeb4cd376ccfa507f571/logo.webp",
+  "logoHash": "3d5306a765383fe324d98df736a4df6a1c57e0f231a8484cb1dd9a7ead11f69b"
+}

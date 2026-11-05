@@ -1,0 +1,9 @@
+{
+  "name": "Arbitrum",
+  "symbol": "ARB",
+  "decimals": 18,
+  "address": "0xb50721bcf8d664c30412cfbc6cf7a15145234ad1",
+  "coingeckoId": "arbitrum",
+  "logoURL": "tokens/eip155-1/0xb50721bcf8d664c30412cfbc6cf7a15145234ad1/logo.webp",
+  "logoHash": "bf612d08e954d9c51fe921c7acc72d3cb6ce4e97e89c5cb63b2212a9d16cbfba"
+}

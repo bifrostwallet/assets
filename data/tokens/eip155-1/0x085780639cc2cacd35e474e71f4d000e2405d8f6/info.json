@@ -1,0 +1,9 @@
+{
+  "name": "f(x) USD",
+  "symbol": "fxUSD",
+  "decimals": 18,
+  "address": "0x085780639cc2cacd35e474e71f4d000e2405d8f6",
+  "coingeckoId": "f-x-protocol-fxusd",
+  "logoURL": "tokens/eip155-1/0x085780639cc2cacd35e474e71f4d000e2405d8f6/logo.webp",
+  "logoHash": "a259f97eae5a67c4a3b5342bff84279afe46d2dd0c3bb7d23e27815bfa71aac8"
+}

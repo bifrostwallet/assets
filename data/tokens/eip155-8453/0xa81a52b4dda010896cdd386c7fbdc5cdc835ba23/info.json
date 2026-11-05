@@ -1,0 +1,9 @@
+{
+  "name": "Trace Token",
+  "symbol": "TRAC",
+  "decimals": 18,
+  "address": "0xa81a52b4dda010896cdd386c7fbdc5cdc835ba23",
+  "coingeckoId": "origintrail",
+  "logoURL": "tokens/eip155-8453/0xa81a52b4dda010896cdd386c7fbdc5cdc835ba23/logo.webp",
+  "logoHash": "4a33042160860076c26bd06356c7b11f0152f1ece47b0c3e2f82b197ec351ec0"
+}

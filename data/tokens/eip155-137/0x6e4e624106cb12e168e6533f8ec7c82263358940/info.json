@@ -1,0 +1,9 @@
+{
+  "name": "Axelar",
+  "symbol": "AXL",
+  "decimals": 6,
+  "address": "0x6e4e624106cb12e168e6533f8ec7c82263358940",
+  "coingeckoId": "axelar",
+  "logoURL": "tokens/eip155-137/0x6e4e624106cb12e168e6533f8ec7c82263358940/logo.webp",
+  "logoHash": "1b369e7505e939064764002682857ef9f09524a9e9c920132c94e168711a0841"
+}

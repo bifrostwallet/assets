@@ -1,0 +1,9 @@
+{
+  "name": "Sign",
+  "symbol": "SIGN",
+  "decimals": 18,
+  "address": "0x868fced65edbf0056c4163515dd840e9f287a4c3",
+  "coingeckoId": "sign-global",
+  "logoURL": "tokens/eip155-1/0x868fced65edbf0056c4163515dd840e9f287a4c3/logo.webp",
+  "logoHash": "8dd2b5ca1f10c61929a829fe8360c0fde97eb275f7518fd8561bd8f2d8ef9b8e"
+}

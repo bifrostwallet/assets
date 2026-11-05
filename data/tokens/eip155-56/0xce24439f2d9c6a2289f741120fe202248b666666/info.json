@@ -1,0 +1,9 @@
+{
+  "name": "United Stables",
+  "symbol": "U",
+  "decimals": 18,
+  "address": "0xce24439f2d9c6a2289f741120fe202248b666666",
+  "coingeckoId": "united-stables",
+  "logoURL": "tokens/eip155-56/0xce24439f2d9c6a2289f741120fe202248b666666/logo.webp",
+  "logoHash": "bb413190ab18e85217850221f1b3114a7e64ff0ff199118db33d1748cd174f81"
+}

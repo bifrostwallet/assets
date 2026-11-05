@@ -1,0 +1,9 @@
+{
+  "name": "Threshold Network Token",
+  "symbol": "T",
+  "decimals": 18,
+  "address": "0x26f3901ac8a79c50fb0d8289c74f0d09adc42e29",
+  "coingeckoId": "threshold-network-token",
+  "logoURL": "tokens/eip155-8453/0x26f3901ac8a79c50fb0d8289c74f0d09adc42e29/logo.webp",
+  "logoHash": "d4d7c982ed88909f7ccca1eeb4dd987cad8616ff1236a2258c231569b9cad5f6"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "HoloToken",
+  "symbol": "HOT",
+  "decimals": 18,
+  "address": "0x17e1e5c6bc9ebb11647c94e1c5e3ba619f2781ea",
+  "coingeckoId": "holotoken",
+  "logoURL": "tokens/eip155-42161/0x17e1e5c6bc9ebb11647c94e1c5e3ba619f2781ea/logo.webp",
+  "logoHash": "904c077d1c030a666498e7779c45e637f9dfd0fa25f3b6a1dc4b4843182ad36a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "USDGO",
+  "symbol": "USDGO",
+  "decimals": 6,
+  "address": "0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5",
+  "coingeckoId": "usdgo",
+  "logoURL": "tokens/eip155-1/0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5/logo.webp",
+  "logoHash": "5793c725d2a5a819709400d6b58de161e50c52c4f975073a772f347e220afd8e"
+}

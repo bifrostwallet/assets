@@ -1,0 +1,9 @@
+{
+  "name": "Propbase",
+  "symbol": "PROPS",
+  "decimals": 8,
+  "address": "0xad05253a381feade280ca50bf875dc8113e8a746",
+  "coingeckoId": "propbase",
+  "logoURL": "tokens/eip155-1/0xad05253a381feade280ca50bf875dc8113e8a746/logo.webp",
+  "logoHash": "57435cbc07280366cbbe667ca72efb1c8259d31121b6932085868570d3870362"
+}

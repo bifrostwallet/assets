@@ -1,0 +1,9 @@
+{
+  "name": "PancakeSwap Token",
+  "symbol": "Cake",
+  "decimals": 18,
+  "address": "0x3055913c90fcc1a6ce9a358911721eeb942013a1",
+  "coingeckoId": "pancakeswap-token",
+  "logoURL": "tokens/eip155-8453/0x3055913c90fcc1a6ce9a358911721eeb942013a1/logo.webp",
+  "logoHash": "f682aa632b382c045eee75020728b688ece83979315ed79cd70ab6f83e952268"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Coupon Assets Token",
+  "symbol": "CA",
+  "decimals": 18,
+  "address": "0x9ee8c380e1926730ad89e91665ff27063b13c90a",
+  "coingeckoId": "ca-htb",
+  "logoURL": "tokens/eip155-1/0x9ee8c380e1926730ad89e91665ff27063b13c90a/logo.webp",
+  "logoHash": "5672bbc734494d667f3f2dec3cbbaedcebea4e125c982c1fd83c95d90e9faa77"
+}

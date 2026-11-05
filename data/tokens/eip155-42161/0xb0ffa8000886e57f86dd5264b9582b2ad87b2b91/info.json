@@ -1,0 +1,9 @@
+{
+  "name": "Wormhole Token",
+  "symbol": "W",
+  "decimals": 18,
+  "address": "0xb0ffa8000886e57f86dd5264b9582b2ad87b2b91",
+  "coingeckoId": "wormhole",
+  "logoURL": "tokens/eip155-42161/0xb0ffa8000886e57f86dd5264b9582b2ad87b2b91/logo.webp",
+  "logoHash": "225cdcd3c69881b7196759ce40ed14004cfb77e36404c5fdef046f6e7dd54d94"
+}

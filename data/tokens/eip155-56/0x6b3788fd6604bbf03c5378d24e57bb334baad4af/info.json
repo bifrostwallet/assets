@@ -1,0 +1,9 @@
+{
+  "name": "apxUSD",
+  "symbol": "apxUSD",
+  "decimals": 18,
+  "address": "0x6b3788fd6604bbf03c5378d24e57bb334baad4af",
+  "coingeckoId": "apxusd",
+  "logoURL": "tokens/eip155-56/0x6b3788fd6604bbf03c5378d24e57bb334baad4af/logo.webp",
+  "logoHash": "f798531b8fd5c8d14006a12d1715ca1059e9c6caac8818e4408c991235d76eea"
+}

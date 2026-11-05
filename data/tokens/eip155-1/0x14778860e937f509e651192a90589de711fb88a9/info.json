@@ -1,0 +1,9 @@
+{
+  "name": "CyberConnect",
+  "symbol": "CYBER",
+  "decimals": 18,
+  "address": "0x14778860e937f509e651192a90589de711fb88a9",
+  "coingeckoId": "cyberconnect",
+  "logoURL": "tokens/eip155-1/0x14778860e937f509e651192a90589de711fb88a9/logo.webp",
+  "logoHash": "68ce385cd3546bbf11ca447d98c9e2464d1a26e9019aa9ab35237c1561071126"
+}

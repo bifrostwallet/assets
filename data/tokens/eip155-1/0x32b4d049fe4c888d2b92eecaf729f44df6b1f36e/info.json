@@ -1,0 +1,9 @@
+{
+  "name": "Robo Token",
+  "symbol": "ROBO",
+  "decimals": 18,
+  "address": "0x32b4d049fe4c888d2b92eecaf729f44df6b1f36e",
+  "coingeckoId": "robo-token-2",
+  "logoURL": "tokens/eip155-1/0x32b4d049fe4c888d2b92eecaf729f44df6b1f36e/logo.webp",
+  "logoHash": "a9db23508ccb130aff106c2f414eb970cf28b3fb39c4db7492ec2cc66a5a47d5"
+}

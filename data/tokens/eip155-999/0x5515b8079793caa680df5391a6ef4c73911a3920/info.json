@@ -1,0 +1,9 @@
+{
+  "name": "AZTEC",
+  "symbol": "AZTEC",
+  "decimals": 18,
+  "address": "0x5515b8079793caa680df5391a6ef4c73911a3920",
+  "coingeckoId": "aztec",
+  "logoURL": "tokens/eip155-999/0x5515b8079793caa680df5391a6ef4c73911a3920/logo.webp",
+  "logoHash": "23cbbd840ce82e977b2faffa3090c127d308f23ac8684fe0b2665f9693a36ebe"
+}

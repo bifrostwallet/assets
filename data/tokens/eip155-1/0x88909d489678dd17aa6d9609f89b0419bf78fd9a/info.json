@@ -1,0 +1,9 @@
+{
+  "name": "Layer3",
+  "symbol": "L3",
+  "decimals": 18,
+  "address": "0x88909d489678dd17aa6d9609f89b0419bf78fd9a",
+  "coingeckoId": "layer3",
+  "logoURL": "tokens/eip155-1/0x88909d489678dd17aa6d9609f89b0419bf78fd9a/logo.webp",
+  "logoHash": "c26c39870c883cf1257b67152ace89ac61446dad724ae1e3a498ba2f60711ca4"
+}

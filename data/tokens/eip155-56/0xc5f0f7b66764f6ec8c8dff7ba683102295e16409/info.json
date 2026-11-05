@@ -1,0 +1,9 @@
+{
+  "name": "First Digital USD",
+  "symbol": "FDUSD",
+  "decimals": 18,
+  "address": "0xc5f0f7b66764f6ec8c8dff7ba683102295e16409",
+  "coingeckoId": "first-digital-usd",
+  "logoURL": "tokens/eip155-56/0xc5f0f7b66764f6ec8c8dff7ba683102295e16409/logo.webp",
+  "logoHash": "a8ed4f7c3e7cf5cbfd96f1501be6ec286c5ea37fe590e467de6410d74db30a44"
+}

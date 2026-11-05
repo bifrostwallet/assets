@@ -1,0 +1,9 @@
+{
+  "name": "RAIN",
+  "symbol": "RAIN",
+  "decimals": 18,
+  "address": "0x25118290e6a5f4139381d072181157035864099d",
+  "coingeckoId": "rain",
+  "logoURL": "tokens/eip155-42161/0x25118290e6a5f4139381d072181157035864099d/logo.webp",
+  "logoHash": "0d2cccd5aec389706e973daff4c269250eb5e4cfd4890131028f17f7a719b885"
+}

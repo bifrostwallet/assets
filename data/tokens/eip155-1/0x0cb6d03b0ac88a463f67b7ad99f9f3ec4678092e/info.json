@@ -1,0 +1,9 @@
+{
+  "name": "SoFiUSD",
+  "symbol": "SOFID",
+  "decimals": 6,
+  "address": "0x0cb6d03b0ac88a463f67b7ad99f9f3ec4678092e",
+  "coingeckoId": "sofiusd",
+  "logoURL": "tokens/eip155-1/0x0cb6d03b0ac88a463f67b7ad99f9f3ec4678092e/logo.webp",
+  "logoHash": "f6a48b58ceb5dac32d68baacb47463c7634c829da767728037419e267787c7b3"
+}

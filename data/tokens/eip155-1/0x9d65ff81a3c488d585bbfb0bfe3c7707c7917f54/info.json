@@ -1,0 +1,9 @@
+{
+  "name": "SSV Token",
+  "symbol": "SSV",
+  "decimals": 18,
+  "address": "0x9d65ff81a3c488d585bbfb0bfe3c7707c7917f54",
+  "coingeckoId": "ssv-network",
+  "logoURL": "tokens/eip155-1/0x9d65ff81a3c488d585bbfb0bfe3c7707c7917f54/logo.webp",
+  "logoHash": "36a07451e6429ffd11b3bc6785ad65784094451e34bc85fdb31e936fca4fd988"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "CoinDepo Token",
+  "symbol": "COINDEPO",
+  "decimals": 18,
+  "address": "0xb40725714fe8c547c5b0c1472cba3554efa81718",
+  "coingeckoId": "coindepo",
+  "logoURL": "tokens/eip155-1/0xb40725714fe8c547c5b0c1472cba3554efa81718/logo.webp",
+  "logoHash": "e5baab8adc8cdc0414e53c3104e9b07355d3f2d6b97723b683d5767a72f86ddb"
+}

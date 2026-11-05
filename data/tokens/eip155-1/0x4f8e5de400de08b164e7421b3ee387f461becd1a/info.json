@@ -1,0 +1,9 @@
+{
+  "name": "Usdd Stablecoin",
+  "symbol": "USDD",
+  "decimals": 18,
+  "address": "0x4f8e5de400de08b164e7421b3ee387f461becd1a",
+  "coingeckoId": "usdd",
+  "logoURL": "tokens/eip155-1/0x4f8e5de400de08b164e7421b3ee387f461becd1a/logo.webp",
+  "logoHash": "d32924f41a382131b5931b72d596bc09eb8d67cb0c106f461dec83f11295cd69"
+}

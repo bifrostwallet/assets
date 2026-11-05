@@ -1,0 +1,9 @@
+{
+  "name": "Gensyn",
+  "symbol": "AI",
+  "decimals": 18,
+  "address": "0x4d7078ddd6ccfed2f85db5b7d3ff16828d378d48",
+  "coingeckoId": "gensyn",
+  "logoURL": "tokens/eip155-1/0x4d7078ddd6ccfed2f85db5b7d3ff16828d378d48/logo.webp",
+  "logoHash": "0dde1c617d017738ebb9e4cbd71f7c048780f7849607aff6261e9a8a2b1c9e0a"
+}

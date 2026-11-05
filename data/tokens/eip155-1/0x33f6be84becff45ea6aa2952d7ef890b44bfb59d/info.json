@@ -1,0 +1,9 @@
+{
+  "name": "Orochi Network Token",
+  "symbol": "ON",
+  "decimals": 18,
+  "address": "0x33f6be84becff45ea6aa2952d7ef890b44bfb59d",
+  "coingeckoId": "orochi-network",
+  "logoURL": "tokens/eip155-1/0x33f6be84becff45ea6aa2952d7ef890b44bfb59d/logo.webp",
+  "logoHash": "05669d89d3041c7b810d0ccc4f0dd6863897dc3b671ee9a43c4875a2e3db91e7"
+}

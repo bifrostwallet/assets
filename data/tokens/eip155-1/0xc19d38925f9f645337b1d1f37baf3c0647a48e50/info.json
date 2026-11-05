@@ -1,0 +1,9 @@
+{
+  "name": "GAIB",
+  "symbol": "GAIB",
+  "decimals": 18,
+  "address": "0xc19d38925f9f645337b1d1f37baf3c0647a48e50",
+  "coingeckoId": "gaib",
+  "logoURL": "tokens/eip155-1/0xc19d38925f9f645337b1d1f37baf3c0647a48e50/logo.webp",
+  "logoHash": "943ef88b909f134772a6c227185c0f8666ad29961c07d2c9efad74879812dc3c"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "SAND",
+  "symbol": "SAND",
+  "decimals": 18,
+  "address": "0xac531eb26ca1d21b85126de8fb87e80e09002dcf",
+  "coingeckoId": "the-sandbox",
+  "logoURL": "tokens/eip155-8453/0xac531eb26ca1d21b85126de8fb87e80e09002dcf/logo.webp",
+  "logoHash": "475b3037be8bd2f49845d01b4a1bd7c860629b12826df669eeeec05c2359666d"
+}

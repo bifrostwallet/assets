@@ -1,0 +1,9 @@
+{
+  "name": "Blur",
+  "symbol": "BLUR",
+  "decimals": 18,
+  "address": "0x5283d291dbcf85356a21ba090e6db59121208b44",
+  "coingeckoId": "blur",
+  "logoURL": "tokens/eip155-1/0x5283d291dbcf85356a21ba090e6db59121208b44/logo.webp",
+  "logoHash": "fc3824e96616798fe803929ff90311cd2a9b50ef78033f331888723ddd8103b0"
+}

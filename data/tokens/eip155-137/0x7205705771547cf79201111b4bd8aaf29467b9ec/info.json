@@ -1,0 +1,9 @@
+{
+  "name": "Rocket Pool (PoS)",
+  "symbol": "RPL",
+  "decimals": 18,
+  "address": "0x7205705771547cf79201111b4bd8aaf29467b9ec",
+  "coingeckoId": "rocket-pool",
+  "logoURL": "tokens/eip155-137/0x7205705771547cf79201111b4bd8aaf29467b9ec/logo.webp",
+  "logoHash": "4f35cd9ccf2e9f4e60920c346430838a8e5b9c016641707912025fdff3393bf8"
+}

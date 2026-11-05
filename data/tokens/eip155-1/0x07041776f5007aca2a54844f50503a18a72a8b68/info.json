@@ -1,0 +1,9 @@
+{
+  "name": "Tether America USD",
+  "symbol": "USAT",
+  "decimals": 6,
+  "address": "0x07041776f5007aca2a54844f50503a18a72a8b68",
+  "coingeckoId": "usa",
+  "logoURL": "tokens/eip155-1/0x07041776f5007aca2a54844f50503a18a72a8b68/logo.webp",
+  "logoHash": "f953e990a0f1d5c3016de9e2ce747f687f354e8b7f0882d6c10163250d3ac836"
+}

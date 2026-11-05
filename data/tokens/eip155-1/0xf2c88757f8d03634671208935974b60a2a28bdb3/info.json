@@ -1,0 +1,9 @@
+{
+  "name": "MyShell Token",
+  "symbol": "SHELL",
+  "decimals": 18,
+  "address": "0xf2c88757f8d03634671208935974b60a2a28bdb3",
+  "coingeckoId": "myshell",
+  "logoURL": "tokens/eip155-1/0xf2c88757f8d03634671208935974b60a2a28bdb3/logo.webp",
+  "logoHash": "ba7a1e6442907ce5c610f5e469b1e9b1257923f79fc8b26686d063811a5d18da"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Edel",
+  "symbol": "EDEL",
+  "decimals": 18,
+  "address": "0xbf59dbc154421a7b37f4f2841e11f4ed2a1dee7c",
+  "coingeckoId": "edel",
+  "logoURL": "tokens/eip155-1/0xbf59dbc154421a7b37f4f2841e11f4ed2a1dee7c/logo.webp",
+  "logoHash": "a9b825f775ab3131da7792282e906949ad797e0cc62016d582b1da57aaff8a9d"
+}

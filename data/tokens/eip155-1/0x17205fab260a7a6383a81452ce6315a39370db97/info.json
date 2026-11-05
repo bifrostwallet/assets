@@ -1,0 +1,9 @@
+{
+  "name": "RaveDAO",
+  "symbol": "RAVE",
+  "decimals": 18,
+  "address": "0x17205fab260a7a6383a81452ce6315a39370db97",
+  "coingeckoId": "ravedao",
+  "logoURL": "tokens/eip155-1/0x17205fab260a7a6383a81452ce6315a39370db97/logo.webp",
+  "logoHash": "510075774c5094c6c2555d7089900e8bfb1a66bcc6976880081df408d4066931"
+}

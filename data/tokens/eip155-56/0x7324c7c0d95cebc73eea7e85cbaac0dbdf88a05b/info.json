@@ -1,0 +1,9 @@
+{
+  "name": "Chain",
+  "symbol": "XCN",
+  "decimals": 18,
+  "address": "0x7324c7c0d95cebc73eea7e85cbaac0dbdf88a05b",
+  "coingeckoId": "chain-2",
+  "logoURL": "tokens/eip155-56/0x7324c7c0d95cebc73eea7e85cbaac0dbdf88a05b/logo.webp",
+  "logoHash": "9d806ce194724e193e1a70e57c157341bb5d9db0b44f33ae54adb6c9782e833f"
+}

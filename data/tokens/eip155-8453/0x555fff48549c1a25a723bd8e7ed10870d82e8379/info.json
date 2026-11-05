@@ -1,0 +1,9 @@
+{
+  "name": "BIM",
+  "symbol": "BIM",
+  "decimals": 18,
+  "address": "0x555fff48549c1a25a723bd8e7ed10870d82e8379",
+  "coingeckoId": "bim-2",
+  "logoURL": "tokens/eip155-8453/0x555fff48549c1a25a723bd8e7ed10870d82e8379/logo.webp",
+  "logoHash": "a342ee0c38f9c918193a956594b1a50d7a603ea9a3545931c618bcc79ad7482b"
+}

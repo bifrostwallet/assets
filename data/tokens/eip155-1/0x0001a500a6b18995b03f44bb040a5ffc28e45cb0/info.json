@@ -1,0 +1,9 @@
+{
+  "name": "Autonolas",
+  "symbol": "OLAS",
+  "decimals": 18,
+  "address": "0x0001a500a6b18995b03f44bb040a5ffc28e45cb0",
+  "coingeckoId": "autonolas",
+  "logoURL": "tokens/eip155-1/0x0001a500a6b18995b03f44bb040a5ffc28e45cb0/logo.webp",
+  "logoHash": "5f7dcd8d8c071bb47dcb403d7681c99488454d16312576d8f4fc2fd13679a26b"
+}

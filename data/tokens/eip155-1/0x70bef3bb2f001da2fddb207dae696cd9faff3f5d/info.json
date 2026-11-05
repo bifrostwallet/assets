@@ -1,0 +1,9 @@
+{
+  "name": "Ninja Squad Token",
+  "symbol": "NST",
+  "decimals": 18,
+  "address": "0x70bef3bb2f001da2fddb207dae696cd9faff3f5d",
+  "coingeckoId": "ninja-squad",
+  "logoURL": "tokens/eip155-1/0x70bef3bb2f001da2fddb207dae696cd9faff3f5d/logo.webp",
+  "logoHash": "5090bff1f9b45cc0af134bac4e19422aea60998020cc2eb8da29f94859e845e4"
+}

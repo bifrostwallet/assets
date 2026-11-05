@@ -1,0 +1,9 @@
+{
+  "name": "BitgetToken",
+  "symbol": "BGB",
+  "decimals": 18,
+  "address": "0x54d2252757e1672eead234d27b1270728ff90581",
+  "coingeckoId": "bitget-token",
+  "logoURL": "tokens/eip155-1/0x54d2252757e1672eead234d27b1270728ff90581/logo.webp",
+  "logoHash": "b909406a16087a0bc56677d78408f3f7f5f0bd3b4346eb8f36bbe3d4ebf95f0a"
+}

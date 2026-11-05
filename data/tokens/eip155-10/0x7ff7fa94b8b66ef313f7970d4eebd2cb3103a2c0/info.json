@@ -1,0 +1,9 @@
+{
+  "name": "Vana",
+  "symbol": "VANA",
+  "decimals": 18,
+  "address": "0x7ff7fa94b8b66ef313f7970d4eebd2cb3103a2c0",
+  "coingeckoId": "vana",
+  "logoURL": "tokens/eip155-10/0x7ff7fa94b8b66ef313f7970d4eebd2cb3103a2c0/logo.webp",
+  "logoHash": "8ebdd6956373327ab926ac6f800a291d90b6f9db2cc3d4529e07adc686b66d36"
+}

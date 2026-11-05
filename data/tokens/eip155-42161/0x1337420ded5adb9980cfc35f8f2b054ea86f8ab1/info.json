@@ -1,0 +1,9 @@
+{
+  "name": "Subsquid",
+  "symbol": "SQD",
+  "decimals": 18,
+  "address": "0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1",
+  "coingeckoId": "subsquid",
+  "logoURL": "tokens/eip155-42161/0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1/logo.webp",
+  "logoHash": "ab7513ddbfd8c2ce3641d99ca0ceeb7065de380e3cd8d15656c051c32b3b910d"
+}

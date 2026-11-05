@@ -1,0 +1,9 @@
+{
+  "name": "Turtle",
+  "symbol": "TURTLE",
+  "decimals": 18,
+  "address": "0x66fd8de541c0594b4dccdfc13bf3a390e50d3afd",
+  "coingeckoId": "turtle-4",
+  "logoURL": "tokens/eip155-1/0x66fd8de541c0594b4dccdfc13bf3a390e50d3afd/logo.webp",
+  "logoHash": "9089be790d93c4009e184b4329d58b8f09689452c2209df168c79df71303e1de"
+}

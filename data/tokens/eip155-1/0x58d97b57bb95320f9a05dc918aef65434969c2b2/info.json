@@ -1,0 +1,9 @@
+{
+  "name": "Morpho Token",
+  "symbol": "MORPHO",
+  "decimals": 18,
+  "address": "0x58d97b57bb95320f9a05dc918aef65434969c2b2",
+  "coingeckoId": "morpho",
+  "logoURL": "tokens/eip155-1/0x58d97b57bb95320f9a05dc918aef65434969c2b2/logo.webp",
+  "logoHash": "9a4d965299905a8202d9ccfffd0938e7a6bc281d0c05a442b3c6e534a35bf018"
+}
