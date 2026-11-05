@@ -14,6 +14,7 @@ import {
   chainPathToCaip2,
   getContracts,
   listContractChainPaths,
+  validateContractCatalog,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
 import { type EvmToken, listTokenChainPaths } from "../tokens.js";
@@ -25,10 +26,12 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// logoURL stays a relative path (providers/…, tokens/…, dapps/…). Logo files
-// are not bundled; they stay in git. Provider signatures ship as a separate
-// entry (signatures.js). index.js does not load that file. ASSET_BASE_URL is
-// not applied here; bucket upload still rewrites hosted all.json.
+// logoURL stays a relative path (providers/…, tokens/…, dapps/…, contracts/…).
+// Logo files are not bundled; they stay in git. Contract source JSON stores a
+// project slug. This build denormalizes projectName, logoURL, and logoHash onto
+// each published contract. Provider signatures ship as a separate entry
+// (signatures.js). index.js does not load that file. ASSET_BASE_URL is not
+// applied here; bucket upload still rewrites hosted all.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
@@ -57,10 +60,18 @@ function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
+  // getContracts reads the project slug and fills in projectName, logoURL, and logoHash.
   const contracts = getContracts(chainPathToCaip2(chainPath));
-  return contracts.map((contract) =>
-    publishEntry(contract, `contracts/${chainPath}/${contract.address}`),
-  );
+  return contracts.map((contract) => {
+    const label = `contracts/${chainPath}/${contract.address}`;
+    if (contract.project && !contract.projectName) {
+      throw new Error(`${label}: projectName was not resolved`);
+    }
+    if (!contract.logoURL || !contract.logoHash) {
+      throw new Error(`${label}: logo was not resolved`);
+    }
+    return publishEntry(contract, label);
+  });
 }
 
 function chainDirToCaip2(chainPath: string): string {
@@ -515,11 +526,18 @@ export interface ContractInfo {
   address: string;
   /** CAIP-2 chain id, e.g. "eip155:14" */
   chain: string;
-  projectName: string;
+  /**
+   * Project slug. Omitted only when the contract has its own logo and no project.
+   * Resolved at package build. Consumers do not look up the project folder.
+   */
+  project?: string;
+  /** Display name from that project. Present when project is set. */
+  projectName?: string;
   contractName: string;
   category: ContractCategory;
+  /** Relative logo path, resolved at package build. */
   logoURL: string;
-  /** SHA-256 of that logo file */
+  /** SHA-256 of that logo file, resolved at package build. */
   logoHash: string;
 }
 
@@ -559,6 +577,7 @@ export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 /**
  * Curated contracts. Omit chainId for every chain.
  * Throws on an unknown CAIP-2 id.
+ * Each record already includes project, projectName, logoURL, and logoHash.
  */
 export declare function getContracts(chainId?: ChainId): ContractInfo[];
 /** One contract by address (case-insensitive), or null */
@@ -611,6 +630,14 @@ function buildPackage(): void {
 
   const contractChainIds = listContractChainPaths();
   if (contractChainIds.length > 0) {
+    const contractErrors = validateContractCatalog();
+    if (contractErrors.length > 0) {
+      throw new Error(
+        `Refusing to publish an invalid contract catalog:\n${contractErrors
+          .map((error) => `  ${error}`)
+          .join("\n")}`,
+      );
+    }
     fs.mkdirSync(path.join(distDir, "contracts"), { recursive: true });
     for (const chain of contractChainIds) {
       const contracts = loadContracts(chain);

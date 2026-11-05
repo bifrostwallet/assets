@@ -131,7 +131,7 @@ console.log(flareTokens.length);
 
 `getDappCategories()` returns the hand-ordered chips (`featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`). A chip's `dapps` array is slug order. A slug may appear in more than one chip. Some chips are empty.
 
-There is no per-dapp lookup. Title, URL, description, and chains stay in `data/dapps/<slug>/info.json` in git. Contract records copy the dapp title into `projectName` when the package is built.
+There is no per-dapp lookup. Title, URL, description, and chains stay in `data/dapps/<slug>/info.json` in git.
 
 ```typescript
 import { DAPP_CATEGORY_LABELS, getDappCategories } from "@bifrostwallet/assets";
@@ -144,7 +144,7 @@ console.log(dexLabel, dex?.dapps);
 
 ### Contracts
 
-`getContract` reads the curated name catalog. `chain` and `projectName` are filled in by the package build (`projectName` is the dapp title). `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`. `logoURL` points at the dapp logo, `dapps/<slug>/logo.webp`.
+`getContract` reads the curated name catalog. One call returns `project`, `projectName`, `logoURL`, and `logoHash`. The package build fills those in (`projectName` is the project `name`). `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`. `logoURL` is `contracts/projects/<slug>/logo.webp`, or that contract's own `logo.webp` when the file exists.
 
 ```typescript
 import {
@@ -195,7 +195,8 @@ const record = getProviderSignatures(
 >
 > - `data/providers/**/logo.webp` (provider icons)
 > - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons and contract icons; contracts have no logo file of their own)
+> - `data/dapps/**/logo.webp` (dapp icons)
+> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -225,7 +226,7 @@ if (provider) {
 }
 ```
 
-The base is the directory that contains `providers/`, `tokens/`, and `dapps/`. The same call works for a token or dapp `logoURL`.
+The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
 `DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Pass your base on every call.
 
@@ -424,7 +425,7 @@ Browser chips live only in the hand-edited `data/dapps/categories.json`: an orde
 ./yarn check:dapps
 ```
 
-`./yarn check:dapps` fails when an `info.json` breaks the schema (title, description, https URL, `logoURL`, `logoHash`, allowed CAIP-2 chains), when `logo.webp` is missing, not WebP, the wrong size, or a different hash, when `categories.json` names a missing slug, repeats a slug inside one chip, or uses a category id outside `DAPP_CATEGORIES`, and when a contract's `dapp` slug is missing or its `logoHash` does not match that dapp.
+`./yarn check:dapps` fails when an `info.json` breaks the schema (title, description, https URL, `logoURL`, `logoHash`, allowed CAIP-2 chains), when `logo.webp` is missing, not WebP, the wrong size, or a different hash, and when `categories.json` names a missing slug, repeats a slug inside one chip, or uses a category id outside `DAPP_CATEGORIES`.
 
 Place a dapp from its official site. Do not filter chips by network.
 
@@ -454,18 +455,18 @@ The command reads that token's name, symbol, and decimals from the chain's `*_NO
 
 Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`.
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. Do not store `chain` or `projectName`. There is no aggregate `all.json` and no per-contract logo file. `getContract` / `getContracts` read these files, inject `chain`, and set `projectName` from the dapp `title`. The published package bundles those same lists at build time. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. Store `address`, `contractName`, `category`, and an optional `project` slug. Do not store `chain`, `dapp`, `projectName`, `logoURL`, or `logoHash`. There is no aggregate `all.json`. There is no `listed` flag and no provider link. Token contracts live in `tokens/`, not `contracts/`.
 
-The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exist under `data/dapps/`) and a copy of that dapp's `logoURL` and `logoHash`. Validation rejects a copy that does not match. `./yarn check:contracts -- --fix` rewrites the copies from the dapp.
+`project` names a folder `data/contracts/projects/<slug>/` with `info.json` (`name` only) and `logo.webp`. Several contracts share one project. The package build writes `project`, `projectName`, `logoURL`, and `logoHash` onto each published contract, so `getContract` returns them in one lookup.
+
+A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>/`, next to its JSON. That file wins over the project logo.
 
 ```json
 {
   "address": "0xabc…",
-  "dapp": "bifrostwallet-com",
+  "project": "bifrostwallet-com",
   "contractName": "Collateral Pool",
-  "category": "fassets",
-  "logoURL": "dapps/bifrostwallet-com/logo.webp",
-  "logoHash": "…"
+  "category": "fassets"
 }
 ```
 
@@ -487,11 +488,10 @@ The logo belongs to the dapp. Each contract stores `dapp` (a slug that must exis
 
 Display names are `CONTRACT_CATEGORY_LABELS`. Use that map instead of hardcoding the strings.
 
-`logoURL` in git and in the published package is the relative dapp path. `logoHash` is the SHA-256 of the dapp WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
+Published `logoURL` is the relative path of the logo that won. `logoHash` is the SHA-256 of that WebP. Logos are **128×128** WebP, maximum **24 KB**. A transparent background is recommended so the mark composites on any surface. Opaque WebP, including a solid white background, is valid.
 
 ```bash
 ./yarn check:contracts
-./yarn check:contracts -- --fix
 ```
 
 ## Repository layout
@@ -501,9 +501,11 @@ data/providers/<chain>/<identityAddress>/   info.json, logo.webp, signatures.jso
 data/providers/<chain>/all.json             generated aggregate (do not edit)
 data/tokens/eip155-<id>/…                   curated EVM token metadata + logos
 data/tokens/xrpl-0/<issuer>/<currency>/      curated XRPL issued tokens + logos
-data/contracts/eip155-<id>/<address>.json   contract names plus a copy of the dapp logo (no all.json)
+data/contracts/projects/<slug>/             info.json (name), logo.webp
+data/contracts/eip155-<id>/<address>.json   contract record (optional project slug, no all.json)
+data/contracts/eip155-<id>/<address>/logo.webp   optional per-contract logo
 data/dapps/categories.json                  hand-ordered browser chips (not an all.json)
-data/dapps/<slug>/                          info.json, logo.webp (no contact PII, no all.json)
+data/dapps/<slug>/                          info.json, logo.webp (dapp icons, no contact PII, no all.json)
 src/                                        curation tooling (TypeScript, dev-only)
 ```
 

@@ -1,8 +1,6 @@
 {
   "address": "0xdcce91d46ecb209645a26b5885500127819beadd",
-  "dapp": "kinetic-market",
+  "project": "kinetic-market",
   "contractName": "JOULE Unitroller",
-  "category": "lending",
-  "logoURL": "dapps/kinetic-market/logo.webp",
-  "logoHash": "e882c68fffda1455e9713004c1e989134b74e620c420a0a11754c08ba5c78c6f"
+  "category": "lending"
 }

@@ -27,7 +27,8 @@ Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifro
 >
 > - `data/providers/**/logo.webp` (provider icons)
 > - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons and contract icons; contracts have no logo file of their own)
+> - `data/dapps/**/logo.webp` (dapp icons)
+> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
 
 Use the exact pin from the previous step (`--save-exact` on npm and pnpm, `--exact` on Yarn) for that tag. Do this the first time, and again on every bump, before you ship.
 
@@ -35,7 +36,8 @@ Use the exact pin from the previous step (`--save-exact` on npm and pnpm, `--exa
 | --- | --- | --- |
 | Providers | `data/providers/**/logo.webp` | `providers/eip155-14/<identity>/logo.webp` |
 | Tokens | `data/tokens/**/logo.webp` | `tokens/eip155-14/<address>/logo.webp`, `tokens/eip155-14/native/logo.webp`, `tokens/xrpl-0/<issuer>/<currency>/logo.webp` |
-| Dapps and contract icons | `data/dapps/**/logo.webp` | `dapps/<slug>/logo.webp` |
+| Dapps | `data/dapps/**/logo.webp` | `dapps/<slug>/logo.webp` |
+| Contracts | `data/contracts/**/logo.webp` | `contracts/projects/<slug>/logo.webp`, `contracts/eip155-14/<address>/logo.webp` |
 
 If you want one hosted JSON file, write it from the package in the same step and upload it next to the logos. Name the file whatever you want.
 
@@ -94,7 +96,7 @@ Chain ids are CAIP-2. `getProvider` matches `identityAddress` case-insensitively
 
 The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base.
 
-`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included). Catalog logos are WebP. Token, XRPL, contract, and dapp-category calls use the same CAIP-2 chain ids and the same base rule. Examples are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#usage).
+`resolveAssetURL` works the same way for any listing’s `logoURL` (tokens, dapps, and contracts included). Catalog logos are WebP. Token, XRPL, contract, and dapp-category calls use the same CAIP-2 chain ids and the same base rule. Examples are in the [repository README](https://github.com/bifrostwallet/assets/blob/main/README.md#usage).
 
 If you uploaded `flare-providers.json`, fetch that URL. One request. Its `logoURL` values already point at your host.
 
@@ -104,7 +106,7 @@ DO: pin with `--save-exact` / `--exact` and commit the lockfile.
 
 DO NOT: depend on a `^` range. A newer catalog can slip in without a logo refresh.
 
-DO: at each pin bump, copy every logo tree you serve from the tag `v` plus the version onto a host you control, and keep the relative paths. Provider icons are `data/providers/**/logo.webp`. Token icons are `data/tokens/**/logo.webp`. Dapp icons and contract icons are `data/dapps/**/logo.webp`. If you want one JSON file, generate it with the lookup helpers plus `resolveAssetURL`, and upload it next to the logos.
+DO: at each pin bump, copy every logo tree you serve from the tag `v` plus the version onto a host you control, and keep the relative paths. Provider icons are `data/providers/**/logo.webp`. Token icons are `data/tokens/**/logo.webp`. Dapp icons are `data/dapps/**/logo.webp`. Contract icons are `data/contracts/**/logo.webp`. If you want one JSON file, generate it with the lookup helpers plus `resolveAssetURL`, and upload it next to the logos.
 
 DO NOT: fetch `all.json`, or logos, from GitHub raw, from this repository, or from Bifrost’s CDN at runtime. `all.json` in git is not a public consume API.
 
@@ -134,6 +136,9 @@ gcloud storage rsync data/tokens gs://YOUR_BUCKET/assets/tokens \
 gcloud storage rsync data/dapps gs://YOUR_BUCKET/assets/dapps \
   --recursive \
   --exclude=".*\.json$"
+gcloud storage rsync data/contracts gs://YOUR_BUCKET/assets/contracts \
+  --recursive \
+  --exclude=".*\.json$"
 ```
 
 See [Upload objects](https://cloud.google.com/storage/docs/uploading-objects).
@@ -155,11 +160,17 @@ aws s3 sync data/tokens s3://YOUR_BUCKET/assets/tokens \
 aws s3 sync data/dapps s3://YOUR_BUCKET/assets/dapps \
   --exclude "*" \
   --include "*/logo.webp"
+
+# Contract projects: projects/<slug>/logo.webp
+# Per-contract logos: <chain>/<address>/logo.webp
+aws s3 sync data/contracts s3://YOUR_BUCKET/assets/contracts \
+  --exclude "*" \
+  --include "*/*/logo.webp"
 ```
 
 See [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
 
-Run the same copy on every pin bump. Object keys stay under the base you pass to `resolveAssetURL` (`providers/…`, `tokens/…`, `dapps/…`).
+Run the same copy on every pin bump. Object keys stay under the base you pass to `resolveAssetURL` (`providers/…`, `tokens/…`, `dapps/…`, `contracts/…`).
 
 ## Optional checks
 

@@ -1,8 +1,6 @@
 {
   "address": "0xa0ff992e0b33dbdc577e488dc917a042f7b42875",
-  "dapp": "flare-network",
+  "project": "flare-network",
   "contractName": "FTSO Reward Manager",
-  "category": "rewards",
-  "logoURL": "dapps/flare-network/logo.webp",
-  "logoHash": "67cc0ba642696a5ac9b8f83589807e3496ff2b86c84204dc8aa12dbc58e2da0f"
+  "category": "rewards"
 }

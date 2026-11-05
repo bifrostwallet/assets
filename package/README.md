@@ -123,7 +123,7 @@ console.log(flareTokens.length);
 
 `getDappCategories()` returns the hand-ordered chips (`featured`, `dex`, `lending`, `yield`, `staking`, `bridges`, `marketplaces`, `social`, `games`, `other`). A chip's `dapps` array is slug order. A slug may appear in more than one chip. Some chips are empty.
 
-There is no per-dapp lookup. Title, URL, description, and chains stay in `data/dapps/<slug>/info.json` in git. Contract records copy the dapp title into `projectName` when the package is built.
+There is no per-dapp lookup. Title, URL, description, and chains stay in `data/dapps/<slug>/info.json` in git.
 
 ```typescript
 import { DAPP_CATEGORY_LABELS, getDappCategories } from "@bifrostwallet/assets";
@@ -136,7 +136,7 @@ console.log(dexLabel, dex?.dapps);
 
 ### Contracts
 
-`getContract` reads the curated name catalog. `chain` and `projectName` are filled in by the package build (`projectName` is the dapp title). `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`. `logoURL` points at the dapp logo, `dapps/<slug>/logo.webp`.
+`getContract` reads the curated name catalog. One call returns `project`, `projectName`, `logoURL`, and `logoHash`. The package build fills those in (`projectName` is the project `name`). `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`. `logoURL` is `contracts/projects/<slug>/logo.webp`, or that contract's own `logo.webp` when the file exists.
 
 ```typescript
 import {
@@ -187,7 +187,8 @@ const record = getProviderSignatures(
 >
 > - `data/providers/**/logo.webp` (provider icons)
 > - `data/tokens/**/logo.webp` (EVM and XRPL token icons)
-> - `data/dapps/**/logo.webp` (dapp icons and contract icons; contracts have no logo file of their own)
+> - `data/dapps/**/logo.webp` (dapp icons)
+> - `data/contracts/**/logo.webp` (contract project icons and per-contract icons)
 
 Pin one version so a newer catalog cannot arrive on its own. Commit the lockfile.
 
@@ -219,7 +220,7 @@ if (provider) {
 }
 ```
 
-The base is the directory that contains `providers/`, `tokens/`, and `dapps/`. The same call works for a token or dapp `logoURL`.
+The base is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a token, dapp, or contract `logoURL`.
 
 `DEFAULT_ASSET_BASE_URL` is `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/`. `resolveAssetURL` uses it when the base is omitted or blank. Pass your base on every call.
 

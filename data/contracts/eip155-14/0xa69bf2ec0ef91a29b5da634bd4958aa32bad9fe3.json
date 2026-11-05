@@ -1,8 +1,6 @@
 {
   "address": "0xa69bf2ec0ef91a29b5da634bd4958aa32bad9fe3",
-  "dapp": "bifrostwallet-com",
+  "project": "bifrostwallet-com",
   "contractName": "Agent Vault",
-  "category": "fassets",
-  "logoURL": "dapps/bifrostwallet-com/logo.webp",
-  "logoHash": "3d802d3fe11b64d0238cae5b34c374f3d0d661d68391a99b9a4bde6912f1468f"
+  "category": "fassets"
 }

@@ -1,24 +1,23 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { describe, test } from "node:test";
-import { syncContractLogosFromDapps, validateContractCatalog } from "../src/contracts.js";
+import { getContract, validateContractCatalog } from "../src/contracts.js";
 
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
+const BIFROST_PROJECT = "bifrostwallet-com";
 
 /**
- * check:dapps reads data/contracts while the suite runs. These cases mutate a
- * private copy so a parallel reader cannot observe a drifted logoHash.
+ * These cases mutate a private copy of data/contracts. Dapps are not copied:
+ * contract logos resolve from the project folder.
  */
 function withIsolatedCatalog(run: () => void): void {
   const previous = process.cwd();
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), "contract-catalog-"));
   fs.mkdirSync(path.join(temp, "data"));
   fs.cpSync(path.join(previous, "data", "contracts"), path.join(temp, "data", "contracts"), {
-    recursive: true,
-  });
-  fs.cpSync(path.join(previous, "data", "dapps"), path.join(temp, "data", "dapps"), {
     recursive: true,
   });
   try {
@@ -43,7 +42,7 @@ describe("contract catalog mutations", () => {
     });
   });
 
-  test("syncContractLogosFromDapps rewrites a drifted logo copy", () => {
+  test("rejects a logo copy stored on the contract JSON", () => {
     withIsolatedCatalog(() => {
       const filePath = path.join(
         process.cwd(),
@@ -52,14 +51,42 @@ describe("contract catalog mutations", () => {
         "eip155-14",
         `${BIFROST_POOL}.json`,
       );
-      const original = fs.readFileSync(filePath, "utf8");
-      const record = JSON.parse(original) as { logoHash: string };
-      record.logoHash = "a".repeat(64);
+      const record = JSON.parse(fs.readFileSync(filePath, "utf8")) as Record<string, unknown>;
+      record.logoURL = `contracts/projects/${BIFROST_PROJECT}/logo.webp`;
       fs.writeFileSync(filePath, `${JSON.stringify(record, null, 2)}\n`);
-      assert.equal(syncContractLogosFromDapps() > 0, true);
-      const restored = JSON.parse(fs.readFileSync(filePath, "utf8")) as { logoHash: string };
-      assert.equal(restored.logoHash, JSON.parse(original).logoHash);
+      const errors = validateContractCatalog();
+      assert.equal(
+        errors.some((error) => error.includes("logoURL must not be stored")),
+        true,
+      );
+    });
+  });
+
+  test("own logo.webp wins over the project logo", () => {
+    withIsolatedCatalog(() => {
+      const ownDir = path.join(process.cwd(), "data", "contracts", "eip155-14", BIFROST_POOL);
+      fs.mkdirSync(ownDir);
+      fs.copyFileSync(
+        path.join(process.cwd(), "data", "contracts", "projects", BIFROST_PROJECT, "logo.webp"),
+        path.join(ownDir, "logo.webp"),
+      );
+      const contract = getContract("eip155:14", BIFROST_POOL);
+      assert.ok(contract);
+      assert.equal(contract.project, BIFROST_PROJECT);
+      assert.equal(contract.projectName, "Bifrost Wallet");
+      assert.equal(contract.logoURL, `contracts/eip155-14/${BIFROST_POOL}/logo.webp`);
+      assert.equal(
+        contract.logoHash,
+        createHash("sha256")
+          .update(fs.readFileSync(path.join(ownDir, "logo.webp")))
+          .digest("hex"),
+      );
       assert.deepEqual(validateContractCatalog(), []);
+      const source = JSON.parse(
+        fs.readFileSync(path.join(ownDir, "..", `${BIFROST_POOL}.json`), "utf8"),
+      ) as Record<string, unknown>;
+      assert.equal(Object.hasOwn(source, "logoURL"), false);
+      assert.equal(source.project, BIFROST_PROJECT);
     });
   });
 });

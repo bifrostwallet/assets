@@ -18,7 +18,6 @@ export interface DappCheckResult {
 }
 
 const HASH_RE = /^[0-9a-f]{64}$/;
-const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const UNCATEGORIZED_RE = /^dapp .+ is in no category$/;
 const ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
 
@@ -130,72 +129,8 @@ function categoryIssues(
   return { errors, warnings };
 }
 
-function readLinkedLogoHash(
-  root: string,
-  slug: string,
-): { present: boolean; logoHash: string | undefined } {
-  if (!SLUG_RE.test(slug)) return { present: false, logoHash: undefined };
-  const infoPath = path.join(dappsDir(root), slug, "info.json");
-  if (!fs.existsSync(infoPath)) return { present: false, logoHash: undefined };
-  try {
-    const raw = readJson(infoPath);
-    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-      return { present: true, logoHash: undefined };
-    }
-    const logoHash = (raw as { logoHash?: unknown }).logoHash;
-    return { present: true, logoHash: typeof logoHash === "string" ? logoHash : undefined };
-  } catch {
-    return { present: true, logoHash: undefined };
-  }
-}
-
-function contractLinkErrors(root: string): string[] {
-  const errors: string[] = [];
-  const contractsDir = path.join(root, "data", "contracts");
-  if (!fs.existsSync(contractsDir)) return errors;
-
-  for (const chain of fs.readdirSync(contractsDir, { withFileTypes: true })) {
-    if (!chain.isDirectory()) continue;
-    const chainDir = path.join(contractsDir, chain.name);
-    for (const file of fs.readdirSync(chainDir, { withFileTypes: true })) {
-      if (!file.isFile() || !file.name.endsWith(".json")) continue;
-      const label = `contracts/${chain.name}/${file.name}`;
-      let raw: unknown;
-      try {
-        raw = readJson(path.join(chainDir, file.name));
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        errors.push(`${label}: invalid JSON (${message})`);
-        continue;
-      }
-      if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-        errors.push(`${label}: dapp slug does not exist`);
-        continue;
-      }
-      const record = raw as { dapp?: unknown; logoHash?: unknown };
-      if (typeof record.dapp !== "string") {
-        errors.push(`${label}: dapp slug does not exist`);
-        continue;
-      }
-      const linked = readLinkedLogoHash(root, record.dapp);
-      if (!linked.present) {
-        errors.push(`${label}: dapp slug ${record.dapp} does not exist`);
-        continue;
-      }
-      if (
-        typeof record.logoHash !== "string" ||
-        linked.logoHash === undefined ||
-        record.logoHash !== linked.logoHash
-      ) {
-        errors.push(`${label}: logoHash differs from dapp ${record.dapp}`);
-      }
-    }
-  }
-  return errors;
-}
-
 /**
- * Validate data/dapps and the contract logo copies that point at them.
+ * Validate data/dapps. Contract logos are a separate catalog.
  * A dapp in no browser chip is a warning. Every other problem is an error.
  */
 export function checkDappCatalog(root = process.cwd()): DappCheckResult {
@@ -232,6 +167,5 @@ export function checkDappCatalog(root = process.cwd()): DappCheckResult {
 
   const categories = categoryIssues(root, slugs);
   errors.push(...categories.errors);
-  errors.push(...contractLinkErrors(root));
   return { errors, warnings: categories.warnings };
 }

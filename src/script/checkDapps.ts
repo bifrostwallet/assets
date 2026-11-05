@@ -2,7 +2,7 @@ import { checkDappCatalog } from "../dappCheck.js";
 import { isMain } from "../isMain.js";
 
 /**
- * Fail when the dapp catalog or a contract logo copy is wrong.
+ * Fail when the dapp catalog is wrong. Contract logos are checked separately.
  * A dapp that is in no browser chip is printed as a warning and does not fail.
  */
 function checkDapps(): void {
