@@ -11,7 +11,9 @@ import { legacyTokenIconDestination } from "../legacyTokenIcon.js";
 //
 // Object keys mirror relative paths under data/, optionally under BUCKET_PREFIX.
 // Published all.json logoURL values are rewritten to ASSET_BASE_URL (default:
-// GitHub raw from package.json repository). For a private CDN, set e.g.:
+// GitHub raw from package.json repository). In-repo all.json may already be
+// absolute. withAbsoluteLogoURL strips a known asset prefix first, so an
+// absolute input is not double-prefixed. For a private CDN, set e.g.:
 //   BUCKET_PREFIX=<prefix>/
 //   ASSET_BASE_URL=https://cdn.example.com/<prefix>/
 //
@@ -37,6 +39,7 @@ const LOGO_CACHE_CONTROL = "public, max-age=604800";
 /** Lists refresh with nightly builds — cache up to a day */
 const LIST_CACHE_CONTROL = "public, max-age=86400";
 
+/** Rebase every logoURL onto assetBase. Already-absolute catalog URLs are not prefixed twice. */
 function rewriteAllJsonForUpload(localPath: string, assetBase: string): string {
   const entries = JSON.parse(fs.readFileSync(localPath, "utf8")) as Array<{ logoURL?: string }>;
   const rewritten = entries.map((entry) =>
