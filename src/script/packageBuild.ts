@@ -303,8 +303,6 @@ function buildIndexJs(
     tokenChains.length === 0
       ? ""
       : `${tokenChains.map((chain) => `  "${chain}": require("./tokens/${chain}.json"),`).join("\n")}\n`;
-  const blocklistRequire =
-    tokenChains.length > 0 ? 'require("./tokens/blocklist.json")' : "{ tokens: [] }";
   const contractRequires =
     contractChains.length === 0
       ? ""
@@ -318,8 +316,6 @@ ${PROVIDER_CHAINS.map((chain) => `  "${chain}": require("./providers/${chain}.js
 
 const tokensByChain = {
 ${tokenRequires}};
-
-const tokenBlocklist = ${blocklistRequire};
 
 const contractsByChain = {
 ${contractRequires}};
@@ -472,10 +468,6 @@ function getNativeToken(chainId) {
   return getTokens(chainId).find((token) => token.address === null) ?? null;
 }
 
-function getTokenBlocklist() {
-  return tokenBlocklist.tokens || [];
-}
-
 function contractsWithChain(chainPath, contracts) {
   const chain = chainPathToCaip2(chainPath);
   return contracts.map((contract) => ({ ...contract, chain }));
@@ -562,7 +554,6 @@ module.exports = {
   getToken,
   getXrplToken,
   getNativeToken,
-  getTokenBlocklist,
   getContracts,
   getContract,
   getDappCategories,
@@ -642,12 +633,6 @@ export interface XrplToken {
   coingeckoId: string | null;
   logoURL: string;
   logoHash: string;
-}
-
-export interface TokenBlocklistEntry {
-  chainPath: string;
-  address: string;
-  identifier: string;
 }
 
 /** CAIP-2 chain id, e.g. "eip155:14" or "eip155:19" */
@@ -764,8 +749,6 @@ export declare function getToken(chainId: ChainId, address: string): EvmToken | 
 export declare function getXrplToken(issuer: string, currency: string): XrplToken | null;
 /** Native gas token entry for a chain, or null */
 export declare function getNativeToken(chainId: ChainId): EvmToken | null;
-/** Curated token blocklist entries */
-export declare function getTokenBlocklist(): TokenBlocklistEntry[];
 /**
  * Curated contracts. Omit chainId for every chain.
  * Throws on an unknown CAIP-2 id.
@@ -815,14 +798,6 @@ function buildPackage(): void {
       const outPath = path.join(distDir, "tokens", `${chain}.json`);
       fs.writeFileSync(outPath, `${JSON.stringify(tokens, null, 2)}\n`);
       console.info(`📦 tokens/${chain}.json (${tokens.length} tokens)`);
-    }
-    const blocklistSrc = path.join(process.cwd(), "data", "tokens", "blocklist.json");
-    if (fs.existsSync(blocklistSrc)) {
-      fs.writeFileSync(
-        path.join(distDir, "tokens", "blocklist.json"),
-        fs.readFileSync(blocklistSrc),
-      );
-      console.info("📦 tokens/blocklist.json");
     }
   }
 

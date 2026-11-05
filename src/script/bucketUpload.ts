@@ -99,13 +99,6 @@ function collectUploads(assetBase: string): UploadItem[] {
           contentType: "application/json",
           cleanup: true,
         });
-      } else if (section === "tokens" && entry.name === "blocklist.json") {
-        uploads.push({
-          localPath: fullPath,
-          destination: `${BUCKET_PREFIX}${relative}`,
-          cacheControl: LIST_CACHE_CONTROL,
-          contentType: "application/json",
-        });
       }
       // info.json / signatures.json / provenance.json are repo-internal (not CDN)
     }
