@@ -12,7 +12,11 @@ To list a provider, follow [FTSO provider](https://docs.bifrostwallet.com/list/f
 npm install @bifrostwallet/assets@<version> --save-exact
 ```
 
-Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifrostwallet/assets@<version> --save-exact`. Commit the lockfile with that pin. Upgrade only when you want a newer catalog, then upload that release’s provider icons again.
+Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifrostwallet/assets@<version> --save-exact`.
+
+`--save-exact` and `--exact` pin one version so a newer catalog cannot slip in unnoticed. Commit the lockfile with that pin.
+
+When you bump that pin, download the new tag and upload that release’s logo files before you ship. A version bump without refreshing icons is incomplete. The steps are under [Logos](#logos).
 
 ## Provider lookup
 
@@ -51,11 +55,21 @@ The package entry is CommonJS. `require("@bifrostwallet/assets")` exposes the sa
 
 ## Logos
 
-Each listing’s `logoURL` is a relative path, such as `providers/eip155-14/<identity>/logo.webp`. `logoHash` is the SHA-256 of that file. The npm package does not include logo files.
+Logo files are not in the npm package. Each listing’s `logoURL` is a relative path, such as `providers/eip155-14/<identity>/logo.webp`. `logoHash` is the SHA-256 of that file.
 
-After you version-lock the package, download that same tagged GitHub release, or clone that tag, once in your build. The tag is `v` plus the package version. Upload `providers/**/logo.webp` from that tag to a CDN or backend you control, and keep the relative paths. Pinning the tag to the package version keeps those files matched to `logoHash`.
+Download or clone the git tag that matches your pinned package version. The tag is `v` plus that version. Upload `providers/**/logo.webp` from that tag to a CDN or backend you control, and keep the relative paths.
 
-Always pass that host to `resolveAssetURL(logoURL, base)`. The example base `https://cdn.example.com/assets/` is the directory that contains `providers/`. Serve every logo from the base you pass in. GitHub and Bifrost’s CDN are not logo hosts for your app.
+### When you bump the pinned version
+
+Do this before you ship. Download that new tag and upload that release’s `providers/**/logo.webp` files again. A version bump without refreshing icons is incomplete.
+
+If a listing’s file is missing on your host, the image is broken. Your host returns 404. That is what a newly added provider looks like after a bump you did not follow with an upload. A path you already uploaded keeps serving the old file. If the catalog logo changed, that file is stale and `logoHash` no longer matches.
+
+### How resolveAssetURL uses your host
+
+Always pass your host: `resolveAssetURL(logoURL, base)`. When you pass a base, the function only joins the relative path to that host. It does not fall back to GitHub or Bifrost’s CDN. The example base `https://cdn.example.com/assets/` is the directory that contains `providers/`. GitHub and Bifrost’s CDN are not logo hosts.
+
+The GitHub raw fallback runs only when you omit the base or pass an empty base. Do not omit the base. Do not use that fallback as a logo host.
 
 `resolveAssetURL` works the same way for any listing’s `logoURL` (tokens and dapps included).
 
