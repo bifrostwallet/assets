@@ -44,6 +44,16 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 }));
 ```
 
+### Get all listed validators
+
+`getListedValidators(chainId)` returns one entry per NodeID for providers with `listed: true`, in that provider order. Each entry has `nodeId`, `identityAddress`, and `name`.
+
+```typescript
+import { getListedValidators } from "@bifrostwallet/assets";
+
+const validators = getListedValidators("eip155:14");
+```
+
 ### Listed validator NodeIDs
 
 Each provider record includes `validators`, an array of NodeIDs. Listed validators are those NodeIDs on the result of `getListedProviders`. `findProviderByValidator(chainId, nodeId)` returns the provider that operates that NodeID, or `null`. The NodeID must match the stored string.

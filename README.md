@@ -37,6 +37,9 @@ An unknown CAIP-2 chain id throws. A missing record returns `null`. Directory na
 | `getListedProviders(chainId)` | Providers with `listed: true` |
 | `getManagementGroupProviders(chainId)` | Providers with `managementGroup: true` |
 | `findProviderByValidator(chainId, nodeId)` | The provider whose `validators` array contains that NodeID, or `null` |
+| `getValidators(chainId)` | Every validator on that chain: `nodeId`, `identityAddress`, and `name` |
+| `getListedValidators(chainId)` | Validators of providers with `listed: true` |
+| `getValidatorsByIdentity(chainId, identityAddress)` | That provider's validators, or `[]`. The address match is case-insensitive |
 | `getTokens(chainId)` | EVM tokens, or XRPL issued tokens when `chainId` is `"xrpl:0"` |
 | `getToken(chainId, address)` | One EVM token, or `null`. The address match is case-insensitive |
 | `getNativeToken(chainId)` | The gas token (`address: null`), or `null` |

@@ -388,6 +388,56 @@ function findProviderByValidator(chainId, nodeId) {
   );
 }
 
+function collectValidators(providers) {
+  const list = [];
+  for (const provider of providers) {
+    const nodeIds = Array.isArray(provider.validators) ? provider.validators : [];
+    for (const nodeId of nodeIds) {
+      list.push({
+        nodeId: nodeId,
+        identityAddress: provider.identityAddress,
+        name: provider.name,
+      });
+    }
+  }
+  return list;
+}
+
+const validatorsByChain = {};
+const listedValidatorsByChain = {};
+for (const chainPath of Object.keys(providersByChain)) {
+  const providers = providersByChain[chainPath];
+  validatorsByChain[chainPath] = collectValidators(providers);
+  listedValidatorsByChain[chainPath] = collectValidators(
+    providers.filter((provider) => provider.listed)
+  );
+}
+
+function validatorsForChain(chainId, byChain) {
+  const validators = byChain[normalizeChainId(chainId)];
+  if (!validators) {
+    throw new Error(
+      "Unknown chain " + chainId + ". Available: " + PROVIDER_CHAIN_IDS.join(", ")
+    );
+  }
+  return validators;
+}
+
+function getValidators(chainId) {
+  return validatorsForChain(chainId, validatorsByChain);
+}
+
+function getListedValidators(chainId) {
+  return validatorsForChain(chainId, listedValidatorsByChain);
+}
+
+function getValidatorsByIdentity(chainId, identityAddress) {
+  const target = String(identityAddress).toLowerCase();
+  return getValidators(chainId).filter(
+    (validator) => String(validator.identityAddress).toLowerCase() === target
+  );
+}
+
 function getTokens(chainId) {
   const tokens = tokensByChain[normalizeChainId(chainId)];
   if (!tokens) {
@@ -505,6 +555,9 @@ module.exports = {
   getListedProviders,
   getManagementGroupProviders,
   findProviderByValidator,
+  getValidators,
+  getListedValidators,
+  getValidatorsByIdentity,
   getTokens,
   getToken,
   getXrplToken,
@@ -670,6 +723,32 @@ export declare function findProviderByValidator(
   chainId: ChainId,
   nodeId: string
 ): ProviderInfo | null;
+
+export interface ValidatorInfo {
+  /** Avalanche-style NodeID */
+  nodeId: string;
+  /** Owning provider identity address */
+  identityAddress: string;
+  /** Owning provider display name */
+  name: string;
+}
+
+/**
+ * Every validator on a chain, in getProviders order.
+ * Validators of one provider stay together, in that provider's validators order.
+ * Throws on an unknown chain.
+ */
+export declare function getValidators(chainId: ChainId): ValidatorInfo[];
+/** Validators of providers with listed: true, same order as getValidators. */
+export declare function getListedValidators(chainId: ChainId): ValidatorInfo[];
+/**
+ * Validators for one provider identity. The address match is case-insensitive.
+ * Returns an empty array when that identity is absent. Throws on an unknown chain.
+ */
+export declare function getValidatorsByIdentity(
+  chainId: ChainId,
+  identityAddress: string
+): ValidatorInfo[];
 /**
  * All curated tokens for a chain (throws on unknown chain).
  * \`xrpl:0\` returns XrplToken. Every other chain returns EvmToken.
