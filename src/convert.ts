@@ -189,7 +189,7 @@ export function rebuildProvidersAllJson(chainPath: string): void {
       continue;
     }
     const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
-    // info.json keeps relative logoURL; provider all.json is absolute for bucket upload
+    // info.json keeps relative logoURL; provider all.json is absolute so fetching it renders logos
     byIdentity.set(
       info.identityAddress.toLowerCase(),
       withAbsoluteLogoURL(sortProviderInfo(info) as ProviderInfo),

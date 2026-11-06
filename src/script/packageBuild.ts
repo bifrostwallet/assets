@@ -32,8 +32,8 @@ import type { XrplToken } from "../xrplToken.js";
 // each published contract. createAssets({ baseURL }) is the only public entry. It
 // resolves asset paths per call and does not mutate the shared records. There is
 // no default base. Provider signatures ship as a separate entry (signatures.js).
-// index.js does not load that file. ASSET_BASE_URL is not applied here; bucket
-// upload still rewrites hosted all.json. The published file does not read package.json.
+// index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
+// upload sends logo files only. The published file does not read package.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 

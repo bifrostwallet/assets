@@ -67,7 +67,7 @@ describe("resolveAssetURL", () => {
     );
   });
 
-  test("bucket upload can still rewrite logoURL onto an operator base", () => {
+  test("rebases logoURL onto an operator base without double-prefixing", () => {
     const operator = "https://operator.example/static/";
     const once = withAbsoluteLogoURL({ logoURL: RELATIVE }, operator);
     const twice = withAbsoluteLogoURL(once, operator);
