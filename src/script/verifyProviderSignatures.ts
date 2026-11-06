@@ -1,24 +1,30 @@
 import path from "node:path";
 import { findProviderDirs, verifyProviderSignatures } from "../verify.js";
 
-// CLI report of provider ownership signature status across the repository.
-// The requirement is a valid SELF-signature; attestations from qualifying
-// attesters (listed, self-signed providers on the same chain) are reported as
-// additional confirmation. With --strict, exit code 1 when any provider lacks
-// a valid self-signature.
+// CLI report of provider ownership signatures.
+// A signature that is present must be valid. Unsigned providers, including a
+// signatures file with no entries, and attested-only providers are warnings.
+// Exit code 1 when any signature entry is invalid.
 
 async function main(): Promise<void> {
-  const strict = process.argv.includes("--strict");
   const providerDirs = findProviderDirs();
 
   let selfSigned = 0;
-  let attestedOnly = 0;
-  let missing = 0;
-  let invalidOnly = 0;
+  let unsigned = 0;
+  let invalid = 0;
 
   for (const providerDir of providerDirs) {
     const relativePath = path.relative(process.cwd(), providerDir);
     const result = await verifyProviderSignatures(providerDir);
+
+    if (result.invalidSignatures.length > 0) {
+      invalid++;
+      console.error(`❌ ${relativePath}: invalid signature`);
+      for (const entry of result.invalidSignatures) {
+        console.error(`     ${entry.entry.signerAddress}: ${entry.reason}`);
+      }
+      continue;
+    }
 
     if (result.hasValidSelfSignature) {
       selfSigned++;
@@ -26,29 +32,19 @@ async function main(): Promise<void> {
       continue;
     }
 
+    unsigned++;
     if (result.hasValidAttestation) {
-      attestedOnly++;
-      console.warn(`❌ ${relativePath}: attested but missing the required self-signature`);
+      console.warn(`⚠️ ${relativePath}: attested but missing a self-signature`);
       continue;
     }
-
-    if (result.hasSignaturesFile) {
-      invalidOnly++;
-      console.warn(`❌ ${relativePath}: no valid signature for current info.json`);
-      for (const invalid of result.invalidSignatures) {
-        console.warn(`     ${invalid.entry.signerAddress}: ${invalid.reason}`);
-      }
-    } else {
-      missing++;
-      console.warn(`❌ ${relativePath}: signatures.json missing`);
-    }
+    console.warn(`⚠️ ${relativePath}: unsigned`);
   }
 
   console.info(
-    `\nSummary: ${selfSigned} self-signed, ${attestedOnly} attested-only, ${invalidOnly} stale/invalid, ${missing} missing (of ${providerDirs.length})`,
+    `\nSummary: ${selfSigned} self-signed, ${unsigned} unsigned, ${invalid} invalid (of ${providerDirs.length})`,
   );
 
-  if (strict && selfSigned !== providerDirs.length) {
+  if (invalid > 0) {
     process.exitCode = 1;
   }
 }
