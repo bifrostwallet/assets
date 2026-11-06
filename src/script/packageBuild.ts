@@ -1,5 +1,7 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
+import * as os from "node:os";
 import * as path from "node:path";
 import { withRelativeLogoURL } from "../assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
@@ -841,7 +843,75 @@ export interface Assets {
 export declare function createAssets(options: CreateAssetsOptions): Assets;
 `;
 
+const packageDistLockDir = path.join(
+  os.tmpdir(),
+  `bifrost-assets-dist-${createHash("sha256").update(process.cwd()).digest("hex").slice(0, 16)}.lock`,
+);
+
+let packageDistLockDepth = 0;
+
+function sleepMs(ms: number): void {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+function acquirePackageDistLock(): void {
+  const deadline = Date.now() + 180_000;
+  for (;;) {
+    try {
+      fs.mkdirSync(packageDistLockDir);
+      return;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") throw error;
+      let ageMs = 0;
+      try {
+        ageMs = Date.now() - fs.statSync(packageDistLockDir).mtimeMs;
+      } catch {
+        continue;
+      }
+      if (ageMs > 180_000) {
+        fs.rmSync(packageDistLockDir, { recursive: true, force: true });
+        continue;
+      }
+      if (Date.now() > deadline) {
+        throw new Error("Timed out waiting for the package build lock");
+      }
+      sleepMs(50);
+    }
+  }
+}
+
+function releasePackageDistLock(): void {
+  fs.rmSync(packageDistLockDir, { recursive: true, force: true });
+}
+
+/** Hold dist/ until the returned function runs. Re-entrant in this process. */
+export function holdPackageDist(): () => void {
+  if (packageDistLockDepth === 0) acquirePackageDistLock();
+  packageDistLockDepth += 1;
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    packageDistLockDepth -= 1;
+    if (packageDistLockDepth === 0) releasePackageDistLock();
+  };
+}
+
+function withPackageDist(build: () => void): void {
+  const release = holdPackageDist();
+  try {
+    build();
+  } finally {
+    release();
+  }
+}
+
 function buildPackage(): void {
+  withPackageDist(buildPackageUnlocked);
+}
+
+function buildPackageUnlocked(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
   const packageVersion = rootPackage.version;
   if (typeof packageVersion !== "string") {

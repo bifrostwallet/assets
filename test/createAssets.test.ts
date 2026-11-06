@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
-import { before, describe, test } from "node:test";
-import buildPackage from "../src/script/packageBuild.js";
+import { after, before, describe, test } from "node:test";
+import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
 interface LogoRecord {
   logoURL: string;
@@ -59,13 +59,19 @@ function readDistJson<T>(relativePath: string): T {
 
 describe("createAssets", { concurrency: false }, () => {
   let createAssets: CreateAssets;
+  let releaseDist: (() => void) | undefined;
 
   before(() => {
+    releaseDist = holdPackageDist();
     buildPackage();
     const indexPath = path.join(process.cwd(), "dist", "index.js");
     const require = createRequire(path.join(process.cwd(), "package.json"));
     delete require.cache[indexPath];
     createAssets = (require(indexPath) as { createAssets: CreateAssets }).createAssets;
+  });
+
+  after(() => {
+    releaseDist?.();
   });
 
   test("resolves provider, token, contract, and dapp logos", () => {

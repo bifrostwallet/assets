@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
-import { describe, test } from "node:test";
+import { after, before, describe, test } from "node:test";
 import { toRelativeAssetPath } from "../src/assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS } from "../src/config.js";
 import {
@@ -16,7 +16,7 @@ import {
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
-import buildPackage from "../src/script/packageBuild.js";
+import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 import type { EvmToken } from "../src/tokens.js";
 import type { XrplToken } from "../src/xrplToken.js";
 
@@ -299,6 +299,14 @@ describe("contract catalog", { concurrency: false }, () => {
 });
 
 describe("published package lookups", { concurrency: false }, () => {
+  let releaseDist: (() => void) | undefined;
+  before(() => {
+    releaseDist = holdPackageDist();
+  });
+  after(() => {
+    releaseDist?.();
+  });
+
   test("getContract and getContracts match the catalog", () => {
     buildPackage();
     const require = createRequire(path.join(process.cwd(), "package.json"));

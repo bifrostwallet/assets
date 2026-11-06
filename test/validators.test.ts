@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import * as path from "node:path";
-import { before, describe, test } from "node:test";
-import buildPackage from "../src/script/packageBuild.js";
+import { after, before, describe, test } from "node:test";
+import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
 interface ValidatorInfo {
   nodeId: string;
@@ -53,10 +53,16 @@ function validatorsOf(providers: ProviderInfo[]): ValidatorInfo[] {
 
 describe("published validator lists", { concurrency: false }, () => {
   let assets: PackageAssets;
+  let releaseDist: (() => void) | undefined;
   const chainId = "eip155:14";
 
   before(() => {
+    releaseDist = holdPackageDist();
     assets = loadBuiltPackage();
+  });
+
+  after(() => {
+    releaseDist?.();
   });
 
   test("groups validators in getProviders order", () => {
