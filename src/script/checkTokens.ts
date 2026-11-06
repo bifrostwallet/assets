@@ -28,9 +28,9 @@ import {
  * 2. Logo file + published size rules (outliers reported, not fatal)
  * 3. On-chain name / symbol / decimals vs curated (when RPC env is set)
  *
- * Never mutates data. Symbol mismatches outside the exception list, symbol
- * reads that still fail after retries, and a symbol() that is not an ABI
- * string exit non-zero. Name and decimals mismatches stay advisory.
+ * Never mutates data. A symbol mismatch, a symbol read that still fails
+ * after retries, and a symbol() that is not an ABI string exit non-zero.
+ * Name and decimals mismatches stay advisory.
  * symbol() is read as a string only. bytes32 symbols are not supported.
  * This pass reads chain state only when a `*_NODE_URL` is already set; CI
  * does not set them. A new duplicate EVM symbol, or a token `all.json` that
@@ -67,25 +67,6 @@ const ERC20_ABI = [
     outputs: [{ type: "uint8" }],
   },
 ] as const;
-
-/**
- * Curated symbols that intentionally differ from on-chain string symbol().
- * One reason each. Do not add entries for symbols that fail format checks.
- * bytes32 symbol() is not supported and is not an exception.
- */
-const SYMBOL_EXCEPTIONS: readonly {
-  chainId: number;
-  address: string;
-  symbol: string;
-  reason: string;
-}[] = [
-  {
-    chainId: 1,
-    address: "0x88acdd2a6425c3faae4bc9650fd7e27e0bebb7ab",
-    symbol: "MIST",
-    reason: "On-chain symbol is an emoji, which the symbol format does not allow.",
-  },
-];
 
 type Mismatch = {
   chainPath: string;
@@ -162,12 +143,6 @@ function isNonStringSymbolDecode(error: unknown): boolean {
 function isUnsupportedSymbolError(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
   return message.includes(UNSUPPORTED_SYMBOL);
-}
-
-function isSymbolException(chainId: number, address: string, symbol: string): boolean {
-  return SYMBOL_EXCEPTIONS.some(
-    (entry) => entry.chainId === chainId && entry.address === address && entry.symbol === symbol,
-  );
 }
 
 function sleep(ms: number): Promise<void> {
@@ -394,7 +369,7 @@ async function checkTokens(): Promise<void> {
     try {
       const symbol = await withRpcRetry(() => readSymbol(client, contract));
       report.onchainChecked += 1;
-      if (symbol !== info.symbol && !isSymbolException(chainId, address, info.symbol)) {
+      if (symbol !== info.symbol) {
         report.mismatches.push({
           chainPath,
           address,
