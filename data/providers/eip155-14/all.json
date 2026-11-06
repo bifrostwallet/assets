@@ -1363,8 +1363,10 @@
     "description": "We strive to provide the best signals possible. Decentralization is extremely important to us, with this FTSO we will be helping the Flare blockchain achieve this.",
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x258b0352df1d1268856f92846d223c74eb2de9d9/logo.webp",
     "logoHash": "e92e972ccf0fc89cf03d11be8459f51ea5b327111b714b259d36fc0405b83513",
-    "websiteURL": "https://burstftso.xyz",
-    "links": {},
+    "websiteURL": "https://burstlabs.io",
+    "links": {
+      "x": "https://x.com/BurstLabs_io"
+    },
     "identityAddress": "0x258b0352df1d1268856f92846d223c74eb2de9d9",
     "delegationAddress": "0x670a7fd22caa9c2fb5b798078d084b29ab4bc63c",
     "signingPolicyAddress": "0x05f46574210074b5f5d7130fb3e0833d180693d8",
@@ -1372,6 +1374,7 @@
     "submitSignaturesAddress": "0x7b876e007bc273e44d4a50a85a2c481504ced4b6",
     "publicKey": "0x0a62be2050bc853504461871a1de044e19c0c569913983f807a1ab4d40ae8089196f9d94af163e31e83dfee94f323b29ad5cdc2621d6f69b190ef057a31a65b0",
     "validators": ["NodeID-9jaZDNBCn4AwMzRqFBhxfem2ZZtiArRm2"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
