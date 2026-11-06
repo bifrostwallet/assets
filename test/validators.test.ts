@@ -8,6 +8,7 @@ interface ValidatorInfo {
   nodeId: string;
   identityAddress: string;
   name: string;
+  logoURL: string;
 }
 
 interface ProviderInfo {
@@ -15,6 +16,7 @@ interface ProviderInfo {
   identityAddress: string;
   listed: boolean;
   validators: string[];
+  logoURL: string;
 }
 
 interface PackageAssets {
@@ -45,6 +47,7 @@ function validatorsOf(providers: ProviderInfo[]): ValidatorInfo[] {
         nodeId,
         identityAddress: provider.identityAddress,
         name: provider.name,
+        logoURL: provider.logoURL,
       });
     }
   }
@@ -83,7 +86,12 @@ describe("published validator lists", { concurrency: false }, () => {
     for (const provider of providers) {
       assert.deepEqual(grouped.get(provider.identityAddress) ?? [], provider.validators);
     }
-    assert.deepEqual(Object.keys(validators[0] ?? {}), ["nodeId", "identityAddress", "name"]);
+    assert.deepEqual(Object.keys(validators[0] ?? {}), [
+      "nodeId",
+      "identityAddress",
+      "name",
+      "logoURL",
+    ]);
   });
 
   test("listed validators are only those of listed providers", () => {

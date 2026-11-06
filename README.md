@@ -57,7 +57,7 @@ const listed = assets.getListedProviders("eip155:14");
 
 ### Listed validators
 
-`assets.getListedValidators(chainId)` returns one entry per NodeID for providers with `listed: true`, in that provider order. Each entry has `nodeId`, `identityAddress`, and `name`. `assets.getValidators(chainId)` returns every validator on the chain, including validators of providers that are not listed.
+`assets.getListedValidators(chainId)` returns one entry per NodeID for providers with `listed: true`, in that provider order. Each entry has `nodeId`, `identityAddress`, `name`, and the operating provider's `logoURL`. `assets.getValidators(chainId)` returns every validator on the chain, including validators of providers that are not listed.
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
@@ -71,6 +71,8 @@ const validators = assets.getListedValidators("eip155:14");
 //     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
 //     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
 //     name: "Bifrost Wallet",
+//     logoURL:
+//       "https://assets.example.com/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
 //   },
 //   // ...
 // ]
@@ -99,6 +101,8 @@ const provider = assets.findProviderByValidator(
 //   nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
 //   identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
 //   name: "Bifrost Wallet",
+//   logoURL:
+//     "https://assets.example.com/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
 // }
 // followed by three more NodeIDs for that identity.
 // provider is { name: "Bifrost Wallet", identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364", listed: true, ... }
