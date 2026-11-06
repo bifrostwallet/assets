@@ -28,6 +28,12 @@ const DAPPS_DIR = path.join(process.cwd(), "data/dapps");
 
 const VALID_CAIP2 = new Set<string>(DAPP_CHAIN_IDS);
 
+/** Folder ids that predate keeping `www` in the slug. Do not rename them. */
+const LEGACY_WWW_SLUGS: Record<string, string> = {
+  "oracle-daemon-com": "www-oracle-daemon-com",
+  "sceptre-fi": "www-sceptre-fi",
+};
+
 /** Chains confirmed from each project's own docs, kept to DAPP_CHAINS. */
 const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   "app-flamix-trade": ["eip155:14"],
@@ -156,7 +162,15 @@ describe("curated dapps", () => {
       }
       assert.equal("category" in info, false);
       assert.equal("featured" in info, false);
-      assert.equal(dappSlugFromUrl(info.url), slug);
+      // oracle-daemon-com and sceptre-fi were filed while slugs dropped a leading www.
+      // Those folder ids stay. A new www host uses the www-prefixed slug.
+      const legacyWwwSlug = LEGACY_WWW_SLUGS[slug];
+      if (legacyWwwSlug !== undefined) {
+        assert.equal(dappSlugFromUrl(info.url), legacyWwwSlug);
+        assert.equal(new URL(info.url).hostname.startsWith("www."), true);
+      } else {
+        assert.equal(dappSlugFromUrl(info.url), slug);
+      }
       assert.deepEqual(info.chains, CONFIRMED_CHAINS[slug]);
     }
   });

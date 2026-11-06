@@ -1,9 +1,28 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { DappInfo } from "../config.js";
-import { dappSlugFromUrl, toRelativePath } from "../convert.js";
+import { dappSlugFromUrl, existingDappSlugForUrl, toRelativePath } from "../convert.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
+
+function listedSlugForInput(input: string, slugs: readonly string[]): string | undefined {
+  const trimmed = input.trim().toLowerCase();
+  const asNumber = Number(trimmed);
+  if (Number.isInteger(asNumber) && asNumber >= 1 && asNumber <= slugs.length) {
+    return slugs[asNumber - 1];
+  }
+  if (slugs.includes(trimmed)) return trimmed;
+  try {
+    const url = trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
+    const byUrl = existingDappSlugForUrl(url);
+    if (byUrl && slugs.includes(byUrl)) return byUrl;
+    const derived = dappSlugFromUrl(url);
+    if (slugs.includes(derived)) return derived;
+  } catch {
+    return undefined;
+  }
+  return undefined;
+}
 
 function listDappSlugs(): string[] {
   const dappsDir = path.join(process.cwd(), "data", "dapps");
@@ -43,35 +62,13 @@ async function removeDapp(): Promise<void> {
 
     const selection = await getValidatedInput({
       prompt: "Enter dapp number, slug, or domain to remove",
-      validator: (input) => {
-        const trimmed = input.trim().toLowerCase();
-        const asNumber = Number(trimmed);
-        if (Number.isInteger(asNumber) && asNumber >= 1 && asNumber <= slugs.length) {
-          return true;
-        }
-        if (slugs.includes(trimmed)) {
-          return true;
-        }
-        try {
-          const url = trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
-          return slugs.includes(dappSlugFromUrl(url));
-        } catch {
-          return false;
-        }
-      },
+      validator: (input) => listedSlugForInput(input, slugs) !== undefined,
       errorMessage: "Please enter a listed number, slug, or domain",
     });
 
-    const trimmed = selection.trim().toLowerCase();
-    let slug: string;
-    const asNumber = Number(trimmed);
-    if (Number.isInteger(asNumber) && asNumber >= 1 && asNumber <= slugs.length) {
-      slug = slugs[asNumber - 1];
-    } else if (slugs.includes(trimmed)) {
-      slug = trimmed;
-    } else {
-      const url = trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
-      slug = dappSlugFromUrl(url);
+    const slug = listedSlugForInput(selection, slugs);
+    if (!slug) {
+      throw new Error("Dapp not found");
     }
 
     const dappDir = path.join(process.cwd(), "data", "dapps", slug);
