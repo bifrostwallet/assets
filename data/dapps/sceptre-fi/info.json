@@ -1,0 +1,8 @@
+{
+  "title": "Sceptre",
+  "description": "Sceptre is liquid staking on Flare. Stake FLR and keep a liquid receipt while staking rewards accrue.",
+  "url": "https://www.sceptre.fi",
+  "logoURL": "dapps/sceptre-fi/logo.webp",
+  "logoHash": "4dc834730d2a3df0c8535074138c5824ed1a2b8b02f2363538bc148309fcb6b0",
+  "chains": ["eip155:14"]
+}

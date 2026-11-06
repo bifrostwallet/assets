@@ -30,6 +30,8 @@ const VALID_CAIP2 = new Set<string>(DAPP_CHAIN_IDS);
 
 /** Chains confirmed from each project's own docs, kept to DAPP_CHAINS. */
 const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
+  "app-flamix-trade": ["eip155:14"],
+  "app-upshift-finance": ["eip155:14"],
   "au-cc": ["eip155:14", "eip155:19"],
   "bridge-usdc-com": [
     "eip155:1",
@@ -85,6 +87,7 @@ const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   "nortso-xyz": ["eip155:14", "eip155:19"],
   "oracle-daemon-com": ["eip155:14", "eip155:19"],
   "portal-flare-network": ["eip155:14", "eip155:19"],
+  "sceptre-fi": ["eip155:14"],
   "sparkdex-ai": ["eip155:14"],
   "spectra-finance": [
     "eip155:1",
@@ -192,10 +195,10 @@ describe("curated dapps", () => {
       categories.map((group) => group.dapps),
       [
         [],
-        ["sparkdex-ai", "blazeswap-xyz", "enosys-global"],
+        ["sparkdex-ai", "blazeswap-xyz", "enosys-global", "app-flamix-trade"],
         ["kinetic-market", "morpho-org", "enosys-global"],
-        ["spectra-finance", "enosys-global"],
-        ["firelight-finance", "au-cc", "portal-flare-network"],
+        ["spectra-finance", "enosys-global", "app-upshift-finance"],
+        ["firelight-finance", "au-cc", "portal-flare-network", "sceptre-fi"],
         ["layerzero-network", "stargate-finance", "usdt0-to", "bridge-usdc-com"],
         [],
         [],
