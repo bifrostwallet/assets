@@ -10,23 +10,12 @@ A GitHub Release tagged `v` plus the package version stages `dist/` through npm 
 
 ## Logos on a bucket or CDN
 
-Check out the tag `v` plus the published version. Copy `logo.webp` from `data/providers`, `data/tokens`, `data/dapps`, and `data/contracts`. Repeat the copy when the pin changes.
+`./yarn with:ops-config -- ./yarn upload:bucket` uploads the catalog. Pass `--dry-run` to preview. `./yarn ops:pull-env` refreshes the local cache of the same variables. Values come from the private ops config, not from this repository:
 
-Object keys stay `providers/<chain>/<identity>/logo.webp` under the base you pass to `createAssets`. The same layout applies to tokens, dapps, and contracts.
-
-```bash
-gcloud storage rsync data/providers gs://YOUR_BUCKET/assets/providers \
-  --recursive \
-  --exclude=".*\.json$"
-
-aws s3 sync data/providers s3://YOUR_BUCKET/assets/providers \
-  --exclude "*" \
-  --include "*/*/logo.webp"
-```
-
-Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/uploading-objects). AWS: [`aws s3 sync`](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html).
-
-`./yarn upload:bucket` uploads the catalog to the configured bucket. `BUCKET_PREFIX` is an optional object-key prefix. `ASSET_BASE_URL` is the base written into the hosted `all.json` logo URLs. Auth uses Application Default Credentials. Pass `--dry-run` to preview.
+- `STATIC_BUCKET`
+- `STATIC_BUCKET_PROJECT_ID`
+- `BUCKET_PREFIX`
+- `ASSET_BASE_URL`
 
 ## Catalog refresh
 
