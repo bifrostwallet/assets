@@ -1,6 +1,6 @@
 {
   "name": "Weirdo",
-  "symbol": "WEIRDO",
+  "symbol": "weirdo",
   "decimals": 8,
   "address": "0x76734b57dfe834f102fb61e1ebf844adf8dd931e",
   "coingeckoId": "weirdo-2",

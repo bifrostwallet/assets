@@ -1,6 +1,6 @@
 {
   "name": "USDT0",
-  "symbol": "USDT0",
+  "symbol": "USD₮0",
   "decimals": 6,
   "address": "0xe7cd86e13ac4309349f30b3435a9d337750fc82d",
   "coingeckoId": "tether",

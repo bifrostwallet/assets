@@ -1,6 +1,6 @@
 {
   "name": "Dopex Rebate",
-  "symbol": "RDPX",
+  "symbol": "rDPX",
   "decimals": 18,
   "address": "0x0ff5a8451a839f5f0bb3562689d9a44089738d11",
   "coingeckoId": null,

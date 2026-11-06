@@ -127,7 +127,7 @@
   },
   {
     "name": "eCash",
-    "symbol": "XEC",
+    "symbol": "xec",
     "decimals": 9,
     "address": "0x1d2ed7eba253253be9dfa61dd272769d64f202ad",
     "coingeckoId": null,
@@ -180,15 +180,6 @@
     "logoHash": "4a98b019f785f5f06e7bb485c11da80d4f07411194eab3d9a814e468b8a83038"
   },
   {
-    "name": "Maker",
-    "symbol": "MKR",
-    "decimals": 18,
-    "address": "0x2e9a6df78e42a30712c10a9dc4b1c8656f8f2879",
-    "coingeckoId": null,
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-42161/0x2e9a6df78e42a30712c10a9dc4b1c8656f8f2879/logo.webp",
-    "logoHash": "0c1abfc526939dac5bab05c2467ebb0113ab34b2a65bcace18880b7001837fac"
-  },
-  {
     "name": "Wrapped Bitcoin",
     "symbol": "WBTC",
     "decimals": 8,
@@ -208,7 +199,7 @@
   },
   {
     "name": "Dopex Rebate Token",
-    "symbol": "RDPX",
+    "symbol": "rDPX",
     "decimals": 18,
     "address": "0x32eb7902d4134bf98a28b963d26de779af92a212",
     "coingeckoId": null,
@@ -253,7 +244,7 @@
   },
   {
     "name": "MAI",
-    "symbol": "MIMATIC",
+    "symbol": "MAI",
     "decimals": 18,
     "address": "0x3f56e0c36d275367b8c502090edf38289b3dea0d",
     "coingeckoId": null,
@@ -649,7 +640,7 @@
   },
   {
     "name": "Synth USD",
-    "symbol": "SUSD",
+    "symbol": "sUSD",
     "decimals": 18,
     "address": "0xa970af1a584579b618be4d69ad6f73459d112f95",
     "coingeckoId": null,
@@ -802,7 +793,7 @@
   },
   {
     "name": "Sperax USD",
-    "symbol": "USDS",
+    "symbol": "USDs",
     "decimals": 18,
     "address": "0xd74f5255d557944cf7dd0e45ff521520002d5748",
     "coingeckoId": "sperax-usd",
@@ -919,7 +910,7 @@
   },
   {
     "name": "Tether",
-    "symbol": "USDT",
+    "symbol": "USD\u20ae0",
     "decimals": 6,
     "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
     "coingeckoId": "usdt0",
@@ -946,7 +937,7 @@
   },
   {
     "name": "Bridged USDC",
-    "symbol": "USDCe",
+    "symbol": "USDC",
     "decimals": 6,
     "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
     "coingeckoId": "usd-coin-ethereum-bridged",

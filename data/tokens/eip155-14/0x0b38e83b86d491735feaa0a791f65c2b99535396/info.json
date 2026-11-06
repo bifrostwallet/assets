@@ -1,6 +1,6 @@
 {
   "name": "Bridged USDT (Stargate)",
-  "symbol": "USDT-e",
+  "symbol": "USDT",
   "decimals": 6,
   "address": "0x0b38e83b86d491735feaa0a791f65c2b99535396",
   "coingeckoId": "tether",

@@ -43,7 +43,7 @@ const PROVIDER_CHAINS = ["eip155-14", "eip155-19"] as const;
 
 function publishEntry<T extends { logoURL: string }>(entry: T, label: string): T {
   const published = withRelativeLogoURL(entry);
-  if (/^https?:\/\//i.test(published.logoURL)) {
+  if (/^https:\/\//i.test(published.logoURL)) {
     throw new Error(`${label}: published logoURL must stay relative, got ${entry.logoURL}`);
   }
   return published;
@@ -502,31 +502,46 @@ function getDappCategories() {
   return dappCategories;
 }
 
+function isHttpsUrl(value) {
+  return /^https:\\/\\//i.test(String(value).trim());
+}
+
+function hasUrlScheme(value) {
+  return /^[a-z][a-z0-9+.-]*:/i.test(String(value).trim());
+}
+
 function toRelativeAssetPath(logoURL) {
   const trimmed = String(logoURL).trim();
-  if (!/^https?:\\/\\//i.test(trimmed)) {
-    return trimmed.replace(/^\\//, "");
-  }
-  try {
-    const pathname = new URL(trimmed).pathname;
-    for (const marker of ["/static/", "/data/"]) {
-      const idx = pathname.indexOf(marker);
-      if (idx !== -1) {
-        return pathname.slice(idx + marker.length).replace(/^\\//, "");
+  if (isHttpsUrl(trimmed)) {
+    try {
+      const pathname = new URL(trimmed).pathname;
+      for (const marker of ["/static/", "/data/"]) {
+        const idx = pathname.indexOf(marker);
+        if (idx !== -1) {
+          return pathname.slice(idx + marker.length).replace(/^\\//, "");
+        }
       }
+    } catch {
+      // fall through
     }
-  } catch {
-    // fall through
+    const match = trimmed.match(/((?:providers|dapps|tokens|contracts)\\/[^?#]+)/);
+    return match ? match[1] : trimmed;
   }
-  const match = trimmed.match(/((?:providers|dapps|tokens|contracts)\\/[^?#]+)/);
-  return match ? match[1] : trimmed;
+  if (hasUrlScheme(trimmed)) {
+    throw new Error("Asset URL must start with https://, got " + JSON.stringify(logoURL));
+  }
+  return trimmed.replace(/^\\//, "");
 }
 
 function resolveAssetURL(logoURL, baseURL) {
   const supplied = baseURL && String(baseURL).trim();
-  const base = (supplied || GITHUB_ASSET_BASE_URL).replace(/\\/?$/, "/");
+  const chosen = supplied || GITHUB_ASSET_BASE_URL;
+  if (!isHttpsUrl(chosen)) {
+    throw new Error("Asset base must start with https://, got " + JSON.stringify(chosen));
+  }
+  const base = String(chosen).replace(/\\/?$/, "/");
   const relative = toRelativeAssetPath(logoURL);
-  if (/^https?:\\/\\//i.test(relative)) {
+  if (isHttpsUrl(relative)) {
     return relative;
   }
   return base + relative.replace(/^\\//, "");
@@ -763,10 +778,10 @@ export declare function getContract(chainId: ChainId, address: string): Contract
  */
 export declare function getDappCategories(): DappCategoryGroup[];
 /**
- * Joins a relative logoURL to baseURL.
- * An absolute logoURL on a known asset prefix is stripped and rebased onto baseURL.
+ * Joins a relative logoURL to an https base.
+ * A passed base must start with https://. An http URL throws.
+ * An absolute https logoURL on a known asset prefix is stripped and rebased.
  * When baseURL is omitted, the URL uses GitHub at this package's version tag.
- * Pass a base you control (your CDN or backend).
  */
 export declare function resolveAssetURL(relativePath: string, baseURL?: string): string;
 `;
@@ -857,7 +872,7 @@ function buildPackage(): void {
     version: rootPackage.version,
     description:
       rootPackage.description ??
-      "Curated catalog of tokens, FTSO data providers, dapps, and contracts for Bifrost Wallet.",
+      "Curated catalog of FTSO providers, validators, tokens, contracts and dapps for Bifrost Wallet.",
     repository: rootPackage.repository,
     author: rootPackage.author,
     license: "MIT",

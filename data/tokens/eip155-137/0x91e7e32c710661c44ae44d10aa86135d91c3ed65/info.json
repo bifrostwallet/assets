@@ -1,6 +1,6 @@
 {
   "name": "Peercoin",
-  "symbol": "PPC",
+  "symbol": "wPPC",
   "decimals": 6,
   "address": "0x91e7e32c710661c44ae44d10aa86135d91c3ed65",
   "coingeckoId": "peercoin",

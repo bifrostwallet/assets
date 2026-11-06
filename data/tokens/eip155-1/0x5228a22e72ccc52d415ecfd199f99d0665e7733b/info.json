@@ -1,6 +1,6 @@
 {
   "name": "pTokens BTC",
-  "symbol": "PBTC",
+  "symbol": "pBTC",
   "decimals": 18,
   "address": "0x5228a22e72ccc52d415ecfd199f99d0665e7733b",
   "coingeckoId": "ptokens-btc",

@@ -1,6 +1,6 @@
 {
   "name": "veCRV-DAO yVault",
-  "symbol": "YVE-CRVDAO",
+  "symbol": "yveCRV-DAO",
   "decimals": 18,
   "address": "0xc5bddf9843308380375a611c18b50fb9341f502a",
   "coingeckoId": null,

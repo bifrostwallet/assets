@@ -1,6 +1,6 @@
 {
   "name": "Bridged USDC",
-  "symbol": "USDCe",
+  "symbol": "USDC",
   "decimals": 6,
   "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
   "coingeckoId": "usd-coin-ethereum-bridged",

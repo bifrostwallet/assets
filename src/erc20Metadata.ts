@@ -100,8 +100,8 @@ async function callGetter(
 }
 
 /**
- * Read one token. Name and symbol are trimmed. Internal spaces are kept.
- * Empty strings, `.` in the symbol, and bytes32 returns throw {@link TokenMetadataError}.
+ * Read one token. Name and symbol are trimmed. Internal spaces and `.` are kept.
+ * Empty strings and bytes32 returns throw {@link TokenMetadataError}.
  */
 export async function readErc20Metadata(call: Erc20Call): Promise<Erc20Metadata> {
   const [nameRaw, symbolRaw, decimalsRaw] = await Promise.all([

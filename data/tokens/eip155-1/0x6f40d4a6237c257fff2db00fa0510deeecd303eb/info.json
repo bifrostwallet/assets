@@ -1,6 +1,6 @@
 {
   "name": "Instadapp",
-  "symbol": "INST",
+  "symbol": "FLUID",
   "decimals": 18,
   "address": "0x6f40d4a6237c257fff2db00fa0510deeecd303eb",
   "coingeckoId": "instadapp",

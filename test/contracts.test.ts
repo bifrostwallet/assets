@@ -498,6 +498,14 @@ describe("published package lookups", { concurrency: false }, () => {
     );
     const unknown = "https://images.example.com/unrelated.png";
     assert.equal(assets.resolveAssetURL(unknown, base), unknown);
+    assert.throws(
+      () => assets.resolveAssetURL(bifrost.logoURL, "http://cdn.example.com/assets"),
+      /https:\/\//,
+    );
+    assert.throws(
+      () => assets.resolveAssetURL("http://cdn.example.com/logo.webp", base),
+      /https:\/\//,
+    );
     assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
     assert.equal(
       assets.resolveAssetURL(bifrost.logoURL),

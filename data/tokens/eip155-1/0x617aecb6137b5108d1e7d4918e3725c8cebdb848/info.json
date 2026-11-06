@@ -1,6 +1,6 @@
 {
   "name": "Synth Binance Coin",
-  "symbol": "SBNB",
+  "symbol": "sBNB",
   "decimals": 18,
   "address": "0x617aecb6137b5108d1e7d4918e3725c8cebdb848",
   "coingeckoId": null,

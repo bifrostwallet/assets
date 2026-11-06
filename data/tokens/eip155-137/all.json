@@ -46,7 +46,7 @@
   },
   {
     "name": "Wrapped Matic",
-    "symbol": "WMATIC",
+    "symbol": "WPOL",
     "decimals": 18,
     "address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     "coingeckoId": "wmatic",
@@ -99,15 +99,6 @@
     "logoHash": "f789367c168fba32aa13337e5779f79b50f40d0da96d4777e7c10a8cab96e9d7"
   },
   {
-    "name": "Router Protocol",
-    "symbol": "ROUTE",
-    "decimals": 18,
-    "address": "0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4",
-    "coingeckoId": "route",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-137/0x16eccfdbb4ee1a85a33f3a9b21175cd7ae753db4/logo.webp",
-    "logoHash": "f88ebb0b467df8545354f646d63d1de95669e14d8ae9c3a2f6251c8529c0b28b"
-  },
-  {
     "name": "Curve DAO",
     "symbol": "CRV",
     "decimals": 18,
@@ -136,7 +127,7 @@
   },
   {
     "name": "IX Swap",
-    "symbol": "IXS",
+    "symbol": "WIXS",
     "decimals": 18,
     "address": "0x1ba17c639bdaecd8dc4aac37df062d17ee43a1b8",
     "coingeckoId": "ix-swap",
@@ -151,15 +142,6 @@
     "coingeckoId": "polygon-bridged-wbtc-polygon-pos",
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-137/0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6/logo.webp",
     "logoHash": "b18a7bb1a9bb73984d3efd485851b24e8cc15c7190915b3186606ab198b20a8c"
-  },
-  {
-    "name": "Kyber Network Crystal",
-    "symbol": "KNC",
-    "decimals": 18,
-    "address": "0x1c954e8fe737f99f68fa1ccda3e51ebdb291948c",
-    "coingeckoId": "kyber-network-crystal",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-137/0x1c954e8fe737f99f68fa1ccda3e51ebdb291948c/logo.webp",
-    "logoHash": "841761a6dd36eb4a2c9566624e18c13c70606bca149ad24183d660bdb073ed24"
   },
   {
     "name": "Liquity USD",
@@ -181,7 +163,7 @@
   },
   {
     "name": "USDC (PoS)",
-    "symbol": "USDC-e",
+    "symbol": "USDC",
     "decimals": 6,
     "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
     "coingeckoId": "bridged-usdc-polygon-pos-bridge",
@@ -658,7 +640,7 @@
   },
   {
     "name": "Auto",
-    "symbol": "AUTO",
+    "symbol": "oAUTO",
     "decimals": 18,
     "address": "0x7f426f6dc648e50464a0392e60e1bb465a67e9cf",
     "coingeckoId": "auto",
@@ -756,7 +738,7 @@
     "logoHash": "06a1f3c468ea7527dfa63d93a579bfa269f684c15a34874646edcea02aac8944"
   },
   {
-    "name": "EURØP",
+    "name": "EUR\u00d8P",
     "symbol": "EUROP",
     "decimals": 6,
     "address": "0x888883b5f5d21fb10dfeb70e8f9722b9fb0e5e51",
@@ -793,7 +775,7 @@
   },
   {
     "name": "Peercoin",
-    "symbol": "PPC",
+    "symbol": "wPPC",
     "decimals": 6,
     "address": "0x91e7e32c710661c44ae44d10aa86135d91c3ed65",
     "coingeckoId": "peercoin",
@@ -826,15 +808,6 @@
     "coingeckoId": "paypal-usd",
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-137/0x99af3eea856556646c98c8b9b2548fe815240750/logo.webp",
     "logoHash": "38ef00e5d5eff6f51ee439a3d9ffda2cf34aaa7aab1e54c63dec8f54aef9253c"
-  },
-  {
-    "name": "Panther",
-    "symbol": "ZKP",
-    "decimals": 18,
-    "address": "0x9a06db14d639796b25a6cec6a1bf614fd98815ec",
-    "coingeckoId": "panther",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-137/0x9a06db14d639796b25a6cec6a1bf614fd98815ec/logo.webp",
-    "logoHash": "6a1775948a124f39ad885a6a9b3a24448c0334051544cacfd1160a9d57419864"
   },
   {
     "name": "Balancer",
@@ -928,7 +901,7 @@
   },
   {
     "name": "MAI",
-    "symbol": "MIMATIC",
+    "symbol": "miMATIC",
     "decimals": 18,
     "address": "0xa3fa99a148fa48d14ed51d610c367c61876997f1",
     "coingeckoId": "mimatic",
@@ -1081,7 +1054,7 @@
   },
   {
     "name": "Tether",
-    "symbol": "USDT",
+    "symbol": "USDT0",
     "decimals": 6,
     "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
     "coingeckoId": "usdt0",
@@ -1126,7 +1099,7 @@
   },
   {
     "name": "Decentral Games Governance",
-    "symbol": "XDG",
+    "symbol": "xDG",
     "decimals": 18,
     "address": "0xc6480da81151b2277761024599e8db2ad4c388c8",
     "coingeckoId": null,
@@ -1252,7 +1225,7 @@
   },
   {
     "name": "renBTC",
-    "symbol": "RENBTC",
+    "symbol": "renBTC",
     "decimals": 8,
     "address": "0xdbf31df14b66535af65aac99c32e9ea844e14501",
     "coingeckoId": "renbtc",
@@ -1306,7 +1279,7 @@
   },
   {
     "name": "agEUR",
-    "symbol": "AGEUR",
+    "symbol": "EURA",
     "decimals": 18,
     "address": "0xe0b52e49357fd4daf2c15e02058dce6bc0057db4",
     "coingeckoId": "ageur",
@@ -1333,7 +1306,7 @@
   },
   {
     "name": "Banano",
-    "symbol": "BAN",
+    "symbol": "wBAN",
     "decimals": 18,
     "address": "0xe20b9e246db5a0d21bf9209e4858bc9a3ff7a034",
     "coingeckoId": "wrapped-banano",

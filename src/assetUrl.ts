@@ -22,43 +22,59 @@ export function getAssetBaseURL(): string {
 }
 
 const ASSET_PATH = /((?:providers|dapps|tokens|contracts)\/[^?#]+)/;
+const HTTPS_URL = /^https:\/\//i;
+const URL_SCHEME = /^[a-z][a-z0-9+.-]*:/i;
 
-/** Strip a hosting prefix back to the repo-relative asset path. */
+function isHttpsUrl(value: string): boolean {
+  return HTTPS_URL.test(value.trim());
+}
+
+/**
+ * https URLs are reduced to a repo-relative asset path when they use a known
+ * prefix. Any other scheme throws, so an http URL cannot be stored or rebased.
+ * A path with no scheme loses one leading slash.
+ */
 export function toRelativeAssetPath(logoURL: string): string {
   const trimmed = logoURL.trim();
-  if (!/^https?:\/\//i.test(trimmed)) {
-    return trimmed.replace(/^\//, "");
-  }
-
-  try {
-    const { pathname } = new URL(trimmed);
-    for (const marker of ["/static/", "/data/"]) {
-      const idx = pathname.indexOf(marker);
-      if (idx !== -1) {
-        return pathname.slice(idx + marker.length).replace(/^\//, "");
+  if (isHttpsUrl(trimmed)) {
+    try {
+      const { pathname } = new URL(trimmed);
+      for (const marker of ["/static/", "/data/"]) {
+        const idx = pathname.indexOf(marker);
+        if (idx !== -1) {
+          return pathname.slice(idx + marker.length).replace(/^\//, "");
+        }
       }
+    } catch {
+      // fall through
     }
-  } catch {
-    // fall through
-  }
 
-  const match = trimmed.match(ASSET_PATH);
-  return match?.[1] ?? trimmed;
+    const match = trimmed.match(ASSET_PATH);
+    return match?.[1] ?? trimmed;
+  }
+  if (URL_SCHEME.test(trimmed)) {
+    throw new Error(`Asset URL must start with https://, got ${JSON.stringify(logoURL)}`);
+  }
+  return trimmed.replace(/^\//, "");
 }
 
 /**
  * Join `logoURL` to `baseURL`.
- * Relative paths are appended. Absolute URLs on a known asset prefix
- * (a `/static/` or `/data/` host prefix, or a providers/tokens/dapps/contracts
- * path) are stripped and rebased. An absolute URL that does not match stays
- * unchanged, so it is not concatenated onto `baseURL`.
- * When `baseURL` is omitted, operator tooling uses {@link getAssetBaseURL}.
+ * A passed base must start with `https://`. A blank or omitted base uses
+ * {@link getAssetBaseURL}, which is GitHub raw unless `ASSET_BASE_URL` is set.
+ * Relative paths are appended. An absolute `https://` URL on a known asset
+ * prefix is stripped and rebased. Any other absolute `https://` URL is
+ * returned unchanged. `http://` and other schemes throw.
  */
-export function resolveAssetURL(logoURL: string, baseURL = getAssetBaseURL()): string {
-  const chosen = baseURL.trim() ? baseURL : getAssetBaseURL();
+export function resolveAssetURL(logoURL: string, baseURL?: string): string {
+  const supplied = baseURL === undefined ? "" : String(baseURL).trim();
+  const chosen = supplied ? supplied : getAssetBaseURL();
+  if (!isHttpsUrl(chosen)) {
+    throw new Error(`Asset base must start with https://, got ${JSON.stringify(chosen)}`);
+  }
   const base = chosen.replace(/\/?$/, "/");
   const relative = toRelativeAssetPath(logoURL);
-  if (/^https?:\/\//i.test(relative)) {
+  if (isHttpsUrl(relative)) {
     return relative;
   }
   return `${base}${relative.replace(/^\//, "")}`;

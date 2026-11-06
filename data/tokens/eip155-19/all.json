@@ -91,7 +91,7 @@
   },
   {
     "name": "JS Coin",
-    "symbol": "JSC",
+    "symbol": "jsc",
     "decimals": 18,
     "address": "0x2d2b39a036c3c02d50e2353061898e04433dd8fa",
     "coingeckoId": null,
@@ -334,7 +334,7 @@
   },
   {
     "name": "CootieCoin",
-    "symbol": "COOT",
+    "symbol": "Coot",
     "decimals": 18,
     "address": "0xe4671844fcb3ca9a80a1224b6f9a0a6c2ba2a7d5",
     "coingeckoId": null,

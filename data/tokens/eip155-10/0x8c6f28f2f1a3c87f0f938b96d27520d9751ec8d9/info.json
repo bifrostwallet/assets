@@ -1,6 +1,6 @@
 {
   "name": "Synth USD",
-  "symbol": "SUSD",
+  "symbol": "sUSD",
   "decimals": 18,
   "address": "0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9",
   "coingeckoId": null,

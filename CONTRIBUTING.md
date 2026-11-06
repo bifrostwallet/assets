@@ -56,15 +56,15 @@ dig +short TXT _providers.example.com
 # "eip155:14:0x…,eip155:19:0x…"
 ```
 
-Check a curated identity with `./yarn verify:provider-domains --identity 0x…`. The walkthrough is on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/) (FTSO provider listing).
+Check a curated identity with `./yarn verify:provider-domains --identity 0x…`. The walkthrough is on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/) ([FTSO](README.md#glossary) provider listing).
 
 #### Resilient
 
-A team keeps at most one vote-power-attracting FTSO/FSP identity on each network. Protocol submissions use infrastructure the team controls. A shared public RPC used by other providers does not meet this requirement. The listing form asks you to confirm this before you sign.
+A team keeps at most one vote-power-attracting FTSO/[FSP](README.md#glossary) identity on each network. Protocol submissions use infrastructure the team controls. A shared public RPC used by other providers does not meet this requirement. The listing form asks you to confirm this before you sign.
 
 #### Independent
 
-On a network, the provider runs on its own and keeps its own infrastructure, separate from other FTSO/FSP providers. That stack is its own FDC, FSP, feed provider, validators, and RPC node, under a single identity for that network. The listing form asks you to confirm this before you sign. The signed field is `acknowledgedResponsibilities`.
+On a network, the provider runs on its own and keeps its own infrastructure, separate from other FTSO/FSP providers. That stack is its own [FDC](README.md#glossary), FSP, feed provider, validators, and RPC node, under a single identity for that network. The listing form asks you to confirm this before you sign. The signed field is `acknowledgedResponsibilities`.
 
 #### Available
 
@@ -118,7 +118,7 @@ Curators add one EVM token with the chain directory and the contract address:
 ./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 ```
 
-The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces, and refuses an empty value, a bytes32 `name()` or `symbol()`, a symbol containing `.`, or a symbol already used on that chain. The logo comes from CoinGecko, then [Trust Wallet's assets repository](https://github.com/trustwallet/assets), and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and leaves the rest of the catalog unread on-chain.
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces and `.`, and refuses an empty value, a bytes32 `name()` or `symbol()`, or a symbol already used on that chain. The logo comes from CoinGecko and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and leaves the rest of the catalog unread on-chain.
 
 ```bash
 ./yarn check:tokens -- --skip-onchain
@@ -148,7 +148,7 @@ Browser chips are hand-edited in `data/dapps/categories.json`, an ordered array 
 
 ## Contracts
 
-Contract names are shown in Bifrost Wallet transaction-review modals. The wallet checks the user's address book first. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups).
+Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups).
 
 Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
 
