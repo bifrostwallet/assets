@@ -69,6 +69,9 @@ jobs:
       - name: Test
         run: ./yarn test
 
+      - name: Verify provider signatures
+        run: ./yarn verify:providers
+
       - name: Check provider catalog
         run: ./yarn check:providers
         env:

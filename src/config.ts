@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 /**
  * Derive a GitHub raw `…/<ref>/data/` base from a package.json `repository` field
  * (`git@github.com:owner/repo.git` or `https://github.com/owner/repo.git`).
- * `ref` defaults to `main` for operator tooling. The package build passes `v<version>`.
+ * `ref` defaults to `main` for operator tooling.
  */
 export function githubRawDataBaseFromRepository(repository: string, ref = "main"): string | null {
   const trimmed = repository.trim();
@@ -40,9 +40,8 @@ function defaultAssetBaseURL(): string {
 
 /**
  * Operator tooling prefix (GitHub raw `main/data/`).
- * The published package pins GITHUB_ASSET_BASE_URL to `v<version>` at build time.
- * Operator tooling may expand logoURL with ASSET_BASE_URL. The npm package
- * keeps logoURL relative; integrators pass their own base to resolveAssetURL.
+ * Published JSON keeps logoURL relative. Package callers pass baseURL to createAssets.
+ * Operator tooling may expand logoURL with ASSET_BASE_URL.
  */
 export const DEFAULT_ASSET_BASE_URL = defaultAssetBaseURL();
 
@@ -189,7 +188,7 @@ export const PROVIDER_INFO_KEYS = [
  * - "listed", "managementGroup", "domainLinked", "dualNetwork", and
  *   "firstTransaction" are curator/automation-derived and may change or
  *   appear after signing
- * - "logoURL" is a hosting detail (relative in info.json; absolute in all.json);
+ * - "logoURL" is a hosting detail (relative in info.json; absolute in provider all.json);
  *   logo content integrity is covered by the signed "logoHash"
  * - delegation, submit, signing-policy, public key, and validators are chain
  *   facts. The nightly job may update them without a new signature.

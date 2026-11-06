@@ -4,8 +4,8 @@ import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
-import { describe, test } from "node:test";
-import { resolveAssetURL, toRelativeAssetPath } from "../src/assetUrl.js";
+import { after, before, describe, test } from "node:test";
+import { toRelativeAssetPath } from "../src/assetUrl.js";
 import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS } from "../src/config.js";
 import {
   CONTRACT_CATEGORIES,
@@ -16,13 +16,13 @@ import {
   validateContractCatalog,
   validateContractRecord,
 } from "../src/contracts.js";
-import { releaseTagForVersion } from "../src/releaseTag.js";
-import buildPackage from "../src/script/packageBuild.js";
+import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 import type { EvmToken } from "../src/tokens.js";
 import type { XrplToken } from "../src/xrplToken.js";
 
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
 const BIFROST_DAPP = "bifrostwallet-com";
+const PACKAGE_BASE = "https://cdn.example.com/assets/";
 
 describe("contract catalog", { concurrency: false }, () => {
   test("data/contracts matches the schema", () => {
@@ -299,16 +299,30 @@ describe("contract catalog", { concurrency: false }, () => {
 });
 
 describe("published package lookups", { concurrency: false }, () => {
+  let releaseDist: (() => void) | undefined;
+  before(() => {
+    releaseDist = holdPackageDist();
+  });
+  after(() => {
+    releaseDist?.();
+  });
+
   test("getContract and getContracts match the catalog", () => {
     buildPackage();
     const require = createRequire(path.join(process.cwd(), "package.json"));
-    const assets = require(path.join(process.cwd(), "dist/index.js")) as {
-      getContract: (chainId: string, address: string) => ContractInfo | null;
-      getContracts: (chainId?: string) => ContractInfo[];
+    const published = require(path.join(process.cwd(), "dist/index.js")) as {
+      createAssets: (options: { baseURL: string }) => {
+        getContract: (chainId: string, address: string) => ContractInfo | null;
+        getContracts: (chainId?: string) => ContractInfo[];
+        getDappCategories: () => { id: string; label: string; dapps: string[] }[];
+      };
       CONTRACT_CHAIN_IDS: string[];
       CONTRACT_CATEGORIES: readonly string[];
       CONTRACT_CATEGORY_LABELS: Record<string, string>;
+      DAPP_CATEGORIES: readonly string[];
+      DAPP_CATEGORY_LABELS: Record<string, string>;
     };
+    const assets = published.createAssets({ baseURL: PACKAGE_BASE });
     const fromPackage = assets.getContract(
       "eip155:14",
       "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4",
@@ -316,19 +330,18 @@ describe("published package lookups", { concurrency: false }, () => {
     const fromCatalog = getContract("eip155:14", BIFROST_POOL);
     assert.ok(fromPackage?.logoURL);
     assert.ok(fromCatalog?.logoURL);
-    assert.equal(fromPackage.logoURL, toRelativeAssetPath(fromCatalog.logoURL));
-    assert.equal(/^https?:\/\//i.test(fromPackage.logoURL), false);
+    assert.equal(fromPackage.logoURL, `${PACKAGE_BASE}${toRelativeAssetPath(fromCatalog.logoURL)}`);
     const { logoURL: _packageLogo, ...packageRest } = fromPackage;
     const { logoURL: _catalogLogo, ...catalogRest } = fromCatalog;
     assert.deepEqual(packageRest, catalogRest);
     assert.equal(assets.getContracts().length, getContracts().length);
-    assert.ok(assets.CONTRACT_CHAIN_IDS.includes("eip155:14"));
-    assert.deepEqual(assets.CONTRACT_CATEGORIES, [...CONTRACT_CATEGORIES]);
-    assert.deepEqual(assets.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
-    const packaged = assets as typeof assets & {
-      getDappCategories: () => { id: string; label: string; dapps: string[] }[];
-      DAPP_CATEGORIES: readonly string[];
-      DAPP_CATEGORY_LABELS: Record<string, string>;
+    assert.ok(published.CONTRACT_CHAIN_IDS.includes("eip155:14"));
+    assert.deepEqual(published.CONTRACT_CATEGORIES, [...CONTRACT_CATEGORIES]);
+    assert.deepEqual(published.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
+    const packaged = {
+      getDappCategories: assets.getDappCategories,
+      DAPP_CATEGORIES: published.DAPP_CATEGORIES,
+      DAPP_CATEGORY_LABELS: published.DAPP_CATEGORY_LABELS,
     };
     const categoryFile = path.join(process.cwd(), "data", "dapps", "categories.json");
     const packagedFile = path.join(process.cwd(), "dist", "dapps", "categories.json");
@@ -351,8 +364,9 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.ok(contract);
     assert.equal(contract.project, BIFROST_DAPP);
     assert.equal(contract.projectName, "Bifrost Wallet");
-    assert.equal(contract.logoURL, `contracts/projects/${BIFROST_DAPP}/logo.webp`);
-    assert.equal(contract.logoHash, sha256File(path.join(process.cwd(), "data", contract.logoURL)));
+    const relativeLogo = `contracts/projects/${BIFROST_DAPP}/logo.webp`;
+    assert.equal(contract.logoURL, `${PACKAGE_BASE}${relativeLogo}`);
+    assert.equal(contract.logoHash, sha256File(path.join(process.cwd(), "data", relativeLogo)));
     assert.equal(contract.contractName, "Collateral Pool");
 
     const generated = JSON.parse(
@@ -362,18 +376,17 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.ok(row);
     assert.equal(row.project, contract.project);
     assert.equal(row.projectName, contract.projectName);
-    assert.equal(row.logoURL, contract.logoURL);
+    assert.equal(row.logoURL, relativeLogo);
+    assert.equal(contract.logoURL, `${PACKAGE_BASE}${row.logoURL}`);
     assert.equal(row.logoHash, contract.logoHash);
 
     for (const published of assets.getContracts()) {
       assert.equal(typeof published.project, "string");
       assert.equal(typeof published.projectName, "string");
-      assert.match(published.logoURL, /^contracts\//);
+      assert.match(published.logoURL, /^https:\/\/cdn\.example\.com\/assets\/contracts\//);
       assert.match(published.logoHash, /^[0-9a-f]{64}$/);
-      assert.equal(
-        published.logoHash,
-        sha256File(path.join(process.cwd(), "data", published.logoURL)),
-      );
+      const relative = published.logoURL.slice(PACKAGE_BASE.length);
+      assert.equal(published.logoHash, sha256File(path.join(process.cwd(), "data", relative)));
     }
     assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "contracts", "projects")), false);
 
@@ -401,18 +414,10 @@ describe("published package lookups", { concurrency: false }, () => {
       const published = JSON.parse(fs.readFileSync(path.join(distTokens, file), "utf8")) as Array<{
         logoURL: string;
       }>;
-      const source = JSON.parse(
-        fs.readFileSync(path.join(process.cwd(), "data", "tokens", chainPath, "all.json"), "utf8"),
-      ) as Array<{ logoURL: string }>;
-      assert.equal(published.length, source.length, chainPath);
       assert.ok(published.length > 0, chainPath);
-      for (let index = 0; index < published.length; index += 1) {
-        const catalogLogo = source[index]?.logoURL ?? "";
-        const publishedLogo = published[index]?.logoURL ?? "";
-        assert.match(catalogLogo, /^https:\/\/raw\.githubusercontent\.com\/.+\/data\/tokens\//);
-        assert.equal(publishedLogo, toRelativeAssetPath(catalogLogo));
-        assert.equal(/^https?:\/\//i.test(publishedLogo), false, publishedLogo);
-        assert.match(publishedLogo, /^tokens\//);
+      for (const entry of published) {
+        assert.equal(/^https?:\/\//i.test(entry.logoURL), false, entry.logoURL);
+        assert.match(entry.logoURL, /^tokens\//);
       }
     }
   });
@@ -451,72 +456,35 @@ describe("published package lookups", { concurrency: false }, () => {
       assert.match(logoURL, /^(providers|tokens|dapps|contracts)\//);
     }
 
+    const bifrostLogo = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";
     const bifrost = assets.getProvider("eip155:14", "0x1650d2760baee638c034200dedcbe17b050d0364");
     assert.ok(bifrost);
-    assert.equal(
-      bifrost.logoURL,
-      "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
-    );
-    const packagedLogo = path.join(process.cwd(), "dist", bifrost.logoURL);
-    const sourceLogo = path.join(process.cwd(), "data", bifrost.logoURL);
-    assert.equal(fs.existsSync(sourceLogo), true);
-    assert.equal(fs.existsSync(packagedLogo), false);
+    assert.equal(bifrost.logoURL, `${PACKAGE_BASE}${bifrostLogo}`);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "data", bifrostLogo)), true);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", bifrostLogo)), false);
     assert.deepEqual(logoWebps(path.join(process.cwd(), "dist")), []);
 
     const wflr = assets.getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
     assert.ok(wflr);
-    assert.match(wflr.logoURL, /^tokens\//);
-    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", wflr.logoURL)), false);
+    assert.match(wflr.logoURL, /^https:\/\/cdn\.example\.com\/assets\/tokens\//);
+    assert.equal(
+      fs.existsSync(path.join(process.cwd(), "dist", wflr.logoURL.slice(PACKAGE_BASE.length))),
+      false,
+    );
 
     const pool = assets.getContract("eip155:14", "0x3A06584A47972fF7005301b5A44c7D2214A4d3b4");
     assert.ok(pool);
-    assert.match(pool.logoURL, /^contracts\/projects\//);
-    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", pool.logoURL)), false);
-
-    const base = "https://cdn.example.com/assets";
-    const joined = `https://cdn.example.com/assets/${bifrost.logoURL}`;
-    assert.equal(assets.resolveAssetURL(bifrost.logoURL, base), joined);
-    assert.equal(assets.resolveAssetURL(bifrost.logoURL, `${base}/`), joined);
+    assert.match(pool.logoURL, /^https:\/\/cdn\.example\.com\/assets\/contracts\/projects\//);
     assert.equal(
-      assets.resolveAssetURL(
-        `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/${bifrost.logoURL}`,
-        base,
-      ),
-      joined,
-    );
-    assert.equal(
-      assets.resolveAssetURL(`https://cdn.example.com/static/${bifrost.logoURL}`, base),
-      joined,
-    );
-    assert.equal(
-      assets.resolveAssetURL(`https://assets.example.com/bucket/${wflr.logoURL}?v=1`, `${base}/`),
-      `https://cdn.example.com/assets/${wflr.logoURL}`,
-    );
-    assert.equal(
-      assets.resolveAssetURL(pool.logoURL, base),
-      `https://cdn.example.com/assets/${pool.logoURL}`,
-    );
-    const unknown = "https://images.example.com/unrelated.png";
-    assert.equal(assets.resolveAssetURL(unknown, base), unknown);
-    assert.throws(
-      () => assets.resolveAssetURL(bifrost.logoURL, "http://cdn.example.com/assets"),
-      /https:\/\//,
-    );
-    assert.throws(
-      () => assets.resolveAssetURL("http://cdn.example.com/logo.webp", base),
-      /https:\/\//,
-    );
-    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
-    assert.equal(
-      assets.resolveAssetURL(bifrost.logoURL),
-      `${assets.GITHUB_ASSET_BASE_URL}${bifrost.logoURL}`,
-    );
-    assert.equal(
-      assets.resolveAssetURL(bifrost.logoURL, base),
-      resolveAssetURL(bifrost.logoURL, base),
+      fs.existsSync(path.join(process.cwd(), "dist", pool.logoURL.slice(PACKAGE_BASE.length))),
+      false,
     );
 
     const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes("GITHUB_ASSET_BASE_URL"), false);
+    assert.equal(indexSource.includes("DEFAULT_ASSET_BASE_URL"), false);
+    assert.equal(indexSource.includes("package.json"), false);
+    assert.equal(indexSource.includes("/main/data/"), false);
     assert.equal(indexSource.includes('require("./signatures'), false);
     assert.equal(Object.hasOwn(bifrost, "signatures"), false);
     const manifestWithExports = manifest as typeof manifest & {
@@ -569,48 +537,18 @@ describe("published package lookups", { concurrency: false }, () => {
       packedPaths.some((packedPath) => packedPath.endsWith("signatures.json")),
       true,
     );
-  });
-
-  test("omitted base uses the package version tag and an explicit base wins", () => {
-    const assets = loadBuiltPackage();
-    const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
-      version: string;
-    };
-    const built = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
-    ) as { version: string };
-    assert.equal(built.version, root.version);
-    const tag = releaseTagForVersion(root.version);
-    const expected = `https://raw.githubusercontent.com/bifrostwallet/assets/${tag}/data/`;
-    assert.equal(tag.startsWith("vv"), false);
-    assert.equal(assets.GITHUB_ASSET_BASE_URL, expected);
-    const versionSegments = new URL(assets.GITHUB_ASSET_BASE_URL).pathname
-      .split("/")
-      .filter((part) => part.startsWith("v"));
-    assert.deepEqual(versionSegments, [tag]);
-    assert.equal(assets.DEFAULT_ASSET_BASE_URL, assets.GITHUB_ASSET_BASE_URL);
-    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
-    assert.equal(indexSource.includes(expected), true);
-    assert.equal(indexSource.includes("package.json"), false);
-    assert.equal(indexSource.includes("/main/data/"), false);
-    const relative = "providers/eip155-14/0xabc/logo.webp";
-    assert.equal(assets.resolveAssetURL(relative), `${expected}${relative}`);
-    assert.equal(assets.resolveAssetURL(relative, ""), `${expected}${relative}`);
-    const base = "https://cdn.example.com/assets";
+    const packedReadmes = packedPaths.filter(
+      (packedPath) => packedPath === "README.md" || packedPath === "package/README.md",
+    );
+    assert.equal(packedReadmes.length, 1);
     assert.equal(
-      assets.resolveAssetURL(relative, base),
-      `https://cdn.example.com/assets/${relative}`,
+      fs.readFileSync(path.join(process.cwd(), "dist", "README.md"), "utf8"),
+      fs.readFileSync(path.join(process.cwd(), "README.md"), "utf8"),
     );
   });
 
   test("getToken stays address-based and getXrplToken is exact-case", () => {
-    buildPackage();
-    const require = createRequire(path.join(process.cwd(), "package.json"));
-    const assets = require(path.join(process.cwd(), "dist/index.js")) as {
-      getToken: (chainId: string, address: string) => EvmToken | null;
-      getXrplToken: (issuer: string, currency: string) => XrplToken | null;
-      getTokens: (chainId: string) => EvmToken[] | XrplToken[];
-    };
+    const assets = loadBuiltPackage();
     const issuer = "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De";
     const currency = "524C555344000000000000000000000000000000";
     const rlusd = assets.getXrplToken(issuer, currency);
@@ -644,12 +582,11 @@ function sha256File(filePath: string): string {
 
 interface PackageAssets {
   getProvider: (chainId: string, identityAddress: string) => { logoURL: string } | null;
-  getToken: (chainId: string, address: string) => { logoURL: string } | null;
+  getToken: (chainId: string, address: string) => EvmToken | null;
+  getXrplToken: (issuer: string, currency: string) => XrplToken | null;
+  getTokens: (chainId: string) => EvmToken[] | XrplToken[];
   getContract: (chainId: string, address: string) => ContractInfo | null;
   getContracts: (chainId?: string) => ContractInfo[];
-  resolveAssetURL: (logoURL: string, baseURL?: string) => string;
-  GITHUB_ASSET_BASE_URL: string;
-  DEFAULT_ASSET_BASE_URL: string;
 }
 
 function loadBuiltPackage(): PackageAssets {
@@ -657,7 +594,10 @@ function loadBuiltPackage(): PackageAssets {
   const indexPath = path.join(process.cwd(), "dist", "index.js");
   const require = createRequire(path.join(process.cwd(), "package.json"));
   delete require.cache[indexPath];
-  return require(indexPath) as PackageAssets;
+  const published = require(indexPath) as {
+    createAssets: (options: { baseURL: string }) => PackageAssets;
+  };
+  return published.createAssets({ baseURL: PACKAGE_BASE });
 }
 
 function logoWebps(root: string): string[] {

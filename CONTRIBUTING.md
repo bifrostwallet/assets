@@ -14,7 +14,7 @@ Submit through the listing form on bifrostwallet.com.
 2. Connect the wallet that holds your identity address, or paste the address. Entity data is read from the EntityManager, and the network is detected from that address.
 3. Fill in the name, description, website, and social links, and upload a logo ([Logo requirements](#logo-requirements)).
 4. Confirm the listing acknowledgement. The checkbox is required.
-5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. The signed fields are under [Ownership signatures](README.md#ownership-signatures).
+5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. The signed fields are under [Signatures](README.md#signatures).
 6. Submit. The listing is checked and curated into [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets), and it goes live once a curator has reviewed it.
 
 Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, submit the listing form again.
@@ -104,9 +104,9 @@ Providers that were listed before this repository went public keep `listed: true
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups). How `logoURL` is stored is under [Logo URLs](CONSUMERS.md#logo-urls).
+Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package). Each `info.json` stores a relative `logoURL`. There is no token `all.json`. Provider `all.json` stores an absolute raw GitHub logo URL. Validators do not have a separate aggregate.
 
-EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`, and a per-chain `all.json`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
+EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
 
 XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. Lookup uses issuer and currency, and keeps that exact case. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are left unlisted.
 
@@ -118,7 +118,7 @@ Curators add one EVM token with the chain directory and the contract address:
 ./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 ```
 
-The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces and `.`, and refuses an empty value, a bytes32 `name()` or `symbol()`, or a symbol already used on that chain. The logo comes from CoinGecko and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and leaves the rest of the catalog unread on-chain.
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces and `.`, and refuses an empty value, a bytes32 `name()` or `symbol()`, or a symbol already used on that chain. The logo comes from CoinGecko and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, and leaves the rest of the catalog unread on-chain.
 
 ```bash
 ./yarn check:tokens -- --skip-onchain
@@ -130,7 +130,7 @@ The command reads that token's name, symbol, and decimals from the chain's `*_NO
 
 A dapp is submitted through [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details stay private. The public fields are title, description, URL, chains, and logo. The listing guide is [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
 
-Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `getDappCategories()`.
+Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `assets.getDappCategories()`.
 
 ### Dapp URLs
 
@@ -148,7 +148,7 @@ Browser chips are hand-edited in `data/dapps/categories.json`, an ordered array 
 
 ## Contracts
 
-Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups).
+Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [Using the package](README.md#other-lookups).
 
 Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
 

@@ -1,6 +1,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { XRPL_MAINNET_CHAIN_PATH } from "./xrplToken.js";
+import { withRelativeLogoURL } from "./assetUrl.js";
+import {
+  listXrplTokenDirs,
+  sortXrplToken,
+  XRPL_MAINNET_CHAIN_PATH,
+  type XrplToken,
+} from "./xrplToken.js";
 
 const EVM_ADDRESS = /^0x[0-9a-f]{40}$/;
 
@@ -110,7 +116,7 @@ export function validateEvmToken(info: unknown): string[] {
   return errors;
 }
 
-/** Catalog key order for an EVM `info.json` / `all.json` entry. */
+/** Catalog key order for an EVM `info.json` entry. */
 export function sortEvmToken(token: EvmToken): EvmToken {
   return {
     name: token.name,
@@ -123,29 +129,27 @@ export function sortEvmToken(token: EvmToken): EvmToken {
   };
 }
 
+/** Contract addresses sort lexicographically. The native gas token (`address: null`) is last. */
+function compareEvmToken(a: EvmToken, b: EvmToken): number {
+  if (a.address === b.address) return 0;
+  if (a.address === null) return 1;
+  if (b.address === null) return -1;
+  return a.address.localeCompare(b.address);
+}
+
 /**
- * Insert one contract token into an `all.json` array.
- * Existing entries stay in place. The new address is inserted in lexicographic
- * order among contract addresses, and before the native gas token when that
- * entry is last.
+ * Tokens for one chain, in package order.
+ * EVM entries are sorted by address, native last. XRPL entries are issuer, then currency.
+ * `logoURL` stays the relative path from `info.json`.
  */
-export function insertEvmToken(tokens: readonly EvmToken[], token: EvmToken): EvmToken[] {
-  if (token.address === null) {
-    throw new Error("add:token does not add the native gas token");
+export function listChainTokens(chainPath: string, root = process.cwd()): EvmToken[] | XrplToken[] {
+  if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
+    return listXrplTokenDirs(root).map(({ dir }) => {
+      const info = JSON.parse(fs.readFileSync(path.join(dir, "info.json"), "utf8")) as XrplToken;
+      return withRelativeLogoURL(sortXrplToken(info));
+    });
   }
-  if (tokens.some((entry) => entry.address === token.address)) {
-    throw new Error(`all.json already lists ${token.address}`);
-  }
-  const address = token.address;
-  const next = [...tokens];
-  let insertAt = next.length;
-  for (let index = 0; index < next.length; index++) {
-    const current = next[index]?.address;
-    if (current === null || (typeof current === "string" && current.localeCompare(address) > 0)) {
-      insertAt = index;
-      break;
-    }
-  }
-  next.splice(insertAt, 0, token);
-  return next;
+  return listTokenDirs(chainPath, root)
+    .map(({ dir }) => withRelativeLogoURL(sortEvmToken(loadEvmToken(path.join(dir, "info.json")))))
+    .sort(compareEvmToken);
 }

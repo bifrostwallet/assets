@@ -48,8 +48,7 @@ jobs:
       - name: Install dependencies
         run: ./yarn install --immutable
 
-      # Beta: cryptographic verify only. --strict (require every entry self-signed)
-      # waits until after grandfathering ends 2026-12-31 (see README).
+      # Fails when any signature entry is invalid. Unsigned providers are warnings.
       - name: Verify provider signatures
         run: ./yarn verify:providers
 
@@ -73,32 +72,17 @@ jobs:
             echo "Release tag $TAG must be $EXPECTED (dist/package.json version)" >&2
             exit 1
           fi
-          BASE="$(node -p "require('./dist/index.js').GITHUB_ASSET_BASE_URL")"
-          VERSION="$VERSION" EXPECTED="$EXPECTED" BASE="$BASE" node --input-type=module <<'EOF'
-          import { assertGithubAssetBasePinsReleaseTag, releaseTagForVersion } from "./build/src/releaseTag.js";
+          VERSION="$VERSION" EXPECTED="$EXPECTED" node --input-type=module <<'EOF'
+          import { releaseTagForVersion } from "./build/src/releaseTag.js";
 
           const version = process.env.VERSION ?? "";
           const expected = process.env.EXPECTED ?? "";
-          const base = process.env.BASE ?? "";
           const tag = releaseTagForVersion(version);
           if (tag !== expected) {
             console.error(`releaseTagForVersion returned ${tag}, workflow EXPECTED is ${expected}`);
             process.exit(1);
           }
-          assertGithubAssetBasePinsReleaseTag(base, version);
           EOF
-
-      - name: Reject accidental non-prerelease until signatures are strict
-        run: |
-          VERSION="$(node -p "require('./dist/package.json').version")"
-          case "$VERSION" in
-            *-beta*|*-alpha*|*-rc*) ;;
-            *)
-              echo "Stable versions require verify:providers --strict in this workflow first." >&2
-              echo "Current version: $VERSION" >&2
-              exit 1
-              ;;
-          esac
 
       - name: Stage on npm with provenance
         if: github.event_name == 'release' || inputs.publish == true

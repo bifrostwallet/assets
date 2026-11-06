@@ -1,12 +1,10 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
+import { createRequire } from "node:module";
+import * as os from "node:os";
 import * as path from "node:path";
 import { withRelativeLogoURL } from "../assetUrl.js";
-import {
-  DAPP_CATEGORIES,
-  DAPP_CATEGORY_LABELS,
-  githubRawDataBaseFromRepository,
-  type ProviderInfo,
-} from "../config.js";
+import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
@@ -17,8 +15,8 @@ import {
   validateContractCatalog,
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
-import { assertGithubAssetBasePinsReleaseTag, releaseTagForVersion } from "../releaseTag.js";
-import { type EvmToken, listTokenChainPaths } from "../tokens.js";
+import { releaseTagForVersion } from "../releaseTag.js";
+import { type EvmToken, listChainTokens, listTokenChainPaths } from "../tokens.js";
 import type { XrplToken } from "../xrplToken.js";
 
 // Builds the publishable @bifrostwallet/assets NPM package into dist/.
@@ -27,15 +25,15 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// logoURL stays a relative path (providers/…, tokens/…, dapps/…, contracts/…).
-// Provider and token all.json in git are absolute GitHub URLs; withRelativeLogoURL
-// strips them, including token entries. Logo files are not bundled; they stay in git.
+// Published JSON keeps logoURL relative (providers/…, tokens/…, dapps/…, contracts/…).
+// Provider all.json in git uses absolute GitHub URLs; withRelativeLogoURL strips them.
+// Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
-// each published contract. Provider signatures ship as a separate entry
-// (signatures.js). index.js does not load that file. ASSET_BASE_URL is not
-// applied here; bucket upload still rewrites hosted all.json. The omitted-base
-// fallback is injected as GITHUB_ASSET_BASE_URL for this version's git tag
-// (`v<version>/data/`). The published file does not read package.json.
+// each published contract. createAssets({ baseURL }) is the only public entry. It
+// resolves asset paths per call and does not mutate the shared records. There is
+// no default base. Provider signatures ship as a separate entry (signatures.js).
+// index.js does not load that file. ASSET_BASE_URL is not applied here; bucket
+// upload still rewrites hosted all.json. The published file does not read package.json.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 
@@ -58,9 +56,9 @@ function loadProviders(chainPath: string): ProviderInfo[] {
 }
 
 function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
-  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as Array<EvmToken | XrplToken>;
-  return tokens.map((token, index) => publishEntry(token, `tokens/${chainPath}[${index}]`));
+  return listChainTokens(chainPath).map((token, index) =>
+    publishEntry(token, `tokens/${chainPath}[${index}]`),
+  );
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
@@ -198,35 +196,19 @@ function assertNoBundledLogos(distDir: string): void {
   }
 }
 
-function embeddedGithubAssetBaseURL(indexSource: string): string {
-  const marker = "const GITHUB_ASSET_BASE_URL = ";
-  const start = indexSource.indexOf(marker);
-  const lineEnd = start === -1 ? -1 : indexSource.indexOf(";\n", start);
-  if (start === -1 || lineEnd === -1) {
-    throw new Error("Built index.js does not embed GITHUB_ASSET_BASE_URL from package.json");
-  }
-  return JSON.parse(indexSource.slice(start + marker.length, lineEnd)) as string;
-}
+const PUBLISHED_EXPORTS = [
+  "CONTRACT_CATEGORIES",
+  "CONTRACT_CATEGORY_LABELS",
+  "CONTRACT_CHAIN_IDS",
+  "DAPP_CATEGORIES",
+  "DAPP_CATEGORY_LABELS",
+  "PROVIDER_CHAIN_IDS",
+  "TOKEN_CHAIN_IDS",
+  "createAssets",
+] as const;
 
-function publishedGithubAssetBaseURL(repository: unknown, version: string): string {
-  const tag = releaseTagForVersion(version);
-  if (typeof repository !== "string") {
-    throw new Error(
-      "Could not derive GITHUB_ASSET_BASE_URL from package.json repository (expected a GitHub URL)",
-    );
-  }
-  const base = githubRawDataBaseFromRepository(repository, tag);
-  if (!base) {
-    throw new Error(
-      "Could not derive GITHUB_ASSET_BASE_URL from package.json repository (expected a GitHub URL)",
-    );
-  }
-  assertGithubAssetBasePinsReleaseTag(base, version);
-  return base;
-}
-
-/** dist/index.js embeds this package.json version in GITHUB_ASSET_BASE_URL. */
-function assertBuiltAssetBase(distDir: string, githubAssetBaseURL: string): void {
+/** dist/package.json matches this repo, and index.js exposes only createAssets plus catalog constants. */
+function assertBuiltPackage(distDir: string): void {
   const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
     version?: unknown;
   };
@@ -241,19 +223,49 @@ function assertBuiltAssetBase(distDir: string, githubAssetBaseURL: string): void
     );
   }
   const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
-  const embedded = embeddedGithubAssetBaseURL(indexSource);
-  if (embedded !== githubAssetBaseURL) {
-    throw new Error("Built index.js does not embed GITHUB_ASSET_BASE_URL from package.json");
-  }
-  assertGithubAssetBasePinsReleaseTag(embedded, root.version);
   if (indexSource.includes("/main/data/")) {
     throw new Error("Built index.js still falls back to the GitHub main branch");
   }
-  if (!indexSource.includes("const DEFAULT_ASSET_BASE_URL = GITHUB_ASSET_BASE_URL;")) {
-    throw new Error("DEFAULT_ASSET_BASE_URL must remain an alias of GITHUB_ASSET_BASE_URL");
+  if (
+    indexSource.includes("GITHUB_ASSET_BASE_URL") ||
+    indexSource.includes("DEFAULT_ASSET_BASE_URL")
+  ) {
+    throw new Error("Built index.js must not embed a default asset base");
   }
   if (indexSource.includes("package.json") || indexSource.includes("readFileSync")) {
     throw new Error("Built index.js must not read package.json at runtime");
+  }
+  const indexPath = path.join(distDir, "index.js");
+  const require = createRequire(import.meta.url);
+  delete require.cache[indexPath];
+  const published = require(indexPath) as Record<string, unknown>;
+  const keys = Object.keys(published).sort();
+  const expected = [...PUBLISHED_EXPORTS].sort();
+  if (keys.join(",") !== expected.join(",")) {
+    throw new Error(`Unexpected package exports: ${keys.join(", ")}`);
+  }
+  if (typeof published.createAssets !== "function") {
+    throw new Error("createAssets export is missing");
+  }
+  const dts = fs.readFileSync(path.join(distDir, "index.d.ts"), "utf8");
+  if (!dts.includes("export interface CreateAssetsOptions")) {
+    throw new Error("index.d.ts is missing CreateAssetsOptions");
+  }
+  if (!dts.includes("export interface Assets")) {
+    throw new Error("index.d.ts is missing Assets");
+  }
+  const createAssetsType =
+    "export declare function createAssets(options: CreateAssetsOptions): Assets";
+  if (!dts.includes(createAssetsType)) {
+    throw new Error("index.d.ts is missing createAssets");
+  }
+  if (
+    dts.includes("export declare function resolveAssetURL") ||
+    dts.includes("export declare function getProviders") ||
+    dts.includes("GITHUB_ASSET_BASE_URL") ||
+    dts.includes("DEFAULT_ASSET_BASE_URL")
+  ) {
+    throw new Error("index.d.ts still exports a removed entry");
   }
 }
 
@@ -294,11 +306,7 @@ function assertPublishedLogosExistUnderData(distDir: string): void {
   }
 }
 
-function buildIndexJs(
-  tokenChains: string[],
-  contractChains: string[],
-  githubAssetBaseURL: string,
-): string {
+function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
   const tokenRequires =
     tokenChains.length === 0
       ? ""
@@ -322,10 +330,6 @@ ${contractRequires}};
 
 /** Hand-ordered browser chips. Not an all.json aggregate. */
 const dappCategories = require("./dapps/categories.json");
-
-const GITHUB_ASSET_BASE_URL = ${JSON.stringify(githubAssetBaseURL)};
-// Deprecated alias of GITHUB_ASSET_BASE_URL.
-const DEFAULT_ASSET_BASE_URL = GITHUB_ASSET_BASE_URL;
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
@@ -533,13 +537,16 @@ function toRelativeAssetPath(logoURL) {
   return trimmed.replace(/^\\//, "");
 }
 
-function resolveAssetURL(logoURL, baseURL) {
-  const supplied = baseURL && String(baseURL).trim();
-  const chosen = supplied || GITHUB_ASSET_BASE_URL;
-  if (!isHttpsUrl(chosen)) {
-    throw new Error("Asset base must start with https://, got " + JSON.stringify(chosen));
+function normalizeAssetBase(baseURL) {
+  const supplied = typeof baseURL === "string" ? baseURL.trim() : "";
+  if (!isHttpsUrl(supplied)) {
+    throw new Error("Asset base must start with https://, got " + JSON.stringify(baseURL));
   }
-  const base = String(chosen).replace(/\\/?$/, "/");
+  return supplied.replace(/\\/?$/, "/");
+}
+
+function resolveAssetURL(logoURL, baseURL) {
+  const base = normalizeAssetBase(baseURL);
   const relative = toRelativeAssetPath(logoURL);
   if (isHttpsUrl(relative)) {
     return relative;
@@ -547,9 +554,88 @@ function resolveAssetURL(logoURL, baseURL) {
   return base + relative.replace(/^\\//, "");
 }
 
+function isRelativeAssetPath(value) {
+  let assetPath = String(value).trim();
+  if (assetPath.startsWith("/")) assetPath = assetPath.slice(1);
+  return (
+    assetPath.startsWith("providers/") ||
+    assetPath.startsWith("dapps/") ||
+    assetPath.startsWith("tokens/") ||
+    assetPath.startsWith("contracts/")
+  );
+}
+
+function createAssets(options) {
+  const baseURL =
+    options !== null && typeof options === "object" && !Array.isArray(options)
+      ? options.baseURL
+      : undefined;
+  const base = normalizeAssetBase(baseURL);
+  const cache = new WeakMap();
+
+  function present(value) {
+    if (typeof value === "string") {
+      return isRelativeAssetPath(value) ? resolveAssetURL(value, base) : value;
+    }
+    if (Array.isArray(value)) {
+      const cached = cache.get(value);
+      if (cached) return cached;
+      let changed = false;
+      const next = value.map((item) => {
+        const resolved = present(item);
+        if (resolved !== item) changed = true;
+        return resolved;
+      });
+      if (!changed) return value;
+      cache.set(value, next);
+      return next;
+    }
+    if (!value || typeof value !== "object") return value;
+    const cached = cache.get(value);
+    if (cached) return cached;
+    let copy = null;
+    for (const key of Object.keys(value)) {
+      const field = value[key];
+      let resolved = field;
+      if (
+        (key === "logoURL" && typeof field === "string") ||
+        (typeof field === "string" && isRelativeAssetPath(field))
+      ) {
+        resolved = resolveAssetURL(field, base);
+      } else if (field && typeof field === "object") {
+        resolved = present(field);
+      }
+      if (resolved !== field) {
+        if (!copy) copy = { ...value };
+        copy[key] = resolved;
+      }
+    }
+    if (!copy) return value;
+    cache.set(value, copy);
+    return copy;
+  }
+
+  return {
+    getProviders: (chainId) => present(getProviders(chainId)),
+    getProvider: (chainId, identityAddress) => present(getProvider(chainId, identityAddress)),
+    getListedProviders: (chainId) => present(getListedProviders(chainId)),
+    getManagementGroupProviders: (chainId) => present(getManagementGroupProviders(chainId)),
+    findProviderByValidator: (chainId, nodeId) => present(findProviderByValidator(chainId, nodeId)),
+    getValidators: (chainId) => present(getValidators(chainId)),
+    getListedValidators: (chainId) => present(getListedValidators(chainId)),
+    getValidatorsByIdentity: (chainId, identityAddress) =>
+      present(getValidatorsByIdentity(chainId, identityAddress)),
+    getTokens: (chainId) => present(getTokens(chainId)),
+    getToken: (chainId, address) => present(getToken(chainId, address)),
+    getXrplToken: (issuer, currency) => present(getXrplToken(issuer, currency)),
+    getNativeToken: (chainId) => present(getNativeToken(chainId)),
+    getContracts: (chainId) => present(getContracts(chainId)),
+    getContract: (chainId, address) => present(getContract(chainId, address)),
+    getDappCategories: () => present(getDappCategories()),
+  };
+}
+
 module.exports = {
-  GITHUB_ASSET_BASE_URL,
-  DEFAULT_ASSET_BASE_URL,
   PROVIDER_CHAIN_IDS,
   TOKEN_CHAIN_IDS,
   CONTRACT_CHAIN_IDS,
@@ -557,22 +643,7 @@ module.exports = {
   CONTRACT_CATEGORY_LABELS,
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
-  getProviders,
-  getProvider,
-  getListedProviders,
-  getManagementGroupProviders,
-  findProviderByValidator,
-  getValidators,
-  getListedValidators,
-  getValidatorsByIdentity,
-  getTokens,
-  getToken,
-  getXrplToken,
-  getNativeToken,
-  getContracts,
-  getContract,
-  getDappCategories,
-  resolveAssetURL,
+  createAssets,
 };
 `;
 }
@@ -593,10 +664,7 @@ export interface ProviderInfo {
     linkedin?: string;
     tiktok?: string;
   };
-  /**
-   * Relative logo path, for example providers/eip155-14/<identity>/logo.webp.
-   * Host the file yourself and pass your base to resolveAssetURL.
-   */
+  /** Absolute logo URL for the baseURL passed to createAssets. */
   logoURL: string;
   /** SHA-256 of the logo file, covered by provider signatures */
   logoHash: string;
@@ -633,6 +701,7 @@ export interface EvmToken {
   address: string | null;
   /** Always present — string CoinGecko id, or null when unmapped / unpriced */
   coingeckoId: string | null;
+  /** Absolute logo URL for the baseURL passed to createAssets. */
   logoURL: string;
   logoHash: string;
 }
@@ -646,6 +715,7 @@ export interface XrplToken {
   currency: string;
   /** Always present — string CoinGecko id, or null when unmapped / unpriced */
   coingeckoId: string | null;
+  /** Absolute logo URL for the baseURL passed to createAssets. */
   logoURL: string;
   logoHash: string;
 }
@@ -653,13 +723,6 @@ export interface XrplToken {
 /** CAIP-2 chain id, e.g. "eip155:14" or "eip155:19" */
 export type ChainId = string;
 
-/**
- * GitHub raw base for this package version (\`…/v<version>/data/\`).
- * resolveAssetURL uses it when baseURL is omitted. Passing your own base is recommended.
- */
-export declare const GITHUB_ASSET_BASE_URL: string;
-/** @deprecated Same value as {@link GITHUB_ASSET_BASE_URL}. */
-export declare const DEFAULT_ASSET_BASE_URL: string;
 export declare const PROVIDER_CHAIN_IDS: string[];
 export declare const TOKEN_CHAIN_IDS: string[];
 export declare const CONTRACT_CHAIN_IDS: string[];
@@ -701,28 +764,11 @@ export interface ContractInfo {
   projectName?: string;
   contractName: string;
   category: ContractCategory;
-  /** Relative logo path, resolved at package build. */
+  /** Absolute logo URL for the baseURL passed to createAssets. */
   logoURL: string;
   /** SHA-256 of that logo file, resolved at package build. */
   logoHash: string;
 }
-
-/** All curated providers for a chain (throws on unknown chain) */
-export declare function getProviders(chainId: ChainId): ProviderInfo[];
-/** A single provider by identity address (case-insensitive), or null */
-export declare function getProvider(
-  chainId: ChainId,
-  identityAddress: string
-): ProviderInfo | null;
-/** Providers listed in Bifrost Wallet UIs */
-export declare function getListedProviders(chainId: ChainId): ProviderInfo[];
-/** Providers that are current FTSO Management Group members */
-export declare function getManagementGroupProviders(chainId: ChainId): ProviderInfo[];
-/** The provider operating a validator NodeID, or null */
-export declare function findProviderByValidator(
-  chainId: ChainId,
-  nodeId: string
-): ProviderInfo | null;
 
 export interface ValidatorInfo {
   /** Avalanche-style NodeID */
@@ -733,66 +779,145 @@ export interface ValidatorInfo {
   name: string;
 }
 
-/**
- * Every validator on a chain, in getProviders order.
- * Validators of one provider stay together, in that provider's validators order.
- * Throws on an unknown chain.
- */
-export declare function getValidators(chainId: ChainId): ValidatorInfo[];
-/** Validators of providers with listed: true, same order as getValidators. */
-export declare function getListedValidators(chainId: ChainId): ValidatorInfo[];
-/**
- * Validators for one provider identity. The address match is case-insensitive.
- * Returns an empty array when that identity is absent. Throws on an unknown chain.
- */
-export declare function getValidatorsByIdentity(
-  chainId: ChainId,
-  identityAddress: string
-): ValidatorInfo[];
-/**
- * All curated tokens for a chain (throws on unknown chain).
- * \`xrpl:0\` returns XrplToken. Every other chain returns EvmToken.
- */
-export declare function getTokens(chainId: "xrpl:0"): XrplToken[];
-export declare function getTokens(chainId: ChainId): EvmToken[];
-/** One EVM token by address (case-insensitive), or null. */
-export declare function getToken(chainId: ChainId, address: string): EvmToken | null;
-/**
- * One XRPL mainnet issued token by exact-case issuer and currency, or null.
- * There is no combined address key.
- */
-export declare function getXrplToken(issuer: string, currency: string): XrplToken | null;
-/** Native gas token entry for a chain, or null */
-export declare function getNativeToken(chainId: ChainId): EvmToken | null;
-/**
- * Curated contracts. Omit chainId for every chain.
- * Throws on an unknown CAIP-2 id.
- * Each record already includes project, projectName, logoURL, and logoHash.
- */
-export declare function getContracts(chainId?: ChainId): ContractInfo[];
-/** One contract by address (case-insensitive), or null */
-export declare function getContract(chainId: ChainId, address: string): ContractInfo | null;
-/**
- * Browser chips from data/dapps/categories.json, in curated order.
- * This is not a dapp all.json.
- */
-export declare function getDappCategories(): DappCategoryGroup[];
-/**
- * Joins a relative logoURL to an https base.
- * A passed base must start with https://. An http URL throws.
- * An absolute https logoURL on a known asset prefix is stripped and rebased.
- * When baseURL is omitted, the URL uses GitHub at this package's version tag.
- */
-export declare function resolveAssetURL(relativePath: string, baseURL?: string): string;
+export interface CreateAssetsOptions {
+  /** Directory that contains providers/, tokens/, dapps/, and contracts/. */
+  baseURL: string;
+}
+
+/** Catalog getters. logoURL values are absolute for the baseURL passed to createAssets. */
+export interface Assets {
+  /** All curated providers for a chain (throws on unknown chain) */
+  getProviders(chainId: ChainId): ProviderInfo[];
+  /** A single provider by identity address (case-insensitive), or null */
+  getProvider(chainId: ChainId, identityAddress: string): ProviderInfo | null;
+  /** Providers listed in Bifrost Wallet UIs */
+  getListedProviders(chainId: ChainId): ProviderInfo[];
+  /** Providers that are current FTSO Management Group members */
+  getManagementGroupProviders(chainId: ChainId): ProviderInfo[];
+  /** The provider operating a validator NodeID, or null */
+  findProviderByValidator(chainId: ChainId, nodeId: string): ProviderInfo | null;
+  /**
+   * Every validator on a chain, in getProviders order.
+   * Validators of one provider stay together, in that provider's validators order.
+   * Throws on an unknown chain.
+   */
+  getValidators(chainId: ChainId): ValidatorInfo[];
+  /** Validators of providers with listed: true, same order as getValidators. */
+  getListedValidators(chainId: ChainId): ValidatorInfo[];
+  /**
+   * Validators for one provider identity. The address match is case-insensitive.
+   * Returns an empty array when that identity is absent. Throws on an unknown chain.
+   */
+  getValidatorsByIdentity(chainId: ChainId, identityAddress: string): ValidatorInfo[];
+  /**
+   * All curated tokens for a chain (throws on unknown chain).
+   * \`xrpl:0\` returns XrplToken. Every other chain returns EvmToken.
+   */
+  getTokens(chainId: "xrpl:0"): XrplToken[];
+  getTokens(chainId: ChainId): EvmToken[];
+  /** One EVM token by address (case-insensitive), or null. */
+  getToken(chainId: ChainId, address: string): EvmToken | null;
+  /**
+   * One XRPL mainnet issued token by exact-case issuer and currency, or null.
+   * There is no combined address key.
+   */
+  getXrplToken(issuer: string, currency: string): XrplToken | null;
+  /** Native gas token entry for a chain, or null */
+  getNativeToken(chainId: ChainId): EvmToken | null;
+  /**
+   * Curated contracts. Omit chainId for every chain.
+   * Throws on an unknown CAIP-2 id.
+   * Each record already includes project, projectName, logoURL, and logoHash.
+   */
+  getContracts(chainId?: ChainId): ContractInfo[];
+  /** One contract by address (case-insensitive), or null */
+  getContract(chainId: ChainId, address: string): ContractInfo | null;
+  /**
+   * Browser chips from data/dapps/categories.json, in curated order.
+   * This is not a dapp all.json.
+   */
+  getDappCategories(): DappCategoryGroup[];
+}
+
+/** Catalog getters with logo URLs joined to baseURL. */
+export declare function createAssets(options: CreateAssetsOptions): Assets;
 `;
 
+const packageDistLockDir = path.join(
+  os.tmpdir(),
+  `bifrost-assets-dist-${createHash("sha256").update(process.cwd()).digest("hex").slice(0, 16)}.lock`,
+);
+
+let packageDistLockDepth = 0;
+
+function sleepMs(ms: number): void {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+function acquirePackageDistLock(): void {
+  const deadline = Date.now() + 180_000;
+  for (;;) {
+    try {
+      fs.mkdirSync(packageDistLockDir);
+      return;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") throw error;
+      let ageMs = 0;
+      try {
+        ageMs = Date.now() - fs.statSync(packageDistLockDir).mtimeMs;
+      } catch {
+        continue;
+      }
+      if (ageMs > 180_000) {
+        fs.rmSync(packageDistLockDir, { recursive: true, force: true });
+        continue;
+      }
+      if (Date.now() > deadline) {
+        throw new Error("Timed out waiting for the package build lock");
+      }
+      sleepMs(50);
+    }
+  }
+}
+
+function releasePackageDistLock(): void {
+  fs.rmSync(packageDistLockDir, { recursive: true, force: true });
+}
+
+/** Hold dist/ until the returned function runs. Re-entrant in this process. */
+export function holdPackageDist(): () => void {
+  if (packageDistLockDepth === 0) acquirePackageDistLock();
+  packageDistLockDepth += 1;
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    packageDistLockDepth -= 1;
+    if (packageDistLockDepth === 0) releasePackageDistLock();
+  };
+}
+
+function withPackageDist(build: () => void): void {
+  const release = holdPackageDist();
+  try {
+    build();
+  } finally {
+    release();
+  }
+}
+
 function buildPackage(): void {
+  withPackageDist(buildPackageUnlocked);
+}
+
+function buildPackageUnlocked(): void {
   const rootPackage = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
   const packageVersion = rootPackage.version;
   if (typeof packageVersion !== "string") {
-    throw new Error("package.json version is required to pin GITHUB_ASSET_BASE_URL");
+    throw new Error("package.json version is required");
   }
-  const githubAssetBaseURL = publishedGithubAssetBaseURL(rootPackage.repository, packageVersion);
+  releaseTagForVersion(packageVersion);
 
   const distDir = path.join(process.cwd(), "dist");
   fs.rmSync(distDir, { recursive: true, force: true });
@@ -844,10 +969,7 @@ function buildPackage(): void {
   fs.writeFileSync(path.join(distDir, "dapps", "categories.json"), categoriesBody);
   console.info("📦 dapps/categories.json");
 
-  fs.writeFileSync(
-    path.join(distDir, "index.js"),
-    buildIndexJs(tokenChainIds, contractChainIds, githubAssetBaseURL),
-  );
+  fs.writeFileSync(path.join(distDir, "index.js"), buildIndexJs(tokenChainIds, contractChainIds));
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
@@ -893,11 +1015,15 @@ function buildPackage(): void {
   };
   fs.writeFileSync(path.join(distDir, "package.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 
-  const packageReadmePath = path.join(process.cwd(), "package", "README.md");
-  if (!fs.existsSync(packageReadmePath)) {
-    throw new Error("package/README.md missing — required for the published npm README");
+  const readmePath = path.join(process.cwd(), "README.md");
+  if (!fs.existsSync(readmePath)) {
+    throw new Error("README.md missing — required for the published npm README");
   }
-  fs.copyFileSync(packageReadmePath, path.join(distDir, "README.md"));
+  const publishedReadmePath = path.join(distDir, "README.md");
+  fs.copyFileSync(readmePath, publishedReadmePath);
+  if (!fs.readFileSync(publishedReadmePath).equals(fs.readFileSync(readmePath))) {
+    throw new Error("dist/README.md does not match the repository README.md");
+  }
 
   const written = JSON.parse(fs.readFileSync(path.join(distDir, "package.json"), "utf8"));
   const dependencyCount = Object.keys(written.dependencies ?? {}).length;
@@ -906,11 +1032,11 @@ function buildPackage(): void {
   }
 
   assertNoBundledLogos(distDir);
-  assertBuiltAssetBase(distDir, githubAssetBaseURL);
+  assertBuiltPackage(distDir);
   assertPublishedLogosExistUnderData(distDir);
 
   console.info("\n✅ Built zero-dependency package in dist/");
-  console.info("   published logoURL stays relative; logo files are not bundled");
+  console.info("   published JSON keeps relative logoURL; createAssets resolves it");
   console.info(`   ${signatureCount} provider signature payload(s) in ./signatures`);
   console.info("   Publish with: npm publish ./dist");
 }

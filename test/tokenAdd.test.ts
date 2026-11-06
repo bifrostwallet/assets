@@ -6,7 +6,6 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { describe, mock, test } from "node:test";
 import { encodeAbiParameters, getAddress, type Hex } from "viem";
-import { DEFAULT_ASSET_BASE_URL } from "../src/config.js";
 import {
   decodeErc20Decimals,
   decodeErc20String,
@@ -71,7 +70,6 @@ function catalogFixture(): string {
   };
   fs.writeFileSync(path.join(nativeDir, "info.json"), `${JSON.stringify(native, null, 2)}\n`);
   fs.writeFileSync(path.join(usdcDir, "info.json"), `${JSON.stringify(usdc, null, 2)}\n`);
-  fs.writeFileSync(path.join(chainDir, "all.json"), `${JSON.stringify([usdc, native], null, 2)}\n`);
   return root;
 }
 
@@ -310,20 +308,8 @@ describe("add:token", () => {
       infoText,
       /"name":[\s\S]*"symbol":[\s\S]*"decimals":[\s\S]*"address":[\s\S]*"coingeckoId":[\s\S]*"logoURL":[\s\S]*"logoHash":/,
     );
-    const aggregate = JSON.parse(
-      fs.readFileSync(path.join(root, "data", "tokens", CHAIN, "all.json"), "utf8"),
-    ) as { address: string | null; symbol: string; logoURL: string }[];
-    assert.deepEqual(
-      aggregate.map((entry) => entry.address),
-      [USDC, ADDED, null],
-    );
-    assert.equal(aggregate[1]?.symbol, "US D");
-    assert.equal(
-      aggregate[1]?.logoURL,
-      `${DEFAULT_ASSET_BASE_URL}tokens/${CHAIN}/${ADDED}/logo.webp`,
-    );
-    assert.ok(aggregate.every((entry) => entry.logoURL.startsWith(DEFAULT_ASSET_BASE_URL)));
     assert.equal(info.logoURL.startsWith("tokens/"), true);
+    assert.equal(fs.existsSync(path.join(root, "data", "tokens", CHAIN, "all.json")), false);
     fs.rmSync(root, { recursive: true, force: true });
   });
 

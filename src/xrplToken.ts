@@ -44,7 +44,7 @@ export type XrplToken = {
   logoHash: string;
 };
 
-/** Catalog key order for an XRPL `info.json` / `all.json` entry. */
+/** Catalog key order for an XRPL `info.json` entry. */
 export function sortXrplToken(token: XrplToken): XrplToken {
   return {
     name: token.name,
@@ -115,14 +115,13 @@ export function decodeXrplCurrency(currency: string): string | null {
 
 /**
  * Directories and files under `xrpl-0` that are not `<issuer>/<currency>/`.
- * `all.json` is the only file allowed next to the issuer folders.
+ * There is no token `all.json`.
  */
 export function xrplCatalogPathErrors(root = process.cwd()): string[] {
   const chainDir = path.join(root, "data", "tokens", XRPL_MAINNET_CHAIN_PATH);
   if (!fs.existsSync(chainDir)) return [`missing ${XRPL_MAINNET_CHAIN_PATH}`];
   const errors: string[] = [];
   for (const issuerEntry of fs.readdirSync(chainDir, { withFileTypes: true })) {
-    if (issuerEntry.name === "all.json" && issuerEntry.isFile()) continue;
     const issuerLabel = `${XRPL_MAINNET_CHAIN_PATH}/${issuerEntry.name}`;
     if (!issuerEntry.isDirectory()) {
       errors.push(`${issuerLabel}: unexpected file`);

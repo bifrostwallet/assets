@@ -9,25 +9,11 @@ import {
   ALLOWED_LINKS,
   DAPP_INFO_KEYS,
   type DappInfo,
-  DEFAULT_ASSET_BASE_URL,
   PROVIDER_INFO_KEYS,
   type ProviderInfo,
   SIGNED_PROVIDER_INFO_KEYS,
 } from "./config.js";
-import {
-  type EvmToken,
-  listTokenChainPaths,
-  listTokenDirs,
-  loadEvmToken,
-  sortEvmToken,
-} from "./tokens.js";
 import { type HexString, isValidNodeHex, isValidNodeID } from "./validate.js";
-import {
-  listXrplTokenDirs,
-  sortXrplToken,
-  XRPL_MAINNET_CHAIN_PATH,
-  type XrplToken,
-} from "./xrplToken.js";
 
 /**
  * Encodes a hex string directly to a NodeID string
@@ -252,57 +238,6 @@ export function rebuildAllProvidersAllJson(): void {
 
   for (const chainPath of chainDirs) {
     rebuildProvidersAllJson(chainPath);
-  }
-}
-
-/** Contract addresses sort lexicographically. The native gas token (`address: null`) is last. */
-function compareEvmToken(a: EvmToken, b: EvmToken): number {
-  if (a.address === b.address) return 0;
-  if (a.address === null) return 1;
-  if (b.address === null) return -1;
-  return a.address.localeCompare(b.address);
-}
-
-/**
- * One chain's token `all.json` entries, built from every `info.json`.
- * `info.json` keeps a relative logoURL. The aggregate uses absolute GitHub raw
- * URLs (`DEFAULT_ASSET_BASE_URL`, not `ASSET_BASE_URL`) so fetching `all.json`
- * renders logos. An already-absolute logoURL is rebased, not double-prefixed.
- * EVM order is address, native last. XRPL order is issuer, then currency.
- */
-export function buildTokensAllJson(
-  chainPath: string,
-  root = process.cwd(),
-): EvmToken[] | XrplToken[] {
-  if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
-    return listXrplTokenDirs(root).map(({ dir }) => {
-      const info = JSON.parse(fs.readFileSync(path.join(dir, "info.json"), "utf8")) as XrplToken;
-      return withAbsoluteLogoURL(sortXrplToken(info), DEFAULT_ASSET_BASE_URL);
-    });
-  }
-
-  return listTokenDirs(chainPath, root)
-    .map(({ dir }) => {
-      const info = loadEvmToken(path.join(dir, "info.json"));
-      return withAbsoluteLogoURL(sortEvmToken(info), DEFAULT_ASSET_BASE_URL);
-    })
-    .sort(compareEvmToken);
-}
-
-/**
- * Rebuilds data/tokens/<chainPath>/all.json from every per-token info.json.
- * @param chainPath Network directory name, e.g. "eip155-1" or "xrpl-0"
- */
-export function rebuildTokensAllJson(chainPath: string, root = process.cwd()): void {
-  const chainDir = path.join(root, "data", "tokens", chainPath);
-  if (!fs.existsSync(chainDir)) return;
-  writeFormattedJson(path.join(chainDir, "all.json"), buildTokensAllJson(chainPath, root));
-}
-
-/** Rebuilds all.json for every token chain directory (EVM and XRPL). */
-export function rebuildAllTokensAllJson(root = process.cwd()): void {
-  for (const chainPath of listTokenChainPaths(root)) {
-    rebuildTokensAllJson(chainPath, root);
   }
 }
 
