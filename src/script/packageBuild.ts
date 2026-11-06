@@ -397,6 +397,7 @@ function collectValidators(providers) {
         nodeId: nodeId,
         identityAddress: provider.identityAddress,
         name: provider.name,
+        logoURL: provider.logoURL,
       });
     }
   }
@@ -777,6 +778,8 @@ export interface ValidatorInfo {
   identityAddress: string;
   /** Owning provider display name */
   name: string;
+  /** Absolute logo URL of the operating provider, for the baseURL passed to createAssets. */
+  logoURL: string;
 }
 
 export interface CreateAssetsOptions {
