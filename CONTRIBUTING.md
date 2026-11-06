@@ -104,7 +104,7 @@ Providers that were listed before this repository went public keep `listed: true
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package). Each `info.json` stores a relative `logoURL`. There is no token `all.json`. Provider `all.json` stores an absolute raw GitHub logo URL. Validators do not have a separate aggregate.
+Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package).
 
 EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
 

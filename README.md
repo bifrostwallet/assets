@@ -8,29 +8,27 @@ The listing form and intake API run outside this repository. Contact details sta
 
 ## Using the package
 
-Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md): `eip155:14` (Flare), `eip155:19` (Songbird), and `xrpl:0` (XRPL). An unknown chain id throws. A missing provider returns `null`.
-
 Pin one version and commit the lockfile.
 
-```bash
+```sh
 npm install @bifrostwallet/assets@<version> --save-exact
 ```
 
-pnpm uses `--save-exact`. Yarn uses `--exact`.
-
-`PROVIDER_CHAIN_IDS` is `eip155:14` and `eip155:19`.
+```sh
+yarn add @bifrostwallet/assets@<version> --exact
+```
 
 `createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the public URL where you uploaded `data/`. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
 
-In git, each entry's `info.json` stores a relative `logoURL`. Provider `all.json` uses absolute raw GitHub logo URLs. Validators do not have a separate aggregate. Tokens are read only through `createAssets`. The package stores logo paths relative and joins them to `baseURL`.
-
 ### Host the logos
 
-Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version (`v` plus the package version), and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
+Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version, and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
 
 ### Listed providers
 
 Picker and discovery views use providers with `listed: true`. A confirmation or a transaction detail still shows a provider the user already chose, including one that is not listed.
+
+Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md): `eip155:14` (Flare), `eip155:19` (Songbird), and `xrpl:0` (XRPL). An unknown chain id throws. A missing provider returns `null`.
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
