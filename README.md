@@ -112,8 +112,16 @@ import { createAssets } from "@bifrostwallet/assets";
 const assets = createAssets({
   baseURL: "https://assets.example.com/",
 });
-const flare = assets.getNativeToken("eip155:14");
-// { name: "Flare", symbol: "FLR", decimals: 18, address: null, ... }
+const flr = assets.getNativeToken(
+  "eip155:14",
+);
+// {
+//   name: "Flare",
+//   symbol: "FLR",
+//   decimals: 18,
+//   address: null,
+//   ...
+// }
 
 const wflr = assets.getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
 // {
@@ -127,10 +135,28 @@ const wflr = assets.getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2
 // }
 
 const issued = assets.getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
-// { name: "GateHub ETH", symbol: "ETH", issuer: "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", currency: "ETH", ... }
+// {
+//   name: "GateHub ETH",
+//   symbol: "ETH",
+//   issuer: "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h",
+//   currency: "ETH",
+//   ...
+// }
 
 const chips = assets.getDappCategories();
-// [{ id: "featured", label: "Featured", dapps: [] }, { id: "dex", label: "DEX", dapps: ["sparkdex-ai", "blazeswap-xyz", ...] }, ...]
+// [
+//   {
+//     id: "featured",
+//     label: "Featured",
+//     dapps: [],
+//   },
+//   {
+//     id: "dex",
+//     label: "DEX",
+//     dapps: ["sparkdex-ai", "blazeswap-xyz", ...],
+//   },
+//   ...
+// ]
 ```
 
 ### Signatures
