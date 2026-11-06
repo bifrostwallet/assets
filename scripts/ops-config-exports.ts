@@ -7,8 +7,7 @@
  *   dotenv           — `KEY=value` lines for `.ops.env` (always writes all set keys)
  *
  * Expected JSON shape (all fields optional; use your own values).
- * assetBaseUrl is the public URL of your bucket, or of the CDN in front of it,
- * where you uploaded data/.
+ * assetBaseUrl is the public URL where you uploaded data/.
  * {
  *   "gcpProjectId": "…",
  *   "intakeBucket": "…",

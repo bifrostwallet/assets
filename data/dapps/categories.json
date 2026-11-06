@@ -7,7 +7,7 @@
   {
     "id": "dex",
     "label": "DEX",
-    "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global"]
+    "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global", "app-flamix-trade"]
   },
   {
     "id": "lending",
@@ -17,12 +17,12 @@
   {
     "id": "yield",
     "label": "Yield",
-    "dapps": ["spectra-finance", "enosys-global"]
+    "dapps": ["spectra-finance", "enosys-global", "app-upshift-finance"]
   },
   {
     "id": "staking",
     "label": "Staking",
-    "dapps": ["firelight-finance", "au-cc", "portal-flare-network"]
+    "dapps": ["firelight-finance", "au-cc", "portal-flare-network", "sceptre-fi"]
   },
   {
     "id": "bridges",

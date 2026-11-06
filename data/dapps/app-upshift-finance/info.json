@@ -1,0 +1,8 @@
+{
+  "title": "Upshift",
+  "description": "Upshift runs yield vaults. On Flare, the XRP Yield Vault takes FXRP and issues earnXRP.",
+  "url": "https://app.upshift.finance",
+  "logoURL": "dapps/app-upshift-finance/logo.webp",
+  "logoHash": "394510e1cbef87b4122b592f5f192dd5be30118873a5d5b98d7a2848a1130dae",
+  "chains": ["eip155:14"]
+}
