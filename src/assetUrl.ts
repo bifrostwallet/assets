@@ -11,8 +11,9 @@ import { DEFAULT_ASSET_BASE_URL } from "./config.js";
  *
  * resolveAssetURL joins a relative logoURL to the caller's base, and rebases
  * an absolute logoURL that uses a known asset prefix onto that base.
- * Operators publishing to their own host set ASSET_BASE_URL, for example:
- *   ASSET_BASE_URL=https://cdn.example.com/<prefix>/
+ * Set ASSET_BASE_URL to the public URL of your bucket, or of the CDN in front
+ * of it, where you uploaded data/. For example:
+ *   ASSET_BASE_URL=https://assets.example.com/
  */
 export function getAssetBaseURL(): string {
   const fromEnv = process.env.ASSET_BASE_URL?.trim();

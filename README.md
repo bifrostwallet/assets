@@ -20,9 +20,13 @@ pnpm uses `--save-exact`. Yarn uses `--exact`.
 
 `PROVIDER_CHAIN_IDS` is `eip155:14` and `eip155:19`.
 
-`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`: the host for the logo files, or raw GitHub for the tag you pinned. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
+`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the public URL of your bucket, or of the CDN in front of it, where you uploaded `data/`. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
 
 In git, each entry's `info.json` stores a relative `logoURL`. Provider `all.json` uses absolute raw GitHub logo URLs. Validators do not have a separate aggregate. Tokens are read only through `createAssets`. The package stores logo paths relative and joins them to `baseURL`.
+
+### Host the logos
+
+Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version (`v` plus the package version) to your own bucket or CDN, and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
 
 ### Listed providers
 
@@ -32,7 +36,7 @@ Picker and discovery views use providers with `listed: true`. A confirmation or 
 import { createAssets } from "@bifrostwallet/assets";
 
 const assets = createAssets({
-  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+  baseURL: "https://assets.example.com/",
 });
 const listed = assets.getListedProviders("eip155:14");
 // [
@@ -41,7 +45,7 @@ const listed = assets.getListedProviders("eip155:14");
 //     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
 //     listed: true,
 //     logoURL:
-//       "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+//       "https://assets.example.com/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
 //     validators: ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...],
 //     ...
 //   },
@@ -59,7 +63,7 @@ const listed = assets.getListedProviders("eip155:14");
 import { createAssets } from "@bifrostwallet/assets";
 
 const assets = createAssets({
-  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+  baseURL: "https://assets.example.com/",
 });
 const validators = assets.getListedValidators("eip155:14");
 // [
@@ -80,7 +84,7 @@ const validators = assets.getListedValidators("eip155:14");
 import { createAssets } from "@bifrostwallet/assets";
 
 const assets = createAssets({
-  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+  baseURL: "https://assets.example.com/",
 });
 const own = assets.getValidatorsByIdentity(
   "eip155:14",
@@ -108,7 +112,7 @@ const provider = assets.findProviderByValidator(
 import { createAssets } from "@bifrostwallet/assets";
 
 const assets = createAssets({
-  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+  baseURL: "https://assets.example.com/",
 });
 const flare = assets.getNativeToken("eip155:14");
 // { name: "Flare", symbol: "FLR", decimals: 18, address: null, ... }
@@ -120,7 +124,7 @@ const wflr = assets.getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2
 //   decimals: 18,
 //   address: "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
 //   logoURL:
-//     "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
+//     "https://assets.example.com/tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
 //   ...
 // }
 
@@ -150,7 +154,7 @@ import { createAssets } from "@bifrostwallet/assets";
 import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
 
 const assets = createAssets({
-  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+  baseURL: "https://assets.example.com/",
 });
 const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
 const provider = assets.getProvider("eip155:14", identity);
