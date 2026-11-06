@@ -4439,7 +4439,7 @@
   {
     "name": "Silent Notary",
     "symbol": "UBSN",
-    "decimals": 4,
+    "decimals": 0,
     "address": "0x86efc496dca70bcfd92d19194290e8457a375773",
     "coingeckoId": null,
     "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/tokens/eip155-1/0x86efc496dca70bcfd92d19194290e8457a375773/logo.webp",

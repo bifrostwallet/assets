@@ -1,7 +1,7 @@
 {
   "name": "HyperUSD",
   "symbol": "USDHL",
-  "decimals": 18,
+  "decimals": 6,
   "address": "0xb50a96253abdf803d85efcdce07ad8becbc52bd5",
   "coingeckoId": null,
   "logoURL": "tokens/eip155-999/0xb50a96253abdf803d85efcdce07ad8becbc52bd5/logo.webp",
