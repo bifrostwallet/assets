@@ -85,27 +85,31 @@ export function collectUploads(): UploadItem[] {
     });
   }
 
-  // Dapp logos. Contract lists copy logoURL/logoHash and stay in the NPM package.
-  const dappsDir = path.join(dataDir, "dapps");
-  if (fs.existsSync(dappsDir)) {
-    const walkDappLogos = (dir: string): void => {
-      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-          walkDappLogos(fullPath);
-          continue;
-        }
-        if (entry.name !== "logo.webp") continue;
-        const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
-        uploads.push({
-          localPath: fullPath,
-          destination: `${BUCKET_PREFIX}${relative}`,
-          cacheControl: LOGO_CACHE_CONTROL,
-          contentType: "image/webp",
-        });
+  // Dapp and contract logos. Catalog JSON stays in the npm package; contract
+  // logo.webp does not. Keys match published logoURL (contracts/…/logo.webp).
+  const walkLogos = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walkLogos(fullPath);
+        continue;
       }
-    };
-    walkDappLogos(dappsDir);
+      if (entry.name !== "logo.webp") continue;
+      const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
+      uploads.push({
+        localPath: fullPath,
+        destination: `${BUCKET_PREFIX}${relative}`,
+        cacheControl: LOGO_CACHE_CONTROL,
+        contentType: "image/webp",
+      });
+    }
+  };
+
+  for (const section of ["dapps", "contracts"]) {
+    const sectionDir = path.join(dataDir, section);
+    if (fs.existsSync(sectionDir)) {
+      walkLogos(sectionDir);
+    }
   }
 
   return uploads;
