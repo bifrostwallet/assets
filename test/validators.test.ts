@@ -31,7 +31,10 @@ function loadBuiltPackage(): PackageAssets {
   const indexPath = path.join(process.cwd(), "dist", "index.js");
   const require = createRequire(path.join(process.cwd(), "package.json"));
   delete require.cache[indexPath];
-  return require(indexPath) as PackageAssets;
+  const published = require(indexPath) as {
+    createAssets: (options: { baseURL: string }) => PackageAssets;
+  };
+  return published.createAssets({ baseURL: "https://cdn.example.com/assets/" });
 }
 
 function validatorsOf(providers: ProviderInfo[]): ValidatorInfo[] {

@@ -2,7 +2,7 @@
 
 Read providers and validators from [`@bifrostwallet/assets`](https://www.npmjs.com/package/@bifrostwallet/assets), or from GitHub raw `all.json` when you skip the package. To add a provider, token, or dapp, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md): `eip155:14` (Flare), `eip155:19` (Songbird), and `xrpl:0` (XRPL). Directory names use a hyphen (`eip155-14`) because they are file paths. Function arguments use a colon (`eip155:14`). An unknown chain id throws. A missing provider returns `null`.
+Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md): `eip155:14` (Flare), `eip155:19` (Songbird), and `xrpl:0` (XRPL). An unknown chain id throws. A missing provider returns `null`.
 
 ## Install
 
@@ -22,7 +22,7 @@ Self-hosted logos are the standard way to serve icons. The npm package ships the
 
 1. Check out the tag `v` plus the version you pinned.
 2. Copy logos from `data/providers`, `data/tokens`, `data/dapps`, and `data/contracts`.
-3. Pass that host to `resolveAssetURL`. Repeat the copy when you change the pin.
+3. Pass that host to `createAssets` as `baseURL`. Repeat the copy when you change the pin.
 
 Object keys stay `providers/<chain>/<identity>/logo.webp` under the base you pass in. The same layout applies to tokens, dapps, and contracts.
 
@@ -40,31 +40,28 @@ Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/upl
 
 ### Logo URLs
 
-In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute GitHub raw logo URLs. `logoURL` values in the npm package are relative: the build rewrites `all.json` back to relative paths. `upload:bucket` rebases a hosted `all.json` onto the base configured for that upload.
+In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute GitHub raw logo URLs. The npm package stores those paths relative, and `createAssets` joins them to `baseURL`. `upload:bucket` rebases a hosted `all.json` onto the base configured for that upload.
 
-`resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to `baseURL`. The base is trimmed, and a trailing slash is added when it does not already end with one. The base you host is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a provider, token, dapp, or contract. Pass your own base when you host the files. When the base is omitted or blank, logos are loaded from GitHub raw at the tag for the installed version.
-
-A relative path loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An absolute URL that matches none of those patterns is returned unchanged.
+`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`: the host you copied the files to, or raw GitHub for the tag you pinned. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
 
 ### Listed providers
 
 Picker and discovery views use providers with `listed: true`. A confirmation or a transaction detail still shows a provider the user already chose, including one that is not listed.
 
 ```typescript
-import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const base = "https://cdn.example.com/assets/";
-const listed = getListedProviders("eip155:14").map((provider) => ({
-  ...provider,
-  logoURL: resolveAssetURL(provider.logoURL, base),
-}));
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const listed = assets.getListedProviders("eip155:14");
 // [
 //   {
 //     name: "Bifrost Wallet",
 //     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
 //     listed: true,
 //     logoURL:
-//       "https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+//       "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
 //     validators: ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...],
 //     ...
 //   },
@@ -72,16 +69,19 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 // ]
 ```
 
-`getListedProviders(chainId)` returns providers with `listed: true`. `getProviders(chainId)` returns every provider on that chain. `getProvider(chainId, identityAddress)` returns one provider, or `null`, and the address match ignores case. `getManagementGroupProviders(chainId)` returns providers with `managementGroup: true`.
+`assets.getListedProviders(chainId)` returns providers with `listed: true`. `assets.getProviders(chainId)` returns every provider on that chain. `assets.getProvider(chainId, identityAddress)` returns one provider, or `null`, and the address match ignores case. `assets.getManagementGroupProviders(chainId)` returns providers with `managementGroup: true`.
 
 ### Listed validators
 
-`getListedValidators(chainId)` returns one entry per NodeID for providers with `listed: true`, in that provider order. Each entry has `nodeId`, `identityAddress`, and `name`. `getValidators(chainId)` returns every validator on the chain, including validators of providers that are not listed.
+`assets.getListedValidators(chainId)` returns one entry per NodeID for providers with `listed: true`, in that provider order. Each entry has `nodeId`, `identityAddress`, and `name`. `assets.getValidators(chainId)` returns every validator on the chain, including validators of providers that are not listed.
 
 ```typescript
-import { getListedValidators } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const validators = getListedValidators("eip155:14");
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const validators = assets.getListedValidators("eip155:14");
 // [
 //   {
 //     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
@@ -94,19 +94,19 @@ const validators = getListedValidators("eip155:14");
 
 ### Validators for one identity
 
-`getValidatorsByIdentity(chainId, identityAddress)` returns that provider's validators. The address match ignores case, and a missing identity returns an empty array. `findProviderByValidator(chainId, nodeId)` returns the provider that operates that NodeID, or `null`. The NodeID includes the `NodeID-` prefix.
+`assets.getValidatorsByIdentity(chainId, identityAddress)` returns that provider's validators. The address match ignores case, and a missing identity returns an empty array. `assets.findProviderByValidator(chainId, nodeId)` returns the provider that operates that NodeID, or `null`. The NodeID includes the `NodeID-` prefix.
 
 ```typescript
-import {
-  findProviderByValidator,
-  getValidatorsByIdentity,
-} from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const own = getValidatorsByIdentity(
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const own = assets.getValidatorsByIdentity(
   "eip155:14",
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
-const provider = findProviderByValidator(
+const provider = assets.findProviderByValidator(
   "eip155:14",
   "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
 );
@@ -133,11 +133,14 @@ Compare `logoHash` with the SHA-256 of the logo bytes you host. Recover the sign
 ```typescript
 import { createHash } from "node:crypto";
 import { keccak256, recoverTypedDataAddress, toBytes } from "viem";
-import { getProvider } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
 
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
 const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
-const provider = getProvider("eip155:14", identity);
+const provider = assets.getProvider("eip155:14", identity);
 const record = getProviderSignatures("eip155:14", identity);
 const entry = record?.signatures[0];
 if (!provider || !entry) throw new Error("missing listing");
@@ -203,32 +206,31 @@ const nodeIds = listed.flatMap((provider) => provider.validators);
 
 ## Other lookups
 
-`getTokens(chainId)`, `getToken(chainId, address)`, `getNativeToken(chainId)`, and `getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `getContracts` and `getContract` read contract names. `getDappCategories()` returns the browser chips. Logos use `resolveAssetURL` the same way as provider logos. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+`assets.getTokens(chainId)`, `assets.getToken(chainId, address)`, `assets.getNativeToken(chainId)`, and `assets.getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `assets.getContracts` and `assets.getContract` read contract names. `assets.getDappCategories()` returns the browser chips. `logoURL` on each record is already absolute. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```typescript
-import {
-  getDappCategories,
-  getNativeToken,
-  getToken,
-  getXrplToken,
-} from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const flare = getNativeToken("eip155:14");
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const flare = assets.getNativeToken("eip155:14");
 // { name: "Flare", symbol: "FLR", decimals: 18, address: null, ... }
 
-const wflr = getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
+const wflr = assets.getToken("eip155:14", "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
 // {
 //   name: "Wrapped Flare",
 //   symbol: "WFLR",
 //   decimals: 18,
 //   address: "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d",
-//   logoURL: "tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
+//   logoURL:
+//     "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/tokens/eip155-14/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp",
 //   ...
 // }
 
-const issued = getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
+const issued = assets.getXrplToken("rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", "ETH");
 // { name: "GateHub ETH", symbol: "ETH", issuer: "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h", currency: "ETH", ... }
 
-const chips = getDappCategories();
+const chips = assets.getDappCategories();
 // [{ id: "featured", label: "Featured", dapps: [] }, { id: "dex", label: "DEX", dapps: ["sparkdex-ai", "blazeswap-xyz", ...] }, ...]
 ```

@@ -130,7 +130,7 @@ The command reads that token's name, symbol, and decimals from the chain's `*_NO
 
 A dapp is submitted through [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details stay private. The public fields are title, description, URL, chains, and logo. The listing guide is [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
 
-Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `getDappCategories()`.
+Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `assets.getDappCategories()`.
 
 ### Dapp URLs
 

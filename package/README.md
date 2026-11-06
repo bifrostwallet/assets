@@ -15,20 +15,19 @@ Yarn: `yarn add @bifrostwallet/assets@<version> --exact`. pnpm: `pnpm add @bifro
 ## Listed providers
 
 ```typescript
-import { getListedProviders, resolveAssetURL } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const base = "https://cdn.example.com/assets/";
-const listed = getListedProviders("eip155:14").map((provider) => ({
-  ...provider,
-  logoURL: resolveAssetURL(provider.logoURL, base),
-}));
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const listed = assets.getListedProviders("eip155:14");
 // [
 //   {
 //     name: "Bifrost Wallet",
 //     identityAddress: "0x1650d2760baee638c034200dedcbe17b050d0364",
 //     listed: true,
 //     logoURL:
-//       "https://cdn.example.com/assets/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+//       "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
 //     ...
 //   },
 //   ...
@@ -38,9 +37,12 @@ const listed = getListedProviders("eip155:14").map((provider) => ({
 ## Listed validators
 
 ```typescript
-import { getListedValidators } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const validators = getListedValidators("eip155:14");
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const validators = assets.getListedValidators("eip155:14");
 // [
 //   {
 //     nodeId: "NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP",
@@ -54,9 +56,12 @@ const validators = getListedValidators("eip155:14");
 ## Validators for one identity
 
 ```typescript
-import { getValidatorsByIdentity } from "@bifrostwallet/assets";
+import { createAssets } from "@bifrostwallet/assets";
 
-const own = getValidatorsByIdentity(
+const assets = createAssets({
+  baseURL: "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.7-beta/data/",
+});
+const own = assets.getValidatorsByIdentity(
   "eip155:14",
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
