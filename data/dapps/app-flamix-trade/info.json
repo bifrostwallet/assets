@@ -1,0 +1,8 @@
+{
+  "title": "Flamix",
+  "description": "Flamix is a perpetual futures venue on Flare. Trade using Flare tokens as collateral.",
+  "url": "https://app.flamix.trade",
+  "logoURL": "dapps/app-flamix-trade/logo.webp",
+  "logoHash": "005e4aeaa11bfec60265c536d9437295d3120a778a69e70f1842ba92179acac6",
+  "chains": ["eip155:14"]
+}
