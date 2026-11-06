@@ -14,7 +14,7 @@ Submit through the listing form on bifrostwallet.com.
 2. Connect the wallet that holds your identity address, or paste the address. Entity data is read from the EntityManager, and the network is detected from that address.
 3. Fill in the name, description, website, and social links, and upload a logo ([Logo requirements](#logo-requirements)).
 4. Confirm the listing acknowledgement. The checkbox is required.
-5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. The signed fields are under [Ownership signatures](README.md#ownership-signatures).
+5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. The signed fields are under [Signatures](README.md#signatures).
 6. Submit. The listing is checked and curated into [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets), and it goes live once a curator has reviewed it.
 
 Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, submit the listing form again.
@@ -104,7 +104,7 @@ Providers that were listed before this repository went public keep `listed: true
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups). How `logoURL` is stored is under [Logo URLs](CONSUMERS.md#logo-urls).
+Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package). Each `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git store an absolute raw GitHub logo URL.
 
 EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`, and a per-chain `all.json`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
 
@@ -148,7 +148,7 @@ Browser chips are hand-edited in `data/dapps/categories.json`, an ordered array 
 
 ## Contracts
 
-Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [CONSUMERS.md](CONSUMERS.md#other-lookups).
+Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [Using the package](README.md#other-lookups).
 
 Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` is CAIP-2 `eip155:14`. The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
 

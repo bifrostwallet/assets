@@ -945,11 +945,15 @@ function buildPackage(): void {
   };
   fs.writeFileSync(path.join(distDir, "package.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 
-  const packageReadmePath = path.join(process.cwd(), "package", "README.md");
-  if (!fs.existsSync(packageReadmePath)) {
-    throw new Error("package/README.md missing — required for the published npm README");
+  const readmePath = path.join(process.cwd(), "README.md");
+  if (!fs.existsSync(readmePath)) {
+    throw new Error("README.md missing — required for the published npm README");
   }
-  fs.copyFileSync(packageReadmePath, path.join(distDir, "README.md"));
+  const publishedReadmePath = path.join(distDir, "README.md");
+  fs.copyFileSync(readmePath, publishedReadmePath);
+  if (!fs.readFileSync(publishedReadmePath).equals(fs.readFileSync(readmePath))) {
+    throw new Error("dist/README.md does not match the repository README.md");
+  }
 
   const written = JSON.parse(fs.readFileSync(path.join(distDir, "package.json"), "utf8"));
   const dependencyCount = Object.keys(written.dependencies ?? {}).length;

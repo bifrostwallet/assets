@@ -537,6 +537,14 @@ describe("published package lookups", { concurrency: false }, () => {
       packedPaths.some((packedPath) => packedPath.endsWith("signatures.json")),
       true,
     );
+    const packedReadmes = packedPaths.filter(
+      (packedPath) => packedPath === "README.md" || packedPath === "package/README.md",
+    );
+    assert.equal(packedReadmes.length, 1);
+    assert.equal(
+      fs.readFileSync(path.join(process.cwd(), "dist", "README.md"), "utf8"),
+      fs.readFileSync(path.join(process.cwd(), "README.md"), "utf8"),
+    );
   });
 
   test("getToken stays address-based and getXrplToken is exact-case", () => {
