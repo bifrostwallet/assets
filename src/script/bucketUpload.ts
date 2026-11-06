@@ -10,10 +10,11 @@ import { legacyTokenIconDestination } from "../legacyTokenIcon.js";
 // Uploads curated assets to an operator-configured static GCS bucket (optional CDN).
 //
 // Object keys mirror relative paths under data/, optionally under BUCKET_PREFIX.
-// Published all.json logoURL values are rewritten to ASSET_BASE_URL (default:
-// GitHub raw from package.json repository). In-repo all.json may already be
+// Provider all.json logoURL values are rewritten to ASSET_BASE_URL (default:
+// GitHub raw from package.json repository). In-repo provider all.json may already be
 // absolute. withAbsoluteLogoURL strips a known asset prefix first, so an
-// absolute input is not double-prefixed. For a private CDN, set e.g.:
+// absolute input is not double-prefixed. Token lists are not uploaded.
+// For a private CDN, set e.g.:
 //   BUCKET_PREFIX=<prefix>/
 //   ASSET_BASE_URL=https://cdn.example.com/<prefix>/
 //
@@ -90,7 +91,7 @@ function collectUploads(assetBase: string): UploadItem[] {
             }
           }
         }
-      } else if (entry.name === "all.json") {
+      } else if (section === "providers" && entry.name === "all.json") {
         const tmpPath = rewriteAllJsonForUpload(fullPath, assetBase);
         uploads.push({
           localPath: tmpPath,

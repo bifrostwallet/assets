@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { Hex } from "viem";
-import { rebuildTokensAllJson, sha256Hex, writeFormattedJson } from "../convert.js";
+import { sha256Hex, writeFormattedJson } from "../convert.js";
 import { type Erc20Metadata, readErc20MetadataFromRpc } from "../erc20Metadata.js";
 import {
   chainIdFromPath,
@@ -157,7 +157,6 @@ export async function addToken(input: AddTokenInput): Promise<EvmToken> {
   try {
     fs.writeFileSync(logoPath, logo.bytes);
     writeFormattedJson(infoPath, token);
-    rebuildTokensAllJson(chain, root);
   } catch (error) {
     fs.rmSync(outputDir, { recursive: true, force: true });
     throw error;
@@ -165,7 +164,6 @@ export async function addToken(input: AddTokenInput): Promise<EvmToken> {
 
   console.info(`\n📁 Token information saved to: ${path.relative(root, infoPath)}`);
   console.info(`📁 Token logo saved to: ${path.relative(root, logoPath)}`);
-  console.info(`📁 Rebuilt data/tokens/${chain}/all.json`);
   console.info("\n✅ Token added successfully!");
   return token;
 }

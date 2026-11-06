@@ -406,18 +406,10 @@ describe("published package lookups", { concurrency: false }, () => {
       const published = JSON.parse(fs.readFileSync(path.join(distTokens, file), "utf8")) as Array<{
         logoURL: string;
       }>;
-      const source = JSON.parse(
-        fs.readFileSync(path.join(process.cwd(), "data", "tokens", chainPath, "all.json"), "utf8"),
-      ) as Array<{ logoURL: string }>;
-      assert.equal(published.length, source.length, chainPath);
       assert.ok(published.length > 0, chainPath);
-      for (let index = 0; index < published.length; index += 1) {
-        const catalogLogo = source[index]?.logoURL ?? "";
-        const publishedLogo = published[index]?.logoURL ?? "";
-        assert.match(catalogLogo, /^https:\/\/raw\.githubusercontent\.com\/.+\/data\/tokens\//);
-        assert.equal(publishedLogo, toRelativeAssetPath(catalogLogo));
-        assert.equal(/^https?:\/\//i.test(publishedLogo), false, publishedLogo);
-        assert.match(publishedLogo, /^tokens\//);
+      for (const entry of published) {
+        assert.equal(/^https?:\/\//i.test(entry.logoURL), false, entry.logoURL);
+        assert.match(entry.logoURL, /^tokens\//);
       }
     }
   });

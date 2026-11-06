@@ -10,7 +10,7 @@ A GitHub Release tagged `v` plus the package version stages `dist/` through npm 
 
 ## Logos on a bucket or CDN
 
-`./yarn with:ops-config -- ./yarn upload:bucket` uploads the catalog. Pass `--dry-run` to preview. `./yarn ops:pull-env` refreshes the local cache of the same variables. Values come from the private ops config, not from this repository:
+`./yarn with:ops-config -- ./yarn upload:bucket` uploads provider `all.json` and logo files. Token lists are not uploaded as `all.json`. Pass `--dry-run` to preview. `./yarn ops:pull-env` refreshes the local cache of the same variables. Values come from the private ops config, not from this repository:
 
 - `STATIC_BUCKET`
 - `STATIC_BUCKET_PROJECT_ID`

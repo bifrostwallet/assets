@@ -14,7 +14,7 @@ import {
 } from "../contracts.js";
 import { isMain } from "../isMain.js";
 import { releaseTagForVersion } from "../releaseTag.js";
-import { type EvmToken, listTokenChainPaths } from "../tokens.js";
+import { type EvmToken, listChainTokens, listTokenChainPaths } from "../tokens.js";
 import type { XrplToken } from "../xrplToken.js";
 
 // Builds the publishable @bifrostwallet/assets NPM package into dist/.
@@ -24,8 +24,8 @@ import type { XrplToken } from "../xrplToken.js";
 // stays in this repository's devDependencies and is never shipped.
 //
 // Published JSON keeps logoURL relative (providers/…, tokens/…, dapps/…, contracts/…).
-// Provider and token all.json in git are absolute GitHub URLs; withRelativeLogoURL
-// strips them, including token entries. Logo files are not bundled; they stay in git.
+// Provider all.json in git uses absolute GitHub URLs; withRelativeLogoURL strips them.
+// Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
 // each published contract. createAssets({ baseURL }) is the only public entry. It
 // resolves asset paths per call and does not mutate the shared records. There is
@@ -54,9 +54,9 @@ function loadProviders(chainPath: string): ProviderInfo[] {
 }
 
 function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
-  const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  const tokens = JSON.parse(fs.readFileSync(allPath, "utf8")) as Array<EvmToken | XrplToken>;
-  return tokens.map((token, index) => publishEntry(token, `tokens/${chainPath}[${index}]`));
+  return listChainTokens(chainPath).map((token, index) =>
+    publishEntry(token, `tokens/${chainPath}[${index}]`),
+  );
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {

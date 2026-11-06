@@ -3,7 +3,6 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { createPublicClient, type Hex, http, type PublicClient } from "viem";
 import { ASSET_LOGO_REQUIREMENTS } from "../config.js";
-import { buildTokensAllJson } from "../convert.js";
 import { chainIdFromPath, rpcUrlForChain } from "../evmRpc.js";
 import { isMain } from "../isMain.js";
 import { duplicateSymbolErrors, listEvmSymbolUses } from "../tokenSymbols.js";
@@ -33,8 +32,8 @@ import {
  * Name and decimals mismatches stay advisory.
  * symbol() is read as a string only. bytes32 symbols are not supported.
  * This pass reads chain state only when a `*_NODE_URL` is already set; CI
- * does not set them. A new duplicate EVM symbol, or a token `all.json` that
- * does not match `rebuildTokensAllJson`, exits 1. Duplicate symbols already
+ * does not set them. A new duplicate EVM symbol, or a `data/tokens/<chain>/all.json`,
+ * exits 1. Duplicate symbols already
  * on main are grandfathered in `tokenSymbols.ts`. A `.` in a symbol is kept,
  * because that character is part of the on-chain text.
  *
@@ -255,41 +254,12 @@ function checkXrplChain(report: CheckReport): void {
   }
 }
 
-/**
- * EVM and XRPL `all.json` must equal {@link buildTokensAllJson}.
- * `info.json` stays relative; the aggregate uses absolute GitHub logo URLs.
- */
-function checkTokenAggregate(chainPath: string, report: CheckReport): void {
+/** Token chains have no aggregate. A leftover all.json fails the check. */
+function rejectTokenAllJson(chainPath: string, report: CheckReport): void {
   const allPath = path.join(process.cwd(), "data", "tokens", chainPath, "all.json");
-  if (!fs.existsSync(allPath)) {
-    report.aggregateErrors.push(`${chainPath}/all.json: missing aggregate`);
-    return;
-  }
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(fs.readFileSync(allPath, "utf8"));
-  } catch (error) {
+  if (fs.existsSync(allPath)) {
     report.aggregateErrors.push(
-      `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
-    );
-    return;
-  }
-  if (!Array.isArray(parsed)) {
-    report.aggregateErrors.push(`${chainPath}/all.json: expected an array`);
-    return;
-  }
-  let expected: unknown;
-  try {
-    expected = buildTokensAllJson(chainPath);
-  } catch (error) {
-    report.aggregateErrors.push(
-      `${chainPath}/all.json: ${error instanceof Error ? error.message : String(error)}`,
-    );
-    return;
-  }
-  if (JSON.stringify(parsed) !== JSON.stringify(expected)) {
-    report.aggregateErrors.push(
-      `${chainPath}/all.json: does not match rebuildTokensAllJson output`,
+      `${chainPath}/all.json: token catalogs do not use an aggregate file`,
     );
   }
 }
@@ -347,7 +317,7 @@ async function checkTokens(): Promise<void> {
 
     if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
       checkXrplChain(report);
-      checkTokenAggregate(chainPath, report);
+      rejectTokenAllJson(chainPath, report);
       continue;
     }
 
@@ -361,7 +331,7 @@ async function checkTokens(): Promise<void> {
       if (!client) continue;
       onchainJobs.push({ chainPath, chainId, info, address: info.address, client });
     }
-    checkTokenAggregate(chainPath, report);
+    rejectTokenAllJson(chainPath, report);
   }
 
   await mapPool(onchainJobs, 4, async ({ chainPath, chainId, info, address, client }) => {
@@ -439,7 +409,7 @@ async function checkTokens(): Promise<void> {
   console.info(`Metadata mismatches: ${report.mismatches.length}`);
   const symbolMismatches = report.mismatches.filter((row) => row.field === "symbol");
   console.info(`Duplicate symbol violations: ${report.duplicateSymbols.length}`);
-  console.info(`Aggregate mismatches: ${report.aggregateErrors.length}`);
+  console.info(`Unexpected token all.json: ${report.aggregateErrors.length}`);
   const symbolFailures = report.duplicateSymbols;
   if (symbolFailures.length > 0) {
     console.error("\nToken symbol rules failed:");
@@ -449,7 +419,7 @@ async function checkTokens(): Promise<void> {
     process.exitCode = 1;
   }
   if (report.aggregateErrors.length > 0) {
-    console.error("\nToken all.json does not match the rebuild helper:");
+    console.error("\nToken catalogs must not include all.json:");
     for (const line of report.aggregateErrors) {
       console.error(`  ${line}`);
     }

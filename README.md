@@ -22,7 +22,7 @@ pnpm uses `--save-exact`. Yarn uses `--exact`.
 
 `createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`: the host for the logo files, or raw GitHub for the tag you pinned. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
 
-In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute raw GitHub logo URLs. The package stores those paths relative and joins them when you call `createAssets`.
+In git, each entry's `info.json` stores a relative `logoURL`. Provider `all.json` uses absolute raw GitHub logo URLs. Validators do not have a separate aggregate. Tokens are read only through `createAssets`. The package stores logo paths relative and joins them to `baseURL`.
 
 ### Listed providers
 
@@ -198,7 +198,7 @@ const recovered = await recoverTypedDataAddress({
 
 ## GitHub raw all.json
 
-Fetch GitHub raw `all.json` when you are not installing the package. `logoURL` in that file is already absolute.
+Fetch GitHub raw provider `all.json` when you are not installing the package. `logoURL` in that file is already absolute. Token lists are not published that way; use `createAssets`.
 
 1. Fetch `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
 2. For listed providers, keep records with `listed: true` and use `logoURL` as published.

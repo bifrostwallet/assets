@@ -104,9 +104,9 @@ Providers that were listed before this repository went public keep `listed: true
 
 ## Tokens
 
-Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package). Each `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git store an absolute raw GitHub logo URL.
+Token metadata is curated by Bifrost Wallet. Package lookups are in [Using the package](README.md#using-the-package). Each `info.json` stores a relative `logoURL`. There is no token `all.json`. Provider `all.json` stores an absolute raw GitHub logo URL. Validators do not have a separate aggregate.
 
-EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`, and a per-chain `all.json`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
+EVM catalogs live under `data/tokens/eip155-<id>/<address|native>/` with `info.json` and `logo.webp`. The native gas token uses `address: null` and the directory `native/`, with no separate `native` boolean.
 
 XRPL mainnet issued tokens live under `data/tokens/xrpl-0/<issuer>/<currency>/`. `issuer` is the classic r-address in exact case. `currency` is the on-ledger code: a 3-character code in exact case, or 40-hex uppercase. Lookup uses issuer and currency, and keeps that exact case. `symbol` is the decoded currency. XRPL tokens carry no decimals. AMM LP tokens (40-hex currency codes starting with `03`) are left unlisted.
 
@@ -118,7 +118,7 @@ Curators add one EVM token with the chain directory and the contract address:
 ./yarn add:token eip155-1 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 ```
 
-The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces and `.`, and refuses an empty value, a bytes32 `name()` or `symbol()`, or a symbol already used on that chain. The logo comes from CoinGecko and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, rebuilds that chain's `all.json`, and leaves the rest of the catalog unread on-chain.
+The command reads that token's name, symbol, and decimals from the chain's `*_NODE_URL`. It trims both strings, keeps internal spaces and `.`, and refuses an empty value, a bytes32 `name()` or `symbol()`, or a symbol already used on that chain. The logo comes from CoinGecko and is stored as 128×128 WebP at most 24 KB (`cwebp` from libwebp, same as dapp logos). It writes `info.json` and `logo.webp` for that address only, and leaves the rest of the catalog unread on-chain.
 
 ```bash
 ./yarn check:tokens -- --skip-onchain
