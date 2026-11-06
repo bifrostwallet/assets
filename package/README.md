@@ -2,7 +2,7 @@
 
 Curated catalog of [FTSO](https://github.com/bifrostwallet/assets/blob/main/README.md#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
-Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) (`eip155:14`, `eip155:19`). Pin one version and commit the lockfile. Only https URLs are accepted.
+Chain ids are [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) (`eip155:14`, `eip155:19`). Pin one version and commit the lockfile.
 
 ## Install
 

@@ -2,7 +2,7 @@
 
 Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
-**Using the catalog (npm package or all.json):** [CONSUMERS.md](CONSUMERS.md). Only https URLs are accepted.
+**Using the catalog (npm package or all.json):** [CONSUMERS.md](CONSUMERS.md).
 
 **Adding or listing something (providers, tokens, dapps):** [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -62,7 +62,7 @@ CI checks every signature with `./yarn verify:providers`. Listings are checked a
 2. The published package has no runtime dependencies. The build fails if `dist/package.json` declares any.
 3. Dev dependencies are pinned to exact versions and are not shipped.
 4. A GitHub Release tagged `v` plus the package version stages the package through npm Trusted Publishing, with provenance, under the beta tag.
-5. A maintainer approves the staged version on npmjs.com. Confirm provenance on the [npm version page](https://docs.npmjs.com/viewing-package-provenance/).
+5. A maintainer approves the staged version on npmjs.com. Confirm the provenance badge on the package's version page on npmjs.com ([Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/)).
 
 ## Development
 
@@ -86,10 +86,3 @@ Use the repo [`yarn`](yarn) wrapper (`./yarn`). CI sets `COREPACK_ENABLE=0`. Upg
 | [FTSO](https://dev.flare.network/ftso/overview) | Flare Time Series Oracle, the price feeds a provider submits. |
 | [FSP](https://dev.flare.network/network/fsp) | Flare Systems Protocol, which records provider rewards and participation. |
 | [FDC](https://dev.flare.network/fdc/overview) | Flare Data Connector, the attestation service a provider runs. |
-| P-chain | The staking chain where a Flare validator is currently validating. |
-| NodeID | A validator id, stored with the `NodeID-` prefix. |
-| Identity address | The on-chain address that owns a provider and signs its listing. |
-| Vote power | WFLR or WSGB weight delegated to a provider. |
-| [CAIP-2](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md) | Chain id form used by the package, such as `eip155:14`. |
-| [EIP-155](https://eips.ethereum.org/EIPS/eip-155) | The `eip155` namespace in those chain ids. |
-| [EIP-712](https://eips.ethereum.org/EIPS/eip-712) | Typed-data signing used for a provider listing. |

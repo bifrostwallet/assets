@@ -44,7 +44,7 @@ In git, each entry's `info.json` stores a relative `logoURL`. Provider and token
 
 `resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to `baseURL`. The base is trimmed, and a trailing slash is added when it does not already end with one. The base you host is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a provider, token, dapp, or contract. Pass your own base when you host the files. When the base is omitted or blank, logos are loaded from GitHub raw at the tag for the installed version.
 
-Only https URLs are accepted. A path that is not an https URL loses one leading slash and is appended. An https URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An https URL that matches none of those patterns is returned unchanged. An `http://` base or logo URL throws.
+A relative path loses one leading slash and is appended. An absolute URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An absolute URL that matches none of those patterns is returned unchanged.
 
 ### Listed providers
 
