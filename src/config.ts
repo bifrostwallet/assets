@@ -40,7 +40,8 @@ function defaultAssetBaseURL(): string {
 
 /**
  * Operator tooling prefix (GitHub raw `main/data/`).
- * Published JSON keeps logoURL relative. Package callers pass baseURL to createAssets.
+ * Published JSON keeps logoURL relative. Package callers pass baseURL to createAssets:
+ * the public URL of your bucket, or of the CDN in front of it, where you uploaded data/.
  * Operator tooling may expand logoURL with ASSET_BASE_URL.
  */
 export const DEFAULT_ASSET_BASE_URL = defaultAssetBaseURL();

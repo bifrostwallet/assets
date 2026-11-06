@@ -6,13 +6,15 @@
  *   export (default) — `export KEY='value'` for `eval "$(…)"`
  *   dotenv           — `KEY=value` lines for `.ops.env` (always writes all set keys)
  *
- * Expected JSON shape (all fields optional; use your own values):
+ * Expected JSON shape (all fields optional; use your own values).
+ * assetBaseUrl is the public URL of your bucket, or of the CDN in front of it,
+ * where you uploaded data/.
  * {
  *   "gcpProjectId": "…",
  *   "intakeBucket": "…",
  *   "staticBucket": "…",
  *   "staticBucketProjectId": "…",
- *   "assetBaseUrl": "https://cdn.example.com/<prefix>/",
+ *   "assetBaseUrl": "https://assets.example.com/",
  *   "bucketPrefix": "<prefix>/",
  *   "earnBucket": "…"
  * }
