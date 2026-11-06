@@ -261,6 +261,14 @@ const recovered = await recoverTypedDataAddress({
 
 Fetch GitHub raw provider `all.json` when you are not installing the package. `logoURL` in that file is already absolute. Token lists are not published that way; use `createAssets`.
 
+Compared with the package and logos you host:
+
+- No version pin. The URL is `main`, so changes arrive unannounced and can break you.
+- GitHub rate-limits `raw.githubusercontent.com` and does not guarantee its uptime. List and logo requests from your users go to GitHub.
+- Providers and their validator NodeIDs only. No tokens, contracts, dapps, or dapp categories.
+- No TypeScript types, and no helpers for lookups, listed filters, or finding a provider from a validator.
+- No signature checks. Those ship on `@bifrostwallet/assets/signatures`.
+
 1. Fetch `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
 2. For listed providers, keep records with `listed: true` and use `logoURL` as published.
 3. For listed validator NodeIDs, read `validators` on those records.
