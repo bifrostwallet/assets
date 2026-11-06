@@ -45,6 +45,7 @@ async function pullSubmissions(): Promise<void> {
 
   let ingested = 0;
   let unchanged = 0;
+  let pending = 0;
   let failed = 0;
   let skipped = 0;
 
@@ -70,7 +71,7 @@ async function pullSubmissions(): Promise<void> {
       const text = new TextDecoder("utf-8", { fatal: true }).decode(contents);
       const doc = parseIntakeJsonObject(text);
 
-      let status: "ingested" | "unchanged";
+      let status: "ingested" | "unchanged" | "pending";
       if (file.name.startsWith("attestations/")) {
         const sanitized = assertAttestationIntakeDocument(doc);
         // Object path must match the document: attestations/<chain>/<target>/<attester>.json
@@ -123,6 +124,9 @@ async function pullSubmissions(): Promise<void> {
       if (status === "ingested") {
         ingested++;
         console.info(`✅ ${file.name}: ingested`);
+      } else if (status === "pending") {
+        pending++;
+        console.info(`⏸️ ${file.name}: pending curator review (catalog listing unchanged)`);
       } else {
         unchanged++;
         console.info(`⏭️ ${file.name}: already up to date`);
@@ -139,7 +143,7 @@ async function pullSubmissions(): Promise<void> {
   }
 
   console.info(
-    `\nSummary: ${ingested} ingested, ${unchanged} unchanged, ${failed} failed, ${skipped} skipped`,
+    `\nSummary: ${ingested} ingested, ${unchanged} unchanged, ${pending} pending review, ${failed} failed, ${skipped} skipped`,
   );
 }
 

@@ -77,12 +77,8 @@ jobs:
           git fetch origin "$BRANCH" || true
           git push -u origin "HEAD:refs/heads/$BRANCH" --force-with-lease
 
-          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')" ]; then
-            gh pr create \
-              --base "${{ github.event.repository.default_branch }}" \
-              --head "$BRANCH" \
-              --title "Listing submissions from intake" \
-              --body "$(cat <<'EOF'
+          BODY_FILE=$(mktemp)
+          cat > "$BODY_FILE" <<'EOF'
           Automated ingest of self-serve listing submissions from the intake bucket.
 
           **Providers**
@@ -95,10 +91,31 @@ jobs:
           - Allowlisted object path and JSON fields
           - Valid 128×128 WebP; submitter signature over content + logoHash
           - Stake check enforced at intake; fields re-validated on ingest
+          - Same submitter and the same URL update the existing folder
+          - A different submitter, or a different URL on an existing slug, leaves that folder untouched and is listed below
 
           CI re-verifies provider signatures on this PR. Review before merge.
           EOF
-          )"
+          # Append the curator queue. formatPendingDappReviewSection is the same text the tests lock.
+          if [ -f data/dapps/pending-review.json ]; then
+            node --input-type=module >> "$BODY_FILE" <<'JS'
+          import { readFileSync } from "node:fs";
+          import { formatPendingDappReviewSection } from "./build/src/ingest.js";
+
+          const reviews = JSON.parse(readFileSync("data/dapps/pending-review.json", "utf8"));
+          const section = formatPendingDappReviewSection(reviews);
+          if (section) process.stdout.write(`\n${section}`);
+          JS
+          fi
+
+          PR_NUMBER=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create \
+              --base "${{ github.event.repository.default_branch }}" \
+              --head "$BRANCH" \
+              --title "Listing submissions from intake" \
+              --body-file "$BODY_FILE"
           else
+            gh pr edit "$PR_NUMBER" --body-file "$BODY_FILE"
             echo "Updated existing pull request for $BRANCH"
           fi

@@ -2,7 +2,14 @@ import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { DAPP_CHAINS, type DappInfo } from "../config.js";
-import { dappSlugFromUrl, sortDappInfo, toRelativePath, writeFormattedJson } from "../convert.js";
+import {
+  dappSlugFromUrl,
+  existingDappSlugForUrl,
+  normalizeDappUrl,
+  sortDappInfo,
+  toRelativePath,
+  writeFormattedJson,
+} from "../convert.js";
 import { convertDappLogoPng } from "../dappLogo.js";
 import { getValidatedInput, rl } from "../input.js";
 import { isMain } from "../isMain.js";
@@ -36,6 +43,12 @@ async function addDapp(): Promise<void> {
     });
 
     const url = urlInput.startsWith("https://") ? urlInput : `https://${urlInput}`;
+    const existingByUrl = existingDappSlugForUrl(url);
+    if (existingByUrl) {
+      console.error(`❌ A dapp with this URL already exists: ${url}`);
+      throw new Error("Duplicate dapp URL");
+    }
+
     const slug = dappSlugFromUrl(url);
     const outputDir = path.join(process.cwd(), "data", "dapps", slug);
 
@@ -51,7 +64,7 @@ async function addDapp(): Promise<void> {
         const existingPath = path.join(dappsDir, entry.name, "info.json");
         if (!fs.existsSync(existingPath)) continue;
         const existing = JSON.parse(fs.readFileSync(existingPath, "utf8")) as DappInfo;
-        if (existing.url === url || entry.name === slug) {
+        if (normalizeDappUrl(existing.url) === normalizeDappUrl(url) || entry.name === slug) {
           console.error(`❌ A dapp with this URL or slug already exists: ${url}`);
           throw new Error("Duplicate dapp URL");
         }

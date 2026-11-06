@@ -12,7 +12,9 @@ import {
 import {
   calculateHash,
   dappSlugFromUrl,
+  existingDappSlugForUrl,
   formatRepoJson,
+  normalizeDappUrl,
   providerInfoMessageHash,
   providerLogoPath,
   rebuildProvidersAllJson,
@@ -492,9 +494,162 @@ export interface IntakeDappSubmission {
 }
 
 export interface DappIngestResult {
-  status: "ingested" | "unchanged";
+  status: "ingested" | "unchanged" | "pending";
   slug: string;
   infoPath: string;
+}
+
+/** Curator queue committed with the intake PR. A file, not a catalog slug. */
+export const PENDING_DAPP_REVIEW_FILE = "pending-review.json";
+
+const SUBMITTER_CHANGED_FLAG =
+  "submitter changed: verify with the original submitter before applying";
+const URL_CHANGED_FLAG = "url changed: verify with the original submitter before applying";
+
+export interface PendingDappReview {
+  slug: string;
+  flag: string;
+  oldSubmitter: string | null;
+  newSubmitter: string;
+  oldUrl: string | null;
+  newUrl: string;
+  submittedAt: string;
+  title: string;
+  description: string;
+  chains: string[];
+  category: string;
+  categoryOther: string;
+  messageHash: string;
+  signature: string;
+  logoHash: string;
+  logoBase64: string;
+}
+
+export function pendingDappReviewPath(root = process.cwd()): string {
+  return path.join(root, "data", "dapps", PENDING_DAPP_REVIEW_FILE);
+}
+
+/** Markdown section for the intake pull-request body. Empty when there is nothing to review. */
+export function formatPendingDappReviewSection(reviews: readonly PendingDappReview[]): string {
+  if (reviews.length === 0) return "";
+  const lines = [
+    "**Pending dapp reviews**",
+    "",
+    [
+      "These listings were not applied. Verify with the original submitter,",
+      "then edit by hand or with dappAdd.",
+    ].join(" "),
+    "",
+  ];
+  for (const review of reviews) {
+    lines.push(`- \`${review.slug}\`: ${review.flag}`);
+    lines.push(`  - old submitter: ${review.oldSubmitter ?? "none"}`);
+    lines.push(`  - new submitter: ${review.newSubmitter}`);
+    lines.push(`  - old URL: ${review.oldUrl ?? "none"}`);
+    lines.push(`  - new URL: ${review.newUrl}`);
+  }
+  return `${lines.join("\n")}\n`;
+}
+
+function readPendingDappReviews(): PendingDappReview[] {
+  const filePath = pendingDappReviewPath();
+  if (!fs.existsSync(filePath)) return [];
+  const parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
+  if (!Array.isArray(parsed)) {
+    throw new Error("data/dapps/pending-review.json must be an array");
+  }
+  return parsed as PendingDappReview[];
+}
+
+function readExistingDappIdentity(dappDir: string): {
+  url: string | null;
+  submitter: string | null;
+} {
+  const infoPath = path.join(dappDir, "info.json");
+  const provenancePath = path.join(dappDir, "provenance.json");
+  let url: string | null = null;
+  let submitter: string | null = null;
+  if (fs.existsSync(infoPath)) {
+    try {
+      const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as { url?: unknown };
+      if (typeof info.url === "string") url = info.url;
+    } catch {
+      url = null;
+    }
+  }
+  if (fs.existsSync(provenancePath)) {
+    try {
+      const provenance = JSON.parse(fs.readFileSync(provenancePath, "utf8")) as {
+        submitter?: unknown;
+      };
+      if (typeof provenance.submitter === "string") submitter = provenance.submitter.toLowerCase();
+    } catch {
+      submitter = null;
+    }
+  }
+  return { url, submitter };
+}
+
+/**
+ * Same submitter and the same normalized URL may update the folder.
+ * Anything else leaves the folder untouched and records a curator review.
+ * Returns null when the caller should write the catalog entry.
+ */
+function recordDappReviewIfConflict(
+  dappDir: string,
+  slug: string,
+  submission: IntakeDappSubmission,
+  logoHash: string,
+  messageHash: string,
+): DappIngestResult | null {
+  const existing = readExistingDappIdentity(dappDir);
+  const newSubmitter = submission.submitter.toLowerCase();
+  let urlMatches = false;
+  if (existing.url !== null) {
+    try {
+      urlMatches = normalizeDappUrl(existing.url) === normalizeDappUrl(submission.info.url);
+    } catch {
+      urlMatches = false;
+    }
+  }
+  const submitterMatches = existing.submitter !== null && existing.submitter === newSubmitter;
+  if (urlMatches && submitterMatches) return null;
+
+  const flag = submitterMatches ? URL_CHANGED_FLAG : SUBMITTER_CHANGED_FLAG;
+  const review: PendingDappReview = {
+    slug,
+    flag,
+    oldSubmitter: existing.submitter,
+    newSubmitter,
+    oldUrl: existing.url,
+    newUrl: submission.info.url,
+    submittedAt: submission.submittedAt,
+    title: submission.info.title,
+    description: submission.info.description,
+    chains: [...submission.info.chains].sort(),
+    category: submission.info.category,
+    categoryOther: submission.categoryOther ?? "",
+    messageHash,
+    signature: submission.signature,
+    logoHash,
+    logoBase64: submission.logoBase64,
+  };
+  const reviews = readPendingDappReviews();
+  const index = reviews.findIndex(
+    (entry) => entry.slug === review.slug && entry.newSubmitter === review.newSubmitter,
+  );
+  if (index >= 0 && reviews[index]?.messageHash === review.messageHash) {
+    return { status: "unchanged", slug, infoPath: pendingDappReviewPath() };
+  }
+  if (index >= 0) reviews[index] = review;
+  else reviews.push(review);
+  writeFormattedJson(pendingDappReviewPath(), reviews);
+  console.info(`⏸️ Pending dapp review for ${slug}: ${flag}`);
+  console.info(
+    `   old submitter ${review.oldSubmitter ?? "none"}, new submitter ${review.newSubmitter}`,
+  );
+  console.info(`   old URL ${review.oldUrl ?? "none"}, new URL ${review.newUrl}`);
+  return { status: "pending", slug, infoPath: pendingDappReviewPath() };
 }
 
 /** CAIP-2 chain ids allowed for dapp bookmarks */
@@ -518,6 +673,12 @@ const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
  * Idempotent: re-ingesting a submission whose info.json and logo already match
  * the repo returns "unchanged" and leaves provenance.json untouched, so a new
  * submittedAt alone does not change the catalog.
+ *
+ * An existing folder is updated only when the normalized URL and the provenance
+ * submitter both match. A different submitter, or a different URL on that slug,
+ * leaves the folder untouched and is recorded in data/dapps/pending-review.json.
+ * The intake pull request lists old and new submitter and URL so a curator can
+ * check with the original submitter before a manual edit.
  */
 export async function ingestDappSubmission(
   submission: IntakeDappSubmission,
@@ -584,9 +745,15 @@ export async function ingestDappSubmission(
     throw new Error(`Recovered signer ${recovered} does not match ${submission.submitter}`);
   }
 
-  const slug = dappSlugFromUrl(url);
+  const slug = existingDappSlugForUrl(url) ?? dappSlugFromUrl(url);
   const dappDir = path.join(process.cwd(), "data", "dapps", slug);
   const infoPath = path.join(dappDir, "info.json");
+  const provenancePath = path.join(dappDir, "provenance.json");
+
+  if (fs.existsSync(dappDir)) {
+    const held = recordDappReviewIfConflict(dappDir, slug, submission, logoHash, typed.contentHash);
+    if (held) return held;
+  }
 
   const info = sortDappInfo({
     title,
@@ -596,7 +763,6 @@ export async function ingestDappSubmission(
     logoHash,
     chains: [...chains].sort(),
   });
-  const provenancePath = path.join(dappDir, "provenance.json");
   const finalInfoJson = formatRepoJson(info, infoPath);
   const provenanceJson = formatRepoJson(
     publicProvenanceRecord({

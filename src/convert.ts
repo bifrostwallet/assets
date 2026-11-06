@@ -308,9 +308,52 @@ export function dappSubmissionMessageHash(payload: {
 }
 
 /**
- * Derives a filesystem slug from a dapp URL hostname (dots → hyphens)
+ * Derives a filesystem slug from a dapp URL hostname (dots → hyphens).
+ * The `www` label stays, so www.example.com (`www-example-com`) and
+ * example.com (`example-com`) are different entries. Folders that already
+ * exist are not renamed; callers resolve a catalogued URL to its folder first.
  */
 export function dappSlugFromUrl(url: string): string {
-  const hostname = new URL(url).hostname.replace(/^www\./, "").toLowerCase();
+  const hostname = new URL(url).hostname.toLowerCase();
   return hostname.replace(/\./g, "-");
+}
+
+/**
+ * Canonical dapp URL for equality. Lowercases the host and drops a trailing
+ * slash. `www` and the path stay significant.
+ */
+export function normalizeDappUrl(url: string): string {
+  const parsed = new URL(url);
+  let pathname = parsed.pathname;
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    pathname = pathname.slice(0, -1);
+  }
+  if (pathname === "/") pathname = "";
+  return `https://${parsed.hostname.toLowerCase()}${pathname}`;
+}
+
+/**
+ * Folder of a catalog dapp whose normalized URL matches, if one exists.
+ * A pre-existing id (a `www` host filed before `www` stayed in the slug)
+ * is reused instead of minted again.
+ */
+export function existingDappSlugForUrl(url: string, root = process.cwd()): string | undefined {
+  const dappsDir = path.join(root, "data", "dapps");
+  if (!fs.existsSync(dappsDir)) return undefined;
+  const target = normalizeDappUrl(url);
+  const matches: string[] = [];
+  for (const entry of fs.readdirSync(dappsDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const infoPath = path.join(dappsDir, entry.name, "info.json");
+    if (!fs.existsSync(infoPath)) continue;
+    try {
+      const existing = JSON.parse(fs.readFileSync(infoPath, "utf8")) as { url?: unknown };
+      if (typeof existing.url !== "string") continue;
+      if (normalizeDappUrl(existing.url) === target) matches.push(entry.name);
+    } catch {
+      // Skip a folder whose info.json is not valid JSON or whose URL does not parse.
+    }
+  }
+  matches.sort();
+  return matches[0];
 }

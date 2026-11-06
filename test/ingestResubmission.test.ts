@@ -12,16 +12,21 @@ import {
   providerListingTypedData,
 } from "../src/eip712.js";
 import {
+  formatPendingDappReviewSection,
   type IntakeDappSubmission,
   type IntakeSubmission,
   ingestDappSubmission,
   ingestProviderSubmission,
   intakeSubmissionToDir,
+  type PendingDappReview,
 } from "../src/ingest.js";
 import type { SignatureEntry, SignaturesData } from "../src/verify.js";
 
 const ORIGINAL_SUBMITTED_AT = "2026-10-18T00:26:11.817Z";
 const RESUBMITTED_AT = "2026-11-03T00:00:00.000Z";
+const SUBMITTER_CHANGED_FLAG =
+  "submitter changed: verify with the original submitter before applying";
+const URL_CHANGED_FLAG = "url changed: verify with the original submitter before applying";
 
 const logo = fs.readFileSync(path.join(process.cwd(), "data/dapps/kinetic-market/logo.webp"));
 const logoHash = sha256Hex(logo);
@@ -41,6 +46,12 @@ function snapshotFiles(dir: string): Map<string, Buffer> {
   };
   if (fs.existsSync(dir)) walk(dir, "");
   return out;
+}
+
+function readPendingReviews(): PendingDappReview[] {
+  const filePath = path.join(process.cwd(), "data", "dapps", "pending-review.json");
+  if (!fs.existsSync(filePath)) return [];
+  return JSON.parse(fs.readFileSync(filePath, "utf8")) as PendingDappReview[];
 }
 
 function assertSnapshotUnchanged(dir: string, beforeSnapshot: Map<string, Buffer>): void {
@@ -314,5 +325,157 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
       ),
     ) as { submittedAt: string };
     assert.equal(provenance.submittedAt, RESUBMITTED_AT);
+  });
+
+  test("records a different path on the same host without changing the listing", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const url = "https://path-example.com";
+    const description = "A dapp used to test a same-host path conflict.";
+    const first = await ingestDappSubmission(
+      await dappSubmission(account, description, ORIGINAL_SUBMITTED_AT, url),
+    );
+    assert.equal(first.status, "ingested");
+    const dappDir = path.join(root, "data", "dapps", "path-example-com");
+    const beforeSnapshot = snapshotFiles(dappDir);
+
+    const second = await ingestDappSubmission(
+      await dappSubmission(account, description, RESUBMITTED_AT, "https://path-example.com/other"),
+    );
+    assert.equal(second.status, "pending");
+    assertSnapshotUnchanged(dappDir, beforeSnapshot);
+    assert.equal(fs.existsSync(path.join(root, "data", "dapps", "path-example-com-other")), false);
+
+    const review = readPendingReviews().find((entry) => entry.slug === "path-example-com");
+    assert.ok(review);
+    assert.equal(review.flag, URL_CHANGED_FLAG);
+    assert.equal(review.oldSubmitter, account.address.toLowerCase());
+    assert.equal(review.newSubmitter, account.address.toLowerCase());
+    assert.equal(review.oldUrl, url);
+    assert.equal(review.newUrl, "https://path-example.com/other");
+    const section = formatPendingDappReviewSection([review]);
+    assert.match(section, /url changed: verify with the original submitter before applying/);
+    assert.match(section, /old URL: https:\/\/path-example.com/);
+    assert.match(section, /new URL: https:\/\/path-example.com\/other/);
+  });
+
+  test("gives the www host its own slug and leaves the bare host untouched", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const other = privateKeyToAccount(generatePrivateKey());
+    const description = "A dapp used to test a www host as its own entry.";
+    const first = await ingestDappSubmission(
+      await dappSubmission(account, description, ORIGINAL_SUBMITTED_AT, "https://bare-example.com"),
+    );
+    assert.equal(first.status, "ingested");
+    assert.equal(first.slug, "bare-example-com");
+    const bareDir = path.join(root, "data", "dapps", "bare-example-com");
+    const beforeSnapshot = snapshotFiles(bareDir);
+
+    const second = await ingestDappSubmission(
+      await dappSubmission(other, description, RESUBMITTED_AT, "https://www.bare-example.com"),
+    );
+    assert.equal(second.status, "ingested");
+    assert.equal(second.slug, "www-bare-example-com");
+    assertSnapshotUnchanged(bareDir, beforeSnapshot);
+    const wwwInfo = JSON.parse(
+      fs.readFileSync(
+        path.join(root, "data", "dapps", "www-bare-example-com", "info.json"),
+        "utf8",
+      ),
+    ) as { url: string };
+    assert.equal(wwwInfo.url, "https://www.bare-example.com");
+    const touched = readPendingReviews().filter(
+      (entry) => entry.slug === "bare-example-com" || entry.slug === "www-bare-example-com",
+    );
+    assert.equal(touched.length, 0);
+  });
+
+  test("records a different submitter without changing the listing", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const other = privateKeyToAccount(generatePrivateKey());
+    const description = "A dapp used to test a different submitter.";
+    const url = "https://submitter-example.com";
+    const first = await ingestDappSubmission(
+      await dappSubmission(account, description, ORIGINAL_SUBMITTED_AT, url),
+    );
+    assert.equal(first.status, "ingested");
+    const dappDir = path.join(root, "data", "dapps", "submitter-example-com");
+    const beforeSnapshot = snapshotFiles(dappDir);
+
+    const second = await ingestDappSubmission(
+      await dappSubmission(other, description, RESUBMITTED_AT, url),
+    );
+    assert.equal(second.status, "pending");
+    assertSnapshotUnchanged(dappDir, beforeSnapshot);
+
+    const reviews = readPendingReviews().filter((entry) => entry.slug === "submitter-example-com");
+    assert.equal(reviews.length, 1);
+    const review = reviews[0];
+    assert.ok(review);
+    assert.equal(review.flag, SUBMITTER_CHANGED_FLAG);
+    assert.equal(review.oldSubmitter, account.address.toLowerCase());
+    assert.equal(review.newSubmitter, other.address.toLowerCase());
+    assert.equal(review.oldUrl, url);
+    assert.equal(review.newUrl, url);
+    const section = formatPendingDappReviewSection(reviews);
+    assert.match(section, /submitter changed: verify with the original submitter before applying/);
+    assert.match(section, new RegExp(`old submitter: ${account.address.toLowerCase()}`));
+    assert.match(section, new RegExp(`new submitter: ${other.address.toLowerCase()}`));
+    assert.match(section, /old URL: https:\/\/submitter-example.com/);
+    assert.match(section, /new URL: https:\/\/submitter-example.com/);
+
+    const third = await ingestDappSubmission(
+      await dappSubmission(other, description, RESUBMITTED_AT, url),
+    );
+    assert.equal(third.status, "unchanged");
+    assertSnapshotUnchanged(dappDir, beforeSnapshot);
+    assert.equal(
+      readPendingReviews().filter((entry) => entry.slug === "submitter-example-com").length,
+      1,
+    );
+  });
+
+  test("updates a pre-www folder in place when the URL and submitter match", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const url = "https://www.legacy-example.com";
+    const slug = "legacy-example-com";
+    const dappDir = path.join(root, "data", "dapps", slug);
+    fs.mkdirSync(dappDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(dappDir, "info.json"),
+      `${JSON.stringify({
+        title: "Legacy Www",
+        description: "A legacy www listing used to test a stable folder id.",
+        url,
+        logoURL: `dapps/${slug}/logo.webp`,
+        logoHash,
+        chains: ["eip155:14"],
+      })}\n`,
+    );
+    fs.writeFileSync(path.join(dappDir, "logo.webp"), logo);
+    fs.writeFileSync(
+      path.join(dappDir, "provenance.json"),
+      `${JSON.stringify({
+        submittedAt: ORIGINAL_SUBMITTED_AT,
+        submitter: account.address.toLowerCase(),
+        messageHash: `0x${"ab".repeat(32)}`,
+        signature: "0xabc",
+      })}\n`,
+    );
+
+    const updated = "A legacy www listing whose description changed in place.";
+    const result = await ingestDappSubmission(
+      await dappSubmission(account, updated, RESUBMITTED_AT, url),
+    );
+    assert.equal(result.status, "ingested");
+    assert.equal(result.slug, slug);
+    assert.equal(fs.existsSync(path.join(root, "data", "dapps", "www-legacy-example-com")), false);
+    const info = JSON.parse(fs.readFileSync(path.join(dappDir, "info.json"), "utf8")) as {
+      url: string;
+      logoURL: string;
+      description: string;
+    };
+    assert.equal(info.url, url);
+    assert.equal(info.logoURL, `dapps/${slug}/logo.webp`);
+    assert.equal(info.description, updated);
   });
 });
