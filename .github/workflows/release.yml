@@ -57,8 +57,9 @@ jobs:
 
       - name: Check release tag matches package version
         if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          TAG="${{ github.event.release.tag_name }}"
           VERSION="$(node -p "require('./dist/package.json').version")"
           # Same rule as releaseTagForVersion: one leading v, added once.
           EXPECTED="v${VERSION}"
