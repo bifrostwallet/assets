@@ -20,13 +20,13 @@ pnpm uses `--save-exact`. Yarn uses `--exact`.
 
 `PROVIDER_CHAIN_IDS` is `eip155:14` and `eip155:19`.
 
-`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the public URL of your bucket, or of the CDN in front of it, where you uploaded `data/`. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
+`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the public URL where you uploaded `data/`. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
 
 In git, each entry's `info.json` stores a relative `logoURL`. Provider `all.json` uses absolute raw GitHub logo URLs. Validators do not have a separate aggregate. Tokens are read only through `createAssets`. The package stores logo paths relative and joins them to `baseURL`.
 
 ### Host the logos
 
-Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version (`v` plus the package version) to your own bucket or CDN, and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
+Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version (`v` plus the package version), and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
 
 ### Listed providers
 

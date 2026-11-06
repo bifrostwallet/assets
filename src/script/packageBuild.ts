@@ -781,7 +781,7 @@ export interface ValidatorInfo {
 
 export interface CreateAssetsOptions {
   /**
-   * Public URL of your bucket, or of the CDN in front of it, where you uploaded data/.
+   * Public URL where you uploaded data/.
    * Example: https://assets.example.com/
    */
   baseURL: string;
