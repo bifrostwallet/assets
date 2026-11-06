@@ -42,9 +42,9 @@ Google Cloud Storage: [Upload objects](https://cloud.google.com/storage/docs/upl
 
 In git, each entry's `info.json` stores a relative `logoURL`. Provider and token `all.json` files in git use absolute GitHub raw logo URLs. `logoURL` values in the npm package are relative: the build rewrites `all.json` back to relative paths. `upload:bucket` rebases a hosted `all.json` onto the base configured for that upload.
 
-`resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to the base you pass. Pass the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The base is trimmed, and a trailing slash is added when it does not already end with one. The same call works for a provider, token, dapp, or contract. Leave the base out, or pass a blank one, and logos are loaded from GitHub raw at the tag for the installed version.
+`resolveAssetURL(logoURL, baseURL?)` joins a package `logoURL` to `baseURL`. The base is trimmed, and a trailing slash is added when it does not already end with one. The base you host is the directory that contains `providers/`, `tokens/`, `dapps/`, and `contracts/`. The same call works for a provider, token, dapp, or contract. Pass your own base when you host the files. When the base is omitted or blank, logos are loaded from GitHub raw at the tag for the installed version.
 
-Only https URLs are accepted. An `http://` base or an `http://` logo URL throws, and a relative path is joined to an https base. An https URL on a known asset prefix is rebased onto that base; any other https URL is returned as given.
+Only https URLs are accepted. A path that is not an https URL loses one leading slash and is appended. An https URL is reduced to the path after `/static/` when that marker is present, otherwise to the path after `/data/`. When neither marker is present, it is reduced to the first `providers/`, `tokens/`, `dapps/`, or `contracts/` segment. The query string and hash are dropped. An https URL that matches none of those patterns is returned unchanged. An `http://` base or logo URL throws.
 
 ### Listed providers
 
