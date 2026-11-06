@@ -60,10 +60,6 @@ if [ -f "${OPS_ENV_FILE}" ]; then
 fi
 
 # Empty BUCKET_PREFIX is intentional (objects at bucket root; LB strips /<uuid>/static/).
-# Only ASSET_BASE_URL missing means published logoURL falls back to GitHub-raw.
-if [ -z "${ASSET_BASE_URL:-}" ]; then
-  echo "warning: ASSET_BASE_URL unset — upload will use GitHub-raw logos." >&2
-  echo "  Add assetBaseUrl to Secret Manager (${SECRET}), then: ./yarn ops:pull-env" >&2
-fi
+# upload:bucket sends logo files only and does not read ASSET_BASE_URL.
 
 exec "$@"

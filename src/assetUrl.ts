@@ -6,9 +6,8 @@ import { DEFAULT_ASSET_BASE_URL } from "./config.js";
  * Per-entry info.json and the npm package keep a relative logoURL.
  * Provider all.json uses absolute GitHub raw logo URLs so fetching it renders
  * logos. Tokens have no all.json; the package is the token catalog.
- * Bucket upload rewrites hosted provider all.json onto ASSET_BASE_URL
- * (GitHub raw when unset). An already-absolute logoURL is stripped to its
- * asset path before that join, so it is not double-prefixed.
+ * An already-absolute logoURL is stripped to its asset path before that join,
+ * so it is not double-prefixed. The static bucket upload sends logo files only.
  *
  * resolveAssetURL joins a relative logoURL to the caller's base, and rebases
  * an absolute logoURL that uses a known asset prefix onto that base.
@@ -81,7 +80,7 @@ export function resolveAssetURL(logoURL: string, baseURL?: string): string {
   return `${base}${relative.replace(/^\//, "")}`;
 }
 
-/** Rewrite logoURL onto the active asset base (bucket upload / in-repo all.json). */
+/** Rewrite logoURL onto the active asset base (in-repo provider all.json). */
 export function withAbsoluteLogoURL<T extends { logoURL: string }>(
   entry: T,
   baseURL = getAssetBaseURL(),

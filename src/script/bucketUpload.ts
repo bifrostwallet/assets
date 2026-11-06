@@ -1,22 +1,17 @@
 import * as fs from "node:fs";
-import * as os from "node:os";
 import * as path from "node:path";
 import { Storage } from "@google-cloud/storage";
-import { getAssetBaseURL, withAbsoluteLogoURL } from "../assetUrl.js";
 import { BUCKET_NAME, BUCKET_PREFIX, PROJECT_ID } from "../config.js";
 import { isMain } from "../isMain.js";
 import { legacyTokenIconDestination } from "../legacyTokenIcon.js";
 
-// Uploads curated assets to an operator-configured static GCS bucket (optional CDN).
+// Uploads logo files to an operator-configured static GCS bucket (optional CDN).
+// Catalog JSON, including provider all.json, is not uploaded. The npm package
+// serves that data.
 //
 // Object keys mirror relative paths under data/, optionally under BUCKET_PREFIX.
-// Provider all.json logoURL values are rewritten to ASSET_BASE_URL (default:
-// GitHub raw from package.json repository). In-repo provider all.json may already be
-// absolute. withAbsoluteLogoURL strips a known asset prefix first, so an
-// absolute input is not double-prefixed. Token lists are not uploaded.
 // For a private CDN, set e.g.:
 //   BUCKET_PREFIX=<prefix>/
-//   ASSET_BASE_URL=https://cdn.example.com/<prefix>/
 //
 // Each ERC-20 logo.webp is uploaded twice, as the same WebP bytes: the catalog
 // object, and `res/icons/<address>.webp` at the bucket root (no prefix). Host
@@ -31,31 +26,12 @@ interface UploadItem {
   destination: string;
   cacheControl: string;
   contentType: string;
-  /** Temp files created for rewritten all.json — delete after upload */
-  cleanup?: boolean;
 }
 
 /** Logos are content-addressed via logoHash — cache up to a week */
 const LOGO_CACHE_CONTROL = "public, max-age=604800";
-/** Lists refresh with nightly builds — cache up to a day */
-const LIST_CACHE_CONTROL = "public, max-age=86400";
 
-/** Rebase every logoURL onto assetBase. Already-absolute catalog URLs are not prefixed twice. */
-function rewriteAllJsonForUpload(localPath: string, assetBase: string): string {
-  const entries = JSON.parse(fs.readFileSync(localPath, "utf8")) as Array<{ logoURL?: string }>;
-  const rewritten = entries.map((entry) =>
-    entry.logoURL ? withAbsoluteLogoURL({ ...entry, logoURL: entry.logoURL }, assetBase) : entry,
-  );
-  const body = `${JSON.stringify(rewritten, null, 2)}\n`;
-  const tmpPath = path.join(
-    os.tmpdir(),
-    `assets-${path.basename(path.dirname(localPath))}-all-${process.pid}.json`,
-  );
-  fs.writeFileSync(tmpPath, body);
-  return tmpPath;
-}
-
-function collectUploads(assetBase: string): UploadItem[] {
+export function collectUploads(): UploadItem[] {
   const dataDir = path.join(process.cwd(), "data");
   const uploads: UploadItem[] = [];
 
@@ -69,39 +45,27 @@ function collectUploads(assetBase: string): UploadItem[] {
         continue;
       }
 
-      const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
+      // all.json and other JSON stay in git and the npm package.
+      if (entry.name !== "logo.webp") continue;
 
-      if (entry.name === "logo.webp") {
-        uploads.push({
-          localPath: fullPath,
-          destination: `${BUCKET_PREFIX}${relative}`,
-          cacheControl: LOGO_CACHE_CONTROL,
-          contentType: "image/webp",
-        });
-        if (section === "tokens") {
-          const legacyDestination = legacyTokenIconDestination(relative);
-          if (legacyDestination) {
-            const existing = legacyIcons.get(legacyDestination);
-            if (existing && existing !== fullPath) {
-              console.warn(
-                `⚠️  ${legacyDestination} already queued from ${existing}; keeping the first logo`,
-              );
-            } else if (!existing) {
-              legacyIcons.set(legacyDestination, fullPath);
-            }
-          }
-        }
-      } else if (section === "providers" && entry.name === "all.json") {
-        const tmpPath = rewriteAllJsonForUpload(fullPath, assetBase);
-        uploads.push({
-          localPath: tmpPath,
-          destination: `${BUCKET_PREFIX}${relative}`,
-          cacheControl: LIST_CACHE_CONTROL,
-          contentType: "application/json",
-          cleanup: true,
-        });
+      const relative = path.relative(dataDir, fullPath).split(path.sep).join("/");
+      uploads.push({
+        localPath: fullPath,
+        destination: `${BUCKET_PREFIX}${relative}`,
+        cacheControl: LOGO_CACHE_CONTROL,
+        contentType: "image/webp",
+      });
+      if (section !== "tokens") continue;
+      const legacyDestination = legacyTokenIconDestination(relative);
+      if (!legacyDestination) continue;
+      const existing = legacyIcons.get(legacyDestination);
+      if (existing && existing !== fullPath) {
+        console.warn(
+          `⚠️  ${legacyDestination} already queued from ${existing}; keeping the first logo`,
+        );
+      } else if (!existing) {
+        legacyIcons.set(legacyDestination, fullPath);
       }
-      // info.json / signatures.json / provenance.json are repo-internal (not CDN)
     }
   };
 
@@ -156,24 +120,11 @@ function requireUploadConfig(): { bucketName: string; projectId: string } {
   return { bucketName: BUCKET_NAME, projectId: PROJECT_ID };
 }
 
-function cleanupTemps(uploads: UploadItem[]): void {
-  for (const item of uploads) {
-    if (!item.cleanup) continue;
-    try {
-      fs.unlinkSync(item.localPath);
-    } catch {
-      // best-effort
-    }
-  }
-}
-
 async function uploadToBucket(): Promise<void> {
   const dryRun = process.argv.includes("--dry-run");
   const { bucketName, projectId } = requireUploadConfig();
-  const assetBase = getAssetBaseURL();
-  const uploads = collectUploads(assetBase);
+  const uploads = collectUploads();
 
-  console.info(`🖼️  logoURL base: ${assetBase}`);
   console.info(
     `${dryRun ? "🔍 Dry run: would upload" : "☁️ Uploading"} ${uploads.length} object(s) to gs://${bucketName}/${BUCKET_PREFIX}`,
   );
@@ -182,7 +133,6 @@ async function uploadToBucket(): Promise<void> {
     for (const item of uploads) {
       console.info(`   ${item.destination} (${item.cacheControl})`);
     }
-    cleanupTemps(uploads);
     return;
   }
 
@@ -193,32 +143,28 @@ async function uploadToBucket(): Promise<void> {
   const concurrency = 16;
   const queue = [...uploads];
 
-  try {
-    const workers = Array.from({ length: concurrency }, async () => {
-      while (queue.length > 0) {
-        const item = queue.shift();
-        if (!item) break;
+  const workers = Array.from({ length: concurrency }, async () => {
+    while (queue.length > 0) {
+      const item = queue.shift();
+      if (!item) break;
 
-        await bucket.upload(item.localPath, {
-          destination: item.destination,
-          metadata: {
-            cacheControl: item.cacheControl,
-            contentType: item.contentType,
-          },
-        });
+      await bucket.upload(item.localPath, {
+        destination: item.destination,
+        metadata: {
+          cacheControl: item.cacheControl,
+          contentType: item.contentType,
+        },
+      });
 
-        completed++;
-        if (completed % 25 === 0 || completed === uploads.length) {
-          console.info(`   ${completed}/${uploads.length}`);
-        }
+      completed++;
+      if (completed % 25 === 0 || completed === uploads.length) {
+        console.info(`   ${completed}/${uploads.length}`);
       }
-    });
+    }
+  });
 
-    await Promise.all(workers);
-    console.info(`\n✅ Uploaded ${completed} object(s) to gs://${bucketName}/${BUCKET_PREFIX}`);
-  } finally {
-    cleanupTemps(uploads);
-  }
+  await Promise.all(workers);
+  console.info(`\n✅ Uploaded ${completed} object(s) to gs://${bucketName}/${BUCKET_PREFIX}`);
 }
 
 if (isMain(import.meta.url)) {
