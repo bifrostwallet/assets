@@ -3,11 +3,7 @@
 
 import { keccak256, toBytes } from "viem";
 import type { ProviderInfo } from "./config.js";
-import {
-  dappSubmissionMessageHash,
-  providerInfoMessageHash,
-  signedProviderInfoPayload,
-} from "./convert.js";
+import { providerInfoMessageHash, signedProviderInfoPayload } from "./convert.js";
 import type { HexString } from "./validate.js";
 
 export const EIP712_DOMAIN_NAME = "Bifrost Assets";
@@ -15,9 +11,6 @@ export const EIP712_DOMAIN_VERSION = "1";
 
 /** Portal origin bound into the domain separator (bytes32). */
 export const EIP712_DOMAIN_SALT = keccak256(toBytes("https://bifrostwallet.com"));
-
-/** Fixed domain chain for dapp listings (Bifrost / Flare ecosystem portal). */
-export const DAPP_EIP712_CHAIN_ID = 14;
 
 export const PROVIDER_VERIFICATION_INSTRUCTIONS = [
   "To verify, recover the signer with eth_signTypedData_v4.",
@@ -45,19 +38,6 @@ export const PROVIDER_LISTING_TYPES = {
   ],
 } as const;
 
-export const DAPP_LISTING_TYPES = {
-  DappListing: [
-    { name: "title", type: "string" },
-    { name: "description", type: "string" },
-    { name: "url", type: "string" },
-    { name: "chainsJson", type: "string" },
-    { name: "category", type: "string" },
-    { name: "categoryOther", type: "string" },
-    { name: "logoHash", type: "bytes32" },
-    { name: "contentHash", type: "bytes32" },
-  ],
-} as const;
-
 export type ProviderListingMessage = {
   name: string;
   description: string;
@@ -66,17 +46,6 @@ export type ProviderListingMessage = {
   identityAddress: HexString;
   linksJson: string;
   acknowledgedResponsibilities: boolean;
-  contentHash: HexString;
-};
-
-export type DappListingMessage = {
-  title: string;
-  description: string;
-  url: string;
-  chainsJson: string;
-  category: string;
-  categoryOther: string;
-  logoHash: HexString;
   contentHash: HexString;
 };
 
@@ -141,38 +110,4 @@ export function buildProviderListingTypedData(
 export function providerListingTypedData(info: Partial<ProviderInfo>, chainId: number) {
   const contentHash = providerInfoMessageHash(info);
   return { ...buildProviderListingTypedData(info, chainId, contentHash), contentHash };
-}
-
-export function dappListingTypedData(payload: {
-  title: string;
-  description: string;
-  url: string;
-  chains: string[];
-  category: string;
-  categoryOther: string;
-  logoHash: string;
-}) {
-  const contentHash = dappSubmissionMessageHash(payload);
-  const chains = [...payload.chains].sort();
-  const message: DappListingMessage = {
-    title: payload.title,
-    description: payload.description,
-    url: payload.url,
-    chainsJson: JSON.stringify(chains),
-    category: payload.category,
-    categoryOther: payload.categoryOther,
-    logoHash: asBytes32(payload.logoHash),
-    contentHash: asBytes32(contentHash),
-  };
-  return {
-    domain: {
-      name: EIP712_DOMAIN_NAME,
-      version: EIP712_DOMAIN_VERSION,
-      chainId: DAPP_EIP712_CHAIN_ID,
-    },
-    types: DAPP_LISTING_TYPES,
-    primaryType: "DappListing" as const,
-    message,
-    contentHash,
-  };
 }

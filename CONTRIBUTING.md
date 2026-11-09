@@ -1,6 +1,6 @@
 # Contributing
 
-Catalog listings go through the forms below. Curators review each submission before it is listed. Hand-edited catalog pull requests are closed without review. Maintainers apply tooling changes on `main`. For a code change beyond a small fix, open an issue first.
+Provider listings go through the form below. Tokens, contracts, and dapps are curated by the Bifrost team. Curators review each provider submission before it is listed. Hand-edited catalog pull requests are closed without review. Maintainers apply tooling changes on `main`. For a code change beyond a small fix, open an issue first.
 
 ## Providers
 
@@ -128,7 +128,7 @@ The command reads that token's name, symbol, and decimals from the chain's `*_NO
 
 ## Dapps
 
-A dapp is submitted through [bifrostwallet.com/list/dapp](https://bifrostwallet.com/list/dapp). Contact details stay private. The public fields are title, description, URL, chains, and logo. The listing guide is [docs.bifrostwallet.com: Dapp](https://docs.bifrostwallet.com/list/dapp).
+Dapps are curated by the Bifrost team, the same as tokens and contracts.
 
 Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `assets.getDappCategories()`.
 

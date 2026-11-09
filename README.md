@@ -2,7 +2,7 @@
 
 Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
-**Adding a provider, token, or dapp:** [CONTRIBUTING.md](CONTRIBUTING.md).
+**Adding a provider:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost team.
 
 The listing form and intake API run outside this repository. Contact details stay on private intake objects. Security reports go to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
 
