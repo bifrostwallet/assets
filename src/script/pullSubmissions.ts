@@ -1,29 +1,34 @@
 import { Storage } from "@google-cloud/storage";
 import {
-  type IntakeDappSubmission,
   type IntakeSubmission,
-  ingestDappSubmission,
   ingestProviderAttestation,
   ingestProviderSubmission,
   intakeSubmissionToDir,
 } from "../ingest.js";
 import {
   assertAttestationIntakeDocument,
-  assertDappIntakeDocument,
   assertProviderIntakeDocument,
   isAllowedIntakeObjectName,
   MAX_INTAKE_OBJECT_BYTES,
   parseIntakeJsonObject,
 } from "../intakeGuard.js";
 
-// Pulls pending submissions from the intake bucket (written by the intake
-// service, apps/intake) and ingests them into data/providers and data/dapps.
+// Pulls pending provider submissions and attestations from the intake bucket
+// (written by the intake service, apps/intake) and ingests them into
+// data/providers. A dapp-kind document is skipped: dapps are curated by the
+// Bifrost team, the same as tokens and contracts.
 //
 // Object names and document shapes are allowlisted before any write. Crypto and
 // on-chain checks in ingest* are the second line of defense.
 //
 // Run by the scheduled pull-submissions GitHub Action, or locally:
 //   ./yarn pull:submissions
+
+const DAPP_SKIP_REASON = "dapp submissions are not ingested; dapps are curated by the Bifrost team";
+
+function logSkippedDapp(name: string): void {
+  console.warn(`⏭️ ${name}: skipped (${DAPP_SKIP_REASON})`);
+}
 
 function requireIntakeBucket(): string {
   const bucket = process.env.INTAKE_BUCKET;
@@ -50,6 +55,14 @@ async function pullSubmissions(): Promise<void> {
 
   for (const file of submissions) {
     try {
+      // Dapp objects used to be allowlisted. Skip them before any parse so a
+      // leftover intake object cannot fail the provider ingest path.
+      if (file.name.startsWith("dapps/")) {
+        skipped++;
+        logSkippedDapp(file.name);
+        continue;
+      }
+
       if (!isAllowedIntakeObjectName(file.name)) {
         skipped++;
         console.warn(`⏭️ ${file.name}: skipped (object name not on allowlist)`);
@@ -70,6 +83,12 @@ async function pullSubmissions(): Promise<void> {
       const text = new TextDecoder("utf-8", { fatal: true }).decode(contents);
       const doc = parseIntakeJsonObject(text);
 
+      if (doc.kind === "dapp") {
+        skipped++;
+        logSkippedDapp(file.name);
+        continue;
+      }
+
       let status: "ingested" | "unchanged";
       if (file.name.startsWith("attestations/")) {
         const sanitized = assertAttestationIntakeDocument(doc);
@@ -85,15 +104,6 @@ async function pullSubmissions(): Promise<void> {
           throw new Error("Object path attester does not match document signer");
         }
         const result = await ingestProviderAttestation(sanitized);
-        status = result.status;
-      } else if (file.name.startsWith("dapps/")) {
-        const sanitized = assertDappIntakeDocument(doc);
-        // Object path must match submitter + slug derived later in ingest
-        const pathSubmitter = file.name.split("/")[1];
-        if (pathSubmitter !== sanitized.submitter) {
-          throw new Error("Object path submitter does not match document submitter");
-        }
-        const result = await ingestDappSubmission(sanitized as IntakeDappSubmission);
         status = result.status;
       } else {
         const sanitized = assertProviderIntakeDocument(doc);

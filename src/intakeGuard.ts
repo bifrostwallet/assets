@@ -1,11 +1,5 @@
 import { createHash } from "node:crypto";
-import {
-  ALLOWED_LINKS,
-  DAPP_CATEGORIES,
-  DAPP_CHAIN_IDS,
-  PROVIDER_INFO_KEYS,
-  PROVIDER_LOGO_REQUIREMENTS,
-} from "./config.js";
+import { ALLOWED_LINKS, PROVIDER_INFO_KEYS, PROVIDER_LOGO_REQUIREMENTS } from "./config.js";
 import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "./eip712.js";
 import {
   isValidDescription,
@@ -25,7 +19,6 @@ const BASE64_RE = /^[A-Za-z0-9+/]+={0,2}$/;
 const MESSAGE_HASH_RE = /^0x[0-9a-f]{64}$/;
 const SIG_HEX_RE = /^0x[0-9a-fA-F]{130}$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
-const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
 
 const PROVIDER_DOC_KEYS = new Set([
   "version",
@@ -36,18 +29,6 @@ const PROVIDER_DOC_KEYS = new Set([
   "logoBase64",
   "submittedAt",
 ]);
-const DAPP_DOC_KEYS = new Set([
-  "version",
-  "kind",
-  "info",
-  "categoryOther",
-  "submitter",
-  "messageHash",
-  "signature",
-  "logoBase64",
-  "submittedAt",
-]);
-const DAPP_INFO_KEYS = new Set(["title", "description", "url", "chains", "category"]);
 const ATTESTATION_DOC_KEYS = new Set([
   "version",
   "kind",
@@ -56,7 +37,6 @@ const ATTESTATION_DOC_KEYS = new Set([
   "attestation",
   "submittedAt",
 ]);
-const CATEGORY_OTHER_RE = /^[a-zA-Z0-9 .'+\-%/À-ÖØ-öø-ÿ:&()[\]?{};~!_@]{2,32}$/;
 const SIGNATURES_ROOT_KEYS = new Set(["identityAddress", "verificationInstructions", "signatures"]);
 const SIGNATURE_ENTRY_KEYS = new Set([
   "signerName",
@@ -71,7 +51,6 @@ export function isAllowedIntakeObjectName(name: string): boolean {
   // Sealed forensics live in a separate bucket; never pull *.sealed from intake.
   if (name.endsWith(".sealed")) return false;
   if (/^eip155-(14|19)\/0x[0-9a-f]{40}\.json$/.test(name)) return true;
-  if (/^dapps\/0x[0-9a-f]{40}\/[a-z0-9][a-z0-9-]{0,63}\.json$/.test(name)) return true;
   // Attestations: attestations/<chain>/<target identity>/<attester identity>.json
   if (/^attestations\/eip155-(14|19)\/0x[0-9a-f]{40}\/0x[0-9a-f]{40}\.json$/.test(name)) {
     return true;
@@ -363,106 +342,6 @@ export function assertAttestationIntakeDocument(doc: Record<string, unknown>): {
       signature,
       date,
     },
-    submittedAt,
-  };
-}
-
-/** Validate + normalize a dapp intake document from GCS (clear listing only). */
-export function assertDappIntakeDocument(doc: Record<string, unknown>): {
-  info: {
-    title: string;
-    description: string;
-    url: string;
-    chains: string[];
-    category: string;
-  };
-  /**
-   * Signed listing hint. Allowed only when category is `other`.
-   * Never written to info.json.
-   */
-  categoryOther?: string;
-  submitter: string;
-  messageHash: string;
-  signature: string;
-  logoBase64: string;
-  submittedAt: string;
-} {
-  assertOnlyKeys(doc, DAPP_DOC_KEYS, "dapp document");
-  if (doc.version !== 1) throw new Error(`Unsupported version: ${doc.version}`);
-  if (doc.kind !== "dapp") throw new Error("kind must be dapp");
-  const submittedAt = assertString(doc.submittedAt, "submittedAt");
-  if (!ISO_DATE_RE.test(submittedAt)) throw new Error("Invalid submittedAt");
-
-  if (doc.info === null || typeof doc.info !== "object" || Array.isArray(doc.info)) {
-    throw new Error("info must be an object");
-  }
-  const infoIn = doc.info as Record<string, unknown>;
-  assertOnlyKeys(infoIn, DAPP_INFO_KEYS, "info");
-
-  const title = assertString(infoIn.title, "title");
-  const description = assertString(infoIn.description, "description");
-  const url = assertString(infoIn.url, "url");
-  if (!isValidName(title)) throw new Error("Invalid title");
-  if (!isValidDescription(description)) throw new Error("Invalid description");
-  if (!isValidURL(url, "website")) throw new Error("Invalid url");
-  const parsed = new URL(url);
-  if (parsed.username || parsed.password || parsed.search || parsed.hash) {
-    throw new Error("url must not include credentials, query, or fragment");
-  }
-
-  if (
-    !Array.isArray(infoIn.chains) ||
-    infoIn.chains.length === 0 ||
-    infoIn.chains.length > DAPP_ALLOWED_CHAINS.size
-  ) {
-    throw new Error("Invalid chains");
-  }
-  const chains: string[] = [];
-  for (const chain of infoIn.chains) {
-    if (typeof chain !== "string" || !DAPP_ALLOWED_CHAINS.has(chain)) {
-      throw new Error(`Unsupported chain: ${String(chain)}`);
-    }
-    chains.push(chain);
-  }
-  if (new Set(chains).size !== chains.length) throw new Error("Duplicate chains");
-
-  const category = assertString(infoIn.category, "category");
-  if (!(DAPP_CATEGORIES as readonly string[]).includes(category)) {
-    throw new Error(`Unknown category: ${category}`);
-  }
-
-  let categoryOther: string | undefined;
-  if (doc.categoryOther !== undefined) {
-    if (typeof doc.categoryOther !== "string" || !CATEGORY_OTHER_RE.test(doc.categoryOther)) {
-      throw new Error("Invalid categoryOther");
-    }
-    if (category !== "other") {
-      throw new Error("categoryOther is only allowed when category is other");
-    }
-    categoryOther = doc.categoryOther;
-  }
-
-  const submitter = assertString(doc.submitter, "submitter").toLowerCase();
-  if (!isValidEvmAddress(submitter)) throw new Error("Invalid submitter");
-  const messageHash = assertString(doc.messageHash, "messageHash").toLowerCase();
-  if (!MESSAGE_HASH_RE.test(messageHash)) throw new Error("Invalid messageHash");
-  const signature = assertString(doc.signature, "signature");
-  if (!SIG_HEX_RE.test(signature)) throw new Error("Invalid signature");
-  decodeStrictWebpBase64(doc.logoBase64);
-
-  return {
-    info: {
-      title,
-      description,
-      url,
-      chains: [...chains].sort(),
-      category,
-    },
-    ...(categoryOther ? { categoryOther } : {}),
-    submitter,
-    messageHash,
-    signature,
-    logoBase64: assertString(doc.logoBase64, "logoBase64"),
     submittedAt,
   };
 }

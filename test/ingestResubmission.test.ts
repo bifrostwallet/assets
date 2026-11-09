@@ -6,15 +6,9 @@ import { after, before, describe, test } from "node:test";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
 import { providerLogoPath, sha256Hex } from "../src/convert.js";
+import { PROVIDER_VERIFICATION_INSTRUCTIONS, providerListingTypedData } from "../src/eip712.js";
 import {
-  dappListingTypedData,
-  PROVIDER_VERIFICATION_INSTRUCTIONS,
-  providerListingTypedData,
-} from "../src/eip712.js";
-import {
-  type IntakeDappSubmission,
   type IntakeSubmission,
-  ingestDappSubmission,
   ingestProviderSubmission,
   intakeSubmissionToDir,
 } from "../src/ingest.js";
@@ -131,46 +125,6 @@ async function ingestProvider(
   });
 }
 
-async function dappSubmission(
-  account: ReturnType<typeof privateKeyToAccount>,
-  description: string,
-  submittedAt: string,
-  url: string,
-): Promise<IntakeDappSubmission> {
-  const payload = {
-    title: "Resubmit Dapp",
-    description,
-    url,
-    chains: ["eip155:14"],
-    category: "dex",
-    categoryOther: "",
-    logoHash,
-  };
-  const typed = dappListingTypedData(payload);
-  const signature = await account.signTypedData({
-    domain: typed.domain,
-    types: typed.types,
-    primaryType: typed.primaryType,
-    message: typed.message,
-  });
-  return {
-    version: 1,
-    kind: "dapp",
-    info: {
-      title: payload.title,
-      description: payload.description,
-      url: payload.url,
-      chains: payload.chains,
-      category: payload.category,
-    },
-    submitter: account.address,
-    messageHash: typed.contentHash,
-    signature,
-    logoBase64: logo.toString("base64"),
-    submittedAt,
-  };
-}
-
 describe("Intake resubmission provenance", { concurrency: false }, () => {
   const originalCwd = process.cwd();
   let root: string;
@@ -264,52 +218,6 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     const provenance = JSON.parse(
       fs.readFileSync(
         path.join(root, "data", "providers", "eip155-14", identity, "provenance.json"),
-        "utf8",
-      ),
-    ) as { submittedAt: string };
-    assert.equal(provenance.submittedAt, RESUBMITTED_AT);
-  });
-
-  test("keeps dapp provenance when info.json and the logo are unchanged", async () => {
-    const account = privateKeyToAccount(generatePrivateKey());
-    const description = "A dapp used to test intake resubmission.";
-    const url = "https://resubmit-example.com";
-    const first = await ingestDappSubmission(
-      await dappSubmission(account, description, ORIGINAL_SUBMITTED_AT, url),
-    );
-    assert.equal(first.status, "ingested");
-
-    const dappDir = path.join(root, "data", "dapps", "resubmit-example-com");
-    const beforeSnapshot = snapshotFiles(dappDir);
-
-    const second = await ingestDappSubmission(
-      await dappSubmission(account, description, RESUBMITTED_AT, url),
-    );
-    assert.equal(second.status, "unchanged");
-    assertSnapshotUnchanged(dappDir, beforeSnapshot);
-    const provenance = JSON.parse(
-      fs.readFileSync(path.join(dappDir, "provenance.json"), "utf8"),
-    ) as { submittedAt: string };
-    assert.equal(provenance.submittedAt, ORIGINAL_SUBMITTED_AT);
-  });
-
-  test("updates dapp provenance when info.json changes", async () => {
-    const account = privateKeyToAccount(generatePrivateKey());
-    const url = "https://changed-example.com";
-    const original = "A dapp used to test a real catalog change.";
-    const updated = "A dapp whose description changed on resubmission.";
-    const first = await ingestDappSubmission(
-      await dappSubmission(account, original, ORIGINAL_SUBMITTED_AT, url),
-    );
-    assert.equal(first.status, "ingested");
-
-    const second = await ingestDappSubmission(
-      await dappSubmission(account, updated, RESUBMITTED_AT, url),
-    );
-    assert.equal(second.status, "ingested");
-    const provenance = JSON.parse(
-      fs.readFileSync(
-        path.join(root, "data", "dapps", "changed-example-com", "provenance.json"),
         "utf8",
       ),
     ) as { submittedAt: string };

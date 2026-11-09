@@ -1,8 +1,9 @@
 name: Pull listing submissions
 
-# Pulls verified provider and dapp submissions from the intake bucket and opens
-# a pull request. Third parties submit only through the submission dapp
-# (dedicated static bucket) + Cloud Run intake; curators review this PR.
+# Pulls verified provider submissions from the intake bucket and opens a pull
+# request. Third parties submit provider listings only through the submission
+# app (dedicated static bucket) + Cloud Run intake; curators review this PR.
+# Dapps are curated by the Bifrost team and are not ingested here.
 
 on:
   schedule:
@@ -66,7 +67,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/providers/ data/dapps/
+          git add data/providers/
           if git diff --staged --quiet; then
             echo "No submission changes to commit"
             exit 0
@@ -91,11 +92,6 @@ jobs:
           - Valid 128×128 WebP
           - Self-signature by the identity address over the canonical info
           - Identity registered in the EntityManager; entity fields re-fetched on ingest
-
-          **Dapps**
-          - Allowlisted object path and JSON fields
-          - Valid 128×128 WebP; submitter signature over content + logoHash
-          - Stake check enforced at intake; fields re-validated on ingest
 
           CI re-verifies provider signatures on this PR. Review before merge.
           EOF

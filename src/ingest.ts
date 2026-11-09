@@ -2,30 +2,18 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { recoverTypedDataAddress } from "viem";
-import {
-  BLOCKCHAIN_NETWORKS,
-  type BlockchainNetworkConfig,
-  DAPP_CATEGORIES,
-  DAPP_CHAIN_IDS,
-  type ProviderInfo,
-} from "./config.js";
+import { BLOCKCHAIN_NETWORKS, type BlockchainNetworkConfig, type ProviderInfo } from "./config.js";
 import {
   calculateHash,
-  dappSlugFromUrl,
   formatRepoJson,
   providerInfoMessageHash,
   providerLogoPath,
   rebuildProvidersAllJson,
-  sortDappInfo,
   sortProviderInfo,
   toRelativePath,
   writeFormattedJson,
 } from "./convert.js";
-import {
-  chainIdFromProviderPath,
-  dappListingTypedData,
-  providerListingTypedData,
-} from "./eip712.js";
+import { chainIdFromProviderPath, providerListingTypedData } from "./eip712.js";
 import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "./intakeGuard.js";
 import { fetchEntityData } from "./onchain.js";
 import {
@@ -301,19 +289,8 @@ export interface IntakeSubmission {
  * Public, non-PII provenance only. Outreach / sealed forensics stay outside git
  * (sealed bucket + unseal CLI).
  */
-function publicProvenanceRecord(submission: {
-  submittedAt: string;
-  submitter?: string;
-  messageHash?: string;
-  signature?: string;
-}): Record<string, string> {
-  const record: Record<string, string> = {
-    submittedAt: submission.submittedAt,
-  };
-  if (submission.submitter) record.submitter = submission.submitter;
-  if (submission.messageHash) record.messageHash = submission.messageHash;
-  if (submission.signature) record.signature = submission.signature;
-  return record;
+function publicProvenanceRecord(submittedAt: string): Record<string, string> {
+  return { submittedAt };
 }
 
 /** Materializes an intake submission document into a temp submission directory */
@@ -328,7 +305,7 @@ export function intakeSubmissionToDir(submission: IntakeSubmission): string {
   // Copied into the catalog unless info.json and the logo already match.
   writeFormattedJson(
     path.join(dir, "provenance.json"),
-    publicProvenanceRecord({ submittedAt: submission.submittedAt }),
+    publicProvenanceRecord(submission.submittedAt),
   );
   return dir;
 }
@@ -465,168 +442,4 @@ export async function ingestProviderAttestation(
     targetIdentityAddress: targetIdentityAddress.toLowerCase(),
     signerAddress: signer,
   };
-}
-
-/**
- * A dapp submission document as stored in the intake bucket by the intake
- * service (apps/intake) under dapps/<submitter>/<slug>.json.
- */
-export interface IntakeDappSubmission {
-  version: 1;
-  kind: "dapp";
-  info: {
-    title: string;
-    description: string;
-    url: string;
-    chains: string[];
-    category: string;
-  };
-  /** Bound in EIP-712 + contentHash when category is `other`; never written to catalog info.json. */
-  categoryOther?: string;
-  submitter: string;
-  messageHash: string;
-  signature: string;
-  /** Base64-encoded WebP */
-  logoBase64: string;
-  submittedAt: string;
-}
-
-export interface DappIngestResult {
-  status: "ingested" | "unchanged";
-  slug: string;
-  infoPath: string;
-}
-
-/** CAIP-2 chain ids allowed for dapp bookmarks */
-const DAPP_ALLOWED_CHAINS = new Set<string>(DAPP_CHAIN_IDS);
-
-/**
- * Ingests a dapp submission document into data/dapps/<slug>.
- *
- * Fully non-interactive. Validation pipeline:
- * 1. field validation with the repository validators
- * 2. logo requirements (exact 128×128 WebP, ≤24KB; transparent background
- *    recommended, opaque including solid white still valid)
- * 3. cryptographic verification: the submitter signed the canonical hash of
- *    the submitted content including the recomputed logo hash
- *
- * The signed category is checked, then dropped. Browser chips are only the
- * hand-edited data/dapps/categories.json, which this ingest does not rewrite.
- * Public provenance (submitter signature) is stored as provenance.json —
- * sealed outreach is not pulled or committed.
- *
- * Idempotent: re-ingesting a submission whose info.json and logo already match
- * the repo returns "unchanged" and leaves provenance.json untouched, so a new
- * submittedAt alone does not change the catalog.
- */
-export async function ingestDappSubmission(
-  submission: IntakeDappSubmission,
-): Promise<DappIngestResult> {
-  const { title, description, url, chains, category } = submission.info;
-
-  if (!isValidName(title)) {
-    throw new Error(`Invalid dapp title: ${title}`);
-  }
-  if (!isValidDescription(description)) {
-    throw new Error("Invalid dapp description");
-  }
-  if (!isValidURL(url, "website")) {
-    throw new Error(`Invalid dapp URL: ${url}`);
-  }
-  if (
-    !Array.isArray(chains) ||
-    chains.length === 0 ||
-    !chains.every((chain) => DAPP_ALLOWED_CHAINS.has(chain))
-  ) {
-    throw new Error(`Invalid dapp chains: ${JSON.stringify(chains)}`);
-  }
-  if (!(DAPP_CATEGORIES as readonly string[]).includes(category)) {
-    throw new Error(`Unknown dapp category: ${category}`);
-  }
-  if (!isValidEvmAddress(submission.submitter)) {
-    throw new Error(`Invalid submitter address: ${submission.submitter}`);
-  }
-
-  const logo = Buffer.from(submission.logoBase64, "base64");
-  const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-dapp-staging-"));
-  const stagedLogoPath = path.join(stagingDir, "logo.webp");
-  fs.writeFileSync(stagedLogoPath, logo);
-
-  const logoValidation = isValidImage(stagedLogoPath);
-  if (!logoValidation.isValid) {
-    throw new Error(`Logo validation failed: ${logoValidation.errors.join(", ")}`);
-  }
-
-  // Verify the submitter's EIP-712 signature over the listing typed data
-  const logoHash = calculateHash(stagedLogoPath);
-  const typed = dappListingTypedData({
-    title,
-    description,
-    url,
-    chains,
-    category,
-    categoryOther: submission.categoryOther ?? "",
-    logoHash,
-  });
-  if (submission.messageHash?.toLowerCase() !== typed.contentHash.toLowerCase()) {
-    throw new Error(
-      `Stale message hash: expected ${typed.contentHash}, got ${submission.messageHash}`,
-    );
-  }
-  const recovered = await recoverTypedDataAddress({
-    domain: typed.domain,
-    types: typed.types,
-    primaryType: typed.primaryType,
-    message: typed.message,
-    signature: submission.signature as `0x${string}`,
-  });
-  if (recovered.toLowerCase() !== submission.submitter.toLowerCase()) {
-    throw new Error(`Recovered signer ${recovered} does not match ${submission.submitter}`);
-  }
-
-  const slug = dappSlugFromUrl(url);
-  const dappDir = path.join(process.cwd(), "data", "dapps", slug);
-  const infoPath = path.join(dappDir, "info.json");
-
-  const info = sortDappInfo({
-    title,
-    description,
-    url,
-    logoURL: `dapps/${slug}/logo.webp`,
-    logoHash,
-    chains: [...chains].sort(),
-  });
-  const provenancePath = path.join(dappDir, "provenance.json");
-  const finalInfoJson = formatRepoJson(info, infoPath);
-  const provenanceJson = formatRepoJson(
-    publicProvenanceRecord({
-      submittedAt: submission.submittedAt,
-      submitter: submission.submitter.toLowerCase(),
-      messageHash: typed.contentHash,
-      signature: submission.signature,
-    }),
-    provenancePath,
-  );
-
-  const contentUnchanged = listingContentUnchanged(
-    infoPath,
-    finalInfoJson,
-    path.join(dappDir, "logo.webp"),
-    logo,
-  );
-  if (contentUnchanged && fs.existsSync(provenancePath)) {
-    return { status: "unchanged", slug, infoPath };
-  }
-
-  fs.mkdirSync(dappDir, { recursive: true });
-  fs.writeFileSync(infoPath, finalInfoJson);
-  fs.writeFileSync(path.join(dappDir, "logo.webp"), logo);
-  fs.writeFileSync(provenancePath, provenanceJson);
-
-  console.info(`📁 Ingested dapp ${title} at ${toRelativePath(dappDir)}`);
-  console.info(
-    `Add ${slug} to data/dapps/categories.json by hand if it belongs on a browser chip. That file is not updated here.`,
-  );
-
-  return { status: "ingested", slug, infoPath };
 }

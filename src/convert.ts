@@ -279,35 +279,6 @@ export function sortDappInfo(dappInfo: DappInfo): DappInfo {
 }
 
 /**
- * A dapp submission's signed payload and its 0x-prefixed SHA-256 hash.
- * MUST produce byte-identical output to apps/add and apps/intake: fixed key
- * order, chains sorted. Excludes logoURL (hosting detail, integrity is covered
- * by logoHash). `category` stays in the signed listing payload. Catalog chips
- * live in data/dapps/categories.json and are not stored on info.json.
- */
-export function dappSubmissionMessageHash(payload: {
-  title: string;
-  description: string;
-  url: string;
-  chains: string[];
-  category: string;
-  /** Empty string when category is not `other`. Bound in contentHash + EIP-712. */
-  categoryOther: string;
-  logoHash: string;
-}): string {
-  const canonical = {
-    title: payload.title,
-    description: payload.description,
-    url: payload.url,
-    chains: [...payload.chains].sort(),
-    category: payload.category,
-    categoryOther: payload.categoryOther,
-    logoHash: payload.logoHash,
-  };
-  return `0x${crypto.createHash("sha256").update(JSON.stringify(canonical)).digest("hex")}`;
-}
-
-/**
  * Derives a filesystem slug from a dapp URL hostname (dots → hyphens)
  */
 export function dappSlugFromUrl(url: string): string {
