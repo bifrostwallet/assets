@@ -5,12 +5,9 @@ name: Publish release
 # on npmjs.com before it becomes installable.
 #
 # Gate: create a GitHub Release whose tag is v<package.json version>
-# (for example v1.0.0 or v1.0.0-beta), or use workflow_dispatch with
-# publish=true. Published logoURLs are relative to data/ on that tag.
-#
-# The npm dist-tag is read from dist/package.json in a prior step, not
-# from the release tag string. A version with no prerelease part (no "-")
-# is staged with --tag latest. A prerelease version keeps --tag beta.
+# (for example v1.0.0), or use workflow_dispatch with publish=true.
+# Published logoURLs are relative to data/ on that tag.
+# The package is staged on the latest dist-tag. A version containing "-" is refused.
 
 on:
   release:
@@ -89,45 +86,18 @@ jobs:
           }
           EOF
 
-      # Dist-tag comes from dist/package.json only. The release tag stays in
-      # the check above and is never interpolated into this script.
-      - name: Choose npm dist-tag
-        id: npm-dist-tag
-        if: github.event_name == 'release' || inputs.publish == true
-        run: |
-          node --input-type=module <<'EOF'
-          import { appendFileSync, readFileSync } from "node:fs";
-
-          const output = process.env.GITHUB_OUTPUT;
-          if (!output) {
-            console.error("GITHUB_OUTPUT is not set");
-            process.exit(1);
-          }
-          const parsed = JSON.parse(readFileSync("./dist/package.json", "utf8"));
-          const version = parsed.version;
-          if (typeof version !== "string" || !/^[0-9A-Za-z.+-]+$/.test(version)) {
-            console.error("dist/package.json version is not a usable semver string");
-            process.exit(1);
-          }
-          const tag = version.includes("-") ? "beta" : "latest";
-          appendFileSync(output, `tag=${tag}\n`);
-          console.log(`npm dist-tag: ${tag}`);
-          EOF
-
       - name: Stage on npm with provenance
         if: github.event_name == 'release' || inputs.publish == true
-        env:
-          NPM_CONFIG_PROVENANCE: "true"
-          NPM_DIST_TAG: ${{ steps.npm-dist-tag.outputs.tag }}
         run: |
-          case "$NPM_DIST_TAG" in
-            latest|beta) ;;
-            *)
-              echo "Refusing unexpected npm dist-tag" >&2
+          case "$(node -p "require('./dist/package.json').version")" in
+            *-*)
+              echo "Refusing a version that contains -" >&2
               exit 1
               ;;
           esac
-          npm stage publish ./dist --access public --tag "$NPM_DIST_TAG"
+          npm stage publish ./dist --access public --tag latest
+        env:
+          NPM_CONFIG_PROVENANCE: "true"
 
       - name: Dry-run summary
         if: github.event_name == 'workflow_dispatch' && inputs.publish != true
