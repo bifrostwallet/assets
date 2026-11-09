@@ -1,0 +1,22 @@
+{
+  "name": "HUMAN_589",
+  "description": "I am HUMAN_589, a builder, advocate, XRP maximalist, and supporter of the Flare Network, dedicated to victims and children's rights, digital ownership, remembrance and decentralized infrastructure.  I share my world vision at human589.world, including Memorial Garden - my first metaverse app and developed in collaboration with NFT Riddler.",
+  "logoURL": "providers/eip155-14/0x44a584b709ecd27369a7484d48bf64eae2fafe85/logo.webp",
+  "logoHash": "7610291c4864f9e30da8ffa7946bedd62b5464a23f0e7c22d4e65be33ce44360",
+  "websiteURL": "https://human589.world",
+  "links": {
+    "x": "https://x.com/589Human"
+  },
+  "identityAddress": "0x44a584b709ecd27369a7484d48bf64eae2fafe85",
+  "delegationAddress": "0x881884043958db769b96de874a6d72e67b5a954c",
+  "signingPolicyAddress": "0xedc37aff3896edbbe6cbf809cd3462f95e11e553",
+  "submitAddress": "0x47e8a1d45ce5ac3ef6f8cee2af6fc5452e5d6187",
+  "submitSignaturesAddress": "0x0be1c5cf671d15484f127d9e70140aba03b90654",
+  "publicKey": "0x2239b7a3d7ad1fdfb78f90c75534841351e1e487aa1d5d101956d9d0b10ede532bdb788f1f6f5346402d59e74eb8dedcad957c7e6ca08ceff7773a41177abcf9",
+  "validators": ["NodeID-8GJeqFWmeVBnDHtnGyuW2ZWcwazrvgyn9"],
+  "acknowledgedResponsibilities": true,
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false
+}

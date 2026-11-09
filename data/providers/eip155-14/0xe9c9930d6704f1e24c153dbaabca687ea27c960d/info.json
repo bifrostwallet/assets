@@ -1,10 +1,13 @@
 {
   "name": "Aternety",
-  "description": "Aternety US-based data provider on the Flare Network.",
+  "description": "Aternety is an independent, US-based Flare data provider focused on reliable operations, accurate price data, and a lasting relationship with our delegators.",
   "logoURL": "providers/eip155-14/0xe9c9930d6704f1e24c153dbaabca687ea27c960d/logo.webp",
   "logoHash": "0c6154d3edc97581f685e8dbe5e699bdb99674e05855973b553368b0a6129322",
   "websiteURL": "https://aternety.com",
-  "links": {},
+  "links": {
+    "github": "https://github.com/Aternety",
+    "x": "https://x.com/aternety_ftso"
+  },
   "identityAddress": "0xe9c9930d6704f1e24c153dbaabca687ea27c960d",
   "delegationAddress": "0xd3956f862a4960bb4937e596a2baecffcbb4b3e0",
   "signingPolicyAddress": "0x1f4785bfda610047fcfe9d0db21e5f19c0f280e1",
@@ -15,6 +18,7 @@
     "NodeID-P4T4uKqveVxjZZXVdADHENdnCKnsCFvDE",
     "NodeID-k4QG8eJ9bYu717nbj8Ki8VykK8g1VWK9"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": true,
