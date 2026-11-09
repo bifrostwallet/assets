@@ -1,0 +1,13 @@
+{
+  "identityAddress": "0x44a584b709ecd27369a7484d48bf64eae2fafe85",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. Domain: name \"Bifrost Assets\", version \"1\", chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "signatures": [
+    {
+      "signerName": "HUMAN_589",
+      "signerAddress": "0x44a584b709ecd27369a7484d48bf64eae2fafe85",
+      "messageHash": "0x1e2404f9ffcb347b120725395e8239b2d4200fa657b89325baee2d80149d5f47",
+      "signature": "0xc9212fc70ac0b45b1e37bd387dabc4f15b569e6b6a74bb6f3c3f304e6cab220d49781c07f9a42e8e8b7b622e3349b19ffe724c146fcfdd33454934f73f864b6b1c",
+      "date": "2026-11-09T03:35:12.450Z"
+    }
+  ]
+}
