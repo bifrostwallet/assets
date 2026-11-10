@@ -26,35 +26,23 @@ An exact version tag is immutable on jsDelivr. Cache headers last one year, and 
 
 Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
 
-```typescript
+```tsx
 import { createAssets } from "@bifrostwallet/assets";
-
-const assets = createAssets();
-```
-
-Pass `baseURL` when you host the files yourself. A trailing slash is optional. The examples further down do that.
-
-### Verify the hash before you show a CDN logo
-
-**If you load a logo from a public CDN, including the default jsDelivr URL, check the bytes against the hash in this package before you display or cache them.** The package hash is the trust anchor. The CDN is not.
-
-`verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. That is the same digest a provider listing signs.
-
-Providers, tokens, and contracts carry `logoHash`. A validator has no separate image. Its `logoHash` is the operating provider's signed digest. Contract `logoHash` is filled in when the package is built, from the logo file. Every logo the package returns carries its `logoHash` on its catalog entry, and `fetch-logos` checks each downloaded file against it.
-
-```typescript
-import { createAssets, fetchLogo } from "@bifrostwallet/assets";
 
 const assets = createAssets();
 const provider = assets.getProvider(
   "eip155:14",
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
-if (!provider) throw new Error("missing listing");
-const bytes = await fetchLogo(provider);
+
+<img src={provider.logoURL} alt="" />
 ```
 
-`fetchLogo` takes any catalog entry with `logoURL` and `logoHash` (a provider, token, or contract). It requests the bytes as-is (`Accept: application/octet-stream`) and checks them with `verifyLogoHash`. Pass bytes you already have to `verifyLogoHash(bytes, logoHash)`.
+Pass `baseURL` when you host the files yourself. A trailing slash is optional. The examples further down do that.
+
+### Optional: check a downloaded logo
+
+Use this when you download logos or self-host them with `fetch-logos`. `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` is a convenience that downloads `logoURL` and runs that check in one step.
 
 ### Self-hosting logos
 

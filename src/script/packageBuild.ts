@@ -1447,7 +1447,8 @@ export interface FetchLogoOptions {
 }
 
 /**
- * Fetch entry.logoURL and return the bytes when they match entry.logoHash.
+ * Optional convenience. Downloads entry.logoURL and checks the bytes with verifyLogoHash.
+ * Apps show logoURL directly. Use this when you need the verified file bytes.
  * Throws if the request fails or the hash does not match.
  */
 export declare function fetchLogo(
@@ -1458,7 +1459,8 @@ export declare function fetchLogo(
 /**
  * True when SHA-256 of the decoded logo bytes equals expectedHash.
  * expectedHash is 64 lowercase hex characters with no 0x prefix (catalog logoHash).
- * Use this when the bytes are already on disk. fetchLogo calls it after a download.
+ * For bytes you already have, such as a file from fetch-logos.
+ * fetchLogo calls this after a download.
  */
 export declare function verifyLogoHash(
   bytes: ArrayBuffer | Uint8Array,

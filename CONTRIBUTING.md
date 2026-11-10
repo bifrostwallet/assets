@@ -100,7 +100,7 @@ Curators use this bar when they set a new provider to `listed: true`. CI leaves 
 
 #### Grandfathering
 
-Providers that were listed before this repository went public keep `listed: true` until 31 December 2026 (date to be confirmed with the provider community) without the domain linkage and ownership signature requirements. After 31 December 2026 (date to be confirmed with the provider community), a listed provider without a self-signature and `domainLinked: true` is set to `listed: false`. A delisted provider is listed again once it meets the requirements.
+Providers that were listed before this repository went public keep `listed: true` until 31 December 2026 (date to be confirmed with the provider community) without the domain linkage and ownership signature requirements. After 31 December 2026, a listed provider without a self-signature and `domainLinked: true` is set to `listed: false`. A delisted provider is listed again once it meets the requirements.
 
 ## Tokens
 
@@ -150,7 +150,7 @@ Browser chips are hand-edited in `data/dapps/categories.json`, an ordered array 
 
 Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [Using the package](README.md#other-lookups).
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` (Flare) is CAIP-2 `eip155:14` (Flare). The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` (Flare) is CAIP-2 `eip155:14`. The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
 
 `project` names a folder `data/contracts/projects/<slug>/` with `info.json` (`name` only) and `logo.webp`. Several contracts can share one project. The package build adds `project`, `projectName`, `logoURL`, and `logoHash` to each published contract, so `getContract` returns them in one lookup. `projectName` is the project `name`. `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`.
 
@@ -187,6 +187,6 @@ A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>
 
 ## Package logos
 
-`createAssets()` takes an optional `baseURL`. Omit it and logo URLs use jsDelivr for the installed release tag (`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`). To self-host, upload the `data/` logo paths and set `baseURL` to that public URL, for example `https://assets.example.com/`. The steps are in [Self-hosting logos](README.md#self-hosting-logos). `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos and checks each file against the hash shipped in the package.
+Show a logo with its `logoURL`. `createAssets()` takes an optional `baseURL`. Omit it and logo URLs use jsDelivr for the installed release tag (`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`). To self-host, upload the `data/` logo paths and set `baseURL` to that public URL, for example `https://assets.example.com/`. The steps are in [Self-hosting logos](README.md#self-hosting-logos). `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos. `verifyLogoHash(bytes, logoHash)` checks a file you already have. `fetchLogo(entry)` downloads and runs that check in one step.
 
 Provider `all.json` logo URLs use jsDelivr `@main`, because that file is for callers that fetch the current catalog. Updates there can take up to 12 hours to appear because jsDelivr caches branch URLs for up to 12 hours ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Do not point logo URLs at raw GitHub file hosts.
