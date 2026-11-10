@@ -31,7 +31,7 @@ describe("resolveAssetURL", () => {
         DEFAULT_ASSET_BASE_URL,
         "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/",
       );
-      assert.equal(DEFAULT_ASSET_BASE_URL.includes("raw.githubusercontent.com"), false);
+      assert.equal(new URL(DEFAULT_ASSET_BASE_URL).hostname, "cdn.jsdelivr.net");
       assert.equal(resolveAssetURL(RELATIVE), `${DEFAULT_ASSET_BASE_URL}${RELATIVE}`);
     } finally {
       if (previous === undefined) delete process.env.ASSET_BASE_URL;

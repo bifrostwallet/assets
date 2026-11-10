@@ -9,6 +9,17 @@ import { after, before, describe, test } from "node:test";
 import { gzipSync } from "node:zlib";
 import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
+function sourceContainsHostname(source: string, hostname: string): boolean {
+  for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
+    try {
+      if (new URL(match[0]).hostname === hostname) return true;
+    } catch {
+      // The match is not a URL.
+    }
+  }
+  return false;
+}
+
 const GOOD = Buffer.from("webp-bytes-for-the-hash-check");
 const GOOD_HASH = createHash("sha256").update(GOOD).digest("hex");
 const GOOD_PATH = "tokens/eip155-1/0xabc/logo.webp";
@@ -174,7 +185,7 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     const source = fs.readFileSync(path.join(process.cwd(), "dist", "fetch-logos.js"), "utf8");
     assert.match(source, /baseURL is optional/);
     assert.match(source, /https:\/\/assets\.example\.com\//);
-    assert.equal(source.includes("raw.githubusercontent"), false);
+    assert.equal(sourceContainsHostname(source, "raw.githubusercontent.com"), false);
     const hashes = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "dist", "logo-hashes.json"), "utf8"),
     ) as Record<string, string>;

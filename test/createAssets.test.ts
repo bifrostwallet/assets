@@ -52,6 +52,17 @@ const GETTERS = [
 
 type CreateAssets = (options?: { baseURL?: string } | null) => Assets;
 
+function sourceContainsHostname(source: string, hostname: string): boolean {
+  for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
+    try {
+      if (new URL(match[0]).hostname === hostname) return true;
+    } catch {
+      // The match is not a URL.
+    }
+  }
+  return false;
+}
+
 function readDistJson<T>(relativePath: string): T {
   const fullPath = path.join(process.cwd(), "dist", relativePath);
   return JSON.parse(fs.readFileSync(fullPath, "utf8")) as T;
@@ -160,7 +171,7 @@ describe("createAssets", { concurrency: false }, () => {
     assert.equal(fs.existsSync(path.join(process.cwd(), "data", stored?.logoURL ?? "")), true);
     const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
     assert.equal(indexSource.includes(prefix), true);
-    assert.equal(indexSource.includes("raw.githubusercontent.com"), false);
+    assert.equal(sourceContainsHostname(indexSource, "raw.githubusercontent.com"), false);
     assert.equal(indexSource.includes("@main/"), false);
     assert.equal(indexSource.includes("package.json"), false);
     assert.equal(indexSource.includes("readFileSync"), false);

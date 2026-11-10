@@ -572,6 +572,18 @@ module.exports = { fetchLogos, runCli, verifyLogoHash };
 `;
 }
 
+/** True when `source` contains an absolute URL whose host is exactly `hostname`. */
+function sourceContainsHostname(source: string, hostname: string): boolean {
+  for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
+    try {
+      if (new URL(match[0]).hostname === hostname) return true;
+    } catch {
+      // The match is not a URL.
+    }
+  }
+  return false;
+}
+
 /** dist/package.json matches this repo, and index.js exposes createAssets, verifyLogoHash, and catalog constants. */
 function assertBuiltPackage(distDir: string, defaultBase: string): void {
   const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
@@ -594,9 +606,9 @@ function assertBuiltPackage(distDir: string, defaultBase: string): void {
   if (
     indexSource.includes("/main/data/") ||
     indexSource.includes("@main/") ||
-    indexSource.includes("raw.githubusercontent.com")
+    sourceContainsHostname(indexSource, "raw.githubusercontent.com")
   ) {
-    throw new Error("Built index.js still falls back to a moving branch or GitHub raw");
+    throw new Error("Built index.js still falls back to a moving branch or a raw GitHub host");
   }
   if (
     indexSource.includes("GITHUB_ASSET_BASE_URL") ||

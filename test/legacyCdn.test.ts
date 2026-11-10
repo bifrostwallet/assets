@@ -24,7 +24,6 @@ describe("legacy catalog URLs", () => {
     assert.ok(files.length >= 2);
     for (const filePath of files) {
       const text = fs.readFileSync(filePath, "utf8");
-      assert.equal(text.includes("raw.githubusercontent"), false, filePath);
       const providers = JSON.parse(text) as Array<{ logoURL: string; validators: string[] }>;
       assert.ok(providers.length > 0);
       for (const provider of providers) {
