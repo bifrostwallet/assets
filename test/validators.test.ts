@@ -9,6 +9,7 @@ interface ValidatorInfo {
   identityAddress: string;
   name: string;
   logoURL: string;
+  logoHash: string;
 }
 
 interface ProviderInfo {
@@ -17,6 +18,7 @@ interface ProviderInfo {
   listed: boolean;
   validators: string[];
   logoURL: string;
+  logoHash: string;
 }
 
 interface PackageAssets {
@@ -48,6 +50,7 @@ function validatorsOf(providers: ProviderInfo[]): ValidatorInfo[] {
         identityAddress: provider.identityAddress,
         name: provider.name,
         logoURL: provider.logoURL,
+        logoHash: provider.logoHash,
       });
     }
   }
@@ -91,7 +94,9 @@ describe("published validator lists", { concurrency: false }, () => {
       "identityAddress",
       "name",
       "logoURL",
+      "logoHash",
     ]);
+    assert.match(validators[0]?.logoHash ?? "", /^[0-9a-f]{64}$/);
   });
 
   test("listed validators are only those of listed providers", () => {

@@ -530,6 +530,14 @@ describe("published package lookups", { concurrency: false }, () => {
       false,
     );
     assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("logo-hashes.json")),
+      true,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("fetch-logos.js")),
+      true,
+    );
+    assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("signatures.js")),
       true,
     );

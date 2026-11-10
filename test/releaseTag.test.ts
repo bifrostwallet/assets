@@ -4,7 +4,12 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { describe, test } from "node:test";
-import { assertGithubAssetBasePinsReleaseTag, releaseTagForVersion } from "../src/releaseTag.js";
+import {
+  assertGithubAssetBasePinsReleaseTag,
+  assertJsDelivrReleaseBase,
+  jsDelivrDataBase,
+  releaseTagForVersion,
+} from "../src/releaseTag.js";
 
 describe("releaseTagForVersion", () => {
   test("prefixes a valid semver once", () => {
@@ -32,6 +37,37 @@ describe("releaseTagForVersion", () => {
     assert.throws(
       () => assertGithubAssetBasePinsReleaseTag(doubled, "0.0.6-beta"),
       /must not contain \/vv/,
+    );
+  });
+
+  test("pins the jsDelivr release base once", () => {
+    assert.equal(
+      jsDelivrDataBase("bifrostwallet", "assets", "v0.1.0-beta"),
+      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v0.1.0-beta/data/",
+    );
+    assert.equal(
+      jsDelivrDataBase("bifrostwallet", "assets", "v1.0.0"),
+      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v1.0.0/data/",
+    );
+    assertJsDelivrReleaseBase(
+      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v0.1.0-beta/data/",
+      "0.1.0-beta",
+    );
+    assert.throws(
+      () =>
+        assertJsDelivrReleaseBase(
+          "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@vv0.1.0-beta/data/",
+          "0.1.0-beta",
+        ),
+      /doubled v/,
+    );
+    assert.throws(
+      () =>
+        assertJsDelivrReleaseBase(
+          "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/",
+          "0.1.0-beta",
+        ),
+      /must pin @v0\.1\.0-beta/,
     );
   });
 

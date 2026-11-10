@@ -4,8 +4,9 @@ import { DEFAULT_ASSET_BASE_URL } from "./config.js";
  * Asset URL helpers.
  *
  * Per-entry info.json and the npm package keep a relative logoURL.
- * Provider all.json uses absolute GitHub raw logo URLs so fetching it renders
- * logos. Tokens have no all.json; the package is the token catalog.
+ * Provider all.json uses absolute jsDelivr logo URLs on `@main` so fetching it
+ * renders logos. jsDelivr can cache that branch for about 12 hours. Tokens have
+ * no all.json; the package is the token catalog.
  * An already-absolute logoURL is stripped to its asset path before that join,
  * so it is not double-prefixed. The static bucket upload sends logo files only.
  *
@@ -16,7 +17,7 @@ import { DEFAULT_ASSET_BASE_URL } from "./config.js";
  */
 export function getAssetBaseURL(): string {
   const fromEnv = process.env.ASSET_BASE_URL?.trim();
-  // Empty / unset → GitHub raw. (Avoid `env = undefined` — Node stringifies it to "undefined".)
+  // Empty / unset → jsDelivr @main. (Avoid `env = undefined` — Node stringifies it to "undefined".)
   const base = fromEnv ? fromEnv : DEFAULT_ASSET_BASE_URL;
   return base.replace(/\/?$/, "/");
 }
@@ -61,7 +62,7 @@ export function toRelativeAssetPath(logoURL: string): string {
 /**
  * Join `logoURL` to `baseURL`.
  * A passed base must start with `https://`. A blank or omitted base uses
- * {@link getAssetBaseURL}, which is GitHub raw unless `ASSET_BASE_URL` is set.
+ * {@link getAssetBaseURL}, which is jsDelivr `@main` unless `ASSET_BASE_URL` is set.
  * Relative paths are appended. An absolute `https://` URL on a known asset
  * prefix is stripped and rebased. Any other absolute `https://` URL is
  * returned unchanged. `http://` and other schemes throw.
