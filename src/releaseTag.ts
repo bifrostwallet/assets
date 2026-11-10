@@ -39,6 +39,54 @@ export function releaseTagForVersion(version: string): string {
  * directly above `data/`, once. `endsWith(`/v${version}/data/`)` still passes
  * when version is `v0.0.6-beta`, because the URL and the check both use `vv0.0.6-beta`.
  */
+/**
+ * jsDelivr file base for `data/` at one git ref.
+ * A release tag is `v` plus the package version (`@v1.0.0`). `main` is the
+ * moving branch used by legacy provider all.json.
+ */
+export function jsDelivrDataBase(owner: string, repo: string, ref: string): string {
+  if (!/^[A-Za-z0-9_.-]+$/.test(owner) || !/^[A-Za-z0-9_.-]+$/.test(repo)) {
+    throw new Error(`Invalid GitHub owner/repo for jsDelivr: ${owner}/${repo}`);
+  }
+  if (!ref || /[\s/?#@]/.test(ref)) {
+    throw new Error(`jsDelivr ref ${JSON.stringify(ref)} must be a single segment`);
+  }
+  return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/data/`;
+}
+
+/**
+ * The package default must be jsDelivr at this version's release tag, once,
+ * directly above `data/`. `@vv0.1.0-beta` is rejected. A branch ref is rejected.
+ */
+export function assertJsDelivrReleaseBase(base: string, version: string): void {
+  const tag = releaseTagForVersion(version);
+  let url: URL;
+  try {
+    url = new URL(base);
+  } catch {
+    throw new Error(`Logo base is not a URL: ${base}`);
+  }
+  if (url.protocol !== "https:" || url.hostname !== "cdn.jsdelivr.net") {
+    throw new Error(`Logo base must use https://cdn.jsdelivr.net, got ${base}`);
+  }
+  if (base.includes("@vv") || base.includes("/vv")) {
+    throw new Error(`Logo base ${base} must not contain a doubled v`);
+  }
+  const match = url.pathname.match(/^\/gh\/([^/]+)\/([^/@]+)@([^/]+)\/data\/$/);
+  if (!match?.[1] || !match[2] || !match[3]) {
+    throw new Error(
+      `Logo base must be https://cdn.jsdelivr.net/gh/<owner>/<repo>@<tag>/data/, got ${base}`,
+    );
+  }
+  if (match[3] !== tag) {
+    throw new Error(`Logo base ${base} must pin @${tag} directly above data/`);
+  }
+  const pins = url.pathname.match(/@v/g) ?? [];
+  if (pins.length !== 1) {
+    throw new Error(`Logo base ${base} must contain exactly one @v release pin`);
+  }
+}
+
 export function assertGithubAssetBasePinsReleaseTag(base: string, version: string): void {
   const tag = releaseTagForVersion(version);
   if (base.includes("/vv")) {

@@ -23,11 +23,15 @@ describe("resolveAssetURL", () => {
     assert.equal(resolveAssetURL(DAPP, BASE), `https://cdn.example.com/assets/${DAPP}`);
   });
 
-  test("omitted base falls back to the GitHub raw data prefix", () => {
+  test("omitted base falls back to jsDelivr on main", () => {
     const previous = process.env.ASSET_BASE_URL;
     delete process.env.ASSET_BASE_URL;
     try {
-      assert.match(DEFAULT_ASSET_BASE_URL, /^https:\/\/raw\.githubusercontent\.com\/.+\/data\/$/);
+      assert.equal(
+        DEFAULT_ASSET_BASE_URL,
+        "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/",
+      );
+      assert.equal(DEFAULT_ASSET_BASE_URL.includes("raw.githubusercontent.com"), false);
       assert.equal(resolveAssetURL(RELATIVE), `${DEFAULT_ASSET_BASE_URL}${RELATIVE}`);
     } finally {
       if (previous === undefined) delete process.env.ASSET_BASE_URL;

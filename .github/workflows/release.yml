@@ -5,8 +5,9 @@ name: Publish release
 # on npmjs.com before it becomes installable.
 #
 # Gate: create a GitHub Release whose tag is v<package.json version>
-# (for example v0.0.6-beta), or use workflow_dispatch with publish=true.
-# Published logoURLs are relative to data/ on that tag.
+# (for example v0.0.6-beta or v1.0.0), or use workflow_dispatch with publish=true.
+# Published logoURLs are relative to data/ on that tag. createAssets() defaults to
+# https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<that-tag>/data/
 
 on:
   release:

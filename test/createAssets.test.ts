@@ -145,9 +145,35 @@ describe("createAssets", { concurrency: false }, () => {
     );
   });
 
-  test("a missing or invalid baseURL throws", () => {
-    assert.throws(() => createAssets(), /https:\/\//);
-    assert.throws(() => createAssets({}), /https:\/\//);
+  test("omitted baseURL uses jsDelivr for this package version", () => {
+    const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
+      .version as string;
+    const prefix = `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v${version}/data/`;
+    const assets = createAssets();
+    const require = createRequire(path.join(process.cwd(), "package.json"));
+    const storedProviders = require(
+      path.join(process.cwd(), "dist", "providers", "eip155-14.json"),
+    ) as LogoRecord[];
+    const stored = storedProviders.find((provider) => provider.listed);
+    assert.ok(stored?.logoURL.startsWith("providers/"));
+    assert.equal(assets.getListedProviders("eip155:14")[0]?.logoURL, `${prefix}${stored?.logoURL}`);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "data", stored?.logoURL ?? "")), true);
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes(prefix), true);
+    assert.equal(indexSource.includes("raw.githubusercontent.com"), false);
+    assert.equal(indexSource.includes("@main/"), false);
+    assert.equal(indexSource.includes("package.json"), false);
+    assert.equal(indexSource.includes("readFileSync"), false);
+    const custom = createAssets({ baseURL: "https://assets.example.com" });
+    assert.equal(
+      custom.getListedProviders("eip155:14")[0]?.logoURL,
+      `https://assets.example.com/${stored?.logoURL}`,
+    );
+  });
+
+  test("an invalid baseURL throws and an omitted one does not", () => {
+    assert.doesNotThrow(() => createAssets());
+    assert.doesNotThrow(() => createAssets({}));
     assert.throws(() => createAssets({ baseURL: "" }), /https:\/\//);
     assert.throws(() => createAssets({ baseURL: "http://cdn.example.com/assets/" }), /https:\/\//);
     assert.throws(() => createAssets({ baseURL: "cdn.example.com/assets" }), /https:\/\//);
