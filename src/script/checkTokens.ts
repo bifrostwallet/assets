@@ -217,7 +217,19 @@ function checkEvmSchemaAndLogo(
   for (const error of validateEvmToken(info)) {
     report.schemaErrors.push(`${label}: ${error}`);
   }
+  const folder = info.address === null ? "native" : info.address;
+  const expectedLogo = `tokens/${chainPath}/${folder}/logo.webp`;
+  if (info.logoURL !== expectedLogo) {
+    report.schemaErrors.push(`${label}: logoURL must be ${expectedLogo}`);
+  }
   checkLogoFile(label, dir, info.logoURL, report);
+  const logoPath = path.join(dir, "logo.webp");
+  if (fs.existsSync(logoPath)) {
+    const actual = createHash("sha256").update(fs.readFileSync(logoPath)).digest("hex");
+    if (actual !== info.logoHash) {
+      report.schemaErrors.push(`${label}: logoHash does not match logo.webp`);
+    }
+  }
 }
 
 function checkXrplChain(report: CheckReport): void {
@@ -449,6 +461,19 @@ async function checkTokens(): Promise<void> {
   }
   console.info(`\nReport: ${reportPath}`);
 
+  if (
+    report.schemaErrors.length > 0 ||
+    report.missingLogos.length > 0 ||
+    report.logoOutliers.length > 0
+  ) {
+    console.error("\nToken logo check failed:");
+    for (const line of report.schemaErrors) console.error(`  ${line}`);
+    for (const line of report.missingLogos) console.error(`  missing logo: ${line}`);
+    for (const row of report.logoOutliers) {
+      console.error(`  ${row.path}: ${row.errors.join("; ")}`);
+    }
+    process.exitCode = 1;
+  }
   if (symbolMismatches.length > 0 || report.symbolReadErrors.length > 0) {
     console.error(
       `❌ Symbol check failed (${symbolMismatches.length} mismatches, ${report.symbolReadErrors.length} read errors)`,

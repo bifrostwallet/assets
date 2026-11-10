@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { ProviderInfo } from "../config.js";
@@ -11,6 +12,7 @@ import {
   parseEpochInfo,
 } from "../fspRewards.js";
 import { isMain } from "../isMain.js";
+import { isValidImage } from "../validate.js";
 
 // Advisory provider audit against Flare's published reward data
 // (github.com/flare-foundation/fsp-rewards). Reports:
@@ -178,7 +180,55 @@ async function reportListingFees(chainPath: string, curated: ProviderInfo[]): Pr
   }
 }
 
+const LOGO_HASH_RE = /^[0-9a-f]{64}$/;
+
+/** Same logo rules as tokens, contracts, and dapps: path, hash, WebP, 128×128, 24 KB. */
+function providerLogoErrors(): string[] {
+  const errors: string[] = [];
+  const root = path.join(process.cwd(), "data", "providers");
+  if (!fs.existsSync(root)) return ["data/providers is missing"];
+  for (const chain of fs.readdirSync(root, { withFileTypes: true })) {
+    if (!chain.isDirectory()) continue;
+    const chainDir = path.join(root, chain.name);
+    for (const provider of fs.readdirSync(chainDir, { withFileTypes: true })) {
+      if (!provider.isDirectory()) continue;
+      const label = `providers/${chain.name}/${provider.name}`;
+      const infoPath = path.join(chainDir, provider.name, "info.json");
+      const logoPath = path.join(chainDir, provider.name, "logo.webp");
+      if (!fs.existsSync(infoPath)) {
+        errors.push(`${label}: missing info.json`);
+        continue;
+      }
+      const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
+      const expected = `providers/${chain.name}/${info.identityAddress}/logo.webp`;
+      if (info.logoURL !== expected) errors.push(`${label}: logoURL must be ${expected}`);
+      if (typeof info.logoHash !== "string" || !LOGO_HASH_RE.test(info.logoHash)) {
+        errors.push(`${label}: logoHash must be a lowercase SHA-256 hex digest`);
+      }
+      if (!fs.existsSync(logoPath)) {
+        errors.push(`${label}: logo.webp is missing`);
+        continue;
+      }
+      const check = isValidImage(logoPath);
+      if (!check.isValid) {
+        for (const error of check.errors) errors.push(`${label}: ${error}`);
+      }
+      if (typeof info.logoHash === "string") {
+        const actual = createHash("sha256").update(fs.readFileSync(logoPath)).digest("hex");
+        if (actual !== info.logoHash) errors.push(`${label}: logoHash does not match logo.webp`);
+      }
+    }
+  }
+  return errors;
+}
+
 async function main(): Promise<void> {
+  const logoErrors = providerLogoErrors();
+  if (logoErrors.length > 0) {
+    console.error(`❌ Provider logos invalid (${logoErrors.length}):`);
+    for (const error of logoErrors) console.error(`  ${error}`);
+    process.exitCode = 1;
+  }
   for (const network of NETWORKS) {
     await checkNetwork(network);
   }

@@ -80,6 +80,52 @@ function writeFixture(root: string): void {
   );
 }
 
+function readCatalogEntry(
+  relativePath: string,
+  pick: (
+    rows: Array<{ logoURL: string; logoHash: string }>,
+  ) => { logoURL: string; logoHash: string } | undefined,
+): { logoURL: string; logoHash: string } {
+  const rows = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "dist", relativePath), "utf8"),
+  ) as Array<{ logoURL: string; logoHash: string }>;
+  const entry = pick(rows);
+  assert.ok(entry?.logoURL);
+  assert.match(entry.logoHash, /^[0-9a-f]{64}$/);
+  return entry;
+}
+
+function startCatalogServer(): Promise<{ server: Server; origin: string }> {
+  const dataRoot = path.resolve(process.cwd(), "data");
+  const server = createServer((req, res) => {
+    const url = req.url ?? "";
+    if (url.includes("missing.webp")) {
+      res.statusCode = 404;
+      res.end("missing");
+      return;
+    }
+    if (url.includes("tampered.webp")) {
+      res.end(Buffer.from("not-the-logo"));
+      return;
+    }
+    const relative = decodeURIComponent(url.replace(/^\/data\//, "").split("?")[0] ?? "");
+    const file = path.resolve(dataRoot, relative);
+    if (!file.startsWith(`${dataRoot}${path.sep}`) || !fs.existsSync(file)) {
+      res.statusCode = 404;
+      res.end("missing");
+      return;
+    }
+    res.end(fs.readFileSync(file));
+  });
+  return new Promise((resolve) => {
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      if (!address || typeof address === "string") throw new Error("no port");
+      resolve({ server, origin: `http://127.0.0.1:${address.port}/data/` });
+    });
+  });
+}
+
 function startServer(): Promise<{
   server: Server;
   origin: string;
@@ -132,6 +178,69 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
 
   after(() => {
     releaseDist?.();
+  });
+
+  test("fetchLogo returns verified bytes for each catalog entry and rejects failures", async () => {
+    const indexPath = path.join(process.cwd(), "dist", "index.js");
+    const require = createRequire(path.join(process.cwd(), "package.json"));
+    const { fetchLogo } = require(indexPath) as {
+      fetchLogo: (
+        entry: { logoURL: string; logoHash: string },
+        options?: { fetch?: typeof fetch },
+      ) => Promise<Uint8Array>;
+    };
+    const provider = readCatalogEntry("providers/eip155-14.json", (rows) =>
+      rows.find((row) => row.logoURL.includes("0x1650d2760baee638c034200dedcbe17b050d0364")),
+    );
+    const token = readCatalogEntry("tokens/eip155-14.json", (rows) =>
+      rows.find((row) =>
+        row.logoURL.endsWith("/0x1d80c49bbbcd1c0911346656b529df9e5c2f783d/logo.webp"),
+      ),
+    );
+    const contract = readCatalogEntry("contracts/eip155-14.json", (rows) => rows[0]);
+    const { server, origin } = await startCatalogServer();
+    try {
+      for (const entry of [provider, token, contract]) {
+        const bytes = await fetchLogo(
+          { ...entry, logoURL: `${origin}${entry.logoURL}` },
+          { fetch },
+        );
+        assert.deepEqual(
+          Buffer.from(bytes),
+          fs.readFileSync(path.join(process.cwd(), "data", entry.logoURL)),
+        );
+      }
+      await assert.rejects(
+        () =>
+          fetchLogo(
+            { logoURL: `${origin}providers/eip155-14/tampered.webp`, logoHash: GOOD_HASH },
+            { fetch },
+          ),
+        /logo hash mismatch/,
+      );
+      await assert.rejects(
+        () =>
+          fetchLogo(
+            { logoURL: `${origin}providers/eip155-14/missing.webp`, logoHash: GOOD_HASH },
+            { fetch },
+          ),
+        /Could not fetch logo: HTTP 404/,
+      );
+      await assert.rejects(
+        () =>
+          fetchLogo(
+            { logoURL: "https://logos.example/logo.webp", logoHash: GOOD_HASH },
+            {
+              fetch: async () => {
+                throw new Error("socket hang up");
+              },
+            },
+          ),
+        /Could not fetch logo: socket hang up/,
+      );
+    } finally {
+      await new Promise((resolve) => server.close(resolve));
+    }
   });
 
   test("verifyLogoHash accepts the catalog digest and rejects anything else", () => {

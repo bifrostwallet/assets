@@ -351,6 +351,7 @@ const PUBLISHED_EXPORTS = [
   "PROVIDER_LISTING_TYPES",
   "TOKEN_CHAIN_IDS",
   "createAssets",
+  "fetchLogo",
   "providerListingTypedData",
   "verifyLogoHash",
 ] as const;
@@ -440,6 +441,40 @@ const VERIFY_LOGO_HASH_JS = [
   "  if (digest.length !== expected.length) return false;",
   "  return crypto.timingSafeEqual(digest, expected);",
   "}",
+  "",
+  "async function fetchLogo(entry, options) {",
+  '  if (!entry || typeof entry.logoURL !== "string" || entry.logoURL.trim() === "") {',
+  '    throw new Error("logoURL is required");',
+  "  }",
+  '  if (typeof entry.logoHash !== "string" || !/^[0-9a-f]{64}$/.test(entry.logoHash)) {',
+  '    throw new Error("logoHash must be a lowercase SHA-256 hex digest");',
+  "  }",
+  "  const fetchImpl = (options && options.fetch) || fetch;",
+  "  const signal = options && options.signal ? options.signal : AbortSignal.timeout(30000);",
+  "  let response;",
+  "  try {",
+  "    response = await fetchImpl(entry.logoURL, {",
+  '      redirect: "follow",',
+  '      headers: { accept: "application/octet-stream" },',
+  "      signal,",
+  "    });",
+  "  } catch (error) {",
+  "    const message = error && error.message ? error.message : String(error);",
+  '    throw new Error("Could not fetch logo: " + message);',
+  "  }",
+  "  if (!response || !response.ok) {",
+  '    const status = response && response.status ? response.status : "request failed";',
+  '    throw new Error("Could not fetch logo: HTTP " + status);',
+  "  }",
+  "  const bytes = new Uint8Array(await response.arrayBuffer());",
+  "  if (bytes.byteLength > 256 * 1024) {",
+  '    throw new Error("Could not fetch logo: response exceeds 256KB");',
+  "  }",
+  "  if (!verifyLogoHash(bytes, entry.logoHash)) {",
+  '    throw new Error("logo hash mismatch");',
+  "  }",
+  "  return bytes;",
+  "}",
 ].join("\n");
 
 function fetchLogosSource(defaultBase: string): string {
@@ -452,7 +487,7 @@ function fetchLogosSource(defaultBase: string): string {
 
 const fs = require("node:fs");
 const path = require("node:path");
-const { verifyLogoHash } = require("./verify-logo-hash.js");
+const { fetchLogo, verifyLogoHash } = require("./verify-logo-hash.js");
 
 const DEFAULT_LOGO_BASE_URL = ${JSON.stringify(defaultBase)};
 const USAGE = [
@@ -540,23 +575,6 @@ function destinationFor(destDir, logoPath) {
   return target;
 }
 
-async function downloadLogo(url, fetchImpl) {
-  const response = await fetchImpl(url, {
-    redirect: "follow",
-    headers: { accept: "application/octet-stream" },
-    signal: AbortSignal.timeout(30000),
-  });
-  if (!response.ok) {
-    throw new Error("HTTP " + response.status);
-  }
-  // arrayBuffer() is the body after the client removes content-encoding.
-  const bytes = Buffer.from(await response.arrayBuffer());
-  if (bytes.length > 256 * 1024) {
-    throw new Error("response exceeds 256KB");
-  }
-  return bytes;
-}
-
 async function mapPool(items, limit, fn) {
   const queue = items.slice();
   const workers = [];
@@ -592,11 +610,10 @@ async function fetchLogos(options) {
   }
   await mapPool(jobs, 8, async (job) => {
     try {
-      const bytes = await downloadLogo(baseURL + job.logoPath, fetchImpl);
-      if (!verifyLogoHash(bytes, job.logoHash)) {
-        failures.push(job.logoPath + ": hash mismatch");
-        return;
-      }
+      const bytes = await fetchLogo(
+        { logoURL: baseURL + job.logoPath, logoHash: job.logoHash },
+        { fetch: fetchImpl },
+      );
       const target = destinationFor(options.destDir, job.logoPath);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       const partial = target + ".partial";
@@ -652,7 +669,7 @@ if (require.main === module) {
     });
 }
 
-module.exports = { fetchLogos, runCli, verifyLogoHash };
+module.exports = { fetchLogos, fetchLogo, runCli, verifyLogoHash };
 `;
 }
 
@@ -738,8 +755,14 @@ function assertBuiltPackage(distDir: string, defaultBase: string): void {
   if (!dts.includes("export declare function verifyLogoHash")) {
     throw new Error("index.d.ts is missing verifyLogoHash");
   }
+  if (!dts.includes("export declare function fetchLogo")) {
+    throw new Error("index.d.ts is missing fetchLogo");
+  }
   if (typeof published.verifyLogoHash !== "function") {
     throw new Error("verifyLogoHash export is missing");
+  }
+  if (typeof published.fetchLogo !== "function") {
+    throw new Error("fetchLogo export is missing");
   }
   if (
     !dts.includes(`export declare const EIP712_DOMAIN_SALT: ${JSON.stringify(EIP712_DOMAIN_SALT)}`)
@@ -1167,6 +1190,10 @@ function verifyLogoHash(bytes, expectedHash) {
   return require("./verify-logo-hash.js").verifyLogoHash(bytes, expectedHash);
 }
 
+function fetchLogo(entry, options) {
+  return require("./verify-logo-hash.js").fetchLogo(entry, options);
+}
+
 function createAssets(options) {
   let supplied;
   if (options === undefined || options === null) {
@@ -1257,6 +1284,7 @@ module.exports = {
   PROVIDER_LISTING_TYPES,
   providerListingTypedData,
   createAssets,
+  fetchLogo,
   verifyLogoHash,
 };
 `;
@@ -1406,9 +1434,31 @@ export interface CreateAssetsOptions {
   baseURL?: string;
 }
 
+/** Any curated catalog entry. Tokens, providers, contracts, and dapps use this shape. */
+export interface LogoEntry {
+  logoURL: string;
+  logoHash: string;
+}
+
+export interface FetchLogoOptions {
+  /** Defaults to global fetch. Tests pass a substitute. */
+  fetch?: typeof fetch;
+  signal?: AbortSignal;
+}
+
+/**
+ * Fetch entry.logoURL and return the bytes when they match entry.logoHash.
+ * Throws if the request fails or the hash does not match.
+ */
+export declare function fetchLogo(
+  entry: LogoEntry,
+  options?: FetchLogoOptions,
+): Promise<Uint8Array>;
+
 /**
  * True when SHA-256 of the decoded logo bytes equals expectedHash.
  * expectedHash is 64 lowercase hex characters with no 0x prefix (catalog logoHash).
+ * Use this when the bytes are already on disk. fetchLogo calls it after a download.
  */
 export declare function verifyLogoHash(
   bytes: ArrayBuffer | Uint8Array,
@@ -1616,7 +1666,7 @@ function buildPackageUnlocked(): void {
   );
   fs.writeFileSync(
     path.join(distDir, "verify-logo-hash.js"),
-    `"use strict";\n${VERIFY_LOGO_HASH_JS}\nmodule.exports = { verifyLogoHash };\n`,
+    `"use strict";\n${VERIFY_LOGO_HASH_JS}\nmodule.exports = { verifyLogoHash, fetchLogo };\n`,
   );
   const fetchLogosPath = path.join(distDir, "fetch-logos.js");
   fs.writeFileSync(fetchLogosPath, fetchLogosSource(defaultBase));

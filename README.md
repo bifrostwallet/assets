@@ -41,7 +41,7 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 Providers, tokens, and contracts carry `logoHash`. A validator has no separate image. Its `logoHash` is the operating provider's signed digest. Contract `logoHash` is filled in when the package is built, from the logo file. Every logo the package returns carries its `logoHash` on its catalog entry, and `fetch-logos` checks each downloaded file against it.
 
 ```typescript
-import { createAssets, verifyLogoHash } from "@bifrostwallet/assets";
+import { createAssets, fetchLogo } from "@bifrostwallet/assets";
 
 const assets = createAssets();
 const provider = assets.getProvider(
@@ -49,14 +49,10 @@ const provider = assets.getProvider(
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
 if (!provider) throw new Error("missing listing");
-const response = await fetch(provider.logoURL, {
-  headers: { accept: "application/octet-stream" },
-});
-const bytes = new Uint8Array(await response.arrayBuffer());
-if (!verifyLogoHash(bytes, provider.logoHash)) throw new Error("logo hash mismatch");
+const bytes = await fetchLogo(provider);
 ```
 
-Ask for the bytes as-is. Do not send an `Accept` list of image types. Hash the body after content-encoding is removed. `verifyLogoHash` does that comparison.
+`fetchLogo` takes any catalog entry with `logoURL` and `logoHash` (a provider, token, or contract). It requests the bytes as-is (`Accept: application/octet-stream`) and checks them with `verifyLogoHash`. Pass bytes you already have to `verifyLogoHash(bytes, logoHash)`.
 
 ### Self-hosting logos
 
