@@ -453,7 +453,8 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.ok(logoURLs.length > 0);
     for (const logoURL of logoURLs) {
       assert.equal(/^https?:\/\//i.test(logoURL), false, logoURL);
-      assert.match(logoURL, /^(providers|tokens|dapps|contracts)\//);
+      assert.match(logoURL, /^(providers|tokens|contracts)\//);
+      assert.equal(logoURL.startsWith("dapps/"), false);
     }
 
     const bifrostLogo = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";

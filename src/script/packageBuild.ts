@@ -20,6 +20,7 @@ import {
   listContractChainPaths,
   validateContractCatalog,
 } from "../contracts.js";
+import { collectDappLogoErrors } from "../dappCheck.js";
 import {
   EIP712_DOMAIN_NAME,
   EIP712_DOMAIN_SALT,
@@ -360,12 +361,13 @@ const LOGO_HASH_RE = /^[0-9a-f]{64}$/;
 function isSafeLogoPath(value: string): boolean {
   if (!value || value.startsWith("/") || value.includes("..") || value.includes("\\")) return false;
   if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return false;
-  return /^(providers|tokens|contracts)\/[A-Za-z0-9._@/-]+$/.test(value);
+  return /^(providers|tokens|contracts|dapps)\/[A-Za-z0-9._@/-]+$/.test(value);
 }
 
 /**
- * Each shipped catalog entry's logoHash must match its logo bytes.
- * The hash lives on that entry.
+ * Each catalog entry's logoHash must match its logo bytes.
+ * Shipped providers, tokens, and contracts are read from dist/.
+ * Dapp entries stay in data/dapps and are checked from there.
  */
 function assertCatalogLogoHashes(distDir: string): number {
   const hashes = new Map<string, string>();
@@ -415,6 +417,12 @@ function assertCatalogLogoHashes(distDir: string): number {
       throw new Error(`${relative}: catalog logoHash does not match logo bytes`);
     }
   }
+  const dappLogoErrors = collectDappLogoErrors();
+  if (dappLogoErrors.length > 0) {
+    throw new Error(
+      `Dapp logos do not match their catalog entries:\n${dappLogoErrors.slice(0, 8).join("\n")}`,
+    );
+  }
   return hashes.size;
 }
 
@@ -451,7 +459,7 @@ const USAGE = [
   "Usage: fetch-logos <dir>",
   "",
   "Download this package version's logos into <dir>.",
-  "Paths stay relative to data/ (providers/, tokens/, contracts/).",
+  "Paths stay relative to data/ (providers/, tokens/, contracts/, dapps/).",
   "Each file is checked against the logoHash on its catalog entry.",
   "A missing hash or a hash mismatch does not write that file, and the command exits non-zero.",
   "Do not upload the directory when the command fails.",
@@ -493,7 +501,7 @@ function walkJsonArrays(dir, visit) {
 function isSafeLogoPath(value) {
   if (!value || value.startsWith("/") || value.includes("..") || value.includes("\\\\")) return false;
   if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return false;
-  return /^(providers|tokens|contracts)\\/[A-Za-z0-9._@/-]+$/.test(value);
+  return /^(providers|tokens|contracts|dapps)\\/[A-Za-z0-9._@/-]+$/.test(value);
 }
 
 function loadAnchors(packageRoot) {

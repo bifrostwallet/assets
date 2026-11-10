@@ -9,6 +9,28 @@ import { after, before, describe, test } from "node:test";
 import { gzipSync } from "node:zlib";
 import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
+function publishedLogoURLs(distDir: string): string[] {
+  const found: string[] = [];
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
+      const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
+      if (!Array.isArray(parsed)) continue;
+      for (const item of parsed) {
+        if (!item || typeof item !== "object" || !("logoURL" in item)) continue;
+        found.push(String((item as { logoURL: unknown }).logoURL));
+      }
+    }
+  };
+  walk(distDir);
+  return found;
+}
+
 function sourceContainsHostname(source: string, hostname: string): boolean {
   for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
     try {
@@ -142,16 +164,17 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
       assert.equal(code, 1);
       assert.ok(result.failures.some((failure) => failure.includes("missing logoHash")));
       assert.ok(result.failures.some((failure) => failure.includes("hash mismatch")));
-      assert.ok(
-        result.failures.some((failure) => failure.includes(`${DAPP_PATH}: invalid logo path`)),
+      assert.equal(
+        result.failures.some((failure) => failure.includes(DAPP_PATH)),
+        false,
       );
       const goodFile = path.join(dest, GOOD_PATH);
       assert.equal(fs.existsSync(goodFile), true);
       assert.deepEqual(fs.readFileSync(goodFile), GOOD);
+      assert.deepEqual(fs.readFileSync(path.join(dest, DAPP_PATH)), GOOD);
       assert.equal(fs.existsSync(path.join(dest, MISSING_PATH)), false);
       assert.equal(fs.existsSync(path.join(dest, BAD_PATH)), false);
-      assert.equal(fs.existsSync(path.join(dest, DAPP_PATH)), false);
-      assert.ok(urls.every((url) => !url.includes("/dapps/")));
+      assert.ok(urls.some((url) => url.includes(DAPP_PATH)));
       assert.equal(fs.existsSync(`${goodFile}.partial`), false);
       assert.ok(accepts.every((accept) => accept === "application/octet-stream"));
       assert.ok(accepts.every((accept) => !accept.includes("image/")));
@@ -191,8 +214,13 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     assert.match(source, /https:\/\/cdn\.jsdelivr\.net\/gh\/bifrostwallet\/assets@1\.0\.0\/data\//);
     assert.equal(sourceContainsHostname(source, "raw.githubusercontent.com"), false);
     assert.equal(source.includes("logo-hashes.json"), false);
-    assert.equal(source.includes("dapps/"), false);
+    assert.match(source, /providers\|tokens\|contracts\|dapps/);
     assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
+    const published = publishedLogoURLs(path.join(process.cwd(), "dist"));
+    assert.equal(
+      published.some((logoURL) => logoURL.startsWith("dapps/")),
+      false,
+    );
     const provider = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";
     const providers = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "dist", "providers", "eip155-14.json"), "utf8"),

@@ -81,7 +81,7 @@ export const PROVIDER_LOGO_REQUIREMENTS = {
   REQUIRE_SQUARE: true,
 } as const;
 
-/** Unified catalog logo rules (providers + tokens). */
+/** Catalog logo rules for providers, tokens, contracts, and dapps. */
 export const ASSET_LOGO_REQUIREMENTS = PROVIDER_LOGO_REQUIREMENTS;
 
 /**
@@ -269,7 +269,7 @@ export interface DappInfo {
   title: string;
   description: string;
   url: string;
-  /** Relative logo path (`dapps/<slug>/logo.webp`) in git and in the npm package. */
+  /** Relative logo path (`dapps/<slug>/logo.webp`) stored on this info.json. */
   logoURL: string;
   /** SHA-256 of logo.webp. */
   logoHash: string;

@@ -171,13 +171,11 @@ describe("curated dapps", () => {
     assert.equal(fs.existsSync(path.join(DAPPS_DIR, "all.json")), false);
   });
 
-  test("logo.webp is valid when present", () => {
+  test("logo.webp matches the catalog image rules", () => {
     for (const slug of slugs) {
       const logoPath = path.join(DAPPS_DIR, slug, "logo.webp");
-      if (fs.existsSync(logoPath)) {
-        assert.equal(logoPath.toLowerCase().endsWith(".webp"), true);
-        assert.ok(fs.statSync(logoPath).size > 0);
-      }
+      const check = isValidImage(logoPath);
+      assert.equal(check.isValid, true, `${slug}: ${check.errors.join("; ")}`);
     }
   });
 
