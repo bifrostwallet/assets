@@ -187,6 +187,6 @@ A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>
 
 ## Package logos
 
-`createAssets()` takes an optional `baseURL`. Omit it and logo URLs use jsDelivr for the installed release tag (`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`). From 1.0.0 that tag is the package version, with no leading `v`. To self-host, upload the `data/` logo paths and set `baseURL` to that public URL, for example `https://assets.example.com/`. The steps are in [Self-hosting logos](README.md#self-hosting-logos). `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos and checks each file against the hash shipped in the package.
+`createAssets()` takes an optional `baseURL`. Omit it and logo URLs use jsDelivr for the installed release tag (`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`). To self-host, upload the `data/` logo paths and set `baseURL` to that public URL, for example `https://assets.example.com/`. The steps are in [Self-hosting logos](README.md#self-hosting-logos). `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos and checks each file against the hash shipped in the package.
 
-Provider `all.json` logo URLs use jsDelivr `@main`, because that file is for callers that fetch the current catalog. jsDelivr can cache a branch for about 12 hours. Do not point logo URLs at raw GitHub file hosts.
+Provider `all.json` logo URLs use jsDelivr `@main`, because that file is for callers that fetch the current catalog. Updates there can take up to 12 hours to appear because jsDelivr caches branch URLs for up to 12 hours ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Do not point logo URLs at raw GitHub file hosts.

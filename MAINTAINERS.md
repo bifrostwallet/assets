@@ -6,7 +6,7 @@
 
 Pin dev dependencies to exact versions. They are not published.
 
-From 1.0.0, a GitHub Release tagged with the package version (`1.0.0`, no `v`) stages `dist/` through npm Trusted Publishing, with provenance, on the `latest` dist-tag. Earlier releases stay tagged `v0.x-beta`. Mark the GitHub Release as a plain release, not a pre-release. Approve the staged version on npmjs.com and confirm the provenance badge ([Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/)).
+From 1.0.0, a GitHub Release tagged with the package version stages `dist/` through npm Trusted Publishing, with provenance, on the `latest` dist-tag. Mark the GitHub Release as a plain release, not a pre-release. Approve the staged version on npmjs.com and confirm the provenance badge ([Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/)).
 
 ## Logos on a bucket or CDN
 

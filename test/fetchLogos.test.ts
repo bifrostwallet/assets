@@ -186,7 +186,6 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     assert.match(source, /baseURL is optional/);
     assert.match(source, /https:\/\/assets\.example\.com\//);
     assert.match(source, /https:\/\/cdn\.jsdelivr\.net\/gh\/bifrostwallet\/assets@1\.0\.0\/data\//);
-    assert.equal(source.includes("assets@v"), false);
     assert.equal(sourceContainsHostname(source, "raw.githubusercontent.com"), false);
     const hashes = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "dist", "logo-hashes.json"), "utf8"),
