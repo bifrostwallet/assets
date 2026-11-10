@@ -21,6 +21,15 @@ interface DappChip {
   dapps: string[];
 }
 
+interface DappRecord {
+  title: string;
+  description: string;
+  url: string;
+  logoURL: string;
+  logoHash: string;
+  chains: string[];
+}
+
 interface Assets {
   getListedProviders: (chainId: string) => LogoRecord[];
   getProvider: (chainId: string, identityAddress: string) => LogoRecord | null;
@@ -30,6 +39,8 @@ interface Assets {
   getXrplToken: (issuer: string, currency: string) => LogoRecord | null;
   getContract: (chainId: string, address: string) => LogoRecord | null;
   getContracts: (chainId?: string) => LogoRecord[];
+  getDapps: () => DappRecord[];
+  getDapp: (slug: string) => DappRecord | null;
   getDappCategories: () => DappChip[];
 }
 
@@ -37,7 +48,9 @@ const GETTERS = [
   "findProviderByValidator",
   "getContract",
   "getContracts",
+  "getDapp",
   "getDappCategories",
+  "getDapps",
   "getListedProviders",
   "getListedValidators",
   "getManagementGroupProviders",
@@ -148,6 +161,18 @@ describe("createAssets", { concurrency: false }, () => {
       null,
     );
 
+    const dapps = readDistJson<DappRecord[]>("dapps/dapps.json");
+    assert.ok(dapps.length > 0);
+    for (const dapp of dapps) {
+      assert.match(dapp.logoURL, /^dapps\/[^/]+\/logo\.webp$/);
+      assert.match(dapp.logoHash, /^[0-9a-f]{64}$/);
+    }
+    const spark = dapps.find((dapp) => dapp.logoURL === "dapps/sparkdex-ai/logo.webp");
+    assert.ok(spark);
+    assert.equal(assets.getDapps().length, dapps.length);
+    assert.equal(assets.getDapp("sparkdex-ai")?.logoURL, `${prefix}${spark.logoURL}`);
+    assert.equal(assets.getDapp("SparkDEX-AI")?.logoHash, spark.logoHash);
+    assert.equal(assets.getDapp("missing-dapp"), null);
     const categories = readDistJson<DappChip[]>("dapps/categories.json");
     assert.deepEqual(assets.getDappCategories(), categories);
     const dex = categories.find((chip) => chip.id === "dex");

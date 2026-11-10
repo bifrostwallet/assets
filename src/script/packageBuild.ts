@@ -8,6 +8,7 @@ import {
   ALLOWED_LINKS,
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
+  type DappInfo,
   jsDelivrDataBaseFromRepository,
   type ProviderInfo,
 } from "../config.js";
@@ -20,7 +21,9 @@ import {
   listContractChainPaths,
   validateContractCatalog,
 } from "../contracts.js";
-import { collectDappLogoErrors } from "../dappCheck.js";
+import { sortDappInfo } from "../convert.js";
+import { listDappSlugs } from "../dappCategories.js";
+import { checkDappCatalog, collectDappLogoErrors } from "../dappCheck.js";
 import {
   EIP712_DOMAIN_NAME,
   EIP712_DOMAIN_SALT,
@@ -80,6 +83,24 @@ function loadTokens(chainPath: string): Array<EvmToken | XrplToken> {
   return listChainTokens(chainPath).map((token, index) =>
     publishEntry(token, `tokens/${chainPath}[${index}]`),
   );
+}
+
+function loadDapps(): { records: DappInfo[]; slugs: string[] } {
+  const result = checkDappCatalog();
+  if (result.errors.length > 0) {
+    throw new Error(
+      `Refusing to publish an invalid dapp catalog:\n${result.errors
+        .map((error) => `  ${error}`)
+        .join("\n")}`,
+    );
+  }
+  const slugs = listDappSlugs();
+  const records = slugs.map((slug) => {
+    const infoPath = path.join(process.cwd(), "data", "dapps", slug, "info.json");
+    const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as DappInfo;
+    return publishEntry(sortDappInfo(info), `dapps/${slug}`);
+  });
+  return { records, slugs };
 }
 
 function loadContracts(chainPath: string): ContractInfo[] {
@@ -922,6 +943,7 @@ export declare function providerListingTypedData<T extends ProviderListingMessag
 function buildIndexJs(
   tokenChains: string[],
   contractChains: string[],
+  dappSlugs: string[],
   defaultBase: string,
 ): string {
   const tokenRequires =
@@ -945,8 +967,10 @@ ${tokenRequires}};
 const contractsByChain = {
 ${contractRequires}};
 
-/** Hand-ordered browser chips. Not an all.json aggregate. */
+/** Hand-ordered browser chips. Not the dapp catalog. */
 const dappCategories = require("./dapps/categories.json");
+const dappRecords = require("./dapps/dapps.json");
+const dappSlugs = ${JSON.stringify(dappSlugs)};
 
 const PROVIDER_CHAIN_IDS = Object.keys(providersByChain).map(chainPathToCaip2);
 const TOKEN_CHAIN_IDS = Object.keys(tokensByChain).map(chainPathToCaip2);
@@ -1127,6 +1151,15 @@ function getDappCategories() {
   return dappCategories;
 }
 
+function getDapps() {
+  return dappRecords;
+}
+
+function getDapp(slug) {
+  const index = dappSlugs.indexOf(String(slug).toLowerCase());
+  return index === -1 ? null : dappRecords[index];
+}
+
 function isHttpsUrl(value) {
   return /^https:\\/\\//i.test(String(value).trim());
 }
@@ -1267,6 +1300,8 @@ function createAssets(options) {
     getNativeToken: (chainId) => present(getNativeToken(chainId)),
     getContracts: (chainId) => present(getContracts(chainId)),
     getContract: (chainId, address) => present(getContract(chainId, address)),
+    getDapps: () => present(getDapps()),
+    getDapp: (slug) => present(getDapp(slug)),
     getDappCategories: () => present(getDappCategories()),
   };
 }
@@ -1392,6 +1427,19 @@ export interface DappCategoryGroup {
   dapps: string[];
 }
 
+/** One curated dapp. Fields match data/dapps/<slug>/info.json. */
+export interface Dapp {
+  title: string;
+  description: string;
+  url: string;
+  /** Absolute logo URL for the baseURL passed to createAssets. */
+  logoURL: string;
+  /** SHA-256 of logo.webp, 64 lowercase hex characters. */
+  logoHash: string;
+  /** CAIP-2 chain ids stored on the dapp. */
+  chains: string[];
+}
+
 export interface ContractInfo {
   /** Lowercase 0x address */
   address: string;
@@ -1515,9 +1563,13 @@ export interface Assets {
   getContracts(chainId?: ChainId): ContractInfo[];
   /** One contract by address (case-insensitive), or null */
   getContract(chainId: ChainId, address: string): ContractInfo | null;
+  /** Every curated dapp, in slug order. Show each logo with logoURL. */
+  getDapps(): Dapp[];
+  /** One dapp by its data/dapps directory slug (case-insensitive), or null. */
+  getDapp(slug: string): Dapp | null;
   /**
    * Browser chips from data/dapps/categories.json, in curated order.
-   * This is not a dapp all.json.
+   * Chip membership is separate from getDapps().
    */
   getDappCategories(): DappCategoryGroup[];
 }
@@ -1657,14 +1709,20 @@ function buildPackageUnlocked(): void {
   if (!fs.existsSync(categoriesSrc)) {
     throw new Error("data/dapps/categories.json missing");
   }
+  const { records: dappRecords, slugs: dappSlugs } = loadDapps();
   const categoriesBody = fs.readFileSync(categoriesSrc);
   fs.mkdirSync(path.join(distDir, "dapps"), { recursive: true });
   fs.writeFileSync(path.join(distDir, "dapps", "categories.json"), categoriesBody);
+  fs.writeFileSync(
+    path.join(distDir, "dapps", "dapps.json"),
+    `${JSON.stringify(dappRecords, null, 2)}\n`,
+  );
   console.info("📦 dapps/categories.json");
+  console.info(`📦 dapps/dapps.json (${dappRecords.length} dapps)`);
 
   fs.writeFileSync(
     path.join(distDir, "index.js"),
-    buildIndexJs(tokenChainIds, contractChainIds, defaultBase),
+    buildIndexJs(tokenChainIds, contractChainIds, dappSlugs, defaultBase),
   );
   fs.writeFileSync(
     path.join(distDir, "verify-logo-hash.js"),

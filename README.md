@@ -154,7 +154,7 @@ const provider = assets.findProviderByValidator(
 
 ### Other lookups
 
-`assets.getTokens(chainId)`, `assets.getToken(chainId, address)`, `assets.getNativeToken(chainId)`, and `assets.getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `assets.getContracts` and `assets.getContract` read contract names. `assets.getDappCategories()` returns the browser chips. `logoURL` on each record is already absolute. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+`assets.getTokens(chainId)`, `assets.getToken(chainId, address)`, `assets.getNativeToken(chainId)`, and `assets.getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `assets.getContracts` and `assets.getContract` read contract names. `assets.getDapps()` returns every dapp, and `assets.getDapp(slug)` returns one dapp or `null`. `assets.getDappCategories()` returns the browser chips. Show a dapp with `logoURL`, the same as a provider or token. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";

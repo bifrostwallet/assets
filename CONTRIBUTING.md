@@ -130,7 +130,7 @@ The command reads that token's name, symbol, and decimals from the chain's `*_NO
 
 Dapps are curated by the Bifrost team, the same as tokens and contracts.
 
-Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and they have no `all.json`. The package reads browser chips with `assets.getDappCategories()`.
+Each dapp lives at `data/dapps/<slug>/` with `info.json` and one `logo.webp`. `logoHash` is the SHA-256 of that file. `title` is the display name. Dapps have no per-entry category or featured flag, and the git catalog has no `all.json`. The package publishes the entries as `dapps/dapps.json`. `assets.getDapps()` returns every dapp, and `assets.getDapp(slug)` returns one. Show the logo with `logoURL`. `verifyLogoHash(bytes, logoHash)` is optional when you already have the file. Browser chips stay on `assets.getDappCategories()`.
 
 ### Dapp URLs
 

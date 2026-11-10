@@ -48,6 +48,7 @@ const GOOD_PATH = "tokens/eip155-1/0xabc/logo.webp";
 const MISSING_PATH = "tokens/eip155-1/0xdef/logo.webp";
 const BAD_PATH = "providers/eip155-14/0x123/logo.webp";
 const DAPP_PATH = "dapps/sparkdex-ai/logo.webp";
+const DAPP_BAD = "dapps/tampered-app/logo.webp";
 
 interface FetchLogosModule {
   fetchLogos: (options: {
@@ -73,6 +74,7 @@ function writeFixture(root: string): void {
         { logoURL: MISSING_PATH },
         { logoURL: BAD_PATH, logoHash: GOOD_HASH },
         { logoURL: DAPP_PATH, logoHash: GOOD_HASH },
+        { logoURL: DAPP_BAD, logoHash: GOOD_HASH },
       ],
       null,
       2,
@@ -138,7 +140,7 @@ function startServer(): Promise<{
     accepts.push(String(req.headers.accept ?? ""));
     const url = req.url ?? "";
     urls.push(url);
-    if (url.endsWith(BAD_PATH)) {
+    if (url.endsWith(BAD_PATH) || url.endsWith(DAPP_BAD)) {
       res.end(Buffer.from("not-the-logo"));
       return;
     }
@@ -281,6 +283,10 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
       assert.equal(fs.existsSync(goodFile), true);
       assert.deepEqual(fs.readFileSync(goodFile), GOOD);
       assert.deepEqual(fs.readFileSync(path.join(dest, DAPP_PATH)), GOOD);
+      assert.ok(
+        result.failures.some((failure) => failure.includes(`${DAPP_BAD}: logo hash mismatch`)),
+      );
+      assert.equal(fs.existsSync(path.join(dest, DAPP_BAD)), false);
       assert.equal(fs.existsSync(path.join(dest, MISSING_PATH)), false);
       assert.equal(fs.existsSync(path.join(dest, BAD_PATH)), false);
       assert.ok(urls.some((url) => url.includes(DAPP_PATH)));
@@ -326,10 +332,15 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     assert.match(source, /providers\|tokens\|contracts\|dapps/);
     assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
     const published = publishedLogoURLs(path.join(process.cwd(), "dist"));
-    assert.equal(
-      published.some((logoURL) => logoURL.startsWith("dapps/")),
-      false,
-    );
+    const dapps = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "dapps", "dapps.json"), "utf8"),
+    ) as Array<{ logoURL: string; logoHash: string }>;
+    assert.ok(dapps.length > 0);
+    for (const dapp of dapps) {
+      assert.match(dapp.logoURL, /^dapps\//);
+      assert.match(dapp.logoHash, /^[0-9a-f]{64}$/);
+      assert.ok(published.includes(dapp.logoURL));
+    }
     const provider = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";
     const providers = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "dist", "providers", "eip155-14.json"), "utf8"),
