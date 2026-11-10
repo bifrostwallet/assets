@@ -4,8 +4,6 @@ Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts an
 
 **Adding a provider:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost team.
 
-The listing form and intake API run outside this repository. Contact details stay on private intake objects. Security reports go to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
-
 ## Using the package
 
 Pin one version and commit the lockfile.
@@ -184,7 +182,7 @@ The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-s
 | `name` | `"Bifrost Assets"` |
 | `version` | `"1"` |
 | `chainId` | The id in `eip155-<id>`. Flare is 14. Songbird is 19. |
-| `salt` | `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
+| `salt` | `EIP712_DOMAIN_SALT`, the precomputed `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
 
 **Content hash**
 
@@ -206,12 +204,13 @@ JSON.stringify({
 
 `links` includes only the links that are set, with keys in this order: `github`, `x`, `discord`, `telegram`, `youtube`, `reddit`, `linkedin`, `tiktok`. `linksJson` is `JSON.stringify` of that same object.
 
-Recover the signer with `viem`, which is installed separately and is not part of this package. Compare the recovered address with `identityAddress` without regard to case.
+Recover the signer with `viem` (`recoverTypedDataAddress` or `verifyTypedData`). `viem` is installed separately and is not part of this package. Compare the recovered address with `identityAddress` without regard to case.
+
+`providerListingTypedData(message, chainId)` returns the domain, types, and primary type. Omit `chainId` for Flare (`14`). Pass `19` for Songbird. `providerListingDomain`, `PROVIDER_LISTING_TYPES`, and `PROVIDER_LISTING_PRIMARY_TYPE` are the same pieces.
 
 ```typescript
-import { createHash } from "node:crypto";
-import { keccak256, recoverTypedDataAddress, toBytes } from "viem";
-import { createAssets } from "@bifrostwallet/assets";
+import { recoverTypedDataAddress } from "viem";
+import { createAssets, providerListingTypedData } from "@bifrostwallet/assets";
 import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
 
 const assets = createAssets({
@@ -219,43 +218,23 @@ const assets = createAssets({
 });
 const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
 const provider = assets.getProvider("eip155:14", identity);
-const record = getProviderSignatures("eip155:14", identity);
-const entry = record?.signatures[0];
+const entry = getProviderSignatures("eip155:14", identity)?.signatures[0];
 if (!provider || !entry) throw new Error("missing listing");
 
-const digest = createHash("sha256").update(logoBytes).digest("hex");
-if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
-
 const recovered = await recoverTypedDataAddress({
-  domain: {
-    name: "Bifrost Assets",
-    version: "1",
-    chainId: 14,
-    salt: keccak256(toBytes("https://bifrostwallet.com")),
-  },
-  types: {
-    ProviderListing: [
-      { name: "name", type: "string" },
-      { name: "description", type: "string" },
-      { name: "websiteURL", type: "string" },
-      { name: "logoHash", type: "bytes32" },
-      { name: "identityAddress", type: "address" },
-      { name: "linksJson", type: "string" },
-      { name: "acknowledgedResponsibilities", type: "bool" },
-      { name: "contentHash", type: "bytes32" },
-    ],
-  },
-  primaryType: "ProviderListing",
-  message: {
-    name: provider.name,
-    description: provider.description,
-    websiteURL: provider.websiteURL,
-    logoHash: `0x${provider.logoHash}`,
-    identityAddress: provider.identityAddress,
-    linksJson: JSON.stringify(provider.links),
-    acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
-    contentHash: entry.messageHash,
-  },
+  ...providerListingTypedData(
+    {
+      name: provider.name,
+      description: provider.description,
+      websiteURL: provider.websiteURL,
+      logoHash: `0x${provider.logoHash}`,
+      identityAddress: provider.identityAddress,
+      linksJson: JSON.stringify(provider.links),
+      acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
+      contentHash: entry.messageHash,
+    },
+    14,
+  ),
   signature: entry.signature as `0x${string}`,
 });
 // "0x1650d2760BAee638c034200DEdCBe17B050d0364"

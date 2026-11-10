@@ -13,7 +13,7 @@ import {
   toRelativePath,
   writeFormattedJson,
 } from "./convert.js";
-import { chainIdFromProviderPath, providerListingTypedData } from "./eip712.js";
+import { chainIdFromProviderPath, providerListingTypedDataFromInfo } from "./eip712.js";
 import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "./intakeGuard.js";
 import { fetchEntityData } from "./onchain.js";
 import {
@@ -377,7 +377,7 @@ export async function ingestProviderAttestation(
     );
   }
 
-  const typed = providerListingTypedData(info, chainIdFromProviderPath(chainPath));
+  const typed = providerListingTypedDataFromInfo(info, chainIdFromProviderPath(chainPath));
   const recovered = await recoverTypedDataAddress({
     domain: typed.domain,
     types: typed.types,

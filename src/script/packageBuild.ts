@@ -14,6 +14,14 @@ import {
   listContractChainPaths,
   validateContractCatalog,
 } from "../contracts.js";
+import {
+  EIP712_DEFAULT_CHAIN_ID,
+  EIP712_DOMAIN_NAME,
+  EIP712_DOMAIN_SALT,
+  EIP712_DOMAIN_VERSION,
+  PROVIDER_LISTING_PRIMARY_TYPE,
+  PROVIDER_LISTING_TYPES,
+} from "../eip712.js";
 import { isMain } from "../isMain.js";
 import { releaseTagForVersion } from "../releaseTag.js";
 import { type EvmToken, listChainTokens, listTokenChainPaths } from "../tokens.js";
@@ -29,9 +37,11 @@ import type { XrplToken } from "../xrplToken.js";
 // Provider all.json in git uses absolute GitHub URLs; withRelativeLogoURL strips them.
 // Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
-// each published contract. createAssets({ baseURL }) is the only public entry. It
-// resolves asset paths per call and does not mutate the shared records. There is
-// no default base. Provider signatures ship as a separate entry (signatures.js).
+// each published contract. createAssets({ baseURL }) resolves asset paths per call
+// and does not mutate the shared records. There is no default base. The same entry
+// exports the ProviderListing EIP-712 constants and providerListingTypedData, copied
+// from src/eip712.ts so the published package does not hash the salt or depend on viem.
+// Provider signatures ship as a separate entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
 // upload sends logo files only. The published file does not read package.json.
 //
@@ -202,12 +212,17 @@ const PUBLISHED_EXPORTS = [
   "CONTRACT_CHAIN_IDS",
   "DAPP_CATEGORIES",
   "DAPP_CATEGORY_LABELS",
+  "EIP712_DOMAIN_SALT",
   "PROVIDER_CHAIN_IDS",
+  "PROVIDER_LISTING_PRIMARY_TYPE",
+  "PROVIDER_LISTING_TYPES",
   "TOKEN_CHAIN_IDS",
   "createAssets",
+  "providerListingDomain",
+  "providerListingTypedData",
 ] as const;
 
-/** dist/package.json matches this repo, and index.js exposes only createAssets plus catalog constants. */
+/** dist/package.json matches this repo. index.js exposes catalog constants, createAssets, and ProviderListing typed data. */
 function assertBuiltPackage(distDir: string): void {
   const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
     version?: unknown;
@@ -267,6 +282,30 @@ function assertBuiltPackage(distDir: string): void {
   ) {
     throw new Error("index.d.ts still exports a removed entry");
   }
+  if (
+    !dts.includes(`export declare const EIP712_DOMAIN_SALT: ${JSON.stringify(EIP712_DOMAIN_SALT)}`)
+  ) {
+    throw new Error("index.d.ts is missing EIP712_DOMAIN_SALT");
+  }
+  if (!dts.includes("export declare const PROVIDER_LISTING_TYPES:")) {
+    throw new Error("index.d.ts is missing PROVIDER_LISTING_TYPES");
+  }
+  if (
+    !dts.includes(
+      `export declare const PROVIDER_LISTING_PRIMARY_TYPE: ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)}`,
+    )
+  ) {
+    throw new Error("index.d.ts is missing PROVIDER_LISTING_PRIMARY_TYPE");
+  }
+  if (!dts.includes("export declare function providerListingDomain(")) {
+    throw new Error("index.d.ts is missing providerListingDomain");
+  }
+  if (!dts.includes("export declare function providerListingTypedData<")) {
+    throw new Error("index.d.ts is missing providerListingTypedData");
+  }
+  if (indexSource.includes("keccak256") || indexSource.includes("viem")) {
+    throw new Error("Built index.js must not hash the domain salt or depend on viem");
+  }
 }
 
 /**
@@ -306,6 +345,93 @@ function assertPublishedLogosExistUnderData(distDir: string): void {
   }
 }
 
+/** Plain JS copy of src/eip712.ts. Values come from that module; this file does not hash. */
+function eip712RuntimeJs(): string {
+  return `const EIP712_DOMAIN_SALT = ${JSON.stringify(EIP712_DOMAIN_SALT)};
+const PROVIDER_LISTING_PRIMARY_TYPE = ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)};
+const PROVIDER_LISTING_TYPES = ${JSON.stringify(PROVIDER_LISTING_TYPES)};
+
+function providerListingDomain(chainId) {
+  return {
+    name: ${JSON.stringify(EIP712_DOMAIN_NAME)},
+    version: ${JSON.stringify(EIP712_DOMAIN_VERSION)},
+    chainId: chainId === undefined ? ${EIP712_DEFAULT_CHAIN_ID} : chainId,
+    salt: EIP712_DOMAIN_SALT,
+  };
+}
+
+function providerListingTypedData(message, chainId) {
+  return {
+    domain: providerListingDomain(chainId),
+    types: PROVIDER_LISTING_TYPES,
+    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+    message: message,
+  };
+}
+`;
+}
+
+function eip712Declarations(): string {
+  const fields = PROVIDER_LISTING_TYPES.ProviderListing.map((field) => {
+    const name = JSON.stringify(field.name);
+    const type = JSON.stringify(field.type);
+    return `    { readonly name: ${name}; readonly type: ${type} },`;
+  }).join("\n");
+  const domainName = JSON.stringify(EIP712_DOMAIN_NAME);
+  const domainVersion = JSON.stringify(EIP712_DOMAIN_VERSION);
+  const salt = JSON.stringify(EIP712_DOMAIN_SALT);
+  const primaryType = JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE);
+  return `/** Precomputed keccak256 of the UTF-8 bytes of https://bifrostwallet.com. */
+export declare const EIP712_DOMAIN_SALT: ${salt};
+
+export declare const PROVIDER_LISTING_PRIMARY_TYPE: ${primaryType};
+
+export declare const PROVIDER_LISTING_TYPES: {
+  readonly ProviderListing: readonly [
+${fields}
+  ];
+};
+
+export interface ProviderListingMessage {
+  name: string;
+  description: string;
+  websiteURL: string;
+  logoHash: \`0x\${string}\`;
+  identityAddress: \`0x\${string}\`;
+  linksJson: string;
+  acknowledgedResponsibilities: boolean;
+  contentHash: \`0x\${string}\`;
+}
+
+/** ProviderListing domain. Omit chainId for Flare (${EIP712_DEFAULT_CHAIN_ID}). */
+export declare function providerListingDomain(chainId?: number): {
+  name: ${domainName};
+  version: ${domainVersion};
+  chainId: number;
+  salt: typeof EIP712_DOMAIN_SALT;
+};
+
+/**
+ * Typed data for recoverTypedDataAddress({ ...typedData, signature })
+ * and verifyTypedData. Omit chainId for Flare (${EIP712_DEFAULT_CHAIN_ID}).
+ */
+export declare function providerListingTypedData<T extends ProviderListingMessage>(
+  message: T,
+  chainId?: number,
+): {
+  domain: {
+    name: ${domainName};
+    version: ${domainVersion};
+    chainId: number;
+    salt: typeof EIP712_DOMAIN_SALT;
+  };
+  types: typeof PROVIDER_LISTING_TYPES;
+  primaryType: typeof PROVIDER_LISTING_PRIMARY_TYPE;
+  message: T;
+};
+`;
+}
+
 function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
   const tokenRequires =
     tokenChains.length === 0
@@ -339,6 +465,7 @@ const CONTRACT_CATEGORY_LABELS = ${JSON.stringify(CONTRACT_CATEGORY_LABELS)};
 const DAPP_CATEGORIES = ${JSON.stringify([...DAPP_CATEGORIES])};
 const DAPP_CATEGORY_LABELS = ${JSON.stringify(DAPP_CATEGORY_LABELS)};
 
+${eip712RuntimeJs()}
 function chainPathToCaip2(chainPath) {
   const i = String(chainPath).indexOf("-");
   return i === -1 ? String(chainPath) : String(chainPath).slice(0, i) + ":" + String(chainPath).slice(i + 1);
@@ -644,6 +771,11 @@ module.exports = {
   CONTRACT_CATEGORY_LABELS,
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
+  EIP712_DOMAIN_SALT,
+  PROVIDER_LISTING_PRIMARY_TYPE,
+  PROVIDER_LISTING_TYPES,
+  providerListingDomain,
+  providerListingTypedData,
   createAssets,
 };
 `;
@@ -982,13 +1114,11 @@ function buildPackageUnlocked(): void {
   const dappCategoryUnion = DAPP_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
-  fs.writeFileSync(
-    path.join(distDir, "index.d.ts"),
-    INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`).replace(
-      "%%DAPP_CATEGORY_UNION%%",
-      `${dappCategoryUnion};`,
-    ),
+  const indexDts = INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`).replace(
+    "%%DAPP_CATEGORY_UNION%%",
+    `${dappCategoryUnion};`,
   );
+  fs.writeFileSync(path.join(distDir, "index.d.ts"), `${indexDts}\n${eip712Declarations()}`);
   const signatureCount = writeSignatureSidecar(distDir);
   const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
   if (indexSource.includes('require("./signatures')) {
