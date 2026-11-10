@@ -18,7 +18,7 @@ A GitHub Release tagged `v` plus the package version stages `dist/` through npm 
 
 ## Catalog refresh
 
-The nightly job proposes domain-linkage, delegation-fee, reward, and chain-drift updates together on the `nightly/fsp-delist` pull request. A curator merges that pull request. Listing rules are in [CONTRIBUTING.md](CONTRIBUTING.md).
+The nightly job proposes domain-linkage, delegation-fee, reward, chain-drift, and management-group updates together on the `nightly/fsp-delist` pull request. Management-group membership is read from each network's PollingManagementGroup and written onto existing listings. On-chain members with no catalog entry are warned about and are not added. A failed chain read fails the job. A curator merges that pull request. Listing rules are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Working in this repository
 

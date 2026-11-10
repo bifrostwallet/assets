@@ -17,6 +17,13 @@ import {
 import { buildEarnData, createStore, type EarnStore } from "../earn/output.js";
 import { isMain } from "../isMain.js";
 import { type DomainLinkageSyncResult, syncDomainLinkage } from "./syncDomainLinkage.js";
+import {
+  applyManagementGroupDrift,
+  collectManagementGroupDrift,
+  formatManagementGroupSummary,
+  type ManagementGroupDrift,
+  warnUnknownManagementGroupMembers,
+} from "./syncManagementGroup.js";
 
 /**
  * Nightly provider refresh:
@@ -34,8 +41,11 @@ import { type DomainLinkageSyncResult, syncDomainLinkage } from "./syncDomainLin
  *    50% (Bifrost's listing recommendation). CI applies this on the same
  *    branch and opens one PR — never straight to main.
  * 4. With --write-chain: compare EntityManager addresses and validators with
- *    info.json and write the chain values. Same PR as domain linkage and
- *    delist; signatures stay valid because those fields are unsigned.
+ *    info.json, and set managementGroup from each network's
+ *    PollingManagementGroup. Same PR as domain linkage and delist; signatures
+ *    stay valid because those fields are unsigned. A failed chain read aborts
+ *    the run. On-chain management-group members with no catalog entry are
+ *    warned about and are not added. Skip both comparisons with --skip-chain.
  *
  * Usage:
  *   ./yarn refresh:providers
@@ -191,8 +201,12 @@ export function buildCatalogRefreshSummary(
   delistSummary: string,
   chainSummary: string,
   domainSection?: string,
+  managementGroupSummary?: string,
 ): string {
   const parts = [delistSummary, "", chainSummary, ""];
+  if (managementGroupSummary) {
+    parts.push(managementGroupSummary, "");
+  }
   if (domainSection) parts.push(domainSection);
   return parts.join("\n");
 }
@@ -230,18 +244,31 @@ async function refreshProviders(): Promise<void> {
   console.info(`\n${formatDelistSummary(candidates)}`);
 
   let chainDrift: Awaited<ReturnType<typeof collectChainDrift>> = [];
+  let managementGroupDrift: ManagementGroupDrift = {
+    flips: [],
+    unknown: [],
+    flareMembers: 0,
+    songbirdMembers: 0,
+  };
   if (skipChain) {
-    console.info("ℹ️  --skip-chain: not comparing EntityManager fields");
+    console.info(
+      "ℹ️  --skip-chain: not comparing EntityManager fields or Management Group membership",
+    );
   } else {
     console.info("\n⛓️ Chain fields");
     chainDrift = await collectChainDrift();
     console.info(formatChainDriftSummary(chainDrift));
+    console.info("\n📡 Management Group");
+    managementGroupDrift = await collectManagementGroupDrift();
+    console.info(formatManagementGroupSummary(managementGroupDrift));
+    warnUnknownManagementGroupMembers(managementGroupDrift);
   }
 
   const summary = buildCatalogRefreshSummary(
     formatDelistSummary(candidates),
     formatChainDriftSummary(chainDrift, { skipped: skipChain }),
     domainSection,
+    formatManagementGroupSummary(managementGroupDrift, { skipped: skipChain }),
   );
   const summaryPath = path.join(process.cwd(), "delist-summary.md");
   fs.writeFileSync(summaryPath, summary);
@@ -268,6 +295,17 @@ async function refreshProviders(): Promise<void> {
   } else {
     const updated = applyChainDrift(chainDrift);
     console.info(`✅ Applied chain fields to ${updated} provider(s); rebuilt all.json`);
+  }
+
+  if (!skipChain && managementGroupDrift.flips.length === 0) {
+    console.info("✅ No managementGroup drift");
+  } else if (!skipChain && (!writeChain || dryRun)) {
+    console.info(
+      `ℹ️  ${managementGroupDrift.flips.length} managementGroup flag(s) differ — re-run with --write-chain to apply (CI opens a PR)`,
+    );
+  } else if (!skipChain) {
+    const updated = applyManagementGroupDrift(managementGroupDrift);
+    console.info(`✅ Applied managementGroup to ${updated} provider(s); rebuilt all.json`);
   }
 }
 

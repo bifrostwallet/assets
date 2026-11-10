@@ -45,8 +45,11 @@ function assertSnapshotUnchanged(dir: string, beforeSnapshot: Map<string, Buffer
   }
 }
 
-function entityFields(identity: string): Partial<ProviderInfo> {
-  return {
+function entityFields(
+  identity: string,
+  managementGroup: boolean | "missing" = false,
+): Partial<ProviderInfo> {
+  const fields: Partial<ProviderInfo> = {
     delegationAddress: identity,
     signingPolicyAddress: identity,
     submitAddress: identity,
@@ -54,6 +57,10 @@ function entityFields(identity: string): Partial<ProviderInfo> {
     publicKey: `0x${"11".repeat(64)}`,
     validators: [],
   };
+  if (managementGroup !== "missing") {
+    fields.managementGroup = managementGroup;
+  }
+  return fields;
 }
 
 async function providerSignature(
@@ -104,6 +111,7 @@ async function ingestProvider(
   description: string,
   signatures: SignatureEntry[],
   submittedAt: string,
+  managementGroup: boolean | "missing" = false,
 ) {
   const info = providerInfo(identity, description);
   const submission: IntakeSubmission = {
@@ -121,7 +129,7 @@ async function ingestProvider(
   const sourceDir = intakeSubmissionToDir(submission);
   return ingestProviderSubmission(sourceDir, {
     chainPath: "eip155-14",
-    readEntityData: async () => entityFields(identity),
+    readEntityData: async () => entityFields(identity, managementGroup),
   });
 }
 
@@ -222,5 +230,44 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
       ),
     ) as { submittedAt: string };
     assert.equal(provenance.submittedAt, RESUBMITTED_AT);
+  });
+
+  test("sets managementGroup from the chain read", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose management group flag comes from chain.";
+    const submitted = providerInfo(identity, description);
+    assert.equal(submitted.managementGroup, false);
+    const selfSignature = await providerSignature(submitted, account);
+
+    const result = await ingestProvider(
+      identity,
+      description,
+      [selfSignature],
+      ORIGINAL_SUBMITTED_AT,
+      true,
+    );
+    assert.equal(result.status, "ingested");
+
+    const info = JSON.parse(fs.readFileSync(result.infoPath, "utf8")) as ProviderInfo;
+    assert.equal(info.managementGroup, true);
+    assert.equal(info.listed, false);
+  });
+
+  test("throws when the chain read omits managementGroup", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose chain read forgot management group.";
+    const selfSignature = await providerSignature(providerInfo(identity, description), account);
+
+    await assert.rejects(
+      () =>
+        ingestProvider(identity, description, [selfSignature], ORIGINAL_SUBMITTED_AT, "missing"),
+      /managementGroup was not read from chain/,
+    );
+    assert.equal(
+      fs.existsSync(path.join(root, "data", "providers", "eip155-14", identity, "info.json")),
+      false,
+    );
   });
 });

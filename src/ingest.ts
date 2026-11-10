@@ -93,8 +93,10 @@ function listingContentUnchanged(
  *    data drifted from what the provider signed, ingestion fails and the
  *    provider must re-sign
  *
- * Curator-managed flags (listed, managementGroup, domainLinked) are preserved
- * from an existing repo entry and never taken from the submission.
+ * Curator-managed flags (listed, domainLinked) are preserved from an existing
+ * repo entry and never taken from the submission. managementGroup is read from
+ * that network's PollingManagementGroup, including on a resubmission, and is
+ * not taken from the submission or defaulted to false.
  *
  * Idempotent: re-ingesting a submission whose info.json, logo, and signatures
  * already match the repo returns "unchanged" without touching files. When
@@ -152,15 +154,19 @@ export async function ingestProviderSubmission(
     ? (JSON.parse(fs.readFileSync(path.join(existingDir, "info.json"), "utf8")) as ProviderInfo)
     : null;
 
-  // Canonical values: relative logo path, recomputed hash, curator flags from repo state
-  const { chainPath: _ignored, ...submittedInfo } = submitted;
+  // Canonical values: relative logo path, recomputed hash, curator flags from repo state.
+  // managementGroup is not copied from the submission; the chain read sets it.
+  const {
+    chainPath: _ignored,
+    managementGroup: _submittedManagementGroup,
+    ...submittedInfo
+  } = submitted;
   const info: Partial<ProviderInfo> = {
     ...submittedInfo,
     identityAddress: identity,
     logoURL: providerLogoPath(network.path, identity),
     logoHash: calculateHash(path.join(sourceDir, "logo.webp")),
     listed: existingInfo?.listed ?? false,
-    managementGroup: existingInfo?.managementGroup ?? false,
     domainLinked: sameWebsiteHost(existingInfo?.websiteURL, submitted.websiteURL)
       ? (existingInfo?.domainLinked ?? false)
       : false,
@@ -170,10 +176,17 @@ export async function ingestProviderSubmission(
     info.firstTransaction = existingInfo.firstTransaction;
   }
 
-  // On-chain entity data is authoritative
-  const readEntityData = options.readEntityData ?? fetchEntityData;
+  // On-chain entity data is authoritative, including Management Group membership.
+  const readEntityData =
+    options.readEntityData ??
+    ((identityAddress: string, entityNetwork: BlockchainNetworkConfig) =>
+      fetchEntityData(identityAddress, entityNetwork, { includeManagementGroup: true }));
   const onchain = await readEntityData(identity, network);
   Object.assign(info, onchain);
+  if (typeof onchain.managementGroup !== "boolean") {
+    throw new Error(`managementGroup was not read from chain for ${identity} on ${network.path}`);
+  }
+  info.managementGroup = onchain.managementGroup;
 
   // Verify the signature against the final content in a staging directory
   const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "assets-provider-staging-"));

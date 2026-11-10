@@ -11,6 +11,7 @@ import {
   readCarriedDomainLinkageSection,
   writeDomainLinkageSection,
 } from "../src/script/refreshProviders.js";
+import { formatManagementGroupSummary } from "../src/script/syncManagementGroup.js";
 
 function withTempDir(run: (dir: string) => void): void {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "refresh-summary-"));
@@ -99,6 +100,65 @@ describe("domain linkage summary", () => {
     assert.match(summary, /Chain comparison was skipped\./);
     assert.equal(summary.includes("No provider chain fields differ"), false);
     assert.equal(summary.split("## Domain linkage").length - 1, 1);
+  });
+
+  test("places management group flips and unknown-member warnings beside chain drift", () => {
+    const chainSummary = formatChainDriftSummary([]);
+    const managementGroupSummary = formatManagementGroupSummary({
+      flips: [
+        {
+          chainPath: "eip155-14",
+          identityAddress: "0xabc",
+          name: "Example",
+          infoPath: "unused",
+          catalog: false,
+          chain: true,
+        },
+      ],
+      unknown: [
+        {
+          label: "Flare",
+          chainPath: "eip155-14",
+          members: ["0x9999999999999999999999999999999999999999"],
+        },
+      ],
+      flareMembers: 2,
+      songbirdMembers: 0,
+    });
+    const domain = formatDomainLinkageSection({ checked: 8, linked: 5, updated: 2 }, true);
+    const summary = buildCatalogRefreshSummary(
+      "delist",
+      chainSummary,
+      domain,
+      managementGroupSummary,
+    );
+
+    const chainAt = summary.indexOf("No provider chain fields differ from EntityManager");
+    const memberAt = summary.indexOf("`managementGroup`: `false` → `true`");
+    const warningAt = summary.indexOf("Warning:");
+    const domainAt = summary.indexOf("## Domain linkage");
+    assert.ok(chainAt >= 0);
+    assert.ok(memberAt > chainAt);
+    assert.ok(warningAt > memberAt);
+    assert.ok(domainAt > warningAt);
+    assert.match(summary, /0x9999999999999999999999999999999999999999/);
+    assert.match(summary, /were not added/);
+    assert.equal(summary.split("## Domain linkage").length - 1, 1);
+  });
+
+  test("a skipped management group comparison is labeled skipped", () => {
+    const summary = buildCatalogRefreshSummary(
+      "delist",
+      formatChainDriftSummary([], { skipped: true }),
+      undefined,
+      formatManagementGroupSummary(
+        { flips: [], unknown: [], flareMembers: 0, songbirdMembers: 0 },
+        { skipped: true },
+      ),
+    );
+    assert.match(summary, /Chain comparison was skipped\./);
+    assert.match(summary, /Management Group comparison was skipped\./);
+    assert.equal(summary.includes("No provider managementGroup flags differ"), false);
   });
 
   test("omits domain linkage when this run skipped it and no sidecar exists", () => {

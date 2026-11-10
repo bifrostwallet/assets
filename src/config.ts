@@ -186,13 +186,13 @@ export const PROVIDER_INFO_KEYS = [
 
 /**
  * Fields excluded from the provider-signed payload:
- * - "listed", "managementGroup", "domainLinked", "dualNetwork", and
- *   "firstTransaction" are curator/automation-derived and may change or
- *   appear after signing
+ * - "listed", "domainLinked", "dualNetwork", and "firstTransaction" are
+ *   curator/automation-derived and may change or appear after signing
  * - "logoURL" is a hosting detail (relative in info.json; absolute in provider all.json);
  *   logo content integrity is covered by the signed "logoHash"
- * - delegation, submit, signing-policy, public key, and validators are chain
- *   facts. The nightly job may update them without a new signature.
+ * - delegation, submit, signing-policy, public key, validators, and
+ *   managementGroup membership are chain facts. The nightly job may update
+ *   them without a new signature.
  */
 export const UNSIGNED_PROVIDER_INFO_KEYS = [
   "logoURL",
