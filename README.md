@@ -227,7 +227,7 @@ const chips = assets.getDappCategories();
 
 ### Signatures
 
-Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. Some listings stay unsigned until 31 December 2026. Curator fields such as `listed` sit outside the signature. An unknown chain throws. A missing provider or signature returns an empty array.
+Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. Some listings stay unsigned until 31 December 2026 (date to be confirmed with the provider community). Curator fields such as `listed` sit outside the signature. An unknown chain throws. A missing provider or signature returns an empty array.
 
 The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature. `logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, with no `0x` prefix.
 

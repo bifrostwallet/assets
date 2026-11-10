@@ -100,7 +100,7 @@ Curators use this bar when they set a new provider to `listed: true`. CI leaves 
 
 #### Grandfathering
 
-Providers that were listed before this repository went public keep `listed: true` until 31 December 2026 without the domain linkage and ownership signature requirements. After 31 December 2026, a listed provider without a self-signature and `domainLinked: true` is set to `listed: false`. A delisted provider is listed again once it meets the requirements.
+Providers that were listed before this repository went public keep `listed: true` until 31 December 2026 (date to be confirmed with the provider community) without the domain linkage and ownership signature requirements. After 31 December 2026 (date to be confirmed with the provider community), a listed provider without a self-signature and `domainLinked: true` is set to `listed: false`. A delisted provider is listed again once it meets the requirements.
 
 ## Tokens
 
