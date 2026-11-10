@@ -169,11 +169,9 @@ const chips = assets.getDappCategories();
 
 ### Signatures
 
-Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. `getProviderSignatures(chainId, identityAddress)` returns the record, or `null` when this version has no signature file for that identity. An unknown chain id throws. Some listings stay unsigned until 31 December 2026. Curator fields such as `listed` sit outside the signature.
+Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. Some listings stay unsigned until 31 December 2026. Curator fields such as `listed` sit outside the signature. An unknown chain throws. A missing provider or signature returns an empty array.
 
-`logoHash` is the SHA-256 of the provider `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you host.
-
-The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature.
+The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature. `logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, with no `0x` prefix.
 
 **Domain**
 
@@ -184,61 +182,18 @@ The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-s
 | `chainId` | The id in `eip155-<id>`. Flare is 14. Songbird is 19. |
 | `salt` | `EIP712_DOMAIN_SALT`, the precomputed `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
 
-**Content hash**
-
-`messageHash` in `signatures.json` and `contentHash` are the same value: `0x` plus the SHA-256 of one canonical JSON string. Keys that are set stay in this order. `logoHash` is the unprefixed hex.
-
-```js
-JSON.stringify({
-  name,
-  description,
-  logoHash,
-  websiteURL,
-  links,
-  identityAddress,
-  acknowledgedResponsibilities,
-})
-```
-
-**links**
-
-`links` includes only the links that are set, with keys in this order: `github`, `x`, `discord`, `telegram`, `youtube`, `reddit`, `linkedin`, `tiktok`. `linksJson` is `JSON.stringify` of that same object.
-
-Recover the signer with `viem` (`recoverTypedDataAddress` or `verifyTypedData`). `viem` is installed separately and is not part of this package. Compare the recovered address with `identityAddress` without regard to case.
-
-`providerListingTypedData(message, chainId)` returns the domain, types, and primary type. Omit `chainId` for Flare (`14`). Pass `19` for Songbird. `providerListingDomain`, `PROVIDER_LISTING_TYPES`, and `PROVIDER_LISTING_PRIMARY_TYPE` are the same pieces.
-
 ```typescript
-import { recoverTypedDataAddress } from "viem";
-import { createAssets, providerListingTypedData } from "@bifrostwallet/assets";
-import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
+import { verifyTypedData } from "viem";
+import { getProviderListingVerification } from "@bifrostwallet/assets/signatures";
 
-const assets = createAssets({
-  baseURL: "https://assets.example.com/",
-});
-const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
-const provider = assets.getProvider("eip155:14", identity);
-const entry = getProviderSignatures("eip155:14", identity)?.signatures[0];
-if (!provider || !entry) throw new Error("missing listing");
-
-const recovered = await recoverTypedDataAddress({
-  ...providerListingTypedData(
-    {
-      name: provider.name,
-      description: provider.description,
-      websiteURL: provider.websiteURL,
-      logoHash: `0x${provider.logoHash}`,
-      identityAddress: provider.identityAddress,
-      linksJson: JSON.stringify(provider.links),
-      acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
-      contentHash: entry.messageHash,
-    },
-    14,
-  ),
-  signature: entry.signature as `0x${string}`,
-});
-// "0x1650d2760BAee638c034200DEdCBe17B050d0364"
+const [entry] = getProviderListingVerification(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+await verifyTypedData(entry); // true
 ```
+
+`EIP712_DOMAIN_SALT`, `PROVIDER_LISTING_TYPES`, `PROVIDER_LISTING_PRIMARY_TYPE`, and `providerListingTypedData({ message, chain })` are exported from `@bifrostwallet/assets` for anyone building the typed data themselves.
 
 ## GitHub raw all.json (Legacy)
 

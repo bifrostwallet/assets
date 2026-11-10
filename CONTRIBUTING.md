@@ -14,7 +14,7 @@ Submit through the listing form on bifrostwallet.com.
 2. Connect the wallet that holds your identity address, or paste the address. Entity data is read from the EntityManager, and the network is detected from that address.
 3. Fill in the name, description, website, and social links, and upload a logo ([Logo requirements](#logo-requirements)).
 4. Confirm the listing acknowledgement. The checkbox is required.
-5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. `providerListingTypedData` from `@bifrostwallet/assets` builds that typed data. The signed fields are under [Signatures](README.md#signatures).
+5. Sign the EIP-712 `ProviderListing` typed data with the wallet that holds your identity address. The signed fields are under [Signatures](README.md#signatures).
 6. Submit. The listing is checked and curated into [`bifrostwallet/assets`](https://github.com/bifrostwallet/assets), and it goes live once a curator has reviewed it.
 
 Submissions are accepted only when signed by the identity address itself and when that address is a registered entity on-chain. Submitting again updates your pending submission. To change your listing later, submit the listing form again.

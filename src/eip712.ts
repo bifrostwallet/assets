@@ -1,6 +1,6 @@
 // EIP-712 typed data for listing signatures (eth_signTypedData_v4).
 // Must stay in sync with assets-intake apps/add + apps/intake eip712 modules.
-// The package build copies these constants and providerListingTypedData onto the package entry.
+// The package build copies these constants into the package entry and the signatures entry.
 // The salt is precomputed so verifiers do not hash it or take a hashing dependency.
 
 import type { ProviderInfo } from "./config.js";
@@ -10,8 +10,12 @@ import type { HexString } from "./validate.js";
 export const EIP712_DOMAIN_NAME = "Bifrost Assets";
 export const EIP712_DOMAIN_VERSION = "1";
 
-/** Flare. providerListingDomain and providerListingTypedData use this when chainId is omitted. */
-export const EIP712_DEFAULT_CHAIN_ID = 14;
+const LISTING_CHAIN_IDS = {
+  "eip155:14": 14,
+  "eip155:19": 19,
+} as const;
+
+export type ProviderListingChain = keyof typeof LISTING_CHAIN_IDS;
 
 /**
  * keccak256 of the UTF-8 bytes of https://bifrostwallet.com.
@@ -59,25 +63,36 @@ export type ProviderListingMessage = {
   contentHash: HexString;
 };
 
-export function providerListingDomain(chainId: number = EIP712_DEFAULT_CHAIN_ID) {
-  return {
-    name: EIP712_DOMAIN_NAME,
-    version: EIP712_DOMAIN_VERSION,
-    chainId,
-    salt: EIP712_DOMAIN_SALT,
-  };
+export function listingChainId(chain: string): number {
+  if (!Object.hasOwn(LISTING_CHAIN_IDS, chain)) {
+    throw new Error(`Use "eip155:14" or "eip155:19". Got: ${JSON.stringify(chain)}`);
+  }
+  return LISTING_CHAIN_IDS[chain as ProviderListingChain];
+}
+
+function chainFromChainId(chainId: number): ProviderListingChain {
+  const chain = `eip155:${chainId}`;
+  if (!Object.hasOwn(LISTING_CHAIN_IDS, chain)) {
+    throw new Error(`Unsupported provider chain id: ${chainId}`);
+  }
+  return chain as ProviderListingChain;
 }
 
 /** Typed data for recoverTypedDataAddress({ ...typedData, signature }) and verifyTypedData. */
-export function providerListingTypedData<const T extends ProviderListingMessage>(
-  message: T,
-  chainId: number = EIP712_DEFAULT_CHAIN_ID,
-) {
+export function providerListingTypedData<const T extends ProviderListingMessage>(options: {
+  message: T;
+  chain: ProviderListingChain;
+}) {
   return {
-    domain: providerListingDomain(chainId),
+    domain: {
+      name: EIP712_DOMAIN_NAME,
+      version: EIP712_DOMAIN_VERSION,
+      chainId: listingChainId(options.chain),
+      salt: EIP712_DOMAIN_SALT,
+    },
     types: PROVIDER_LISTING_TYPES,
     primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
-    message,
+    message: options.message,
   };
 }
 
@@ -117,8 +132,9 @@ export function buildProviderListingTypedData(
   const payload = signedProviderInfoPayload(info);
   const links = (payload.links ?? {}) as Record<string, string>;
 
-  return providerListingTypedData(
-    {
+  return providerListingTypedData({
+    chain: chainFromChainId(chainId),
+    message: {
       name: String(payload.name ?? ""),
       description: String(payload.description ?? ""),
       websiteURL: String(payload.websiteURL ?? ""),
@@ -128,8 +144,7 @@ export function buildProviderListingTypedData(
       acknowledgedResponsibilities: payload.acknowledgedResponsibilities === true,
       contentHash: asBytes32(contentHash),
     },
-    chainId,
-  );
+  });
 }
 
 export function providerListingTypedDataFromInfo(info: Partial<ProviderInfo>, chainId: number) {

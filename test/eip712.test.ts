@@ -7,11 +7,9 @@ import { keccak256, recoverTypedDataAddress, toBytes, verifyTypedData } from "vi
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
 import {
-  EIP712_DEFAULT_CHAIN_ID,
   EIP712_DOMAIN_SALT,
   PROVIDER_LISTING_PRIMARY_TYPE,
   PROVIDER_LISTING_TYPES,
-  providerListingDomain,
   providerListingTypedData,
   providerListingTypedDataFromInfo,
 } from "../src/eip712.js";
@@ -63,14 +61,14 @@ describe("ProviderListing typed data", () => {
   });
 
   test("helper matches the hand-built typed data", () => {
-    assert.equal(EIP712_DEFAULT_CHAIN_ID, 14);
-    assert.deepEqual(providerListingTypedData(message), handBuilt(14));
-    assert.deepEqual(providerListingTypedData(message, 14), handBuilt(14));
-    assert.deepEqual(providerListingDomain(), handBuilt(14).domain);
-    assert.deepEqual(providerListingDomain(19), handBuilt(19).domain);
-    assert.deepEqual(providerListingTypedData(message, 19), handBuilt(19));
+    assert.deepEqual(providerListingTypedData({ message, chain: "eip155:14" }), handBuilt(14));
+    assert.deepEqual(providerListingTypedData({ message, chain: "eip155:19" }), handBuilt(19));
     assert.equal(PROVIDER_LISTING_PRIMARY_TYPE, "ProviderListing");
     assert.deepEqual(PROVIDER_LISTING_TYPES, handBuilt(14).types);
+    assert.throws(
+      () => providerListingTypedData({ message, chain: "eip155:1" as "eip155:14" }),
+      /eip155:14/,
+    );
   });
 
   test("info builder uses the shared typed data", () => {
@@ -84,7 +82,7 @@ describe("ProviderListing typed data", () => {
       acknowledgedResponsibilities: true,
     };
     const typed = providerListingTypedDataFromInfo(info, 19);
-    assert.deepEqual(providerListingTypedData(typed.message, 19), {
+    assert.deepEqual(providerListingTypedData({ message: typed.message, chain: "eip155:19" }), {
       domain: typed.domain,
       types: typed.types,
       primaryType: typed.primaryType,
@@ -100,14 +98,14 @@ describe("ProviderListing typed data", () => {
       ...message,
       identityAddress: account.address,
     };
-    const typed = providerListingTypedData(signedMessage, 14);
+    const typed = providerListingTypedData({ message: signedMessage, chain: "eip155:14" });
     const signature = await account.signTypedData(typed);
     const recovered = await recoverTypedDataAddress({ ...typed, signature });
     assert.equal(recovered.toLowerCase(), account.address.toLowerCase());
     assert.equal(await verifyTypedData({ address: account.address, ...typed, signature }), true);
 
     const recoverable = {
-      ...providerListingTypedData(message),
+      ...providerListingTypedData({ message, chain: "eip155:14" }),
       signature,
     } satisfies Parameters<typeof recoverTypedDataAddress>[0];
     assert.equal(recoverable.primaryType, "ProviderListing");
@@ -126,24 +124,22 @@ describe("published ProviderListing typed data", { concurrency: false }, () => {
         EIP712_DOMAIN_SALT: string;
         PROVIDER_LISTING_PRIMARY_TYPE: string;
         PROVIDER_LISTING_TYPES: typeof PROVIDER_LISTING_TYPES;
-        providerListingDomain: (chainId?: number) => ReturnType<typeof providerListingDomain>;
-        providerListingTypedData: (
-          listing: typeof message,
-          chainId?: number,
-        ) => ReturnType<typeof providerListingTypedData>;
+        providerListingTypedData: (options: {
+          message: typeof message;
+          chain: "eip155:14" | "eip155:19";
+        }) => ReturnType<typeof providerListingTypedData>;
       };
       assert.equal(published.EIP712_DOMAIN_SALT, EIP712_DOMAIN_SALT);
       assert.equal(published.PROVIDER_LISTING_PRIMARY_TYPE, PROVIDER_LISTING_PRIMARY_TYPE);
       assert.deepEqual(published.PROVIDER_LISTING_TYPES, PROVIDER_LISTING_TYPES);
-      assert.deepEqual(published.providerListingDomain(), providerListingDomain());
-      assert.deepEqual(published.providerListingDomain(19), providerListingDomain(19));
+      assert.equal("providerListingDomain" in published, false);
       assert.deepEqual(
-        published.providerListingTypedData(message),
-        providerListingTypedData(message),
+        published.providerListingTypedData({ message, chain: "eip155:14" }),
+        providerListingTypedData({ message, chain: "eip155:14" }),
       );
       assert.deepEqual(
-        published.providerListingTypedData(message, 19),
-        providerListingTypedData(message, 19),
+        published.providerListingTypedData({ message, chain: "eip155:19" }),
+        providerListingTypedData({ message, chain: "eip155:19" }),
       );
 
       const indexSource = fs.readFileSync(indexPath, "utf8");
@@ -152,6 +148,48 @@ describe("published ProviderListing typed data", { concurrency: false }, () => {
       assert.equal(indexSource.includes("viem"), false);
       const dts = fs.readFileSync(path.join(process.cwd(), "dist", "index.d.ts"), "utf8");
       assert.match(dts, /readonly name: "contentHash"; readonly type: "bytes32"/);
+      assert.equal(dts.includes("providerListingDomain"), false);
+    } finally {
+      release();
+    }
+  });
+
+  test("verifies a catalog signature and rejects a tampered message", async () => {
+    const release = holdPackageDist();
+    try {
+      buildPackage();
+      const signaturesPath = path.join(process.cwd(), "dist", "signatures.js");
+      const require = createRequire(path.join(process.cwd(), "package.json"));
+      delete require.cache[signaturesPath];
+      const { getProviderListingVerification } = require(signaturesPath) as {
+        getProviderListingVerification: (
+          chain: "eip155:14" | "eip155:19",
+          identityAddress: string,
+        ) => Array<Parameters<typeof verifyTypedData>[0]>;
+      };
+      const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
+      const [entry] = getProviderListingVerification("eip155:14", identity);
+      assert.ok(entry);
+      assert.equal(await verifyTypedData(entry), true);
+      assert.equal(
+        await verifyTypedData({
+          ...entry,
+          message: { ...entry.message, name: "Tampered" },
+        }),
+        false,
+      );
+      assert.deepEqual(
+        getProviderListingVerification("eip155:14", "0x1111111111111111111111111111111111111111"),
+        [],
+      );
+      const declarations = fs.readFileSync(
+        path.join(process.cwd(), "dist", "signatures.d.ts"),
+        "utf8",
+      );
+      assert.match(declarations, /export declare function getProviderListingVerification\(/);
+      const source = fs.readFileSync(signaturesPath, "utf8");
+      assert.equal(source.includes("keccak256"), false);
+      assert.equal(source.includes("viem"), false);
     } finally {
       release();
     }
