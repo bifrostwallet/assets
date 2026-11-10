@@ -267,7 +267,7 @@ Compared with the package and logos you host:
 - No TypeScript types, and no helpers for lookups, listed filters, or finding a provider from a validator.
 - No signature checks. Those ship on `@bifrostwallet/assets/signatures`.
 
-1. Fetch `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
+1. Fetch `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` (Flare) or `eip155-19` (Songbird).
 2. For listed providers, keep records with `listed: true`. Check `logoHash` against the logo bytes before you display the image. `logoURL` is absolute.
 3. For listed validator NodeIDs, read `validators` on those records. The logo is the provider logo.
 
