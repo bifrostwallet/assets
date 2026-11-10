@@ -2,10 +2,13 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { BLOCKCHAIN_NETWORKS, type ProviderInfo } from "./config.js";
 import { rebuildProvidersAllJson, sortProviderInfo, writeFormattedJson } from "./convert.js";
-import { fetchEntityData } from "./onchain.js";
+import { type FetchEntityDataOptions, fetchEntityData } from "./onchain.js";
 import { findProviderDirs } from "./verify.js";
 
-/** Chain facts the nightly job may rewrite without a new provider signature. */
+/**
+ * Chain facts the nightly job may rewrite without a new provider signature.
+ * managementGroup is applied in the same pass by the Management Group sync.
+ */
 export const CHAIN_OBSERVED_FIELDS = [
   "delegationAddress",
   "signingPolicyAddress",
@@ -42,7 +45,11 @@ function fieldText(field: ChainObservedField, info: Partial<ProviderInfo>): stri
   return value.toLowerCase();
 }
 
-/** Compare catalog info.json with a chain read. Missing chain fields are skipped. */
+/**
+ * Compare catalog info.json with a chain read. Undefined chain fields are not
+ * drift. A failed read must throw before this runs. Nightly refresh uses a
+ * strict entity read and aborts instead of treating that failure as "no value".
+ */
 export function diffProviderChainFields(
   catalog: ProviderInfo,
   observed: Partial<ProviderInfo>,
@@ -91,9 +98,24 @@ function applyObservedField(
   info[field] = value.toLowerCase();
 }
 
-/** Read every provider and report chain fields that differ from EntityManager. */
-export async function collectChainDrift(): Promise<ProviderChainDrift[]> {
+function errorText(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
+/**
+ * Read every provider and report chain fields that differ from EntityManager.
+ * A failed EntityManager read fails the run. It does not skip that provider.
+ */
+export async function collectChainDrift(options?: {
+  readEntityData?: (
+    identityAddress: string,
+    network: NonNullable<ReturnType<typeof networkForChainPath>>,
+    readOptions?: FetchEntityDataOptions,
+  ) => Promise<Partial<ProviderInfo>>;
+}): Promise<ProviderChainDrift[]> {
+  const readEntityData = options?.readEntityData ?? fetchEntityData;
   const drifts: ProviderChainDrift[] = [];
+  const failures: string[] = [];
 
   await mapPool(findProviderDirs(), 4, async (providerDir) => {
     const infoPath = path.join(providerDir, "info.json");
@@ -104,11 +126,10 @@ export async function collectChainDrift(): Promise<ProviderChainDrift[]> {
 
     let observed: Partial<ProviderInfo>;
     try {
-      observed = await fetchEntityData(catalog.identityAddress, network);
+      observed = await readEntityData(catalog.identityAddress, network, { strict: true });
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.warn(
-        `⚠️ ${catalog.name} (${catalog.identityAddress}): chain read failed (${message})`,
+      failures.push(
+        `${catalog.name} (${catalog.identityAddress}) on ${chainPath}: ${errorText(error)}`,
       );
       return;
     }
@@ -124,6 +145,13 @@ export async function collectChainDrift(): Promise<ProviderChainDrift[]> {
       observed,
     });
   });
+
+  if (failures.length > 0) {
+    failures.sort();
+    throw new Error(
+      `Chain read failed for ${failures.length} provider(s):\n${failures.join("\n")}`,
+    );
+  }
 
   drifts.sort((a, b) => a.identityAddress.localeCompare(b.identityAddress));
   return drifts;

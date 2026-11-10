@@ -22,7 +22,8 @@ const ADDRESS_FIELDS = [
  * - EVM addresses + publicKey forced to lowercase (canonical in-repo form)
  * - logoURL becomes a relative path (providers/<chain>/<identity>/logo.webp)
  * - listed defaults to false when missing
- * - managementGroup defaults to false (kept current by sync:management-group)
+ * - managementGroup defaults to false when missing (the nightly refresh and
+ *   sync:management-group keep it aligned with PollingManagementGroup)
  * - domainLinked defaults to false (kept current by sync:domain-linkage / nightly refresh)
  * Then rebuilds all.json for every chain.
  */

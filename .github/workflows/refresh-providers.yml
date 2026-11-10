@@ -1,8 +1,10 @@
 name: Refresh providers
 
 # Nightly: publish private Earn APY to GCS (no human gate). Domain linkage,
-# delist, and chain-drift edits stay in the working tree and land together on
-# one pull request (nightly/fsp-delist). Nothing in this job pushes to main.
+# delist, chain-drift, and management-group edits stay in the working tree and
+# land together on one pull request (nightly/fsp-delist). Nothing in this job
+# pushes to main. A failed EntityManager or PollingManagementGroup read fails
+# the job instead of skipping that field.
 # A provider is suggested listed:false when it burned FSP rewards
 # (eligibleForReward=false in the latest passes.json — zero passes plus another
 # FTSO/FDC/staking minimal-condition failure) or breaks Bifrost's
@@ -60,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Apply delist candidates and chain drift
+      - name: Apply delist candidates, chain drift, and management group
         run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -81,8 +83,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Domain linkage is still uncommitted. Delist and chain edits from the
-          # previous step are in the same tree. One branch, one pull request.
+          # Domain linkage is still uncommitted. Delist, chain, and management-group
+          # edits from the previous step are in the same tree. One branch, one pull request.
           git add data/providers/
           if git diff --staged --quiet; then
             echo "No catalog updates; skipping pull request"
@@ -91,7 +93,7 @@ jobs:
 
           BRANCH=nightly/fsp-delist
           git checkout -B "$BRANCH"
-          git commit -m "Suggest catalog updates from domain linkage, chain, and FSP rewards"
+          git commit -m "Suggest catalog updates from domain linkage, chain, management group, and FSP rewards"
           git fetch origin "$BRANCH" || true
           git push -u origin "HEAD:refs/heads/$BRANCH" --force-with-lease
 
