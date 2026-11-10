@@ -24,6 +24,8 @@ yarn add @bifrostwallet/assets@<version> --exact
 
 An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` checks each file against the hash in that package. Pin the exact version and run it again on every bump.
 
+Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
+
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
 
