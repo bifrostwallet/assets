@@ -4,8 +4,6 @@ Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts an
 
 **Adding a provider:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost team.
 
-The listing form and intake API run outside this repository. Contact details stay on private intake objects. Security reports go to **security@bifrostwallet.com**. See [SECURITY.md](SECURITY.md).
-
 ## Using the package
 
 Pin one version and commit the lockfile.
@@ -18,11 +16,59 @@ npm install @bifrostwallet/assets@<version> --save-exact
 yarn add @bifrostwallet/assets@<version> --exact
 ```
 
-`createAssets({ baseURL })` is the package entry. `baseURL` is required. It is the public URL where you uploaded `data/`. A trailing slash is optional. Returned `logoURL` values are absolute. A missing record is still `null`.
+`createAssets()` is the package entry. `baseURL` is optional. Omit it and logo URLs use jsDelivr for this release tag:
 
-### Host the logos (Recommended)
+`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`
 
-Logo files are not in the npm package. Upload `data/` from the git tag matching the pinned version, and keep the relative paths. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that from CI. Do it the first time and again on every version bump, before you ship. Pass that URL as `baseURL`. `logoHash` can verify the provider logos you serve.
+`<version>` is the package version and the git tag (`1.0.0`). That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
+
+An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` checks each file against the hash in that package. Pin the exact version and run it again on every bump.
+
+Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
+
+```tsx
+import { createAssets } from "@bifrostwallet/assets";
+
+const assets = createAssets();
+const provider = assets.getProvider(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+
+{provider && <img src={provider.logoURL} alt="" />}
+```
+
+Pass `baseURL` when you host the files yourself. A trailing slash is optional. The examples further down do that.
+
+### Optional: check a downloaded logo
+
+Use this when you download logos or self-host them with `fetch-logos`. `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` is a convenience that downloads `logoURL` and runs that check in one step.
+
+### Self-hosting logos
+
+Logo files are not in the npm package. You do not need to clone the repository.
+
+1. Download this version's logos. The command checks each file against the hash in the installed package. A missing hash or a mismatch does not write that file, and the command exits non-zero. Do not upload the directory if it fails.
+
+```sh
+npx --yes @bifrostwallet/assets@<version> fetch-logos ./logos
+```
+
+Files land at `./logos/providers/…`, `./logos/tokens/…`, `./logos/contracts/…`, and `./logos/dapps/…`.
+
+2. Upload that directory to any static host or bucket. The public URL must serve those paths at its root. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that.
+
+3. Point the package at the public URL:
+
+```typescript
+import { createAssets } from "@bifrostwallet/assets";
+
+const assets = createAssets({
+  baseURL: "https://assets.example.com/",
+});
+```
+
+4. When you bump `@bifrostwallet/assets`, run `fetch-logos` for the new version and upload again before you ship. The default jsDelivr URL changes with the version. A copy you host does not.
 
 ### Listed providers
 
@@ -108,7 +154,7 @@ const provider = assets.findProviderByValidator(
 
 ### Other lookups
 
-`assets.getTokens(chainId)`, `assets.getToken(chainId, address)`, `assets.getNativeToken(chainId)`, and `assets.getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `assets.getContracts` and `assets.getContract` read contract names. `assets.getDappCategories()` returns the browser chips. `logoURL` on each record is already absolute. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+`assets.getTokens(chainId)`, `assets.getToken(chainId, address)`, `assets.getNativeToken(chainId)`, and `assets.getXrplToken(issuer, currency)` read the token catalog. `getXrplToken` keeps the issuer and currency case. `assets.getContracts` and `assets.getContract` read contract names. `assets.getDapps()` returns every dapp, and `assets.getDapp(slug)` returns one dapp or `null`. `assets.getDappCategories()` returns the browser chips. Show a dapp with `logoURL`, the same as a provider or token. The records themselves are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
@@ -171,11 +217,9 @@ const chips = assets.getDappCategories();
 
 ### Signatures
 
-Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. `getProviderSignatures(chainId, identityAddress)` returns the record, or `null` when this version has no signature file for that identity. An unknown chain id throws. Some listings stay unsigned until 31 December 2026. Curator fields such as `listed` sit outside the signature.
+Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal import does not download them. Some listings stay unsigned until 31 December 2026 (date to be confirmed with the provider community). Curator fields such as `listed` sit outside the signature. An unknown chain throws. A missing provider or signature returns an empty array.
 
-`logoHash` is the SHA-256 of the provider `logo.webp`: 64 lowercase hex characters, with no `0x` prefix. Compare it with the bytes you host.
-
-The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature.
+The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature. `logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, with no `0x` prefix.
 
 **Domain**
 
@@ -184,109 +228,49 @@ The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-s
 | `name` | `"Bifrost Assets"` |
 | `version` | `"1"` |
 | `chainId` | The id in `eip155-<id>`. Flare is 14. Songbird is 19. |
-| `salt` | `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
-
-**Content hash**
-
-`messageHash` in `signatures.json` and `contentHash` are the same value: `0x` plus the SHA-256 of one canonical JSON string. Keys that are set stay in this order. `logoHash` is the unprefixed hex.
-
-```js
-JSON.stringify({
-  name,
-  description,
-  logoHash,
-  websiteURL,
-  links,
-  identityAddress,
-  acknowledgedResponsibilities,
-})
-```
-
-**links**
-
-`links` includes only the links that are set, with keys in this order: `github`, `x`, `discord`, `telegram`, `youtube`, `reddit`, `linkedin`, `tiktok`. `linksJson` is `JSON.stringify` of that same object.
-
-Recover the signer with `viem`, which is installed separately and is not part of this package. Compare the recovered address with `identityAddress` without regard to case.
+| `salt` | `EIP712_DOMAIN_SALT`, the precomputed `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
 
 ```typescript
-import { createHash } from "node:crypto";
-import { keccak256, recoverTypedDataAddress, toBytes } from "viem";
-import { createAssets } from "@bifrostwallet/assets";
-import { getProviderSignatures } from "@bifrostwallet/assets/signatures";
+import { verifyTypedData } from "viem";
+import { getProviderListingVerification } from "@bifrostwallet/assets/signatures";
 
-const assets = createAssets({
-  baseURL: "https://assets.example.com/",
-});
-const identity = "0x1650d2760baee638c034200dedcbe17b050d0364";
-const provider = assets.getProvider("eip155:14", identity);
-const record = getProviderSignatures("eip155:14", identity);
-const entry = record?.signatures[0];
-if (!provider || !entry) throw new Error("missing listing");
-
-const digest = createHash("sha256").update(logoBytes).digest("hex");
-if (digest !== provider.logoHash) throw new Error("logo hash mismatch");
-
-const recovered = await recoverTypedDataAddress({
-  domain: {
-    name: "Bifrost Assets",
-    version: "1",
-    chainId: 14,
-    salt: keccak256(toBytes("https://bifrostwallet.com")),
-  },
-  types: {
-    ProviderListing: [
-      { name: "name", type: "string" },
-      { name: "description", type: "string" },
-      { name: "websiteURL", type: "string" },
-      { name: "logoHash", type: "bytes32" },
-      { name: "identityAddress", type: "address" },
-      { name: "linksJson", type: "string" },
-      { name: "acknowledgedResponsibilities", type: "bool" },
-      { name: "contentHash", type: "bytes32" },
-    ],
-  },
-  primaryType: "ProviderListing",
-  message: {
-    name: provider.name,
-    description: provider.description,
-    websiteURL: provider.websiteURL,
-    logoHash: `0x${provider.logoHash}`,
-    identityAddress: provider.identityAddress,
-    linksJson: JSON.stringify(provider.links),
-    acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
-    contentHash: entry.messageHash,
-  },
-  signature: entry.signature as `0x${string}`,
-});
-// "0x1650d2760BAee638c034200DEdCBe17B050d0364"
+const [entry] = getProviderListingVerification(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+await verifyTypedData(entry); // true
 ```
 
-## GitHub raw all.json (Legacy)
+`EIP712_DOMAIN_SALT`, `PROVIDER_LISTING_TYPES`, `PROVIDER_LISTING_PRIMARY_TYPE`, and `providerListingTypedData({ message, chain })` are exported from `@bifrostwallet/assets` for anyone building the typed data themselves.
 
-Fetch GitHub raw provider `all.json` when you are not installing the package. `logoURL` in that file is already absolute. Token lists are not published that way; use `createAssets`.
+## jsDelivr all.json (Legacy)
+
+Fetch provider `all.json` from jsDelivr on `@main` when you are not installing the package. `logoURL` in that file is already absolute and uses the same `@main` snapshot. There is no token `all.json`. Token lists are not published that way; use `createAssets`.
+
+`@main` is the moving catalog, not a release tag. Provider `all.json` logo URLs in this repository use that unpinned branch. Updates there can take up to 12 hours to appear because jsDelivr caches branch URLs for up to 12 hours ([Caching](https://www.jsdelivr.com/documentation#id-caching)). The npm package pins `@<version>` (`@1.0.0` for this release) so its logos match the installed snapshot.
 
 Compared with the package and logos you host:
 
-- No version pin. The URL is `main`, so changes arrive unannounced and can break you.
-- GitHub rate-limits `raw.githubusercontent.com` and does not guarantee its uptime. List and logo requests from your users go to GitHub.
+- No version pin. The URL is `@main`, so changes arrive unannounced and can break you.
+- List and logo requests from your users go to jsDelivr.
 - Providers and their validator NodeIDs only. No tokens, contracts, dapps, or dapp categories.
 - No TypeScript types, and no helpers for lookups, listed filters, or finding a provider from a validator.
 - No signature checks. Those ship on `@bifrostwallet/assets/signatures`.
 
-1. Fetch `https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` or `eip155-19`.
-2. For listed providers, keep records with `listed: true` and use `logoURL` as published.
-3. For listed validator NodeIDs, read `validators` on those records.
+1. Fetch `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/<chain>/all.json`. The chain directory uses a hyphen, such as `eip155-14` (Flare) or `eip155-19` (Songbird).
+2. For listed providers, keep records with `listed: true`. Check `logoHash` against the logo bytes before you display the image. `logoURL` is absolute.
+3. For listed validator NodeIDs, read `validators` on those records. The logo is the provider logo.
 
 ```js
 const response = await fetch(
-  "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/all.json",
+  "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/all.json",
 );
 const providers = await response.json();
 const listed = providers.filter((provider) => provider.listed);
 const logoURL = listed[0]?.logoURL;
 const nodeIds = listed.flatMap((provider) => provider.validators);
 // logoURL is
-// "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp"
+// "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp"
 // nodeIds starts ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...]
 ```
 

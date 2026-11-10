@@ -1,7 +1,8 @@
 // EIP-712 typed data for listing signatures (eth_signTypedData_v4).
 // Must stay in sync with assets-intake apps/add + apps/intake eip712 modules.
+// The package build copies these constants into the package entry and the signatures entry.
+// The salt is precomputed so verifiers do not hash it or take a hashing dependency.
 
-import { keccak256, toBytes } from "viem";
 import type { ProviderInfo } from "./config.js";
 import { providerInfoMessageHash, signedProviderInfoPayload } from "./convert.js";
 import type { HexString } from "./validate.js";
@@ -9,8 +10,19 @@ import type { HexString } from "./validate.js";
 export const EIP712_DOMAIN_NAME = "Bifrost Assets";
 export const EIP712_DOMAIN_VERSION = "1";
 
-/** Portal origin bound into the domain separator (bytes32). */
-export const EIP712_DOMAIN_SALT = keccak256(toBytes("https://bifrostwallet.com"));
+const LISTING_CHAIN_IDS = {
+  "eip155:14": 14,
+  "eip155:19": 19,
+} as const;
+
+export type ProviderListingChain = keyof typeof LISTING_CHAIN_IDS;
+
+/**
+ * keccak256 of the UTF-8 bytes of https://bifrostwallet.com.
+ * Stored as bytes32 so callers do not hash it at runtime.
+ */
+export const EIP712_DOMAIN_SALT =
+  "0xffc5336f20c2026b0f53d269def3cdffa3ca99b07e238af05f263a89517104f7" as const;
 
 export const PROVIDER_VERIFICATION_INSTRUCTIONS = [
   "To verify, recover the signer with eth_signTypedData_v4.",
@@ -24,6 +36,8 @@ export const PROVIDER_VERIFICATION_INSTRUCTIONS = [
   "contentHash must equal messageHash.",
   "Anything not listed is not signed and can change without a new signature.",
 ].join(" ");
+
+export const PROVIDER_LISTING_PRIMARY_TYPE = "ProviderListing" as const;
 
 export const PROVIDER_LISTING_TYPES = {
   ProviderListing: [
@@ -48,6 +62,39 @@ export type ProviderListingMessage = {
   acknowledgedResponsibilities: boolean;
   contentHash: HexString;
 };
+
+export function listingChainId(chain: string): number {
+  if (!Object.hasOwn(LISTING_CHAIN_IDS, chain)) {
+    throw new Error(`Use "eip155:14" or "eip155:19". Got: ${JSON.stringify(chain)}`);
+  }
+  return LISTING_CHAIN_IDS[chain as ProviderListingChain];
+}
+
+function chainFromChainId(chainId: number): ProviderListingChain {
+  const chain = `eip155:${chainId}`;
+  if (!Object.hasOwn(LISTING_CHAIN_IDS, chain)) {
+    throw new Error(`Unsupported provider chain id: ${chainId}`);
+  }
+  return chain as ProviderListingChain;
+}
+
+/** Typed data for recoverTypedDataAddress({ ...typedData, signature }) and verifyTypedData. */
+export function providerListingTypedData<const T extends ProviderListingMessage>(options: {
+  message: T;
+  chain: ProviderListingChain;
+}) {
+  return {
+    domain: {
+      name: EIP712_DOMAIN_NAME,
+      version: EIP712_DOMAIN_VERSION,
+      chainId: listingChainId(options.chain),
+      salt: EIP712_DOMAIN_SALT,
+    },
+    types: PROVIDER_LISTING_TYPES,
+    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+    message: options.message,
+  };
+}
 
 function asBytes32(hash: string): HexString {
   const raw = hash.startsWith("0x") || hash.startsWith("0X") ? hash.slice(2) : hash;
@@ -85,15 +132,8 @@ export function buildProviderListingTypedData(
   const payload = signedProviderInfoPayload(info);
   const links = (payload.links ?? {}) as Record<string, string>;
 
-  return {
-    domain: {
-      name: EIP712_DOMAIN_NAME,
-      version: EIP712_DOMAIN_VERSION,
-      chainId,
-      salt: EIP712_DOMAIN_SALT,
-    },
-    types: PROVIDER_LISTING_TYPES,
-    primaryType: "ProviderListing" as const,
+  return providerListingTypedData({
+    chain: chainFromChainId(chainId),
     message: {
       name: String(payload.name ?? ""),
       description: String(payload.description ?? ""),
@@ -103,11 +143,11 @@ export function buildProviderListingTypedData(
       linksJson: JSON.stringify(links),
       acknowledgedResponsibilities: payload.acknowledgedResponsibilities === true,
       contentHash: asBytes32(contentHash),
-    } satisfies ProviderListingMessage,
-  };
+    },
+  });
 }
 
-export function providerListingTypedData(info: Partial<ProviderInfo>, chainId: number) {
+export function providerListingTypedDataFromInfo(info: Partial<ProviderInfo>, chainId: number) {
   const contentHash = providerInfoMessageHash(info);
   return { ...buildProviderListingTypedData(info, chainId, contentHash), contentHash };
 }

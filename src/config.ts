@@ -1,27 +1,36 @@
 import * as fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { jsDelivrDataBase } from "./releaseTag.js";
 
 /**
- * Derive a GitHub raw `…/<ref>/data/` base from a package.json `repository` field
+ * jsDelivr `…@<ref>/data/` base from a package.json `repository` field
  * (`git@github.com:owner/repo.git` or `https://github.com/owner/repo.git`).
- * `ref` defaults to `main` for operator tooling.
+ * `ref` defaults to `main` for legacy provider all.json. Callers that fetch
+ * that file want the current catalog. jsDelivr caches a branch for 12 hours.
+ * The published package pins `@<version>` at build time. That ref is the
+ * package version.
  */
-export function githubRawDataBaseFromRepository(repository: string, ref = "main"): string | null {
+export function jsDelivrDataBaseFromRepository(repository: string, ref = "main"): string | null {
   const trimmed = repository.trim();
   const match =
     trimmed.match(/^git@github\.com:([^/]+)\/([^/]+?)(?:\.git)?$/i) ??
     trimmed.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/i);
   if (!match?.[1] || !match[2]) return null;
   const safeRef = ref.trim();
-  if (!safeRef || /[\s/?#]/.test(safeRef)) return null;
+  if (!safeRef || /[\s/?#@]/.test(safeRef)) return null;
   const owner = match[1];
   const repo = match[2].replace(/\.git$/i, "");
-  return `https://raw.githubusercontent.com/${owner}/${repo}/${safeRef}/data/`;
+  try {
+    return jsDelivrDataBase(owner, repo, safeRef);
+  } catch {
+    return null;
+  }
 }
 
 function defaultAssetBaseURL(): string {
   // Emitted to build/src/config.js — two levels up to the repo root.
+  // Operator tooling only. The published package does not load this module.
   const pkgPath = path.join(
     path.dirname(fileURLToPath(import.meta.url)),
     "..",
@@ -30,7 +39,7 @@ function defaultAssetBaseURL(): string {
   );
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8")) as { repository?: unknown };
   if (typeof pkg.repository === "string") {
-    const fromRepo = githubRawDataBaseFromRepository(pkg.repository);
+    const fromRepo = jsDelivrDataBaseFromRepository(pkg.repository);
     if (fromRepo) return fromRepo;
   }
   throw new Error(
@@ -39,10 +48,11 @@ function defaultAssetBaseURL(): string {
 }
 
 /**
- * Operator tooling prefix (GitHub raw `main/data/`).
- * Published JSON keeps logoURL relative. Package callers pass baseURL to createAssets:
- * the public URL where you uploaded data/.
- * Operator tooling may expand logoURL with ASSET_BASE_URL.
+ * Legacy provider all.json prefix (jsDelivr `@main/data/`).
+ * Published JSON keeps logoURL relative. createAssets defaults to jsDelivr at
+ * the package version. Pass baseURL to self-host, for example
+ * https://assets.example.com/ — the public URL where you uploaded data/.
+ * Operator tooling may set ASSET_BASE_URL to that same public URL.
  */
 export const DEFAULT_ASSET_BASE_URL = defaultAssetBaseURL();
 
@@ -71,7 +81,7 @@ export const PROVIDER_LOGO_REQUIREMENTS = {
   REQUIRE_SQUARE: true,
 } as const;
 
-/** Unified catalog logo rules (providers + tokens). */
+/** Catalog logo rules for providers, tokens, contracts, and dapps. */
 export const ASSET_LOGO_REQUIREMENTS = PROVIDER_LOGO_REQUIREMENTS;
 
 /**
@@ -259,7 +269,7 @@ export interface DappInfo {
   title: string;
   description: string;
   url: string;
-  /** Relative logo path (`dapps/<slug>/logo.webp`) in git and in the npm package. */
+  /** Relative logo path (`dapps/<slug>/logo.webp`) stored on this info.json. */
   logoURL: string;
   /** SHA-256 of logo.webp. */
   logoHash: string;

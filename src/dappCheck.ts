@@ -130,6 +130,45 @@ function categoryIssues(
 }
 
 /**
+ * Logo problems for data/dapps. The hash and path live on each info.json.
+ * Image rules match the other catalogs: WebP, 128×128, at most 24 KB.
+ */
+export function collectDappLogoErrors(root = process.cwd()): string[] {
+  const errors: string[] = [];
+  const dir = dappsDir(root);
+  if (!fs.existsSync(dir)) return ["data/dapps is missing"];
+
+  for (const slug of listDappSlugs(root)) {
+    const infoPath = path.join(dir, slug, "info.json");
+    if (!fs.existsSync(infoPath)) {
+      errors.push(`dapps/${slug}/info.json: missing info.json`);
+      errors.push(...logoErrors(root, slug, undefined));
+      continue;
+    }
+    let parsed: unknown;
+    try {
+      parsed = readJson(infoPath);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      errors.push(`dapps/${slug}/info.json: invalid JSON (${message})`);
+      errors.push(...logoErrors(root, slug, undefined));
+      continue;
+    }
+    errors.push(
+      ...infoErrors(slug, parsed).filter((error) =>
+        /logoURL|logoHash|entry must be an object/.test(error),
+      ),
+    );
+    const claimed =
+      parsed && typeof parsed === "object" && !Array.isArray(parsed)
+        ? (parsed as Partial<DappInfo>).logoHash
+        : undefined;
+    errors.push(...logoErrors(root, slug, typeof claimed === "string" ? claimed : undefined));
+  }
+  return errors;
+}
+
+/**
  * Validate data/dapps. Contract logos are a separate catalog.
  * A dapp in no browser chip is a warning. Every other problem is an error.
  */

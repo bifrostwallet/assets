@@ -453,7 +453,7 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.ok(logoURLs.length > 0);
     for (const logoURL of logoURLs) {
       assert.equal(/^https?:\/\//i.test(logoURL), false, logoURL);
-      assert.match(logoURL, /^(providers|tokens|dapps|contracts)\//);
+      assert.match(logoURL, /^(providers|tokens|contracts|dapps)\//);
     }
 
     const bifrostLogo = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";
@@ -528,6 +528,19 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("logo.webp")),
       false,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("dapps/dapps.json")),
+      true,
+    );
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("logo-hashes.json")),
+      false,
+    );
+    assert.equal(
+      packedPaths.some((packedPath) => packedPath.endsWith("fetch-logos.js")),
+      true,
     );
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("signatures.js")),

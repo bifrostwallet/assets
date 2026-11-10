@@ -6,7 +6,10 @@ import { after, before, describe, test } from "node:test";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
 import { providerLogoPath, sha256Hex } from "../src/convert.js";
-import { PROVIDER_VERIFICATION_INSTRUCTIONS, providerListingTypedData } from "../src/eip712.js";
+import {
+  PROVIDER_VERIFICATION_INSTRUCTIONS,
+  providerListingTypedDataFromInfo,
+} from "../src/eip712.js";
 import {
   type IntakeSubmission,
   ingestProviderSubmission,
@@ -67,7 +70,7 @@ async function providerSignature(
   info: Partial<ProviderInfo>,
   account: ReturnType<typeof privateKeyToAccount>,
 ): Promise<SignatureEntry> {
-  const typed = providerListingTypedData(info, 14);
+  const typed = providerListingTypedDataFromInfo(info, 14);
   const signature = await account.signTypedData({
     domain: typed.domain,
     types: typed.types,

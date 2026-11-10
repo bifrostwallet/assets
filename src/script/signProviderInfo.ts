@@ -5,7 +5,7 @@ import { toRelativePath, writeFormattedJson } from "../convert.js";
 import {
   chainIdFromProviderPath,
   PROVIDER_VERIFICATION_INSTRUCTIONS,
-  providerListingTypedData,
+  providerListingTypedDataFromInfo,
 } from "../eip712.js";
 import { isMain } from "../isMain.js";
 import type { HexString } from "../validate.js";
@@ -44,7 +44,7 @@ async function signProviderInfo(providerInfoPath: string, privateKey: string): P
     console.info(`👤 Signer name: ${providerInfo.name}`);
     console.info(`🔑 Signer address: ${account.address}`);
 
-    const typed = providerListingTypedData(providerInfo, chainId);
+    const typed = providerListingTypedDataFromInfo(providerInfo, chainId);
     const signature = await account.signTypedData({
       domain: typed.domain,
       types: typed.types,

@@ -7,6 +7,7 @@ import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
 interface LogoRecord {
   logoURL: string;
+  logoHash?: string;
   address?: string | null;
   identityAddress?: string;
   listed?: boolean;
@@ -20,6 +21,15 @@ interface DappChip {
   dapps: string[];
 }
 
+interface DappRecord {
+  title: string;
+  description: string;
+  url: string;
+  logoURL: string;
+  logoHash: string;
+  chains: string[];
+}
+
 interface Assets {
   getListedProviders: (chainId: string) => LogoRecord[];
   getProvider: (chainId: string, identityAddress: string) => LogoRecord | null;
@@ -29,6 +39,8 @@ interface Assets {
   getXrplToken: (issuer: string, currency: string) => LogoRecord | null;
   getContract: (chainId: string, address: string) => LogoRecord | null;
   getContracts: (chainId?: string) => LogoRecord[];
+  getDapps: () => DappRecord[];
+  getDapp: (slug: string) => DappRecord | null;
   getDappCategories: () => DappChip[];
 }
 
@@ -36,7 +48,9 @@ const GETTERS = [
   "findProviderByValidator",
   "getContract",
   "getContracts",
+  "getDapp",
   "getDappCategories",
+  "getDapps",
   "getListedProviders",
   "getListedValidators",
   "getManagementGroupProviders",
@@ -51,6 +65,17 @@ const GETTERS = [
 ];
 
 type CreateAssets = (options?: { baseURL?: string } | null) => Assets;
+
+function sourceContainsHostname(source: string, hostname: string): boolean {
+  for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
+    try {
+      if (new URL(match[0]).hostname === hostname) return true;
+    } catch {
+      // The match is not a URL.
+    }
+  }
+  return false;
+}
 
 function readDistJson<T>(relativePath: string): T {
   const fullPath = path.join(process.cwd(), "dist", relativePath);
@@ -74,7 +99,7 @@ describe("createAssets", { concurrency: false }, () => {
     releaseDist?.();
   });
 
-  test("resolves provider, token, contract, and dapp logos", () => {
+  test("resolves provider, token, and contract logos", () => {
     const base = "https://cdn.example.com/assets";
     const assets = createAssets({ baseURL: base });
     const prefix = "https://cdn.example.com/assets/";
@@ -86,6 +111,8 @@ describe("createAssets", { concurrency: false }, () => {
     ) as LogoRecord[];
     const stored = storedProviders.find((provider) => provider.listed);
     assert.ok(stored);
+    assert.match(stored.logoHash ?? "", /^[0-9a-f]{64}$/);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
     assert.ok(stored.logoURL.startsWith("providers/"));
     const listed = assets.getListedProviders("eip155:14");
     assert.equal(listed[0]?.logoURL, `${prefix}${stored.logoURL}`);
@@ -134,6 +161,18 @@ describe("createAssets", { concurrency: false }, () => {
       null,
     );
 
+    const dapps = readDistJson<DappRecord[]>("dapps/dapps.json");
+    assert.ok(dapps.length > 0);
+    for (const dapp of dapps) {
+      assert.match(dapp.logoURL, /^dapps\/[^/]+\/logo\.webp$/);
+      assert.match(dapp.logoHash, /^[0-9a-f]{64}$/);
+    }
+    const spark = dapps.find((dapp) => dapp.logoURL === "dapps/sparkdex-ai/logo.webp");
+    assert.ok(spark);
+    assert.equal(assets.getDapps().length, dapps.length);
+    assert.equal(assets.getDapp("sparkdex-ai")?.logoURL, `${prefix}${spark.logoURL}`);
+    assert.equal(assets.getDapp("SparkDEX-AI")?.logoHash, spark.logoHash);
+    assert.equal(assets.getDapp("missing-dapp"), null);
     const categories = readDistJson<DappChip[]>("dapps/categories.json");
     assert.deepEqual(assets.getDappCategories(), categories);
     const dex = categories.find((chip) => chip.id === "dex");
@@ -145,9 +184,36 @@ describe("createAssets", { concurrency: false }, () => {
     );
   });
 
-  test("a missing or invalid baseURL throws", () => {
-    assert.throws(() => createAssets(), /https:\/\//);
-    assert.throws(() => createAssets({}), /https:\/\//);
+  test("omitted baseURL uses jsDelivr for this package version", () => {
+    const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
+      .version as string;
+    const prefix = "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.0.0/data/";
+    assert.equal(version, "1.0.0");
+    const assets = createAssets();
+    const require = createRequire(path.join(process.cwd(), "package.json"));
+    const storedProviders = require(
+      path.join(process.cwd(), "dist", "providers", "eip155-14.json"),
+    ) as LogoRecord[];
+    const stored = storedProviders.find((provider) => provider.listed);
+    assert.ok(stored?.logoURL.startsWith("providers/"));
+    assert.equal(assets.getListedProviders("eip155:14")[0]?.logoURL, `${prefix}${stored?.logoURL}`);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "data", stored?.logoURL ?? "")), true);
+    const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
+    assert.equal(indexSource.includes(prefix), true);
+    assert.equal(sourceContainsHostname(indexSource, "raw.githubusercontent.com"), false);
+    assert.equal(indexSource.includes("@main/"), false);
+    assert.equal(indexSource.includes("package.json"), false);
+    assert.equal(indexSource.includes("readFileSync"), false);
+    const custom = createAssets({ baseURL: "https://assets.example.com" });
+    assert.equal(
+      custom.getListedProviders("eip155:14")[0]?.logoURL,
+      `https://assets.example.com/${stored?.logoURL}`,
+    );
+  });
+
+  test("an invalid baseURL throws and an omitted one does not", () => {
+    assert.doesNotThrow(() => createAssets());
+    assert.doesNotThrow(() => createAssets({}));
     assert.throws(() => createAssets({ baseURL: "" }), /https:\/\//);
     assert.throws(() => createAssets({ baseURL: "http://cdn.example.com/assets/" }), /https:\/\//);
     assert.throws(() => createAssets({ baseURL: "cdn.example.com/assets" }), /https:\/\//);

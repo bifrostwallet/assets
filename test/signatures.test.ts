@@ -5,7 +5,7 @@ import path from "node:path";
 import { describe, test } from "node:test";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
-import { providerListingTypedData } from "../src/eip712.js";
+import { providerListingTypedDataFromInfo } from "../src/eip712.js";
 import { findProviderDirs, verifyProviderSignatures } from "../src/verify.js";
 
 /**
@@ -48,7 +48,7 @@ describe("Signature round-trip", () => {
     const dir = path.join(chainDir, String(info.identityAddress));
     fs.mkdirSync(dir, { recursive: true });
 
-    const typed = providerListingTypedData(info, 14);
+    const typed = providerListingTypedDataFromInfo(info, 14);
     const signature = await account.signTypedData({
       domain: typed.domain,
       types: typed.types,
@@ -177,7 +177,7 @@ describe("Signature round-trip", () => {
     };
     const attesterDir = path.join(chainDir, attesterIdentity);
     fs.mkdirSync(attesterDir, { recursive: true });
-    const attesterTyped = providerListingTypedData(attesterInfo, 14);
+    const attesterTyped = providerListingTypedDataFromInfo(attesterInfo, 14);
     fs.writeFileSync(path.join(attesterDir, "info.json"), JSON.stringify(attesterInfo, null, 2));
     fs.writeFileSync(
       path.join(attesterDir, "signatures.json"),
@@ -204,7 +204,7 @@ describe("Signature round-trip", () => {
     // Target entry signed only by the attester, not by the identity itself
     const targetDir = path.join(chainDir, baseInfo.identityAddress as string);
     fs.mkdirSync(targetDir, { recursive: true });
-    const targetTyped = providerListingTypedData(baseInfo, 14);
+    const targetTyped = providerListingTypedDataFromInfo(baseInfo, 14);
     fs.writeFileSync(path.join(targetDir, "info.json"), JSON.stringify(baseInfo, null, 2));
     fs.writeFileSync(
       path.join(targetDir, "signatures.json"),
@@ -263,7 +263,7 @@ describe("Signature round-trip", () => {
 
     // Forge: sign with a different key over the same typed data
     const otherAccount = privateKeyToAccount(generatePrivateKey());
-    const typed = providerListingTypedData(baseInfo, 14);
+    const typed = providerListingTypedDataFromInfo(baseInfo, 14);
     data.signatures[0].signature = await otherAccount.signTypedData({
       domain: typed.domain,
       types: typed.types,

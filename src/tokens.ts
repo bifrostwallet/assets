@@ -9,6 +9,7 @@ import {
 } from "./xrplToken.js";
 
 const EVM_ADDRESS = /^0x[0-9a-f]{40}$/;
+const LOGO_HASH_RE = /^[0-9a-f]{64}$/;
 
 /**
  * Curated EVM token (`data/tokens/eip155-<id>/`).
@@ -112,6 +113,18 @@ export function validateEvmToken(info: unknown): string[] {
     errors.push("coingeckoId must be string or null");
   } else if (typeof record.coingeckoId === "string" && record.coingeckoId.trim() === "") {
     errors.push("coingeckoId string must be non-empty (or null)");
+  }
+  let folder = "";
+  if (address === null) folder = "native";
+  else if (typeof address === "string") folder = address;
+  if (folder !== "") {
+    const logoPattern = new RegExp(`^tokens\\/[^/]+\\/${folder}\\/logo\\.webp$`);
+    if (typeof record.logoURL !== "string" || !logoPattern.test(record.logoURL)) {
+      errors.push(`logoURL must be tokens/<chain>/${folder}/logo.webp`);
+    }
+  }
+  if (typeof record.logoHash !== "string" || !LOGO_HASH_RE.test(record.logoHash)) {
+    errors.push("logoHash must be a lowercase SHA-256 hex digest");
   }
   return errors;
 }

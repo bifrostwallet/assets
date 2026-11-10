@@ -28,8 +28,25 @@ describe("EVM token validation", () => {
   test("keeps the lowercase address rule and ignores unknown fields", () => {
     assert.deepEqual(validateEvmToken(evmToken()), []);
     assert.deepEqual(
-      validateEvmToken(evmToken({ address: null, name: "Flare", symbol: "FLR" })),
+      validateEvmToken(
+        evmToken({
+          address: null,
+          name: "Flare",
+          symbol: "FLR",
+          logoURL: "tokens/eip155-14/native/logo.webp",
+        }),
+      ),
       [],
+    );
+    assert.ok(
+      validateEvmToken(evmToken({ logoURL: "https://example.com/logo.webp" })).some((error) =>
+        error.includes("logoURL must be"),
+      ),
+    );
+    assert.ok(
+      validateEvmToken(evmToken({ logoHash: "ABCD" })).some((error) =>
+        error.includes("logoHash must be"),
+      ),
     );
     assert.ok(
       validateEvmToken(evmToken({ address: "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d" })).some(

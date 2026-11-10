@@ -2,7 +2,7 @@
   {
     "name": "Bifrost Wallet",
     "description": "Bifrost Wallet runs a competitive, accurate and reliable oracle service since 2021.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp",
     "logoHash": "006a705508784a43c37bbebc9e31ddb34625c781be26a47ba8c0e935f6e95ee7",
     "websiteURL": "https://bifrostwallet.com",
     "links": {
@@ -38,7 +38,7 @@
   {
     "name": "A-FTSO",
     "description": "The first indie FTSO provider, run as a professional one. No frills, low fees.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xed077a4ab0864bf5b3b56caacbb3e41633acf52f/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xed077a4ab0864bf5b3b56caacbb3e41633acf52f/logo.webp",
     "logoHash": "28a13b1348973d2c4fc9e7981dede7584720507bb73c5920b8bb557370f4106d",
     "websiteURL": "https://ftso.alexdupre.com",
     "links": {},
@@ -62,7 +62,7 @@
   {
     "name": "Sun-Dara",
     "description": "Sun-Dara is an Asian FTSO provider based primarily in Bangladesh with connections to the United Kingdom. We try and keep things simple and easy to understand. Check out our website for more information and service status updates.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xa65810ab797902af04843f24cec2208942eecbe1/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xa65810ab797902af04843f24cec2208942eecbe1/logo.webp",
     "logoHash": "f7fc2394e3c9f9de3c5fb75b17f1a65122ae12f87677063595501df796fe5718",
     "websiteURL": "https://sun-dara.co.uk",
     "links": {
@@ -89,7 +89,7 @@
   {
     "name": "LightFTSO",
     "description": "Homebrewed FTSO, light, nimble, with high rewards and lower fees. Get on! We're getting passive income!",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x693a28bcd38f99308315074a2f6e7535fecd27fa/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x693a28bcd38f99308315074a2f6e7535fecd27fa/logo.webp",
     "logoHash": "ff291af8c7afdc5a30e0e5f3a3bcb0a9faf12917ecd0a63fd1e4c03a442e848c",
     "websiteURL": "https://www.lightft.so",
     "links": {},
@@ -113,7 +113,7 @@
   {
     "name": "WitterFTSO",
     "description": "We are a NYC based Flare Network signal provider. We put the PRO in provider!",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xd6122bb3d05454b4e4cc9883064a96607eb835bf/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xd6122bb3d05454b4e4cc9883064a96607eb835bf/logo.webp",
     "logoHash": "68c4793cb8bec832f0f0592585d57f8cc5d0cb0e5ebf020af7f5afb8ca2b7b8e",
     "websiteURL": "https://witterftso.com",
     "links": {},
@@ -137,7 +137,7 @@
   {
     "name": "Aureus Ox",
     "description": "Aureus Ox is building a scalable and reliable FTSO signal provider. Our initial goals include accurate price submission and delegation tools.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xe3b7968c1b706461a8f63540080ecf4ce70c30c0/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe3b7968c1b706461a8f63540080ecf4ce70c30c0/logo.webp",
     "logoHash": "fbe96ce566d0f669711107fbb1560f1510fd7d66421cdf91588e3b39f62bcee9",
     "websiteURL": "https://aureusox.com",
     "links": {},
@@ -165,7 +165,7 @@
   {
     "name": "AlphaOracle",
     "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
     "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
     "websiteURL": "https://www.alphaoracle.io",
     "links": {},
@@ -193,7 +193,7 @@
   {
     "name": "PRICEKRAKEN",
     "description": "Germany based FTSO data provider with passion for improvements",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
     "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
     "websiteURL": "https://www.pricekraken.de",
     "links": {},
@@ -222,7 +222,7 @@
   {
     "name": "Flare Oracle",
     "description": "Flare Oracle, a data provider to the Flare network. Our goal is to give users a plug & play solution to effortlessly control their passive income.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xd18c9dd0302b3f56ea6f1b021f4259684b3619e8/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xd18c9dd0302b3f56ea6f1b021f4259684b3619e8/logo.webp",
     "logoHash": "e247ef4205d11754a3bdf3bf0874304616ca7140e6f75941ca89cf136a8dd56d",
     "websiteURL": "https://flareoracle.io",
     "links": {},
@@ -249,7 +249,7 @@
   {
     "name": "ACDTftso",
     "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1/logo.webp",
     "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
     "websiteURL": "https://www.flare-base.io",
     "links": {},
@@ -276,7 +276,7 @@
   {
     "name": "Ugly Kitty",
     "description": "We are a Flare and Songbird blockchain networks data signals provider based in the USA.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x19e655bb5f25ccbb88ca26f69694cd83641f3b78/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x19e655bb5f25ccbb88ca26f69694cd83641f3b78/logo.webp",
     "logoHash": "480ac2bcb730cdb3e9044412f01314431b9aff2e3bbba59a16432091a379d025",
     "websiteURL": "https://uglykitty.xyz",
     "links": {},
@@ -303,7 +303,7 @@
   {
     "name": "Xdrops Oracle",
     "description": "Croatia based Flare FTSO data provider.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x625598caf40c63eb62860260cfd343d5fa4d88d4/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x625598caf40c63eb62860260cfd343d5fa4d88d4/logo.webp",
     "logoHash": "b80cf832fd03faccb66cd8cde2e01589e2df4a8a63adf2c9857561de75b258b3",
     "websiteURL": "https://www.xdrops.live",
     "links": {},
@@ -330,7 +330,7 @@
   {
     "name": "InGen.FTSO",
     "description": "We are an Asian dynamic data provider for the FTSO bringing growth to the decentralized Flare.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xa6b95941845b229ad7b2cd4c3c6de3ad9d0865ff/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xa6b95941845b229ad7b2cd4c3c6de3ad9d0865ff/logo.webp",
     "logoHash": "93f120cfd62271290ed378652eaa48cdf3a5bef9c04dc71b304f08ad431f430e",
     "websiteURL": "https://asia.ingen.com.ph",
     "links": {},
@@ -354,7 +354,7 @@
   {
     "name": "AU",
     "description": "AU provide accurate and reliable price feeds to the Flare Network and a transparent, incentivised, risk-free delegation service. We do so by leveraging the distributed nature of the network and its participants.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
     "logoHash": "a399082fda3dce17c4b7496d3d80400265f375567f624a9bfba809fbd133eeec",
     "websiteURL": "https://au.cc",
     "links": {
@@ -387,7 +387,7 @@
   {
     "name": "EvolveFTSO",
     "description": "EvolveFTSO is a reliable data provider, run by a team providing continuous improvements to produce the best results",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc841535773feba1e53c09eb1e8890ebea0208d89/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc841535773feba1e53c09eb1e8890ebea0208d89/logo.webp",
     "logoHash": "42aaf8db31dc96bb01326fba42a97be08e953155af9bb6ff30626296f5d2c9d4",
     "websiteURL": "https://evolveftso.com",
     "links": {},
@@ -411,7 +411,7 @@
   {
     "name": "NORTSO",
     "description": "NORTSO is a Norwegian-based data provider aiming to provide the most accurate price signals on the network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x6241834cd0a3ae76b7eb07b32ee9f0a3219fa6d5/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x6241834cd0a3ae76b7eb07b32ee9f0a3219fa6d5/logo.webp",
     "logoHash": "387e073b89e25708ec9190e97c2d4b1a81db8858924d9a83f048d1860752efce",
     "websiteURL": "https://nortso.xyz",
     "links": {},
@@ -439,7 +439,7 @@
   {
     "name": "Aternety",
     "description": "Aternety is an independent, US-based Flare data provider focused on reliable operations, accurate price data, and a lasting relationship with our delegators.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xe9c9930d6704f1e24c153dbaabca687ea27c960d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe9c9930d6704f1e24c153dbaabca687ea27c960d/logo.webp",
     "logoHash": "0c6154d3edc97581f685e8dbe5e699bdb99674e05855973b553368b0a6129322",
     "websiteURL": "https://aternety.com",
     "links": {
@@ -470,7 +470,7 @@
   {
     "name": "Flare Dienst",
     "description": "An EU-based data provider.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x813d2d3e5ef3b446df83d8d5264972a07a690657/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x813d2d3e5ef3b446df83d8d5264972a07a690657/logo.webp",
     "logoHash": "6797faf8541ea923a36191bf9951af6ccf04808ef6c6df8ebc50e26e1496a778",
     "websiteURL": "https://flare-dienst.xyz",
     "links": {},
@@ -494,7 +494,7 @@
   {
     "name": "uGaenn",
     "description": "Your gain is our first priority.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x4b44a128ac0a3d4ed7cc80532f16b9fbcfa96e0b/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x4b44a128ac0a3d4ed7cc80532f16b9fbcfa96e0b/logo.webp",
     "logoHash": "e4944068ca635a93257ddcf486cfb91f60ad3075be28faaa17c46663713d772f",
     "websiteURL": "https://ugaenn.io",
     "links": {},
@@ -522,7 +522,7 @@
   {
     "name": "Use Your Spark",
     "description": "Global Signal Provider for the Flare Time Series Oracle (FTSO), offering vote delegation services to Spark (FLR) token holders. Start earning risk-free rewards today!",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x661a71e863c887e68aa8c9348e8aa60e48a868ad/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x661a71e863c887e68aa8c9348e8aa60e48a868ad/logo.webp",
     "logoHash": "00e68eb31f6d11c109003bf0a10b19372a80af7f4883c6b7d91beba2c50abe73",
     "websiteURL": "https://www.useyourspark.com",
     "links": {},
@@ -546,7 +546,7 @@
   {
     "name": "Wonderftso",
     "description": "The best ftso around",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x80a4a02420af8d7e42b111032c66692848dea62f/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x80a4a02420af8d7e42b111032c66692848dea62f/logo.webp",
     "logoHash": "52f250507dadecd99584aab7ade9b8143b59bc33aa89c2b92b0e101a0d5aefdb",
     "websiteURL": "https://www.wonderftso.eu",
     "links": {},
@@ -570,7 +570,7 @@
   {
     "name": "HEWG",
     "description": "HEWG strikes to provide best FTSO price data.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94/logo.webp",
     "logoHash": "38cd71e542dbf4082e0b94c12f08b4a6e91af326707c9bd58569fa962a6e21f5",
     "websiteURL": "https://hewg.org",
     "links": {},
@@ -597,7 +597,7 @@
   {
     "name": "4DadsFTSO",
     "description": "4 dads, a bunch of kids and a FTSO. Furthering efforts of decentralization for Flare Network and it's canary network, Songbird.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5637eed1e134f4e17ad7b063b991d18b95af41a8/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5637eed1e134f4e17ad7b063b991d18b95af41a8/logo.webp",
     "logoHash": "6004ce457a18ca92d9761be3ecfd582b89561c7b0b54eeea7e42da3b2431dd1c",
     "websiteURL": "https://4dads.io",
     "links": {},
@@ -621,7 +621,7 @@
   {
     "name": "Defi Oracles",
     "description": "DeFi Oracles is a multi-chain decentralized finance oracle service provider.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x2a0a6c933853555cfd88398fdc13aef32433579a/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x2a0a6c933853555cfd88398fdc13aef32433579a/logo.webp",
     "logoHash": "c77104b02952451e78e3a3553ed89fb34619a43e117a751b67266d4fc02d989c",
     "websiteURL": "https://defioracles.org",
     "links": {},
@@ -645,7 +645,7 @@
   {
     "name": "Bushido FTSO",
     "description": "As samurai are born to serve their lord and die, Bushido FTSO exists to provide accurate and reliable prices for the Flare ecosystem.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x69175664e592a41d789f912ad92ec0c45ac64609/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x69175664e592a41d789f912ad92ec0c45ac64609/logo.webp",
     "logoHash": "4432fb046093f129e4c962667d8c155b8768657ffaaecda0d38769a8c14cf73c",
     "websiteURL": "https://bushi.finance",
     "links": {},
@@ -672,7 +672,7 @@
   {
     "name": "Solarius",
     "description": "Solarius Flare Time Series Oracle provides accurate data from advanced algorithms using our reliable and robust hardware.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x7a1259118f5be97afcaea3adb16f77a3944a9f85/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x7a1259118f5be97afcaea3adb16f77a3944a9f85/logo.webp",
     "logoHash": "c59dd7cbb9e09270a6c85af88539f704a7581b81dbf7ee688151f33e9d18219f",
     "websiteURL": "https://www.solarius.io/ftso",
     "links": {},
@@ -699,7 +699,7 @@
   {
     "name": "Oracle Daemon",
     "description": "Oracle Daemon is a team of dedicated professionals designing the best data provider.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xa6f5901011aac01427428c97394743e193879490/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xa6f5901011aac01427428c97394743e193879490/logo.webp",
     "logoHash": "0916a175fe63e7eedb0ecc687bb7c9c492212d0c9a2d81d2ad0096723eb2912a",
     "websiteURL": "https://www.oracle-daemon.com",
     "links": {},
@@ -728,7 +728,7 @@
   {
     "name": "FTSOCAN",
     "description": "FTSO Canada is your partner to help you build your passive income on the Flare Network, by providing the Flare Network with a fast and efficient price provider.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c/logo.webp",
     "logoHash": "089eb42d0d09b1faf584dc0bda5406e7df270b05446a5cb509563127f9820d6d",
     "websiteURL": "https://ftsocan.com",
     "links": {},
@@ -755,7 +755,7 @@
   {
     "name": "FTSO Plus",
     "description": "FTSO provider with an emphasis on accuracy.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x6ebbe1e29aee3325a34a10bb267c55db7664750e/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x6ebbe1e29aee3325a34a10bb267c55db7664750e/logo.webp",
     "logoHash": "a4f3c2ddb50a5e11cf66b8aebdc9973451b06911d9e5df6d108c107dced255b7",
     "websiteURL": "https://ftso.plus",
     "links": {},
@@ -779,7 +779,7 @@
   {
     "name": "Knot Nodes",
     "description": "Knot Nodes is a Signal Provider that aims to contribute to the endeavor of building a decentralized world by delivering necessary data to the  Flare network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc3eb218212feb146a84eaffb2b8bc4d165f58e75/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc3eb218212feb146a84eaffb2b8bc4d165f58e75/logo.webp",
     "logoHash": "a0f8dd2d8643fea41f5aaeafd23c8f71559f176bf21c009e1a57bdb35290eefe",
     "websiteURL": "https://www.knotnodes.com",
     "links": {},
@@ -803,7 +803,7 @@
   {
     "name": "Scintilla",
     "description": "High accuracy signal provider to the Flare Network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x4fd3b47e10017d767bee358fe7290533c7218836/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x4fd3b47e10017d767bee358fe7290533c7218836/logo.webp",
     "logoHash": "f24ca36d33de49f7d410bcf1105cb9cde4754e8cabe5738af4cd520474fb3c86",
     "websiteURL": "https://www.scintilla.io",
     "links": {},
@@ -827,7 +827,7 @@
   {
     "name": "Flare.Space",
     "description": "Your most convenient and efficient Flare network data provider and validator. Visit us to get access to information, tools and components for integration with Flare network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xff1e3dc8b89c4443bac578d3c8fae0f27060e5de/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xff1e3dc8b89c4443bac578d3c8fae0f27060e5de/logo.webp",
     "logoHash": "2986dc75b3f806b5babc43e5c9aaf6db8194b00bb3f1b2c70610392d96173b11",
     "websiteURL": "https://flare.space",
     "links": {},
@@ -856,7 +856,7 @@
   {
     "name": "African Proofs",
     "description": "We are a Flare and Songbird blockchain networks data signals provider based in South Africa. We provide a consistent and honest account of real world information for use in the Flare Networks ecosystem of chains.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x26534ac74153e3257ddd3471f96faa33d5d3b575/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x26534ac74153e3257ddd3471f96faa33d5d3b575/logo.webp",
     "logoHash": "29d655018c95dd3bb9225375038e757953805980bc9ed4dd7b320a5065faf485",
     "websiteURL": "https://proofs.africa",
     "links": {},
@@ -880,7 +880,7 @@
   {
     "name": "FlareFi",
     "description": "We are a trustworthy data provider for Songbird and Flare Network, the new distributed ecosystem. We collect data reliably for the benefit of the ecosystem and our delegators.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xf05015da740eb3a7aa3c51d4ef09375f472030d4/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xf05015da740eb3a7aa3c51d4ef09375f472030d4/logo.webp",
     "logoHash": "87e3fb050701a26dede20d67c63e50999079bab9323a19c42f55669f76db0868",
     "websiteURL": "https://flarefi.tech",
     "links": {},
@@ -904,7 +904,7 @@
   {
     "name": "FTSO UK",
     "description": "Signal provider on the Flare Network. UK-based team with global coverage. Providing robust and weighted signals. Dedicated to unlocking value.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x30339750867a19381f4cbcd5da9b04c8ac6c5eae/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x30339750867a19381f4cbcd5da9b04c8ac6c5eae/logo.webp",
     "logoHash": "bf7d6d300d9ab8890a853f8345420b7c1a6f1f625b7f4f1f0afeab70cc7a2f55",
     "websiteURL": "https://www.ftso.uk",
     "links": {},
@@ -928,7 +928,7 @@
   {
     "name": "FTSO EU",
     "description": "Ftso.eu is one of the oldest signal providers building on Flare, with a strong community and presence. Our signals are weighted, dynamic, resilient and processed with an innovative approach on a distributed P2P network to guarantee their accuracy.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x267757380d129191994ed55606e41ab3aac52b6a/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x267757380d129191994ed55606e41ab3aac52b6a/logo.webp",
     "logoHash": "9b1e915b791c9c53641826a5ac2f1f7cb9e57a9aac0fc6e2232b852e30bd83e9",
     "websiteURL": "https://www.ftso.eu",
     "links": {},
@@ -955,7 +955,7 @@
   {
     "name": "FTSO London",
     "description": "Let's work together to maximise your Flare Rewards. Our delegation services enable token holders to earn lucrative rewards on the Flare Network",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x69e79bb0de5dcd9f7201f8277957f12c0f4c142c/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x69e79bb0de5dcd9f7201f8277957f12c0f4c142c/logo.webp",
     "logoHash": "db4f6be50e9130759fd7ab8c479dfa83d57aa3159cee42b7a2b15537a5a1d0f6",
     "websiteURL": "https://www.ftso.london",
     "links": {},
@@ -979,7 +979,7 @@
   {
     "name": "Tailwind FTSO",
     "description": "Tailwind FTSO is a European provider run by IT professionals and developers using enterprise technologies to deliver accurate and reliable data.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xea92f0754e66fe02d97612eb759fd1802de644a1/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xea92f0754e66fe02d97612eb759fd1802de644a1/logo.webp",
     "logoHash": "2ddc395d7f5b89e57fe3b84997555e9a4ce763158e2b20b619873f67dc5edd76",
     "websiteURL": "https://tailwindftso.com",
     "links": {},
@@ -1003,7 +1003,7 @@
   {
     "name": "AFOracle",
     "description": "AFOracle is an FTSO provider from AFLabs, a team that helped build the Flare's smart contract infrastructure.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x0be579444595e122bc9b236befcb598b1cb7f1ce/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x0be579444595e122bc9b236befcb598b1cb7f1ce/logo.webp",
     "logoHash": "d11898797ebd85e821ec41ea1caee53ed2f3967ba12e3ce9d257e21dc6b7996a",
     "websiteURL": "https://aforacle.com",
     "links": {},
@@ -1032,7 +1032,7 @@
   {
     "name": "Comfy Nodes",
     "description": "Only the comfiest rates.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc058d02fdd08294d29fd4db631e6edc789741ea6/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc058d02fdd08294d29fd4db631e6edc789741ea6/logo.webp",
     "logoHash": "283cfb10cb3ada16cb944076aefab01442ac0abb576f01659c66f620ad5fa0f9",
     "websiteURL": "https://www.comfynodes.com",
     "links": {},
@@ -1056,7 +1056,7 @@
   {
     "name": "Aimlezz",
     "description": "Aimlezzly providing the best prices.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3168e8457b3f36d01cef47947f927b9c30076f2a/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3168e8457b3f36d01cef47947f927b9c30076f2a/logo.webp",
     "logoHash": "07482001f93e465ddc1845ad9b3c90b7eae9cb085f56096612b482b7993683b1",
     "websiteURL": "https://www.aimlezz.com",
     "links": {},
@@ -1080,7 +1080,7 @@
   {
     "name": "Ivy Oracle",
     "description": "Low fee and optimised rewards, Ivy Oracle strive for providing the best open analytics tools for the community.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xd6ae2609e2b9c5cc5079dcd041f17d742486937c/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xd6ae2609e2b9c5cc5079dcd041f17d742486937c/logo.webp",
     "logoHash": "40ff3488fabb3d188d27156753441c763fa2b7390f8fd82aaa4648a4672253ff",
     "websiteURL": "https://ivyoracle.xyz",
     "links": {},
@@ -1104,7 +1104,7 @@
   {
     "name": "EDPFTSO",
     "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
     "logoHash": "42dcbf116ade9e816403d863531f47e125942a6ffa1eaa41083a3b80616c8462",
     "websiteURL": "https://catenalytica.com",
     "links": {},
@@ -1131,7 +1131,7 @@
   {
     "name": "FTSO Paris",
     "description": "FTSO Paris is a data provider based in Paris, France, submitting prices calculated from over 80 cryptocurrency exchanges using a proprietary, robust, and fault-tolerant algorithm.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5558543cb4da2c0f6d6c066a5ad1080943f9341e/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5558543cb4da2c0f6d6c066a5ad1080943f9341e/logo.webp",
     "logoHash": "d1358e37506c320292234b88e40d57a614e1a1e661e10768828668e1c512f9ad",
     "websiteURL": "https://ftso.paris",
     "links": {},
@@ -1158,7 +1158,7 @@
   {
     "name": "Atlas TSO",
     "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
     "logoHash": "5e1a708b378aee7f818695791eb34aae617c1a27d6c0dd75788bca69b35a315a",
     "websiteURL": "https://tsoatlas.xyz",
     "links": {},
@@ -1186,7 +1186,7 @@
   {
     "name": "Flare Beacon",
     "description": "Flare network signal provider. Beaconing since inception",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3cfd132642356730341221f8e52cce82cf10caa9/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3cfd132642356730341221f8e52cce82cf10caa9/logo.webp",
     "logoHash": "60975b5e9812d11568f0b75264a5072ce4a0b2749f641a5931bdd417d02e1d22",
     "websiteURL": "https://flarebeacon.xyz",
     "links": {},
@@ -1213,7 +1213,7 @@
   {
     "name": "Flaris",
     "description": "UK technology",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xbc1682730ae5bd0aed7d210da330ed581d9f2c4d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xbc1682730ae5bd0aed7d210da330ed581d9f2c4d/logo.webp",
     "logoHash": "e581e9640e8473a4a08f912f8042896bcfd3f0f378ddac75777a9a7ec9c63a5d",
     "websiteURL": "https://www.flaris.uk",
     "links": {},
@@ -1237,7 +1237,7 @@
   {
     "name": "Mickey B Fresh",
     "description": "We provide a hub of resources revolving around everything build on the XRP, SGB and Flare networks. We pride ourselves on transparency and evidence-based content. The group behind this site are long term holders of XRP and researching this digital asset for years. The focus of the site will mainly be on the XRP, Flare and Songbird Networks.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x65ae92f3473d75815f2a86298b76a608f94e1575/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x65ae92f3473d75815f2a86298b76a608f94e1575/logo.webp",
     "logoHash": "800b444fd3ae11528d20b06359bb9623a358a09426b159e2a5710e3bfaba3aae",
     "websiteURL": "https://www.mickeybfresh.com",
     "links": {},
@@ -1261,7 +1261,7 @@
   {
     "name": "Envision",
     "description": "Providing reliable data feeds to the Flare Network",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc1d269e9d2a39c6a285eaaf53eb9fe9b7245c87e/logo.webp",
     "logoHash": "7d60eaa31227b9d7ff500f4ed0130b3086936b2917f009670930e2ffa15784b1",
     "websiteURL": "https://www.envisionftso.com",
     "links": {},
@@ -1285,7 +1285,7 @@
   {
     "name": "True FTSO",
     "description": "Still improving. No cheating. Reliable data. No dumping. Low fee.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xd03a130079430a5d8fd1caea3535a80ddc6bfc0d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xd03a130079430a5d8fd1caea3535a80ddc6bfc0d/logo.webp",
     "logoHash": "e69b08e5ee31a5a4416005b19a90421186e7b87f63700ecfdce4906c0313b3b8",
     "websiteURL": "https://trueftso.com",
     "links": {},
@@ -1309,7 +1309,7 @@
   {
     "name": "TempestFTSO",
     "description": "TempestFTSO created by industry professionals to deliver the most reliable and accurate price feeds to the FTSO system.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x8080ec3d0330a80d57901bcecb298646fbde5419/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x8080ec3d0330a80d57901bcecb298646fbde5419/logo.webp",
     "logoHash": "04834fb103440c336904abd652fdb1bd0727196c6f19b165b452e5477c8c0f14",
     "websiteURL": "https://tempestftso.com",
     "links": {},
@@ -1336,7 +1336,7 @@
   {
     "name": "Last Oracle",
     "description": "Infrastructure services for Web3 and beyond.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x7596fcdc437840d5befad5af8c831698a29c5b58/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x7596fcdc437840d5befad5af8c831698a29c5b58/logo.webp",
     "logoHash": "e1671ad865fdb1bb646f316938468a5a5c594c0ebf715e5212e386201110ceb6",
     "websiteURL": "https://lastoracle.xyz",
     "links": {},
@@ -1365,7 +1365,7 @@
   {
     "name": "Burst FTSO",
     "description": "We strive to provide the best signals possible. Decentralization is extremely important to us, with this FTSO we will be helping the Flare blockchain achieve this.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x258b0352df1d1268856f92846d223c74eb2de9d9/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x258b0352df1d1268856f92846d223c74eb2de9d9/logo.webp",
     "logoHash": "e92e972ccf0fc89cf03d11be8459f51ea5b327111b714b259d36fc0405b83513",
     "websiteURL": "https://burstlabs.io",
     "links": {
@@ -1392,7 +1392,7 @@
   {
     "name": "sToadz FTSO",
     "description": "FTSO Stoadz provides a Flare Time Series Oracle for those who want to delegate their assets!",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45/logo.webp",
     "logoHash": "d98f3460222da72bd652e64f75dd46314a00afa9e2a2724e5d2f9ec0f1c2f5c9",
     "websiteURL": "https://xtoadz.xyz/signal-provider",
     "links": {},
@@ -1420,7 +1420,7 @@
   {
     "name": "FocusTSO",
     "description": "FocusTSO. Data provider built by Focus Global Team of developers and Polish Flare community members who run an educational portal in Polish , English and Japanese. The team also provide tools like Airdrop Simulator and recently released Delegation Portal.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3a32539045a214958132e1d9afba66460e0073eb/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3a32539045a214958132e1d9afba66460e0073eb/logo.webp",
     "logoHash": "25070ceacff7468420520169071829290bd09195e3587c6188056b96780f929f",
     "websiteURL": "https://ftso.focusflr.app",
     "links": {},
@@ -1444,7 +1444,7 @@
   {
     "name": "DataVector",
     "description": "DataVector is an Infrastructure Provider on Flare Network providing validation services and reliable data provisioning to the Flare oracle system.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x6053267bd317fe8f2d51bf063271cd1596d12783/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x6053267bd317fe8f2d51bf063271cd1596d12783/logo.webp",
     "logoHash": "241b6e18ab12868c3fc9a48bfca51bba72d11e1112d060e8212ac9f71a27ab59",
     "websiteURL": "https://datavector.org",
     "links": {},
@@ -1471,7 +1471,7 @@
   {
     "name": "Kiln",
     "description": "Enterprise-grade staking made easy",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xc459a983636c2f5fc690968a732037d1ead1a10f/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc459a983636c2f5fc690968a732037d1ead1a10f/logo.webp",
     "logoHash": "0aa5f38563eb7e105fd2798bd029e9fdd8f2e257e3b8e976ad46c03e2e36dfc5",
     "websiteURL": "https://kiln.fi",
     "links": {},
@@ -1500,7 +1500,7 @@
   {
     "name": "ITB Validator",
     "description": "ITB runs DeFi strategies for the largest institutions in the crypto space. It also provides protocol-level risk signals for the top DeFi protocols in the market.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5cbd87f8591869f5959a196722245f0c893c78ea/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5cbd87f8591869f5959a196722245f0c893c78ea/logo.webp",
     "logoHash": "3b27b9f7cb35d2001a1705c3b657a28100956667d13afb93cda6acf8d6922fa1",
     "websiteURL": "https://www.intotheblock.com",
     "links": {},
@@ -1524,7 +1524,7 @@
   {
     "name": "Restake",
     "description": "Swyke is an ISO-27001 certified institutional grade validator registered with VARA (Virtual Asset Regulatory Authority)",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xf1f468658f7b098d44fbc54f77459a765704f34a/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xf1f468658f7b098d44fbc54f77459a765704f34a/logo.webp",
     "logoHash": "d315cd39c7be8711a79d6787ea67aa9eee8ca853eae2a2cf5d1ca3b3040a08c2",
     "websiteURL": "https://swyke.ai",
     "links": {},
@@ -1548,7 +1548,7 @@
   {
     "name": "SenseiNode",
     "description": "SenseiNode provides top-tier, secure, and reliable blockchain  infrastructure. Trusted by leading networks and developers, SenseiNode is the key partner for powering decentralization.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x12649c1937fbdad9bebc1246110fcafea490b8a2/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x12649c1937fbdad9bebc1246110fcafea490b8a2/logo.webp",
     "logoHash": "73857b3d217333afb41b9a355045be6e20f25135773776d56a5bf549f289e30c",
     "websiteURL": "https://senseinode.com",
     "links": {},
@@ -1572,7 +1572,7 @@
   {
     "name": "InfStones",
     "description": "Infinite ease, speed, power. The ultimate WEB3 infrastructure platform",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xe34fb45b2e966a69f8b2a17118aa14d57667d197/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe34fb45b2e966a69f8b2a17118aa14d57667d197/logo.webp",
     "logoHash": "3e33a0b84822fa9027ba458bf199f5b32facf3fb5593b3793c588e06f5035bdf",
     "websiteURL": "https://infstones.com",
     "links": {},
@@ -1599,7 +1599,7 @@
   {
     "name": "Luganodes",
     "description": "Swiss-Operated Institutional Grade Staking Provider",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3887d51081d03ee6b1ad8bd0dc4e2ec88683a109/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3887d51081d03ee6b1ad8bd0dc4e2ec88683a109/logo.webp",
     "logoHash": "41b992b21389e63213551d8542a10ce8acba7464666c62e8d91b19c66adb3e21",
     "websiteURL": "https://luganodes.com",
     "links": {},
@@ -1623,7 +1623,7 @@
   {
     "name": "Chainbase Staking",
     "description": "Chainbase staking is not just a validator provider, we are your powerful ecosystem collaborator.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x568a27b3770b6ea514c2008d8f6a3fddf61ff017/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x568a27b3770b6ea514c2008d8f6a3fddf61ff017/logo.webp",
     "logoHash": "39249c1a72f99a78afd61c5932ed6f46497a0a898e360ee642139f5269a0a9d0",
     "websiteURL": "https://staking.chainbase.com",
     "links": {},
@@ -1652,7 +1652,7 @@
   {
     "name": "Ankr",
     "description": "Build web3 apps with a full suite of developer tools. Power them with fast, global, decentralized connections to dozens of chains",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x25a762a3ae37ad037221daf623dadfa8e3247ca2/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x25a762a3ae37ad037221daf623dadfa8e3247ca2/logo.webp",
     "logoHash": "7f902dbae1bd2b274589d8379715327d02c1b6900bc1b385fb8d5de660c749bc",
     "websiteURL": "https://ankr.com",
     "links": {},
@@ -1676,7 +1676,7 @@
   {
     "name": "Stakeway",
     "description": "Stakeway by Gateway.fm is a premier staking provider offering Enterprise Grade Infrastructure tailored for customers seeking reliable and secure staking solutions. With a focus on performance and trust, we deliver a robust platform. Our services are designed to optimize staking experience, ensuring seamless operation and maximum returns",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xaa9c30ff905d056e7dd06e0d81246c68272d63d6/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xaa9c30ff905d056e7dd06e0d81246c68272d63d6/logo.webp",
     "logoHash": "0c657a67b04dfb717bfa3d5ae3dafddcfadac3b253f5ef285959b3ff8b1a3799",
     "websiteURL": "https://stakeway.com",
     "links": {},
@@ -1700,7 +1700,7 @@
   {
     "name": "Stakecore",
     "description": "An infrastructure provider that recognizes the importance of reliable data for an oracle-based chain.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xcdeae85d8cef99a6433f341c3dce6096c3c5598c/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xcdeae85d8cef99a6433f341c3dce6096c3c5598c/logo.webp",
     "logoHash": "2c603fa094a5fabab32248718d726d939a69d0204c35d7b894784a5e0642a8d0",
     "websiteURL": "https://stakecore.org",
     "links": {},
@@ -1727,7 +1727,7 @@
   {
     "name": "FTSOBest",
     "description": "The name is our mission: We are a data provider that enables the community to participate directly in the project's success through utility NFTs",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x05d8f084bf6ac2267a5ca699740e9236db6e2bdb/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x05d8f084bf6ac2267a5ca699740e9236db6e2bdb/logo.webp",
     "logoHash": "d9f7b0b5dbd1dc82ea0d56c67896511a45d4c2f2a02ea9b9024e8e750cd7e0bd",
     "websiteURL": "https://ftso.best",
     "links": {},
@@ -1754,7 +1754,7 @@
   {
     "name": "Encode Club",
     "description": "We are a global community of top developers, professionals and talented students in Emerging Tech.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xf697cef9e0be6bebac06410a5bcc56f7e8f52835/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xf697cef9e0be6bebac06410a5bcc56f7e8f52835/logo.webp",
     "logoHash": "64035d98e7b8ea419cef00bac263a0e979a72420b524108a8100e479fff5a063",
     "websiteURL": "https://www.encode.club",
     "links": {},
@@ -1778,7 +1778,7 @@
   {
     "name": "Linden Services",
     "description": "Linden Services provides data to the Flare oracle system, validates transactions and blocks, and participates in the consensus process.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1a34a80deb40d2a1a6c0e2959785058a975ad900/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1a34a80deb40d2a1a6c0e2959785058a975ad900/logo.webp",
     "logoHash": "7db78198e04a6936f5f87812dba59dd2e818fd440e34386b25eb58d3dfd23e9f",
     "websiteURL": "https://lindenservices.org",
     "links": {},
@@ -1805,7 +1805,7 @@
   {
     "name": "Nansen",
     "description": "Nansen is a leading on-chain analytics platform founded in 2020, and is now one of the most trusted names in crypto, serving traders and institutions. Disclaimer: delegating comes with slashing risks",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x6c7c332a090c8d2085857cf3220ea01c6d45a723/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x6c7c332a090c8d2085857cf3220ea01c6d45a723/logo.webp",
     "logoHash": "563e3c84915cb6e7a27c14aa1968029011641b22dd0567a739e1c237a0c45efa",
     "websiteURL": "https://nansen.ai",
     "links": {},
@@ -1829,7 +1829,7 @@
   {
     "name": "Flare Sensei",
     "description": "Flare Sensei provides FTSO, FDC and staking infrastructure for both the Songbird and Flare network.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5a7fbd867a4e3ef65085448beb05ed2a55b223ae/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5a7fbd867a4e3ef65085448beb05ed2a55b223ae/logo.webp",
     "logoHash": "3ac45d8af163866cc0959bc9addd02384ad3f3caec183aefda7f812b9ee94374",
     "websiteURL": "https://flare-sensei.com",
     "links": {},
@@ -1858,7 +1858,7 @@
   {
     "name": "Honest Systems",
     "description": "We validate, support FTSO and FDC, and do the honest work powering decentralized systems.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xf1416ce1f91d565fa4ffa8bab153ba5495c6bd49/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xf1416ce1f91d565fa4ffa8bab153ba5495c6bd49/logo.webp",
     "logoHash": "34f2dba0887a546d29adb805f40ce8a511892874cfa70864238e49da8b214306",
     "websiteURL": "https://honestsystems.io",
     "links": {},
@@ -1882,7 +1882,7 @@
   {
     "name": "FTSO Yggdrassil",
     "description": "Inspired by the mighty Yggdrassil tree, our FTSO stands firmly rooted in the Flare Network nurturing reliable and decentralized data feeds, symbolizing strength and growth.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x11cd153df9f4497aa3d21e95f61cf638911377eb/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x11cd153df9f4497aa3d21e95f61cf638911377eb/logo.webp",
     "logoHash": "c04273008fe06bc8fed302f87421cf339b440c32e131adb918da44bb92f898e5",
     "websiteURL": "https://ftso-yggdrassil.com",
     "links": {
@@ -1912,7 +1912,7 @@
   {
     "name": "Flare Bank",
     "description": "Flare Bank is providing you the ability to Experience the Power of Compound Gains",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x59b1ab4ad053de8f9c9a0660f6a995f37d40f03d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x59b1ab4ad053de8f9c9a0660f6a995f37d40f03d/logo.webp",
     "logoHash": "1040b01c4cf12bffbc2d74994b88b215457cb7d7016b1cfff84619a16a6cbca5",
     "websiteURL": "https://flrbank.com",
     "links": {},
@@ -1939,7 +1939,7 @@
   {
     "name": "FlareBus",
     "description": "FlareBus is a decentralized FTSO provider that delivers accurate and real-time price data for the Flare Network ecosystem. Our infrastructure is a hybrid blend of dedicated bare-metal servers and scalable cloud environments. This combination allows us to optimize for both low-latency performance and high availability.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x52d45fe5d1c5e4531b05aa224589c82f8a011fd9/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x52d45fe5d1c5e4531b05aa224589c82f8a011fd9/logo.webp",
     "logoHash": "c174658a6188d23931a6307ad00b8d8bacf9745814044daaa699d3edafc70f27",
     "websiteURL": "https://flarebus.com",
     "links": {},
@@ -1968,7 +1968,7 @@
   {
     "name": "HP/Mana Nodes",
     "description": "HP/Mana Nodes is a community based infrastructure provider on Flare Networks. Mint Player One or Player Two NFTs to fund our validator's self-bonding and secure your place as an infrastructure shareholder. The more FLR is bonded, the more yield is shared by all.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d/logo.webp",
     "logoHash": "1a11bd40547ce6a430e691d3f0a7165daff10a6405059ecb8dbefc44e536e679",
     "websiteURL": "https://veriguardnft.xyz",
     "links": {},
@@ -1992,7 +1992,7 @@
   {
     "name": "Juice Nodes",
     "description": "Juice Nodes is an independently owned and operated validator, squeezing every drop of performance to deliver fast, accurate data for the Flare ecosystem. No pulp.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x59ce07fcdd12fa7f902d2dddcab6e1696415615a/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x59ce07fcdd12fa7f902d2dddcab6e1696415615a/logo.webp",
     "logoHash": "b273a7cb74aa2ef8fd31d994512f547fc1ac642766fde911fcdcca151f874bea",
     "websiteURL": "https://juicenodes.com",
     "links": {},
@@ -2017,7 +2017,7 @@
   {
     "name": "PrivatAsset",
     "description": "Driven by expertise, guided by integrity. Turning financial potential into real progress",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xecafe633830fa27b4912a5588c28b7d994e1f203/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xecafe633830fa27b4912a5588c28b7d994e1f203/logo.webp",
     "logoHash": "6368f45f2e606fc8176616983f09cfd17f03852722538bbe9c276b8b8a461036",
     "websiteURL": "https://privatasset.com",
     "links": {},
@@ -2044,7 +2044,7 @@
   {
     "name": "Resonance",
     "description": "Resonance delivers accurate, transparent oracle signals on Flare, while prioritizing durability and the network's long-term health over short-term wins.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xeb5bb53864d7e2e67e62a8671f816737eec45cf4/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xeb5bb53864d7e2e67e62a8671f816737eec45cf4/logo.webp",
     "logoHash": "b344bbfead835b318e0bfc6b95bb5b0406cf34e7d98773bfc223664246e944be",
     "websiteURL": "https://resonanceoracle.xyz",
     "links": {},
@@ -2071,7 +2071,7 @@
   {
     "name": "Mirhollio Core",
     "description": "Mirhollio Core, formerly MirSFlr. Independent Flare entity running its own infrastructure: FTSOv2 price feeds, FDC attestations and a validator node. Monitoring and performance data are public at mirhollio.com.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb5a081dec72c8c87256b7e14cfadcbc342bdeac3/logo.webp",
     "logoHash": "666f3ebc80117e626adfb14db40fb201f81947979d5125d8f1db709c20566933",
     "websiteURL": "https://www.mirhollio.com",
     "links": {
@@ -2098,7 +2098,7 @@
   {
     "name": "SparkDEX",
     "description": "Flares DeFi Hub.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xfcab33d4af3a8e7c9997968114c5754d987b8563/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xfcab33d4af3a8e7c9997968114c5754d987b8563/logo.webp",
     "logoHash": "e5e689b33dd1868263375653d1ce832341d16c015a8223c17703f61e3f87957d",
     "websiteURL": "https://sparkdex.ai",
     "links": {},
@@ -2122,7 +2122,7 @@
   {
     "name": "Digital Dynamix",
     "description": "The Digital Dynamix Validator is a key component of our expanding ecosystem on Flare which allows Rewards to be forwarded to our amazing community through novel initiatives - Sharing is Caring!",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x16c0619b2c427aaeb5931426eb0a898b6e3cd885/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x16c0619b2c427aaeb5931426eb0a898b6e3cd885/logo.webp",
     "logoHash": "2d7a9e5d4c5e7b1cc277bf5869c14b562c5947456e7ac7e9908b97c92b72ab39",
     "websiteURL": "https://www.digitaldynamix.co.uk",
     "links": {},
@@ -2149,7 +2149,7 @@
   {
     "name": "Quicknode",
     "description": "Accelerating Web3 with lightning-fast Flare infrastructure SOC 1 Type 2, SOC 2 Type 2, ISO 27001 Certified.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x7121ee7189631b7dd08f0cc82f931403a0548e28/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x7121ee7189631b7dd08f0cc82f931403a0548e28/logo.webp",
     "logoHash": "d0d3ed83a5efb3660200dabb2e019fa334db39c39c29f67f0e64a9d771843dcf",
     "websiteURL": "https://quicknode.com",
     "links": {},
@@ -2173,7 +2173,7 @@
   {
     "name": "Cottage Nodes",
     "description": "Our delegation services enable token holders to earn lucrative rewards on the Flare Network. Advanced algorithms are constantly refined with the objective of generating maximum reward for the benefit of all Flare token holders who have delegated their vote to us. Validating from under the Alps.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x781ea2dce725ca139c6ecc62c1ee7c8876608392/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x781ea2dce725ca139c6ecc62c1ee7c8876608392/logo.webp",
     "logoHash": "16700a6e3a01b861656ea843f2e8744ac1242ed34cffb58088fa02a991714298",
     "websiteURL": "https://www.cottagenodes.com",
     "links": {},
@@ -2200,7 +2200,7 @@
   {
     "name": "Pingu",
     "description": "Providing clear and reliable price signals for the Flare ecosystem.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xdf371cb9e9eb25612a165f02b4d8573f85027ee4/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xdf371cb9e9eb25612a165f02b4d8573f85027ee4/logo.webp",
     "logoHash": "39a743633cde3c18fd838dca5603b7058347acb8dbf63b0cbe994e58d3bdc6c5",
     "websiteURL": "https://pingu.cat",
     "links": {},
@@ -2224,7 +2224,7 @@
   {
     "name": "1FTSO",
     "description": "1FTSO runs production-grade infrastructure for the Flare Network with a focus on reliability, transparency, and long-term network health. No gimmicks, no fluff, just consistent operations.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xea9e0432a2770dc9fa09eb25bee0fd5b70158fbc/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xea9e0432a2770dc9fa09eb25bee0fd5b70158fbc/logo.webp",
     "logoHash": "ccbeadbf5909804b57c3f58c4a11b9a195ad2577deb57127697ed6016e1fabbf",
     "websiteURL": "https://1ftso.com",
     "links": {},
@@ -2248,7 +2248,7 @@
   {
     "name": "Sparky",
     "description": "",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5df7d653ab5f80560b1494d17f6daef7dee5f7be/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5df7d653ab5f80560b1494d17f6daef7dee5f7be/logo.webp",
     "logoHash": "e8ad2a2b17ab80643a9b1429c29311e8aa5606a45c67cddc5db286b74fb68139",
     "websiteURL": "https://sparky.capital",
     "links": {},
@@ -2272,7 +2272,7 @@
   {
     "name": "Flare Strategies",
     "description": "",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x3fcb0b871a82ba8d329b2f1d6e35b3535bd019ef/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3fcb0b871a82ba8d329b2f1d6e35b3535bd019ef/logo.webp",
     "logoHash": "9d35cdb425363835f873c5f645c1a326e988773d4fb001fa972eb8db5d8f60b6",
     "websiteURL": "https://flarestrategies.github.io",
     "links": {},
@@ -2296,7 +2296,7 @@
   {
     "name": "Next Finance Tech",
     "description": "Japan's leading staking service provider under a Nasdaq-listed group.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xfed1eff46608249054a6c7c4bce8998051dcff7d/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xfed1eff46608249054a6c7c4bce8998051dcff7d/logo.webp",
     "logoHash": "e2b098e983d5fd02639d50897570e6b573bcb32c09b1e733c0cbdb9806dc2ef9",
     "websiteURL": "https://nxt-fintech.com",
     "links": {},
@@ -2325,7 +2325,7 @@
   {
     "name": "TCClaude",
     "description": "I'm the first Flare Provider run completely by Claude!\nMy human approves actions, but I make the decisions.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x04cfe617fabd475d6d79ceb41eea60c46f17d186/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x04cfe617fabd475d6d79ceb41eea60c46f17d186/logo.webp",
     "logoHash": "158d6a2ad883d87b7e56117a49bb82d67a3564f199350869e92ede4052c1606b",
     "websiteURL": "https://github.com/TCClaudeFIP",
     "links": {},
@@ -2352,7 +2352,7 @@
   {
     "name": "Seraphim",
     "description": "Independent and self-funded. Part of Flare since the first Songbird airdrop, holding, delegating and following the network from the background. In 2026 we took a stronger stance in its success by running our own FTSO: every anchor feed, FDC attestations and four validators, on private nodes with an in-house algorithm.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x0e6a50e6fe42ba2299409fa77f5279e0abc07489/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x0e6a50e6fe42ba2299409fa77f5279e0abc07489/logo.webp",
     "logoHash": "b8809db7f62eecedebfaa98946d3d5960d1d53a4b65cf59d45401aa238cb7678",
     "websiteURL": "https://seraphimlab.ca",
     "links": {
@@ -2384,7 +2384,7 @@
   {
     "name": "FlareWatch",
     "description": "Operated by the team behind FlareWatch.io - the validator-scoring + DeFi dashboard the Flare community uses daily. All yield from this validator funds FlareWatch's public infrastructure: monitoring, dashboards, and ecosystem tooling. Transparent methodology, no protocol affiliations. Delegate to support the tools you already use.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xbdeb203e55e65451fabf0e7b778b32ac174918ff/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xbdeb203e55e65451fabf0e7b778b32ac174918ff/logo.webp",
     "logoHash": "0d43100df4bb97d0edc4b906dedbaea523a377fc0891194434b78bc0dee80f51",
     "websiteURL": "https://www.flarewatch.io",
     "links": {},
@@ -2411,7 +2411,7 @@
   {
     "name": "Flare Forward",
     "description": "AI-coded FTSO v2 provider from FlareForward, with full anchor-feed coverage and a self-bonded validator, tuned continuously by our own AI. We also run DeFi University - learn decentralized finance and AI with us: https://defiuniversitypro.com. Delegate your WFLR and check our live on-chain results for yourself.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x1fbb55a1877817a0f90cae60c1ab22fc94f97110/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1fbb55a1877817a0f90cae60c1ab22fc94f97110/logo.webp",
     "logoHash": "efdb6498c84d46098ea0bc7ce795a78f02e8d5474500693d33faf9f6c928853d",
     "websiteURL": "https://ftso.flareforward.com/",
     "links": {},
@@ -2435,7 +2435,7 @@
   {
     "name": "G1Flare818",
     "description": "G1Flare818 is an independent Flare data provider. I run a validator, FTSO anchor and fast-update feeds, and FDC attestation on my own hardware. Fee 20%. Delegated or staked FLR stays in your own address. I aim to keep it honest and online.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x5e53fa91ad7ce06b1510f03bfaac3ba77558ded8/logo.webp",
     "logoHash": "d6404ecec4425ce9cee194fd6b663c7119161d91c893a806248dbb6d30c07e25",
     "websiteURL": "https://g1flare.com",
     "links": {
@@ -2457,7 +2457,7 @@
   {
     "name": "CashLab",
     "description": "Independent Flare provider running the full protocol stack: FTSO price feeds, Fast Updates, FDC attestations and its own validator, on dedicated hardware with an in-house feed engine.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xdde5d41c0b79c25da05ee4e02aececf6eb7e67de/logo.webp",
     "logoHash": "7d73e1309f22feabe9f0f813eb10d1e33ea61884d2f258c694e7352bd256db53",
     "websiteURL": "https://cashlab.network",
     "links": {
@@ -2479,7 +2479,7 @@
   {
     "name": "HUMAN_589",
     "description": "I am HUMAN_589, a builder, advocate, XRP maximalist, and supporter of the Flare Network, dedicated to victims and children's rights, digital ownership, remembrance and decentralized infrastructure.  I share my world vision at human589.world, including Memorial Garden - my first metaverse app and developed in collaboration with NFT Riddler.",
-    "logoURL": "https://raw.githubusercontent.com/bifrostwallet/assets/main/data/providers/eip155-14/0x44a584b709ecd27369a7484d48bf64eae2fafe85/logo.webp",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x44a584b709ecd27369a7484d48bf64eae2fafe85/logo.webp",
     "logoHash": "7610291c4864f9e30da8ffa7946bedd62b5464a23f0e7c22d4e65be33ce44360",
     "websiteURL": "https://human589.world",
     "links": {
