@@ -5,7 +5,7 @@ import path from "node:path";
 import { after, before, describe, test } from "node:test";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
-import { providerListingTypedData } from "../src/eip712.js";
+import { providerListingTypedDataFromInfo } from "../src/eip712.js";
 import { type IntakeAttestation, ingestProviderAttestation } from "../src/ingest.js";
 import {
   assertAttestationIntakeDocument,
@@ -42,7 +42,7 @@ function providerInfo(identity: string, name: string, listed: boolean): Partial<
 }
 
 async function signListing(info: Partial<ProviderInfo>, account: typeof attesterAccount) {
-  const typed = providerListingTypedData(info, 14);
+  const typed = providerListingTypedDataFromInfo(info, 14);
   return {
     messageHash: typed.contentHash,
     signature: await account.signTypedData({

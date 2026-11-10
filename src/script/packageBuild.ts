@@ -4,7 +4,12 @@ import { createRequire } from "node:module";
 import * as os from "node:os";
 import * as path from "node:path";
 import { withRelativeLogoURL } from "../assetUrl.js";
-import { DAPP_CATEGORIES, DAPP_CATEGORY_LABELS, type ProviderInfo } from "../config.js";
+import {
+  ALLOWED_LINKS,
+  DAPP_CATEGORIES,
+  DAPP_CATEGORY_LABELS,
+  type ProviderInfo,
+} from "../config.js";
 import {
   CONTRACT_CATEGORIES,
   CONTRACT_CATEGORY_LABELS,
@@ -14,6 +19,13 @@ import {
   listContractChainPaths,
   validateContractCatalog,
 } from "../contracts.js";
+import {
+  EIP712_DOMAIN_NAME,
+  EIP712_DOMAIN_SALT,
+  EIP712_DOMAIN_VERSION,
+  PROVIDER_LISTING_PRIMARY_TYPE,
+  PROVIDER_LISTING_TYPES,
+} from "../eip712.js";
 import { isMain } from "../isMain.js";
 import { releaseTagForVersion } from "../releaseTag.js";
 import { type EvmToken, listChainTokens, listTokenChainPaths } from "../tokens.js";
@@ -29,9 +41,11 @@ import type { XrplToken } from "../xrplToken.js";
 // Provider all.json in git uses absolute GitHub URLs; withRelativeLogoURL strips them.
 // Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
-// each published contract. createAssets({ baseURL }) is the only public entry. It
-// resolves asset paths per call and does not mutate the shared records. There is
-// no default base. Provider signatures ship as a separate entry (signatures.js).
+// each published contract. createAssets({ baseURL }) resolves asset paths per call
+// and does not mutate the shared records. There is no default base. The same entry
+// exports the ProviderListing EIP-712 constants and providerListingTypedData, copied
+// from src/eip712.ts so the published package does not hash the salt or depend on viem.
+// Provider signatures ship as a separate entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
 // upload sends logo files only. The published file does not read package.json.
 //
@@ -107,16 +121,28 @@ function collectProviderSignatures(): Record<string, Record<string, unknown>> {
   return byChain;
 }
 
-const SIGNATURES_JS = `"use strict";
+function signaturesRuntimeJs(): string {
+  const providerRequires = PROVIDER_CHAINS.map(
+    (chain) => `  "${chain}": require("./providers/${chain}.json"),`,
+  ).join("\n");
+  return `"use strict";
 // @bifrostwallet/assets/signatures — generated file, do not edit.
 // Opt-in entry. The package main entry does not load this file.
 
 const signaturesByChain = require("./signatures.json");
+const providersByChain = {
+${providerRequires}
+};
+const EIP712_DOMAIN_SALT = ${JSON.stringify(EIP712_DOMAIN_SALT)};
+const PROVIDER_LISTING_PRIMARY_TYPE = ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)};
+const PROVIDER_LISTING_TYPES = ${JSON.stringify(PROVIDER_LISTING_TYPES)};
+const LINK_KEYS = ${JSON.stringify([...ALLOWED_LINKS])};
+const LISTING_CHAIN_IDS = { "eip155:14": 14, "eip155:19": 19 };
 
 function normalizeChainId(chainId) {
-  if (typeof chainId !== "string" || !chainId.includes(":")) {
+  if (typeof chainId !== "string" || !Object.hasOwn(LISTING_CHAIN_IDS, chainId)) {
     throw new Error(
-      'Use a CAIP-2 chain id (e.g. "eip155:14"). Got: ' + JSON.stringify(chainId)
+      'Use "eip155:14" or "eip155:19". Got: ' + JSON.stringify(chainId)
     );
   }
   return chainId;
@@ -133,10 +159,83 @@ function getProviderSignatures(chainId, identityAddress) {
   return Object.hasOwn(chain, target) ? chain[target] : null;
 }
 
-module.exports = { getProviderSignatures };
-`;
+function asBytes32(hash) {
+  const text = String(hash);
+  const raw = text.startsWith("0x") || text.startsWith("0X") ? text.slice(2) : text;
+  const normalized = raw.toLowerCase();
+  if (!/^[0-9a-f]{64}$/.test(normalized)) {
+    throw new Error("Invalid bytes32 hash: " + hash);
+  }
+  return "0x" + normalized;
+}
 
-const SIGNATURES_DTS = `// @bifrostwallet/assets/signatures — generated file, do not edit.
+function asAddress(value) {
+  const normalized = String(value).toLowerCase();
+  if (!/^0x[0-9a-f]{40}$/.test(normalized)) {
+    throw new Error("Invalid address: " + value);
+  }
+  return normalized;
+}
+
+function listingMessage(provider, contentHash) {
+  const source = provider.links && typeof provider.links === "object" ? provider.links : {};
+  const links = {};
+  for (const key of LINK_KEYS) {
+    if (Object.hasOwn(source, key)) links[key] = source[key];
+  }
+  return {
+    name: String(provider.name ?? ""),
+    description: String(provider.description ?? ""),
+    websiteURL: String(provider.websiteURL ?? ""),
+    logoHash: asBytes32(provider.logoHash ?? ""),
+    identityAddress: asAddress(provider.identityAddress ?? ""),
+    linksJson: JSON.stringify(links),
+    acknowledgedResponsibilities: provider.acknowledgedResponsibilities === true,
+    contentHash: asBytes32(contentHash),
+  };
+}
+
+function getProviderListingVerification(chainId, identityAddress) {
+  const chain = normalizeChainId(chainId);
+  const chainPath = chain.replace(":", "-");
+  const providers = providersByChain[chainPath];
+  const target = String(identityAddress).toLowerCase();
+  const provider = Array.isArray(providers)
+    ? providers.find((item) => String(item.identityAddress).toLowerCase() === target)
+    : undefined;
+  const record = getProviderSignatures(chain, identityAddress);
+  const entries = record && Array.isArray(record.signatures) ? record.signatures : [];
+  if (!provider || entries.length === 0) return [];
+  return entries.map((entry) => ({
+    address: entry.signerAddress,
+    domain: {
+      name: ${JSON.stringify(EIP712_DOMAIN_NAME)},
+      version: ${JSON.stringify(EIP712_DOMAIN_VERSION)},
+      chainId: LISTING_CHAIN_IDS[chain],
+      salt: EIP712_DOMAIN_SALT,
+    },
+    types: PROVIDER_LISTING_TYPES,
+    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+    message: listingMessage(provider, entry.messageHash),
+    signature: entry.signature,
+  }));
+}
+
+module.exports = { getProviderSignatures, getProviderListingVerification };
+`;
+}
+
+function signaturesDeclarations(): string {
+  const fields = PROVIDER_LISTING_TYPES.ProviderListing.map((field) => {
+    const name = JSON.stringify(field.name);
+    const type = JSON.stringify(field.type);
+    return `      { readonly name: ${name}; readonly type: ${type} },`;
+  }).join("\n");
+  const salt = JSON.stringify(EIP712_DOMAIN_SALT);
+  const domainName = JSON.stringify(EIP712_DOMAIN_NAME);
+  const domainVersion = JSON.stringify(EIP712_DOMAIN_VERSION);
+  const primaryType = JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE);
+  return `// @bifrostwallet/assets/signatures — generated file, do not edit.
 // Opt-in entry. Importing "@bifrostwallet/assets" does not load this module.
 
 export interface ProviderSignature {
@@ -155,10 +254,47 @@ export interface ProviderSignatures {
 
 /** Operator signature payload for one identity, or null when this version has none. */
 export declare function getProviderSignatures(
-  chainId: string,
+  chainId: "eip155:14" | "eip155:19",
   identityAddress: string,
 ): ProviderSignatures | null;
+
+export interface ProviderListingVerification {
+  address: \`0x\${string}\`;
+  domain: {
+    name: ${domainName};
+    version: ${domainVersion};
+    chainId: number;
+    salt: ${salt};
+  };
+  types: {
+    readonly ProviderListing: readonly [
+${fields}
+    ];
+  };
+  primaryType: ${primaryType};
+  message: {
+    name: string;
+    description: string;
+    websiteURL: string;
+    logoHash: \`0x\${string}\`;
+    identityAddress: \`0x\${string}\`;
+    linksJson: string;
+    acknowledgedResponsibilities: boolean;
+    contentHash: \`0x\${string}\`;
+  };
+  signature: \`0x\${string}\`;
+}
+
+/**
+ * One viem verifyTypedData / recoverTypedDataAddress argument per signature.
+ * Empty when this version has no provider or no signature for that identity.
+ */
+export declare function getProviderListingVerification(
+  chain: "eip155:14" | "eip155:19",
+  identityAddress: string,
+): ProviderListingVerification[];
 `;
+}
 
 function writeSignatureSidecar(distDir: string): number {
   const signatures = collectProviderSignatures();
@@ -170,8 +306,8 @@ function writeSignatureSidecar(distDir: string): number {
     path.join(distDir, "signatures.json"),
     `${JSON.stringify(signatures, null, 2)}\n`,
   );
-  fs.writeFileSync(path.join(distDir, "signatures.js"), SIGNATURES_JS);
-  fs.writeFileSync(path.join(distDir, "signatures.d.ts"), SIGNATURES_DTS);
+  fs.writeFileSync(path.join(distDir, "signatures.js"), signaturesRuntimeJs());
+  fs.writeFileSync(path.join(distDir, "signatures.d.ts"), signaturesDeclarations());
   return count;
 }
 
@@ -202,12 +338,16 @@ const PUBLISHED_EXPORTS = [
   "CONTRACT_CHAIN_IDS",
   "DAPP_CATEGORIES",
   "DAPP_CATEGORY_LABELS",
+  "EIP712_DOMAIN_SALT",
   "PROVIDER_CHAIN_IDS",
+  "PROVIDER_LISTING_PRIMARY_TYPE",
+  "PROVIDER_LISTING_TYPES",
   "TOKEN_CHAIN_IDS",
   "createAssets",
+  "providerListingTypedData",
 ] as const;
 
-/** dist/package.json matches this repo, and index.js exposes only createAssets plus catalog constants. */
+/** dist/package.json matches this repo. index.js exposes catalog constants, createAssets, and ProviderListing typed data. */
 function assertBuiltPackage(distDir: string): void {
   const root = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")) as {
     version?: unknown;
@@ -267,6 +407,45 @@ function assertBuiltPackage(distDir: string): void {
   ) {
     throw new Error("index.d.ts still exports a removed entry");
   }
+  if (
+    !dts.includes(`export declare const EIP712_DOMAIN_SALT: ${JSON.stringify(EIP712_DOMAIN_SALT)}`)
+  ) {
+    throw new Error("index.d.ts is missing EIP712_DOMAIN_SALT");
+  }
+  if (!dts.includes("export declare const PROVIDER_LISTING_TYPES:")) {
+    throw new Error("index.d.ts is missing PROVIDER_LISTING_TYPES");
+  }
+  if (
+    !dts.includes(
+      `export declare const PROVIDER_LISTING_PRIMARY_TYPE: ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)}`,
+    )
+  ) {
+    throw new Error("index.d.ts is missing PROVIDER_LISTING_PRIMARY_TYPE");
+  }
+  if (dts.includes("export declare function providerListingDomain(")) {
+    throw new Error("index.d.ts still exports providerListingDomain");
+  }
+  if (!dts.includes("export declare function providerListingTypedData<")) {
+    throw new Error("index.d.ts is missing providerListingTypedData");
+  }
+  if (indexSource.includes("keccak256") || indexSource.includes("viem")) {
+    throw new Error("Built index.js must not hash the domain salt or depend on viem");
+  }
+  const signaturesSource = fs.readFileSync(path.join(distDir, "signatures.js"), "utf8");
+  const signaturesDts = fs.readFileSync(path.join(distDir, "signatures.d.ts"), "utf8");
+  if (!signaturesSource.includes("function getProviderListingVerification")) {
+    throw new Error("signatures.js is missing getProviderListingVerification");
+  }
+  if (!signaturesDts.includes("export declare function getProviderListingVerification(")) {
+    throw new Error("signatures.d.ts is missing getProviderListingVerification");
+  }
+  if (
+    signaturesSource.includes("keccak256") ||
+    signaturesSource.includes("viem") ||
+    signaturesSource.includes('require("./index')
+  ) {
+    throw new Error("signatures.js must not hash, depend on viem, or load the main entry");
+  }
 }
 
 /**
@@ -306,6 +485,83 @@ function assertPublishedLogosExistUnderData(distDir: string): void {
   }
 }
 
+/** Plain JS copy of src/eip712.ts. Values come from that module; this file does not hash. */
+function eip712RuntimeJs(): string {
+  return `const EIP712_DOMAIN_SALT = ${JSON.stringify(EIP712_DOMAIN_SALT)};
+const PROVIDER_LISTING_PRIMARY_TYPE = ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)};
+const PROVIDER_LISTING_TYPES = ${JSON.stringify(PROVIDER_LISTING_TYPES)};
+const LISTING_CHAIN_IDS = { "eip155:14": 14, "eip155:19": 19 };
+
+function providerListingTypedData(options) {
+  const chain = options && options.chain;
+  if (!Object.hasOwn(LISTING_CHAIN_IDS, chain)) {
+    throw new Error('Use "eip155:14" or "eip155:19". Got: ' + JSON.stringify(chain));
+  }
+  return {
+    domain: {
+      name: ${JSON.stringify(EIP712_DOMAIN_NAME)},
+      version: ${JSON.stringify(EIP712_DOMAIN_VERSION)},
+      chainId: LISTING_CHAIN_IDS[chain],
+      salt: EIP712_DOMAIN_SALT,
+    },
+    types: PROVIDER_LISTING_TYPES,
+    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+    message: options.message,
+  };
+}
+`;
+}
+
+function eip712Declarations(): string {
+  const fields = PROVIDER_LISTING_TYPES.ProviderListing.map((field) => {
+    const name = JSON.stringify(field.name);
+    const type = JSON.stringify(field.type);
+    return `    { readonly name: ${name}; readonly type: ${type} },`;
+  }).join("\n");
+  const domainName = JSON.stringify(EIP712_DOMAIN_NAME);
+  const domainVersion = JSON.stringify(EIP712_DOMAIN_VERSION);
+  const salt = JSON.stringify(EIP712_DOMAIN_SALT);
+  const primaryType = JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE);
+  return `/** Precomputed keccak256 of the UTF-8 bytes of https://bifrostwallet.com. */
+export declare const EIP712_DOMAIN_SALT: ${salt};
+
+export declare const PROVIDER_LISTING_PRIMARY_TYPE: ${primaryType};
+
+export declare const PROVIDER_LISTING_TYPES: {
+  readonly ProviderListing: readonly [
+${fields}
+  ];
+};
+
+export interface ProviderListingMessage {
+  name: string;
+  description: string;
+  websiteURL: string;
+  logoHash: \`0x\${string}\`;
+  identityAddress: \`0x\${string}\`;
+  linksJson: string;
+  acknowledgedResponsibilities: boolean;
+  contentHash: \`0x\${string}\`;
+}
+
+/** Typed data for verifyTypedData. chain is "eip155:14" or "eip155:19". */
+export declare function providerListingTypedData<T extends ProviderListingMessage>(options: {
+  message: T;
+  chain: "eip155:14" | "eip155:19";
+}): {
+  domain: {
+    name: ${domainName};
+    version: ${domainVersion};
+    chainId: number;
+    salt: typeof EIP712_DOMAIN_SALT;
+  };
+  types: typeof PROVIDER_LISTING_TYPES;
+  primaryType: typeof PROVIDER_LISTING_PRIMARY_TYPE;
+  message: T;
+};
+`;
+}
+
 function buildIndexJs(tokenChains: string[], contractChains: string[]): string {
   const tokenRequires =
     tokenChains.length === 0
@@ -339,6 +595,7 @@ const CONTRACT_CATEGORY_LABELS = ${JSON.stringify(CONTRACT_CATEGORY_LABELS)};
 const DAPP_CATEGORIES = ${JSON.stringify([...DAPP_CATEGORIES])};
 const DAPP_CATEGORY_LABELS = ${JSON.stringify(DAPP_CATEGORY_LABELS)};
 
+${eip712RuntimeJs()}
 function chainPathToCaip2(chainPath) {
   const i = String(chainPath).indexOf("-");
   return i === -1 ? String(chainPath) : String(chainPath).slice(0, i) + ":" + String(chainPath).slice(i + 1);
@@ -644,6 +901,10 @@ module.exports = {
   CONTRACT_CATEGORY_LABELS,
   DAPP_CATEGORIES,
   DAPP_CATEGORY_LABELS,
+  EIP712_DOMAIN_SALT,
+  PROVIDER_LISTING_PRIMARY_TYPE,
+  PROVIDER_LISTING_TYPES,
+  providerListingTypedData,
   createAssets,
 };
 `;
@@ -982,13 +1243,11 @@ function buildPackageUnlocked(): void {
   const dappCategoryUnion = DAPP_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
-  fs.writeFileSync(
-    path.join(distDir, "index.d.ts"),
-    INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`).replace(
-      "%%DAPP_CATEGORY_UNION%%",
-      `${dappCategoryUnion};`,
-    ),
+  const indexDts = INDEX_DTS.replace("%%CONTRACT_CATEGORY_UNION%%", `${categoryUnion};`).replace(
+    "%%DAPP_CATEGORY_UNION%%",
+    `${dappCategoryUnion};`,
   );
+  fs.writeFileSync(path.join(distDir, "index.d.ts"), `${indexDts}\n${eip712Declarations()}`);
   const signatureCount = writeSignatureSidecar(distDir);
   const indexSource = fs.readFileSync(path.join(distDir, "index.js"), "utf8");
   if (indexSource.includes('require("./signatures')) {

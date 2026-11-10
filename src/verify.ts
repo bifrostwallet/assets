@@ -3,7 +3,7 @@ import * as path from "node:path";
 import { recoverTypedDataAddress } from "viem";
 import type { ProviderInfo } from "./config.js";
 import { providerInfoMessageHash } from "./convert.js";
-import { chainIdFromProviderPath, providerListingTypedData } from "./eip712.js";
+import { chainIdFromProviderPath, providerListingTypedDataFromInfo } from "./eip712.js";
 import type { HexString } from "./validate.js";
 
 export interface SignatureEntry {
@@ -69,7 +69,7 @@ export async function verifyProviderSignatures(
 
   const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
   const expectedMessageHash = providerInfoMessageHash(info);
-  const typed = providerListingTypedData(info, chainId);
+  const typed = providerListingTypedDataFromInfo(info, chainId);
 
   const result: ProviderSignatureVerification = {
     providerDir,
