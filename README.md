@@ -16,11 +16,13 @@ npm install @bifrostwallet/assets@<version> --save-exact
 yarn add @bifrostwallet/assets@<version> --exact
 ```
 
-`createAssets()` is the package entry. `baseURL` is optional. Omit it and logo URLs use jsDelivr for this exact package version:
+`createAssets()` is the package entry. `baseURL` is optional. Omit it and logo URLs use jsDelivr for this release tag:
 
-`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v<version>/data/`
+`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`
 
-`<version>` is this package's version with one leading `v`, the same string as the GitHub Release tag (`v0.1.0-beta`, or `v1.0.0` when the version is 1.0.0). That string is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
+From 1.0.0, `<version>` is the package version and the git tag, with no leading `v` (`1.0.0`). Older releases stay `v0.x-beta`. That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
+
+An exact tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). A version alias, `@latest`, or a version range can stay cached for 7 days ([purge cache](https://www.jsdelivr.com/tools/purge)). A branch such as `@main` can stay cached for 12 hours. Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` checks each file against the hash in that package. Pin the exact version and run it again on every bump.
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
@@ -259,7 +261,7 @@ await verifyTypedData(entry); // true
 
 Fetch provider `all.json` from jsDelivr on `@main` when you are not installing the package. `logoURL` in that file is already absolute and uses the same `@main` snapshot. There is no token `all.json`. Token lists are not published that way; use `createAssets`.
 
-`@main` is the moving catalog, not a release tag. Callers of this file want the current listings. jsDelivr can cache a branch for about 12 hours, so a logo change can lag. The npm package pins `@v<version>` instead, so its logos match the installed data.
+`@main` is the moving catalog, not a release tag. Provider `all.json` logo URLs in this repository use that unpinned branch. jsDelivr can cache a branch for 12 hours, so those links may serve older files ([Caching](https://www.jsdelivr.com/documentation#id-caching)). The npm package pins `@<version>` (`@1.0.0` for this release) so its logos match the installed snapshot.
 
 Compared with the package and logos you host:
 

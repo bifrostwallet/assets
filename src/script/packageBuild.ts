@@ -43,8 +43,9 @@ import type { XrplToken } from "../xrplToken.js";
 // Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
 // each published contract. createAssets({ baseURL }) is the public catalog entry.
-// baseURL is optional. The default is jsDelivr at this package version
-// (`@v<version>/data/`), written into index.js as a string. index.js does not
+// baseURL is optional. The default is jsDelivr at this release tag
+// (`@<version>/data/`). From 1.0.0 the tag is the package version, with no
+// leading v. That URL is written into index.js as a string. index.js does not
 // read package.json. The same entry exports the ProviderListing EIP-712 constants
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
@@ -501,8 +502,11 @@ const USAGE = [
   "Do not upload the directory when the command fails.",
   "",
   "Upload <dir> to any static host. createAssets baseURL is optional.",
-  "Omit it to use jsDelivr for this package version, or set it to the public URL",
-  "where you uploaded that directory. Example: https://assets.example.com/",
+  "Omit it to use jsDelivr at this release tag:",
+  ${JSON.stringify(defaultBase)},
+  "From 1.0.0 that tag is the package version, with no leading v.",
+  "Or set baseURL to the public URL where you uploaded that directory.",
+  "Example: https://assets.example.com/",
   "Run fetch-logos again when you bump the package version.",
 ].join("\\n");
 
@@ -836,8 +840,8 @@ function assertBuiltPackage(distDir: string, defaultBase: string): void {
 }
 
 /**
- * Release tags are `v<version>` and published logoURLs are relative to `data/`.
- * The tagged commit must contain `data/<logoURL>` or the pinned GitHub URL 404s.
+ * From 1.0.0 the release tag is the package version. Published logoURLs are
+ * relative to `data/`. The tagged commit must contain `data/<logoURL>`.
  */
 function assertPublishedLogosExistUnderData(distDir: string): void {
   const missing: string[] = [];

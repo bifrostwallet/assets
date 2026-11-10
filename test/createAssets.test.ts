@@ -159,7 +159,9 @@ describe("createAssets", { concurrency: false }, () => {
   test("omitted baseURL uses jsDelivr for this package version", () => {
     const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
       .version as string;
-    const prefix = `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v${version}/data/`;
+    const prefix = "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.0.0/data/";
+    assert.equal(version, "1.0.0");
+    assert.equal(prefix.includes("@v"), false);
     const assets = createAssets();
     const require = createRequire(path.join(process.cwd(), "package.json"));
     const storedProviders = require(
@@ -171,6 +173,7 @@ describe("createAssets", { concurrency: false }, () => {
     assert.equal(fs.existsSync(path.join(process.cwd(), "data", stored?.logoURL ?? "")), true);
     const indexSource = fs.readFileSync(path.join(process.cwd(), "dist", "index.js"), "utf8");
     assert.equal(indexSource.includes(prefix), true);
+    assert.equal(indexSource.includes("assets@v"), false);
     assert.equal(sourceContainsHostname(indexSource, "raw.githubusercontent.com"), false);
     assert.equal(indexSource.includes("@main/"), false);
     assert.equal(indexSource.includes("package.json"), false);

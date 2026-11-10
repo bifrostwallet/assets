@@ -12,13 +12,27 @@ import {
 } from "../src/releaseTag.js";
 
 describe("releaseTagForVersion", () => {
-  test("prefixes a valid semver once", () => {
+  test("keeps a leading v on 0.x and drops it from 1.0.0", () => {
     assert.equal(releaseTagForVersion("0.0.6-beta"), "v0.0.6-beta");
-    assert.equal(releaseTagForVersion("1.2.3"), "v1.2.3");
-    assert.equal(releaseTagForVersion("1.2.3-rc.1"), "v1.2.3-rc.1");
+    assert.equal(releaseTagForVersion("0.1.0-beta"), "v0.1.0-beta");
+    assert.equal(releaseTagForVersion("1.0.0"), "1.0.0");
+    assert.equal(releaseTagForVersion("1.2.3"), "1.2.3");
+    assert.equal(releaseTagForVersion("1.2.3-rc.1"), "1.2.3-rc.1");
     assertGithubAssetBasePinsReleaseTag(
       "https://raw.githubusercontent.com/bifrostwallet/assets/v0.0.6-beta/data/",
       "0.0.6-beta",
+    );
+    assertGithubAssetBasePinsReleaseTag(
+      "https://raw.githubusercontent.com/bifrostwallet/assets/1.0.0/data/",
+      "1.0.0",
+    );
+    assert.throws(
+      () =>
+        assertGithubAssetBasePinsReleaseTag(
+          "https://raw.githubusercontent.com/bifrostwallet/assets/v1.0.0/data/",
+          "1.0.0",
+        ),
+      /exactly one \/1\.0\.0\//,
     );
   });
 
@@ -46,12 +60,24 @@ describe("releaseTagForVersion", () => {
       "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v0.1.0-beta/data/",
     );
     assert.equal(
-      jsDelivrDataBase("bifrostwallet", "assets", "v1.0.0"),
-      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v1.0.0/data/",
+      jsDelivrDataBase("bifrostwallet", "assets", releaseTagForVersion("1.0.0")),
+      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.0.0/data/",
     );
     assertJsDelivrReleaseBase(
       "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v0.1.0-beta/data/",
       "0.1.0-beta",
+    );
+    assertJsDelivrReleaseBase(
+      "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.0.0/data/",
+      "1.0.0",
+    );
+    assert.throws(
+      () =>
+        assertJsDelivrReleaseBase(
+          "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@v1.0.0/data/",
+          "1.0.0",
+        ),
+      /must pin @1\.0\.0/,
     );
     assert.throws(
       () =>

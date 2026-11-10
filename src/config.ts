@@ -7,8 +7,9 @@ import { jsDelivrDataBase } from "./releaseTag.js";
  * jsDelivr `…@<ref>/data/` base from a package.json `repository` field
  * (`git@github.com:owner/repo.git` or `https://github.com/owner/repo.git`).
  * `ref` defaults to `main` for legacy provider all.json. Callers that fetch
- * that file want the current catalog. jsDelivr can cache a branch for about
- * 12 hours. The published package pins `@v<version>` at build time instead.
+ * that file want the current catalog. jsDelivr caches a branch for 12 hours.
+ * The published package pins `@<version>` at build time. From 1.0.0 that
+ * ref is the package version, with no leading v.
  */
 export function jsDelivrDataBaseFromRepository(repository: string, ref = "main"): string | null {
   const trimmed = repository.trim();

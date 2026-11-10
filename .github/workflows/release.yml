@@ -4,10 +4,12 @@ name: Publish release
 # (npm Trusted Publishing / OIDC). A maintainer approves the staged version
 # on npmjs.com before it becomes installable.
 #
-# Gate: create a GitHub Release whose tag is v<package.json version>
-# (for example v1.0.0), or use workflow_dispatch with publish=true.
+# Gate: create a GitHub Release whose tag matches releaseTagForVersion,
+# or use workflow_dispatch with publish=true.
+# From 1.0.0 the tag is the package version (for example 1.0.0), with no v.
+# 0.x tags keep a leading v (for example v0.1.0-beta).
 # Published logoURLs are relative to data/ on that tag. createAssets() defaults to
-# https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<that-tag>/data/
+# https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<tag>/data/
 # The package is staged on the latest dist-tag. A version containing "-" is refused.
 
 on:
@@ -63,26 +65,19 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION="$(node -p "require('./dist/package.json').version")"
-          # Same rule as releaseTagForVersion: one leading v, added once.
-          EXPECTED="v${VERSION}"
-          case "$TAG" in
-            vv*)
-              echo "Release tag $TAG must not start with vv" >&2
-              exit 1
-              ;;
-          esac
-          if [ "$TAG" != "$EXPECTED" ]; then
-            echo "Release tag $TAG must be $EXPECTED (dist/package.json version)" >&2
-            exit 1
-          fi
-          VERSION="$VERSION" EXPECTED="$EXPECTED" node --input-type=module <<'EOF'
+          # releaseTagForVersion: 0.x keeps a leading v. From 1.0.0 the tag is the version.
+          VERSION="$VERSION" TAG="$TAG" node --input-type=module <<'EOF'
           import { releaseTagForVersion } from "./build/src/releaseTag.js";
 
           const version = process.env.VERSION ?? "";
-          const expected = process.env.EXPECTED ?? "";
-          const tag = releaseTagForVersion(version);
+          const tag = process.env.TAG ?? "";
+          if (tag.startsWith("vv")) {
+            console.error(`Release tag ${tag} must not start with vv`);
+            process.exit(1);
+          }
+          const expected = releaseTagForVersion(version);
           if (tag !== expected) {
-            console.error(`releaseTagForVersion returned ${tag}, workflow EXPECTED is ${expected}`);
+            console.error(`Release tag ${tag} must be ${expected} (dist/package.json version)`);
             process.exit(1);
           }
           EOF
