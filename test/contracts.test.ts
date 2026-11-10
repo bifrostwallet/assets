@@ -529,9 +529,10 @@ describe("published package lookups", { concurrency: false }, () => {
       packedPaths.some((packedPath) => packedPath.endsWith("logo.webp")),
       false,
     );
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("logo-hashes.json")),
-      true,
+      false,
     );
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("fetch-logos.js")),

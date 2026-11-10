@@ -38,7 +38,7 @@ import type { XrplToken } from "../xrplToken.js";
 // CommonJS helpers and TypeScript declarations. All tooling (viem, GCS)
 // stays in this repository's devDependencies and is never shipped.
 //
-// Published JSON keeps logoURL relative (providers/…, tokens/…, dapps/…, contracts/…).
+// Published JSON keeps logoURL relative (providers/…, tokens/…, contracts/…).
 // Provider all.json in git uses absolute GitHub URLs; withRelativeLogoURL strips them.
 // Tokens are read from each info.json. There is no token all.json. Logo files are not bundled.
 // Contract source JSON stores a project slug. This build denormalizes projectName, logoURL, and logoHash onto
@@ -49,7 +49,7 @@ import type { XrplToken } from "../xrplToken.js";
 // read package.json. The same entry exports the ProviderListing EIP-712 constants
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
-// against the package hash. fetch-logos downloads logos and refuses any file
+// against the catalog logoHash. fetch-logos downloads those logos and refuses any file
 // whose hash is missing or does not match. Provider signatures ship as a separate
 // entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
@@ -360,18 +360,14 @@ const LOGO_HASH_RE = /^[0-9a-f]{64}$/;
 function isSafeLogoPath(value: string): boolean {
   if (!value || value.startsWith("/") || value.includes("..") || value.includes("\\")) return false;
   if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return false;
-  return /^(providers|dapps|tokens|contracts)\/[A-Za-z0-9._@/-]+$/.test(value);
+  return /^(providers|tokens|contracts)\/[A-Za-z0-9._@/-]+$/.test(value);
 }
 
 /**
- * Every logo file under data/ gets the hash already stored on its catalog record.
- * Provider and token hashes are the catalog logoHash (providers: the signed digest).
- * Contract hashes are the build-time SHA-256 already written onto published contracts.
- * Dapp records are not returned by createAssets; their info.json logoHash is copied
- * here so fetch-logos can check those files. A file with no hash fails the build.
- * The manifest stores hashes only.
+ * Each shipped catalog entry's logoHash must match its logo bytes.
+ * The hash lives on that entry.
  */
-function collectLogoHashes(distDir: string): Map<string, string> {
+function assertCatalogLogoHashes(distDir: string): number {
   const hashes = new Map<string, string>();
   const add = (logoURL: unknown, logoHash: unknown, label: string): void => {
     if (typeof logoURL !== "string" || !isSafeLogoPath(logoURL)) {
@@ -395,7 +391,7 @@ function collectLogoHashes(distDir: string): Map<string, string> {
         continue;
       }
       if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
-      if (entry.name === "logo-hashes.json" || entry.name === "signatures.json") continue;
+      if (entry.name === "signatures.json") continue;
       const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
       if (!Array.isArray(parsed)) continue;
       for (const item of parsed) {
@@ -408,41 +404,7 @@ function collectLogoHashes(distDir: string): Map<string, string> {
   };
   walk(distDir);
 
-  const dappRoot = path.join(process.cwd(), "data", "dapps");
-  if (fs.existsSync(dappRoot)) {
-    for (const entry of fs.readdirSync(dappRoot, { withFileTypes: true })) {
-      if (!entry.isDirectory()) continue;
-      const infoPath = path.join(dappRoot, entry.name, "info.json");
-      if (!fs.existsSync(infoPath)) continue;
-      const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as {
-        logoURL?: unknown;
-        logoHash?: unknown;
-      };
-      add(info.logoURL, info.logoHash, `dapps/${entry.name}`);
-    }
-  }
-
   const dataRoot = path.join(process.cwd(), "data");
-  const missing: string[] = [];
-  const walkLogos = (dir: string): void => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const fullPath = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walkLogos(fullPath);
-        continue;
-      }
-      if (entry.name !== "logo.webp") continue;
-      const relative = path.relative(dataRoot, fullPath).split(path.sep).join("/");
-      if (!hashes.has(relative)) missing.push(relative);
-    }
-  };
-  walkLogos(dataRoot);
-  if (missing.length > 0) {
-    throw new Error(
-      `No package hash for ${missing.slice(0, 5).join(", ")}. Refusing to invent a logo hash.`,
-    );
-  }
-
   for (const [relative, logoHash] of hashes) {
     const filePath = path.join(dataRoot, relative);
     if (!fs.existsSync(filePath)) {
@@ -453,13 +415,6 @@ function collectLogoHashes(distDir: string): Map<string, string> {
       throw new Error(`${relative}: catalog logoHash does not match logo bytes`);
     }
   }
-  return hashes;
-}
-
-function writeLogoHashes(distDir: string): number {
-  const hashes = collectLogoHashes(distDir);
-  const sorted = Object.fromEntries([...hashes.entries()].sort((a, b) => a[0].localeCompare(b[0])));
-  fs.writeFileSync(path.join(distDir, "logo-hashes.json"), `${JSON.stringify(sorted, null, 2)}\n`);
   return hashes.size;
 }
 
@@ -483,8 +438,8 @@ function fetchLogosSource(defaultBase: string): string {
   return `#!/usr/bin/env node
 "use strict";
 // @bifrostwallet/assets fetch-logos — generated file, do not edit.
-// Downloads logo files for this package version. The hash in this package is
-// the trust anchor. Bytes are the decoded response body (content-encoding removed).
+// Downloads logo files for this package version. Each catalog entry's logoHash
+// is the trust anchor. Bytes are the decoded response body (content-encoding removed).
 // Accept is application/octet-stream so the CDN is not asked to convert the image.
 
 const fs = require("node:fs");
@@ -496,8 +451,8 @@ const USAGE = [
   "Usage: fetch-logos <dir>",
   "",
   "Download this package version's logos into <dir>.",
-  "Paths stay relative to data/ (providers/, tokens/, contracts/, dapps/).",
-  "Each file is checked against the hash shipped in this package.",
+  "Paths stay relative to data/ (providers/, tokens/, contracts/).",
+  "Each file is checked against the logoHash on its catalog entry.",
   "A missing hash or a hash mismatch does not write that file, and the command exits non-zero.",
   "Do not upload the directory when the command fails.",
   "",
@@ -522,11 +477,7 @@ function walkJsonArrays(dir, visit) {
       continue;
     }
     if (!entry.name.endsWith(".json")) continue;
-    if (
-      entry.name === "package.json" ||
-      entry.name === "logo-hashes.json" ||
-      entry.name === "signatures.json"
-    ) {
+    if (entry.name === "package.json" || entry.name === "signatures.json") {
       continue;
     }
     const parsed = readJson(fullPath);
@@ -542,30 +493,12 @@ function walkJsonArrays(dir, visit) {
 function isSafeLogoPath(value) {
   if (!value || value.startsWith("/") || value.includes("..") || value.includes("\\\\")) return false;
   if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return false;
-  return /^(providers|dapps|tokens|contracts)\\/[A-Za-z0-9._@/-]+$/.test(value);
+  return /^(providers|tokens|contracts)\\/[A-Za-z0-9._@/-]+$/.test(value);
 }
 
 function loadAnchors(packageRoot) {
   const entries = new Map();
   const failures = [];
-  const manifestPath = path.join(packageRoot, "logo-hashes.json");
-  if (!fs.existsSync(manifestPath)) {
-    failures.push("logo-hashes.json is missing from this package");
-    return { entries, failures };
-  }
-  const manifest = readJson(manifestPath);
-  if (!manifest || typeof manifest !== "object" || Array.isArray(manifest)) {
-    failures.push("logo-hashes.json is not an object");
-    return { entries, failures };
-  }
-  for (const [logoPath, logoHash] of Object.entries(manifest)) {
-    if (!isSafeLogoPath(logoPath) || typeof logoHash !== "string" || !/^[0-9a-f]{64}$/.test(logoHash)) {
-      failures.push(logoPath + ": invalid logoHash in logo-hashes.json");
-      entries.set(logoPath, null);
-      continue;
-    }
-    entries.set(logoPath, logoHash);
-  }
   walkJsonArrays(packageRoot, (item) => {
     const logoPath = item.logoURL;
     const logoHash = item.logoHash;
@@ -578,10 +511,13 @@ function loadAnchors(packageRoot) {
       entries.set(logoPath, null);
       return;
     }
-    if (!entries.has(logoPath) || entries.get(logoPath) !== logoHash) {
-      failures.push(logoPath + ": logoHash does not match logo-hashes.json");
+    const existing = entries.get(logoPath);
+    if (existing !== undefined && existing !== logoHash) {
+      failures.push(logoPath + ": logoHash conflict");
       entries.set(logoPath, null);
+      return;
     }
+    if (existing === undefined) entries.set(logoPath, logoHash);
   });
   return { entries, failures };
 }
@@ -1739,11 +1675,11 @@ function buildPackageUnlocked(): void {
     throw new Error("dist/package.json must not declare any dependencies");
   }
 
-  const logoCount = writeLogoHashes(distDir);
+  const logoCount = assertCatalogLogoHashes(distDir);
   assertNoBundledLogos(distDir);
   assertBuiltPackage(distDir, defaultBase);
   assertPublishedLogosExistUnderData(distDir);
-  console.info(`   ${logoCount} logo hash(es) in logo-hashes.json`);
+  console.info(`   ${logoCount} catalog logo hash(es) checked`);
 
   console.info("\n✅ Built zero-dependency package in dist/");
   console.info("   published JSON keeps relative logoURL; createAssets resolves it");

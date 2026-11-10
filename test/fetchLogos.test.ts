@@ -25,6 +25,7 @@ const GOOD_HASH = createHash("sha256").update(GOOD).digest("hex");
 const GOOD_PATH = "tokens/eip155-1/0xabc/logo.webp";
 const MISSING_PATH = "tokens/eip155-1/0xdef/logo.webp";
 const BAD_PATH = "providers/eip155-14/0x123/logo.webp";
+const DAPP_PATH = "dapps/sparkdex-ai/logo.webp";
 
 interface FetchLogosModule {
   fetchLogos: (options: {
@@ -43,24 +44,13 @@ interface FetchLogosModule {
 function writeFixture(root: string): void {
   fs.mkdirSync(path.join(root, "tokens"), { recursive: true });
   fs.writeFileSync(
-    path.join(root, "logo-hashes.json"),
-    `${JSON.stringify(
-      {
-        [BAD_PATH]: GOOD_HASH,
-        [GOOD_PATH]: GOOD_HASH,
-        [MISSING_PATH]: GOOD_HASH,
-      },
-      null,
-      2,
-    )}\n`,
-  );
-  fs.writeFileSync(
     path.join(root, "tokens", "eip155-1.json"),
     `${JSON.stringify(
       [
         { logoURL: GOOD_PATH, logoHash: GOOD_HASH },
         { logoURL: MISSING_PATH },
         { logoURL: BAD_PATH, logoHash: GOOD_HASH },
+        { logoURL: DAPP_PATH, logoHash: GOOD_HASH },
       ],
       null,
       2,
@@ -68,11 +58,18 @@ function writeFixture(root: string): void {
   );
 }
 
-function startServer(): Promise<{ server: Server; origin: string; accepts: string[] }> {
+function startServer(): Promise<{
+  server: Server;
+  origin: string;
+  accepts: string[];
+  urls: string[];
+}> {
   const accepts: string[] = [];
+  const urls: string[] = [];
   const server = createServer((req, res) => {
     accepts.push(String(req.headers.accept ?? ""));
     const url = req.url ?? "";
+    urls.push(url);
     if (url.endsWith(BAD_PATH)) {
       res.end(Buffer.from("not-the-logo"));
       return;
@@ -88,7 +85,7 @@ function startServer(): Promise<{ server: Server; origin: string; accepts: strin
     server.listen(0, "127.0.0.1", () => {
       const address = server.address();
       if (!address || typeof address === "string") throw new Error("no port");
-      resolve({ server, origin: `http://127.0.0.1:${address.port}/data/`, accepts });
+      resolve({ server, origin: `http://127.0.0.1:${address.port}/data/`, accepts, urls });
     });
   });
 }
@@ -129,7 +126,7 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-"));
     const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-out-"));
     writeFixture(fixture);
-    const { server, origin, accepts } = await startServer();
+    const { server, origin, accepts, urls } = await startServer();
     try {
       const result = await logos.fetchLogos({
         destDir: dest,
@@ -145,11 +142,16 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
       assert.equal(code, 1);
       assert.ok(result.failures.some((failure) => failure.includes("missing logoHash")));
       assert.ok(result.failures.some((failure) => failure.includes("hash mismatch")));
+      assert.ok(
+        result.failures.some((failure) => failure.includes(`${DAPP_PATH}: invalid logo path`)),
+      );
       const goodFile = path.join(dest, GOOD_PATH);
       assert.equal(fs.existsSync(goodFile), true);
       assert.deepEqual(fs.readFileSync(goodFile), GOOD);
       assert.equal(fs.existsSync(path.join(dest, MISSING_PATH)), false);
       assert.equal(fs.existsSync(path.join(dest, BAD_PATH)), false);
+      assert.equal(fs.existsSync(path.join(dest, DAPP_PATH)), false);
+      assert.ok(urls.every((url) => !url.includes("/dapps/")));
       assert.equal(fs.existsSync(`${goodFile}.partial`), false);
       assert.ok(accepts.every((accept) => accept === "application/octet-stream"));
       assert.ok(accepts.every((accept) => !accept.includes("image/")));
@@ -162,9 +164,10 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-gz-"));
     const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-gz-out-"));
     const gzipPath = "tokens/eip155-1/gzip.webp";
+    fs.mkdirSync(path.join(fixture, "tokens"), { recursive: true });
     fs.writeFileSync(
-      path.join(fixture, "logo-hashes.json"),
-      `${JSON.stringify({ [gzipPath]: GOOD_HASH })}\n`,
+      path.join(fixture, "tokens", "eip155-1.json"),
+      `${JSON.stringify([{ logoURL: gzipPath, logoHash: GOOD_HASH }])}\n`,
     );
     const { server, origin } = await startServer();
     try {
@@ -187,21 +190,19 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     assert.match(source, /https:\/\/assets\.example\.com\//);
     assert.match(source, /https:\/\/cdn\.jsdelivr\.net\/gh\/bifrostwallet\/assets@1\.0\.0\/data\//);
     assert.equal(sourceContainsHostname(source, "raw.githubusercontent.com"), false);
-    const hashes = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "dist", "logo-hashes.json"), "utf8"),
-    ) as Record<string, string>;
+    assert.equal(source.includes("logo-hashes.json"), false);
+    assert.equal(source.includes("dapps/"), false);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
     const provider = "providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp";
+    const providers = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "providers", "eip155-14.json"), "utf8"),
+    ) as Array<{ logoURL: string; logoHash: string }>;
+    const listed = providers.find((entry) => entry.logoURL === provider);
+    assert.ok(listed);
     assert.equal(
-      hashes[provider],
+      listed.logoHash,
       createHash("sha256")
         .update(fs.readFileSync(path.join(process.cwd(), "data", provider)))
-        .digest("hex"),
-    );
-    const dapp = "dapps/sparkdex-ai/logo.webp";
-    assert.equal(
-      hashes[dapp],
-      createHash("sha256")
-        .update(fs.readFileSync(path.join(process.cwd(), "data", dapp)))
         .digest("hex"),
     );
   });

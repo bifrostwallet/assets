@@ -38,7 +38,7 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 
 `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. That is the same digest a provider listing signs.
 
-Providers, tokens, and contracts carry `logoHash`. A validator has no separate image. Its `logoHash` is the operating provider's signed digest. Contract `logoHash` is filled in when the package is built, from the logo file. Token and provider hashes are stored in the catalog. Dapp logos are not returned by `createAssets`. Their existing catalog hashes are copied into `logo-hashes.json` (hash only, no logo bytes) so `fetch-logos` can check those files too.
+Providers, tokens, and contracts carry `logoHash`. A validator has no separate image. Its `logoHash` is the operating provider's signed digest. Contract `logoHash` is filled in when the package is built, from the logo file. Every logo the package returns carries its `logoHash` on its catalog entry, and `fetch-logos` checks each downloaded file against it.
 
 ```typescript
 import { createAssets, verifyLogoHash } from "@bifrostwallet/assets";

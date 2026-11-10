@@ -7,6 +7,7 @@ import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
 interface LogoRecord {
   logoURL: string;
+  logoHash?: string;
   address?: string | null;
   identityAddress?: string;
   listed?: boolean;
@@ -85,7 +86,7 @@ describe("createAssets", { concurrency: false }, () => {
     releaseDist?.();
   });
 
-  test("resolves provider, token, contract, and dapp logos", () => {
+  test("resolves provider, token, and contract logos", () => {
     const base = "https://cdn.example.com/assets";
     const assets = createAssets({ baseURL: base });
     const prefix = "https://cdn.example.com/assets/";
@@ -97,6 +98,8 @@ describe("createAssets", { concurrency: false }, () => {
     ) as LogoRecord[];
     const stored = storedProviders.find((provider) => provider.listed);
     assert.ok(stored);
+    assert.match(stored.logoHash ?? "", /^[0-9a-f]{64}$/);
+    assert.equal(fs.existsSync(path.join(process.cwd(), "dist", "logo-hashes.json")), false);
     assert.ok(stored.logoURL.startsWith("providers/"));
     const listed = assets.getListedProviders("eip155:14");
     assert.equal(listed[0]?.logoURL, `${prefix}${stored.logoURL}`);
