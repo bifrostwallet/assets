@@ -4,9 +4,8 @@ name: Publish release
 # (npm Trusted Publishing / OIDC). A maintainer approves the staged version
 # on npmjs.com before it becomes installable.
 #
-# Gate: create a GitHub Release whose tag matches releaseTagForVersion,
-# or use workflow_dispatch with publish=true.
-# The tag is the package version (for example 1.0.0).
+# Gate: create a GitHub Release whose tag equals the package version
+# (for example 1.0.0), or use workflow_dispatch with publish=true.
 # Published logoURLs are relative to data/ on that tag. createAssets() defaults to
 # https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<tag>/data/
 # The package is staged on the latest dist-tag. A version containing "-" is refused.
@@ -64,17 +63,10 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION="$(node -p "require('./dist/package.json').version")"
-          VERSION="$VERSION" TAG="$TAG" node --input-type=module <<'EOF'
-          import { releaseTagForVersion } from "./build/src/releaseTag.js";
-
-          const version = process.env.VERSION ?? "";
-          const tag = process.env.TAG ?? "";
-          const expected = releaseTagForVersion(version);
-          if (tag !== expected) {
-            console.error(`Release tag ${tag} must be ${expected} (dist/package.json version)`);
-            process.exit(1);
-          }
-          EOF
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Release tag $TAG must equal $VERSION (package.json version)" >&2
+            exit 1
+          fi
 
       - name: Stage on npm with provenance
         if: github.event_name == 'release' || inputs.publish == true
