@@ -21,7 +21,7 @@
   ],
   "acknowledgedResponsibilities": true,
   "listed": false,
-  "managementGroup": false,
+  "managementGroup": true,
   "domainLinked": true,
   "dualNetwork": false,
   "firstTransaction": {
