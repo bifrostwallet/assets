@@ -35,7 +35,7 @@ const provider = assets.getProvider(
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
 
-<img src={provider.logoURL} alt="" />
+{provider && <img src={provider.logoURL} alt="" />}
 ```
 
 Pass `baseURL` when you host the files yourself. A trailing slash is optional. The examples further down do that.
