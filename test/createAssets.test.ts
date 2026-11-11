@@ -187,8 +187,8 @@ describe("createAssets", { concurrency: false }, () => {
   test("omitted baseURL uses jsDelivr for this package version", () => {
     const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
       .version as string;
-    const prefix = "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.0.0/data/";
-    assert.equal(version, "1.0.0");
+    const prefix = `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@${version}/data/`;
+    assert.match(version, /^\d+\.\d+\.\d+$/);
     const assets = createAssets();
     const require = createRequire(path.join(process.cwd(), "package.json"));
     const storedProviders = require(
