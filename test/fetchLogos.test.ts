@@ -356,7 +356,9 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     const source = fs.readFileSync(path.join(process.cwd(), "dist", "fetch-logos.js"), "utf8");
     assert.match(source, /baseURL is optional/);
     assert.match(source, /https:\/\/assets\.example\.com\//);
-    assert.match(source, /https:\/\/cdn\.jsdelivr\.net\/gh\/bifrostwallet\/assets@1\.0\.0\/data\//);
+    const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
+      .version as string;
+    assert.ok(source.includes(`https://cdn.jsdelivr.net/gh/bifrostwallet/assets@${version}/data/`));
     assert.equal(sourceContainsHostname(source, "raw.githubusercontent.com"), false);
     assert.equal(source.includes("logo-hashes.json"), false);
     assert.match(source, /providers\|tokens\|contracts\|dapps/);

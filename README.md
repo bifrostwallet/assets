@@ -26,7 +26,7 @@ An exact version tag is immutable on jsDelivr. Cache headers last one year, and 
 
 Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
 
-```tsx
+```ts
 import { createAssets } from "@bifrostwallet/assets";
 
 const assets = createAssets();
@@ -35,7 +35,8 @@ const provider = assets.getProvider(
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
 
-{provider && <img src={provider.logoURL} alt="" />}
+// provider.logoURL is an absolute URL, for example for <img src={provider.logoURL} alt="" />
+console.log(provider?.logoURL);
 ```
 
 Pass `baseURL` when you host the files yourself. A trailing slash is optional. The examples further down do that.
