@@ -298,6 +298,36 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
     }
   });
 
+  test("runCli with a leading fetch-logos argument matches a destination-only call", async () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-bin-"));
+    const plainDest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-bin-plain-"));
+    const binDest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-bin-argv-"));
+    writeFixture(fixture);
+    const { server, origin } = await startServer();
+    try {
+      const plain = await logos.runCli([plainDest], {
+        packageRoot: fixture,
+        baseURL: origin,
+        fetch,
+      });
+      const withBin = await logos.runCli(["fetch-logos", binDest], {
+        packageRoot: fixture,
+        baseURL: origin,
+        fetch,
+      });
+      assert.equal(withBin, plain);
+      for (const relative of [GOOD_PATH, DAPP_PATH, MISSING_PATH, BAD_PATH, DAPP_BAD]) {
+        const plainFile = path.join(plainDest, relative);
+        const binFile = path.join(binDest, relative);
+        assert.equal(fs.existsSync(binFile), fs.existsSync(plainFile));
+        if (!fs.existsSync(plainFile)) continue;
+        assert.deepEqual(fs.readFileSync(binFile), fs.readFileSync(plainFile));
+      }
+    } finally {
+      await new Promise((resolve) => server.close(resolve));
+    }
+  });
+
   test("hashes the decoded body when the response is gzip", async () => {
     const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-gz-"));
     const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-gz-out-"));
