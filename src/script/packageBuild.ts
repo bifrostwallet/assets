@@ -650,12 +650,13 @@ async function fetchLogos(options) {
 }
 
 async function runCli(argv, deps) {
-  const args = Array.isArray(argv) ? argv : [];
+  const args = Array.isArray(argv) ? argv.slice() : [];
   const extra = deps || {};
   if (args.includes("--help") || args.includes("-h")) {
     console.info(USAGE);
     return 0;
   }
+  if (args[0] === "fetch-logos") args.shift();
   if (args.length !== 1) {
     console.error(USAGE);
     return 1;
