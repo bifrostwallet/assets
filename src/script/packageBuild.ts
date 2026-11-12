@@ -1754,7 +1754,7 @@ function buildPackageUnlocked(): void {
     version: rootPackage.version,
     description:
       rootPackage.description ??
-      "Curated catalog of FTSO providers, validators, tokens, contracts and dapps for Bifrost Wallet.",
+      "Curated catalog of data providers, validators, tokens, contracts and dapps for Bifrost Wallet.",
     repository: rootPackage.repository,
     author: rootPackage.author,
     license: "MIT",
