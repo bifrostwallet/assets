@@ -1,0 +1,9 @@
+{
+  "name": "XAUt0",
+  "symbol": "XAUt0",
+  "decimals": 6,
+  "address": "0x40461291347e1ecbb09499f3371d3f17f10d7159",
+  "coingeckoId": "tether-gold-tokens",
+  "logoURL": "tokens/eip155-42161/0x40461291347e1ecbb09499f3371d3f17f10d7159/logo.webp",
+  "logoHash": "6a942e29bd146fbd7c84c17e6754cd2037c64948007eefa207d0464c740d49ea"
+}

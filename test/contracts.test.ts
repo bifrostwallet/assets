@@ -51,7 +51,7 @@ describe("contract catalog", { concurrency: false }, () => {
     ]);
     assert.equal(count("dex"), 13);
     assert.equal(count("aggregator"), 0);
-    assert.equal(count("bridge"), 5);
+    assert.equal(count("bridge"), 10);
     assert.equal(count("lending"), 6);
     assert.equal(count("staking"), 2);
     assert.equal(count("yield"), 5);
@@ -62,7 +62,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("fassets"), 22);
     assert.equal(count("rewards"), 7);
     assert.equal(count("other"), 2);
-    assert.equal(all.length, 65);
+    assert.equal(all.length, 70);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
       assert.equal(typeof contract.project, "string");
@@ -165,7 +165,11 @@ describe("contract catalog", { concurrency: false }, () => {
     const flare = getContracts("eip155:14");
     assert.ok(flare.every((contract) => contract.chain === "eip155:14"));
     assert.ok(getContracts().length > flare.length);
-    assert.throws(() => getContracts("eip155:1"), /Unknown contract chain/);
+    const xautAdapter = getContract("eip155:1", "0xb9c2321BB7D0Db468f570D10A424d1Cc8EFd696C");
+    assert.equal(xautAdapter?.contractName, "XAUT0 OFT Adapter");
+    assert.equal(xautAdapter?.project, "layerzero-network");
+    assert.equal(xautAdapter?.category, "bridge");
+    assert.equal(getContracts("eip155:1").length, 1);
     assert.throws(() => getContracts("eip155-14"), /CAIP-2/);
   });
 
