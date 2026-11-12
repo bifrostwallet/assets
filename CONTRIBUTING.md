@@ -95,8 +95,8 @@ Curators use this bar when they set a new provider to `listed: true`. CI leaves 
 
 | Network | Guideline |
 | --- | --- |
-| Flare | Self-bond at least 10M FLR; at least 2 validators; at least 20 unique P-chain stakers and at least 2M FLR of external stake; WFLR vote power at least 100M FLR. Brands that already have a Songbird (canary) catalog entry are preferred. |
-| Songbird | WSGB vote power at least 50M. |
+| Flare | Self-bond at least 9M FLR; at least 2 validators; at least 20 unique P-chain stakers and at least 2M FLR of external stake; WFLR vote power at least 90M FLR. Brands that already have a Songbird (canary) catalog entry are preferred. |
+| Songbird | WSGB vote power at least 40M. |
 
 #### Grandfathering
 
