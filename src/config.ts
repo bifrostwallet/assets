@@ -148,8 +148,10 @@ export interface ProviderInfo {
    */
   domainLinked: boolean;
   /**
-   * Same brand present on both Flare and Songbird in this catalog, maintained
-   * by sync:dual-network (curator-reviewed heuristic; not provider-signed).
+   * Same brand on both Flare and Songbird, computed by sync:dual-network
+   * from a shared identity address or a website domain linked on both
+   * chains (not provider-signed). A frozen snapshot also keeps entries
+   * that were already listed under the same name on both chains.
    */
   dualNetwork: boolean;
   /**
@@ -196,8 +198,11 @@ export const PROVIDER_INFO_KEYS = [
 
 /**
  * Fields excluded from the provider-signed payload:
- * - "listed", "domainLinked", "dualNetwork", and "firstTransaction" are
- *   curator/automation-derived and may change or appear after signing
+ * - "listed" and "firstTransaction" are curator-managed and may change or
+ *   appear after signing
+ * - "domainLinked" is refreshed from the provider website
+ * - "dualNetwork" is computed from a shared identity address or a website
+ *   domain linked on both Flare and Songbird
  * - "logoURL" is a hosting detail (relative in info.json; absolute in provider all.json);
  *   logo content integrity is covered by the signed "logoHash"
  * - delegation, submit, signing-policy, public key, validators, and
