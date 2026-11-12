@@ -9,54 +9,101 @@ import {
 } from "../convert.js";
 import { isMain } from "../isMain.js";
 
-// Curator-reviewed dualNetwork sync: a provider is dualNetwork when the same
-// brand appears on both Flare (eip155-14) and Songbird (eip155-19) in this
-// catalog.
+// dualNetwork for Flare (eip155-14) and Songbird (eip155-19).
 //
-// Strong signals (cryptographically or on-chain bound; auto-set true):
-//   1. same identityAddress on both chains (signature-verified at intake)
-//   2. same delegationAddress on both chains (on-chain registration)
-//   3. same websiteURL domain with domainLinked=true on BOTH chains
-//      (proven control of the same domain via .well-known)
-// Weak signals (self-declared free text a copycat submission could spoof;
-// reported for curator confirmation, never written automatically):
-//   4. same websiteURL domain without mutual domain linkage
-//   5. same social link URL (e.g. the same X handle)
-//   6. same normalized name
-//   7. same normalized description (long-form only, to avoid boilerplate hits)
+// A provider on those chains is dualNetwork when any of these hold:
+//   1. its identityAddress also appears on the other chain, or
+//   2. its website domain matches a provider on the other chain and
+//      domainLinked is true on both sides, or
+//   3. its normalized name (lowercase, internal whitespace collapsed)
+//      matches a provider on the other chain.
 //
-// Strong matches are written true and unmatched providers are written false.
-// Weak-only matches always keep their current value: entries already true were
-// curator-approved when committed, and entries still false are printed as
-// candidates for the curator to confirm (and set manually if legitimate). Run
-// with --dry-run to preview. Chains other than Flare/Songbird are forced to
-// false.
+// Every other provider is false, including chains other than Flare and
+// Songbird. Delegation addresses, unlinked domains, social links, and
+// descriptions are not signals. Listing state is not a signal.
 //
 // Usage:
 //   ./yarn sync:dual-network
 //   ./yarn sync:dual-network --dry-run
 
-const FLARE_PATH = "eip155-14";
-const SONGBIRD_PATH = "eip155-19";
+export const FLARE_CHAIN_PATH = "eip155-14";
+export const SONGBIRD_CHAIN_PATH = "eip155-19";
 
-/** Generic descriptions ("FTSO data provider") are too short to identify a brand. */
-const MIN_DESCRIPTION_MATCH_LENGTH = 40;
+export type DualNetworkReason = "identity" | "linked-domain" | "name";
 
-function normalizeText(value: string): string {
-  return value.toLowerCase().replace(/\s+/g, " ").trim();
+export interface DualNetworkProvider {
+  identityAddress: string;
+  name: string;
+  websiteURL: string;
+  domainLinked: boolean;
 }
 
-function websiteDomain(websiteURL: string): string | null {
+export interface DualNetworkSyncResult {
+  /** Flare and Songbird providers that are dualNetwork after this rule. */
+  dual: number;
+  updated: number;
+}
+
+export function normalizeProviderName(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+export function websiteDomain(websiteURL: string): string | null {
   try {
-    const host = new URL(websiteURL).hostname.toLowerCase();
-    return host.replace(/^www\./, "") || null;
+    const host = new URL(websiteURL).hostname.toLowerCase().replace(/^www\./, "");
+    return host || null;
   } catch {
     return null;
   }
 }
 
-function normalizeLinkURL(url: string): string {
-  return url.toLowerCase().replace(/\/+$/, "");
+/** Why `provider` is dualNetwork against the other chain, or null when it is not. */
+export function dualNetworkMatch(
+  provider: DualNetworkProvider,
+  otherChain: readonly DualNetworkProvider[],
+): DualNetworkReason | null {
+  const identity = provider.identityAddress.toLowerCase();
+  if (otherChain.some((peer) => peer.identityAddress.toLowerCase() === identity)) {
+    return "identity";
+  }
+
+  if (provider.domainLinked) {
+    const domain = websiteDomain(provider.websiteURL);
+    if (domain) {
+      const linked = otherChain.some((peer) => {
+        if (!peer.domainLinked) return false;
+        return websiteDomain(peer.websiteURL) === domain;
+      });
+      if (linked) return "linked-domain";
+    }
+  }
+
+  const name = normalizeProviderName(provider.name);
+  if (name.length > 0 && otherChain.some((peer) => normalizeProviderName(peer.name) === name)) {
+    return "name";
+  }
+  return null;
+}
+
+/** dualNetwork for one catalog entry. Chains other than Flare and Songbird are false. */
+export function dualNetworkForProvider(
+  chainPath: string,
+  provider: DualNetworkProvider,
+  flare: readonly DualNetworkProvider[],
+  songbird: readonly DualNetworkProvider[],
+): DualNetworkReason | null {
+  if (chainPath === FLARE_CHAIN_PATH) {
+    return dualNetworkMatch(provider, songbird);
+  }
+  if (chainPath === SONGBIRD_CHAIN_PATH) {
+    return dualNetworkMatch(provider, flare);
+  }
+  return null;
+}
+
+export function formatDualNetworkSection(updated: number, persisted: boolean): string {
+  const action = persisted ? "Updated" : "Would update";
+  return ["## Dual network", "", `- ${action}: ${updated}`, ""].join("\n");
 }
 
 interface ProviderFile {
@@ -78,173 +125,89 @@ function loadChainProviders(chainPath: string): ProviderFile[] {
       info: JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo,
     });
   }
+  providers.sort((a, b) =>
+    a.info.identityAddress.toLowerCase().localeCompare(b.info.identityAddress.toLowerCase()),
+  );
   return providers;
 }
 
-interface BrandKey {
-  key: string;
-  label: string;
+function asDualNetworkProvider(info: ProviderInfo): DualNetworkProvider {
+  return {
+    identityAddress: info.identityAddress,
+    name: typeof info.name === "string" ? info.name : "",
+    websiteURL: typeof info.websiteURL === "string" ? info.websiteURL : "",
+    domainLinked: info.domainLinked === true,
+  };
 }
 
-/**
- * Signals bound to keys or proven domain control; safe to auto-set from.
- * The linked-domain key only exists when the entry itself is domainLinked, so
- * a cross-chain hit requires BOTH sides to have proven the same domain.
- */
-export function strongBrandKeys(info: ProviderInfo): BrandKey[] {
-  const keys: BrandKey[] = [
-    { key: `id:${info.identityAddress.toLowerCase()}`, label: "identityAddress" },
-  ];
-
-  const delegation = info.delegationAddress.toLowerCase();
-  if (delegation) keys.push({ key: `del:${delegation}`, label: "delegationAddress" });
-
-  const domain = websiteDomain(info.websiteURL);
-  if (domain && info.domainLinked) {
-    keys.push({ key: `linked:${domain}`, label: "domainLinked website domain" });
-  }
-
-  return keys;
-}
-
-/** Self-declared free text a copycat submission could spoof; report-only. */
-export function weakBrandKeys(info: ProviderInfo): BrandKey[] {
-  const keys: BrandKey[] = [];
-
-  const domain = websiteDomain(info.websiteURL);
-  if (domain) keys.push({ key: `domain:${domain}`, label: "website domain (unproven)" });
-
-  for (const [platform, url] of Object.entries(info.links ?? {})) {
-    if (typeof url === "string" && url) {
-      keys.push({ key: `link:${normalizeLinkURL(url)}`, label: `${platform} link` });
-    }
-  }
-
-  const name = normalizeText(info.name);
-  if (name) keys.push({ key: `name:${name}`, label: "name" });
-
-  const description = normalizeText(info.description);
-  if (description.length >= MIN_DESCRIPTION_MATCH_LENGTH) {
-    keys.push({ key: `desc:${description}`, label: "description" });
-  }
-
-  return keys;
-}
-
-interface DualNetworkMatches {
-  /** identity → matched signal; written as dualNetwork=true */
-  strong: Map<string, string>;
-  /** identity → matched signal; reported for curator confirmation only */
-  weakOnly: Map<string, string>;
-}
-
-/** Identity addresses on `chain` whose brand also exists on `other`. */
-function matchDualNetwork(chain: ProviderFile[], other: ProviderFile[]): DualNetworkMatches {
-  const otherStrong = new Set<string>();
-  const otherWeak = new Set<string>();
-  for (const provider of other) {
-    for (const { key } of strongBrandKeys(provider.info)) otherStrong.add(key);
-    for (const { key } of weakBrandKeys(provider.info)) otherWeak.add(key);
-  }
-
-  const strong = new Map<string, string>();
-  const weakOnly = new Map<string, string>();
-  for (const provider of chain) {
-    const identity = provider.info.identityAddress.toLowerCase();
-    const strongHit = strongBrandKeys(provider.info).find(({ key }) => otherStrong.has(key));
-    if (strongHit) {
-      strong.set(identity, strongHit.label);
-      continue;
-    }
-    const weakHit = weakBrandKeys(provider.info).find(({ key }) => otherWeak.has(key));
-    if (weakHit) weakOnly.set(identity, weakHit.label);
-  }
-  return { strong, weakOnly };
-}
-
-export interface DualNetworkSyncResult {
-  matchedBrands: number;
-  updated: number;
-  needsReview: number;
+function reasonDetail(reason: DualNetworkReason | null): string {
+  if (reason === "identity") return " via identity address";
+  if (reason === "linked-domain") return " via linked domain";
+  if (reason === "name") return " via name";
+  return "";
 }
 
 /** Writes dualNetwork onto every provider info.json and rebuilds all.json. */
 export function syncDualNetwork(options: { dryRun?: boolean } = {}): DualNetworkSyncResult {
-  const dryRun = options.dryRun ?? false;
-
-  const flare = loadChainProviders(FLARE_PATH);
-  const songbird = loadChainProviders(SONGBIRD_PATH);
-  const emptyMatches: DualNetworkMatches = { strong: new Map(), weakOnly: new Map() };
-  const matchesByChain = new Map<string, DualNetworkMatches>([
-    [FLARE_PATH, matchDualNetwork(flare, songbird)],
-    [SONGBIRD_PATH, matchDualNetwork(songbird, flare)],
-  ]);
+  const dryRun = options.dryRun === true;
+  const flare = loadChainProviders(FLARE_CHAIN_PATH);
+  const songbird = loadChainProviders(SONGBIRD_CHAIN_PATH);
+  const flareSides = flare.map((provider) => asDualNetworkProvider(provider.info));
+  const songbirdSides = songbird.map((provider) => asDualNetworkProvider(provider.info));
 
   const providersDir = path.join(process.cwd(), "data", "providers");
+  const chains = fs
+    .readdirSync(providersDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+
   let updated = 0;
-  let needsReview = 0;
+  let dual = 0;
 
-  for (const chain of fs.readdirSync(providersDir, { withFileTypes: true })) {
-    if (!chain.isDirectory()) continue;
-    const matches = matchesByChain.get(chain.name) ?? emptyMatches;
-    let chainChanged = false;
-
+  for (const chainPath of chains) {
     let providers: ProviderFile[];
-    if (chain.name === FLARE_PATH) {
+    if (chainPath === FLARE_CHAIN_PATH) {
       providers = flare;
-    } else if (chain.name === SONGBIRD_PATH) {
+    } else if (chainPath === SONGBIRD_CHAIN_PATH) {
       providers = songbird;
     } else {
-      providers = loadChainProviders(chain.name);
+      providers = loadChainProviders(chainPath);
     }
 
+    let chainChanged = false;
     for (const provider of providers) {
-      const identity = provider.info.identityAddress.toLowerCase();
-      const relativePath = toRelativePath(provider.infoPath);
-
-      const weakSignal = matches.weakOnly.get(identity);
-      if (weakSignal !== undefined) {
-        // Spoofable signal: never auto-set. Entries already true were
-        // curator-approved when committed; only surface still-false entries
-        // as candidates for manual confirmation (possible copycat).
-        if (provider.info.dualNetwork === false) {
-          needsReview++;
-          console.info(
-            `⚠️  ${provider.info.name}: weak match via ${weakSignal}, keeping dualNetwork=false — confirm manually (${relativePath})`,
-          );
-        }
-        continue;
-      }
-
-      const strongSignal = matches.strong.get(identity);
-      const isDual = strongSignal !== undefined;
+      const reason = dualNetworkForProvider(
+        chainPath,
+        asDualNetworkProvider(provider.info),
+        flareSides,
+        songbirdSides,
+      );
+      const isDual = reason !== null;
+      if (isDual) dual++;
       if (provider.info.dualNetwork === isDual) continue;
 
+      const relativePath = toRelativePath(provider.infoPath);
       console.info(
-        `${isDual ? "➕" : "➖"} ${provider.info.name}: dualNetwork=${isDual}${strongSignal ? ` (via ${strongSignal})` : ""} (${relativePath})`,
+        `${isDual ? "➕" : "➖"} ${provider.info.name}: dualNetwork=${isDual}${reasonDetail(reason)} (${relativePath})`,
       );
       updated++;
+      if (dryRun) continue;
 
-      if (!dryRun) {
-        provider.info.dualNetwork = isDual;
-        writeFormattedJson(provider.infoPath, sortProviderInfo(provider.info));
-        chainChanged = true;
-      }
+      provider.info.dualNetwork = isDual;
+      writeFormattedJson(provider.infoPath, sortProviderInfo(provider.info));
+      chainChanged = true;
     }
 
     if (chainChanged) {
-      rebuildProvidersAllJson(chain.name);
+      rebuildProvidersAllJson(chainPath);
     }
   }
 
-  const matchedBrands =
-    (matchesByChain.get(FLARE_PATH)?.strong.size ?? 0) +
-    (matchesByChain.get(SONGBIRD_PATH)?.strong.size ?? 0);
   console.info(
-    `\n${dryRun ? "🔍 Dry run" : "✅ Sync complete"}: ${matchedBrands} strong dual-network entr${matchedBrands === 1 ? "y" : "ies"}, ${updated} provider(s) ${dryRun ? "would change" : "updated"}, ${needsReview} weak match(es) need curator review`,
+    `\n${dryRun ? "🔍 Dry run" : "✅ Sync complete"}: ${dual} dual-network provider(s), ${updated} ${dryRun ? "would update" : "updated"}`,
   );
-
-  return { matchedBrands, updated, needsReview };
+  return { dual, updated };
 }
 
 if (isMain(import.meta.url)) {

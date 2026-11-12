@@ -17,6 +17,7 @@ import {
 import { buildEarnData, createStore, type EarnStore } from "../earn/output.js";
 import { isMain } from "../isMain.js";
 import { type DomainLinkageSyncResult, syncDomainLinkage } from "./syncDomainLinkage.js";
+import { formatDualNetworkSection, syncDualNetwork } from "./syncDualNetwork.js";
 import {
   applyManagementGroupDrift,
   collectManagementGroupDrift,
@@ -35,23 +36,29 @@ import {
  *    request — never straight to main. The domain-linkage section is also
  *    written to domain-linkage-summary.md so a later --skip-domain run can
  *    keep it in delist-summary.md. Skip the check entirely with --skip-domain.
- * 3. With --write-delist: flip listed:false for providers that burned FSP
+ * 3. Compute dualNetwork from a shared identity address, a website domain
+ *    linked on both Flare and Songbird, or the same normalized name. With
+ *    --write-dual-network, persist the flags. The nightly catalog step passes
+ *    that flag after domain linkage is on disk, so the pull request summary
+ *    counts the edits. --dry-run previews.
+ * 4. With --write-delist: flip listed:false for providers that burned FSP
  *    rewards (eligibleForReward=false in the latest passes.json) or whose
  *    current FTSO fee or any currently validating Flare validator fee is above
  *    50% (Bifrost's listing recommendation). CI applies this on the same
  *    branch and opens one PR — never straight to main.
- * 4. With --write-chain: compare EntityManager addresses and validators with
+ * 5. With --write-chain: compare EntityManager addresses and validators with
  *    info.json, and set managementGroup from each network's
- *    PollingManagementGroup. Same PR as domain linkage and delist; signatures
- *    stay valid because those fields are unsigned. A failed chain read aborts
- *    the run. On-chain management-group members with no catalog entry are
- *    warned about and are not added. Skip both comparisons with --skip-chain.
+ *    PollingManagementGroup. Same PR as domain linkage, dual network, and
+ *    delist; signatures stay valid because those fields are unsigned. A failed
+ *    chain read aborts the run. On-chain management-group members with no
+ *    catalog entry are warned about and are not added. Skip both comparisons
+ *    with --skip-chain.
  *
  * Usage:
  *   ./yarn refresh:providers
  *   ./yarn refresh:providers --dry-run
  *   ./yarn refresh:providers --write-domain
- *   ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
+ *   ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain
  *   EARN_BUCKET=<private-earn-bucket> ./yarn refresh:providers
  */
 
@@ -60,6 +67,7 @@ interface RefreshArgs {
   writeDomain: boolean;
   writeDelist: boolean;
   writeChain: boolean;
+  writeDualNetwork: boolean;
   skipEarn: boolean;
   skipDomain: boolean;
   skipChain: boolean;
@@ -71,6 +79,7 @@ function parseArgs(argv: string[]): RefreshArgs {
     writeDomain: argv.includes("--write-domain"),
     writeDelist: argv.includes("--write-delist"),
     writeChain: argv.includes("--write-chain"),
+    writeDualNetwork: argv.includes("--write-dual-network"),
     skipEarn: argv.includes("--skip-earn"),
     skipDomain: argv.includes("--skip-domain"),
     skipChain: argv.includes("--skip-chain"),
@@ -202,18 +211,28 @@ export function buildCatalogRefreshSummary(
   chainSummary: string,
   domainSection?: string,
   managementGroupSummary?: string,
+  dualNetworkSection?: string,
 ): string {
   const parts = [delistSummary, "", chainSummary, ""];
   if (managementGroupSummary) {
     parts.push(managementGroupSummary, "");
   }
   if (domainSection) parts.push(domainSection);
+  if (dualNetworkSection) parts.push(dualNetworkSection);
   return parts.join("\n");
 }
 
 async function refreshProviders(): Promise<void> {
-  const { dryRun, writeDomain, writeDelist, writeChain, skipEarn, skipDomain, skipChain } =
-    parseArgs(process.argv.slice(2));
+  const {
+    dryRun,
+    writeDomain,
+    writeDelist,
+    writeChain,
+    writeDualNetwork,
+    skipEarn,
+    skipDomain,
+    skipChain,
+  } = parseArgs(process.argv.slice(2));
 
   if (skipEarn) {
     console.info("ℹ️  --skip-earn: not publishing earn APY");
@@ -239,6 +258,22 @@ async function refreshProviders(): Promise<void> {
     // Nightly run 2 passes --skip-domain and rewrites delist-summary.md.
     writeDomainLinkageSection(domainSection);
   }
+
+  // After domain linkage so a domain that just became linked counts this run.
+  // The nightly catalog step passes --write-dual-network. An earlier refresh
+  // in the same job only previews, so the pull request summary counts the write.
+  console.info("\n🔁 Dual network");
+  const persistDualNetwork = !dryRun && writeDualNetwork;
+  const dualNetworkResult = syncDualNetwork({ dryRun: !persistDualNetwork });
+  if (!writeDualNetwork && !dryRun) {
+    console.info(
+      "ℹ️  Dual network was checked only — re-run with --write-dual-network to persist dualNetwork (CI)",
+    );
+  }
+  const dualNetworkSection = formatDualNetworkSection(
+    dualNetworkResult.updated,
+    persistDualNetwork,
+  );
 
   const candidates = await findDelistCandidates();
   console.info(`\n${formatDelistSummary(candidates)}`);
@@ -269,6 +304,7 @@ async function refreshProviders(): Promise<void> {
     formatChainDriftSummary(chainDrift, { skipped: skipChain }),
     domainSection,
     formatManagementGroupSummary(managementGroupDrift, { skipped: skipChain }),
+    dualNetworkSection,
   );
   const summaryPath = path.join(process.cwd(), "delist-summary.md");
   fs.writeFileSync(summaryPath, summary);
