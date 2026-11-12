@@ -1,6 +1,6 @@
 {
   "name": "@bifrostwallet/assets",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Curated catalog of data providers, validators, tokens, contracts and dapps for Bifrost Wallet.",
   "repository": "https://github.com/bifrostwallet/assets.git",
   "author": "Bifrost Software Ltd",
