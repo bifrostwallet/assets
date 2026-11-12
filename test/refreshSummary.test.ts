@@ -12,6 +12,7 @@ import {
   readCarriedDomainLinkageSection,
   writeDomainLinkageSection,
 } from "../src/script/refreshProviders.js";
+import { formatDualNetworkSection } from "../src/script/syncDualNetwork.js";
 import { formatManagementGroupSummary } from "../src/script/syncManagementGroup.js";
 
 function withTempDir(run: (dir: string) => void): void {
@@ -44,7 +45,7 @@ describe("refresh provider flags", () => {
     );
     assert.deepEqual(commands, [
       "./yarn refresh:providers --write-domain --skip-chain --skip-delist",
-      "./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain",
+      "./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain",
     ]);
   });
 });
@@ -186,6 +187,33 @@ describe("domain linkage summary", () => {
     assert.match(summary, /Chain comparison was skipped\./);
     assert.match(summary, /Management Group comparison was skipped\./);
     assert.equal(summary.includes("No provider managementGroup flags differ"), false);
+  });
+
+  test("places the dual network line after domain linkage", () => {
+    const summary = buildCatalogRefreshSummary(
+      "delist",
+      formatChainDriftSummary([]),
+      formatDomainLinkageSection({ checked: 1, linked: 0, updated: 0 }, true),
+      formatManagementGroupSummary({
+        flips: [],
+        unknown: [],
+        flareMembers: 0,
+        songbirdMembers: 0,
+      }),
+      formatDualNetworkSection(4, true),
+    );
+    const domainAt = summary.indexOf("## Domain linkage");
+    const dualAt = summary.indexOf("## Dual network");
+    assert.ok(domainAt >= 0);
+    assert.ok(dualAt > domainAt);
+    assert.match(summary, /## Dual network\n\n- Updated: 4/);
+  });
+
+  test("a preview dual network line says it would update", () => {
+    assert.equal(
+      formatDualNetworkSection(2, false),
+      ["## Dual network", "", "- Would update: 2", ""].join("\n"),
+    );
   });
 
   test("omits domain linkage when this run skipped it and no sidecar exists", () => {

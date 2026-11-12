@@ -1,11 +1,13 @@
 name: Refresh providers
 
 # Nightly: publish private Earn APY to GCS (no human gate). Domain linkage,
-# delist, chain-drift, and management-group edits stay in the working tree and
-# land together on one pull request (nightly/fsp-delist). Nothing in this job
-# pushes to main. A failed EntityManager or PollingManagementGroup read fails
-# the job instead of skipping that field. The first command passes
-# --skip-delist so the listing-fee scan runs once, on the chain pass.
+# delist, chain-drift, management-group, and dual-network edits stay in the
+# working tree and land together on one pull request (nightly/fsp-delist).
+# Nothing in this job pushes to main. A failed EntityManager or
+# PollingManagementGroup read fails the job instead of skipping that field.
+# Dual network is written on the second refresh, after domain linkage is on
+# disk, so the pull request summary counts those edits. The first command
+# passes --skip-delist so the listing-fee scan runs once, on the chain pass.
 # A provider is suggested listed:false when it burned FSP rewards
 # (eligibleForReward=false in the latest passes.json — zero passes plus another
 # FTSO/FDC/staking minimal-condition failure) or breaks Bifrost's
@@ -63,8 +65,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Apply delist candidates, chain drift, and management group
-        run: ./yarn refresh:providers --write-delist --write-chain --skip-earn --skip-domain
+      - name: Apply delist candidates, chain drift, management group, and dual network
+        run: ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -84,8 +86,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Domain linkage is still uncommitted. Delist, chain, and management-group
-          # edits from the previous step are in the same tree. One branch, one pull request.
+          # Domain linkage is still uncommitted. Delist, chain, management-group,
+          # and dual-network edits from the previous step are in the same tree.
+          # One branch, one pull request.
           git add data/providers/
           if git diff --staged --quiet; then
             echo "No catalog updates; skipping pull request"
@@ -94,7 +97,7 @@ jobs:
 
           BRANCH=nightly/fsp-delist
           git checkout -B "$BRANCH"
-          git commit -m "Suggest catalog updates from domain linkage, chain, management group, and FSP rewards"
+          git commit -m "Suggest catalog updates from domain linkage, dual network, chain, management group, and FSP rewards"
           git fetch origin "$BRANCH" || true
           git push -u origin "HEAD:refs/heads/$BRANCH" --force-with-lease
 
