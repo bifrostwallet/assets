@@ -15,9 +15,12 @@ interface VoterAddresses {
 
 /**
  * Transient RPC retries for EntityManager and PollingManagementGroup reads.
+ * viem retries HTTP 429 (and other transient failures) with exponential
+ * backoff: attempt n waits `(2 ** n) * CHAIN_RPC_RETRY_DELAY_MS`
+ * (1s, 2s, 4s, 8s, 16s), or the Retry-After header when the response sends one.
  * A read that still fails must abort the nightly refresh, not skip the field.
  */
-export const CHAIN_RPC_RETRY_COUNT = 3;
+export const CHAIN_RPC_RETRY_COUNT = 5;
 export const CHAIN_RPC_RETRY_DELAY_MS = 1000;
 
 const entityManagerAbi = [
@@ -131,6 +134,7 @@ export function createNetworkClient(network: BlockchainNetworkConfig): PublicCli
     },
     transport: http(network.rpc, {
       timeout: 30000,
+      // Base delay. viem turns this into exponential backoff and retries HTTP 429.
       retryCount: CHAIN_RPC_RETRY_COUNT,
       retryDelay: CHAIN_RPC_RETRY_DELAY_MS,
     }),

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { formatPassReason, isDelistCandidate } from "../src/earn/delist.js";
+import { formatDelistSummary, formatPassReason, isDelistCandidate } from "../src/earn/delist.js";
 import type { FspPassRecord } from "../src/earn/github.js";
 
 function record(overrides: Partial<FspPassRecord> = {}): FspPassRecord {
@@ -43,6 +43,14 @@ describe("isDelistCandidate (FSP passes delist gate)", () => {
 
   it("does not delist providers absent from passes.json", () => {
     assert.equal(isDelistCandidate(undefined), false);
+  });
+});
+
+describe("formatDelistSummary", () => {
+  it("a skipped scan is not reported as a clean pass", () => {
+    const summary = formatDelistSummary([], { skipped: true });
+    assert.equal(summary, "Delist scan was skipped.\n");
+    assert.equal(summary.includes("No listed providers"), false);
   });
 });
 

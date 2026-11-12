@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { diffProviderChainFields, formatChainDriftSummary } from "../src/chainDrift.js";
+import {
+  CHAIN_READ_CONCURRENCY,
+  diffProviderChainFields,
+  formatChainDriftSummary,
+} from "../src/chainDrift.js";
 import type { ProviderInfo } from "../src/config.js";
 
 const catalog = {
@@ -13,6 +17,12 @@ const catalog = {
   publicKey: `0x${"a".repeat(128)}`,
   validators: ["NodeID-B", "NodeID-A"],
 } as ProviderInfo;
+
+describe("chain read concurrency", () => {
+  test("Flare EntityManager reads stay at two in flight", () => {
+    assert.equal(CHAIN_READ_CONCURRENCY, 2);
+  });
+});
 
 describe("diffProviderChainFields", () => {
   test("ignores chain fields the read did not return", () => {
