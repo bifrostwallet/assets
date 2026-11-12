@@ -59,6 +59,7 @@ describe("EVM token validation", () => {
     );
     assert.deepEqual(validateEvmToken(evmToken({ symbol: "USD Coin" })), []);
     assert.deepEqual(validateEvmToken(evmToken({ symbol: "USD.e" })), []);
+    assert.deepEqual(validateEvmToken(evmToken({ name: "USD₮0", symbol: "USD₮0" })), []);
   });
 });
 

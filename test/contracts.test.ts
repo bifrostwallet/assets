@@ -49,11 +49,11 @@ describe("contract catalog", { concurrency: false }, () => {
       "rewards",
       "other",
     ]);
-    assert.equal(count("dex"), 9);
+    assert.equal(count("dex"), 13);
     assert.equal(count("aggregator"), 0);
-    assert.equal(count("bridge"), 3);
+    assert.equal(count("bridge"), 5);
     assert.equal(count("lending"), 6);
-    assert.equal(count("staking"), 1);
+    assert.equal(count("staking"), 2);
     assert.equal(count("yield"), 5);
     assert.equal(count("perpetuals"), 3);
     assert.equal(count("predictions"), 0);
@@ -61,8 +61,8 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("governance"), 0);
     assert.equal(count("fassets"), 22);
     assert.equal(count("rewards"), 7);
-    assert.equal(count("other"), 0);
-    assert.equal(all.length, 56);
+    assert.equal(count("other"), 2);
+    assert.equal(all.length, 65);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
       assert.equal(typeof contract.project, "string");
@@ -132,8 +132,8 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(firelight?.project, "firelight-finance");
     assert.equal(firelight?.logoURL, "contracts/projects/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 40);
-    assert.equal(getContracts("eip155:19").length, 15);
+    assert.equal(getContracts("eip155:14").length, 47);
+    assert.equal(getContracts("eip155:19").length, 17);
     assert.equal(getContracts("eip155:114").length, 1);
 
     assert.equal(getContract("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d"), null);
