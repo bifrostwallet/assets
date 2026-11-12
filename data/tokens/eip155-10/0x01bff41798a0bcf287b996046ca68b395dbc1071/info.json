@@ -1,0 +1,9 @@
+{
+  "name": "USD₮0",
+  "symbol": "USD₮0",
+  "decimals": 6,
+  "address": "0x01bff41798a0bcf287b996046ca68b395dbc1071",
+  "coingeckoId": "usdt0",
+  "logoURL": "tokens/eip155-10/0x01bff41798a0bcf287b996046ca68b395dbc1071/logo.webp",
+  "logoHash": "74a47d95d7eead477b9fcb78a6de60028e13b82ba9123b638e1b1c28210cd6e1"
+}
