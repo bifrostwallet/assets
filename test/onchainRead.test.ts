@@ -5,6 +5,7 @@ import {
   CHAIN_RPC_RETRY_COUNT,
   CHAIN_RPC_RETRY_DELAY_MS,
   type ChainContractReader,
+  createNetworkClient,
   fetchEntityData,
   fetchManagementGroupMembers,
 } from "../src/onchain.js";
@@ -45,9 +46,21 @@ function reader(failing?: string): ChainContractReader {
 }
 
 describe("on-chain reads", () => {
-  test("EntityManager and Management Group RPC reads keep a retry", () => {
-    assert.equal(CHAIN_RPC_RETRY_COUNT, 3);
-    assert.ok(CHAIN_RPC_RETRY_DELAY_MS >= 0);
+  test("chain client retries HTTP 429 with viem exponential backoff", () => {
+    assert.equal(CHAIN_RPC_RETRY_COUNT, 5);
+    assert.equal(CHAIN_RPC_RETRY_DELAY_MS, 1_000);
+
+    const client = createNetworkClient(BLOCKCHAIN_NETWORKS.flare);
+    assert.equal(client.transport.retryCount, CHAIN_RPC_RETRY_COUNT);
+    assert.equal(client.transport.retryDelay, CHAIN_RPC_RETRY_DELAY_MS);
+    assert.equal(client.chain?.rpcUrls.default.http[0], BLOCKCHAIN_NETWORKS.flare.rpc);
+
+    // viem waits (2 ** attempt) * retryDelay before each retry.
+    const delays = Array.from(
+      { length: CHAIN_RPC_RETRY_COUNT },
+      (_, attempt) => (1 << attempt) * CHAIN_RPC_RETRY_DELAY_MS,
+    );
+    assert.deepEqual(delays, [1_000, 2_000, 4_000, 8_000, 16_000]);
   });
 
   for (const functionName of ENTITY_READS) {

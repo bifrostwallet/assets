@@ -71,6 +71,12 @@ function networkForChainPath(chainPath: string) {
   );
 }
 
+/**
+ * In-flight EntityManager reads. Flare providers are visited first, and
+ * flare-api.flare.network returned HTTP 429 at 4.
+ */
+export const CHAIN_READ_CONCURRENCY = 2;
+
 async function mapPool<T>(items: T[], limit: number, worker: (item: T) => Promise<void>) {
   if (items.length === 0) return;
   let index = 0;
@@ -117,7 +123,7 @@ export async function collectChainDrift(options?: {
   const drifts: ProviderChainDrift[] = [];
   const failures: string[] = [];
 
-  await mapPool(findProviderDirs(), 4, async (providerDir) => {
+  await mapPool(findProviderDirs(), CHAIN_READ_CONCURRENCY, async (providerDir) => {
     const infoPath = path.join(providerDir, "info.json");
     const catalog = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
     const chainPath = path.basename(path.dirname(providerDir));

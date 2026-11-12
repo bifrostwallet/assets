@@ -8,6 +8,7 @@ import {
   buildCatalogRefreshSummary,
   DOMAIN_LINKAGE_SUMMARY_FILE,
   formatDomainLinkageSection,
+  parseArgs,
   readCarriedDomainLinkageSection,
   writeDomainLinkageSection,
 } from "../src/script/refreshProviders.js";
@@ -22,6 +23,32 @@ function withTempDir(run: (dir: string) => void): void {
     fs.rmSync(dir, { recursive: true, force: true });
   }
 }
+
+describe("refresh provider flags", () => {
+  test("--skip-delist is set only when the flag is present", () => {
+    assert.equal(parseArgs([]).skipDelist, false);
+    assert.equal(parseArgs(["--write-domain", "--skip-chain"]).skipDelist, false);
+    assert.equal(parseArgs(["--write-domain", "--skip-chain", "--skip-delist"]).skipDelist, true);
+    assert.equal(
+      parseArgs(["--write-delist", "--write-chain", "--skip-earn", "--skip-domain"]).skipDelist,
+      false,
+    );
+  });
+
+  test("the nightly workflow scans listing fees once, on the chain pass", () => {
+    const workflow = fs.readFileSync(
+      path.join(process.cwd(), ".github/workflows/refresh-providers.yml"),
+      "utf8",
+    );
+    const commands = [...workflow.matchAll(/\.\/yarn refresh:providers[^\n]*/g)].map(
+      (match) => match[0],
+    );
+    assert.deepEqual(commands, [
+      "./yarn refresh:providers --write-domain --skip-chain --skip-delist",
+      "./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain",
+    ]);
+  });
+});
 
 describe("domain linkage summary", () => {
   test("formats persisted and dry-run sections", () => {

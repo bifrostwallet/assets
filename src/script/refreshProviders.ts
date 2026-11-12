@@ -45,7 +45,8 @@ import {
  *    rewards (eligibleForReward=false in the latest passes.json) or whose
  *    current FTSO fee or any currently validating Flare validator fee is above
  *    50% (Bifrost's listing recommendation). CI applies this on the same
- *    branch and opens one PR — never straight to main.
+ *    branch and opens one PR — never straight to main. Skip the fee scan
+ *    entirely with --skip-delist so a domain-only pass does not hit Flare twice.
  * 5. With --write-chain: compare EntityManager addresses and validators with
  *    info.json, and set managementGroup from each network's
  *    PollingManagementGroup. Same PR as domain linkage, dual network, and
@@ -58,6 +59,7 @@ import {
  *   ./yarn refresh:providers
  *   ./yarn refresh:providers --dry-run
  *   ./yarn refresh:providers --write-domain
+ *   ./yarn refresh:providers --write-domain --skip-chain --skip-delist
  *   ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain
  *   EARN_BUCKET=<private-earn-bucket> ./yarn refresh:providers
  */
@@ -70,10 +72,11 @@ interface RefreshArgs {
   writeDualNetwork: boolean;
   skipEarn: boolean;
   skipDomain: boolean;
+  skipDelist: boolean;
   skipChain: boolean;
 }
 
-function parseArgs(argv: string[]): RefreshArgs {
+export function parseArgs(argv: string[]): RefreshArgs {
   return {
     dryRun: argv.includes("--dry-run"),
     writeDomain: argv.includes("--write-domain"),
@@ -82,6 +85,7 @@ function parseArgs(argv: string[]): RefreshArgs {
     writeDualNetwork: argv.includes("--write-dual-network"),
     skipEarn: argv.includes("--skip-earn"),
     skipDomain: argv.includes("--skip-domain"),
+    skipDelist: argv.includes("--skip-delist"),
     skipChain: argv.includes("--skip-chain"),
   };
 }
@@ -231,6 +235,7 @@ async function refreshProviders(): Promise<void> {
     writeDualNetwork,
     skipEarn,
     skipDomain,
+    skipDelist,
     skipChain,
   } = parseArgs(process.argv.slice(2));
 
@@ -275,8 +280,12 @@ async function refreshProviders(): Promise<void> {
     persistDualNetwork,
   );
 
-  const candidates = await findDelistCandidates();
-  console.info(`\n${formatDelistSummary(candidates)}`);
+  const candidates = skipDelist ? [] : await findDelistCandidates();
+  if (skipDelist) {
+    console.info("ℹ️  --skip-delist: not scanning FSP rewards or delegation fees");
+  } else {
+    console.info(`\n${formatDelistSummary(candidates)}`);
+  }
 
   let chainDrift: Awaited<ReturnType<typeof collectChainDrift>> = [];
   let managementGroupDrift: ManagementGroupDrift = {
@@ -300,7 +309,7 @@ async function refreshProviders(): Promise<void> {
   }
 
   const summary = buildCatalogRefreshSummary(
-    formatDelistSummary(candidates),
+    formatDelistSummary(candidates, { skipped: skipDelist }),
     formatChainDriftSummary(chainDrift, { skipped: skipChain }),
     domainSection,
     formatManagementGroupSummary(managementGroupDrift, { skipped: skipChain }),
@@ -309,13 +318,13 @@ async function refreshProviders(): Promise<void> {
   const summaryPath = path.join(process.cwd(), "delist-summary.md");
   fs.writeFileSync(summaryPath, summary);
 
-  if (candidates.length === 0) {
+  if (!skipDelist && candidates.length === 0) {
     console.info("✅ No delist candidates");
-  } else if (!writeDelist || dryRun) {
+  } else if (!skipDelist && (!writeDelist || dryRun)) {
     console.info(
       `ℹ️  ${candidates.length} delist candidate(s) — re-run with --write-delist to apply (CI opens a PR)`,
     );
-  } else {
+  } else if (!skipDelist) {
     const updated = applyDelistCandidates(candidates);
     console.info(`✅ Applied listed:false to ${updated} provider(s); rebuilt all.json`);
   }

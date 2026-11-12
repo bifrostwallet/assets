@@ -119,7 +119,16 @@ export function applyDelistCandidates(candidates: DelistCandidate[]): number {
   return updated;
 }
 
-export function formatDelistSummary(candidates: DelistCandidate[]): string {
+export function formatDelistSummary(
+  candidates: DelistCandidate[],
+  options?: { skipped?: boolean },
+): string {
+  if (options?.skipped) {
+    // An empty candidate list means the scan ran and found nobody. A skipped
+    // scan must not use that sentence.
+    return "Delist scan was skipped.\n";
+  }
+
   if (candidates.length === 0) {
     return "No listed providers burned FSP rewards or charge a delegation fee above Bifrost's 50% listing cap.";
   }

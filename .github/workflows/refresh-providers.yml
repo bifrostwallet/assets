@@ -6,7 +6,8 @@ name: Refresh providers
 # Nothing in this job pushes to main. A failed EntityManager or
 # PollingManagementGroup read fails the job instead of skipping that field.
 # Dual network is written on the second refresh, after domain linkage is on
-# disk, so the pull request summary counts those edits.
+# disk, so the pull request summary counts those edits. The first command
+# passes --skip-delist so the listing-fee scan runs once, on the chain pass.
 # A provider is suggested listed:false when it burned FSP rewards
 # (eligibleForReward=false in the latest passes.json — zero passes plus another
 # FTSO/FDC/staking minimal-condition failure) or breaks Bifrost's
@@ -60,7 +61,7 @@ jobs:
         run: ./yarn install --immutable
 
       - name: Refresh earn APY and domain linkage
-        run: ./yarn refresh:providers --write-domain --skip-chain
+        run: ./yarn refresh:providers --write-domain --skip-chain --skip-delist
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
