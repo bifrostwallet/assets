@@ -1360,7 +1360,7 @@ export interface ProviderInfo {
   managementGroup: boolean;
   /** Optional domain linkage, refreshed nightly from websiteURL */
   domainLinked: boolean;
-  /** Same brand on Flare and Songbird, computed from identity address or linked domain */
+  /** Same brand on Flare and Songbird, computed from identity address, linked domain, or name */
   dualNetwork: boolean;
   /** Earliest known provider activity on this network (write-once, curator-managed) */
   firstTransaction?: {

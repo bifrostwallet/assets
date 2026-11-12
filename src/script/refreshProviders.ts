@@ -36,9 +36,8 @@ import {
  *    request — never straight to main. The domain-linkage section is also
  *    written to domain-linkage-summary.md so a later --skip-domain run can
  *    keep it in delist-summary.md. Skip the check entirely with --skip-domain.
- * 3. Compute dualNetwork from a shared identity address or a website domain
- *    linked on both Flare and Songbird. A frozen snapshot keeps entries that
- *    were already listed under the same name on both chains. With
+ * 3. Compute dualNetwork from a shared identity address, a website domain
+ *    linked on both Flare and Songbird, or the same normalized name. With
  *    --write-dual-network, persist the flags. The nightly catalog step passes
  *    that flag after domain linkage is on disk, so the pull request summary
  *    counts the edits. --dry-run previews.

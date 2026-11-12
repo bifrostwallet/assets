@@ -18,7 +18,7 @@ From 1.0.0, a GitHub Release tagged with the package version stages `dist/` thro
 
 ## Catalog refresh
 
-The nightly job proposes domain-linkage, delegation-fee, reward, chain-drift, management-group, and dual-network updates together on the `nightly/fsp-delist` pull request. Dual-network is computed from a shared identity address or a website domain linked on both Flare and Songbird. A frozen snapshot keeps entries that were already listed under the same name on both chains. Management-group membership is read from each network's PollingManagementGroup and written onto existing listings. On-chain members with no catalog entry are warned about and are not added. A failed chain read fails the job. A curator merges that pull request. Listing rules are in [CONTRIBUTING.md](CONTRIBUTING.md).
+The nightly job proposes domain-linkage, delegation-fee, reward, chain-drift, management-group, and dual-network updates together on the `nightly/fsp-delist` pull request. Dual-network is computed from a shared identity address, a website domain linked on both Flare and Songbird, or the same normalized name. Management-group membership is read from each network's PollingManagementGroup and written onto existing listings. On-chain members with no catalog entry are warned about and are not added. A failed chain read fails the job. A curator merges that pull request. Listing rules are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Working in this repository
 

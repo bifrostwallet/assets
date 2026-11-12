@@ -15,7 +15,7 @@
   "listed": false,
   "managementGroup": true,
   "domainLinked": false,
-  "dualNetwork": false,
+  "dualNetwork": true,
   "firstTransaction": {
     "hash": "0xdefea86fb5b93861fefdc449ee0956013d34b0514bb19254ef2ff4f541356ca7",
     "blockNumber": 19298867,

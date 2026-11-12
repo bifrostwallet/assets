@@ -538,7 +538,7 @@
     "listed": false,
     "managementGroup": false,
     "domainLinked": false,
-    "dualNetwork": false,
+    "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x178f353ec9b80a0b20482b4f9ba2eddb3ae6afefad90c8da1aaf03d0d709430d",
       "blockNumber": 1916844,
@@ -1018,7 +1018,7 @@
     "listed": false,
     "managementGroup": true,
     "domainLinked": false,
-    "dualNetwork": false,
+    "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xdefea86fb5b93861fefdc449ee0956013d34b0514bb19254ef2ff4f541356ca7",
       "blockNumber": 19298867,
@@ -1162,7 +1162,7 @@
     "listed": false,
     "managementGroup": true,
     "domainLinked": false,
-    "dualNetwork": false,
+    "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x9354bd81131ccf429a5979f23353116ad9fe5a7810f55deea40d8d1e97b3fedb",
       "blockNumber": 25556519,
