@@ -1,6 +1,6 @@
 # @bifrostwallet/assets
 
-Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts and dapps for Bifrost Wallet.
+Curated catalog of data providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
 **Adding a provider:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost team.
 
@@ -9,18 +9,18 @@ Curated catalog of [FTSO](#glossary) providers, validators, tokens, contracts an
 Pin one version and commit the lockfile.
 
 ```sh
-npm install @bifrostwallet/assets@<version> --save-exact
+npm install @bifrostwallet/assets --save-exact
 ```
 
 ```sh
-yarn add @bifrostwallet/assets@<version> --exact
+yarn add @bifrostwallet/assets --exact
 ```
 
 `createAssets()` is the package entry. `baseURL` is optional. Omit it and logo URLs use jsDelivr for this release tag:
 
 `https://cdn.jsdelivr.net/gh/bifrostwallet/assets@<version>/data/`
 
-`<version>` is the package version and the git tag (`1.1.0`). That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
+`<version>` is the package version and the git tag. That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
 
 An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` checks each file against the hash in that package. Pin the exact version and run it again on every bump.
 
@@ -35,7 +35,7 @@ const provider = assets.getProvider(
   "0x1650d2760baee638c034200dedcbe17b050d0364",
 );
 
-// provider.logoURL is an absolute URL, for example for <img src={provider.logoURL} alt="" />
+// provider.logoURL is an absolute URL.
 console.log(provider?.logoURL);
 ```
 
@@ -248,7 +248,7 @@ await verifyTypedData(entry); // true
 
 Fetch provider `all.json` from jsDelivr on `@main` when you are not installing the package. `logoURL` in that file is already absolute and uses the same `@main` snapshot. There is no token `all.json`. Token lists are not published that way; use `createAssets`.
 
-`@main` is the moving catalog, not a release tag. Provider `all.json` logo URLs in this repository use that unpinned branch. Updates there can take up to 12 hours to appear because jsDelivr caches branch URLs for up to 12 hours ([Caching](https://www.jsdelivr.com/documentation#id-caching)). The npm package pins `@<version>` (`@1.1.0` for this release) so its logos match the installed snapshot.
+`@main` is the moving catalog, not a release tag. Provider `all.json` logo URLs in this repository use that unpinned branch. Updates there can take up to 12 hours to appear because jsDelivr caches branch URLs for up to 12 hours ([Caching](https://www.jsdelivr.com/documentation#id-caching)). The npm package pins `@<version>` so its logos match the installed snapshot.
 
 Compared with the package and logos you host:
 
@@ -274,11 +274,3 @@ const nodeIds = listed.flatMap((provider) => provider.validators);
 // "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1650d2760baee638c034200dedcbe17b050d0364/logo.webp"
 // nodeIds starts ["NodeID-5oLazJm5PtV8JFb2GpzuCVMZdi1GxkwYP", ...]
 ```
-
-## Glossary
-
-| Term | Meaning |
-| --- | --- |
-| [FTSO](https://dev.flare.network/ftso/overview) | Flare Time Series Oracle, the price feeds a provider submits. |
-| [FSP](https://dev.flare.network/network/fsp) | Flare Systems Protocol, which records provider rewards and participation. |
-| [FDC](https://dev.flare.network/fdc/overview) | Flare Data Connector, the attestation service a provider runs. |

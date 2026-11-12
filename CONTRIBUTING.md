@@ -56,15 +56,15 @@ dig +short TXT _providers.example.com
 # "eip155:14:0x…,eip155:19:0x…"
 ```
 
-Check a curated identity with `./yarn verify:provider-domains --identity 0x…`. The walkthrough is on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/) ([FTSO](README.md#glossary) provider listing).
+Check a curated identity with `./yarn verify:provider-domains --identity 0x…`. The walkthrough is on [docs.bifrostwallet.com](https://docs.bifrostwallet.com/) (data provider listing).
 
 #### Resilient
 
-A team keeps at most one vote-power-attracting FTSO/[FSP](README.md#glossary) identity on each network. Protocol submissions use infrastructure the team controls. A shared public RPC used by other providers does not meet this requirement. The listing form asks you to confirm this before you sign.
+A team keeps at most one vote-power-attracting FTSO/FSP identity on each network. Protocol submissions use infrastructure the team controls. A shared public RPC used by other providers does not meet this requirement. The listing form asks you to confirm this before you sign.
 
 #### Independent
 
-On a network, the provider runs on its own and keeps its own infrastructure, separate from other FTSO/FSP providers. That stack is its own [FDC](README.md#glossary), FSP, feed provider, validators, and RPC node, under a single identity for that network. The listing form asks you to confirm this before you sign. The signed field is `acknowledgedResponsibilities`.
+On a network, the provider runs on its own and keeps its own infrastructure, separate from other FTSO/FSP providers. That stack is its own FDC, FSP, feed provider, validators, and RPC node, under a single identity for that network. The listing form asks you to confirm this before you sign. The signed field is `acknowledgedResponsibilities`.
 
 #### Available
 

@@ -37,8 +37,10 @@ while IFS= read -r file || [ -n "$file" ]; do
       [ -z "$line" ] && continue
       case "$line" in
         *'./yarn'*) continue ;;
-        # Package consumers install with yarn add. Not a repo ./yarn command.
+        # Package consumers install this package with yarn add. Not a repo ./yarn command.
+        # @ is a version pin. --exact names no version.
         *'yarn add @bifrostwallet/assets@'*) continue ;;
+        *'yarn add @bifrostwallet/assets --exact'*) continue ;;
       esac
       printf '%s\n' "${file}:${line}"
     done >>"$OUT_LIST"
