@@ -22,7 +22,7 @@ yarn add @bifrostwallet/assets --exact
 
 `<version>` is the package version and the git tag. That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
 
-An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos from that jsDelivr URL, two at a time, and checks each file against the hash in that package. A cold cache can return HTTP 403 (`Package size exceeded the configured limit of 50 MB`) because this repository is larger than jsDelivr's GitHub package limit. The same URL succeeds on a later request. The command retries that response, and HTTP 408, 429, 5xx, and network errors, with exponential backoff. A hash mismatch or a response over 256KB is not retried. Progress is printed to stderr. Pin the exact version and run it again on every bump.
+An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control. The steps are in [Self-hosting logos](#self-hosting-logos).
 
 Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
 
@@ -43,23 +43,35 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 
 ### Optional: check a downloaded logo
 
-Use this when you download logos or self-host them with `fetch-logos`. `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` downloads `logoURL` and runs that check in one step. It does not retry unless you pass `retries` (the delay before the first retry is `retryDelay`, 500 ms by default, and it doubles each time). `fetch-logos` passes five retries.
+`verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` downloads `logoURL` and runs that check in one step. It does not retry unless you pass `retries` (the delay before the first retry is `retryDelay`, 500 ms by default, and it doubles each time).
 
 ### Self-hosting logos
 
-Logo files are not in the npm package. You do not need to clone the repository.
-
-1. Download this version's logos. The command fetches two at a time from jsDelivr, retries a transient failure, and checks each file against the hash in the installed package. A missing hash or a mismatch does not write that file, and the command exits non-zero. Progress goes to stderr: a start line with the logo count and source, a line about every 50 logos or every 5 seconds (`fetched 350/2040, 2 retrying, 0 failed`), a note for each retry (`attempt 1/5, HTTP 403`), and a closing summary of fetched, retried, failed, and elapsed. Do not upload the directory if it fails.
+Logo files are not in the npm package. Clone this repository and check out the same version as your installed `@bifrostwallet/assets`. Tags have no `v` prefix.
 
 ```sh
-npx --yes @bifrostwallet/assets@<version> fetch-logos ./logos
+git clone https://github.com/bifrostwallet/assets
+cd assets
+git checkout <version>
 ```
 
-Files land at `./logos/providers/…`, `./logos/tokens/…`, `./logos/contracts/…`, and `./logos/dapps/…`.
+`<version>` is the installed package version, for example `1.2.2`.
 
-2. Upload that directory to any static host or bucket. The public URL must serve those paths at its root. [Cloud Storage](https://cloud.google.com/storage/docs/uploading-objects) or [S3](https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) can do that.
+Upload only the `logo.webp` files under `data/`. Keep those relative paths (`tokens/…`, `providers/…`, `contracts/…`, `dapps/…`) so `baseURL` can join them.
 
-3. Point the package at the public URL:
+Google Cloud:
+
+```sh
+gcloud storage rsync data gs://<your-bucket> --recursive --exclude='^(?!.*logo\.webp$).*'
+```
+
+Amazon S3:
+
+```sh
+aws s3 sync data s3://<your-bucket> --exclude '*' --include '*logo.webp'
+```
+
+Point the package at the public URL of that directory:
 
 ```typescript
 import { createAssets } from "@bifrostwallet/assets";
@@ -69,7 +81,7 @@ const assets = createAssets({
 });
 ```
 
-4. When you bump `@bifrostwallet/assets`, run `fetch-logos` for the new version and upload again before you ship. The default jsDelivr URL changes with the version. A copy you host does not.
+When you bump `@bifrostwallet/assets`, check out that version and upload again before you ship. The default jsDelivr URL changes with the version. A copy you host does not.
 
 ### Listed providers
 

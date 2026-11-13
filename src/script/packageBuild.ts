@@ -53,9 +53,7 @@ import type { XrplToken } from "../xrplToken.js";
 // read package.json. The same entry exports the ProviderListing EIP-712 constants
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
-// against the catalog logoHash. fetch-logos downloads those logos two at a time,
-// retries a transient CDN or network failure, and refuses any file whose hash
-// is missing or does not match. Provider signatures ship as a separate
+// against the catalog logoHash. Provider signatures ship as a separate
 // entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
 // upload sends logo files only.
@@ -567,369 +565,6 @@ const VERIFY_LOGO_HASH_JS = [
   "  }",
   "}",
 ].join("\n");
-
-function fetchLogosSource(defaultBase: string): string {
-  return `#!/usr/bin/env node
-"use strict";
-// @bifrostwallet/assets fetch-logos — generated file, do not edit.
-// Downloads logo files for this package version. Each catalog entry's logoHash
-// is the trust anchor. Bytes are the decoded response body (content-encoding removed).
-// Accept is application/octet-stream so the CDN is not asked to convert the image.
-// Two downloads run at a time. Network errors and HTTP 403, 408, 429, and 5xx
-// are retried. A hash mismatch or an oversize body is not.
-
-const fs = require("node:fs");
-const path = require("node:path");
-const { fetchLogo, verifyLogoHash } = require("./verify-logo-hash.js");
-
-const DEFAULT_LOGO_BASE_URL = ${JSON.stringify(defaultBase)};
-const USAGE = [
-  "Usage: fetch-logos <dir>",
-  "",
-  "Download this package version's logos into <dir>.",
-  "Paths stay relative to data/ (providers/, tokens/, contracts/, dapps/).",
-  "Each file is checked against the logoHash on its catalog entry.",
-  "Downloads two logos at a time.",
-  "Network errors and HTTP 403, 408, 429, and 5xx are retried up to five times with exponential backoff.",
-  "A hash mismatch or a response over 256KB is not retried.",
-  "A missing hash or a hash mismatch does not write that file, and the command exits non-zero.",
-  "Progress is printed to stderr.",
-  "Do not upload the directory when the command fails.",
-  "",
-  "Upload <dir> to any static host. createAssets baseURL is optional.",
-  "Omit it to use jsDelivr at this release tag:",
-  ${JSON.stringify(defaultBase)},
-  "Or set baseURL to the public URL where you uploaded that directory.",
-  "Example: https://assets.example.com/",
-  "Run fetch-logos again when you bump the package version.",
-].join("\\n");
-
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function walkJsonArrays(dir, visit) {
-  if (!fs.existsSync(dir)) return;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      walkJsonArrays(fullPath, visit);
-      continue;
-    }
-    if (!entry.name.endsWith(".json")) continue;
-    if (entry.name === "package.json" || entry.name === "signatures.json") {
-      continue;
-    }
-    const parsed = readJson(fullPath);
-    if (!Array.isArray(parsed)) continue;
-    for (const item of parsed) {
-      if (item && typeof item === "object" && typeof item.logoURL === "string") {
-        visit(item, path.relative(dir, fullPath));
-      }
-    }
-  }
-}
-
-function isSafeLogoPath(value) {
-  if (!value || value.startsWith("/") || value.includes("..") || value.includes("\\\\")) return false;
-  if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return false;
-  return /^(providers|tokens|contracts|dapps)\\/[A-Za-z0-9._@/-]+$/.test(value);
-}
-
-function loadAnchors(packageRoot) {
-  const entries = new Map();
-  const failures = [];
-  walkJsonArrays(packageRoot, (item) => {
-    const logoPath = item.logoURL;
-    const logoHash = item.logoHash;
-    if (!isSafeLogoPath(logoPath)) {
-      failures.push(String(logoPath) + ": invalid logo path");
-      return;
-    }
-    if (typeof logoHash !== "string" || !/^[0-9a-f]{64}$/.test(logoHash)) {
-      failures.push(logoPath + ": missing logoHash");
-      entries.set(logoPath, null);
-      return;
-    }
-    const existing = entries.get(logoPath);
-    if (existing !== undefined && existing !== logoHash) {
-      failures.push(logoPath + ": logoHash conflict");
-      entries.set(logoPath, null);
-      return;
-    }
-    if (existing === undefined) entries.set(logoPath, logoHash);
-  });
-  return { entries, failures };
-}
-
-function destinationFor(destDir, logoPath) {
-  const root = path.resolve(destDir);
-  const target = path.resolve(root, logoPath);
-  const relative = path.relative(root, target);
-  if (relative.startsWith("..") || path.isAbsolute(relative)) {
-    throw new Error("logo path escapes destination");
-  }
-  return target;
-}
-
-async function mapPool(items, limit, fn) {
-  const queue = items.slice();
-  const workers = [];
-  const count = Math.min(limit, queue.length);
-  for (let i = 0; i < count; i += 1) {
-    workers.push(
-      (async () => {
-        while (queue.length > 0) {
-          const item = queue.shift();
-          await fn(item);
-        }
-      })(),
-    );
-  }
-  await Promise.all(workers);
-}
-
-const CDN_CONCURRENCY = 2;
-const DEFAULT_RETRIES = 5;
-const DEFAULT_RETRY_DELAY_MS = 500;
-const PROGRESS_EVERY = 50;
-const PROGRESS_INTERVAL_MS = 5000;
-
-function readCount(value, fallback) {
-  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
-  const count = Math.floor(value);
-  return count > 0 ? count : 0;
-}
-
-function readDelay(value, fallback) {
-  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return fallback;
-  return value;
-}
-
-function formatElapsed(ms) {
-  const seconds = Math.max(0, ms) / 1000;
-  if (seconds < 60) return seconds.toFixed(1) + "s";
-  const minutes = Math.floor(seconds / 60);
-  const rest = Math.round(seconds % 60);
-  return minutes + "m " + rest + "s";
-}
-
-function logoNoun(count) {
-  return count === 1 ? "logo" : "logos";
-}
-
-function retryStatusText(status) {
-  if (status === "network") return "network error";
-  return "HTTP " + status;
-}
-
-function formatProgress(event) {
-  if (event.type === "start") {
-    return "fetching " + event.total + " " + logoNoun(event.total) + " from " + event.source;
-  }
-  if (event.type === "progress") {
-    return (
-      "fetched " +
-      event.fetched +
-      "/" +
-      event.total +
-      ", " +
-      event.retrying +
-      " retrying, " +
-      event.failed +
-      " failed"
-    );
-  }
-  if (event.type === "retry") {
-    return (
-      "retry " +
-      event.logoPath +
-      " attempt " +
-      event.attempt +
-      "/" +
-      event.retries +
-      ", " +
-      retryStatusText(event.status)
-    );
-  }
-  if (event.type === "summary") {
-    return (
-      "fetched " +
-      event.fetched +
-      ", retried " +
-      event.retried +
-      ", failed " +
-      event.failed +
-      ", elapsed " +
-      event.elapsed
-    );
-  }
-  return "";
-}
-
-function emitProgress(onProgress, event) {
-  if (typeof onProgress === "function") {
-    onProgress(event);
-    return;
-  }
-  const line = formatProgress(event);
-  if (line) console.error(line);
-}
-
-async function fetchLogos(options) {
-  if (!options || typeof options.destDir !== "string" || options.destDir.trim() === "") {
-    throw new Error("destDir is required");
-  }
-  const packageRoot = options.packageRoot || __dirname;
-  const supplied = typeof options.baseURL === "string" ? options.baseURL.trim() : "";
-  const baseURL = (supplied || DEFAULT_LOGO_BASE_URL).replace(/\\/?$/, "/");
-  const fetchImpl = options.fetch || fetch;
-  const retries = readCount(options.retries, DEFAULT_RETRIES);
-  const retryDelay = readDelay(options.retryDelay, DEFAULT_RETRY_DELAY_MS);
-  const progressEvery = readCount(options.progressEvery, PROGRESS_EVERY);
-  const progressIntervalMs = readDelay(options.progressIntervalMs, PROGRESS_INTERVAL_MS);
-  const onProgress = options.onProgress;
-  const loaded = loadAnchors(packageRoot);
-  const failures = loaded.failures.slice();
-  const anchorFailures = failures.length;
-  const written = [];
-  const jobs = [];
-  for (const [logoPath, logoHash] of loaded.entries) {
-    if (typeof logoHash !== "string") continue;
-    jobs.push({ logoPath, logoHash });
-  }
-  const total = jobs.length + anchorFailures;
-  const started = Date.now();
-  let fetched = 0;
-  let retried = 0;
-  let retrying = 0;
-  const emit = (event) => emitProgress(onProgress, event);
-  emit({ type: "start", total, source: baseURL });
-  const emitTick = () => {
-    emit({
-      type: "progress",
-      fetched,
-      total,
-      retrying,
-      failed: failures.length,
-    });
-  };
-  let timer = null;
-  if (total > 0 && progressIntervalMs > 0) {
-    timer = setInterval(emitTick, progressIntervalMs);
-    if (typeof timer.unref === "function") timer.unref();
-  }
-  try {
-    await mapPool(jobs, CDN_CONCURRENCY, async (job) => {
-      let inRetry = false;
-      try {
-        const bytes = await fetchLogo(
-          { logoURL: baseURL + job.logoPath, logoHash: job.logoHash },
-          {
-            fetch: fetchImpl,
-            retries,
-            retryDelay,
-            onRetry: (info) => {
-              if (!inRetry) {
-                inRetry = true;
-                retrying += 1;
-                retried += 1;
-              }
-              emit({
-                type: "retry",
-                logoPath: job.logoPath,
-                attempt: info.attempt,
-                retries: info.retries,
-                status: info.status,
-                retrying,
-              });
-            },
-          },
-        );
-        const target = destinationFor(options.destDir, job.logoPath);
-        fs.mkdirSync(path.dirname(target), { recursive: true });
-        const partial = target + ".partial";
-        fs.writeFileSync(partial, bytes);
-        fs.renameSync(partial, target);
-        written.push(job.logoPath);
-        fetched += 1;
-      } catch (error) {
-        const message = error && error.message ? error.message : String(error);
-        failures.push(job.logoPath + ": " + message);
-      } finally {
-        if (inRetry) {
-          inRetry = false;
-          retrying -= 1;
-        }
-      }
-      const settled = fetched + (failures.length - anchorFailures);
-      if (progressEvery > 0 && settled > 0 && settled % progressEvery === 0) emitTick();
-    });
-  } finally {
-    if (timer) clearInterval(timer);
-  }
-  const elapsedMs = Date.now() - started;
-  emit({
-    type: "summary",
-    fetched,
-    retried,
-    failed: failures.length,
-    elapsed: formatElapsed(elapsedMs),
-    elapsedMs,
-  });
-  return { written, failures };
-}
-
-async function runCli(argv, deps) {
-  const args = Array.isArray(argv) ? argv.slice() : [];
-  const extra = deps || {};
-  if (args.includes("--help") || args.includes("-h")) {
-    console.info(USAGE);
-    return 0;
-  }
-  if (args[0] === "fetch-logos") args.shift();
-  if (args.length !== 1) {
-    console.error(USAGE);
-    return 1;
-  }
-  const result = await fetchLogos({
-    destDir: args[0],
-    packageRoot: extra.packageRoot,
-    baseURL: extra.baseURL,
-    fetch: extra.fetch,
-    retries: extra.retries,
-    retryDelay: extra.retryDelay,
-    onProgress: extra.onProgress,
-    progressEvery: extra.progressEvery,
-    progressIntervalMs: extra.progressIntervalMs,
-  });
-  for (const failure of result.failures) console.error(failure);
-  if (result.failures.length > 0) {
-    console.error(
-      "fetch-logos failed for " +
-        result.failures.length +
-        " logo(s). Those files were not written. Do not upload this directory.",
-    );
-    return 1;
-  }
-  console.info("Wrote " + result.written.length + " logo(s) to " + args[0]);
-  return 0;
-}
-
-if (require.main === module) {
-  runCli(process.argv.slice(2))
-    .then((code) => {
-      process.exitCode = code;
-    })
-    .catch((error) => {
-      console.error(error && error.message ? error.message : error);
-      process.exitCode = 1;
-    });
-}
-
-module.exports = { fetchLogos, fetchLogo, runCli, verifyLogoHash };
-`;
-}
 
 /** True when `source` contains an absolute URL whose host is exactly `hostname`. */
 function sourceContainsHostname(source: string, hostname: string): boolean {
@@ -1731,7 +1366,7 @@ export interface FetchLogoOptions {
   signal?: AbortSignal;
   /**
    * Extra attempts after a network error or HTTP 403, 408, 429, or 5xx.
-   * Defaults to 0. fetch-logos passes 5.
+   * Defaults to 0.
    * A hash mismatch or a response over 256KB is never retried.
    */
   retries?: number;
@@ -1752,7 +1387,7 @@ export declare function fetchLogo(
 /**
  * True when SHA-256 of the decoded logo bytes equals expectedHash.
  * expectedHash is 64 lowercase hex characters with no 0x prefix (catalog logoHash).
- * For bytes you already have, such as a file from fetch-logos.
+ * For bytes you already have.
  * fetchLogo calls this after a download.
  */
 export declare function verifyLogoHash(
@@ -1973,9 +1608,6 @@ function buildPackageUnlocked(): void {
     path.join(distDir, "verify-logo-hash.js"),
     `"use strict";\n${VERIFY_LOGO_HASH_JS}\nmodule.exports = { verifyLogoHash, fetchLogo };\n`,
   );
-  const fetchLogosPath = path.join(distDir, "fetch-logos.js");
-  fs.writeFileSync(fetchLogosPath, fetchLogosSource(defaultBase));
-  fs.chmodSync(fetchLogosPath, 0o755);
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
   ).join("\n");
@@ -2013,9 +1645,6 @@ function buildPackageUnlocked(): void {
         types: "./signatures.d.ts",
         default: "./signatures.js",
       },
-    },
-    bin: {
-      "fetch-logos": "./fetch-logos.js",
     },
     sideEffects: false,
     dependencies: {},
