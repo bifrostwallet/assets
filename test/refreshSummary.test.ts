@@ -29,10 +29,7 @@ describe("refresh provider flags", () => {
     assert.equal(parseArgs([]).skipDelist, false);
     assert.equal(parseArgs(["--write-domain", "--skip-chain"]).skipDelist, false);
     assert.equal(parseArgs(["--write-domain", "--skip-chain", "--skip-delist"]).skipDelist, true);
-    assert.equal(
-      parseArgs(["--write-delist", "--write-chain", "--skip-earn", "--skip-domain"]).skipDelist,
-      false,
-    );
+    assert.equal(parseArgs(["--write-delist", "--write-chain", "--skip-domain"]).skipDelist, false);
   });
 
   test("the nightly workflow scans listing fees once, on the chain pass", () => {
@@ -45,7 +42,7 @@ describe("refresh provider flags", () => {
     );
     assert.deepEqual(commands, [
       "./yarn refresh:providers --write-domain --skip-chain --skip-delist",
-      "./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain",
+      "./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-domain",
     ]);
   });
 });
