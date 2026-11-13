@@ -1,6 +1,6 @@
 # Contributing
 
-Provider listings go through the form below. Tokens, contracts, and dapps are curated by the Bifrost team. Curators review each provider submission before it is listed. Hand-edited catalog pull requests are closed without review. Maintainers apply tooling changes on `main`. For a code change beyond a small fix, open an issue first.
+Provider and validator listings go through the form below. Tokens, contracts, and dapps are curated by the Bifrost Wallet team. Curators review each provider submission before it is listed. Hand-edited catalog pull requests are closed without review. Maintainers apply tooling changes on `main`. For a code change beyond a small fix, open an issue first.
 
 ## Providers
 
