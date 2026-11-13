@@ -1,0 +1,9 @@
+{
+  "name": "GateHub LTC",
+  "symbol": "LTC",
+  "issuer": "rcRzGWq6Ng3jeYhqnmM4zcWcUh69hrQ8V",
+  "currency": "LTC",
+  "coingeckoId": "litecoin",
+  "logoURL": "tokens/xrpl-0/rcRzGWq6Ng3jeYhqnmM4zcWcUh69hrQ8V/LTC/logo.webp",
+  "logoHash": "adb22303236eaa6012a7bc39aa1efb94e85a27e76f054f0aa5faa3703d2df919"
+}
