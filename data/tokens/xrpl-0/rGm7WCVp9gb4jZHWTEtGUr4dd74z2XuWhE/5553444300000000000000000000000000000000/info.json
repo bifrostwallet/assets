@@ -1,0 +1,9 @@
+{
+  "name": "Circle USDC",
+  "symbol": "USDC",
+  "issuer": "rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE",
+  "currency": "5553444300000000000000000000000000000000",
+  "coingeckoId": "usd-coin",
+  "logoURL": "tokens/xrpl-0/rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE/5553444300000000000000000000000000000000/logo.webp",
+  "logoHash": "6c4504ea2c77cd6f89e6783df80b245b34d8e25faab6923545f464444264fa3e"
+}

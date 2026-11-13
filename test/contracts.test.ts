@@ -581,7 +581,7 @@ describe("published package lookups", { concurrency: false }, () => {
     const wflr = assets.getToken("eip155:14", "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d");
     assert.equal(wflr?.address, "0x1d80c49bbbcd1c0911346656b529df9e5c2f783d");
     const xrpl = assets.getTokens("xrpl:0");
-    assert.equal(xrpl.length, 11);
+    assert.equal(xrpl.length, 18);
     assert.ok(
       xrpl.every(
         (token) =>

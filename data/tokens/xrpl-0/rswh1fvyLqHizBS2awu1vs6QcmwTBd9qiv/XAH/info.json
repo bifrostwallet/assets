@@ -1,0 +1,9 @@
+{
+  "name": "GateHub XAH",
+  "symbol": "XAH",
+  "issuer": "rswh1fvyLqHizBS2awu1vs6QcmwTBd9qiv",
+  "currency": "XAH",
+  "coingeckoId": "xahau",
+  "logoURL": "tokens/xrpl-0/rswh1fvyLqHizBS2awu1vs6QcmwTBd9qiv/XAH/logo.webp",
+  "logoHash": "adb22303236eaa6012a7bc39aa1efb94e85a27e76f054f0aa5faa3703d2df919"
+}
