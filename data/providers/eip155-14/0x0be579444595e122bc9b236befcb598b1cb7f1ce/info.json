@@ -18,7 +18,7 @@
     "NodeID-FDR3CXdwP3H3Zz9QKfL61fk56zkPEgdFV"
   ],
   "listed": true,
-  "managementGroup": true,
+  "managementGroup": false,
   "domainLinked": false,
   "dualNetwork": true,
   "firstTransaction": {

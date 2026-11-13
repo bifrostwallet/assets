@@ -16,7 +16,7 @@
     "NodeID-NEBeLpZHjxiSB9fbqDeqsxU529e41hQYE"
   ],
   "listed": true,
-  "managementGroup": false,
+  "managementGroup": true,
   "domainLinked": false,
   "dualNetwork": false,
   "firstTransaction": {

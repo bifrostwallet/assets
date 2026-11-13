@@ -13,7 +13,7 @@
   "publicKey": "0x1251993f18009af4ab0bd52d321f28457cb23e07dcfdb800076c650a975a59eb142cce6efc4a34d425da64fd5c4485f4e8ccc445688ef6aeddd3745b325622ff",
   "validators": ["NodeID-Ckyh9cpfkkXSo5PYNNFactcrKkY2XhkXR"],
   "listed": true,
-  "managementGroup": true,
+  "managementGroup": false,
   "domainLinked": false,
   "dualNetwork": true,
   "firstTransaction": {
