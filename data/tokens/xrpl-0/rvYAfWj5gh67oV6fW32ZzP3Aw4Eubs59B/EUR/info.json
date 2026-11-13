@@ -3,7 +3,7 @@
   "symbol": "EUR",
   "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
   "currency": "EUR",
-  "coingeckoId": null,
+  "coingeckoId": "euro-coin",
   "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B/EUR/logo.webp",
   "logoHash": "2c91dd09c1f906bfdc2846f30b8d721130ceb72aba4414651ffc6b00e542c49a"
 }

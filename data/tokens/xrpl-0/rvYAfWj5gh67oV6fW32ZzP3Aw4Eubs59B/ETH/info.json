@@ -3,7 +3,7 @@
   "symbol": "ETH",
   "issuer": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B",
   "currency": "ETH",
-  "coingeckoId": null,
+  "coingeckoId": "ethereum",
   "logoURL": "tokens/xrpl-0/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B/ETH/logo.webp",
   "logoHash": "9e5f1c39b791bfd6537f3a5cc511853263993928c20b0d9ec438c1c7dd911d9c"
 }
