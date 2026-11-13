@@ -29,10 +29,7 @@ describe("refresh provider flags", () => {
     assert.equal(parseArgs([]).skipDelist, false);
     assert.equal(parseArgs(["--write-domain", "--skip-chain"]).skipDelist, false);
     assert.equal(parseArgs(["--write-domain", "--skip-chain", "--skip-delist"]).skipDelist, true);
-    assert.equal(
-      parseArgs(["--write-delist", "--write-chain", "--skip-domain"]).skipDelist,
-      false,
-    );
+    assert.equal(parseArgs(["--write-delist", "--write-chain", "--skip-domain"]).skipDelist, false);
   });
 
   test("the nightly workflow scans listing fees once, on the chain pass", () => {

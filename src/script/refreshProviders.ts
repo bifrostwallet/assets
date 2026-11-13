@@ -1,7 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { applyChainDrift, collectChainDrift, formatChainDriftSummary } from "../chainDrift.js";
-import type { ProviderInfo } from "../config.js";
 import {
   applyDelistCandidates,
   findDelistCandidates,
