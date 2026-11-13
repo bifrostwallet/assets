@@ -2,7 +2,7 @@
 
 Curated catalog of data providers, validators, tokens, contracts and dapps for Bifrost Wallet.
 
-**Adding a provider:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost team.
+**Adding a data provider or validator:** [CONTRIBUTING.md](CONTRIBUTING.md). Tokens, contracts, and dapps are curated by the Bifrost Wallet team.
 
 ## Using the package
 
