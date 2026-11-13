@@ -2,19 +2,11 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { applyChainDrift, collectChainDrift, formatChainDriftSummary } from "../chainDrift.js";
 import type { ProviderInfo } from "../config.js";
-import { computeProviderApys, computeValidatorApys, providerNames } from "../earn/apy.js";
-import { CHAINS, type ChainConfig, type EarnConfig } from "../earn/config.js";
 import {
   applyDelistCandidates,
   findDelistCandidates,
   formatDelistSummary,
 } from "../earn/delist.js";
-import {
-  loadLatestFspEpoch,
-  loadLatestStakingEpoch,
-  type StakingEpochData,
-} from "../earn/github.js";
-import { buildEarnData, createStore, type EarnStore } from "../earn/output.js";
 import { isMain } from "../isMain.js";
 import { type DomainLinkageSyncResult, syncDomainLinkage } from "./syncDomainLinkage.js";
 import { formatDualNetworkSection, syncDualNetwork } from "./syncDualNetwork.js";
@@ -28,26 +20,23 @@ import {
 
 /**
  * Nightly provider refresh:
- * 1. Compute Earn APY from fsp-rewards (+ reward-scripts on Flare) and write
- *    private earn JSON to GCS (or ./out with --dry-run). No human gate.
- *    Skip with --skip-earn.
- * 2. With --write-domain: persist domainLinked into git (unsigned flag). CI
+ * 1. With --write-domain: persist domainLinked into git (unsigned flag). CI
  *    leaves those edits in the working tree for the nightly/fsp-delist pull
  *    request — never straight to main. The domain-linkage section is also
  *    written to domain-linkage-summary.md so a later --skip-domain run can
  *    keep it in delist-summary.md. Skip the check entirely with --skip-domain.
- * 3. Compute dualNetwork from a shared identity address, a website domain
+ * 2. Compute dualNetwork from a shared identity address, a website domain
  *    linked on both Flare and Songbird, or the same normalized name. With
  *    --write-dual-network, persist the flags. The nightly catalog step passes
  *    that flag after domain linkage is on disk, so the pull request summary
  *    counts the edits. --dry-run previews.
- * 4. With --write-delist: flip listed:false for providers that burned FSP
+ * 3. With --write-delist: flip listed:false for providers that burned FSP
  *    rewards (eligibleForReward=false in the latest passes.json) or whose
  *    current FTSO fee or any currently validating Flare validator fee is above
  *    50% (Bifrost's listing recommendation). CI applies this on the same
  *    branch and opens one PR — never straight to main. Skip the fee scan
  *    entirely with --skip-delist so a domain-only pass does not hit Flare twice.
- * 5. With --write-chain: compare EntityManager addresses and validators with
+ * 4. With --write-chain: compare EntityManager addresses and validators with
  *    info.json, and set managementGroup from each network's
  *    PollingManagementGroup. Same PR as domain linkage, dual network, and
  *    delist; signatures stay valid because those fields are unsigned. A failed
@@ -60,8 +49,7 @@ import {
  *   ./yarn refresh:providers --dry-run
  *   ./yarn refresh:providers --write-domain
  *   ./yarn refresh:providers --write-domain --skip-chain --skip-delist
- *   ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain
- *   EARN_BUCKET=<private-earn-bucket> ./yarn refresh:providers
+ *   ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-domain
  */
 
 interface RefreshArgs {
@@ -70,7 +58,6 @@ interface RefreshArgs {
   writeDelist: boolean;
   writeChain: boolean;
   writeDualNetwork: boolean;
-  skipEarn: boolean;
   skipDomain: boolean;
   skipDelist: boolean;
   skipChain: boolean;
@@ -83,91 +70,10 @@ export function parseArgs(argv: string[]): RefreshArgs {
     writeDelist: argv.includes("--write-delist"),
     writeChain: argv.includes("--write-chain"),
     writeDualNetwork: argv.includes("--write-dual-network"),
-    skipEarn: argv.includes("--skip-earn"),
     skipDomain: argv.includes("--skip-domain"),
     skipDelist: argv.includes("--skip-delist"),
     skipChain: argv.includes("--skip-chain"),
   };
-}
-
-function loadCatalogNames(chainPath: string): Map<string, string> {
-  const allPath = path.join(process.cwd(), "data", "providers", chainPath, "all.json");
-  const names = new Map<string, string>();
-  if (!fs.existsSync(allPath)) return names;
-
-  const providers = JSON.parse(fs.readFileSync(allPath, "utf8")) as ProviderInfo[];
-  for (const provider of providers) {
-    if (provider.name) {
-      names.set(provider.identityAddress.toLowerCase(), provider.name);
-    }
-  }
-  return names;
-}
-
-function resolveEarnConfig(dryRun: boolean): EarnConfig {
-  if (dryRun) {
-    return { bucket: "", dryRun: true };
-  }
-  const bucket = process.env.EARN_BUCKET ?? "";
-  if (!bucket) {
-    throw new Error(
-      "EARN_BUCKET is required (private earn GCS bucket). Pass --dry-run for local out/ writes.",
-    );
-  }
-  return { bucket, dryRun: false };
-}
-
-async function processChain(chain: ChainConfig, store: EarnStore): Promise<void> {
-  const [current, fsp, staking] = await Promise.all([
-    store.readLatest(chain.name),
-    loadLatestFspEpoch(chain.name),
-    chain.hasValidators ? loadLatestStakingEpoch() : Promise.resolve(undefined),
-  ]);
-
-  const stakingEpochId = staking?.epochId ?? null;
-  if (current && current.fspEpochId === fsp.epochId && current.stakingEpochId === stakingEpochId) {
-    console.info(
-      `ℹ️  ${chain.name}: no new epoch data (fsp=${fsp.epochId}, staking=${stakingEpochId}), skipping earn write`,
-    );
-    return;
-  }
-
-  const catalogNames = loadCatalogNames(chain.chainPath);
-  const stakingNames = staking ? providerNames(staking, fsp) : new Map<string, string>();
-  const names = new Map([...stakingNames, ...catalogNames]);
-
-  const providers = computeProviderApys(fsp, names);
-  const validators = staking ? computeValidatorApys(fsp, staking as StakingEpochData) : [];
-
-  const data = buildEarnData(chain.name, fsp.epochId, stakingEpochId, providers, validators);
-  const written = await store.write(data);
-
-  console.info(
-    `✅ ${chain.name}: earn data written (fsp=${fsp.epochId}, staking=${stakingEpochId}, providers=${providers.length}, validators=${validators.length})`,
-  );
-  for (const writtenPath of written) {
-    console.info(`   ${writtenPath}`);
-  }
-}
-
-async function publishEarn(config: EarnConfig): Promise<void> {
-  const store = createStore(config);
-  if (config.dryRun) {
-    console.warn("⚠️  DRY_RUN: writing earn APY to ./out instead of GCS");
-  }
-
-  let failed = false;
-  for (const chain of CHAINS) {
-    try {
-      await processChain(chain, store);
-    } catch (err) {
-      failed = true;
-      console.error(`❌ ${chain.name}: ${err instanceof Error ? err.message : String(err)}`);
-    }
-  }
-  if (failed) {
-    throw new Error("One or more earn APY chains failed");
-  }
 }
 
 /** Sidecar written by the domain run and read by a later --skip-domain run. */
@@ -233,18 +139,10 @@ async function refreshProviders(): Promise<void> {
     writeDelist,
     writeChain,
     writeDualNetwork,
-    skipEarn,
     skipDomain,
     skipDelist,
     skipChain,
   } = parseArgs(process.argv.slice(2));
-
-  if (skipEarn) {
-    console.info("ℹ️  --skip-earn: not publishing earn APY");
-  } else {
-    const earnConfig = resolveEarnConfig(dryRun);
-    await publishEarn(earnConfig);
-  }
 
   let domainSection: string | undefined;
 
