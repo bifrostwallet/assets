@@ -16,7 +16,7 @@
     "NodeID-J8Zbi3b3AjTEUmHdE4KSApEU1U36iaeDS"
   ],
   "listed": true,
-  "managementGroup": true,
+  "managementGroup": false,
   "domainLinked": false,
   "dualNetwork": true,
   "firstTransaction": {

@@ -16,7 +16,7 @@
     "NodeID-KiaPr2n8VH16oA7mGzveYgk2hceo2WYst"
   ],
   "listed": false,
-  "managementGroup": false,
+  "managementGroup": true,
   "domainLinked": false,
   "dualNetwork": false,
   "firstTransaction": {

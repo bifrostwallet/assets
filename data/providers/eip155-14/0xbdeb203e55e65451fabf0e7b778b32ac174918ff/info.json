@@ -16,7 +16,7 @@
     "NodeID-KWuQ1CaxMUvDRRh7pzgcGMXpv38SFmb3r"
   ],
   "listed": true,
-  "managementGroup": false,
+  "managementGroup": true,
   "domainLinked": false,
   "dualNetwork": true,
   "firstTransaction": {
