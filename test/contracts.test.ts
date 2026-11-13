@@ -544,8 +544,12 @@ describe("published package lookups", { concurrency: false }, () => {
     );
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("fetch-logos.js")),
-      true,
+      false,
     );
+    const distPackage = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "dist", "package.json"), "utf8"),
+    ) as { bin?: unknown };
+    assert.equal("bin" in distPackage, false);
     assert.equal(
       packedPaths.some((packedPath) => packedPath.endsWith("signatures.js")),
       true,
