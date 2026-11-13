@@ -50,18 +50,74 @@ const BAD_PATH = "providers/eip155-14/0x123/logo.webp";
 const DAPP_PATH = "dapps/sparkdex-ai/logo.webp";
 const DAPP_BAD = "dapps/tampered-app/logo.webp";
 
+interface LogoResponse {
+  ok: boolean;
+  status: number;
+  arrayBuffer: () => Promise<ArrayBuffer>;
+}
+
+interface ProgressEvent {
+  type: string;
+  total?: number;
+  source?: string;
+  fetched?: number;
+  retrying?: number;
+  failed?: number;
+  retried?: number;
+  elapsed?: string;
+  logoPath?: string;
+  attempt?: number;
+  retries?: number;
+  status?: number | string;
+}
+
+interface FetchLogoOptions {
+  fetch?: (input: string, init?: RequestInit) => Promise<LogoResponse>;
+  retries?: number;
+  retryDelay?: number;
+  progressEvery?: number;
+  progressIntervalMs?: number;
+  onProgress?: (event: ProgressEvent) => void;
+}
+
 interface FetchLogosModule {
-  fetchLogos: (options: {
-    destDir: string;
-    packageRoot?: string;
-    baseURL?: string;
-    fetch?: typeof fetch;
-  }) => Promise<{ written: string[]; failures: string[] }>;
+  fetchLogo: (
+    entry: { logoURL: string; logoHash: string },
+    options?: FetchLogoOptions,
+  ) => Promise<Uint8Array>;
+  fetchLogos: (
+    options: FetchLogoOptions & {
+      destDir: string;
+      packageRoot?: string;
+      baseURL?: string;
+    },
+  ) => Promise<{ written: string[]; failures: string[] }>;
   runCli: (
     argv: string[],
-    deps?: { packageRoot?: string; baseURL?: string; fetch?: typeof fetch },
+    deps?: FetchLogoOptions & { packageRoot?: string; baseURL?: string },
   ) => Promise<number>;
   verifyLogoHash: (bytes: Uint8Array, expectedHash: string) => boolean;
+}
+
+function responseWith(status: number, body?: Buffer): LogoResponse {
+  const payload = body ? Buffer.from(body) : Buffer.alloc(0);
+  return {
+    ok: status >= 200 && status < 300,
+    status,
+    async arrayBuffer() {
+      const copy = new Uint8Array(payload.byteLength);
+      copy.set(payload);
+      return copy.buffer;
+    },
+  };
+}
+
+function writeCatalog(root: string, entries: Array<{ logoURL: string; logoHash: string }>): void {
+  fs.mkdirSync(path.join(root, "tokens"), { recursive: true });
+  fs.writeFileSync(
+    path.join(root, "tokens", "eip155-1.json"),
+    `${JSON.stringify(entries, null, 2)}\n`,
+  );
 }
 
 function writeFixture(root: string): void {
@@ -355,6 +411,11 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
   test("help describes an optional baseURL and does not mention raw GitHub", () => {
     const source = fs.readFileSync(path.join(process.cwd(), "dist", "fetch-logos.js"), "utf8");
     assert.match(source, /baseURL is optional/);
+    assert.match(source, /Downloads two logos at a time/);
+    assert.match(source, /HTTP 403, 408, 429, and 5xx/);
+    assert.match(source, /Progress is printed to stderr/);
+    assert.match(source, /CDN_CONCURRENCY = 2/);
+    assert.match(source, /DEFAULT_RETRIES = 5/);
     assert.match(source, /https:\/\/assets\.example\.com\//);
     const version = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"))
       .version as string;
@@ -385,5 +446,354 @@ describe("fetch-logos and verifyLogoHash", { concurrency: false }, () => {
         .update(fs.readFileSync(path.join(process.cwd(), "data", provider)))
         .digest("hex"),
     );
+  });
+
+  test("retries HTTP 403 and returns the verified bytes", async () => {
+    let calls = 0;
+    const bytes = await logos.fetchLogo(
+      { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+      {
+        retries: 5,
+        retryDelay: 1,
+        fetch: async () => {
+          calls += 1;
+          if (calls === 1) return responseWith(403);
+          return responseWith(200, GOOD);
+        },
+      },
+    );
+    assert.equal(calls, 2);
+    assert.deepEqual(Buffer.from(bytes), GOOD);
+  });
+
+  test("a persistent HTTP 403 fails after the retries run out", async () => {
+    let calls = 0;
+    const times: number[] = [];
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+          {
+            retries: 2,
+            retryDelay: 20,
+            fetch: async () => {
+              times.push(Date.now());
+              calls += 1;
+              return responseWith(403);
+            },
+          },
+        ),
+      /Could not fetch logo: HTTP 403/,
+    );
+    assert.equal(calls, 3);
+    assert.ok(times[1] - times[0] >= 15);
+    assert.ok(times[2] - times[1] >= 35);
+  });
+
+  test("does not retry HTTP 404", async () => {
+    let calls = 0;
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/missing.webp", logoHash: GOOD_HASH },
+          {
+            retries: 5,
+            retryDelay: 1,
+            fetch: async () => {
+              calls += 1;
+              return responseWith(404);
+            },
+          },
+        ),
+      /Could not fetch logo: HTTP 404/,
+    );
+    assert.equal(calls, 1);
+  });
+
+  test("does not retry a hash mismatch or an oversize response", async () => {
+    let mismatchCalls = 0;
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+          {
+            retries: 5,
+            retryDelay: 1,
+            fetch: async () => {
+              mismatchCalls += 1;
+              return responseWith(200, Buffer.from("not-the-logo"));
+            },
+          },
+        ),
+      /logo hash mismatch/,
+    );
+    assert.equal(mismatchCalls, 1);
+
+    let oversizeCalls = 0;
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+          {
+            retries: 4,
+            retryDelay: 1,
+            fetch: async () => {
+              oversizeCalls += 1;
+              return responseWith(200, Buffer.alloc(256 * 1024 + 1));
+            },
+          },
+        ),
+      /response exceeds 256KB/,
+    );
+    assert.equal(oversizeCalls, 1);
+  });
+
+  test("fetchLogo stays single-shot unless retries is set", async () => {
+    let calls = 0;
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+          {
+            fetch: async () => {
+              calls += 1;
+              return responseWith(403);
+            },
+          },
+        ),
+      /Could not fetch logo: HTTP 403/,
+    );
+    assert.equal(calls, 1);
+  });
+
+  test("retries a network error and HTTP 408, 429, and 500", async () => {
+    for (const status of [408, 429, 500, 503]) {
+      let calls = 0;
+      const bytes = await logos.fetchLogo(
+        { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+        {
+          retries: 1,
+          retryDelay: 1,
+          fetch: async () => {
+            calls += 1;
+            if (calls === 1) return responseWith(status);
+            return responseWith(200, GOOD);
+          },
+        },
+      );
+      assert.equal(calls, 2, `status ${status}`);
+      assert.deepEqual(Buffer.from(bytes), GOOD);
+    }
+
+    let calls = 0;
+    const bytes = await logos.fetchLogo(
+      { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+      {
+        retries: 1,
+        retryDelay: 1,
+        fetch: async () => {
+          calls += 1;
+          if (calls === 1) throw new Error("socket hang up");
+          return responseWith(200, GOOD);
+        },
+      },
+    );
+    assert.equal(calls, 2);
+    assert.deepEqual(Buffer.from(bytes), GOOD);
+
+    let rejected = 0;
+    await assert.rejects(
+      () =>
+        logos.fetchLogo(
+          { logoURL: "https://cdn.example/logo.webp", logoHash: GOOD_HASH },
+          {
+            retries: 4,
+            retryDelay: 1,
+            fetch: async () => {
+              rejected += 1;
+              return responseWith(400);
+            },
+          },
+        ),
+      /Could not fetch logo: HTTP 400/,
+    );
+    assert.equal(rejected, 1);
+  });
+
+  test("downloads at most two logos at a time", async () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-pool-"));
+    const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-pool-out-"));
+    const entries = Array.from({ length: 6 }, (_, index) => ({
+      logoURL: `tokens/eip155-1/${index}.webp`,
+      logoHash: GOOD_HASH,
+    }));
+    writeCatalog(fixture, entries);
+    let inFlight = 0;
+    let maxInFlight = 0;
+    const result = await logos.fetchLogos({
+      destDir: dest,
+      packageRoot: fixture,
+      baseURL: "https://cdn.example/data/",
+      retryDelay: 1,
+      progressIntervalMs: 0,
+      onProgress: () => {},
+      fetch: async () => {
+        inFlight += 1;
+        maxInFlight = Math.max(maxInFlight, inFlight);
+        await new Promise((resolve) => setTimeout(resolve, 30));
+        inFlight -= 1;
+        return responseWith(200, GOOD);
+      },
+    });
+    assert.deepEqual(result.failures, []);
+    assert.equal(result.written.length, 6);
+    assert.equal(maxInFlight, 2);
+  });
+
+  test("reports progress for every 50 logos and on a timer", async () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-progress-"));
+    const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-progress-out-"));
+    writeCatalog(
+      fixture,
+      Array.from({ length: 50 }, (_, index) => ({
+        logoURL: `tokens/eip155-1/${index}.webp`,
+        logoHash: GOOD_HASH,
+      })),
+    );
+    const events: ProgressEvent[] = [];
+    const result = await logos.fetchLogos({
+      destDir: dest,
+      packageRoot: fixture,
+      baseURL: "https://cdn.example/data/",
+      progressIntervalMs: 0,
+      onProgress: (event) => events.push(event),
+      fetch: async () => responseWith(200, GOOD),
+    });
+    assert.deepEqual(result.failures, []);
+    assert.equal(events[0]?.type, "start");
+    assert.equal(events[0]?.total, 50);
+    assert.equal(events[0]?.source, "https://cdn.example/data/");
+    assert.ok(
+      events.some(
+        (event) =>
+          event.type === "progress" &&
+          event.fetched === 50 &&
+          event.total === 50 &&
+          event.retrying === 0 &&
+          event.failed === 0,
+      ),
+    );
+    const summary = events.at(-1);
+    assert.equal(summary?.type, "summary");
+    assert.equal(summary?.fetched, 50);
+    assert.equal(summary?.retried, 0);
+    assert.equal(summary?.failed, 0);
+    assert.match(summary?.elapsed ?? "", /^\d+\.\ds$/);
+
+    const slowFixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-tick-"));
+    const slowDest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-tick-out-"));
+    writeCatalog(slowFixture, [{ logoURL: GOOD_PATH, logoHash: GOOD_HASH }]);
+    const ticks: ProgressEvent[] = [];
+    await logos.fetchLogos({
+      destDir: slowDest,
+      packageRoot: slowFixture,
+      baseURL: "https://cdn.example/data/",
+      progressEvery: 50,
+      progressIntervalMs: 30,
+      onProgress: (event) => ticks.push(event),
+      fetch: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 160));
+        return responseWith(200, GOOD);
+      },
+    });
+    assert.ok(ticks.some((event) => event.type === "progress" && event.fetched === 0));
+    assert.equal(ticks.at(-1)?.type, "summary");
+  });
+
+  test("prints progress and retry notes to stderr", async () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-stderr-"));
+    const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-stderr-out-"));
+    writeCatalog(fixture, [{ logoURL: GOOD_PATH, logoHash: GOOD_HASH }]);
+    const lines: string[] = [];
+    const original = console.error;
+    console.error = ((line?: unknown) => {
+      lines.push(String(line));
+    }) as typeof console.error;
+    try {
+      let calls = 0;
+      const code = await logos.runCli([dest], {
+        packageRoot: fixture,
+        baseURL: "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.3.0/data",
+        retryDelay: 1,
+        progressEvery: 1,
+        progressIntervalMs: 0,
+        fetch: async () => {
+          calls += 1;
+          if (calls === 1) return responseWith(403);
+          return responseWith(200, GOOD);
+        },
+      });
+      assert.equal(code, 0);
+      assert.equal(calls, 2);
+    } finally {
+      console.error = original;
+    }
+    assert.equal(
+      lines[0],
+      "fetching 1 logo from https://cdn.jsdelivr.net/gh/bifrostwallet/assets@1.3.0/data/",
+    );
+    assert.ok(lines.includes(`retry ${GOOD_PATH} attempt 1/5, HTTP 403`));
+    assert.ok(lines.includes("fetched 1/1, 0 retrying, 0 failed"));
+    assert.match(lines.at(-1) ?? "", /^fetched 1, retried 1, failed 0, elapsed \d+\.\ds$/);
+    assert.equal(
+      lines.some((line) => line.includes("\r")),
+      false,
+    );
+    assert.deepEqual(fs.readFileSync(path.join(dest, GOOD_PATH)), GOOD);
+  });
+
+  test("counts logos that are waiting to retry", async () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-retrying-"));
+    const dest = fs.mkdtempSync(path.join(os.tmpdir(), "assets-logos-retrying-out-"));
+    const paths = ["tokens/eip155-1/a.webp", "tokens/eip155-1/b.webp"];
+    writeCatalog(
+      fixture,
+      paths.map((logoURL) => ({ logoURL, logoHash: GOOD_HASH })),
+    );
+    const seen = new Map<string, number>();
+    let releaseSecond: () => void = () => {};
+    const hold = new Promise<void>((resolve) => {
+      releaseSecond = resolve;
+    });
+    let maxRetrying = 0;
+    const pending = logos.fetchLogos({
+      destDir: dest,
+      packageRoot: fixture,
+      baseURL: "https://cdn.example/data/",
+      retryDelay: 5,
+      progressIntervalMs: 0,
+      onProgress: (event) => {
+        if (event.type === "retry") maxRetrying = Math.max(maxRetrying, event.retrying ?? 0);
+      },
+      fetch: async (url: string) => {
+        const count = (seen.get(url) ?? 0) + 1;
+        seen.set(url, count);
+        if (count === 1) return responseWith(403);
+        await hold;
+        return responseWith(200, GOOD);
+      },
+    });
+    try {
+      const deadline = Date.now() + 1000;
+      while (maxRetrying < 2 && Date.now() < deadline) {
+        await new Promise((resolve) => setTimeout(resolve, 5));
+      }
+      assert.equal(maxRetrying, 2);
+    } finally {
+      releaseSecond();
+    }
+    const result = await pending;
+    assert.deepEqual(result.failures, []);
+    assert.equal(result.written.length, 2);
   });
 });

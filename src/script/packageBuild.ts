@@ -53,8 +53,9 @@ import type { XrplToken } from "../xrplToken.js";
 // read package.json. The same entry exports the ProviderListing EIP-712 constants
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
-// against the catalog logoHash. fetch-logos downloads those logos and refuses any file
-// whose hash is missing or does not match. Provider signatures ship as a separate
+// against the catalog logoHash. fetch-logos downloads those logos two at a time,
+// retries a transient CDN or network failure, and refuses any file whose hash
+// is missing or does not match. Provider signatures ship as a separate
 // entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
 // upload sends logo files only.
@@ -463,6 +464,42 @@ const VERIFY_LOGO_HASH_JS = [
   "  return crypto.timingSafeEqual(digest, expected);",
   "}",
   "",
+  "function delay(ms) {",
+  "  return new Promise((resolve) => {",
+  "    setTimeout(resolve, ms);",
+  "  });",
+  "}",
+  "",
+  "function readRetryCount(value) {",
+  '  if (typeof value !== "number" || !Number.isFinite(value)) return 0;',
+  "  const count = Math.floor(value);",
+  "  return count > 0 ? count : 0;",
+  "}",
+  "",
+  "function readRetryDelay(value) {",
+  '  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return 500;',
+  "  return value;",
+  "}",
+  "",
+  "function isRetryableStatus(status) {",
+  "  return status === 403 || status === 408 || status === 429 || (status >= 500 && status <= 599);",
+  "}",
+  "",
+  "function callerAborted(options) {",
+  "  return !!(options && options.signal && options.signal.aborted);",
+  "}",
+  "",
+  "async function backoff(options, attempt, status) {",
+  "  const retries = readRetryCount(options && options.retries);",
+  "  const retryDelay = readRetryDelay(options && options.retryDelay);",
+  "  const wait = retryDelay * 2 ** (attempt - 1);",
+  "  const onRetry = options && options.onRetry;",
+  '  if (typeof onRetry === "function") {',
+  "    await onRetry({ attempt, retries, status, delay: wait });",
+  "  }",
+  "  if (wait > 0) await delay(wait);",
+  "}",
+  "",
   "async function fetchLogo(entry, options) {",
   '  if (!entry || typeof entry.logoURL !== "string" || entry.logoURL.trim() === "") {',
   '    throw new Error("logoURL is required");',
@@ -471,30 +508,63 @@ const VERIFY_LOGO_HASH_JS = [
   '    throw new Error("logoHash must be a lowercase SHA-256 hex digest");',
   "  }",
   "  const fetchImpl = (options && options.fetch) || fetch;",
-  "  const signal = options && options.signal ? options.signal : AbortSignal.timeout(30000);",
-  "  let response;",
-  "  try {",
-  "    response = await fetchImpl(entry.logoURL, {",
-  '      redirect: "follow",',
-  '      headers: { accept: "application/octet-stream" },',
-  "      signal,",
-  "    });",
-  "  } catch (error) {",
-  "    const message = error && error.message ? error.message : String(error);",
-  '    throw new Error("Could not fetch logo: " + message);',
+  "  const retries = readRetryCount(options && options.retries);",
+  "  let attempt = 0;",
+  "  for (;;) {",
+  "    const signal = options && options.signal ? options.signal : AbortSignal.timeout(30000);",
+  "    let response;",
+  "    try {",
+  "      response = await fetchImpl(entry.logoURL, {",
+  '        redirect: "follow",',
+  '        headers: { accept: "application/octet-stream" },',
+  "        signal,",
+  "      });",
+  "    } catch (error) {",
+  "      if (!callerAborted(options) && attempt < retries) {",
+  "        attempt += 1;",
+  '        await backoff(options, attempt, "network");',
+  "        continue;",
+  "      }",
+  "      const message = error && error.message ? error.message : String(error);",
+  '      throw new Error("Could not fetch logo: " + message);',
+  "    }",
+  "    if (!response || !response.ok) {",
+  '      const status = response && typeof response.status === "number" ? response.status : 0;',
+  '      if (response && typeof response.arrayBuffer === "function") {',
+  "        try {",
+  "          await response.arrayBuffer();",
+  "        } catch (drainError) {",
+  "          void drainError;",
+  "        }",
+  "      }",
+  "      if (isRetryableStatus(status) && attempt < retries && !callerAborted(options)) {",
+  "        attempt += 1;",
+  "        await backoff(options, attempt, status);",
+  "        continue;",
+  "      }",
+  '      const label = status ? status : "request failed";',
+  '      throw new Error("Could not fetch logo: HTTP " + label);',
+  "    }",
+  "    let bytes;",
+  "    try {",
+  "      bytes = new Uint8Array(await response.arrayBuffer());",
+  "    } catch (error) {",
+  "      if (!callerAborted(options) && attempt < retries) {",
+  "        attempt += 1;",
+  '        await backoff(options, attempt, "network");',
+  "        continue;",
+  "      }",
+  "      const message = error && error.message ? error.message : String(error);",
+  '      throw new Error("Could not fetch logo: " + message);',
+  "    }",
+  "    if (bytes.byteLength > 256 * 1024) {",
+  '      throw new Error("Could not fetch logo: response exceeds 256KB");',
+  "    }",
+  "    if (!verifyLogoHash(bytes, entry.logoHash)) {",
+  '      throw new Error("logo hash mismatch");',
+  "    }",
+  "    return bytes;",
   "  }",
-  "  if (!response || !response.ok) {",
-  '    const status = response && response.status ? response.status : "request failed";',
-  '    throw new Error("Could not fetch logo: HTTP " + status);',
-  "  }",
-  "  const bytes = new Uint8Array(await response.arrayBuffer());",
-  "  if (bytes.byteLength > 256 * 1024) {",
-  '    throw new Error("Could not fetch logo: response exceeds 256KB");',
-  "  }",
-  "  if (!verifyLogoHash(bytes, entry.logoHash)) {",
-  '    throw new Error("logo hash mismatch");',
-  "  }",
-  "  return bytes;",
   "}",
 ].join("\n");
 
@@ -505,6 +575,8 @@ function fetchLogosSource(defaultBase: string): string {
 // Downloads logo files for this package version. Each catalog entry's logoHash
 // is the trust anchor. Bytes are the decoded response body (content-encoding removed).
 // Accept is application/octet-stream so the CDN is not asked to convert the image.
+// Two downloads run at a time. Network errors and HTTP 403, 408, 429, and 5xx
+// are retried. A hash mismatch or an oversize body is not.
 
 const fs = require("node:fs");
 const path = require("node:path");
@@ -517,7 +589,11 @@ const USAGE = [
   "Download this package version's logos into <dir>.",
   "Paths stay relative to data/ (providers/, tokens/, contracts/, dapps/).",
   "Each file is checked against the logoHash on its catalog entry.",
+  "Downloads two logos at a time.",
+  "Network errors and HTTP 403, 408, 429, and 5xx are retried up to five times with exponential backoff.",
+  "A hash mismatch or a response over 256KB is not retried.",
   "A missing hash or a hash mismatch does not write that file, and the command exits non-zero.",
+  "Progress is printed to stderr.",
   "Do not upload the directory when the command fails.",
   "",
   "Upload <dir> to any static host. createAssets baseURL is optional.",
@@ -613,6 +689,93 @@ async function mapPool(items, limit, fn) {
   await Promise.all(workers);
 }
 
+const CDN_CONCURRENCY = 2;
+const DEFAULT_RETRIES = 5;
+const DEFAULT_RETRY_DELAY_MS = 500;
+const PROGRESS_EVERY = 50;
+const PROGRESS_INTERVAL_MS = 5000;
+
+function readCount(value, fallback) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
+  const count = Math.floor(value);
+  return count > 0 ? count : 0;
+}
+
+function readDelay(value, fallback) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return fallback;
+  return value;
+}
+
+function formatElapsed(ms) {
+  const seconds = Math.max(0, ms) / 1000;
+  if (seconds < 60) return seconds.toFixed(1) + "s";
+  const minutes = Math.floor(seconds / 60);
+  const rest = Math.round(seconds % 60);
+  return minutes + "m " + rest + "s";
+}
+
+function logoNoun(count) {
+  return count === 1 ? "logo" : "logos";
+}
+
+function retryStatusText(status) {
+  if (status === "network") return "network error";
+  return "HTTP " + status;
+}
+
+function formatProgress(event) {
+  if (event.type === "start") {
+    return "fetching " + event.total + " " + logoNoun(event.total) + " from " + event.source;
+  }
+  if (event.type === "progress") {
+    return (
+      "fetched " +
+      event.fetched +
+      "/" +
+      event.total +
+      ", " +
+      event.retrying +
+      " retrying, " +
+      event.failed +
+      " failed"
+    );
+  }
+  if (event.type === "retry") {
+    return (
+      "retry " +
+      event.logoPath +
+      " attempt " +
+      event.attempt +
+      "/" +
+      event.retries +
+      ", " +
+      retryStatusText(event.status)
+    );
+  }
+  if (event.type === "summary") {
+    return (
+      "fetched " +
+      event.fetched +
+      ", retried " +
+      event.retried +
+      ", failed " +
+      event.failed +
+      ", elapsed " +
+      event.elapsed
+    );
+  }
+  return "";
+}
+
+function emitProgress(onProgress, event) {
+  if (typeof onProgress === "function") {
+    onProgress(event);
+    return;
+  }
+  const line = formatProgress(event);
+  if (line) console.error(line);
+}
+
 async function fetchLogos(options) {
   if (!options || typeof options.destDir !== "string" || options.destDir.trim() === "") {
     throw new Error("destDir is required");
@@ -621,30 +784,98 @@ async function fetchLogos(options) {
   const supplied = typeof options.baseURL === "string" ? options.baseURL.trim() : "";
   const baseURL = (supplied || DEFAULT_LOGO_BASE_URL).replace(/\\/?$/, "/");
   const fetchImpl = options.fetch || fetch;
+  const retries = readCount(options.retries, DEFAULT_RETRIES);
+  const retryDelay = readDelay(options.retryDelay, DEFAULT_RETRY_DELAY_MS);
+  const progressEvery = readCount(options.progressEvery, PROGRESS_EVERY);
+  const progressIntervalMs = readDelay(options.progressIntervalMs, PROGRESS_INTERVAL_MS);
+  const onProgress = options.onProgress;
   const loaded = loadAnchors(packageRoot);
   const failures = loaded.failures.slice();
+  const anchorFailures = failures.length;
   const written = [];
   const jobs = [];
   for (const [logoPath, logoHash] of loaded.entries) {
     if (typeof logoHash !== "string") continue;
     jobs.push({ logoPath, logoHash });
   }
-  await mapPool(jobs, 8, async (job) => {
-    try {
-      const bytes = await fetchLogo(
-        { logoURL: baseURL + job.logoPath, logoHash: job.logoHash },
-        { fetch: fetchImpl },
-      );
-      const target = destinationFor(options.destDir, job.logoPath);
-      fs.mkdirSync(path.dirname(target), { recursive: true });
-      const partial = target + ".partial";
-      fs.writeFileSync(partial, bytes);
-      fs.renameSync(partial, target);
-      written.push(job.logoPath);
-    } catch (error) {
-      const message = error && error.message ? error.message : String(error);
-      failures.push(job.logoPath + ": " + message);
-    }
+  const total = jobs.length + anchorFailures;
+  const started = Date.now();
+  let fetched = 0;
+  let retried = 0;
+  let retrying = 0;
+  const emit = (event) => emitProgress(onProgress, event);
+  emit({ type: "start", total, source: baseURL });
+  const emitTick = () => {
+    emit({
+      type: "progress",
+      fetched,
+      total,
+      retrying,
+      failed: failures.length,
+    });
+  };
+  let timer = null;
+  if (total > 0 && progressIntervalMs > 0) {
+    timer = setInterval(emitTick, progressIntervalMs);
+    if (typeof timer.unref === "function") timer.unref();
+  }
+  try {
+    await mapPool(jobs, CDN_CONCURRENCY, async (job) => {
+      let inRetry = false;
+      try {
+        const bytes = await fetchLogo(
+          { logoURL: baseURL + job.logoPath, logoHash: job.logoHash },
+          {
+            fetch: fetchImpl,
+            retries,
+            retryDelay,
+            onRetry: (info) => {
+              if (!inRetry) {
+                inRetry = true;
+                retrying += 1;
+                retried += 1;
+              }
+              emit({
+                type: "retry",
+                logoPath: job.logoPath,
+                attempt: info.attempt,
+                retries: info.retries,
+                status: info.status,
+                retrying,
+              });
+            },
+          },
+        );
+        const target = destinationFor(options.destDir, job.logoPath);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        const partial = target + ".partial";
+        fs.writeFileSync(partial, bytes);
+        fs.renameSync(partial, target);
+        written.push(job.logoPath);
+        fetched += 1;
+      } catch (error) {
+        const message = error && error.message ? error.message : String(error);
+        failures.push(job.logoPath + ": " + message);
+      } finally {
+        if (inRetry) {
+          inRetry = false;
+          retrying -= 1;
+        }
+      }
+      const settled = fetched + (failures.length - anchorFailures);
+      if (progressEvery > 0 && settled > 0 && settled % progressEvery === 0) emitTick();
+    });
+  } finally {
+    if (timer) clearInterval(timer);
+  }
+  const elapsedMs = Date.now() - started;
+  emit({
+    type: "summary",
+    fetched,
+    retried,
+    failed: failures.length,
+    elapsed: formatElapsed(elapsedMs),
+    elapsedMs,
   });
   return { written, failures };
 }
@@ -666,6 +897,11 @@ async function runCli(argv, deps) {
     packageRoot: extra.packageRoot,
     baseURL: extra.baseURL,
     fetch: extra.fetch,
+    retries: extra.retries,
+    retryDelay: extra.retryDelay,
+    onProgress: extra.onProgress,
+    progressEvery: extra.progressEvery,
+    progressIntervalMs: extra.progressIntervalMs,
   });
   for (const failure of result.failures) console.error(failure);
   if (result.failures.length > 0) {
@@ -1493,6 +1729,14 @@ export interface FetchLogoOptions {
   /** Defaults to global fetch. Tests pass a substitute. */
   fetch?: typeof fetch;
   signal?: AbortSignal;
+  /**
+   * Extra attempts after a network error or HTTP 403, 408, 429, or 5xx.
+   * Defaults to 0. fetch-logos passes 5.
+   * A hash mismatch or a response over 256KB is never retried.
+   */
+  retries?: number;
+  /** Milliseconds before the first retry. Doubles on each later retry. Defaults to 500. */
+  retryDelay?: number;
 }
 
 /**

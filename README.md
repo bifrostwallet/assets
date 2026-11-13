@@ -22,7 +22,7 @@ yarn add @bifrostwallet/assets --exact
 
 `<version>` is the package version and the git tag. That tag is written into the package at build time. Returned `logoURL` values are absolute. A missing record is still `null`.
 
-An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` checks each file against the hash in that package. Pin the exact version and run it again on every bump.
+An exact version tag is immutable on jsDelivr. Cache headers last one year, and the file is stored permanently, so this pinned URL does not go stale ([Caching](https://www.jsdelivr.com/documentation#id-caching)). Self-host when you want a copy you control: `npx @bifrostwallet/assets@<version> fetch-logos ./logos` downloads this version's logos from that jsDelivr URL, two at a time, and checks each file against the hash in that package. A cold cache can return HTTP 403 (`Package size exceeded the configured limit of 50 MB`) because this repository is larger than jsDelivr's GitHub package limit. The same URL succeeds on a later request. The command retries that response, and HTTP 408, 429, 5xx, and network errors, with exponential backoff. A hash mismatch or a response over 256KB is not retried. Progress is printed to stderr. Pin the exact version and run it again on every bump.
 
 Don't load logos from `raw.githubusercontent.com`. GitHub's raw file host is not a CDN: it rate-limits requests per IP and returns HTTP 429 under load. jsDelivr is built for this traffic.
 
@@ -43,13 +43,13 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 
 ### Optional: check a downloaded logo
 
-Use this when you download logos or self-host them with `fetch-logos`. `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` is a convenience that downloads `logoURL` and runs that check in one step.
+Use this when you download logos or self-host them with `fetch-logos`. `verifyLogoHash(bytes, logoHash)` is true when the SHA-256 of the decoded file bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. `fetchLogo(entry)` downloads `logoURL` and runs that check in one step. It does not retry unless you pass `retries` (the delay before the first retry is `retryDelay`, 500 ms by default, and it doubles each time). `fetch-logos` passes five retries.
 
 ### Self-hosting logos
 
 Logo files are not in the npm package. You do not need to clone the repository.
 
-1. Download this version's logos. The command checks each file against the hash in the installed package. A missing hash or a mismatch does not write that file, and the command exits non-zero. Do not upload the directory if it fails.
+1. Download this version's logos. The command fetches two at a time from jsDelivr, retries a transient failure, and checks each file against the hash in the installed package. A missing hash or a mismatch does not write that file, and the command exits non-zero. Progress goes to stderr: a start line with the logo count and source, a line about every 50 logos or every 5 seconds (`fetched 350/2040, 2 retrying, 0 failed`), a note for each retry (`attempt 1/5, HTTP 403`), and a closing summary of fetched, retried, failed, and elapsed. Do not upload the directory if it fails.
 
 ```sh
 npx --yes @bifrostwallet/assets@<version> fetch-logos ./logos
