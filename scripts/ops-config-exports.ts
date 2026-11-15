@@ -14,8 +14,7 @@
  *   "staticBucket": "…",
  *   "staticBucketProjectId": "…",
  *   "assetBaseUrl": "https://assets.example.com/",
- *   "bucketPrefix": "<prefix>/",
- *   "earnBucket": "…"
+ *   "bucketPrefix": "<prefix>/"
  * }
  *
  * Build: `./yarn build:ops-scripts` → `build/scripts/ops-config-exports.js`
@@ -29,7 +28,6 @@ type OpsConfigJson = {
   staticBucketProjectId?: unknown;
   assetBaseUrl?: unknown;
   bucketPrefix?: unknown;
-  earnBucket?: unknown;
 };
 
 function parseOpsConfig(raw: string): OpsConfigJson {
@@ -55,7 +53,6 @@ const pairs: Record<string, string | undefined> = {
   STATIC_BUCKET_PROJECT_ID: optionalString(cfg.staticBucketProjectId),
   ASSET_BASE_URL: optionalString(cfg.assetBaseUrl),
   BUCKET_PREFIX: optionalString(cfg.bucketPrefix),
-  EARN_BUCKET: optionalString(cfg.earnBucket),
 };
 
 for (const [key, value] of Object.entries(pairs)) {

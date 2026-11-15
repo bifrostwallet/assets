@@ -1,13 +1,13 @@
 name: Refresh providers
 
-# Nightly: publish private Earn APY to GCS (no human gate). Domain linkage,
-# delist, chain-drift, management-group, and dual-network edits stay in the
-# working tree and land together on one pull request (nightly/fsp-delist).
-# Nothing in this job pushes to main. A failed EntityManager or
-# PollingManagementGroup read fails the job instead of skipping that field.
-# Dual network is written on the second refresh, after domain linkage is on
-# disk, so the pull request summary counts those edits. The first command
-# passes --skip-delist so the listing-fee scan runs once, on the chain pass.
+# Nightly: domain linkage, delist, chain-drift, management-group, and
+# dual-network edits stay in the working tree and land together on one pull
+# request (nightly/fsp-delist). Nothing in this job pushes to main. A failed
+# EntityManager or PollingManagementGroup read fails the job instead of
+# skipping that field. Dual network is written on the second refresh, after
+# domain linkage is on disk, so the pull request summary counts those edits.
+# The first command passes --skip-delist so the listing-fee scan runs once, on
+# the chain pass.
 # A provider is suggested listed:false when it burned FSP rewards
 # (eligibleForReward=false in the latest passes.json — zero passes plus another
 # FTSO/FDC/staking minimal-condition failure) or breaks Bifrost's
@@ -22,25 +22,16 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 env:
   COREPACK_ENABLE: "0"
-  EARN_BUCKET: ${{ vars.EARN_BUCKET }}
 
 jobs:
   refresh:
-    name: Publish earn APY and update catalog
+    name: Update catalog
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - name: Require EARN_BUCKET variable
-        run: |
-          if [ -z "${{ vars.EARN_BUCKET }}" ]; then
-            echo "Set repository variable EARN_BUCKET (Settings → Secrets and variables → Actions → Variables)" >&2
-            exit 1
-          fi
-
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Push nightly/fsp-delist and open the catalog pull request. Not main.
@@ -51,22 +42,16 @@ jobs:
         with:
           node-version-file: .node-version
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
       - name: Install dependencies
         run: ./yarn install --immutable
 
-      - name: Refresh earn APY and domain linkage
+      - name: Refresh domain linkage
         run: ./yarn refresh:providers --write-domain --skip-chain --skip-delist
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Apply delist candidates, chain drift, management group, and dual network
-        run: ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-earn --skip-domain
+        run: ./yarn refresh:providers --write-delist --write-chain --write-dual-network --skip-domain
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
