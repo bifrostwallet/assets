@@ -1,0 +1,9 @@
+{
+  "name": "Wrapped BNB",
+  "symbol": "WBNB",
+  "decimals": 18,
+  "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+  "coingeckoId": "wbnb",
+  "logoURL": "tokens/eip155-56/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/logo.webp",
+  "logoHash": "ec80d6e302c75c55e446be2d181cc192fd460a5567b633be85e92860870360a8"
+}
