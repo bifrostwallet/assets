@@ -151,12 +151,27 @@ const require = createRequire(import.meta.url);
 export function formatRepoJson(value: unknown, filePath: string): string {
   const json = `${JSON.stringify(value, null, 2)}\n`;
   const biomeBin = require.resolve("@biomejs/biome/bin/biome");
-  return execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", filePath], {
+  const stdinPath = biomeStdinPath(filePath);
+  return execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", stdinPath], {
     cwd: process.cwd(),
     input: json,
     encoding: "utf8",
     maxBuffer: 16 * 1024 * 1024,
   });
+}
+
+/**
+ * The path Biome is told the JSON belongs to. Biome only uses it to pick the
+ * language and the matching configuration, and it checks it against the
+ * repository's ignore file. Biome 2.5.15 crashes on that check when the path is
+ * an existing file outside the repository ("path is expected to be under the
+ * root"), so such a path is replaced by the same file name under `data/`.
+ * A path inside the repository is passed relative to it.
+ */
+export function biomeStdinPath(filePath: string, root: string = process.cwd()): string {
+  const relative = path.relative(root, path.resolve(root, filePath));
+  const inside = relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative);
+  return inside ? relative : path.join("data", path.basename(filePath));
 }
 
 /** Writes {@link formatRepoJson} to disk. */

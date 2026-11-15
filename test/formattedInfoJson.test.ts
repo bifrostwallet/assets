@@ -7,7 +7,7 @@ import * as path from "node:path";
 import { describe, test } from "node:test";
 import { applyChainDrift } from "../src/chainDrift.js";
 import type { ProviderInfo } from "../src/config.js";
-import { sortProviderInfo, writeFormattedJson } from "../src/convert.js";
+import { biomeStdinPath, sortProviderInfo, writeFormattedJson } from "../src/convert.js";
 
 const require = createRequire(import.meta.url);
 
@@ -18,7 +18,10 @@ const require = createRequire(import.meta.url);
 function biomeFormat(filePath: string, value: unknown): string {
   const biomeBin = require.resolve("@biomejs/biome/bin/biome");
   const json = `${JSON.stringify(value, null, 2)}\n`;
-  return execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", filePath], {
+  // The tests write to a temporary directory. Biome is given the same file
+  // name inside the repository: it crashes on an existing path outside it.
+  const stdinPath = path.join("data", path.basename(filePath));
+  return execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", stdinPath], {
     cwd: process.cwd(),
     input: json,
     encoding: "utf8",
@@ -47,6 +50,25 @@ function sampleInfo(): ProviderInfo {
     dualNetwork: false,
   };
 }
+
+describe("biomeStdinPath", () => {
+  const root = path.join(path.sep, "work", "assets");
+
+  test("passes a path inside the repository relative to it", () => {
+    const inside = path.join("data", "providers", "eip155-14", "0xabc", "info.json");
+    assert.equal(biomeStdinPath(path.join(root, inside), root), inside);
+    assert.equal(biomeStdinPath(inside, root), inside);
+  });
+
+  test("replaces a path outside the repository with the file name under data/", () => {
+    const outside = path.join(os.tmpdir(), "chain-drift-format-abc", "info.json");
+    assert.equal(biomeStdinPath(outside, root), path.join("data", "info.json"));
+    assert.equal(
+      biomeStdinPath(path.join(root, "..", "elsewhere", "signatures.json"), root),
+      path.join("data", "signatures.json"),
+    );
+  });
+});
 
 describe("provider info.json matches biome format", () => {
   test("writeFormattedJson collapses short arrays the way biome format does", () => {
