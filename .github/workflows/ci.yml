@@ -19,10 +19,9 @@ env:
   COREPACK_ENABLE: "0"
 
 jobs:
-  # Check name stays Lint so the existing required status check still matches.
-  # The former Test steps run in this job after lint.
+  # Status check name. Lint and the catalog tests run in this job.
   lint:
-    name: Lint
+    name: "Lint & Test"
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
