@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [main]
 
+# Pull requests, including the nightly catalog PR, cancel the previous run.
+# Pushes to main never cancel an in-progress run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 
@@ -13,10 +19,11 @@ env:
   COREPACK_ENABLE: "0"
 
 jobs:
+  # Status check name. Lint and the catalog tests run in this job.
   lint:
-    name: Lint
+    name: "Lint & Test"
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -27,6 +34,9 @@ jobs:
 
       - name: Run security checks
         run: ./scripts/security/security-checks.sh
+
+      - name: Install dependencies
+        run: ./yarn install --immutable
 
       # ShellCheck and yamllint are preinstalled on GitHub's ubuntu-24.04
       # runner image; nothing is downloaded or installed at CI time.
@@ -36,9 +46,6 @@ jobs:
       - name: Lint YAML
         run: ./scripts/lint-yaml.sh
 
-      - name: Install dependencies
-        run: ./yarn install --immutable
-
       - name: Lint with Biome
         run: ./yarn lint
 
@@ -47,24 +54,6 @@ jobs:
 
       - name: Verify no outreach PII under data/
         run: ./yarn verify:no-contact-pii
-
-  test:
-    name: Test
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version-file: .node-version
-
-      - name: Run security checks
-        run: ./scripts/security/security-checks.sh
-
-      - name: Install dependencies
-        run: ./yarn install --immutable
 
       - name: Test
         run: ./yarn test
