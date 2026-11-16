@@ -557,7 +557,7 @@
     "submitSignaturesAddress": "0xb46f83efe04bc1fc9ca480cba861e65f35940352",
     "publicKey": "0x2fa6bc9cd8c14bfcfbbced2dc7bf3f20e00659584599a92f57504aff0be6416124a49e48e38fe5a54ab72d5fd478d03af84ff7d7988ff49c77ba290ffe21326e",
     "validators": ["NodeID-C3FRhsMBh3KNLKiVbc8xLY7gnVzmJ7EY9"],
-    "listed": true,
+    "listed": false,
     "managementGroup": false,
     "domainLinked": false,
     "dualNetwork": true,
@@ -1143,6 +1143,7 @@
     "publicKey": "0x16bc5e81bc8c514fb49e1ab1000cd2cbb7af2abe65b9cb8cdae4d4b3fb179575158aaed31cca973f654a3658790c1f73380fd0ab4069c92d536d7d1cf86677d8",
     "validators": [
       "NodeID-6WmWUtQ6hKUJ3dAmRD5YHnQtshtBfqVf8",
+      "NodeID-BLfM48zeyokRGZCKGhR7PuqH4vosD7SUo",
       "NodeID-J4nyqo44xFUxhAi9gDJXAkYyxP5z2a7UG"
     ],
     "listed": true,
@@ -2187,7 +2188,7 @@
       "NodeID-Gmd8JQGtt7UuGTus32SMhqV9TG1D92a7f",
       "NodeID-JKw7j6LkdFTn1egU4Pd3YtPreebaqLU4i"
     ],
-    "listed": true,
+    "listed": false,
     "managementGroup": false,
     "domainLinked": false,
     "dualNetwork": false,
