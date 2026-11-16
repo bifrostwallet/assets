@@ -4,6 +4,10 @@ name: CodeQL
 # data/** and other non-code paths do not start a run. The nightly catalog
 # pull request only edits data/providers/, so it skips this workflow. CI still
 # validates that pull request. A weekly schedule scans the tree anyway.
+#
+# Code scanning default setup rejects SARIF from this file
+# ("advanced configurations cannot be processed when the default setup is
+# enabled"). Disable default setup so this workflow is the scan that runs.
 on:
   push:
     branches: [main]
