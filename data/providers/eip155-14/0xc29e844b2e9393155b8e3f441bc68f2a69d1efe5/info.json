@@ -2,9 +2,11 @@
   "name": "AlphaOracle",
   "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
   "logoURL": "providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
-  "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
+  "logoHash": "2770172148df96150f52a207d69cdc89bb812ecc5d50967ba301568dc76dcc2c",
   "websiteURL": "https://www.alphaoracle.io",
-  "links": {},
+  "links": {
+    "x": "https://x.com/AlphaOracle1"
+  },
   "identityAddress": "0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5",
   "delegationAddress": "0x47b6effe71abd4e8cdcc56f2341beb404f804b87",
   "signingPolicyAddress": "0x58f485e216a70138e81490e5fdcbf729510a7488",
@@ -16,6 +18,7 @@
     "NodeID-K5oMYbGkADUJeAxJaZgVFDtCxCH2gFtAA",
     "NodeID-KRkND3cB1bYaWt71CSQdCUjRSR95d3cNz"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
