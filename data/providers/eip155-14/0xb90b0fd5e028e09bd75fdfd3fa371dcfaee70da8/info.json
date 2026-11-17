@@ -1,10 +1,12 @@
 {
-  "name": "EDPFTSO",
+  "name": "Catenalytica",
   "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
   "logoURL": "providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
-  "logoHash": "42dcbf116ade9e816403d863531f47e125942a6ffa1eaa41083a3b80616c8462",
+  "logoHash": "400810f7431774fe01271209f1bd2f747a05718c826e5cf37e874feea754a3b9",
   "websiteURL": "https://catenalytica.com",
-  "links": {},
+  "links": {
+    "x": "https://x.com/Catenalytica"
+  },
   "identityAddress": "0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8",
   "delegationAddress": "0xad918962795547a8c997f96f7babb822612a5ffe",
   "signingPolicyAddress": "0x5b0ff409b17df4b717ea0c5035d0a961c502fca8",
@@ -15,6 +17,7 @@
     "NodeID-JacLSXQupkEWp14ewzzer6KHxDFksxb8m",
     "NodeID-Lj9wReAAhUQokvp2up5RokYYxkTTPqZRC"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
