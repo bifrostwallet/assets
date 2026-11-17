@@ -63,7 +63,7 @@
     "validators": [],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x2891780868a0fa9b0bf0712157c54c8a77c9ae7296f810e154124ba41cde82c4",
@@ -585,7 +585,7 @@
     "validators": [],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xc0567fb94c9fc87fb35538cb1d91ef72d76a6126a9d22e5e79cba48688a4c67a",
@@ -993,7 +993,7 @@
     "validators": [],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xd19750fa20f915f3b16f1860e0f616e24abaf9f4e6aa26554fc3c4cde53ab429",
@@ -1284,7 +1284,7 @@
     "validators": [],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x1cb5438d009d7edc5410d27119c84414dd7f6d2ff117c680bd54c2cd1ab30c8c",

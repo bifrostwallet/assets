@@ -14,7 +14,7 @@
   "validators": [],
   "listed": true,
   "managementGroup": true,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": true,
   "firstTransaction": {
     "hash": "0xd19750fa20f915f3b16f1860e0f616e24abaf9f4e6aa26554fc3c4cde53ab429",

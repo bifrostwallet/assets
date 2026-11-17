@@ -182,7 +182,7 @@
     ],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xc50bb05fbf415c2c0cad73533a11687098f7c1822eb30879380697620f6ab6e3",
@@ -343,7 +343,7 @@
     "validators": ["NodeID-4h6PNpK5oo9pjmE8zKSbm31S2LStg4tyF"],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x3cdc9f4a0e2a224d26c5d8fdc04eda7f1e29fe1ac44b07b22b7ba456f9a88b6c",
@@ -1120,7 +1120,7 @@
     ],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x817ce848a890905823f71188fdc8b3428975efbaec85de20d45a8664626d212c",
@@ -1717,7 +1717,7 @@
     ],
     "listed": true,
     "managementGroup": false,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x7cbff90ccc26966166c17a3ab2e64f0a5202f1dc62c361ec6894b261e78540e1",
@@ -1982,7 +1982,7 @@
     "validators": ["NodeID-4YtvwPgc578pqKhHoYtP4VTKVejXg7JBF"],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0xbb4917d34e08be50bd0e7097c133cc4f7f375f174ef6c7fe06f030af710800aa",
