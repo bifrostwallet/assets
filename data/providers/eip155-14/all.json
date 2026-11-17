@@ -166,9 +166,11 @@
     "name": "AlphaOracle",
     "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
-    "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
+    "logoHash": "2770172148df96150f52a207d69cdc89bb812ecc5d50967ba301568dc76dcc2c",
     "websiteURL": "https://www.alphaoracle.io",
-    "links": {},
+    "links": {
+      "x": "https://x.com/AlphaOracle1"
+    },
     "identityAddress": "0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5",
     "delegationAddress": "0x47b6effe71abd4e8cdcc56f2341beb404f804b87",
     "signingPolicyAddress": "0x58f485e216a70138e81490e5fdcbf729510a7488",
@@ -180,6 +182,7 @@
       "NodeID-K5oMYbGkADUJeAxJaZgVFDtCxCH2gFtAA",
       "NodeID-KRkND3cB1bYaWt71CSQdCUjRSR95d3cNz"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -1102,12 +1105,14 @@
     }
   },
   {
-    "name": "EDPFTSO",
+    "name": "Catenalytica",
     "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
-    "logoHash": "42dcbf116ade9e816403d863531f47e125942a6ffa1eaa41083a3b80616c8462",
+    "logoHash": "400810f7431774fe01271209f1bd2f747a05718c826e5cf37e874feea754a3b9",
     "websiteURL": "https://catenalytica.com",
-    "links": {},
+    "links": {
+      "x": "https://x.com/Catenalytica"
+    },
     "identityAddress": "0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8",
     "delegationAddress": "0xad918962795547a8c997f96f7babb822612a5ffe",
     "signingPolicyAddress": "0x5b0ff409b17df4b717ea0c5035d0a961c502fca8",
@@ -1118,6 +1123,7 @@
       "NodeID-JacLSXQupkEWp14ewzzer6KHxDFksxb8m",
       "NodeID-Lj9wReAAhUQokvp2up5RokYYxkTTPqZRC"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -1699,12 +1705,16 @@
     }
   },
   {
-    "name": "Stakecore",
+    "name": "StakeCore",
     "description": "An infrastructure provider that recognizes the importance of reliable data for an oracle-based chain.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xcdeae85d8cef99a6433f341c3dce6096c3c5598c/logo.webp",
     "logoHash": "2c603fa094a5fabab32248718d726d939a69d0204c35d7b894784a5e0642a8d0",
     "websiteURL": "https://stakecore.org",
-    "links": {},
+    "links": {
+      "github": "https://github.com/stakecore",
+      "x": "https://x.com/stake_core",
+      "telegram": "https://t.me/stakecoreorg"
+    },
     "identityAddress": "0xcdeae85d8cef99a6433f341c3dce6096c3c5598c",
     "delegationAddress": "0x1e68dc808a240c096f0261144dc41fd4c883cfb0",
     "signingPolicyAddress": "0xda120015f32de47427663db78bc7339ace2213ac",
@@ -1715,6 +1725,7 @@
       "NodeID-9phg2KMyH6nrwkf6G46d4SUWuNqf6jUqr",
       "NodeID-KiAUisCU8UvXGnMRiUvoeyWneSdUm987"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": false,
     "domainLinked": true,

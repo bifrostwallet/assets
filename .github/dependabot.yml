@@ -8,10 +8,13 @@ updates:
     open-pull-requests-limit: 0
   # Actions: keep SHA-pinned workflows current. Review/merge these PRs — not noise.
   # Grouped weekly so one PR updates all Actions instead of N separate bumps.
+  # 30-day cooldown: new Action releases are only offered once they're 30 days old.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 30
     groups:
       github-actions:
         patterns:

@@ -53,7 +53,9 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xb4466be43f01e8a615490098aaf18a1dc5c56568/logo.webp",
     "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
     "websiteURL": "https://www.alphaoracle.io",
-    "links": {},
+    "links": {
+      "x": "https://x.com/AlphaOracle1"
+    },
     "identityAddress": "0xb4466be43f01e8a615490098aaf18a1dc5c56568",
     "delegationAddress": "0xbf61db1cdb43d196309824473fa82e5b17581159",
     "signingPolicyAddress": "0x285ee7a4ec946ad5f6edae1611dbc4bc0510c783",
@@ -61,6 +63,7 @@
     "submitSignaturesAddress": "0x5ebc2d21e383f5649ed3a0a8a44fcb98a3d91912",
     "publicKey": "0x0f53a52074b0b790186e8ecef811d2cd5587930fba2889e58364e6eb3daa6a561af7e68a852452b4585344a4567066b4f7a37ab03a3e3f119d4ce88b9c8a505e",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -978,12 +981,14 @@
     }
   },
   {
-    "name": "EDPFTSO",
+    "name": "Catenalytica",
     "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x8ddd48b520df91f05c5d8c19b2cee59abe65978a/logo.webp",
-    "logoHash": "42dcbf116ade9e816403d863531f47e125942a6ffa1eaa41083a3b80616c8462",
+    "logoHash": "400810f7431774fe01271209f1bd2f747a05718c826e5cf37e874feea754a3b9",
     "websiteURL": "https://catenalytica.com",
-    "links": {},
+    "links": {
+      "x": "https://x.com/Catenalytica"
+    },
     "identityAddress": "0x8ddd48b520df91f05c5d8c19b2cee59abe65978a",
     "delegationAddress": "0x1c602a30335187a97d8061ffffd4522796de82bf",
     "signingPolicyAddress": "0x5b0ff409b17df4b717ea0c5035d0a961c502fca8",
@@ -991,6 +996,7 @@
     "submitSignaturesAddress": "0x351cc97c268f5dc8eeeddded15b0bd0825e683f6",
     "publicKey": "0x18384be720b40837649785e0d74caa7d99b2b8f8dd0b921564da2a3cd3177baf1f16806f5df1d59e0fd25c66a832baf92525312669c309adec891783cf0313b6",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -1274,7 +1280,11 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xcdeae85d8cef99a6433f341c3dce6096c3c5598c/logo.webp",
     "logoHash": "2c603fa094a5fabab32248718d726d939a69d0204c35d7b894784a5e0642a8d0",
     "websiteURL": "https://stakecore.org",
-    "links": {},
+    "links": {
+      "github": "https://github.com/stakecore",
+      "x": "https://x.com/stake_core",
+      "telegram": "https://t.me/stakecoreorg"
+    },
     "identityAddress": "0xcdeae85d8cef99a6433f341c3dce6096c3c5598c",
     "delegationAddress": "0x1e68dc808a240c096f0261144dc41fd4c883cfb0",
     "signingPolicyAddress": "0xda120015f32de47427663db78bc7339ace2213ac",
@@ -1282,6 +1292,7 @@
     "submitSignaturesAddress": "0x53cbf076ac8d35d40057e653b53f7e8b77d3b5fa",
     "publicKey": "0x2a7aaad860513a588dda76e68e9a66e7d74a4c7de4398dbb6e81e834ac4a0f2420c0d6747cd094230148f76ca276640d15eb06f1ee9900bf8d74f8159a587e9c",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
