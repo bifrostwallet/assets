@@ -14,7 +14,7 @@
   "validators": ["NodeID-4YtvwPgc578pqKhHoYtP4VTKVejXg7JBF"],
   "listed": true,
   "managementGroup": true,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": false,
   "firstTransaction": {
     "hash": "0xbb4917d34e08be50bd0e7097c133cc4f7f375f174ef6c7fe06f030af710800aa",
