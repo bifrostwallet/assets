@@ -2162,7 +2162,7 @@
     "name": "Quicknode",
     "description": "Accelerating Web3 with lightning-fast Flare infrastructure SOC 1 Type 2, SOC 2 Type 2, ISO 27001 Certified.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x7121ee7189631b7dd08f0cc82f931403a0548e28/logo.webp",
-    "logoHash": "d0d3ed83a5efb3660200dabb2e019fa334db39c39c29f67f0e64a9d771843dcf",
+    "logoHash": "f5ba579befed478f42f54719bbd618b903c63c4d8e9d1ccba9c132092c9270b5",
     "websiteURL": "https://quicknode.com",
     "links": {},
     "identityAddress": "0x7121ee7189631b7dd08f0cc82f931403a0548e28",
