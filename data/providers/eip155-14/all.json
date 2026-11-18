@@ -282,7 +282,9 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x19e655bb5f25ccbb88ca26f69694cd83641f3b78/logo.webp",
     "logoHash": "480ac2bcb730cdb3e9044412f01314431b9aff2e3bbba59a16432091a379d025",
     "websiteURL": "https://uglykitty.xyz",
-    "links": {},
+    "links": {
+      "x": "https://x.com/uglykittyNFT"
+    },
     "identityAddress": "0x19e655bb5f25ccbb88ca26f69694cd83641f3b78",
     "delegationAddress": "0x35149714467f2fe71b46eeb4d11689ed8728bd25",
     "signingPolicyAddress": "0x3007c7f6bf48a83a39ca442777564a6d5d99cf44",
@@ -293,6 +295,7 @@
       "NodeID-8qMWVar3hLdLSSgbTV57brpqUNjJuU2H8",
       "NodeID-LcbbZYhBHn8HVjTzPASuHtFVAckcdctWS"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1108,7 +1111,7 @@
     "name": "Catenalytica",
     "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb90b0fd5e028e09bd75fdfd3fa371dcfaee70da8/logo.webp",
-    "logoHash": "400810f7431774fe01271209f1bd2f747a05718c826e5cf37e874feea754a3b9",
+    "logoHash": "c63f6f26eccdc0eb7ea0800ff1db28e45f41c33719d7f1dbd39c8b1842f99e33",
     "websiteURL": "https://catenalytica.com",
     "links": {
       "x": "https://x.com/Catenalytica"
@@ -1166,9 +1169,11 @@
     "name": "Atlas TSO",
     "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
-    "logoHash": "0284e050b517bfa108a291048d4135c79f28ae96c7aff07c6bf645bc1c147059",
+    "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
     "websiteURL": "https://tsoatlas.xyz",
-    "links": {},
+    "links": {
+      "x": "https://x.com/TsoAtlas"
+    },
     "identityAddress": "0xe3e7c8e587a273966562c8f9768a10f214f63c49",
     "delegationAddress": "0x07702a7494f760b0b3642463bdd2b7a13cfddbb2",
     "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
@@ -1180,6 +1185,7 @@
       "NodeID-JmYHE5qkDc7pxphwiRJss47vhmwAXavUi",
       "NodeID-MsF6Xc1PsMWtcxVudCepWb5kUeF1EF8RX"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": false,
     "domainLinked": false,
@@ -1401,8 +1407,11 @@
     "description": "FTSO Stoadz provides a Flare Time Series Oracle for those who want to delegate their assets!",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45/logo.webp",
     "logoHash": "dbd2d6e56161550d59950da1da70277f10de1516d2fd7c3be59c12ac229e9c5d",
-    "websiteURL": "https://xtoadz.xyz/signal-provider",
-    "links": {},
+    "websiteURL": "https://stoadzftso.com",
+    "links": {
+      "x": "https://x.com/xtoadz",
+      "discord": "https://discord.gg/xtoadz"
+    },
     "identityAddress": "0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45",
     "delegationAddress": "0x729589694a78ff2d8bacf75b7ac4389bd53ee533",
     "signingPolicyAddress": "0x2eecbb469af133d136f011ce3f27ecf9524bb7c3",
@@ -1414,6 +1423,7 @@
       "NodeID-F297gLgRxBndijAYvvvBGtQTwYCrScMQT",
       "NodeID-NV7ZpcJvqzmvvT4PaeHWbTELWKFT2Jqxw"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": false,
     "domainLinked": false,
@@ -2137,7 +2147,11 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x16c0619b2c427aaeb5931426eb0a898b6e3cd885/logo.webp",
     "logoHash": "2d7a9e5d4c5e7b1cc277bf5869c14b562c5947456e7ac7e9908b97c92b72ab39",
     "websiteURL": "https://www.digitaldynamix.co.uk",
-    "links": {},
+    "links": {
+      "x": "https://x.com/_DigitalDynamix",
+      "discord": "https://discord.gg/aVBMPAvQtd",
+      "youtube": "https://www.youtube.com/@Flare_Community"
+    },
     "identityAddress": "0x16c0619b2c427aaeb5931426eb0a898b6e3cd885",
     "delegationAddress": "0x57711d552e2309c7a83716351e7a59a438f17e3a",
     "signingPolicyAddress": "0xb4d29b9db72a9e557f58314d6de7c435bac40391",
@@ -2148,6 +2162,7 @@
       "NodeID-DqtFZusCw713o96Hx29iHKUhFyZ4eBDpw",
       "NodeID-NEBeLpZHjxiSB9fbqDeqsxU529e41hQYE"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,

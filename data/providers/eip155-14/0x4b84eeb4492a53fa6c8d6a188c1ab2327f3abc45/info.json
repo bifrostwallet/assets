@@ -3,8 +3,11 @@
   "description": "FTSO Stoadz provides a Flare Time Series Oracle for those who want to delegate their assets!",
   "logoURL": "providers/eip155-14/0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45/logo.webp",
   "logoHash": "dbd2d6e56161550d59950da1da70277f10de1516d2fd7c3be59c12ac229e9c5d",
-  "websiteURL": "https://xtoadz.xyz/signal-provider",
-  "links": {},
+  "websiteURL": "https://stoadzftso.com",
+  "links": {
+    "x": "https://x.com/xtoadz",
+    "discord": "https://discord.gg/xtoadz"
+  },
   "identityAddress": "0x4b84eeb4492a53fa6c8d6a188c1ab2327f3abc45",
   "delegationAddress": "0x729589694a78ff2d8bacf75b7ac4389bd53ee533",
   "signingPolicyAddress": "0x2eecbb469af133d136f011ce3f27ecf9524bb7c3",
@@ -16,6 +19,7 @@
     "NodeID-F297gLgRxBndijAYvvvBGtQTwYCrScMQT",
     "NodeID-NV7ZpcJvqzmvvT4PaeHWbTELWKFT2Jqxw"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": false,
   "domainLinked": false,

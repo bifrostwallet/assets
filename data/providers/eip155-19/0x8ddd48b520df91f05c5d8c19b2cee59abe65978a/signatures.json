@@ -5,9 +5,9 @@
     {
       "signerName": "Catenalytica",
       "signerAddress": "0x8ddd48b520df91f05c5d8c19b2cee59abe65978a",
-      "messageHash": "0x59fccc3257de91deb724e7f3396ca2bc8cdd82814e588662945fce9666979a7d",
-      "signature": "0x68b9859c483240c7d7909172c464645fbeb1df75dafc6598ae3e6b2adeff539527e628e0b32bf444433457d55c3c5807f8034b0a6dee859caf82c51f6c4fc9991c",
-      "date": "2026-11-17T13:09:54.522Z"
+      "messageHash": "0xe3018c6d37cb2fb9712cb1d4d28ff5db35b8db98f5fea2317e7fda273fd8ed4e",
+      "signature": "0xde232ccc6f19f2ee100f9d78857c61f990e5a5da839231d89759bae3fe9a0ed46d13b8c05c6623b046ee9dd1f5f10356859f7ea85084c3a2f876bf2a7a4e4aed1b",
+      "date": "2026-11-18T14:48:51.818Z"
     }
   ]
 }

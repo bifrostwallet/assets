@@ -4,7 +4,9 @@
   "logoURL": "providers/eip155-14/0x19e655bb5f25ccbb88ca26f69694cd83641f3b78/logo.webp",
   "logoHash": "480ac2bcb730cdb3e9044412f01314431b9aff2e3bbba59a16432091a379d025",
   "websiteURL": "https://uglykitty.xyz",
-  "links": {},
+  "links": {
+    "x": "https://x.com/uglykittyNFT"
+  },
   "identityAddress": "0x19e655bb5f25ccbb88ca26f69694cd83641f3b78",
   "delegationAddress": "0x35149714467f2fe71b46eeb4d11689ed8728bd25",
   "signingPolicyAddress": "0x3007c7f6bf48a83a39ca442777564a6d5d99cf44",
@@ -15,6 +17,7 @@
     "NodeID-8qMWVar3hLdLSSgbTV57brpqUNjJuU2H8",
     "NodeID-LcbbZYhBHn8HVjTzPASuHtFVAckcdctWS"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
