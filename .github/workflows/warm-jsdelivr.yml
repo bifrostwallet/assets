@@ -1,0 +1,75 @@
+name: Warm jsDelivr
+
+# After a GitHub Release is published, GET every file under data/providers/
+# from jsDelivr at that tag so the CDN has it before clients do. A manual run
+# takes an explicit tag. The job checks out that tag, so the tag's tree is the
+# file list and must include scripts/warm-jsdelivr.mjs. Files that stay cold
+# are warnings; the job still succeeds. Nothing outside data/providers is
+# requested, and this job does not publish or install dependencies.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Git tag to warm on jsDelivr (for example 1.4.1)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: warm-jsdelivr-${{ github.event.release.tag_name || github.event.inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+env:
+  COREPACK_ENABLE: "0"
+
+jobs:
+  warm:
+    name: Warm provider files
+    # GitHub-hosted runner. This job does not need the ubuntu-24.04 pin used
+    # by workflows that run ShellCheck or yamllint.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Resolve tag
+        id: tag
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -eu
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG=${INPUT_TAG:-}
+          else
+            TAG=${RELEASE_TAG:-}
+          fi
+          case "$TAG" in
+            ""|.*|-*|*..*|*[!A-Za-z0-9._+-]*)
+              echo "Refusing tag: ${TAG:-<empty>}" >&2
+              exit 1
+              ;;
+          esac
+          printf 'tag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Check out tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+
+      - name: Warm provider files on jsDelivr
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -eu
+          node scripts/warm-jsdelivr.mjs "$TAG"
