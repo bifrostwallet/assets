@@ -78,7 +78,7 @@
     "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": false,
-    "domainLinked": true,
+    "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x34f0288883116065f96825fab520dc6c03f49a1c23d7c6690c331c60b658c881",
@@ -295,7 +295,7 @@
     ],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x20020508e161178700264fd3fdd374d9b3442d42d8ea00e9d62ac08a0f8f3936",
@@ -1182,7 +1182,7 @@
     ],
     "listed": true,
     "managementGroup": false,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0xf0df7d22240340f79512cd000ac1751574bbc772a8226965bd572e356a21668f",
@@ -2150,7 +2150,7 @@
     ],
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": false,
     "firstTransaction": {
       "hash": "0x983af5f00d42855ee0f559e71febf52477c25d1eebf0ad63f39df80735af03e0",
