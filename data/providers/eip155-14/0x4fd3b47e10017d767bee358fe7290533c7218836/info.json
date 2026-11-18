@@ -2,7 +2,7 @@
   "name": "Scintilla",
   "description": "High accuracy signal provider to the Flare Network.",
   "logoURL": "providers/eip155-14/0x4fd3b47e10017d767bee358fe7290533c7218836/logo.webp",
-  "logoHash": "f24ca36d33de49f7d410bcf1105cb9cde4754e8cabe5738af4cd520474fb3c86",
+  "logoHash": "c81b8a7f910821a55316eaaa560eff1a493f9f09a5516799278d4c5a7211b420",
   "websiteURL": "https://www.scintilla.io",
   "links": {},
   "identityAddress": "0x4fd3b47e10017d767bee358fe7290533c7218836",

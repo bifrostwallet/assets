@@ -2,7 +2,7 @@
   "name": "Flare Oracle",
   "description": "Flare Oracle, a data provider to the Flare network. Our goal is to give users a plug & play solution to effortlessly control their passive income.",
   "logoURL": "providers/eip155-19/0x6c2209754845df0fc01d048c3f3c3537b5d35b9c/logo.webp",
-  "logoHash": "e247ef4205d11754a3bdf3bf0874304616ca7140e6f75941ca89cf136a8dd56d",
+  "logoHash": "59b7d695c9e131299706e0f5ccb5faf646615ae34bbe1b7af6795010a3c7f630",
   "websiteURL": "https://flareoracle.io",
   "links": {},
   "identityAddress": "0x6c2209754845df0fc01d048c3f3c3537b5d35b9c",

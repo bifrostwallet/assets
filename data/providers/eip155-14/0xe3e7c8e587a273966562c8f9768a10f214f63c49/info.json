@@ -2,7 +2,7 @@
   "name": "Atlas TSO",
   "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
   "logoURL": "providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
-  "logoHash": "5e1a708b378aee7f818695791eb34aae617c1a27d6c0dd75788bca69b35a315a",
+  "logoHash": "0284e050b517bfa108a291048d4135c79f28ae96c7aff07c6bf645bc1c147059",
   "websiteURL": "https://tsoatlas.xyz",
   "links": {},
   "identityAddress": "0xe3e7c8e587a273966562c8f9768a10f214f63c49",

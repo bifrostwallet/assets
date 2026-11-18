@@ -2,7 +2,7 @@
   "name": "Aureus Ox",
   "description": "Aureus Ox is building a scalable and reliable FTSO signal provider. Our initial goals include accurate price submission and delegation tools.",
   "logoURL": "providers/eip155-19/0xbe311f1640b700f76d17c009a505487c23b0312c/logo.webp",
-  "logoHash": "fbe96ce566d0f669711107fbb1560f1510fd7d66421cdf91588e3b39f62bcee9",
+  "logoHash": "f1fcc0edee6bf7dc678019cef6a905cad52ef02f7f67bf2723df081592c6b387",
   "websiteURL": "https://aureusox.com",
   "links": {},
   "identityAddress": "0xbe311f1640b700f76d17c009a505487c23b0312c",

@@ -2,7 +2,7 @@
   "name": "FlareBus",
   "description": "FlareBus is a decentralized FTSO provider that delivers accurate and real-time price data for the Flare Network ecosystem. Our infrastructure is a hybrid blend of dedicated bare-metal servers and scalable cloud environments. This combination allows us to optimize for both low-latency performance and high availability.",
   "logoURL": "providers/eip155-19/0x6facdb16ca28ade44f682c17be7b3357eb2f6a4c/logo.webp",
-  "logoHash": "c174658a6188d23931a6307ad00b8d8bacf9745814044daaa699d3edafc70f27",
+  "logoHash": "f90fc9c495b0fce4852f0bc065eaf574233e2f1e77ebb3f4225f46710bc6ef31",
   "websiteURL": "https://flarebus.com",
   "links": {},
   "identityAddress": "0x6facdb16ca28ade44f682c17be7b3357eb2f6a4c",

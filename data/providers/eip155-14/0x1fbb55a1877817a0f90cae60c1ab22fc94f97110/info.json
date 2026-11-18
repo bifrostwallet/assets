@@ -2,7 +2,7 @@
   "name": "Flare Forward",
   "description": "AI-coded FTSO v2 provider from FlareForward, with full anchor-feed coverage and a self-bonded validator, tuned continuously by our own AI. We also run DeFi University - learn decentralized finance and AI with us: https://defiuniversitypro.com. Delegate your WFLR and check our live on-chain results for yourself.",
   "logoURL": "providers/eip155-14/0x1fbb55a1877817a0f90cae60c1ab22fc94f97110/logo.webp",
-  "logoHash": "efdb6498c84d46098ea0bc7ce795a78f02e8d5474500693d33faf9f6c928853d",
+  "logoHash": "7cc7e3ac1c9699cd80fca88550e7f257a0f7ff611b3ef4d37cf32e6ddf76ee8e",
   "websiteURL": "https://ftso.flareforward.com/",
   "links": {},
   "identityAddress": "0x1fbb55a1877817a0f90cae60c1ab22fc94f97110",
