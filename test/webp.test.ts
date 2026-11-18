@@ -4,7 +4,13 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { describe, test } from "node:test";
-import { isWebpMagic, readWebpDimensions } from "../src/webp.js";
+import { convertLogoBytesToWebp } from "../src/tokenLogo.js";
+import {
+  encodeImageFileToWebp,
+  isWebpMagic,
+  readWebpDimensions,
+  webpHasAlpha,
+} from "../src/webp.js";
 
 describe("webp helpers", () => {
   test("isWebpMagic rejects non-WebP", () => {
@@ -37,5 +43,40 @@ describe("webp helpers", () => {
     assert.equal(dims.width, 1);
     assert.equal(dims.height, 1);
     fs.rmSync(dir, { recursive: true, force: true });
+  });
+
+  test("transparent PNG stays transparent after catalog WebP encode", () => {
+    const which = spawnSync("which", ["cwebp"], { encoding: "utf8" });
+    if (which.status !== 0) return;
+
+    // 8×8 PNG: clear corners, one semi-transparent pixel, an opaque center.
+    const png = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAKElEQVR4nGNgIAbckdNowCXHiKToP7KEyqMbjAwMDAxMhEynXAHlAABESAWq2M2SjAAAAABJRU5ErkJggg==",
+      "base64",
+    );
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "webp-alpha-"));
+    const pngPath = path.join(dir, "alpha.png");
+    fs.writeFileSync(pngPath, png);
+    try {
+      for (const quality of [85, 25]) {
+        const encoded = encodeImageFileToWebp(pngPath, {
+          quality,
+          resize: { width: 128, height: 128 },
+        });
+        assert.equal(webpHasAlpha(encoded), true, `quality ${quality} dropped alpha`);
+        const dims = readWebpDimensions(encoded);
+        assert.equal(dims?.width, 128);
+        assert.equal(dims?.height, 128);
+      }
+
+      const catalog = convertLogoBytesToWebp(png);
+      assert.equal(webpHasAlpha(catalog), true);
+      const dims = readWebpDimensions(catalog);
+      assert.equal(dims?.width, 128);
+      assert.equal(dims?.height, 128);
+      assert.ok(catalog.length / 1024 <= 24);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

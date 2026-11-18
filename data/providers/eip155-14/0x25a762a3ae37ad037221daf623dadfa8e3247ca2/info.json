@@ -2,7 +2,7 @@
   "name": "Ankr",
   "description": "Build web3 apps with a full suite of developer tools. Power them with fast, global, decentralized connections to dozens of chains",
   "logoURL": "providers/eip155-14/0x25a762a3ae37ad037221daf623dadfa8e3247ca2/logo.webp",
-  "logoHash": "7f902dbae1bd2b274589d8379715327d02c1b6900bc1b385fb8d5de660c749bc",
+  "logoHash": "d32684f34eb5fc4f5778df95873ab8b04a46463575bf5ed1c6e9944622e83382",
   "websiteURL": "https://ankr.com",
   "links": {},
   "identityAddress": "0x25a762a3ae37ad037221daf623dadfa8e3247ca2",

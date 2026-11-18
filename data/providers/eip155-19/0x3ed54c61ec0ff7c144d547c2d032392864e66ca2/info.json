@@ -2,7 +2,7 @@
   "name": "NORTSO",
   "description": "NORTSO is a Norwegian-based data provider aiming to provide the most accurate price signals on the network.",
   "logoURL": "providers/eip155-19/0x3ed54c61ec0ff7c144d547c2d032392864e66ca2/logo.webp",
-  "logoHash": "387e073b89e25708ec9190e97c2d4b1a81db8858924d9a83f048d1860752efce",
+  "logoHash": "805f5783a685530c8082593388126ebb11d8886489c663dd5a1bdd23de56dbc3",
   "websiteURL": "https://nortso.xyz",
   "links": {},
   "identityAddress": "0x3ed54c61ec0ff7c144d547c2d032392864e66ca2",

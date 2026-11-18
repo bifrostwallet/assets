@@ -5,6 +5,7 @@
  */
 
 import { spawnSync } from "node:child_process";
+import { randomBytes } from "node:crypto";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
@@ -118,6 +119,46 @@ export function readWebpDimensions(bytes: Uint8Array): { width: number; height: 
   return null;
 }
 
+/**
+ * True when the WebP bitstream carries an alpha plane.
+ * VP8X sets the alpha flag, lossy alpha lives in an ALPH chunk, and VP8L
+ * sets the alpha-used bit. A fully opaque file has none of these.
+ */
+export function webpHasAlpha(bytes: Uint8Array): boolean {
+  if (!isWebpMagic(bytes)) return false;
+
+  let offset = 12;
+  while (offset + 8 <= bytes.length) {
+    const c0 = byteAt(bytes, offset);
+    const c1 = byteAt(bytes, offset + 1);
+    const c2 = byteAt(bytes, offset + 2);
+    const c3 = byteAt(bytes, offset + 3);
+    if (c0 === undefined || c1 === undefined || c2 === undefined || c3 === undefined) return false;
+    const fourcc = String.fromCharCode(c0, c1, c2, c3);
+    const chunkSize = u32le(bytes, offset + 4);
+    if (chunkSize === undefined || chunkSize < 0) return false;
+    const dataStart = offset + 8;
+    const dataEnd = dataStart + chunkSize;
+    if (dataEnd > bytes.length) return false;
+
+    if (fourcc === "VP8X" && chunkSize >= 1) {
+      const flags = byteAt(bytes, dataStart);
+      if (flags !== undefined && (flags & 0x10) !== 0) return true;
+    }
+
+    if (fourcc === "ALPH") return true;
+
+    if (fourcc === "VP8L" && chunkSize >= 5 && byteAt(bytes, dataStart) === 0x2f) {
+      const bits = u32le(bytes, dataStart + 1);
+      if (bits !== undefined && ((bits >>> 28) & 1) === 1) return true;
+    }
+
+    offset = dataEnd + (chunkSize & 1);
+  }
+
+  return false;
+}
+
 export function resolveCwebp(): string {
   const which = spawnSync("which", ["cwebp"], { encoding: "utf8" });
   if (which.status !== 0 || !which.stdout.trim()) {
@@ -135,6 +176,10 @@ export type EncodePngToWebpOptions = {
 /**
  * Encode an image file cwebp can read (PNG, JPEG, or WebP) to WebP bytes.
  * Default quality is 85, method 6.
+ *
+ * Alpha is kept. `-alpha_q 100` is lossless alpha (libwebp's own default).
+ * `-noalpha` and `-blend_alpha` are not used: both composite transparency
+ * onto an opaque background. JPEG input has no alpha plane to keep.
  */
 export function encodeImageFileToWebp(
   inputPath: string,
@@ -144,9 +189,12 @@ export function encodeImageFileToWebp(
     typeof qualityOrOptions === "number" ? { quality: qualityOrOptions } : qualityOrOptions;
   const quality = options.quality ?? 85;
   const cwebp = resolveCwebp();
-  const tmp = path.join(os.tmpdir(), `assets-cwebp-${process.pid}-${Date.now()}.webp`);
+  const tmp = path.join(
+    os.tmpdir(),
+    `assets-cwebp-${process.pid}-${randomBytes(6).toString("hex")}.webp`,
+  );
   try {
-    const args = ["-q", String(quality), "-m", "6", "-quiet"];
+    const args = ["-q", String(quality), "-alpha_q", "100", "-m", "6", "-quiet"];
     if (options.resize) {
       args.push("-resize", String(options.resize.width), String(options.resize.height));
     }

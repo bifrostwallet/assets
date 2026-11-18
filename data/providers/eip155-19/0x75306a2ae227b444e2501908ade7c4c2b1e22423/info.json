@@ -2,7 +2,7 @@
   "name": "Scintilla",
   "description": "High accuracy signal provider to the Songbird Network.",
   "logoURL": "providers/eip155-19/0x75306a2ae227b444e2501908ade7c4c2b1e22423/logo.webp",
-  "logoHash": "f24ca36d33de49f7d410bcf1105cb9cde4754e8cabe5738af4cd520474fb3c86",
+  "logoHash": "94e5d33be6b8e03de67166ed1f27dcb91ad85d36bfe15693f28aa47463c1805c",
   "websiteURL": "https://www.scintilla.io",
   "links": {},
   "identityAddress": "0x75306a2ae227b444e2501908ade7c4c2b1e22423",

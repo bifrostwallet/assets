@@ -2,7 +2,7 @@
   "name": "Flare Beacon",
   "description": "Songbird network signal provider. Beaconing since inception",
   "logoURL": "providers/eip155-19/0x44eb776cd95ae59b2eda2ce354557427361e75da/logo.webp",
-  "logoHash": "60975b5e9812d11568f0b75264a5072ce4a0b2749f641a5931bdd417d02e1d22",
+  "logoHash": "a0d5ab6c21fa6313193cd19ab1f1a5ffed7735937d7bfae4fe38f62b5799d948",
   "websiteURL": "https://flarebeacon.xyz",
   "links": {},
   "identityAddress": "0x44eb776cd95ae59b2eda2ce354557427361e75da",

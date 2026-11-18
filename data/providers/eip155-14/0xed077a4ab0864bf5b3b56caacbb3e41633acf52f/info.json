@@ -2,7 +2,7 @@
   "name": "A-FTSO",
   "description": "The first indie FTSO provider, run as a professional one. No frills, low fees.",
   "logoURL": "providers/eip155-14/0xed077a4ab0864bf5b3b56caacbb3e41633acf52f/logo.webp",
-  "logoHash": "28a13b1348973d2c4fc9e7981dede7584720507bb73c5920b8bb557370f4106d",
+  "logoHash": "06e59a15f449ad13ad261ce19d8f73b8fc88e5542c3f4024b2b0d9bfe38ddc8c",
   "websiteURL": "https://ftso.alexdupre.com",
   "links": {},
   "identityAddress": "0xed077a4ab0864bf5b3b56caacbb3e41633acf52f",
