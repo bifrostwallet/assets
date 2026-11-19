@@ -43,7 +43,7 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 
 ### Optional: check a downloaded logo
 
-`fetchLogo` is removed. Download the logo yourself, then check the file bytes with `verifyLogoHash(bytes, logoHash)`. It is true when the SHA-256 of those bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. Hash the original bytes, not a transcoded or resized image (image proxies and CDN optimizers change bytes), and don't use `response.text()` or a blob URL round-trip that alters bytes.
+Download the logo, then check the file bytes with `verifyLogoHash(bytes, logoHash)`. It is true when the SHA-256 of those bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. Hash the original bytes, not a transcoded or resized image (image proxies and CDN optimizers change bytes), and don't use `response.text()` or a blob URL round-trip that alters bytes.
 
 ```ts
 import { verifyLogoHash } from "@bifrostwallet/assets";
