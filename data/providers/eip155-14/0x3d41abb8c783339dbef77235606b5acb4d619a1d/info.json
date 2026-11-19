@@ -1,0 +1,24 @@
+{
+  "name": "D20 Oracle",
+  "description": "D20 Oracle runs a Flare FTSO data provider (price feeds, FDC attestations and Fast Updates) and three validator nodes on its own infrastructure. FTSO and validator fee: 20%. Active since October 2026; addresses and per-epoch results are published at d20oracle.com.",
+  "logoURL": "providers/eip155-14/0x3d41abb8c783339dbef77235606b5acb4d619a1d/logo.webp",
+  "logoHash": "b619f0890d99ebad051a98ddf0372cd13ad53d9065db6ac37cbbf5fd5e6e147e",
+  "websiteURL": "https://d20oracle.com",
+  "links": {},
+  "identityAddress": "0x3d41abb8c783339dbef77235606b5acb4d619a1d",
+  "delegationAddress": "0xaf7c10dcf8fba62b29230052af0be80936c10af3",
+  "signingPolicyAddress": "0xe5774ba1b4799db5189607a94916a77043908440",
+  "submitAddress": "0xdf53bdcb3f3aeb796ce2d13eb0bbba52fd3b86f6",
+  "submitSignaturesAddress": "0xb70ff4b75815aa073e0381e35008146e459b22a2",
+  "publicKey": "0x07d964c8b5edd820070e6412e9de76c884410d929668e3dcdcf51f8088eea14b156aabe971f4381e07cbe126f7b0ad3b0b42cf8fe0653c4812415731e8f428a5",
+  "validators": [
+    "NodeID-DudLWBpa5iUGvNkbM97KzXeDAWxmkvFVW",
+    "NodeID-HSyEhNxm57xaYi4FWL5jbjgrSpR5HDv8",
+    "NodeID-NwSeDUsvyCdXm7khfkAq6tME56E3EZiyo"
+  ],
+  "acknowledgedResponsibilities": true,
+  "listed": false,
+  "managementGroup": false,
+  "domainLinked": false,
+  "dualNetwork": false
+}

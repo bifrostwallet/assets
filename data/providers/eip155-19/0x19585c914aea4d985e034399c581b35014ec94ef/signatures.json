@@ -5,9 +5,9 @@
     {
       "signerName": "Atlas TSO",
       "signerAddress": "0x19585c914aea4d985e034399c581b35014ec94ef",
-      "messageHash": "0xfba6e77e58821b231bcb8483d5ce6d333913200b71c79b7ec8b9c7656b4cdbca",
-      "signature": "0x437a48f1d9841b7e323d896e44873ae71f4857beb6da08e7469fa9ae47e1fc116682bef84cd54c6b1edcfd376f3321b511ea2a74eb5585d83f182b6b8e74e25d1b",
-      "date": "2026-11-17T19:58:38.276Z"
+      "messageHash": "0xaad182230f97e077365de3682ba972e775a146cca07e706890791982c120be45",
+      "signature": "0xbca68f26eaf0f62a9dbb8a58264f34b4fc71b724f3e68f3d5e9c82fb9bd9d24302eb3ce52f8583c704ac53d9149b249ec625acc2a90f349d65ba359da6c1bfe91c",
+      "date": "2026-11-18T18:15:36.386Z"
     }
   ]
 }
