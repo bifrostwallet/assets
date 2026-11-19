@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
+import * as os from "node:os";
 import * as path from "node:path";
 import { after, before, describe, test } from "node:test";
+import { pathToFileURL } from "node:url";
 import buildPackage, { holdPackageDist } from "../src/script/packageBuild.js";
 
 const GOOD = Buffer.from("webp-bytes-for-the-hash-check");
@@ -77,14 +80,105 @@ describe("verifyLogoHash", { concurrency: false }, () => {
       assert.equal(networkCode.test(source), false, name);
     }
     const readme = fs.readFileSync(path.join(process.cwd(), "README.md"), "utf8");
-    assert.match(readme, /const response = await fetch\(entry\.logoURL\);/);
-    assert.match(readme, /if \(!response\.ok\)/);
-    assert.match(readme, /const bytes = new Uint8Array\(await response\.arrayBuffer\(\)\);/);
-    assert.match(readme, /bytes\.byteLength > 256 \* 1024/);
+    const example = logoExample(readme);
     assert.match(
-      readme,
+      example,
+      /import \{ createAssets, verifyLogoHash \} from "@bifrostwallet\/assets";/,
+    );
+    assert.match(example, /createAssets\(\{ baseURL: "https:\/\/assets\.example\.com\/" \}\)/);
+    assert.match(
+      example,
+      /assets\.getProvider\(\s*"eip155:14",\s*"0x1650d2760baee638c034200dedcbe17b050d0364",\s*\)/,
+    );
+    assert.match(example, /const response = await fetch\(entry\.logoURL\);/);
+    assert.match(example, /if \(!response\.ok\)/);
+    assert.match(example, /const bytes = new Uint8Array\(await response\.arrayBuffer\(\)\);/);
+    assert.match(example, /bytes\.byteLength > 256 \* 1024/);
+    assert.match(
+      example,
       /if \(!verifyLogoHash\(bytes, entry\.logoHash\)\) throw new Error\("logo hash mismatch"\)/,
     );
-    assert.match(readme, /fetchLogo` is removed/);
+    assert.match(example, /Display or cache the image only after the hash matches/);
+    assert.match(
+      readme,
+      /Hash the original bytes, not a transcoded or resized image \(image proxies and CDN optimizers change bytes\), and don't use `response\.text\(\)` or a blob URL round-trip that alters bytes\./,
+    );
+    assert.equal(example.includes("fetchLogo"), false);
+  });
+
+  test("the README example verifies a real catalog logo", () => {
+    const example = logoExample(fs.readFileSync(path.join(process.cwd(), "README.md"), "utf8"));
+    const { createAssets } = published as {
+      createAssets: () => {
+        getProvider: (
+          chainId: string,
+          identityAddress: string,
+        ) => { logoURL: string; logoHash: string } | null;
+      };
+    };
+    const entry = createAssets().getProvider(
+      "eip155:14",
+      "0x1650d2760baee638c034200dedcbe17b050d0364",
+    );
+    assert.ok(entry);
+    assert.match(
+      entry.logoURL,
+      /^https:\/\/cdn\.jsdelivr\.net\/gh\/bifrostwallet\/assets@[^/]+\/data\//,
+    );
+    assert.match(entry.logoHash, /^[0-9a-f]{64}$/);
+    const relative = entry.logoURL.slice(entry.logoURL.indexOf("/data/") + "/data/".length);
+    const logoPath = path.resolve(process.cwd(), "data", relative);
+    const dataRoot = path.resolve(process.cwd(), "data");
+    assert.equal(logoPath.startsWith(`${dataRoot}${path.sep}`), true);
+    const expected = fs.readFileSync(logoPath);
+    assert.equal(expected.byteLength <= 256 * 1024, true);
+    assert.equal(verifyFromPackage(expected, entry.logoHash), true);
+
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "logo-example-"));
+    try {
+      const runnerPath = path.join(dir, "run.mjs");
+      const outPath = path.join(dir, "bytes.bin");
+      const body = example.replace(/^import .*\n/, "");
+      const indexUrl = pathToFileURL(path.join(process.cwd(), "dist", "index.js")).href;
+      fs.writeFileSync(
+        runnerPath,
+        `import fs from "node:fs";
+import path from "node:path";
+import pkg from ${JSON.stringify(indexUrl)};
+const { createAssets, verifyLogoHash } = pkg;
+
+const dataRoot = ${JSON.stringify(dataRoot)};
+globalThis.fetch = async (input) => {
+  const url = new URL(String(input));
+  const marker = "/data/";
+  const idx = url.pathname.indexOf(marker);
+  if (idx === -1) throw new Error("unexpected logo URL");
+  const relative = decodeURIComponent(url.pathname.slice(idx + marker.length));
+  const filePath = path.resolve(dataRoot, relative);
+  if (!filePath.startsWith(dataRoot + path.sep)) throw new Error("logo path escapes data/");
+  return new Response(fs.readFileSync(filePath));
+};
+
+${body}
+fs.writeFileSync(${JSON.stringify(outPath)}, bytes);
+`,
+      );
+      const run = spawnSync(process.execPath, [runnerPath], { encoding: "utf8" });
+      assert.equal(run.status, 0, `${run.stderr}\n${run.stdout}`);
+      assert.deepEqual(fs.readFileSync(outPath), expected);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
+
+function logoExample(readme: string): string {
+  const heading = "### Optional: check a downloaded logo";
+  const start = readme.indexOf(heading);
+  assert.notEqual(start, -1);
+  const next = readme.indexOf("\n### ", start + heading.length);
+  const section = readme.slice(start, next === -1 ? undefined : next);
+  const fence = section.match(/```ts\r?\n([\s\S]*?)```/);
+  assert.ok(fence?.[1]);
+  return fence[1];
+}

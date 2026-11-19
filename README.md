@@ -46,13 +46,19 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 Download the logo, then check the file bytes with `verifyLogoHash(bytes, logoHash)`. It is true when the SHA-256 of those bytes equals `logoHash`: 64 lowercase hex characters, no `0x` prefix. Hash the original bytes, not a transcoded or resized image (image proxies and CDN optimizers change bytes), and don't use `response.text()` or a blob URL round-trip that alters bytes.
 
 ```ts
-import { verifyLogoHash } from "@bifrostwallet/assets";
+import { createAssets, verifyLogoHash } from "@bifrostwallet/assets";
 
-// `entry` is a catalog record from createAssets().
+const assets = createAssets();
+// Optional: createAssets({ baseURL: "https://assets.example.com/" }) when you host the files.
+const entry = assets.getProvider(
+  "eip155:14",
+  "0x1650d2760baee638c034200dedcbe17b050d0364",
+);
+if (!entry) throw new Error("missing catalog entry");
+
 const response = await fetch(entry.logoURL);
 if (!response.ok) throw new Error("Could not download logo");
 const bytes = new Uint8Array(await response.arrayBuffer());
-// Optional size cap.
 if (bytes.byteLength > 256 * 1024) throw new Error("logo exceeds 256KB");
 if (!verifyLogoHash(bytes, entry.logoHash)) throw new Error("logo hash mismatch");
 // Display or cache the image only after the hash matches.
