@@ -1,5 +1,7 @@
 # Yarn Zero-Installs / vendored binary — treat as binary for diffs and LFS-unfriendly tools.
 /.yarn/releases/** binary
 /.yarn/cache/** binary
+# Keep the committed Yarn cache out of source archives (tag tarballs/ZIPs) so CDN fallbacks that download the tag archive stay under their package size limit; clones, CI and zero-installs are unaffected.
+/.yarn/cache/** export-ignore
 .pnp.cjs linguist-generated=true
 .pnp.loader.mjs linguist-generated=true
