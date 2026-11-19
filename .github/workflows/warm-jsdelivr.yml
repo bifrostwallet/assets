@@ -1,0 +1,95 @@
+name: Warm jsDelivr
+
+# After a GitHub Release is published, GET every file under data/providers/
+# from jsDelivr at that tag so the CDN has it before clients do. A manual run
+# takes an explicit tag. The job checks out that tag, so the tag's tree is the
+# file list and must include scripts/warm-jsdelivr.mjs. Files that stay cold
+# are warnings; the job still succeeds. Nothing outside data/providers is
+# requested, and this job does not publish or install dependencies.
+#
+# The tag must be a release version (three numbers, such as 1.4.1) and is
+# checked out as refs/tags/<tag>, so a branch name or a commit SHA is never
+# run. The only code this job runs is the two pinned actions and the script,
+# which has no dependencies. The job has a read-only token, and the checkout
+# does not leave it on disk for the script.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to warm on jsDelivr (for example 1.4.1)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: warm-jsdelivr-${{ github.event.release.tag_name || github.event.inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+env:
+  COREPACK_ENABLE: "0"
+
+jobs:
+  warm:
+    name: Warm provider files
+    # Pinned image, the same as the other workflows. Not ubuntu-latest, which
+    # moves to a new image without a change in this repository.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Resolve tag
+        id: tag
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -eu
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG=${INPUT_TAG:-}
+          else
+            TAG=${RELEASE_TAG:-}
+          fi
+          # Digits and exactly two dots, with a number in each part. The value
+          # is not printed: a manual input is free text.
+          case "$TAG" in
+            "" | *[!0-9.]* | .* | *. | *..* | *.*.*.*)
+              VALID=0
+              ;;
+            *.*.*)
+              VALID=1
+              ;;
+            *)
+              VALID=0
+              ;;
+          esac
+          if [ "$VALID" -ne 1 ]; then
+            echo "Refusing tag: expected a release version such as 1.4.1" >&2
+            exit 1
+          fi
+          printf 'tag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Check out tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # A tag only. A branch with the same name is not checked out.
+          ref: refs/tags/${{ steps.tag.outputs.tag }}
+          # The script needs no git access. Do not leave the token in .git/config.
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+
+      - name: Warm provider files on jsDelivr
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -eu
+          node scripts/warm-jsdelivr.mjs "$TAG"
