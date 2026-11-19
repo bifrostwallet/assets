@@ -938,7 +938,9 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x01caaaa7b40aa13ab2a04087d262b5558e695607/logo.webp",
     "logoHash": "480ac2bcb730cdb3e9044412f01314431b9aff2e3bbba59a16432091a379d025",
     "websiteURL": "https://uglykitty.xyz",
-    "links": {},
+    "links": {
+      "x": "https://x.com/uglykittyNFT"
+    },
     "identityAddress": "0x01caaaa7b40aa13ab2a04087d262b5558e695607",
     "delegationAddress": "0x35149714467f2fe71b46eeb4d11689ed8728bd25",
     "signingPolicyAddress": "0x338119f38fc07f29aa96449251353d9e4684da6d",
@@ -946,6 +948,7 @@
     "submitSignaturesAddress": "0x7e5a5371517f855e10d27394483dbab123da5d9d",
     "publicKey": "0x1ec9ba90b04ed361a44ef0b46cc173f423c6a95f9d86688553d16780eae163de182db0c31609bbdd2fb5c9b29dbaca96c0ee2c9cd6885d71b3c20a7d7bd279ee",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -984,7 +987,7 @@
     "name": "Catenalytica",
     "description": "Our mission is to deliver the highest possible reward rates for our delegators. We achieve this by combining a high-accuracy FTSO algorithm with low validator fees, all while committing to complete data transparency.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x8ddd48b520df91f05c5d8c19b2cee59abe65978a/logo.webp",
-    "logoHash": "400810f7431774fe01271209f1bd2f747a05718c826e5cf37e874feea754a3b9",
+    "logoHash": "c63f6f26eccdc0eb7ea0800ff1db28e45f41c33719d7f1dbd39c8b1842f99e33",
     "websiteURL": "https://catenalytica.com",
     "links": {
       "x": "https://x.com/Catenalytica"
@@ -1105,11 +1108,13 @@
   },
   {
     "name": "Atlas TSO",
-    "description": "Atlas Songbird Network Data Provider. Doing what is best for the users and the network.",
+    "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x19585c914aea4d985e034399c581b35014ec94ef/logo.webp",
-    "logoHash": "0284e050b517bfa108a291048d4135c79f28ae96c7aff07c6bf645bc1c147059",
+    "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
     "websiteURL": "https://tsoatlas.xyz",
-    "links": {},
+    "links": {
+      "x": "https://x.com/TsoAtlas"
+    },
     "identityAddress": "0x19585c914aea4d985e034399c581b35014ec94ef",
     "delegationAddress": "0xb5ecb64526f777eb6f02d4a83abab1fad26b1c00",
     "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
@@ -1117,6 +1122,7 @@
     "submitSignaturesAddress": "0x8b31c922bfc7f969585fda3e86faa873b72e88e4",
     "publicKey": "0x0bea4ddaa37c9f34160604d5ca90f1ce2b353caa1df54d580447bac6fa2696860ed29f25b00c1ebb59d916e4ec7e932f9838d9ef7c459160dbbd41e79901568c",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1204,8 +1210,11 @@
     "description": "FTSO Stoadz provides a Flare Time Series Oracle for those who want to delegate their assets!",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xa0e1fba30e75e2d0d6c428cff4b3b6a06233422b/logo.webp",
     "logoHash": "dbd2d6e56161550d59950da1da70277f10de1516d2fd7c3be59c12ac229e9c5d",
-    "websiteURL": "https://xtoadz.xyz/signal-provider",
-    "links": {},
+    "websiteURL": "https://stoadzftso.com",
+    "links": {
+      "x": "https://x.com/xtoadz",
+      "discord": "https://discord.gg/xtoadz"
+    },
     "identityAddress": "0xa0e1fba30e75e2d0d6c428cff4b3b6a06233422b",
     "delegationAddress": "0x6bf25c0256cbe8969424f6994e19cf5e0a3c23bb",
     "signingPolicyAddress": "0x2eecbb469af133d136f011ce3f27ecf9524bb7c3",
@@ -1213,6 +1222,7 @@
     "submitSignaturesAddress": "0x4976bed181eb89de7e5a12b8b343f787a3f7ea05",
     "publicKey": "0x16762ec6e45834741bc48854d22fd1fe9e2d4d5fcabbbbbb21f798a0a992c1a226c25d95f1ebd94aa6571a5846f024957b32472a2806e3381b8cf7eaa45b50d0",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": false,
     "domainLinked": false,

@@ -1,10 +1,12 @@
 {
   "name": "Atlas TSO",
-  "description": "Atlas Songbird Network Data Provider. Doing what is best for the users and the network.",
+  "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
   "logoURL": "providers/eip155-19/0x19585c914aea4d985e034399c581b35014ec94ef/logo.webp",
-  "logoHash": "0284e050b517bfa108a291048d4135c79f28ae96c7aff07c6bf645bc1c147059",
+  "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
   "websiteURL": "https://tsoatlas.xyz",
-  "links": {},
+  "links": {
+    "x": "https://x.com/TsoAtlas"
+  },
   "identityAddress": "0x19585c914aea4d985e034399c581b35014ec94ef",
   "delegationAddress": "0xb5ecb64526f777eb6f02d4a83abab1fad26b1c00",
   "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
@@ -12,6 +14,7 @@
   "submitSignaturesAddress": "0x8b31c922bfc7f969585fda3e86faa873b72e88e4",
   "publicKey": "0x0bea4ddaa37c9f34160604d5ca90f1ce2b353caa1df54d580447bac6fa2696860ed29f25b00c1ebb59d916e4ec7e932f9838d9ef7c459160dbbd41e79901568c",
   "validators": [],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,

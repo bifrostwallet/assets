@@ -4,7 +4,11 @@
   "logoURL": "providers/eip155-14/0x16c0619b2c427aaeb5931426eb0a898b6e3cd885/logo.webp",
   "logoHash": "2d7a9e5d4c5e7b1cc277bf5869c14b562c5947456e7ac7e9908b97c92b72ab39",
   "websiteURL": "https://www.digitaldynamix.co.uk",
-  "links": {},
+  "links": {
+    "x": "https://x.com/_DigitalDynamix",
+    "discord": "https://discord.gg/aVBMPAvQtd",
+    "youtube": "https://www.youtube.com/@Flare_Community"
+  },
   "identityAddress": "0x16c0619b2c427aaeb5931426eb0a898b6e3cd885",
   "delegationAddress": "0x57711d552e2309c7a83716351e7a59a438f17e3a",
   "signingPolicyAddress": "0xb4d29b9db72a9e557f58314d6de7c435bac40391",
@@ -15,6 +19,7 @@
     "NodeID-DqtFZusCw713o96Hx29iHKUhFyZ4eBDpw",
     "NodeID-NEBeLpZHjxiSB9fbqDeqsxU529e41hQYE"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,

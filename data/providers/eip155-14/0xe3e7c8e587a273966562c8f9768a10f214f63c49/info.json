@@ -2,9 +2,11 @@
   "name": "Atlas TSO",
   "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
   "logoURL": "providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
-  "logoHash": "0284e050b517bfa108a291048d4135c79f28ae96c7aff07c6bf645bc1c147059",
+  "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
   "websiteURL": "https://tsoatlas.xyz",
-  "links": {},
+  "links": {
+    "x": "https://x.com/TsoAtlas"
+  },
   "identityAddress": "0xe3e7c8e587a273966562c8f9768a10f214f63c49",
   "delegationAddress": "0x07702a7494f760b0b3642463bdd2b7a13cfddbb2",
   "signingPolicyAddress": "0x4f29816fddfecef74b05639718eb719f719def4e",
@@ -16,6 +18,7 @@
     "NodeID-JmYHE5qkDc7pxphwiRJss47vhmwAXavUi",
     "NodeID-MsF6Xc1PsMWtcxVudCepWb5kUeF1EF8RX"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": false,
   "domainLinked": false,
