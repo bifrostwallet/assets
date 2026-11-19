@@ -36,7 +36,8 @@ env:
 jobs:
   warm:
     name: Warm provider files
-    runs-on: ubuntu-24.04
+    # GitHub-hosted ubuntu-latest.
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Resolve tag
