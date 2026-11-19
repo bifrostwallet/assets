@@ -9,6 +9,10 @@
 //
 // The process exits 0 even when some files stay cold. Those paths are listed
 // in a GitHub Actions warning. Tokens, contracts, and dapps are not requested.
+//
+// No dependencies, on purpose: the release job runs this file without an
+// install. Every request goes to CDN_ORIGIN over HTTPS. Redirects are not
+// followed and response bodies are discarded, not kept in memory.
 
 import { readdir } from "node:fs/promises";
 import path from "node:path";
@@ -22,7 +26,13 @@ const MAX_ATTEMPTS = 8;
 const RETRY_DELAY_MS = 61_000;
 const REQUEST_TIMEOUT_MS = 30_000;
 const WARNING_CHUNK = 3500;
-const TAG_RE = /^[A-Za-z0-9._+-]+$/;
+// A release tag is the package version. Anything else (a branch such as main,
+// a commit SHA, or a range such as 1 or 1.4) would warm a URL jsDelivr
+// resolves differently from the files in this checkout.
+const TAG_RE = /^\d+\.\d+\.\d+$/;
+// Path segments this script is willing to request and to print. A name outside
+// this set is refused, so a file name can never add a line to the job log.
+const SEGMENT_RE = /^[A-Za-z0-9._-]+$/;
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -36,22 +46,17 @@ function parseTag(argv) {
     process.exit(1);
   }
   const tag = argv[2];
-  if (
-    !tag ||
-    !TAG_RE.test(tag) ||
-    tag.startsWith(".") ||
-    tag.startsWith("-") ||
-    tag.includes("..")
-  ) {
-    console.error(`Refusing tag ${JSON.stringify(tag)}`);
+  if (!tag || !TAG_RE.test(tag)) {
+    console.error(`Refusing tag ${JSON.stringify(tag)}: expected a release version such as 1.4.1`);
     process.exit(1);
   }
   return tag;
 }
 
 function providerFileUrl(tag, relativePath) {
-  // Tag is one validated segment (no slash, space, or @), same as the release
-  // URL builder. Encode each path segment so a space or plus cannot retarget it.
+  // Tag is a validated version and every segment passed SEGMENT_RE, so
+  // encoding changes nothing today. It stays so that a wider SEGMENT_RE could
+  // not retarget the URL.
   const encodedPath = relativePath
     .split("/")
     .map((segment) => encodeURIComponent(segment))
@@ -65,9 +70,12 @@ function assertProviderRelative(relativePath) {
     path.isAbsolute(relativePath) ||
     !relativePath.startsWith(`${PROVIDERS_DIR}/`) ||
     segments.includes("..") ||
-    segments.includes("")
+    segments.includes(".") ||
+    !segments.every((segment) => SEGMENT_RE.test(segment))
   ) {
-    throw new Error(`Refusing path outside ${PROVIDERS_DIR}: ${relativePath}`);
+    throw new Error(
+      `Refusing path outside ${PROVIDERS_DIR} or with an unexpected name: ${JSON.stringify(relativePath)}`,
+    );
   }
 }
 
@@ -118,7 +126,9 @@ async function fetchProviderFile(url) {
   try {
     const response = await fetch(url, {
       method: "GET",
-      redirect: "follow",
+      // jsDelivr answers a tagged file directly. A redirect is a failure, and
+      // no request is ever sent to another host.
+      redirect: "manual",
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       headers: {
         accept: "*/*",
@@ -126,20 +136,12 @@ async function fetchProviderFile(url) {
       },
     });
     // Drain the body so the edge finishes storing the object. Counting headers
-    // alone can leave the fill incomplete.
-    await response.arrayBuffer();
-    let finalHost = "";
-    try {
-      finalHost = new URL(response.url).hostname;
-    } catch {
-      finalHost = "";
+    // alone can leave the fill incomplete. The bytes are discarded as they
+    // arrive, so a large response cannot fill memory.
+    if (response.body) {
+      await response.body.pipeTo(new WritableStream());
     }
-    const onCdn = finalHost === "cdn.jsdelivr.net";
-    return {
-      ok: response.ok && onCdn,
-      status: response.status,
-      error: onCdn ? "" : "off-cdn",
-    };
+    return { ok: response.status === 200, status: response.status, error: "" };
   } catch (error) {
     const name = error instanceof Error ? error.name : "Error";
     const errorLabel = name === "TimeoutError" || name === "AbortError" ? "timeout" : name;
