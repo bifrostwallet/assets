@@ -36,8 +36,9 @@ env:
 jobs:
   warm:
     name: Warm provider files
-    # GitHub-hosted ubuntu-latest.
-    runs-on: ubuntu-latest
+    # Pinned image, the same as the other workflows. Not ubuntu-latest, which
+    # moves to a new image without a change in this repository.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - name: Resolve tag
