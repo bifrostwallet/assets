@@ -53,7 +53,8 @@ import type { XrplToken } from "../xrplToken.js";
 // read package.json. The same entry exports the ProviderListing EIP-712 constants
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
-// against the catalog logoHash. Provider signatures ship as a separate
+// the caller already downloaded against the catalog logoHash. The package
+// does not download logos. Provider signatures ship as a separate
 // entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
 // upload sends logo files only.
@@ -371,7 +372,6 @@ const PUBLISHED_EXPORTS = [
   "PROVIDER_LISTING_TYPES",
   "TOKEN_CHAIN_IDS",
   "createAssets",
-  "fetchLogo",
   "providerListingTypedData",
   "verifyLogoHash",
 ] as const;
@@ -461,110 +461,54 @@ const VERIFY_LOGO_HASH_JS = [
   "  if (digest.length !== expected.length) return false;",
   "  return crypto.timingSafeEqual(digest, expected);",
   "}",
-  "",
-  "function delay(ms) {",
-  "  return new Promise((resolve) => {",
-  "    setTimeout(resolve, ms);",
-  "  });",
-  "}",
-  "",
-  "function readRetryCount(value) {",
-  '  if (typeof value !== "number" || !Number.isFinite(value)) return 0;',
-  "  const count = Math.floor(value);",
-  "  return count > 0 ? count : 0;",
-  "}",
-  "",
-  "function readRetryDelay(value) {",
-  '  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return 500;',
-  "  return value;",
-  "}",
-  "",
-  "function isRetryableStatus(status) {",
-  "  return status === 403 || status === 408 || status === 429 || (status >= 500 && status <= 599);",
-  "}",
-  "",
-  "function callerAborted(options) {",
-  "  return !!(options && options.signal && options.signal.aborted);",
-  "}",
-  "",
-  "async function backoff(options, attempt, status) {",
-  "  const retries = readRetryCount(options && options.retries);",
-  "  const retryDelay = readRetryDelay(options && options.retryDelay);",
-  "  const wait = retryDelay * 2 ** (attempt - 1);",
-  "  const onRetry = options && options.onRetry;",
-  '  if (typeof onRetry === "function") {',
-  "    await onRetry({ attempt, retries, status, delay: wait });",
-  "  }",
-  "  if (wait > 0) await delay(wait);",
-  "}",
-  "",
-  "async function fetchLogo(entry, options) {",
-  '  if (!entry || typeof entry.logoURL !== "string" || entry.logoURL.trim() === "") {',
-  '    throw new Error("logoURL is required");',
-  "  }",
-  '  if (typeof entry.logoHash !== "string" || !/^[0-9a-f]{64}$/.test(entry.logoHash)) {',
-  '    throw new Error("logoHash must be a lowercase SHA-256 hex digest");',
-  "  }",
-  "  const fetchImpl = (options && options.fetch) || fetch;",
-  "  const retries = readRetryCount(options && options.retries);",
-  "  let attempt = 0;",
-  "  for (;;) {",
-  "    const signal = options && options.signal ? options.signal : AbortSignal.timeout(30000);",
-  "    let response;",
-  "    try {",
-  "      response = await fetchImpl(entry.logoURL, {",
-  '        redirect: "follow",',
-  '        headers: { accept: "application/octet-stream" },',
-  "        signal,",
-  "      });",
-  "    } catch (error) {",
-  "      if (!callerAborted(options) && attempt < retries) {",
-  "        attempt += 1;",
-  '        await backoff(options, attempt, "network");',
-  "        continue;",
-  "      }",
-  "      const message = error && error.message ? error.message : String(error);",
-  '      throw new Error("Could not fetch logo: " + message);',
-  "    }",
-  "    if (!response || !response.ok) {",
-  '      const status = response && typeof response.status === "number" ? response.status : 0;',
-  '      if (response && typeof response.arrayBuffer === "function") {',
-  "        try {",
-  "          await response.arrayBuffer();",
-  "        } catch (drainError) {",
-  "          void drainError;",
-  "        }",
-  "      }",
-  "      if (isRetryableStatus(status) && attempt < retries && !callerAborted(options)) {",
-  "        attempt += 1;",
-  "        await backoff(options, attempt, status);",
-  "        continue;",
-  "      }",
-  '      const label = status ? status : "request failed";',
-  '      throw new Error("Could not fetch logo: HTTP " + label);',
-  "    }",
-  "    let bytes;",
-  "    try {",
-  "      bytes = new Uint8Array(await response.arrayBuffer());",
-  "    } catch (error) {",
-  "      if (!callerAborted(options) && attempt < retries) {",
-  "        attempt += 1;",
-  '        await backoff(options, attempt, "network");',
-  "        continue;",
-  "      }",
-  "      const message = error && error.message ? error.message : String(error);",
-  '      throw new Error("Could not fetch logo: " + message);',
-  "    }",
-  "    if (bytes.byteLength > 256 * 1024) {",
-  '      throw new Error("Could not fetch logo: response exceeds 256KB");',
-  "    }",
-  "    if (!verifyLogoHash(bytes, entry.logoHash)) {",
-  '      throw new Error("logo hash mismatch");',
-  "    }",
-  "    return bytes;",
-  "  }",
-  "}",
 ].join("\n");
+
+const PUBLISHED_NETWORK_PATTERNS: ReadonlyArray<{ label: string; pattern: RegExp }> = [
+  { label: "fetch", pattern: /\bfetch\b/ },
+  { label: "fetchLogo", pattern: /fetchLogo/i },
+  { label: "XMLHttpRequest", pattern: /XMLHttpRequest/ },
+  { label: "WebSocket", pattern: /\bWebSocket\b/ },
+  { label: "node:http", pattern: /node:https?\b/ },
+  { label: "node:http2", pattern: /node:http2\b/ },
+  { label: "node:net", pattern: /node:net\b/ },
+  { label: "node:tls", pattern: /node:tls\b/ },
+  { label: "node:dgram", pattern: /node:dgram\b/ },
+  {
+    label: "network require",
+    pattern: /require\(\s*["'](?:node:)?(?:https?|http2|net|tls|dgram)["']\s*\)/,
+  },
+  { label: "http request", pattern: /\bhttps?\.(?:request|get)\b/ },
+  { label: "net.connect", pattern: /\bnet\.(?:connect|createConnection)\b/ },
+  { label: "tls.connect", pattern: /\btls\.connect\b/ },
+  { label: "undici", pattern: /\bundici\b/ },
+  { label: "axios", pattern: /\baxios\b/ },
+  { label: "node-fetch", pattern: /node-fetch/ },
+];
+
+/**
+ * Shipped JavaScript and declarations must not open the network.
+ * Callers download a logo themselves. That example stays in the README.
+ */
+function assertPublishedSourcesStayOffline(distDir: string): void {
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (!entry.name.endsWith(".js") && !entry.name.endsWith(".d.ts")) continue;
+      const source = fs.readFileSync(fullPath, "utf8");
+      const relative = path.relative(distDir, fullPath);
+      for (const { label, pattern } of PUBLISHED_NETWORK_PATTERNS) {
+        if (pattern.test(source)) {
+          throw new Error(`${relative} still contains network code (${label})`);
+        }
+      }
+    }
+  };
+  walk(distDir);
+}
 
 /** True when `source` contains an absolute URL whose host is exactly `hostname`. */
 function sourceContainsHostname(source: string, hostname: string): boolean {
@@ -648,14 +592,14 @@ function assertBuiltPackage(distDir: string, defaultBase: string): void {
   if (!dts.includes("export declare function verifyLogoHash")) {
     throw new Error("index.d.ts is missing verifyLogoHash");
   }
-  if (!dts.includes("export declare function fetchLogo")) {
-    throw new Error("index.d.ts is missing fetchLogo");
+  if (dts.includes("fetchLogo") || dts.includes("FetchLogoOptions") || dts.includes("LogoEntry")) {
+    throw new Error("index.d.ts still declares the removed logo download API");
   }
   if (typeof published.verifyLogoHash !== "function") {
     throw new Error("verifyLogoHash export is missing");
   }
-  if (typeof published.fetchLogo !== "function") {
-    throw new Error("fetchLogo export is missing");
+  if ("fetchLogo" in published) {
+    throw new Error("fetchLogo export is still present");
   }
   if (
     !dts.includes(`export declare const EIP712_DOMAIN_SALT: ${JSON.stringify(EIP712_DOMAIN_SALT)}`)
@@ -696,6 +640,7 @@ function assertBuiltPackage(distDir: string, defaultBase: string): void {
   ) {
     throw new Error("signatures.js must not hash, depend on viem, or load the main entry");
   }
+  assertPublishedSourcesStayOffline(distDir);
 }
 
 /**
@@ -1095,10 +1040,6 @@ function verifyLogoHash(bytes, expectedHash) {
   return require("./verify-logo-hash.js").verifyLogoHash(bytes, expectedHash);
 }
 
-function fetchLogo(entry, options) {
-  return require("./verify-logo-hash.js").fetchLogo(entry, options);
-}
-
 function createAssets(options) {
   let supplied;
   if (options === undefined || options === null) {
@@ -1191,7 +1132,6 @@ module.exports = {
   PROVIDER_LISTING_TYPES,
   providerListingTypedData,
   createAssets,
-  fetchLogo,
   verifyLogoHash,
 };
 `;
@@ -1354,41 +1294,10 @@ export interface CreateAssetsOptions {
   baseURL?: string;
 }
 
-/** Any curated catalog entry. Tokens, providers, contracts, and dapps use this shape. */
-export interface LogoEntry {
-  logoURL: string;
-  logoHash: string;
-}
-
-export interface FetchLogoOptions {
-  /** Defaults to global fetch. Tests pass a substitute. */
-  fetch?: typeof fetch;
-  signal?: AbortSignal;
-  /**
-   * Extra attempts after a network error or HTTP 403, 408, 429, or 5xx.
-   * Defaults to 0.
-   * A hash mismatch or a response over 256KB is never retried.
-   */
-  retries?: number;
-  /** Milliseconds before the first retry. Doubles on each later retry. Defaults to 500. */
-  retryDelay?: number;
-}
-
-/**
- * Optional convenience. Downloads entry.logoURL and checks the bytes with verifyLogoHash.
- * Apps show logoURL directly. Use this when you need the verified file bytes.
- * Throws if the request fails or the hash does not match.
- */
-export declare function fetchLogo(
-  entry: LogoEntry,
-  options?: FetchLogoOptions,
-): Promise<Uint8Array>;
-
 /**
  * True when SHA-256 of the decoded logo bytes equals expectedHash.
  * expectedHash is 64 lowercase hex characters with no 0x prefix (catalog logoHash).
- * For bytes you already have.
- * fetchLogo calls this after a download.
+ * Download the logo yourself and pass those file bytes here.
  */
 export declare function verifyLogoHash(
   bytes: ArrayBuffer | Uint8Array,
@@ -1606,7 +1515,7 @@ function buildPackageUnlocked(): void {
   );
   fs.writeFileSync(
     path.join(distDir, "verify-logo-hash.js"),
-    `"use strict";\n${VERIFY_LOGO_HASH_JS}\nmodule.exports = { verifyLogoHash, fetchLogo };\n`,
+    `"use strict";\n${VERIFY_LOGO_HASH_JS}\nmodule.exports = { verifyLogoHash };\n`,
   );
   const categoryUnion = CONTRACT_CATEGORIES.map(
     (category) => `  | ${JSON.stringify(category)}`,
