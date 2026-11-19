@@ -43,6 +43,7 @@ jobs:
         shell: sh
         run: |
           set -eu
+          case "$TAG" in ''|*[!0-9.]*) echo 'Refusing: not plain x.y.z' >&2; exit 1 ;; esac
           if ! printf '%s\n' "$TAG" | grep -Eqx \
             '(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)'; then
             echo 'Refusing tag: expected x.y.z (digits only, no v prefix, no suffix)' >&2
@@ -90,6 +91,7 @@ jobs:
         run: |
           set -eu
           VERSION="$(node -p "require('./dist/package.json').version")"
+          case "$VERSION" in ''|*[!0-9.]*) echo 'Refusing: not plain x.y.z' >&2; exit 1 ;; esac
           if ! printf '%s\n' "$VERSION" | grep -Eqx \
             '(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)'; then
             echo 'Refusing version: expected x.y.z (digits only, no v prefix, no suffix)' >&2
