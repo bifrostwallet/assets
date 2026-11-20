@@ -25,11 +25,13 @@
   },
   {
     "name": "Aureus Ox",
-    "description": "Aureus Ox is building a scalable and reliable FTSO signal provider. Our initial goals include accurate price submission and delegation tools.",
+    "description": "Aureus Ox runs production Flare and XRPL infrastructure: FTSO price feeds, validators, and operator-level analysis. We also build Oxen Flow, a non-custodial wallet for Flare with Hyperliquid access.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xbe311f1640b700f76d17c009a505487c23b0312c/logo.webp",
     "logoHash": "f1fcc0edee6bf7dc678019cef6a905cad52ef02f7f67bf2723df081592c6b387",
     "websiteURL": "https://aureusox.com",
-    "links": {},
+    "links": {
+      "x": "https://x.com/AureusOx"
+    },
     "identityAddress": "0xbe311f1640b700f76d17c009a505487c23b0312c",
     "delegationAddress": "0x6d323e71e141ce2d7b752313c8a654a9c9d1b377",
     "signingPolicyAddress": "0x86339bbf3e57c6026ce678617dec27f2cc5dbd62",
@@ -37,6 +39,7 @@
     "submitSignaturesAddress": "0xd224ab1433acb76a26c669b451589707b88a39b7",
     "publicKey": "0x07704246b5cde7de97bb90e401bd673d1b873b06c1bcd123ec76ac549c7d97970a868035a203f9e1097ac3ba2f8be9ad4655a3eb4deee864c8f15ae1d1120ecb",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
