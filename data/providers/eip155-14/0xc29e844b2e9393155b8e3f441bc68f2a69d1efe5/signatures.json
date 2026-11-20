@@ -5,9 +5,9 @@
     {
       "signerName": "AlphaOracle",
       "signerAddress": "0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5",
-      "messageHash": "0x97c119c6b3e266bbef19b2435f5b0041d90cddbab707bbae584316a169e0e2cb",
-      "signature": "0xbb89b492c93a18dc0d767b61c533f0679f12693c9f41a3b225e38fecaffdeeec4fab0f87ba22da9afe98e96889c54451d6c40c9dc8d058825912cbd6d446763801",
-      "date": "2026-11-17T15:27:12.962Z"
+      "messageHash": "0xeb7160bd4e5f63613b81a388bef2b5836827d6138a3a923d9f05514b46ae386e",
+      "signature": "0xd2c5095bab4aa8a26f6be7e27f362e6f74b8e24e337ba96b96680abc7bdf260038a55c05fff8de806855f011af8a7975f8814b913666eadb9a17f4fb6f40d3fb00",
+      "date": "2026-11-18T15:50:02.639Z"
     }
   ]
 }

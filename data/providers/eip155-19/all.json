@@ -51,7 +51,7 @@
     "name": "AlphaOracle",
     "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xb4466be43f01e8a615490098aaf18a1dc5c56568/logo.webp",
-    "logoHash": "2196273ce036cf250e315dd8978baec41841c58a224227ff04bc42234f0f8551",
+    "logoHash": "bb517eb755f13545bd71d10bdce1cafa9c6e0dd829191bca69298aec5ba73c70",
     "websiteURL": "https://www.alphaoracle.io",
     "links": {
       "x": "https://x.com/AlphaOracle1"
@@ -109,7 +109,7 @@
     "name": "AU",
     "description": "AU provide accurate and reliable price feeds to the Flare Network and a transparent, incentivised, risk-free delegation service. We do so by leveraging the distributed nature of the network and its participants.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
-    "logoHash": "a399082fda3dce17c4b7496d3d80400265f375567f624a9bfba809fbd133eeec",
+    "logoHash": "f9ce51bbb84520d6d5d33649df5152e514cadd36ad4793b2664421e8af2691e2",
     "websiteURL": "https://au.cc",
     "links": {
       "x": "https://x.com/aucc_official",
@@ -965,7 +965,10 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xec056b0ef36de1d63031fdbb9bcef5feb36fb27f/logo.webp",
     "logoHash": "d61124fde770141000098c6814d2090b45c6039cfbf89ad6b5cc11da3237c346",
     "websiteURL": "https://ftsocan.com",
-    "links": {},
+    "links": {
+      "github": "https://github.com/ftsocan",
+      "x": "https://x.com/ftsocan"
+    },
     "identityAddress": "0xec056b0ef36de1d63031fdbb9bcef5feb36fb27f",
     "delegationAddress": "0x7c255e428e95bebc76e944d49d4f460c84b3a3c3",
     "signingPolicyAddress": "0x0cd4562cb47830cfc2acbca68c99d4c50e962f88",
@@ -973,6 +976,7 @@
     "submitSignaturesAddress": "0xee75cd37b1a6815cc6e8ea27cf735524c170c57a",
     "publicKey": "0x20f54d0d08d51d97844e91a8f05307250bbb7f0915b974806c079444d088332b27aaa90d1f09c41615b5eeb9c03649e8787f4ac5d67e1ddab98010a725e93746",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -1063,7 +1067,7 @@
     "description": "We provide a hub of resources revolving around everything build on the XRP, SGB and Flare networks. We pride ourselves on transparency and evidence-based content. The group behind this site are long term holders of XRP and researching this digital asset for years. The focus of the site will mainly be on the XRP, Flare and Songbird Networks.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x65ae92f3473d75815f2a86298b76a608f94e1575/logo.webp",
     "logoHash": "5b78bf452e1502bb4ea77c7c9db4d8e5031d8dbd3fcb4fa11bb6c69d19b6819f",
-    "websiteURL": "https://www.mickeybfresh.com",
+    "websiteURL": "https://mickeybfresh.network",
     "links": {},
     "identityAddress": "0x65ae92f3473d75815f2a86298b76a608f94e1575",
     "delegationAddress": "0xe304af184b9ca77e3576aef834a4dc1a43ebfa70",
@@ -1072,6 +1076,7 @@
     "submitSignaturesAddress": "0x094d9cf2c4474a3680363e7c1d1b1c4bffbd0b2a",
     "publicKey": "0x0a195a77c953182735552f4df2077dc16cd3b6d31dde958890bc5e31d8b1dfbc13fdcadb7e927b11ed55f1a84a91a66c6d37d91de86eefb39844241ecfe46129",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1108,9 +1113,9 @@
   },
   {
     "name": "Atlas TSO",
-    "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
+    "description": "Atlas Songbird Network Data Provider. Doing what is best for the users and the network.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x19585c914aea4d985e034399c581b35014ec94ef/logo.webp",
-    "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
+    "logoHash": "3fb70ea92f0cfc61ce1e5b03feee4e8ccf15db509db2acac2bd1fd3305740b75",
     "websiteURL": "https://tsoatlas.xyz",
     "links": {
       "x": "https://x.com/TsoAtlas"

@@ -166,7 +166,7 @@
     "name": "AlphaOracle",
     "description": "AlphaOracle is a US based Signal Provider to the Flare Network. Our goal is to provide reliable data to support applications and expand the ecosystem.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xc29e844b2e9393155b8e3f441bc68f2a69d1efe5/logo.webp",
-    "logoHash": "2770172148df96150f52a207d69cdc89bb812ecc5d50967ba301568dc76dcc2c",
+    "logoHash": "bb517eb755f13545bd71d10bdce1cafa9c6e0dd829191bca69298aec5ba73c70",
     "websiteURL": "https://www.alphaoracle.io",
     "links": {
       "x": "https://x.com/AlphaOracle1"
@@ -361,7 +361,7 @@
     "name": "AU",
     "description": "AU provide accurate and reliable price feeds to the Flare Network and a transparent, incentivised, risk-free delegation service. We do so by leveraging the distributed nature of the network and its participants.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xb3c9aa09f22a06122d3608ef075f14e001561470/logo.webp",
-    "logoHash": "a399082fda3dce17c4b7496d3d80400265f375567f624a9bfba809fbd133eeec",
+    "logoHash": "f9ce51bbb84520d6d5d33649df5152e514cadd36ad4793b2664421e8af2691e2",
     "websiteURL": "https://au.cc",
     "links": {
       "x": "https://x.com/aucc_official",
@@ -737,7 +737,10 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c/logo.webp",
     "logoHash": "73890906c02fa603524d76d3a501a8fc2449c80056275284a73c21fb2ab30874",
     "websiteURL": "https://ftsocan.com",
-    "links": {},
+    "links": {
+      "github": "https://github.com/ftsocan",
+      "x": "https://x.com/ftsocan"
+    },
     "identityAddress": "0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c",
     "delegationAddress": "0x9e55a49d251324b1623dc2a81894d1afbfb8bbdc",
     "signingPolicyAddress": "0x6bb880e2b19cbf6e683a7f6407c1ad92ccfaf4c1",
@@ -748,6 +751,7 @@
       "NodeID-DgK9ARwXacjijk37v4fndMm6kRd8NXadM",
       "NodeID-KzPd2Vx5WomGtur91B9K9R7to3mYyYga"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1169,7 +1173,7 @@
     "name": "Atlas TSO",
     "description": "Atlas Flare Network Data Provider. Doing what is best for the users and the network.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xe3e7c8e587a273966562c8f9768a10f214f63c49/logo.webp",
-    "logoHash": "d09672c2024213221fd43200a0e90a8dca7e866e4a50f77bcf2ec6f575cc4904",
+    "logoHash": "3fb70ea92f0cfc61ce1e5b03feee4e8ccf15db509db2acac2bd1fd3305740b75",
     "websiteURL": "https://tsoatlas.xyz",
     "links": {
       "x": "https://x.com/TsoAtlas"
@@ -1252,7 +1256,7 @@
     "description": "We provide a hub of resources revolving around everything build on the XRP, SGB and Flare networks. We pride ourselves on transparency and evidence-based content. The group behind this site are long term holders of XRP and researching this digital asset for years. The focus of the site will mainly be on the XRP, Flare and Songbird Networks.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x65ae92f3473d75815f2a86298b76a608f94e1575/logo.webp",
     "logoHash": "5b78bf452e1502bb4ea77c7c9db4d8e5031d8dbd3fcb4fa11bb6c69d19b6819f",
-    "websiteURL": "https://www.mickeybfresh.com",
+    "websiteURL": "https://mickeybfresh.network",
     "links": {},
     "identityAddress": "0x65ae92f3473d75815f2a86298b76a608f94e1575",
     "delegationAddress": "0x4e94dbff86b7f1f5ac9fd849e8101a4d52e947ec",
@@ -1261,6 +1265,7 @@
     "submitSignaturesAddress": "0x094d9cf2c4474a3680363e7c1d1b1c4bffbd0b2a",
     "publicKey": "0x2306ca26bf0184bf84e5218a35046f163aa554fd3e18a4e9379a1aea799cecd60bbbab4f62d39206b3f795c6faa59641a9f8bab769309053c3923f7c696fb45a",
     "validators": ["NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
@@ -1989,11 +1994,13 @@
   },
   {
     "name": "HP/Mana Nodes",
-    "description": "HP/Mana Nodes is a community based infrastructure provider on Flare Networks. Mint Player One or Player Two NFTs to fund our validator's self-bonding and secure your place as an infrastructure shareholder. The more FLR is bonded, the more yield is shared by all.",
+    "description": "HP/Mana Nodes is a community based infrastructure provider on Flare. The Power On series NFTs sold out in a flash bootstrapping the initial deploy. Join us as we continue to grow and level up at The Forge with HPFLR liquid staking yield management",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d/logo.webp",
-    "logoHash": "1a11bd40547ce6a430e691d3f0a7165daff10a6405059ecb8dbefc44e536e679",
+    "logoHash": "9353324a7da7ff5d35497d4d936161250206491e0cc374bad57598a9154fdac4",
     "websiteURL": "https://veriguardnft.xyz",
-    "links": {},
+    "links": {
+      "x": "https://x.com/hp_mana_nodes"
+    },
     "identityAddress": "0x1645a43ec5d09a0f0110683b5f5a4dc2ffcef17d",
     "delegationAddress": "0xf61b94dedc5f23398997d73b7701d67556eaad6f",
     "signingPolicyAddress": "0xdefaf698d59fe7bbb58950092e56da492079fb75",
@@ -2001,6 +2008,7 @@
     "submitSignaturesAddress": "0x2580615e42d66ee0500d3969fce4d047d57cd4f3",
     "publicKey": "0x2d4eedc5fc3e7265800513bf70776c04fea31e660fb5c272e92837e2cd75466819674af8effa0f453bc16a478318eae7977f70b88474a0e199411d620d4ff786",
     "validators": ["NodeID-4YtvwPgc578pqKhHoYtP4VTKVejXg7JBF"],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -2519,6 +2527,57 @@
     "submitSignaturesAddress": "0x3fac6607d0ae7d5887bae68ede306a10ac3b8a8c",
     "publicKey": "0x0602d468e2bf3283c378c95316502c4e92a41e6b5c0a4095934b6a761fc2f8f7154f43d798654402f2eaf1e1105d11edd0c430b2eb7aae585790c3da15451b95",
     "validators": ["NodeID-8GJeqFWmeVBnDHtnGyuW2ZWcwazrvgyn9"],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": false,
+    "dualNetwork": false
+  },
+  {
+    "name": "D20 Oracle",
+    "description": "D20 Oracle runs a Flare FTSO data provider (price feeds, FDC attestations and Fast Updates) and three validator nodes on its own infrastructure. FTSO and validator fee: 20%. Active since October 2026; addresses and per-epoch results are published at d20oracle.com.",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3d41abb8c783339dbef77235606b5acb4d619a1d/logo.webp",
+    "logoHash": "b619f0890d99ebad051a98ddf0372cd13ad53d9065db6ac37cbbf5fd5e6e147e",
+    "websiteURL": "https://d20oracle.com",
+    "links": {},
+    "identityAddress": "0x3d41abb8c783339dbef77235606b5acb4d619a1d",
+    "delegationAddress": "0xaf7c10dcf8fba62b29230052af0be80936c10af3",
+    "signingPolicyAddress": "0xe5774ba1b4799db5189607a94916a77043908440",
+    "submitAddress": "0xdf53bdcb3f3aeb796ce2d13eb0bbba52fd3b86f6",
+    "submitSignaturesAddress": "0xb70ff4b75815aa073e0381e35008146e459b22a2",
+    "publicKey": "0x07d964c8b5edd820070e6412e9de76c884410d929668e3dcdcf51f8088eea14b156aabe971f4381e07cbe126f7b0ad3b0b42cf8fe0653c4812415731e8f428a5",
+    "validators": [
+      "NodeID-DudLWBpa5iUGvNkbM97KzXeDAWxmkvFVW",
+      "NodeID-HSyEhNxm57xaYi4FWL5jbjgrSpR5HDv8",
+      "NodeID-NwSeDUsvyCdXm7khfkAq6tME56E3EZiyo"
+    ],
+    "acknowledgedResponsibilities": true,
+    "listed": false,
+    "managementGroup": false,
+    "domainLinked": false,
+    "dualNetwork": false
+  },
+  {
+    "name": "Griffwn",
+    "description": "Trusted validator services built by experienced blockchain professionals. Securing the network with enterprise-grade reliability.",
+    "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x802c64fcd19d8dba98ae96302c0c9faa16952cd5/logo.webp",
+    "logoHash": "1c1862d7e56f162ca997127f7b38184bb720d86d09b8e848db90a3d11ac1f7e1",
+    "websiteURL": "https://www.griffwn.tech/",
+    "links": {
+      "x": "https://x.com/GriffwnTech"
+    },
+    "identityAddress": "0x802c64fcd19d8dba98ae96302c0c9faa16952cd5",
+    "delegationAddress": "0xe35800fe5785f60c216bd9e667f106a42dc2c042",
+    "signingPolicyAddress": "0x14cf47ea046930a64e71cf2ffa79aef16aa911b0",
+    "submitAddress": "0x6e6bca42a3a82adad355703abc201a6619ad0a58",
+    "submitSignaturesAddress": "0xf889004a86cf0b8389cff01f2d69072b5f88bbbe",
+    "publicKey": "0x1a2e7e864d0c7eb466d42cc20e2319b2a79bfa53166055b1a15f0ebea52e73da2f5da8cda412ca87e0643680d616911be059cceda9d70fdf27999a82ba3a963c",
+    "validators": [
+      "NodeID-5akjQVNKt8uEqWGyUoszCrKFWFVSegVN1",
+      "NodeID-97tdK5LmgQHcrud4n7BjserKwiDa2QPFY",
+      "NodeID-Foimk2gQaUs4DD3K6Jan8x8kSonGxzT9P",
+      "NodeID-LbGaxB3u2JbUSCk4SKH7yZrFzwFg1guoL"
+    ],
     "acknowledgedResponsibilities": true,
     "listed": false,
     "managementGroup": false,

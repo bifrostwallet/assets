@@ -4,7 +4,10 @@
   "logoURL": "providers/eip155-14/0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c/logo.webp",
   "logoHash": "73890906c02fa603524d76d3a501a8fc2449c80056275284a73c21fb2ab30874",
   "websiteURL": "https://ftsocan.com",
-  "links": {},
+  "links": {
+    "github": "https://github.com/ftsocan",
+    "x": "https://x.com/ftsocan"
+  },
   "identityAddress": "0x9843a22fa7fd382a38d7fe5a15d0153dbbe0799c",
   "delegationAddress": "0x9e55a49d251324b1623dc2a81894d1afbfb8bbdc",
   "signingPolicyAddress": "0x6bb880e2b19cbf6e683a7f6407c1ad92ccfaf4c1",
@@ -15,6 +18,7 @@
     "NodeID-DgK9ARwXacjijk37v4fndMm6kRd8NXadM",
     "NodeID-KzPd2Vx5WomGtur91B9K9R7to3mYyYga"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
