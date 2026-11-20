@@ -18,7 +18,7 @@
   ],
   "listed": true,
   "managementGroup": true,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": true,
   "firstTransaction": {
     "hash": "0x7e004274b9981bbf5c2c4a35c841bf53190c922a3d29e276fa565c7ee58b085f",
