@@ -235,6 +235,40 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     assert.equal(provenance.submittedAt, RESUBMITTED_AT);
   });
 
+  test("refuses a submission that carries an invalid signature entry and writes nothing", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const stranger = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose submission carries a replayed signature.";
+    const info = providerInfo(identity, description);
+    const selfSignature = await providerSignature(info, account);
+
+    // Signed by another key over older content: stale hash, then wrong signer.
+    const staleHash: SignatureEntry = {
+      ...selfSignature,
+      messageHash: `0x${"ab".repeat(32)}`,
+    };
+    const wrongSigner: SignatureEntry = {
+      ...selfSignature,
+      signerAddress: stranger.address,
+    };
+
+    for (const bad of [staleHash, wrongSigner]) {
+      await assert.rejects(
+        ingestProvider(identity, description, [selfSignature, bad], ORIGINAL_SUBMITTED_AT),
+        /Refusing submission with invalid signature entries/,
+      );
+      assert.equal(
+        fs.existsSync(path.join(root, "data", "providers", "eip155-14", identity)),
+        false,
+      );
+    }
+
+    // The same provider still ingests cleanly once the bad entry is gone.
+    const ok = await ingestProvider(identity, description, [selfSignature], ORIGINAL_SUBMITTED_AT);
+    assert.equal(ok.status, "ingested");
+  });
+
   test("sets managementGroup from the chain read", async () => {
     const account = privateKeyToAccount(generatePrivateKey());
     const identity = account.address.toLowerCase();

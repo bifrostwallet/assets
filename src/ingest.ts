@@ -212,11 +212,26 @@ export async function ingestProviderSubmission(
     );
   }
 
+  // A tampered or replayed entry (stale message hash, a signature that does not
+  // recover to its declared signer) is never written to the catalog. The whole
+  // submission is refused, so one bad provider fails alone (pull:submissions
+  // logs it and moves on to the next object).
+  if (verification.invalidSignatures.length > 0) {
+    const reasons = verification.invalidSignatures
+      .map((invalid) => `${invalid.entry.signerAddress}: ${invalid.reason}`)
+      .join("; ");
+    throw new Error(`Refusing submission with invalid signature entries (${reasons}).`);
+  }
+
   // Idempotency: identical info, logo, and signatures. Provenance is preserved
   // when info.json and the logo are byte-identical, even if submittedAt differs.
-  const submittedSignatures = JSON.parse(
-    fs.readFileSync(path.join(sourceDir, "signatures.json"), "utf8"),
-  ) as SignaturesData;
+  // Only entries that passed verification are written, never the raw submission.
+  const submittedSignatures: SignaturesData = {
+    ...(JSON.parse(
+      fs.readFileSync(path.join(sourceDir, "signatures.json"), "utf8"),
+    ) as SignaturesData),
+    signatures: verification.validSignatures,
+  };
 
   const sourceProvenancePath = path.join(sourceDir, "provenance.json");
   const provenanceJson = fs.existsSync(sourceProvenancePath)
