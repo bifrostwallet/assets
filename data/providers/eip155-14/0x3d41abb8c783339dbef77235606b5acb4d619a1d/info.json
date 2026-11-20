@@ -19,6 +19,6 @@
   "acknowledgedResponsibilities": true,
   "listed": false,
   "managementGroup": false,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": false
 }
