@@ -22,7 +22,7 @@
   "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": false,
-  "domainLinked": false,
+  "domainLinked": true,
   "dualNetwork": true,
   "firstTransaction": {
     "hash": "0xcb81cd117bca9523829314543aff48bd44f086abe90a7cdaf802b226f86c01e7",
