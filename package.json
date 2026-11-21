@@ -32,6 +32,7 @@
     "with:ops-config": "./scripts/with-ops-config.sh",
     "ops:pull-env": "./scripts/pull-ops-env.sh",
     "preinstall": "./scripts/security/require-verified-yarn.sh && ./scripts/security/block-ide-autostart-hooks.sh",
+    "prepare": "./scripts/security/require-verified-yarn.sh && ./scripts/security/block-ide-autostart-hooks.sh && ./scripts/install-git-hooks.sh",
     "postinstall": "./scripts/install-git-hooks.sh",
     "lint": "biome check",
     "lint:fix": "biome check --write",
@@ -39,8 +40,15 @@
     "lint:yaml": "./scripts/lint-yaml.sh",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json --noEmit",
     "test": "tsc && node --test \"build/test/**/*.test.js\"",
+    "security:check": "./scripts/security/security-checks.sh",
+    "security:verify-node": "./scripts/security/verify-node-version.sh",
+    "security:verify-yarn-binary": "./scripts/security/verify-yarn-hash.sh",
+    "security:verify-deps": "./scripts/security/verify-yarn-dependencies.sh",
     "security:yarn-binary": "./scripts/security/yarn-binary.sh",
-    "security:yarn-binary:upgrade": "./scripts/security/yarn-binary.sh upgrade"
+    "security:yarn-binary:upgrade": "./scripts/security/yarn-binary.sh upgrade",
+    "security:require-verified-yarn": "./scripts/security/require-verified-yarn.sh",
+    "security:block-ide-hooks": "./scripts/security/block-ide-autostart-hooks.sh",
+    "security:audit-deps": "./yarn npm audit --recursive"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
