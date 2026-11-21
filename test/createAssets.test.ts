@@ -32,7 +32,6 @@ interface DappRecord {
 }
 
 interface Assets {
-  getLogoURL: (logoPath: string) => string | null;
   getListedProviders: (chainId: string) => LogoRecord[];
   getProviders: (chainId: string) => LogoRecord[];
   getProvider: (chainId: string, identityAddress: string) => LogoRecord | null;
@@ -56,7 +55,6 @@ const GETTERS = [
   "getDapps",
   "getListedProviders",
   "getListedValidators",
-  "getLogoURL",
   "getManagementGroupProviders",
   "getNativeToken",
   "getProvider",
@@ -302,27 +300,5 @@ describe("createAssets", { concurrency: false }, () => {
     );
     const jsDelivr = createAssets({ versionedLogos: true }).getNativeToken("eip155:14");
     assert.match(jsDelivr?.logoURL ?? "", /^https:\/\/cdn\.jsdelivr\.net\/.+\?v=[0-9a-f]{8}$/);
-  });
-
-  test("getLogoURL resolves a catalog logo path and follows versionedLogos", () => {
-    const base = "https://cdn.example.com/l/";
-    const plain = createAssets({ baseURL: base });
-    const versioned = createAssets({ baseURL: base, versionedLogos: true });
-    const native = plain.getNativeToken("eip155:14");
-    assert.ok(native?.logoHash);
-    const relative = native.logoURL.slice(base.length);
-    const version = `?v=${native.logoHash.slice(0, 8)}`;
-
-    assert.equal(plain.getLogoURL(relative), native.logoURL);
-    assert.equal(versioned.getLogoURL(relative), `${native.logoURL}${version}`);
-    assert.equal(
-      versioned.getLogoURL(`https://elsewhere.example.com/static/${relative}?v=00000000`),
-      `${native.logoURL}${version}`,
-    );
-    assert.equal(versioned.getLogoURL("tokens/eip155-14/0x0000/logo.webp"), null);
-
-    const dapp = versioned.getDapps()[0];
-    assert.ok(dapp);
-    assert.equal(versioned.getLogoURL(dapp.logoURL), dapp.logoURL);
   });
 });
