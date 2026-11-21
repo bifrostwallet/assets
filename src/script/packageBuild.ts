@@ -54,7 +54,9 @@ import type { XrplToken } from "../xrplToken.js";
 // and providerListingTypedData, copied from src/eip712.ts so the published package
 // does not hash the salt or depend on viem. verifyLogoHash checks logo bytes
 // the caller already downloaded against the catalog logoHash. The package
-// does not download logos. Provider signatures ship as a separate
+// does not download logos. createAssets({ versionedLogos: true }) appends ?v= from
+// each entry's logoHash. getLogoURL(path) resolves a logo that a catalog entry names.
+// Provider signatures ship as a separate
 // entry (signatures.js).
 // index.js does not load that file. ASSET_BASE_URL is not applied here.
 //
@@ -985,6 +987,33 @@ function getDapp(slug) {
   return index === -1 ? null : dappRecords[index];
 }
 
+let logoHashesByPath = null;
+
+/** logoHash for every logo a catalog entry names, keyed by its relative path. Built on first use. */
+function logoHashes() {
+  if (logoHashesByPath) return logoHashesByPath;
+  const hashes = new Map();
+  const add = (record) => {
+    if (record && typeof record.logoURL === "string" && typeof record.logoHash === "string") {
+      hashes.set(record.logoURL, record.logoHash);
+    }
+  };
+  for (const providers of Object.values(providersByChain)) providers.forEach(add);
+  for (const tokens of Object.values(tokensByChain)) tokens.forEach(add);
+  Object.values(nativeTokensByChain).forEach(add);
+  for (const contracts of Object.values(contractsByChain)) contracts.forEach(add);
+  dappRecords.forEach(add);
+  logoHashesByPath = hashes;
+  return hashes;
+}
+
+/** "?v=" plus the first 8 hex digits of a catalog logoHash. */
+function logoVersionQuery(logoHash) {
+  return typeof logoHash === "string" && /^[0-9a-f]{64}$/.test(logoHash)
+    ? "?v=" + logoHash.slice(0, 8)
+    : "";
+}
+
 function isHttpsUrl(value) {
   return /^https:\\/\\//i.test(String(value).trim());
 }
@@ -1057,6 +1086,8 @@ function createAssets(options) {
   } else {
     supplied = options.baseURL;
   }
+  const versioned =
+    options !== undefined && options !== null && options.versionedLogos === true;
   const base =
     supplied === undefined || supplied === null
       ? DEFAULT_LOGO_BASE_URL
@@ -1087,10 +1118,10 @@ function createAssets(options) {
     for (const key of Object.keys(value)) {
       const field = value[key];
       let resolved = field;
-      if (
-        (key === "logoURL" && typeof field === "string") ||
-        (typeof field === "string" && isRelativeAssetPath(field))
-      ) {
+      if (key === "logoURL" && typeof field === "string") {
+        resolved = resolveAssetURL(field, base);
+        if (versioned) resolved += logoVersionQuery(value.logoHash);
+      } else if (typeof field === "string" && isRelativeAssetPath(field)) {
         resolved = resolveAssetURL(field, base);
       } else if (field && typeof field === "object") {
         resolved = present(field);
@@ -1105,7 +1136,15 @@ function createAssets(options) {
     return copy;
   }
 
+  function getLogoURL(logoPath) {
+    const relative = toRelativeAssetPath(logoPath).split(/[?#]/)[0];
+    const logoHash = logoHashes().get(relative);
+    if (logoHash === undefined) return null;
+    return resolveAssetURL(relative, base) + (versioned ? logoVersionQuery(logoHash) : "");
+  }
+
   return {
+    getLogoURL,
     getProviders: (chainId) => present(getProviders(chainId)),
     getProvider: (chainId, identityAddress) => present(getProvider(chainId, identityAddress)),
     getListedProviders: (chainId) => present(getListedProviders(chainId)),
@@ -1300,6 +1339,11 @@ export interface CreateAssetsOptions {
    * Example: https://assets.example.com/
    */
   baseURL?: string;
+  /**
+   * Append \`?v=\` and the first 8 hex digits of \`logoHash\` to every logo URL, so a
+   * replaced logo gets a new URL. Optional. Off by default.
+   */
+  versionedLogos?: boolean;
 }
 
 /**
@@ -1314,6 +1358,12 @@ export declare function verifyLogoHash(
 
 /** Catalog getters. logoURL values are absolute for baseURL, or for this version's jsDelivr URL when baseURL is omitted. */
 export interface Assets {
+  /**
+   * Absolute URL for a logo that a catalog entry names, given its relative path
+   * (\`tokens/eip155-14/native/logo.webp\`) or a URL ending in that path. Versioned
+   * when \`versionedLogos\` is on. Null when no catalog entry names that logo.
+   */
+  getLogoURL(logoPath: string): string | null;
   /** All curated providers for a chain (throws on unknown chain) */
   getProviders(chainId: ChainId): ProviderInfo[];
   /** A single provider by identity address (case-insensitive), or null */
