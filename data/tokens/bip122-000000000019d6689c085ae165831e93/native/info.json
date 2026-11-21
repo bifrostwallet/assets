@@ -1,0 +1,9 @@
+{
+  "name": "Bitcoin",
+  "symbol": "BTC",
+  "decimals": 8,
+  "address": null,
+  "coingeckoId": "bitcoin",
+  "logoURL": "tokens/bip122-000000000019d6689c085ae165831e93/native/logo.webp",
+  "logoHash": "777899e646dc1069aa4c9afd21ae93454519c8ab64055fa7e7b96a6a470b81d9"
+}

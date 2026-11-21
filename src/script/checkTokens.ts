@@ -8,6 +8,7 @@ import { isMain } from "../isMain.js";
 import { duplicateSymbolErrors, listEvmSymbolUses } from "../tokenSymbols.js";
 import {
   type EvmToken,
+  isBip122ChainPath,
   listTokenChainPaths,
   listTokenDirs,
   loadEvmToken,
@@ -16,6 +17,7 @@ import {
 import { isValidImage } from "../validate.js";
 import {
   listXrplTokenDirs,
+  NATIVE_TOKEN_DIR,
   validateXrplToken,
   XRPL_MAINNET_CHAIN_PATH,
   xrplCatalogPathErrors,
@@ -207,6 +209,15 @@ function checkLogoFile(label: string, dir: string, logoURL: string, report: Chec
   }
 }
 
+/** Native coin on a chain without contract tokens (bip122) or beside XRPL issued tokens. */
+function checkNativeOnlyEntry(chainPath: string, dir: string, report: CheckReport): void {
+  const info = loadEvmToken(path.join(dir, "info.json"));
+  if (info.address !== null) {
+    report.schemaErrors.push(`${chainPath}/${NATIVE_TOKEN_DIR}: address must be null`);
+  }
+  checkEvmSchemaAndLogo(chainPath, info, dir, report);
+}
+
 function checkEvmSchemaAndLogo(
   chainPath: string,
   info: EvmToken,
@@ -329,11 +340,25 @@ async function checkTokens(): Promise<void> {
 
     if (chainPath === XRPL_MAINNET_CHAIN_PATH) {
       checkXrplChain(report);
+      const nativeDir = path.join("data", "tokens", chainPath, NATIVE_TOKEN_DIR);
+      if (fs.existsSync(path.join(nativeDir, "info.json"))) {
+        report.checked += 1;
+        checkNativeOnlyEntry(chainPath, nativeDir, report);
+      }
       rejectTokenAllJson(chainPath, report);
       continue;
     }
 
-    for (const { dir } of listTokenDirs(chainPath)) {
+    for (const { dirName, dir } of listTokenDirs(chainPath)) {
+      if (isBip122ChainPath(chainPath)) {
+        report.checked += 1;
+        if (dirName !== NATIVE_TOKEN_DIR) {
+          report.schemaErrors.push(`${chainPath}/${dirName}: bip122 chains hold only native`);
+          continue;
+        }
+        checkNativeOnlyEntry(chainPath, dir, report);
+        continue;
+      }
       const info = loadEvmToken(path.join(dir, "info.json"));
       report.checked += 1;
       checkEvmSchemaAndLogo(chainPath, info, dir, report);

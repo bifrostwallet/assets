@@ -1,0 +1,9 @@
+{
+  "name": "Litecoin",
+  "symbol": "LTC",
+  "decimals": 8,
+  "address": null,
+  "coingeckoId": "litecoin",
+  "logoURL": "tokens/bip122-12a765e31ffd4059bada1e25190f6e98/native/logo.webp",
+  "logoHash": "1c86209cd2bf7adb014766f26903411f733785ceea9e9512547bece9d47402cb"
+}

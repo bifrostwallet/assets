@@ -3,12 +3,23 @@ import * as path from "node:path";
 import { withRelativeLogoURL } from "./assetUrl.js";
 import {
   listXrplTokenDirs,
+  NATIVE_TOKEN_DIR,
   sortXrplToken,
   XRPL_MAINNET_CHAIN_PATH,
   type XrplToken,
 } from "./xrplToken.js";
 
 const EVM_ADDRESS = /^0x[0-9a-f]{40}$/;
+
+/**
+ * CAIP-2 `bip122:<first 32 hex of the genesis hash>`, repo path `bip122-<hash>`.
+ * These chains hold only a `native` entry (Bitcoin, Litecoin, Dogecoin).
+ */
+const BIP122_CHAIN_PATH = /^bip122-[0-9a-f]{32}$/;
+
+export function isBip122ChainPath(chainPath: string): boolean {
+  return BIP122_CHAIN_PATH.test(chainPath);
+}
 const LOGO_HASH_RE = /^[0-9a-f]{64}$/;
 
 /**
@@ -56,7 +67,10 @@ export function listTokenChainPaths(root = process.cwd()): string[] {
     .readdirSync(tokensRoot, { withFileTypes: true })
     .filter(
       (e) =>
-        e.isDirectory() && (e.name.startsWith("eip155-") || e.name === XRPL_MAINNET_CHAIN_PATH),
+        e.isDirectory() &&
+        (e.name.startsWith("eip155-") ||
+          e.name === XRPL_MAINNET_CHAIN_PATH ||
+          isBip122ChainPath(e.name)),
     )
     .map((e) => e.name)
     .sort();
@@ -165,4 +179,16 @@ export function listChainTokens(chainPath: string, root = process.cwd()): EvmTok
   return listTokenDirs(chainPath, root)
     .map(({ dir }) => withRelativeLogoURL(sortEvmToken(loadEvmToken(path.join(dir, "info.json")))))
     .sort(compareEvmToken);
+}
+
+/**
+ * Native coin for one chain, or null when the chain has none.
+ * `data/tokens/<chain>/native/info.json` uses the EvmToken shape with `address: null`,
+ * on EVM, bip122 and XRPL chains alike. On XRPL it sits beside the issuer folders
+ * and is not part of `listChainTokens`.
+ */
+export function loadNativeToken(chainPath: string, root = process.cwd()): EvmToken | null {
+  const infoPath = path.join(root, "data", "tokens", chainPath, NATIVE_TOKEN_DIR, "info.json");
+  if (!fs.existsSync(infoPath)) return null;
+  return withRelativeLogoURL(sortEvmToken(loadEvmToken(infoPath)));
 }

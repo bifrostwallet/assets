@@ -9,6 +9,7 @@ import {
   decodeXrplCurrency,
   isValidXrplAccountAddress,
   listXrplTokenDirs,
+  NATIVE_TOKEN_DIR,
   validateXrplToken,
   XRPL_MAINNET_CHAIN_PATH,
   type XrplToken,
@@ -91,6 +92,11 @@ describe("XRPL mainnet catalog", () => {
     assert.deepEqual(xrplCatalogPathErrors(), []);
     const dirs = listXrplTokenDirs();
     assert.ok(dirs.length > 0);
+    assert.equal(
+      dirs.some(({ issuerDir }) => issuerDir === NATIVE_TOKEN_DIR),
+      false,
+      "xrpl-0/native is the native coin, not an issuer",
+    );
 
     for (const { issuerDir, currencyDir, dir } of dirs) {
       const infoPath = path.join(dir, "info.json");
