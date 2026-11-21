@@ -48,9 +48,7 @@ function parseTag(argv) {
   }
   const tag = argv[2];
   if (!tag || !TAG_RE.test(tag)) {
-    console.error(
-      `Refusing tag ${JSON.stringify(tag)}: expected x.y.z (digits only, no suffix)`,
-    );
+    console.error(`Refusing tag ${JSON.stringify(tag)}: expected x.y.z (digits only, no suffix)`);
     process.exit(1);
   }
   return tag;
