@@ -1,0 +1,8 @@
+name: Tilde push
+on:
+  push: ~
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
