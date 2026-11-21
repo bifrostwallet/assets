@@ -1,0 +1,12 @@
+name: Dash run then env
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          printf '%s\n' "$TAG" >/dev/null
+        env:
+          TAG: ${{ github.ref_name }}

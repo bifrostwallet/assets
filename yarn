@@ -56,4 +56,28 @@ export BIFROST_YARN_VERIFIED=1
 # Zero-Installs: keep the project cache (ignore host/agent YARN_CACHE_FOLDER overrides).
 export YARN_CACHE_FOLDER="$ROOT/.yarn/cache"
 
+# Zero-Installs: the archives in .yarn/cache are committed, and nobody reviews a
+# zip. A commit can swap an archive together with its yarn.lock checksum, and a
+# plain install accepts that. --check-cache refetches every package and fails
+# the install (YN0018) when a committed archive is not what the registry
+# serves. Added to `install` where the cache is the project's
+# (enableGlobalCache: false). Not in CI: the gates are local installs and the
+# image build. Tested by scripts/security/yarn-launcher-fixtures.sh.
+if [ "${CI:-}" != "true" ] && [ "${GITHUB_ACTIONS:-}" != "true" ] &&
+  grep -q '^enableGlobalCache:[[:space:]]*false[[:space:]]*$' "$YARNRC"; then
+  if [ "$#" -eq 0 ]; then
+    set -- install --check-cache
+  elif [ "$1" = "install" ]; then
+    HAS_CHECK_CACHE=0
+    for arg in "$@"; do
+      if [ "$arg" = "--check-cache" ]; then
+        HAS_CHECK_CACHE=1
+      fi
+    done
+    if [ "$HAS_CHECK_CACHE" -eq 0 ]; then
+      set -- "$@" --check-cache
+    fi
+  fi
+fi
+
 exec node "$YARN_BIN" "$@"

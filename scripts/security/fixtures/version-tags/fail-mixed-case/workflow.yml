@@ -1,0 +1,9 @@
+name: Mixed case
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ${{ GitHub.Ref_Name }}

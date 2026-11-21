@@ -15,6 +15,8 @@ SECURITY_STAGED_FILES=$(git diff --cached --name-only -- \
   'yarn.config.js' \
   'yarn' \
   '.yarn/**' \
+  '.pnp.cjs' \
+  '.pnp.loader.mjs' \
   '.github/**' \
   '.git-hooks/**' \
   'scripts/install-git-hooks.sh' \

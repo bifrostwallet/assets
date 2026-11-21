@@ -1,0 +1,13 @@
+name: Flow tags
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Validate version tag
+        env:
+          TAG: ${{ github.ref_name }}
+        shell: sh
+        run: printf '%s\n' "$TAG" >/dev/null

@@ -1,0 +1,7 @@
+name: Create
+on: [create]
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
