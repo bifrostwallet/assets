@@ -1,7 +1,7 @@
 /**
  * Provider website ↔ identity domain linkage checks.
  *
- * Used by nightly CI (`sync:domain-linkage` / refresh). Security posture:
+ * Used by nightly CI (`refresh:providers`). Security posture:
  * - Never follow HTTP redirects.
  * - Fetch only `https://<hostname>/.well-known/providers.txt` (no user path/query/port).
  * - Reject platform default hosts (vercel.app, run.app, amazonaws.com, …); own domain only.

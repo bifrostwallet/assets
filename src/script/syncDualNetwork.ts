@@ -7,7 +7,6 @@ import {
   toRelativePath,
   writeFormattedJson,
 } from "../convert.js";
-import { isMain } from "../isMain.js";
 
 // dualNetwork for Flare (eip155-14) and Songbird (eip155-19).
 //
@@ -22,9 +21,7 @@ import { isMain } from "../isMain.js";
 // Songbird. Delegation addresses, unlinked domains, social links, and
 // descriptions are not signals. Listing state is not a signal.
 //
-// Usage:
-//   ./yarn sync:dual-network
-//   ./yarn sync:dual-network --dry-run
+// Run by refresh:providers (--write-dual-network persists, --dry-run previews).
 
 export const FLARE_CHAIN_PATH = "eip155-14";
 export const SONGBIRD_CHAIN_PATH = "eip155-19";
@@ -208,13 +205,4 @@ export function syncDualNetwork(options: { dryRun?: boolean } = {}): DualNetwork
     `\n${dryRun ? "🔍 Dry run" : "✅ Sync complete"}: ${dual} dual-network provider(s), ${updated} ${dryRun ? "would update" : "updated"}`,
   );
   return { dual, updated };
-}
-
-if (isMain(import.meta.url)) {
-  try {
-    syncDualNetwork({ dryRun: process.argv.includes("--dry-run") });
-  } catch (error) {
-    console.error("❌ Dual-network sync failed:", error);
-    process.exitCode = 1;
-  }
 }

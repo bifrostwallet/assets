@@ -42,18 +42,29 @@ jobs:
         with:
           node-version-file: .node-version
 
-      # Read-only access to the intake bucket via Workload Identity Federation
+      # Read-only intake bucket access via Workload Identity Federation
       # (repository secrets GCP_WORKLOAD_IDENTITY_PROVIDER, GCP_SERVICE_ACCOUNT).
+      # The token is scoped to devstorage.read_only, so it cannot write or
+      # delete whatever the service account's IAM allows. The action masks it
+      # in logs, and only the pull step receives it, as GCS_ACCESS_TOKEN
+      # (src/gcs.ts). No credentials file is written to the workspace.
       - name: Authenticate to Google Cloud
+        id: gcp-auth
         uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          create_credentials_file: false
+          token_format: access_token
+          access_token_lifetime: 900s
+          access_token_scopes: https://www.googleapis.com/auth/devstorage.read_only
 
       - name: Install dependencies
         run: ./yarn install --immutable
 
       - name: Pull submissions from intake bucket
+        env:
+          GCS_ACCESS_TOKEN: ${{ steps.gcp-auth.outputs.access_token }}
         run: ./yarn pull:submissions
 
       - name: Verify no outreach PII under data/

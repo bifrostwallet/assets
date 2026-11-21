@@ -12,7 +12,6 @@ import {
   isInconclusiveDomainLinkage,
   verifyProviderDomainLinkage,
 } from "../domainLinkage.js";
-import { isMain } from "../isMain.js";
 
 /**
  * Writes unsigned `domainLinked` onto every curated provider from a live
@@ -23,9 +22,7 @@ import { isMain } from "../isMain.js";
  * the stored flag unchanged. HTTP non-2xx, an empty allowlist, or a
  * contradiction updates it.
  *
- * Usage:
- *   ./yarn sync:domain-linkage
- *   ./yarn sync:domain-linkage --dry-run
+ * Run by refresh:providers (--write-domain persists, --skip-domain skips).
  */
 
 /**
@@ -122,12 +119,4 @@ export async function syncDomainLinkage(options: {
     `\n✅ Domain linkage sync: ${checked} checked, ${linked} linked, ${updated} ${dryRun ? "would update" : "updated"}`,
   );
   return { checked, linked, updated };
-}
-
-if (isMain(import.meta.url)) {
-  const dryRun = process.argv.includes("--dry-run");
-  syncDomainLinkage({ dryRun }).catch((error) => {
-    console.error("❌ Domain linkage sync failed:", error);
-    process.exitCode = 1;
-  });
 }
