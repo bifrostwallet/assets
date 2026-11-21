@@ -56,8 +56,7 @@ import type { XrplToken } from "../xrplToken.js";
 // the caller already downloaded against the catalog logoHash. The package
 // does not download logos. Provider signatures ship as a separate
 // entry (signatures.js).
-// index.js does not load that file. ASSET_BASE_URL is not applied here. Bucket
-// upload sends logo files only.
+// index.js does not load that file. ASSET_BASE_URL is not applied here.
 //
 // Publish with: ./yarn build:package && npm publish ./dist
 

@@ -57,16 +57,6 @@ function defaultAssetBaseURL(): string {
 export const DEFAULT_ASSET_BASE_URL = defaultAssetBaseURL();
 
 /**
- * GCS bucket / project for curated static assets (upload:bucket).
- * Set via env or `./yarn with:ops-config` (Secret Manager). No host/bucket defaults
- * in-repo so forks do not target someone else's infrastructure by accident.
- */
-export const BUCKET_NAME = process.env.STATIC_BUCKET ?? process.env.BUCKET_NAME ?? "";
-export const PROJECT_ID = process.env.STATIC_BUCKET_PROJECT_ID ?? process.env.GCP_PROJECT_ID ?? "";
-/** Optional object key prefix inside the bucket (e.g. "static/"), set at upload time */
-export const BUCKET_PREFIX = process.env.BUCKET_PREFIX ?? "";
-
-/**
  * Catalog logos are exact 128×128 WebP, at most 24 KB.
  * A transparent background is recommended. Opaque logos, including a solid
  * white background, stay valid: these checks do not require either.

@@ -1,4 +1,4 @@
-import { Storage } from "@google-cloud/storage";
+import { createGcsClient } from "../gcs.js";
 import {
   type IntakeSubmission,
   ingestProviderAttestation,
@@ -22,7 +22,9 @@ import {
 // on-chain checks in ingest* are the second line of defense.
 //
 // Run by the scheduled pull-submissions GitHub Action, or locally:
-//   ./yarn pull:submissions
+//   ./yarn with:ops-config -- ./yarn pull:submissions
+// Auth is GCS_ACCESS_TOKEN, or `gcloud auth print-access-token` when unset
+// (see src/gcs.ts).
 
 const DAPP_SKIP_REASON = "dapp submissions are not ingested; dapps are curated by the Bifrost team";
 
@@ -42,8 +44,8 @@ function requireIntakeBucket(): string {
 
 async function pullSubmissions(): Promise<void> {
   const INTAKE_BUCKET = requireIntakeBucket();
-  const storage = new Storage();
-  const [files] = await storage.bucket(INTAKE_BUCKET).getFiles();
+  const gcs = createGcsClient();
+  const files = await gcs.list(INTAKE_BUCKET);
   const submissions = files.filter((file) => file.name.endsWith(".json"));
 
   console.info(`📥 ${submissions.length} object(s) ending in .json in gs://${INTAKE_BUCKET}`);
@@ -69,15 +71,20 @@ async function pullSubmissions(): Promise<void> {
         continue;
       }
 
-      const [metadata] = await file.getMetadata();
-      const size = Number(metadata.size ?? 0);
+      const size = file.size;
       if (!Number.isFinite(size) || size <= 0 || size > MAX_INTAKE_OBJECT_BYTES) {
-        throw new Error(`Object size out of range: ${metadata.size}`);
+        throw new Error(`Object size out of range: ${size}`);
       }
 
-      const [contents] = await file.download();
-      if (contents.length > MAX_INTAKE_OBJECT_BYTES) {
-        throw new Error("Downloaded object exceeds max size");
+      // Pinned to the listed generation, so the size check above covers these bytes.
+      const contents = await gcs.download(INTAKE_BUCKET, file.name, {
+        generation: file.generation,
+        maxBytes: MAX_INTAKE_OBJECT_BYTES,
+      });
+      if (contents === undefined) {
+        skipped++;
+        console.warn(`⏭️ ${file.name}: skipped (replaced or removed since listing)`);
+        continue;
       }
 
       const text = new TextDecoder("utf-8", { fatal: true }).decode(contents);
@@ -140,8 +147,15 @@ async function pullSubmissions(): Promise<void> {
 
       // Drop from the intake queue after a successful pull so stale objects are
       // not re-processed every night. Failures stay for ops inspection.
-      await file.delete({ ignoreNotFound: true });
-      console.info(`🗑️ ${file.name}: removed from intake bucket`);
+      // Only the generation that was ingested: a resubmission written meanwhile stays for the next run.
+      const removal = await gcs.delete(INTAKE_BUCKET, file.name, {
+        ifGenerationMatch: file.generation,
+      });
+      if (removal === "changed") {
+        console.info(`🔁 ${file.name}: replaced during ingest, kept for the next run`);
+      } else {
+        console.info(`🗑️ ${file.name}: removed from intake bucket`);
+      }
     } catch (error) {
       failed++;
       console.error(`❌ ${file.name}: ${error instanceof Error ? error.message : String(error)}`);

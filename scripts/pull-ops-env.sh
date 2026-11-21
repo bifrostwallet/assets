@@ -2,12 +2,12 @@
 # Write a gitignored .ops.env from Secret Manager for local operator use.
 #
 # Team source of truth: GCP Secret Manager (`assets-ops-config`). This file is
-# only a local cache so operators get ASSET_BASE_URL / BUCKET_PREFIX without
+# only a local cache so operators get INTAKE_BUCKET / ASSET_BASE_URL without
 # committing hosts into the public repo.
 #
 # Usage:
 #   ASSETS_OPS_PROJECT=<your-gcp-project> ./yarn ops:pull-env
-#   ASSETS_OPS_PROJECT=<your-gcp-project> ./yarn with:ops-config -- ./yarn upload:bucket --dry-run
+#   ASSETS_OPS_PROJECT=<your-gcp-project> ./yarn with:ops-config -- ./yarn pull:submissions
 #
 # Prerequisites: gcloud ADC + secretAccessor on the ops secret.
 

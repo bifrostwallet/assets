@@ -9,12 +9,8 @@
  * Expected JSON shape (all fields optional; use your own values).
  * assetBaseUrl is the public URL where you uploaded data/.
  * {
- *   "gcpProjectId": "…",
  *   "intakeBucket": "…",
- *   "staticBucket": "…",
- *   "staticBucketProjectId": "…",
- *   "assetBaseUrl": "https://assets.example.com/",
- *   "bucketPrefix": "<prefix>/"
+ *   "assetBaseUrl": "https://assets.example.com/"
  * }
  *
  * Build: `./yarn build:ops-scripts` → `build/scripts/ops-config-exports.js`
@@ -22,12 +18,8 @@
  */
 
 type OpsConfigJson = {
-  gcpProjectId?: unknown;
   intakeBucket?: unknown;
-  staticBucket?: unknown;
-  staticBucketProjectId?: unknown;
   assetBaseUrl?: unknown;
-  bucketPrefix?: unknown;
 };
 
 function parseOpsConfig(raw: string): OpsConfigJson {
@@ -47,12 +39,8 @@ const cfg = parseOpsConfig(process.env.ASSETS_OPS_JSON ?? "");
 const format = process.env.OPS_ENV_FORMAT === "dotenv" ? "dotenv" : "export";
 
 const pairs: Record<string, string | undefined> = {
-  GCP_PROJECT_ID: optionalString(cfg.gcpProjectId),
   INTAKE_BUCKET: optionalString(cfg.intakeBucket),
-  STATIC_BUCKET: optionalString(cfg.staticBucket),
-  STATIC_BUCKET_PROJECT_ID: optionalString(cfg.staticBucketProjectId),
   ASSET_BASE_URL: optionalString(cfg.assetBaseUrl),
-  BUCKET_PREFIX: optionalString(cfg.bucketPrefix),
 };
 
 for (const [key, value] of Object.entries(pairs)) {

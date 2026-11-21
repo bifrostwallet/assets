@@ -33,7 +33,6 @@
     "pull:submissions": "tsc && ./yarn node build/src/script/pullSubmissions.js",
     "verify:no-contact-pii": "./scripts/security/verify-no-contact-pii.sh",
     "build:package": "tsc && ./yarn node build/src/script/packageBuild.js",
-    "upload:bucket": "tsc && ./yarn node build/src/script/bucketUpload.js",
     "with:ops-config": "./scripts/with-ops-config.sh",
     "ops:pull-env": "./scripts/pull-ops-env.sh",
     "build:ops-scripts": "tsc -p tsconfig.scripts.json",
@@ -57,14 +56,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
-    "@google-cloud/storage": "8.4.0",
     "@types/node": "22.20.5",
     "bs58": "6.0.0",
     "typescript": "5.9.3",
     "viem": "2.57.7"
   },
-  "packageManager": "yarn@4.18.1+sha256.a28ad591febb769f939c11f82f89bacad0b0fac0c884d3b78fa2aaaee970907e",
-  "resolutions": {
-    "fetch-blob": "3.1.3"
-  }
+  "packageManager": "yarn@4.18.1+sha256.a28ad591febb769f939c11f82f89bacad0b0fac0c884d3b78fa2aaaee970907e"
 }

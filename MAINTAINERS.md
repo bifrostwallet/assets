@@ -8,13 +8,13 @@ Pin dev dependencies to exact versions. They are not published.
 
 From 1.0.0, a GitHub Release tagged with the package version stages `dist/` through npm Trusted Publishing, with provenance, on the `latest` dist-tag. Mark the GitHub Release as a plain release, not a pre-release. Approve the staged version on npmjs.com and confirm the provenance badge ([Viewing package provenance](https://docs.npmjs.com/viewing-package-provenance/)).
 
-## Logos on a bucket or CDN
+## Logos on the Bifrost CDN
 
-`./yarn with:ops-config -- ./yarn upload:bucket` uploads logo files only. It does not upload `all.json` or any other JSON. Catalog data is served from the npm package. Pass `--dry-run` to preview. `./yarn ops:pull-env` refreshes the local cache of the same variables. Values come from the private ops config, not from this repository:
+This repository does not upload logos. When bifrost-backend bumps its `@bifrostwallet/assets` pin, its Asset Logos workflow checks out the matching tag and copies the `logo.webp` files to the production and staging static buckets, including the legacy `res/icons/<address>.webp` keys that wallet builds before 0.7.58 load. Catalog data is served from the npm package.
 
-- `STATIC_BUCKET`
-- `STATIC_BUCKET_PROJECT_ID`
-- `BUCKET_PREFIX`
+## Listing submissions
+
+The Pull listing submissions workflow runs `./yarn pull:submissions` daily against the intake bucket. To run it locally, sign in with `gcloud auth login` and run `./yarn with:ops-config -- ./yarn pull:submissions`. It uses `GCS_ACCESS_TOKEN` when set, otherwise `gcloud auth print-access-token`. `./yarn ops:pull-env` refreshes the local cache of `INTAKE_BUCKET` and `ASSET_BASE_URL`, which come from the private ops config, not from this repository.
 
 ## Catalog refresh
 
