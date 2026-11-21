@@ -35,8 +35,22 @@ jobs:
       - name: Run security checks
         run: ./scripts/security/security-checks.sh
 
+      # Offline: when the launcher adds --check-cache, not the check itself.
+      - name: Test Yarn launcher rules
+        run: ./scripts/security/yarn-launcher-fixtures.sh
+
+      # Offline: which PnP file states the check after install accepts.
+      - name: Test PnP file check rules
+        run: ./scripts/security/verify-pnp-files-fixtures.sh
+
       - name: Install dependencies
         run: ./yarn install --immutable
+
+      # The install rewrote .pnp.cjs / .pnp.loader.mjs from yarn.lock. Any
+      # difference from the commit means the committed loaders are not what
+      # Yarn generates (they run on every ./yarn run, and nobody reviews them).
+      - name: Verify committed PnP files match the install
+        run: ./scripts/security/verify-pnp-files.sh
 
       # ShellCheck and yamllint are preinstalled on GitHub's ubuntu-24.04
       # runner image; nothing is downloaded or installed at CI time.

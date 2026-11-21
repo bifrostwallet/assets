@@ -1,0 +1,9 @@
+name: Empty filter
+on:
+  push:
+    tags: []
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
