@@ -2,7 +2,7 @@
   "name": "PRICEKRAKEN",
   "description": "Germany based FTSO data provider with passion for improvements",
   "logoURL": "providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
-  "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
+  "logoHash": "048dec9559138afce48ad142fb5e7566b04c68646a1009aaef8aa40e7f9beacf",
   "websiteURL": "https://www.pricekraken.de",
   "links": {},
   "identityAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",

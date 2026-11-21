@@ -627,7 +627,7 @@
     "name": "PRICEKRAKEN",
     "description": "Germany based FTSO data provider with passion for improvements",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x4f84caab4a53aabbad2dfe1013d2bb53edbf2f0a/logo.webp",
-    "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
+    "logoHash": "048dec9559138afce48ad142fb5e7566b04c68646a1009aaef8aa40e7f9beacf",
     "websiteURL": "https://www.pricekraken.de",
     "links": {},
     "identityAddress": "0x4f84caab4a53aabbad2dfe1013d2bb53edbf2f0a",
@@ -720,10 +720,10 @@
     }
   },
   {
-    "name": "ACDTftso",
+    "name": "FlareBase",
     "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0x527e5e829763885008e171493c0e8d4a1ec48239/logo.webp",
-    "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
+    "logoHash": "1133027924f09b62af22cfef344b05645e8009fcf481f4acf162fbf615f93406",
     "websiteURL": "https://www.flare-base.io",
     "links": {},
     "identityAddress": "0x527e5e829763885008e171493c0e8d4a1ec48239",

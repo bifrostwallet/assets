@@ -200,7 +200,7 @@
     "name": "PRICEKRAKEN",
     "description": "Germany based FTSO data provider with passion for improvements",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
-    "logoHash": "45003e0ef4234f74111444fa5b1304b50be9225208d20d74e5205810f717acf8",
+    "logoHash": "048dec9559138afce48ad142fb5e7566b04c68646a1009aaef8aa40e7f9beacf",
     "websiteURL": "https://www.pricekraken.de",
     "links": {},
     "identityAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",
@@ -253,10 +253,10 @@
     }
   },
   {
-    "name": "ACDTftso",
+    "name": "FlareBase",
     "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1/logo.webp",
-    "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
+    "logoHash": "1133027924f09b62af22cfef344b05645e8009fcf481f4acf162fbf615f93406",
     "websiteURL": "https://www.flare-base.io",
     "links": {},
     "identityAddress": "0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1",
@@ -1547,10 +1547,10 @@
     }
   },
   {
-    "name": "Restake",
+    "name": "Swyke",
     "description": "Swyke is an ISO-27001 certified institutional grade validator registered with VARA (Virtual Asset Regulatory Authority)",
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0xf1f468658f7b098d44fbc54f77459a765704f34a/logo.webp",
-    "logoHash": "d315cd39c7be8711a79d6787ea67aa9eee8ca853eae2a2cf5d1ca3b3040a08c2",
+    "logoHash": "b9c20a43e3c42772b336aac07890c150b60244eeba5dd57d8f35aea167080c97",
     "websiteURL": "https://swyke.ai",
     "links": {},
     "identityAddress": "0xf1f468658f7b098d44fbc54f77459a765704f34a",

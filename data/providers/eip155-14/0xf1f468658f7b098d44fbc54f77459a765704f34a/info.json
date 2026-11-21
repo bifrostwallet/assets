@@ -1,8 +1,8 @@
 {
-  "name": "Restake",
+  "name": "Swyke",
   "description": "Swyke is an ISO-27001 certified institutional grade validator registered with VARA (Virtual Asset Regulatory Authority)",
   "logoURL": "providers/eip155-14/0xf1f468658f7b098d44fbc54f77459a765704f34a/logo.webp",
-  "logoHash": "d315cd39c7be8711a79d6787ea67aa9eee8ca853eae2a2cf5d1ca3b3040a08c2",
+  "logoHash": "b9c20a43e3c42772b336aac07890c150b60244eeba5dd57d8f35aea167080c97",
   "websiteURL": "https://swyke.ai",
   "links": {},
   "identityAddress": "0xf1f468658f7b098d44fbc54f77459a765704f34a",

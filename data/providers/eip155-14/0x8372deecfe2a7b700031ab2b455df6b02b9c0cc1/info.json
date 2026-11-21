@@ -1,8 +1,8 @@
 {
-  "name": "ACDTftso",
+  "name": "FlareBase",
   "description": "FlareBase is an Italian Flare provider. We offer near real time prices with an high accuracy rate, FDC data and Flare validators.",
   "logoURL": "providers/eip155-14/0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1/logo.webp",
-  "logoHash": "5cf9977f86801634ae4618f6a2b0ed6c0f1d5a73296201ae939e36c595fa33d2",
+  "logoHash": "1133027924f09b62af22cfef344b05645e8009fcf481f4acf162fbf615f93406",
   "websiteURL": "https://www.flare-base.io",
   "links": {},
   "identityAddress": "0x8372deecfe2a7b700031ab2b455df6b02b9c0cc1",
