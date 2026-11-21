@@ -7,7 +7,7 @@ name: Warm jsDelivr
 # are warnings; the job still succeeds. Nothing outside data/providers is
 # requested, and this job does not publish or install dependencies.
 #
-# The tag must be x.y.z (digits only, no v prefix, no leading zeros, no
+# The tag must be x.y.z (digits only, no leading zeros, no
 # suffix) and is checked out as refs/tags/<tag>, so a branch name or a commit
 # SHA is never run. The only code this job runs is the two pinned actions and
 # the script, which has no dependencies. The job has a read-only token, and the
@@ -59,12 +59,12 @@ jobs:
           # grep -x matches when any one line matches, and this value is written
           # as one GITHUB_OUTPUT line, so a newline is refused first.
           if [ "$TAG" != "$(printf '%s' "$TAG" | tr -d '\n')" ]; then
-            echo 'Refusing tag: expected x.y.z (digits only, no v prefix, no suffix)' >&2
+            echo 'Refusing tag: expected x.y.z (digits only, no suffix)' >&2
             exit 1
           fi
           if ! printf '%s\n' "$TAG" | grep -Eqx \
             '(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)'; then
-            echo 'Refusing tag: expected x.y.z (digits only, no v prefix, no suffix)' >&2
+            echo 'Refusing tag: expected x.y.z (digits only, no suffix)' >&2
             exit 1
           fi
           printf 'tag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
