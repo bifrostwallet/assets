@@ -32,7 +32,9 @@ interface DappRecord {
 }
 
 interface Assets {
+  getLogoURL: (logoPath: string) => string | null;
   getListedProviders: (chainId: string) => LogoRecord[];
+  getProviders: (chainId: string) => LogoRecord[];
   getProvider: (chainId: string, identityAddress: string) => LogoRecord | null;
   getToken: (chainId: string, address: string) => LogoRecord | null;
   getTokens: (chainId: string) => LogoRecord[];
@@ -54,6 +56,7 @@ const GETTERS = [
   "getDapps",
   "getListedProviders",
   "getListedValidators",
+  "getLogoURL",
   "getManagementGroupProviders",
   "getNativeToken",
   "getProvider",
@@ -65,7 +68,7 @@ const GETTERS = [
   "getXrplToken",
 ];
 
-type CreateAssets = (options?: { baseURL?: string } | null) => Assets;
+type CreateAssets = (options?: { baseURL?: string; versionedLogos?: boolean } | null) => Assets;
 
 function sourceContainsHostname(source: string, hostname: string): boolean {
   for (const match of source.matchAll(/https?:\/\/[^\s"'`<>]+/g)) {
@@ -272,5 +275,54 @@ describe("createAssets", { concurrency: false }, () => {
       b.getToken("eip155:14", token.address)?.logoURL,
       `https://cdn.example.com/b/${token.logoURL}`,
     );
+  });
+  test("versionedLogos appends ?v= from logoHash to every logo URL", () => {
+    const base = "https://cdn.example.com/v/";
+    const plain = createAssets({ baseURL: base });
+    const versioned = createAssets({ baseURL: base, versionedLogos: true });
+    const expectVersioned = (record: { logoURL: string; logoHash?: string } | null) => {
+      assert.ok(record?.logoHash);
+      assert.ok(record.logoURL.endsWith(`?v=${record.logoHash.slice(0, 8)}`), record.logoURL);
+    };
+
+    for (const provider of versioned.getProviders("eip155:14")) expectVersioned(provider);
+    for (const token of versioned.getTokens("eip155:14")) expectVersioned(token);
+    for (const token of versioned.getTokens("xrpl:0")) expectVersioned(token);
+    expectVersioned(versioned.getNativeToken("eip155:14"));
+    expectVersioned(versioned.getNativeToken("xrpl:0"));
+    for (const contract of versioned.getContracts()) expectVersioned(contract);
+    for (const dapp of versioned.getDapps()) expectVersioned(dapp);
+
+    const native = plain.getNativeToken("eip155:14");
+    assert.ok(native?.logoHash);
+    assert.equal(native.logoURL.includes("?"), false);
+    assert.equal(
+      versioned.getNativeToken("eip155:14")?.logoURL,
+      `${native.logoURL}?v=${native.logoHash.slice(0, 8)}`,
+    );
+    const jsDelivr = createAssets({ versionedLogos: true }).getNativeToken("eip155:14");
+    assert.match(jsDelivr?.logoURL ?? "", /^https:\/\/cdn\.jsdelivr\.net\/.+\?v=[0-9a-f]{8}$/);
+  });
+
+  test("getLogoURL resolves a catalog logo path and follows versionedLogos", () => {
+    const base = "https://cdn.example.com/l/";
+    const plain = createAssets({ baseURL: base });
+    const versioned = createAssets({ baseURL: base, versionedLogos: true });
+    const native = plain.getNativeToken("eip155:14");
+    assert.ok(native?.logoHash);
+    const relative = native.logoURL.slice(base.length);
+    const version = `?v=${native.logoHash.slice(0, 8)}`;
+
+    assert.equal(plain.getLogoURL(relative), native.logoURL);
+    assert.equal(versioned.getLogoURL(relative), `${native.logoURL}${version}`);
+    assert.equal(
+      versioned.getLogoURL(`https://elsewhere.example.com/static/${relative}?v=00000000`),
+      `${native.logoURL}${version}`,
+    );
+    assert.equal(versioned.getLogoURL("tokens/eip155-14/0x0000/logo.webp"), null);
+
+    const dapp = versioned.getDapps()[0];
+    assert.ok(dapp);
+    assert.equal(versioned.getLogoURL(dapp.logoURL), dapp.logoURL);
   });
 });
