@@ -32,7 +32,6 @@
     "with:ops-config": "./scripts/with-ops-config.sh",
     "ops:pull-env": "./scripts/pull-ops-env.sh",
     "preinstall": "./scripts/security/require-verified-yarn.sh && ./scripts/security/block-ide-autostart-hooks.sh",
-    "prepare": "./scripts/security/require-verified-yarn.sh && ./scripts/security/block-ide-autostart-hooks.sh && ./scripts/install-git-hooks.sh",
     "postinstall": "./scripts/install-git-hooks.sh",
     "lint": "biome check",
     "lint:fix": "biome check --write",
