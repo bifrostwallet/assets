@@ -45,8 +45,6 @@ Pass `baseURL` when you host the files yourself. A trailing slash is optional. T
 
 Pass `versionedLogos: true` to append `?v=` and the first 8 hex digits of `logoHash` to every `logoURL`. A replaced logo then gets a new URL, so caches never serve the old file. It is off by default, and URLs are unchanged without it.
 
-`getLogoURL(path)` returns the absolute URL for a logo that a catalog entry names, from its relative path (`tokens/eip155-14/native/logo.webp`) or a URL ending in that path. It follows `versionedLogos` and returns `null` when no catalog entry names that logo.
-
 ```ts
 import { createAssets } from "@bifrostwallet/assets";
 
@@ -57,7 +55,6 @@ const assets = createAssets({
 
 // https://assets.example.com/tokens/eip155-14/native/logo.webp?v=<8 hex>
 console.log(assets.getNativeToken("eip155:14")?.logoURL);
-console.log(assets.getLogoURL("tokens/eip155-14/native/logo.webp"));
 ```
 
 ### Optional: check a downloaded logo
