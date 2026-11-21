@@ -1,7 +1,7 @@
 /**
  * Print `export KEY='value'` for dotenv keys in a file that are unset in process.env.
  *
- * Build: `./yarn build:ops-scripts` → `build/scripts/load-ops-env-unset.js`
+ * Build: `./yarn tsc -p tsconfig.scripts.json` → `build/scripts/load-ops-env-unset.js`
  * Usage: eval "$(./yarn node build/scripts/load-ops-env-unset.js .ops.env)"
  */
 import * as fs from "node:fs";

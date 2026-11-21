@@ -6,10 +6,9 @@
 #   2. Gitignored .ops.env — local cache from `./yarn ops:pull-env` (fills gaps / offline)
 #
 # Usage:
-#   ./yarn with:ops-config -- ./yarn upload:bucket
 #   ./yarn with:ops-config -- ./yarn pull:submissions
 #
-# Operator CDN/bucket values live in Secret Manager, not in git. After secret updates:
+# Operator values (intake bucket) live in Secret Manager, not in git. After secret updates:
 #   ASSETS_OPS_PROJECT=<your-gcp-project> ./yarn ops:pull-env
 #
 # Override:
@@ -58,8 +57,5 @@ OPS_ENV_FILE="${ASSETS_OPS_ENV_FILE:-${ROOT}/.ops.env}"
 if [ -f "${OPS_ENV_FILE}" ]; then
   eval "$(cd "${ROOT}" && ./yarn node build/scripts/load-ops-env-unset.js "${OPS_ENV_FILE}")"
 fi
-
-# Empty BUCKET_PREFIX is intentional (objects at bucket root; LB strips /<uuid>/static/).
-# upload:bucket sends logo files only and does not read ASSET_BASE_URL.
 
 exec "$@"

@@ -2,7 +2,6 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { BLOCKCHAIN_NETWORKS, type NetworkConfig, type ProviderInfo } from "../config.js";
 import { rebuildProvidersAllJson, sortProviderInfo, writeFormattedJson } from "../convert.js";
-import { isMain } from "../isMain.js";
 import { fetchManagementGroupMembers } from "../onchain.js";
 
 // On-chain FTSO Management Group membership (FIP.02 / STP.03) sync.
@@ -38,14 +37,6 @@ export interface ManagementGroupDrift {
   unknown: ManagementGroupUnknown[];
   flareMembers: number;
   songbirdMembers: number;
-}
-
-export interface ManagementGroupSyncResult {
-  flareMembers: number;
-  songbirdMembers: number;
-  updated: number;
-  unknownFlareMembers: string[];
-  unknownSongbirdMembers: string[];
 }
 
 function errorText(error: unknown): string {
@@ -212,41 +203,4 @@ export function formatManagementGroupSummary(
   }
 
   return `${lines.join("\n")}\n`;
-}
-
-/**
- * Writes managementGroup onto every provider info.json and rebuilds all.json.
- * Also reports MG members that have no curated provider entry (gap audit).
- */
-export async function syncManagementGroup(): Promise<ManagementGroupSyncResult> {
-  const drift = await collectManagementGroupDrift();
-  console.info(`📡 Management Group members on Flare: ${drift.flareMembers}`);
-  console.info(`📡 Management Group members on Songbird: ${drift.songbirdMembers}`);
-  console.info(`\n${formatManagementGroupSummary(drift)}`);
-  warnUnknownManagementGroupMembers(drift);
-
-  const updated = applyManagementGroupDrift(drift);
-  console.info(`\n✅ Sync complete: ${updated} provider(s) updated`);
-
-  const unknownFlareMembers =
-    drift.unknown.find((group) => group.chainPath === BLOCKCHAIN_NETWORKS.flare.path)?.members ??
-    [];
-  const unknownSongbirdMembers =
-    drift.unknown.find((group) => group.chainPath === BLOCKCHAIN_NETWORKS.songbird.path)?.members ??
-    [];
-
-  return {
-    flareMembers: drift.flareMembers,
-    songbirdMembers: drift.songbirdMembers,
-    updated,
-    unknownFlareMembers,
-    unknownSongbirdMembers,
-  };
-}
-
-if (isMain(import.meta.url)) {
-  syncManagementGroup().catch((error) => {
-    console.error("❌ Management Group sync failed:", error);
-    process.exitCode = 1;
-  });
 }

@@ -8,7 +8,7 @@ import { DEFAULT_ASSET_BASE_URL } from "./config.js";
  * renders logos. jsDelivr can cache that branch for about 12 hours. Tokens have
  * no all.json; the package is the token catalog.
  * An already-absolute logoURL is stripped to its asset path before that join,
- * so it is not double-prefixed. The static bucket upload sends logo files only.
+ * so it is not double-prefixed.
  *
  * resolveAssetURL joins a relative logoURL to the caller's base, and rebases
  * an absolute logoURL that uses a known asset prefix onto that base.

@@ -301,7 +301,7 @@ export async function ingestProviderSubmission(
 
 /**
  * A submission document as stored in the intake bucket by the intake service
- * (apps/intake) and consumed by pull:submissions.
+ * and consumed by pull:submissions.
  */
 export interface IntakeSubmission {
   version: 1;
