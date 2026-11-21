@@ -141,5 +141,5 @@ fi
 printf '%b\n' "${RED}Error: tsconfig files outside the two module lanes:${NC}" >&2
 printf '%s\n' "$OUT" >&2
 printf '%b\n' "${YELLOW}Use module + moduleResolution NodeNext (Node code) or Preserve + Bundler (Vite / Expo UI).${NC}" >&2
-printf '%b\n' "${YELLOW}See docs/runtime-lanes.md.${NC}" >&2
+printf '%b\n' "${YELLOW}See README.md, Security: Repository rules checked in CI.${NC}" >&2
 exit 1
