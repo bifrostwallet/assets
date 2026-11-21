@@ -21,9 +21,10 @@ import {
 // Object names and document shapes are allowlisted before any write. Crypto and
 // on-chain checks in ingest* are the second line of defense.
 //
-// Read-only: objects stay in the intake bucket, and an already ingested one is
-// reported as up to date on later runs. This repository never writes to or
-// deletes from a bucket.
+// Read-only: this repository never writes to or deletes from a bucket. An
+// ingested object is reported as up to date on later runs until the "Cleanup
+// merged intake objects" workflow in bifrostwallet/assets-intake deletes it,
+// once its public fields and signatures are on main.
 //
 // Run by the scheduled pull-submissions GitHub Action, or locally:
 //   ./yarn with:ops-config -- ./yarn pull:submissions
