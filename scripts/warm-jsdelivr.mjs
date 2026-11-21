@@ -26,7 +26,7 @@ const MAX_ATTEMPTS = 8;
 const RETRY_DELAY_MS = 61_000;
 const REQUEST_TIMEOUT_MS = 30_000;
 const WARNING_CHUNK = 3500;
-// A release tag is x.y.z: digits only, no v prefix, no leading zeros, no
+// A release tag is x.y.z: digits only, no leading zeros, no
 // pre-release or build suffix. Anything else (a branch such as main, a commit
 // SHA, or a range such as 1 or 1.4) would warm a URL jsDelivr resolves
 // differently from the files in this checkout.
@@ -49,7 +49,7 @@ function parseTag(argv) {
   const tag = argv[2];
   if (!tag || !TAG_RE.test(tag)) {
     console.error(
-      `Refusing tag ${JSON.stringify(tag)}: expected x.y.z (digits only, no v prefix, no suffix)`,
+      `Refusing tag ${JSON.stringify(tag)}: expected x.y.z (digits only, no suffix)`,
     );
     process.exit(1);
   }
