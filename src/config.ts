@@ -138,7 +138,7 @@ export interface ProviderInfo {
    */
   domainLinked: boolean;
   /**
-   * Same brand on both Flare and Songbird, computed by sync:dual-network
+   * Same brand on both Flare and Songbird, computed by refresh:providers
    * from a shared identity address, a website domain linked on both chains,
    * or the same normalized name (not provider-signed).
    */

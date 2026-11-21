@@ -21,6 +21,10 @@ import {
 // Object names and document shapes are allowlisted before any write. Crypto and
 // on-chain checks in ingest* are the second line of defense.
 //
+// Read-only: objects stay in the intake bucket, and an already ingested one is
+// reported as up to date on later runs. This repository never writes to or
+// deletes from a bucket.
+//
 // Run by the scheduled pull-submissions GitHub Action, or locally:
 //   ./yarn with:ops-config -- ./yarn pull:submissions
 // Auth is GCS_ACCESS_TOKEN, or `gcloud auth print-access-token` when unset
@@ -143,18 +147,6 @@ async function pullSubmissions(): Promise<void> {
       } else {
         unchanged++;
         console.info(`⏭️ ${file.name}: already up to date`);
-      }
-
-      // Drop from the intake queue after a successful pull so stale objects are
-      // not re-processed every night. Failures stay for ops inspection.
-      // Only the generation that was ingested: a resubmission written meanwhile stays for the next run.
-      const removal = await gcs.delete(INTAKE_BUCKET, file.name, {
-        ifGenerationMatch: file.generation,
-      });
-      if (removal === "changed") {
-        console.info(`🔁 ${file.name}: replaced during ingest, kept for the next run`);
-      } else {
-        console.info(`🗑️ ${file.name}: removed from intake bucket`);
       }
     } catch (error) {
       failed++;

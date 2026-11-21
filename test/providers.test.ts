@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, test } from "node:test";
 import type { ProviderInfo } from "../src/config.js";
+import { providerLogoPath } from "../src/convert.js";
 import {
   isValidEvmAddress,
   isValidImage,
@@ -12,8 +13,21 @@ import {
   isValidURL,
 } from "../src/validate.js";
 
-function validateProviderInfo(providerInfo: ProviderInfo): { isValid: boolean; errors: string[] } {
+function validateProviderInfo(
+  providerInfo: ProviderInfo,
+  chainPath: string,
+): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
+
+  // Canonical stored form (formerly enforced by running normalize:providers)
+  if (providerInfo.logoURL !== providerLogoPath(chainPath, providerInfo.identityAddress)) {
+    errors.push(`logoURL must be ${providerLogoPath(chainPath, providerInfo.identityAddress)}`);
+  }
+  for (const flag of ["listed", "managementGroup", "dualNetwork", "domainLinked"] as const) {
+    if (typeof providerInfo[flag] !== "boolean") {
+      errors.push(`${flag} must be a boolean`);
+    }
+  }
 
   // Validate name
   if (!isValidName(providerInfo.name)) {
@@ -132,7 +146,8 @@ describe("Provider info validation", () => {
         assert.fail(`Failed to parse JSON in ${filePath}`);
       }
 
-      const validationResult = validateProviderInfo(providerInfo);
+      const chainPath = path.basename(path.dirname(path.dirname(filePath)));
+      const validationResult = validateProviderInfo(providerInfo, chainPath);
       assert.equal(
         validationResult.isValid,
         true,

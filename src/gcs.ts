@@ -4,8 +4,8 @@ import { crc32cBase64 } from "./crc32c.js";
 
 /**
  * Minimal Cloud Storage client over fetch (JSON API), the same approach as
- * TowoLabs/image-proxy. Covers what pull:submissions needs: list a bucket,
- * read an object, and delete an object.
+ * TowoLabs/image-proxy. Covers what pull:submissions needs: list a bucket and
+ * read an object. It has no write or delete: this repository only downloads.
  *
  * Auth is an OAuth access token:
  * - GCS_ACCESS_TOKEN when set. The pull-submissions workflow passes the token
@@ -18,8 +18,8 @@ import { crc32cBase64 } from "./crc32c.js";
  * - Every request has the library's 60-second timeout.
  * Added:
  * - Redirects are never followed, so the token only goes to the fixed host.
- * - Reads and deletes can be pinned to a generation, so an object replaced
- *   after it was listed is neither read nor deleted by mistake.
+ * - Reads can be pinned to a generation, so an object replaced after it was
+ *   listed is not read in its place.
  */
 
 const STORAGE_ORIGIN = "https://storage.googleapis.com";
@@ -80,14 +80,6 @@ export interface GcsDownloadOptions {
   maxBytes?: number;
 }
 
-export interface GcsDeleteOptions {
-  /** Delete only while the object is still this generation. */
-  ifGenerationMatch?: string;
-}
-
-/** `changed`: the object was replaced after the generation the caller saw. */
-export type GcsDeleteResult = "deleted" | "missing" | "changed";
-
 export interface GcsClient {
   /** Every object in the bucket, across all pages. */
   list(bucket: string): Promise<GcsObject[]>;
@@ -97,7 +89,6 @@ export interface GcsClient {
     objectKey: string,
     options?: GcsDownloadOptions,
   ): Promise<Buffer | undefined>;
-  delete(bucket: string, objectKey: string, options?: GcsDeleteOptions): Promise<GcsDeleteResult>;
 }
 
 export interface AccessTokenSource {
@@ -317,27 +308,6 @@ export function createGcsClient(deps: GcsClientDeps = {}): GcsClient {
           return data;
         },
         [404],
-      );
-    },
-
-    async delete(bucket, objectKey, options = {}) {
-      const params = new URLSearchParams();
-      if (options.ifGenerationMatch) {
-        params.set("ifGenerationMatch", options.ifGenerationMatch);
-      }
-      const query = params.size > 0 ? `?${params}` : "";
-      // A retried delete that already went through comes back as 404, which is also done.
-      return send(
-        "delete",
-        `${objectUrl(bucket, objectKey)}${query}`,
-        { method: "DELETE" },
-        async (response): Promise<GcsDeleteResult> => {
-          await response.body?.cancel();
-          if (response.status === 404) return "missing";
-          if (response.status === 412) return "changed";
-          return "deleted";
-        },
-        [404, 412],
       );
     },
   };

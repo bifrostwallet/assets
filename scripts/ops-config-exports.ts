@@ -13,7 +13,7 @@
  *   "assetBaseUrl": "https://assets.example.com/"
  * }
  *
- * Build: `./yarn build:ops-scripts` → `build/scripts/ops-config-exports.js`
+ * Build: `./yarn tsc -p tsconfig.scripts.json` → `build/scripts/ops-config-exports.js`
  * Run: `./yarn node build/scripts/ops-config-exports.js`
  */
 

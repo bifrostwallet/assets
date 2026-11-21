@@ -209,35 +209,6 @@ describe("gcs client", () => {
     assert.deepEqual(await h.client.download("b", "k"), data);
   });
 
-  test("deletes only the expected generation", async () => {
-    const h = harness([() => new Response(null, { status: 204 })]);
-
-    assert.equal(
-      await h.client.delete("b", "eip155-14/0xabc.json", { ifGenerationMatch: "7" }),
-      "deleted",
-    );
-    assert.equal(h.calls[0]?.method, "DELETE");
-    assert.equal(
-      h.calls[0]?.url,
-      "https://storage.googleapis.com/storage/v1/b/b/o/eip155-14%2F0xabc.json?ifGenerationMatch=7",
-    );
-  });
-
-  test("reports a delete of a missing or replaced object without retrying", async () => {
-    const missing = harness([status(404)]);
-    assert.equal(await missing.client.delete("b", "k"), "missing");
-    assert.equal(missing.calls[0]?.url, "https://storage.googleapis.com/storage/v1/b/b/o/k");
-
-    const changed = harness([status(412)]);
-    assert.equal(await changed.client.delete("b", "k", { ifGenerationMatch: "1" }), "changed");
-    assert.equal(changed.calls.length, 1);
-  });
-
-  test("treats a retried delete that already went through as done", async () => {
-    const h = harness([networkError(), status(404)]);
-    assert.equal(await h.client.delete("b", "k", { ifGenerationMatch: "1" }), "missing");
-  });
-
   test("never follows a redirect", async () => {
     const redirect: Reply = () =>
       new Response(null, { status: 302, headers: { Location: "https://evil.example/steal" } });
