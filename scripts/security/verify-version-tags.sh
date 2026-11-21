@@ -6,7 +6,8 @@
 #   - hides a tag filter inside a flow mapping the line scanner cannot read, or
 #   - inlines a ref/tag expression inside a run: block.
 #
-# Tag values belong in step env (see docs/versioning-and-releases.md).
+# Tag values belong in step env (see README.md, Security: Repository rules
+# checked in CI).
 # Line-oriented POSIX sh + grep -E. Standard workflow layout only.
 # Unrecognized tags values, `{` flow mappings under on:, and unfiltered
 # push/create triggers fail closed.

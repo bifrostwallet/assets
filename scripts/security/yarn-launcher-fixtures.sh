@@ -64,6 +64,22 @@ expect 'project cache: the flag is not added twice' project '' '' \
   'install --immutable --check-cache' install --immutable --check-cache
 expect 'project cache: other commands are untouched' project '' '' \
   'node install' node install
+expect 'project cache: a bare flag is an install' project '' '' \
+  'install --immutable --check-cache' --immutable
+expect 'project cache: bare flags are kept' project '' '' \
+  'install --immutable --mode=skip-build --check-cache' --immutable --mode=skip-build
+expect 'project cache: a bare --check-cache is not added twice' project '' '' \
+  'install --check-cache' --check-cache
+expect 'project cache: --version is not an install' project '' '' \
+  '--version' --version
+expect 'project cache: -v is not an install' project '' '' \
+  '-v' -v
+expect 'project cache: --help is not an install' project '' '' \
+  '--help' --help
+expect 'project cache: --cwd is passed through' project '' '' \
+  '--cwd packages/a run build' --cwd packages/a run build
+expect 'project cache: a bare flag in CI is untouched' project true '' \
+  '--immutable' --immutable
 expect 'project cache: not in CI' project true '' \
   'install --immutable' install --immutable
 expect 'project cache: not in GitHub Actions' project '' true \

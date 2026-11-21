@@ -65,9 +65,24 @@ export YARN_CACHE_FOLDER="$ROOT/.yarn/cache"
 # image build. Tested by scripts/security/yarn-launcher-fixtures.sh.
 if [ "${CI:-}" != "true" ] && [ "${GITHUB_ACTIONS:-}" != "true" ] &&
   grep -q '^enableGlobalCache:[[:space:]]*false[[:space:]]*$' "$YARNRC"; then
+  # Install is Yarn's default command: ./yarn and ./yarn --immutable both
+  # install. A call that starts with a flag is an install unless the flag is a
+  # global one, and it is spelled out as `install <flags>`.
+  IS_INSTALL=0
   if [ "$#" -eq 0 ]; then
-    set -- install --check-cache
-  elif [ "$1" = "install" ]; then
+    IS_INSTALL=1
+    set -- install
+  else
+    case "$1" in
+      install) IS_INSTALL=1 ;;
+      --version | -v | --help | -h | --cwd | --cwd=*) ;;
+      -*)
+        IS_INSTALL=1
+        set -- install "$@"
+        ;;
+    esac
+  fi
+  if [ "$IS_INSTALL" -eq 1 ]; then
     HAS_CHECK_CACHE=0
     for arg in "$@"; do
       if [ "$arg" = "--check-cache" ]; then
