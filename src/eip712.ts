@@ -1,5 +1,5 @@
 // EIP-712 typed data for listing signatures (eth_signTypedData_v4).
-// Must stay in sync with assets-intake apps/add + apps/intake eip712 modules.
+// Must stay in sync with the listing form and intake service.
 // The package build copies these constants into the package entry and the signatures entry.
 // The salt is precomputed so verifiers do not hash it or take a hashing dependency.
 

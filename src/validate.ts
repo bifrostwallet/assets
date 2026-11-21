@@ -209,7 +209,7 @@ export function isValidName(name: string): boolean {
 
 /**
  * Printable ASCII only (0x20–0x7E), length 10–350.
- * Keep in sync with assets-intake apps/add validation + intake DESCRIPTION_RE.
+ * Keep in sync with the listing form and intake service.
  */
 export function isValidDescription(description: string): boolean {
   if (description !== description.trim()) {

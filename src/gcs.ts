@@ -3,9 +3,9 @@ import { promisify } from "node:util";
 import { crc32cBase64 } from "./crc32c.js";
 
 /**
- * Minimal Cloud Storage client over fetch (JSON API), the same approach as
- * TowoLabs/image-proxy. Covers what pull:submissions needs: list a bucket and
- * read an object. It has no write or delete: this repository only downloads.
+ * Minimal Cloud Storage client over fetch (JSON API). Covers what
+ * pull:submissions needs: list a bucket and read an object. It has no write or
+ * delete: this repository only downloads.
  *
  * Auth is an OAuth access token:
  * - GCS_ACCESS_TOKEN when set. The pull-submissions workflow passes the token

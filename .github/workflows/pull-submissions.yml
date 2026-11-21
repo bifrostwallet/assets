@@ -1,9 +1,7 @@
 name: Pull listing submissions
 
 # Pulls verified provider submissions from the intake bucket and opens a pull
-# request. Third parties submit provider listings only through the submission
-# app (dedicated static bucket) + Cloud Run intake; curators review this PR.
-# Dapps are curated by the Bifrost team and are not ingested here.
+# request for curators to review. Dapps are not ingested here.
 
 on:
   schedule:

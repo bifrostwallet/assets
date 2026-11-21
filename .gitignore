@@ -9,7 +9,6 @@ domain-linkage-summary.md
 /.ignore
 reports/
 
-# Listing portal + intake stay private (deploy/ops only; not in the public repo)
 /apps/
 
 # Local cache of Secret Manager ops config (./yarn ops:pull-env) — never commit
