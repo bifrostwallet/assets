@@ -13,6 +13,7 @@ interface LogoRecord {
   listed?: boolean;
   issuer?: string;
   currency?: string;
+  symbol?: string;
 }
 
 interface DappChip {
@@ -143,6 +144,21 @@ describe("createAssets", { concurrency: false }, () => {
     assert.equal(
       assets.getXrplToken(issued.issuer, issued.currency)?.logoURL,
       `${prefix}${issued.logoURL}`,
+    );
+
+    const xrp = assets.getNativeToken("xrpl:0");
+    assert.equal(xrp?.symbol, "XRP");
+    assert.equal(xrp?.logoURL, `${prefix}tokens/xrpl-0/native/logo.webp`);
+    assert.equal(
+      assets.getTokens("xrpl:0").some((token) => token.address === null),
+      false,
+      "XRP stays out of the issued-token list",
+    );
+    const bitcoin = "bip122:000000000019d6689c085ae165831e93";
+    assert.equal(assets.getNativeToken(bitcoin)?.symbol, "BTC");
+    assert.deepEqual(
+      assets.getTokens(bitcoin).map((token) => token.address),
+      [null],
     );
 
     const flareContracts = readDistJson<LogoRecord[]>("contracts/eip155-14.json");

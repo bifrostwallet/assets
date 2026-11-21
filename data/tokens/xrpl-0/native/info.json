@@ -1,0 +1,9 @@
+{
+  "name": "XRP",
+  "symbol": "XRP",
+  "decimals": 6,
+  "address": null,
+  "coingeckoId": "ripple",
+  "logoURL": "tokens/xrpl-0/native/logo.webp",
+  "logoHash": "4d67b9b2de9ea197345f4e91e026a23aa1829da0f3282a34fa9454543294b795"
+}

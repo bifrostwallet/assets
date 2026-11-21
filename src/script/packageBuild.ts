@@ -33,7 +33,7 @@ import {
 } from "../eip712.js";
 import { isMain } from "../isMain.js";
 import { assertJsDelivrReleaseBase, releaseTagForVersion } from "../releaseTag.js";
-import { type EvmToken, listChainTokens, listTokenChainPaths } from "../tokens.js";
+import { type EvmToken, listChainTokens, listTokenChainPaths, loadNativeToken } from "../tokens.js";
 import type { XrplToken } from "../xrplToken.js";
 
 // Builds the publishable @bifrostwallet/assets NPM package into dist/.
@@ -416,8 +416,7 @@ function assertCatalogLogoHashes(distDir: string): number {
       if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
       if (entry.name === "signatures.json") continue;
       const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
-      if (!Array.isArray(parsed)) continue;
-      for (const item of parsed) {
+      for (const item of publishedRecords(parsed)) {
         if (!item || typeof item !== "object" || !("logoURL" in item)) continue;
         const record = item as { logoURL?: unknown; logoHash?: unknown };
         const label = path.relative(distDir, fullPath);
@@ -659,8 +658,7 @@ function assertPublishedLogosExistUnderData(distDir: string): void {
       }
       if (!entry.name.endsWith(".json") || entry.name === "package.json") continue;
       const parsed: unknown = JSON.parse(fs.readFileSync(fullPath, "utf8"));
-      if (!Array.isArray(parsed)) continue;
-      for (const item of parsed) {
+      for (const item of publishedRecords(parsed)) {
         if (!item || typeof item !== "object" || !("logoURL" in item)) continue;
         const logoURL = (item as { logoURL: unknown }).logoURL;
         if (typeof logoURL !== "string" || logoURL.length === 0) continue;
@@ -678,6 +676,13 @@ function assertPublishedLogosExistUnderData(distDir: string): void {
     const sample = missing.slice(0, 5).join(", ") || "(none published)";
     throw new Error(`Release tag is missing data/ files for published logoURLs: ${sample}`);
   }
+}
+
+/** Records in a dist JSON file: an array, or an object keyed by chain (native-tokens.json). */
+function publishedRecords(parsed: unknown): unknown[] {
+  if (Array.isArray(parsed)) return parsed;
+  if (parsed && typeof parsed === "object") return Object.values(parsed);
+  return [];
 }
 
 /** Plain JS copy of src/eip712.ts. Values come from that module; this file does not hash. */
@@ -780,6 +785,9 @@ ${PROVIDER_CHAINS.map((chain) => `  "${chain}": require("./providers/${chain}.js
 
 const tokensByChain = {
 ${tokenRequires}};
+
+/** Native coin per repo chain path. XRPL's is here and not in its token list. */
+const nativeTokensByChain = ${tokenChains.length === 0 ? "{}" : 'require("./native-tokens.json")'};
 
 const contractsByChain = {
 ${contractRequires}};
@@ -931,7 +939,8 @@ function getXrplToken(issuer, currency) {
 }
 
 function getNativeToken(chainId) {
-  return getTokens(chainId).find((token) => token.address === null) ?? null;
+  getTokens(chainId);
+  return nativeTokensByChain[normalizeChainId(chainId)] ?? null;
 }
 
 function contractsWithChain(chainPath, contracts) {
@@ -1331,7 +1340,8 @@ export interface Assets {
   getValidatorsByIdentity(chainId: ChainId, identityAddress: string): ValidatorInfo[];
   /**
    * All curated tokens for a chain (throws on unknown chain).
-   * \`xrpl:0\` returns XrplToken. Every other chain returns EvmToken.
+   * \`xrpl:0\` returns issued XrplToken entries. Every other chain returns EvmToken,
+   * and a bip122 chain holds only its native coin.
    */
   getTokens(chainId: "xrpl:0"): XrplToken[];
   getTokens(chainId: ChainId): EvmToken[];
@@ -1342,7 +1352,11 @@ export interface Assets {
    * There is no combined address key.
    */
   getXrplToken(issuer: string, currency: string): XrplToken | null;
-  /** Native gas token entry for a chain, or null */
+  /**
+   * Native coin for a chain, or null. Throws on an unknown chain.
+   * Covers EVM chains, bip122 chains (Bitcoin, Litecoin, Dogecoin) and \`xrpl:0\`.
+   * Each uses the EvmToken shape with \`address: null\`. XRP is not in getTokens("xrpl:0").
+   */
   getNativeToken(chainId: ChainId): EvmToken | null;
   /**
    * Curated contracts. Omit chainId for every chain.
@@ -1473,6 +1487,16 @@ function buildPackageUnlocked(): void {
       fs.writeFileSync(outPath, `${JSON.stringify(tokens, null, 2)}\n`);
       console.info(`📦 tokens/${chain}.json (${tokens.length} tokens)`);
     }
+    const natives: Record<string, EvmToken> = {};
+    for (const chain of tokenChainIds) {
+      const native = loadNativeToken(chain);
+      if (native) natives[chain] = publishEntry(native, `tokens/${chain}/native`);
+    }
+    fs.writeFileSync(
+      path.join(distDir, "native-tokens.json"),
+      `${JSON.stringify(natives, null, 2)}\n`,
+    );
+    console.info(`📦 native-tokens.json (${Object.keys(natives).length} native coins)`);
   }
 
   const contractChainIds = listContractChainPaths();

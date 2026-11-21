@@ -6,6 +6,12 @@ import bs58 from "bs58";
 /** Mainnet only. CAIP-2 `xrpl:0`, repo path `xrpl-0`. */
 export const XRPL_MAINNET_CHAIN_PATH = "xrpl-0";
 
+/**
+ * Folder for a chain's native coin (`data/tokens/<chain>/native/`). Under `xrpl-0`
+ * it sits beside the issuer folders and is not an issued token.
+ */
+export const NATIVE_TOKEN_DIR = "native";
+
 const BITCOIN_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 const RIPPLE_ALPHABET = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz";
 
@@ -122,6 +128,7 @@ export function xrplCatalogPathErrors(root = process.cwd()): string[] {
   if (!fs.existsSync(chainDir)) return [`missing ${XRPL_MAINNET_CHAIN_PATH}`];
   const errors: string[] = [];
   for (const issuerEntry of fs.readdirSync(chainDir, { withFileTypes: true })) {
+    if (issuerEntry.isDirectory() && issuerEntry.name === NATIVE_TOKEN_DIR) continue;
     const issuerLabel = `${XRPL_MAINNET_CHAIN_PATH}/${issuerEntry.name}`;
     if (!issuerEntry.isDirectory()) {
       errors.push(`${issuerLabel}: unexpected file`);
@@ -151,7 +158,7 @@ export function listXrplTokenDirs(root = process.cwd()): XrplTokenDir[] {
   if (!fs.existsSync(chainDir)) return [];
   const out: XrplTokenDir[] = [];
   for (const issuerEntry of fs.readdirSync(chainDir, { withFileTypes: true })) {
-    if (!issuerEntry.isDirectory()) continue;
+    if (!issuerEntry.isDirectory() || issuerEntry.name === NATIVE_TOKEN_DIR) continue;
     const issuerPath = path.join(chainDir, issuerEntry.name);
     for (const currencyEntry of fs.readdirSync(issuerPath, { withFileTypes: true })) {
       if (!currencyEntry.isDirectory()) continue;
