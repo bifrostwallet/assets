@@ -85,7 +85,7 @@ if (!verifyLogoHash(bytes, entry.logoHash)) throw new Error("logo hash mismatch"
 
 ### Self-hosting logos
 
-Logo files are not in the npm package. Clone this repository and check out the same version as your installed `@bifrostwallet/assets`. Tags have no `v` prefix.
+Logo files are not in the npm package. Clone this repository and check out the same version as your installed `@bifrostwallet/assets`.
 
 ```sh
 git clone https://github.com/bifrostwallet/assets
