@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
-import bs58 from "bs58";
+import { base58 } from "@scure/base";
 import { withAbsoluteLogoURL } from "./assetUrl.js";
 import {
   ALLOWED_LINKS,
@@ -30,7 +30,7 @@ export function encodeNodeID(hexString: HexString): string | "" {
     const hash = crypto.createHash("sha256").update(rawBuffer).digest();
     const checksum = hash.subarray(-4);
     const bufferWithChecksum = Buffer.concat([rawBuffer, checksum]);
-    const encodedNodeId = bs58.encode(bufferWithChecksum);
+    const encodedNodeId = base58.encode(bufferWithChecksum);
 
     return `NodeID-${encodedNodeId}`;
   } catch (_error) {
@@ -50,7 +50,7 @@ export function decodeNodeID(nodeID: string): HexString | "" {
     }
 
     const encodedPart = nodeID.slice(7);
-    const bufferWithChecksum = bs58.decode(encodedPart);
+    const bufferWithChecksum = base58.decode(encodedPart);
     const rawBuffer = bufferWithChecksum.slice(0, -4);
 
     return `0x${Buffer.from(rawBuffer).toString("hex")}` as HexString;
