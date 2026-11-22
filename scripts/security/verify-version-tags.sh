@@ -4,7 +4,9 @@
 #   - filters push tags with anything other than [0-9]+.[0-9]+.[0-9]+,
 #   - lets a push or create trigger run for every tag,
 #   - hides a tag filter inside a flow mapping the line scanner cannot read, or
-#   - inlines a ref/tag expression inside a run: block.
+#   - inlines a ref/tag expression inside a run: block, or
+#   - continues an inline run: value onto more lines (plain or quoted
+#     scalars fold, so those lines are part of the command).
 #
 # Tag values belong in step env (see README.md, Security: Repository rules
 # checked in CI).
@@ -228,6 +230,7 @@ scan_file() {
   current=$1
   in_run=0
   run_indent=0
+  run_inline=0
   in_on=0
   on_indent=0
   on_child_indent=-1
@@ -251,6 +254,18 @@ scan_file() {
       _lead=${line%%[![:space:]]*}
       if [ "${#_lead}" -gt "$run_indent" ]; then
         check_run_text "$trimmed"
+        # After an inline value, a more-indented line continues a plain or
+        # quoted scalar: YAML folds it into the command. Fail closed once.
+        # A comment-only line is still scanned above but not rejected.
+        if [ "$run_inline" -eq 1 ]; then
+          case "$trimmed" in
+            \#*) ;;
+            *)
+              record "$lineno" "inline run: value continues onto another line (use run: |)"
+              run_inline=2
+              ;;
+          esac
+        fi
         continue
       fi
       in_run=0
@@ -335,14 +350,18 @@ scan_file() {
     fi
 
     if [ "$key" = "run" ]; then
+      # Block scalars and inline values both own the more-indented lines that
+      # follow: a plain, single- or double-quoted value can continue there.
+      in_run=1
+      # `- run:` is indented at the dash. Sibling keys (`env`) sit at dash+2.
+      run_indent=$_indent
+      case "$trimmed" in
+        -*) run_indent=$((_indent + 2)) ;;
+      esac
       if is_block_scalar "$rest"; then
-        in_run=1
-        # `- run:` is indented at the dash. Sibling keys (`env`) sit at dash+2.
-        run_indent=$_indent
-        case "$trimmed" in
-          -*) run_indent=$((_indent + 2)) ;;
-        esac
+        run_inline=0
       else
+        run_inline=1
         check_run_text "$rest"
       fi
     fi

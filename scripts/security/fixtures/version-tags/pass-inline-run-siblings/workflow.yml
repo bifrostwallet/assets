@@ -1,0 +1,15 @@
+name: Inline run then sibling keys
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: ./build
+        env:
+          TAG: ${{ github.ref_name }}
+      - name: Test
+        run: ./test # trailing comment
+        working-directory: app
+      - run: ./lint
