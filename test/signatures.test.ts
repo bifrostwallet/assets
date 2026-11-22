@@ -148,14 +148,14 @@ describe("Signature round-trip", () => {
     assert.match(missing.invalidSignatures[0]?.reason ?? "", /missing its nonce/);
   });
 
-  test("a version 2 self-signature and a version 1 co-signature verify side by side", async () => {
-    const cosigner = privateKeyToAccount(generatePrivateKey());
+  test("a second entry, from another signer or the provider itself, is invalid", async () => {
+    const other = privateKeyToAccount(generatePrivateKey());
     const v1 = providerListingTypedDataFromInfo(baseInfo, 14);
-    const cosignature = {
-      signerName: "Co-signer",
-      signerAddress: cosigner.address,
+    const foreign = {
+      signerName: "Someone else",
+      signerAddress: other.address,
       messageHash: v1.contentHash,
-      signature: await cosigner.signTypedData({
+      signature: await other.signTypedData({
         domain: v1.domain,
         types: v1.types,
         primaryType: v1.primaryType,
@@ -163,17 +163,56 @@ describe("Signature round-trip", () => {
       }),
       date: "2026-11-23T09:05:00.000Z",
     };
-    const result = await verifyProviderSignatures(
-      await writeV2Provider(baseInfo, {}, [cosignature]),
+    const withForeign = await verifyProviderSignatures(
+      await writeV2Provider(baseInfo, {}, [foreign]),
     );
-    assert.equal(result.validSignatures.length, 2);
-    assert.equal(result.hasValidSelfSignature, true);
+    assert.equal(withForeign.hasValidSelfSignature, true);
+    assert.equal(withForeign.validSignatures.length, 1);
+    assert.match(withForeign.invalidSignatures[0]?.reason ?? "", /Only the provider's own/);
+
+    const ownTwice = await writeV2Provider(baseInfo);
+    const signaturesPath = path.join(ownTwice, "signatures.json");
+    const data = JSON.parse(fs.readFileSync(signaturesPath, "utf8"));
+    data.signatures.push({ ...data.signatures[0] });
+    fs.writeFileSync(signaturesPath, JSON.stringify(data));
+    const twice = await verifyProviderSignatures(ownTwice);
+    assert.match(twice.invalidSignatures[0]?.reason ?? "", /one signature only/);
+  });
+
+  test("a valid signature by another address alone does not sign the listing", async () => {
+    const other = privateKeyToAccount(generatePrivateKey());
+    const v1 = providerListingTypedDataFromInfo(baseInfo, 14);
+    const dir = await writeSignedProvider(baseInfo);
+    fs.writeFileSync(
+      path.join(dir, "signatures.json"),
+      JSON.stringify({
+        identityAddress: baseInfo.identityAddress,
+        verificationInstructions: "",
+        signatures: [
+          {
+            signerName: "Someone else",
+            signerAddress: other.address,
+            messageHash: v1.contentHash,
+            signature: await other.signTypedData({
+              domain: v1.domain,
+              types: v1.types,
+              primaryType: v1.primaryType,
+              message: v1.message,
+            }),
+            date: "2026-11-23T09:05:00.000Z",
+          },
+        ],
+      }),
+    );
+    const result = await verifyProviderSignatures(dir);
+    assert.equal(result.hasValidSelfSignature, false);
+    assert.match(result.invalidSignatures[0]?.reason ?? "", /Only the provider's own/);
   });
 
   test("a signed provider verifies with a valid self-signature", async () => {
     const dir = await writeSignedProvider(baseInfo);
     const result = await verifyProviderSignatures(dir);
-    assert.equal(result.hasValidSignature, true);
+    assert.equal(result.hasValidSelfSignature, true);
     assert.equal(result.hasValidSelfSignature, true);
   });
 
@@ -196,7 +235,7 @@ describe("Signature round-trip", () => {
     fs.writeFileSync(infoPath, JSON.stringify(mutated, null, 2));
 
     const result = await verifyProviderSignatures(dir);
-    assert.equal(result.hasValidSignature, true);
+    assert.equal(result.hasValidSelfSignature, true);
   });
 
   test("changing chain addresses or validators keeps the signature valid", async () => {
@@ -221,7 +260,7 @@ describe("Signature round-trip", () => {
     );
 
     const result = await verifyProviderSignatures(dir);
-    assert.equal(result.hasValidSignature, true);
+    assert.equal(result.hasValidSelfSignature, true);
   });
 
   test("changing a signed field (name) invalidates the signature", async () => {
@@ -230,7 +269,7 @@ describe("Signature round-trip", () => {
     fs.writeFileSync(infoPath, JSON.stringify({ ...baseInfo, name: "Imposter" }, null, 2));
 
     const result = await verifyProviderSignatures(dir);
-    assert.equal(result.hasValidSignature, false);
+    assert.equal(result.hasValidSelfSignature, false);
     assert.ok(result.invalidSignatures[0].reason.includes("Stale message hash"));
   });
 
@@ -248,106 +287,8 @@ describe("Signature round-trip", () => {
       /Could not determine chainId from path/,
     );
 
-    const result = await verifyProviderSignatures(stagingDir, true, 14);
+    const result = await verifyProviderSignatures(stagingDir, 14);
     assert.equal(result.hasValidSelfSignature, true);
-  });
-
-  test("an attestation qualifies only when the attester is listed and self-signed", async () => {
-    const attesterKey = generatePrivateKey();
-    const attesterAccount = privateKeyToAccount(attesterKey);
-    const attesterIdentity = attesterAccount.address.toLowerCase();
-
-    // Chain directory with two sibling entries: the attester and the target
-    const chainDir = path.join(
-      fs.mkdtempSync(path.join(os.tmpdir(), "assets-attest-test-")),
-      "eip155-14",
-    );
-
-    const attesterInfo: Partial<ProviderInfo> = {
-      ...baseInfo,
-      name: "Attester Provider",
-      identityAddress: attesterIdentity,
-      listed: true,
-    };
-    const attesterDir = path.join(chainDir, attesterIdentity);
-    fs.mkdirSync(attesterDir, { recursive: true });
-    const attesterTyped = providerListingTypedDataFromInfo(attesterInfo, 14);
-    fs.writeFileSync(path.join(attesterDir, "info.json"), JSON.stringify(attesterInfo, null, 2));
-    fs.writeFileSync(
-      path.join(attesterDir, "signatures.json"),
-      JSON.stringify({
-        identityAddress: attesterIdentity,
-        verificationInstructions: "",
-        signatures: [
-          {
-            signerName: attesterInfo.name,
-            signerAddress: attesterAccount.address,
-            messageHash: attesterTyped.contentHash,
-            signature: await attesterAccount.signTypedData({
-              domain: attesterTyped.domain,
-              types: attesterTyped.types,
-              primaryType: attesterTyped.primaryType,
-              message: attesterTyped.message,
-            }),
-            date: new Date().toISOString(),
-          },
-        ],
-      }),
-    );
-
-    // Target entry signed only by the attester, not by the identity itself
-    const targetDir = path.join(chainDir, baseInfo.identityAddress as string);
-    fs.mkdirSync(targetDir, { recursive: true });
-    const targetTyped = providerListingTypedDataFromInfo(baseInfo, 14);
-    fs.writeFileSync(path.join(targetDir, "info.json"), JSON.stringify(baseInfo, null, 2));
-    fs.writeFileSync(
-      path.join(targetDir, "signatures.json"),
-      JSON.stringify({
-        identityAddress: baseInfo.identityAddress,
-        verificationInstructions: "",
-        signatures: [
-          {
-            signerName: attesterInfo.name,
-            signerAddress: attesterAccount.address,
-            messageHash: targetTyped.contentHash,
-            signature: await attesterAccount.signTypedData({
-              domain: targetTyped.domain,
-              types: targetTyped.types,
-              primaryType: targetTyped.primaryType,
-              message: targetTyped.message,
-            }),
-            date: new Date().toISOString(),
-          },
-        ],
-      }),
-    );
-
-    // Listed + self-signed attester: attestation qualifies
-    const qualified = await verifyProviderSignatures(targetDir);
-    assert.equal(qualified.hasValidSignature, true);
-    assert.equal(qualified.hasValidSelfSignature, false);
-    assert.equal(qualified.hasValidAttestation, true);
-
-    // Unlisted attester: no longer qualifies
-    fs.writeFileSync(
-      path.join(attesterDir, "info.json"),
-      JSON.stringify({ ...attesterInfo, listed: false }, null, 2),
-    );
-    const unlisted = await verifyProviderSignatures(targetDir);
-    assert.equal(unlisted.hasValidSignature, true);
-    assert.equal(unlisted.hasValidAttestation, false);
-
-    // Listed again but without a self-signature: still no
-    fs.writeFileSync(path.join(attesterDir, "info.json"), JSON.stringify(attesterInfo, null, 2));
-    fs.rmSync(path.join(attesterDir, "signatures.json"));
-    const unsigned = await verifyProviderSignatures(targetDir);
-    assert.equal(unsigned.hasValidAttestation, false);
-
-    // Attester with no entry at all: no
-    fs.rmSync(attesterDir, { recursive: true });
-    const unknown = await verifyProviderSignatures(targetDir);
-    assert.equal(unknown.hasValidSignature, true);
-    assert.equal(unknown.hasValidAttestation, false);
   });
 
   test("a signature from a different key is rejected", async () => {
@@ -367,7 +308,7 @@ describe("Signature round-trip", () => {
     fs.writeFileSync(signaturesPath, JSON.stringify(data));
 
     const result = await verifyProviderSignatures(dir);
-    assert.equal(result.hasValidSignature, false);
+    assert.equal(result.hasValidSelfSignature, false);
     assert.ok(result.invalidSignatures[0].reason.includes("does not match declared"));
   });
 });
@@ -393,9 +334,7 @@ describe("Provider signature verification", () => {
 
       if (!result.hasValidSelfSignature) {
         let message = "signatures.json is missing";
-        if (result.hasValidAttestation) {
-          message = "attested but missing the required self-signature";
-        } else if (result.hasSignaturesFile) {
+        if (result.hasSignaturesFile) {
           message =
             "signatures.json exists but contains no valid signature for the current info.json";
         }

@@ -34,14 +34,7 @@ export interface ProviderSignatureVerification {
   expectedMessageHash: string;
   validSignatures: SignatureEntry[];
   invalidSignatures: { entry: SignatureEntry; reason: string }[];
-  hasValidSignature: boolean;
   hasValidSelfSignature: boolean;
-  /**
-   * A valid signature from a qualifying attester: a provider entry on the same
-   * chain that is `listed` and carries a valid self-signature of its own.
-   * Additional confirmation only — never a substitute for the self-signature.
-   */
-  hasValidAttestation: boolean;
 }
 
 /**
@@ -54,14 +47,9 @@ export interface ProviderSignatureVerification {
  * - recovering the signer via EIP-712 ProviderListing typed data yields signerAddress,
  *   using the entry's version: version 2 also signs its date, nonce and sealedHash.
  *
- * A valid signature from the provider's own identity address is a self-signature
- * and is what satisfies the repository's signature requirement. Any other valid
- * signature is an attestation — additional confirmation that another provider
- * verified the entry. An attestation only counts as such when the attester's own
- * entry (sibling directory on the same chain) is `listed` and self-signed.
- *
- * `resolveAttesters` is internal: attester lookups verify the attester's own
- * entry with it disabled, so attestation chains never recurse.
+ * signatures.json holds exactly one entry: the provider's own signature, by its
+ * identity address. An entry by any other address, or a second entry, is
+ * invalid.
  *
  * `chainId` is required when `providerDir` is not under an `eip155-<id>` path.
  * Intake ingest verifies a copy in a temporary directory and passes the chain
@@ -69,7 +57,6 @@ export interface ProviderSignatureVerification {
  */
 export async function verifyProviderSignatures(
   providerDir: string,
-  resolveAttesters = true,
   chainId = chainIdFromProviderPath(providerDir),
 ): Promise<ProviderSignatureVerification> {
   const infoPath = path.join(providerDir, "info.json");
@@ -85,9 +72,7 @@ export async function verifyProviderSignatures(
     expectedMessageHash,
     validSignatures: [],
     invalidSignatures: [],
-    hasValidSignature: false,
     hasValidSelfSignature: false,
-    hasValidAttestation: false,
   };
 
   if (!result.hasSignaturesFile) {
@@ -96,7 +81,19 @@ export async function verifyProviderSignatures(
 
   const signaturesData = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
 
-  for (const entry of signaturesData.signatures ?? []) {
+  const identity = info.identityAddress.toLowerCase();
+  for (const [index, entry] of (signaturesData.signatures ?? []).entries()) {
+    if (entry.signerAddress?.toLowerCase() !== identity) {
+      result.invalidSignatures.push({
+        entry,
+        reason: "Only the provider's own signature (by its identity address) is accepted",
+      });
+      continue;
+    }
+    if (index > 0) {
+      result.invalidSignatures.push({ entry, reason: "signatures.json holds one signature only" });
+      continue;
+    }
     if (entry.messageHash?.toLowerCase() !== expectedMessageHash.toLowerCase()) {
       result.invalidSignatures.push({
         entry,
@@ -142,46 +139,10 @@ export async function verifyProviderSignatures(
     }
 
     result.validSignatures.push(entry);
-    if (entry.signerAddress.toLowerCase() === info.identityAddress.toLowerCase()) {
-      result.hasValidSelfSignature = true;
-    }
-  }
-
-  result.hasValidSignature = result.validSignatures.length > 0;
-
-  if (resolveAttesters && !result.hasValidSelfSignature) {
-    for (const entry of result.validSignatures) {
-      if (await isQualifiedAttester(providerDir, entry.signerAddress)) {
-        result.hasValidAttestation = true;
-        break;
-      }
-    }
+    result.hasValidSelfSignature = true;
   }
 
   return result;
-}
-
-/**
- * An attester qualifies when their own entry — the sibling provider directory
- * for the signer address on the same chain — is `listed` and self-signed.
- */
-export async function isQualifiedAttester(
-  providerDir: string,
-  signerAddress: string,
-): Promise<boolean> {
-  const attesterDir = path.join(path.dirname(providerDir), signerAddress.toLowerCase());
-  const attesterInfoPath = path.join(attesterDir, "info.json");
-  if (!fs.existsSync(attesterInfoPath)) {
-    return false;
-  }
-
-  const attesterInfo = JSON.parse(fs.readFileSync(attesterInfoPath, "utf8")) as ProviderInfo;
-  if (attesterInfo.listed !== true) {
-    return false;
-  }
-
-  const attesterResult = await verifyProviderSignatures(attesterDir, false);
-  return attesterResult.hasValidSelfSignature;
 }
 
 /**

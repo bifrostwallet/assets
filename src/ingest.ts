@@ -1,20 +1,17 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { recoverTypedDataAddress } from "viem";
 import { BLOCKCHAIN_NETWORKS, type BlockchainNetworkConfig, type ProviderInfo } from "./config.js";
 import {
   calculateHash,
   formatRepoJson,
-  providerInfoMessageHash,
   providerLogoPath,
   rebuildProvidersAllJson,
   sortProviderInfo,
   toRelativePath,
   writeFormattedJson,
 } from "./convert.js";
-import { chainIdFromProviderPath, providerListingTypedDataFromInfo } from "./eip712.js";
-import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "./intakeGuard.js";
+import { chainIdFromProviderPath } from "./eip712.js";
 import { fetchEntityData } from "./onchain.js";
 import {
   isValidDescription,
@@ -23,12 +20,7 @@ import {
   isValidName,
   isValidURL,
 } from "./validate.js";
-import {
-  isQualifiedAttester,
-  type SignatureEntry,
-  type SignaturesData,
-  verifyProviderSignatures,
-} from "./verify.js";
+import { type SignatureEntry, type SignaturesData, verifyProviderSignatures } from "./verify.js";
 
 export interface IngestResult {
   status: "ingested" | "unchanged";
@@ -92,48 +84,6 @@ function newestSelfSignatureMs(
     if (Number.isFinite(ms) && (newest === null || ms > newest)) newest = ms;
   }
   return newest;
-}
-
-const MAX_SIGNATURES = 8;
-
-/**
- * The submitted signatures plus every published co-signature (not by the
- * identity, not from a signer already in the submission) that verifies over the
- * staged final info.json. Each kept entry is re-verified, never trusted from main.
- */
-async function withPublishedCoSignatures(
-  identity: string,
-  submitted: SignaturesData,
-  publishedSignaturesPath: string,
-  stagingDir: string,
-  chainId: number,
-): Promise<SignaturesData> {
-  if (!fs.existsSync(publishedSignaturesPath)) return submitted;
-  const published = JSON.parse(fs.readFileSync(publishedSignaturesPath, "utf8")) as SignaturesData;
-  const submittedSigners = new Set(
-    submitted.signatures.map((entry) => entry.signerAddress.toLowerCase()),
-  );
-  const candidates = (published.signatures ?? []).filter((entry) => {
-    const signer = entry.signerAddress.toLowerCase();
-    return signer !== identity.toLowerCase() && !submittedSigners.has(signer);
-  });
-  if (candidates.length === 0) return submitted;
-
-  const stagedPath = path.join(stagingDir, "signatures.json");
-  fs.writeFileSync(
-    stagedPath,
-    JSON.stringify({ ...submitted, signatures: [...submitted.signatures, ...candidates] }),
-  );
-  // Attester qualification (listed + self-signed) is a catalog-wide property,
-  // checked when the attestation was merged and by verify:providers; here only
-  // the signature itself matters.
-  const verification = await verifyProviderSignatures(stagingDir, false, chainId);
-  const valid = new Set(verification.validSignatures.map((entry) => entry.signature.toLowerCase()));
-  const kept = candidates.filter((entry) => valid.has(entry.signature.toLowerCase()));
-  return {
-    ...submitted,
-    signatures: [...submitted.signatures, ...kept].slice(0, MAX_SIGNATURES),
-  };
 }
 
 /**
@@ -280,7 +230,6 @@ export async function ingestProviderSubmission(
 
   const verification = await verifyProviderSignatures(
     stagingDir,
-    true,
     chainIdFromProviderPath(chainPath),
   );
   if (!verification.hasValidSelfSignature) {
@@ -368,23 +317,11 @@ export async function ingestProviderSubmission(
     path.join(existingDir, "signatures.json"),
   );
 
-  // A listing submission carries only the self-signature. Keep the published
-  // co-signatures that still verify over the final content, so re-signing an
-  // unchanged listing does not drop them. A content change makes their message
-  // hash stale, and they drop out here.
-  const signaturesToWrite = await withPublishedCoSignatures(
-    identity,
-    submittedSignatures,
-    path.join(existingDir, "signatures.json"),
-    stagingDir,
-    chainIdFromProviderPath(chainPath),
-  );
-
   // Write files and rebuild the chain aggregate
   fs.mkdirSync(existingDir, { recursive: true });
   fs.writeFileSync(infoPath, finalInfoJson);
   fs.writeFileSync(path.join(existingDir, "logo.webp"), logoBytes);
-  writeFormattedJson(path.join(existingDir, "signatures.json"), signaturesToWrite);
+  writeFormattedJson(path.join(existingDir, "signatures.json"), submittedSignatures);
   if (provenanceJson && !preserveProvenance) {
     fs.writeFileSync(destProvenancePath, provenanceJson);
   }
@@ -438,138 +375,4 @@ export function intakeSubmissionToDir(submission: IntakeSubmission): string {
     publicProvenanceRecord(submission.submittedAt),
   );
   return dir;
-}
-
-/**
- * An attestation document as stored in the intake bucket by the intake service
- * under attestations/<chain>/<target>/<attester>.json: one provider signing
- * another provider's current entry through the web app.
- */
-export interface IntakeAttestation {
-  chainPath: string;
-  targetIdentityAddress: string;
-  attestation: {
-    signerName: string;
-    signerAddress: string;
-    messageHash: string;
-    signature: string;
-    date: string;
-  };
-  submittedAt: string;
-}
-
-export interface AttestationIngestResult {
-  status: "ingested" | "unchanged";
-  targetIdentityAddress: string;
-  signerAddress: string;
-}
-
-/**
- * Verifies and merges a web-app attestation into the target provider's
- * signatures.json.
- *
- * Validation pipeline:
- * 1. the target entry exists and the attested messageHash matches the SHA-256
- *    of its CURRENT signed info.json payload — stale attestations are rejected
- * 2. the signature cryptographically recovers to the declared attester address
- * 3. the attester qualifies: their own entry on the same chain is listed and
- *    self-signed (the same gate verification applies when counting attestations)
- *
- * Idempotent: an attestation already present in signatures.json returns
- * "unchanged" without touching files.
- */
-export async function ingestProviderAttestation(
-  doc: IntakeAttestation,
-): Promise<AttestationIngestResult> {
-  const { chainPath, targetIdentityAddress, attestation } = doc;
-  const signer = attestation.signerAddress.toLowerCase();
-  if (signer === targetIdentityAddress.toLowerCase()) {
-    throw new Error("Self-signatures must go through the listing submission flow");
-  }
-
-  const targetDir = path.join(
-    process.cwd(),
-    "data",
-    "providers",
-    chainPath,
-    targetIdentityAddress.toLowerCase(),
-  );
-  const infoPath = path.join(targetDir, "info.json");
-  if (!fs.existsSync(infoPath)) {
-    throw new Error(`Attested provider does not exist: ${chainPath}/${targetIdentityAddress}`);
-  }
-
-  const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
-  const expectedHash = providerInfoMessageHash(info);
-  if (attestation.messageHash.toLowerCase() !== expectedHash.toLowerCase()) {
-    throw new Error(
-      `Stale attestation: expected message hash ${expectedHash}, got ${attestation.messageHash}. The entry changed since signing; the attester must re-attest.`,
-    );
-  }
-
-  const typed = providerListingTypedDataFromInfo(info, chainIdFromProviderPath(chainPath));
-  const recovered = await recoverTypedDataAddress({
-    domain: typed.domain,
-    types: typed.types,
-    primaryType: typed.primaryType,
-    message: typed.message,
-    signature: attestation.signature as `0x${string}`,
-  });
-  if (recovered.toLowerCase() !== signer) {
-    throw new Error(`Recovered signer ${recovered} does not match ${attestation.signerAddress}`);
-  }
-
-  if (!(await isQualifiedAttester(targetDir, signer))) {
-    throw new Error(
-      `Attester ${signer} does not qualify: attesters must be listed and self-signed on ${chainPath}`,
-    );
-  }
-
-  const signaturesPath = path.join(targetDir, "signatures.json");
-  const signaturesData: SignaturesData = fs.existsSync(signaturesPath)
-    ? (JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData)
-    : {
-        identityAddress: targetIdentityAddress.toLowerCase(),
-        verificationInstructions: PROVIDER_VERIFICATION_INSTRUCTIONS,
-        signatures: [],
-      };
-
-  const entry: SignatureEntry = {
-    signerName: attestation.signerName,
-    signerAddress: attestation.signerAddress as SignatureEntry["signerAddress"],
-    messageHash: attestation.messageHash,
-    signature: attestation.signature as SignatureEntry["signature"],
-    date: attestation.date,
-  };
-
-  const existingIndex = signaturesData.signatures.findIndex(
-    (existing) => existing.signerAddress.toLowerCase() === signer,
-  );
-  if (existingIndex >= 0) {
-    const existing = signaturesData.signatures[existingIndex];
-    if (existing.signature.toLowerCase() === attestation.signature.toLowerCase()) {
-      return {
-        status: "unchanged",
-        targetIdentityAddress: targetIdentityAddress.toLowerCase(),
-        signerAddress: signer,
-      };
-    }
-    signaturesData.signatures[existingIndex] = entry;
-  } else {
-    if (signaturesData.signatures.length >= 8) {
-      throw new Error("signatures.json already holds the maximum of 8 signatures");
-    }
-    signaturesData.signatures.push(entry);
-  }
-
-  writeFormattedJson(signaturesPath, signaturesData);
-  console.info(
-    `🖋 Attestation by ${attestation.signerName} (${signer}) merged into ${toRelativePath(signaturesPath)}`,
-  );
-
-  return {
-    status: "ingested",
-    targetIdentityAddress: targetIdentityAddress.toLowerCase(),
-    signerAddress: signer,
-  };
 }
