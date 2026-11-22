@@ -1023,11 +1023,11 @@ function getContracts(chainId) {
   return contractsWithChain(chainPath, contracts);
 }
 
-// XRPL r-addresses are case-sensitive and match exactly. EVM addresses match
-// case-insensitively.
+// XRPL mainnet r-addresses are case-sensitive and match exactly. EVM addresses
+// match case-insensitively.
 function contractAddressKey(chainId, address) {
   const text = String(address);
-  return String(chainId).startsWith("xrpl:") ? text : text.toLowerCase();
+  return String(chainId) === "xrpl:0" ? text : text.toLowerCase();
 }
 
 function getContract(chainId, address) {

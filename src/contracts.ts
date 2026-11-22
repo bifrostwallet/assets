@@ -4,7 +4,7 @@ import { ASSET_LOGO_REQUIREMENTS } from "./config.js";
 import { sha256Hex } from "./convert.js";
 import { isValidEvmAddress, isValidImage, isValidName } from "./validate.js";
 import { isWebpMagic } from "./webp.js";
-import { isValidXrplAccountAddress } from "./xrplToken.js";
+import { isValidXrplAccountAddress, XRPL_MAINNET_CHAIN_PATH } from "./xrplToken.js";
 
 /**
  * Curated contract names for Bifrost Wallet transaction review.
@@ -96,7 +96,6 @@ const ADDRESS_FILE_RE = /^0x[0-9a-f]{40}\.json$/;
 const ADDRESS_DIR_RE = /^0x[0-9a-f]{40}$/;
 /** Shape of a classic r-address. The checksum is checked separately. */
 const XRPL_ADDRESS_RE = /^r[1-9A-HJ-NP-Za-km-z]{24,34}$/;
-const XRPL_NAMESPACE = "xrpl";
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PROJECTS_DIR = "projects";
 const PROJECT_INFO_KEYS = ["name"] as const;
@@ -119,12 +118,12 @@ export function isCaip2(value: string): boolean {
 }
 
 /**
- * XRPL chains (`xrpl-0`, mainnet) list accounts by classic
- * r-address. Those are case-sensitive, so they are stored, named and looked up
- * in their exact case. Every other chain is EVM: lowercase 0x addresses.
+ * XRPL mainnet (`xrpl-0`) lists accounts by classic r-address. Those are
+ * case-sensitive, so they are stored, named and looked up in their exact case.
+ * Every other chain is EVM: lowercase 0x addresses.
  */
-export function isXrplContractChain(chain: string): boolean {
-  return chain.startsWith(`${XRPL_NAMESPACE}-`) || chain.startsWith(`${XRPL_NAMESPACE}:`);
+function isXrplContractChain(chainPath: string): boolean {
+  return chainPath === XRPL_MAINNET_CHAIN_PATH;
 }
 
 function isAddressFileName(chainPath: string, name: string): boolean {
@@ -137,8 +136,8 @@ function isAddressDirName(chainPath: string, name: string): boolean {
 }
 
 /** The lookup key for an address on a chain: exact on XRPL, lowercase on EVM. */
-export function contractAddressKey(chain: string, address: string): string {
-  return isXrplContractChain(chain) ? address : address.toLowerCase();
+function contractAddressKey(chainPath: string, address: string): string {
+  return isXrplContractChain(chainPath) ? address : address.toLowerCase();
 }
 
 /** `eip155-14` → `eip155:14` (first hyphen only, same as the package helper). */
@@ -586,10 +585,10 @@ export function getContracts(chainId?: string): ContractInfo[] {
  * case-insensitive. XRPL lookup is exact, because r-addresses are case-sensitive.
  */
 export function getContract(chainId: string, address: string): ContractInfo | null {
-  const target = contractAddressKey(chainId, address);
+  const contracts = getContracts(chainId);
+  const chainPath = caip2ToChainPath(chainId);
+  const target = contractAddressKey(chainPath, address);
   return (
-    getContracts(chainId).find(
-      (contract) => contractAddressKey(chainId, contract.address) === target,
-    ) ?? null
+    contracts.find((contract) => contractAddressKey(chainPath, contract.address) === target) ?? null
   );
 }
