@@ -5,14 +5,13 @@ import { describe, test } from "node:test";
 import { providerLogoPath, sha256Hex } from "../src/convert.js";
 import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "../src/eip712.js";
 import {
-  assertAttestationIntakeDocument,
   assertProviderIntakeDocument,
   MAX_SIGNATURE_AGE_AT_SUBMISSION_MS,
 } from "../src/intakeGuard.js";
 
 const logo = fs.readFileSync(path.join(process.cwd(), "data/dapps/kinetic-market/logo.webp"));
 const identity = `0x${"ab".repeat(20)}`;
-const attester = `0x${"cd".repeat(20)}`;
+const stranger = `0x${"cd".repeat(20)}`;
 const SUBMITTED_AT = "2026-11-22T10:46:12.951Z";
 const SUBMITTED_MS = Date.parse(SUBMITTED_AT);
 const NOW = SUBMITTED_MS + 60_000;
@@ -67,23 +66,6 @@ function providerDoc(date: string, submittedAt = SUBMITTED_AT): Record<string, u
   };
 }
 
-function attestationDoc(date: string, submittedAt = SUBMITTED_AT): Record<string, unknown> {
-  return {
-    version: 1,
-    kind: "attestation",
-    chainPath: "eip155-14",
-    targetIdentityAddress: identity,
-    attestation: {
-      signerName: "Attester Provider",
-      signerAddress: attester,
-      messageHash: `0x${"12".repeat(32)}`,
-      signature: `0x${"34".repeat(65)}`,
-      date,
-    },
-    submittedAt,
-  };
-}
-
 function storedProviderDate(doc: Record<string, unknown>): string {
   const { signatures } = assertProviderIntakeDocument(doc, NOW);
   const rows = signatures.signatures as Array<{ date: string }>;
@@ -122,11 +104,14 @@ describe("intake guard listing signature shape", () => {
   test("refuses a second entry and a signature from another address", () => {
     const two = providerDoc(SUBMITTED_AT);
     const root = two.signatures as { signatures: Record<string, unknown>[] };
-    root.signatures.push({ ...listingEntry(two), signerAddress: attester });
+    root.signatures.push({ ...listingEntry(two), signerAddress: stranger });
     assert.throws(() => assertProviderIntakeDocument(two, NOW), /exactly one self-signature/);
-    const stranger = providerDoc(SUBMITTED_AT);
-    listingEntry(stranger).signerAddress = attester;
-    assert.throws(() => assertProviderIntakeDocument(stranger, NOW), /from the identity address/);
+    const strangerDoc = providerDoc(SUBMITTED_AT);
+    listingEntry(strangerDoc).signerAddress = stranger;
+    assert.throws(
+      () => assertProviderIntakeDocument(strangerDoc, NOW),
+      /from the identity address/,
+    );
   });
 });
 
@@ -141,10 +126,6 @@ describe("intake guard signature dates", () => {
   test("refuses a signature dated even 1 ms after submittedAt", () => {
     const late = iso(SUBMITTED_MS + 1);
     assert.throws(() => assertProviderIntakeDocument(providerDoc(late), NOW), /after submittedAt/);
-    assert.throws(
-      () => assertAttestationIntakeDocument(attestationDoc(late), NOW),
-      /after submittedAt/,
-    );
   });
 
   test("keeps a date at or before submittedAt as submitted", () => {
@@ -175,10 +156,6 @@ describe("intake guard signature dates", () => {
     const future = iso(NOW + 1);
     assert.throws(
       () => assertProviderIntakeDocument(providerDoc(future, future), NOW),
-      /submittedAt is in the future/,
-    );
-    assert.throws(
-      () => assertAttestationIntakeDocument(attestationDoc(future, future), NOW),
       /submittedAt is in the future/,
     );
   });

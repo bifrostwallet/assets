@@ -2,8 +2,9 @@ import path from "node:path";
 import { findProviderDirs, verifyProviderSignatures } from "../verify.js";
 
 // CLI report of provider ownership signatures.
-// A signature that is present must be valid. Unsigned providers, including a
-// signatures file with no entries, and attested-only providers are warnings.
+// A signature that is present must be valid, and it must be the provider's own
+// (one entry, by the identity address). Unsigned providers, including a
+// signatures file with no entries, are warnings.
 // Exit code 1 when any signature entry is invalid.
 
 async function main(): Promise<void> {
@@ -33,10 +34,6 @@ async function main(): Promise<void> {
     }
 
     unsigned++;
-    if (result.hasValidAttestation) {
-      console.warn(`⚠️ ${relativePath}: attested but missing a self-signature`);
-      continue;
-    }
     console.warn(`⚠️ ${relativePath}: unsigned`);
   }
 

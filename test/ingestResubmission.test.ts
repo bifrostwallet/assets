@@ -246,9 +246,8 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     assertSnapshotUnchanged(chainDir, beforeSnapshot);
   });
 
-  test("keeps provider provenance when only signatures change", async () => {
+  test("keeps provider provenance when only the signature changes", async () => {
     const account = privateKeyToAccount(generatePrivateKey());
-    const attester = privateKeyToAccount(generatePrivateKey());
     const identity = account.address.toLowerCase();
     const description = "A provider used to test signature-only resubmission.";
     const info = providerInfo(identity, description);
@@ -266,20 +265,33 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     const provenancePath = path.join(providerDir, "provenance.json");
     const provenanceBefore = fs.readFileSync(provenancePath);
 
-    const extra = await providerSignature(info, attester);
-    const second = await ingestProvider(
-      identity,
-      description,
-      [selfSignature, extra],
-      RESUBMITTED_AT,
-    );
+    const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
+    const second = await ingestProvider(identity, description, [resigned], RESUBMITTED_AT);
     assert.equal(second.status, "ingested");
     assert.deepEqual(fs.readFileSync(provenancePath), provenanceBefore);
 
     const signatures = JSON.parse(
       fs.readFileSync(path.join(providerDir, "signatures.json"), "utf8"),
     ) as SignaturesData;
-    assert.equal(signatures.signatures.length, 2);
+    assert.deepEqual(
+      signatures.signatures.map((entry) => entry.signature),
+      [resigned.signature],
+    );
+  });
+
+  test("refuses a signature from anyone but the provider, even next to its own", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const other = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose submission also carries another signer.";
+    const info = providerInfo(identity, description);
+    const own = await providerSignatureV2(info, account, ORIGINAL_SUBMITTED_AT);
+    const foreign = await providerSignature(info, other);
+    await assert.rejects(
+      ingestProvider(identity, description, [own, foreign], ORIGINAL_SUBMITTED_AT),
+      /Only the provider's own signature/,
+    );
+    assert.equal(fs.existsSync(path.join(root, "data", "providers", "eip155-14", identity)), false);
   });
 
   test("updates provider provenance when info.json changes", async () => {
@@ -454,86 +466,30 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     assertSnapshotUnchanged(chainDir, beforeSnapshot);
   });
 
-  describe("published co-signatures on a guarded resubmission", () => {
-    async function listedWithCoSignature(description: string) {
-      const account = privateKeyToAccount(generatePrivateKey());
-      const cosigner = privateKeyToAccount(generatePrivateKey());
-      const identity = account.address.toLowerCase();
-      const info = providerInfo(identity, description);
-      const first = await providerSignatureV2(info, account, ORIGINAL_SUBMITTED_AT);
-      assert.equal(
-        (await pullProvider(identity, description, first, ORIGINAL_SUBMITTED_AT)).status,
-        "ingested",
-      );
-      // A co-signature merged later, as ingestProviderAttestation does.
-      const signaturesPath = path.join(
-        root,
-        "data",
-        "providers",
-        "eip155-14",
-        identity,
-        "signatures.json",
-      );
-      const cosignature = await providerSignature(info, cosigner, "2026-10-20T00:00:00.000Z");
-      const published = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
-      published.signatures.push(cosignature);
-      fs.writeFileSync(signaturesPath, JSON.stringify(published, null, 2));
-      return { account, identity, info, cosignature, signaturesPath };
-    }
-
-    test("re-signing an unchanged listing keeps a co-signature that still verifies", async () => {
-      const description = "A listed provider with a co-signature on main.";
-      const { account, identity, info, cosignature, signaturesPath } =
-        await listedWithCoSignature(description);
-      const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
-      assert.equal(
-        (await pullProvider(identity, description, resigned, RESUBMITTED_AT)).status,
-        "ingested",
-      );
-      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
-      assert.deepEqual(
-        written.signatures.map((entry) => entry.signature),
-        [resigned.signature, cosignature.signature],
-      );
-    });
-
-    test("a content change drops the co-signature, whose message hash is now stale", async () => {
-      const description = "A listed provider whose description is about to change.";
-      const { account, identity, signaturesPath } = await listedWithCoSignature(description);
-      const updated = "The same provider after changing its description.";
-      const resigned = await providerSignatureV2(
-        providerInfo(identity, updated),
-        account,
-        RESUBMITTED_AT,
-      );
-      assert.equal(
-        (await pullProvider(identity, updated, resigned, RESUBMITTED_AT)).status,
-        "ingested",
-      );
-      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
-      assert.deepEqual(
-        written.signatures.map((entry) => entry.signature),
-        [resigned.signature],
-      );
-    });
-
-    test("a published co-signature that no longer verifies is not carried over", async () => {
-      const description = "A listed provider with a broken co-signature on main.";
-      const { account, identity, info, signaturesPath } = await listedWithCoSignature(description);
-      const published = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
-      const broken = published.signatures[1];
-      assert.ok(broken);
-      broken.signerName = "Tampered";
-      broken.signature = `0x${"11".repeat(65)}` as SignatureEntry["signature"];
-      fs.writeFileSync(signaturesPath, JSON.stringify(published, null, 2));
-
-      const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
-      await pullProvider(identity, description, resigned, RESUBMITTED_AT);
-      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
-      assert.deepEqual(
-        written.signatures.map((entry) => entry.signature),
-        [resigned.signature],
-      );
-    });
+  test("the pull path: a re-signed, unchanged listing replaces the published signature", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A listed provider that signs again without changes.";
+    const info = providerInfo(identity, description);
+    const first = await providerSignatureV2(info, account, ORIGINAL_SUBMITTED_AT);
+    assert.equal(
+      (await pullProvider(identity, description, first, ORIGINAL_SUBMITTED_AT)).status,
+      "ingested",
+    );
+    const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
+    assert.equal(
+      (await pullProvider(identity, description, resigned, RESUBMITTED_AT)).status,
+      "ingested",
+    );
+    const written = JSON.parse(
+      fs.readFileSync(
+        path.join(root, "data", "providers", "eip155-14", identity, "signatures.json"),
+        "utf8",
+      ),
+    ) as SignaturesData;
+    assert.deepEqual(
+      written.signatures.map((entry) => entry.signature),
+      [resigned.signature],
+    );
   });
 });

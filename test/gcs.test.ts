@@ -85,14 +85,14 @@ describe("gcs client", () => {
           items: [{ name: "eip155-14/0xabc.json", size: "120", generation: "1700000000000001" }],
           nextPageToken: "page-2",
         }),
-      () => Response.json({ items: [{ name: "attestations/x.json", size: "7", generation: "5" }] }),
+      () => Response.json({ items: [{ name: "eip155-14/x.json", size: "7", generation: "5" }] }),
     ]);
 
     const objects = await h.client.list("intake bucket");
 
     assert.deepEqual(objects, [
       { name: "eip155-14/0xabc.json", size: 120, generation: "1700000000000001" },
-      { name: "attestations/x.json", size: 7, generation: "5" },
+      { name: "eip155-14/x.json", size: 7, generation: "5" },
     ]);
     const first = new URL(h.calls[0]?.url ?? "");
     assert.equal(

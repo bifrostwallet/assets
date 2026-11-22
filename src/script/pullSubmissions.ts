@@ -1,25 +1,23 @@
 import { createGcsClient } from "../gcs.js";
 import {
   type IntakeSubmission,
-  ingestProviderAttestation,
   ingestProviderSubmission,
   intakeSubmissionToDir,
 } from "../ingest.js";
 import {
-  assertAttestationIntakeDocument,
   assertProviderIntakeDocument,
   isAllowedIntakeObjectName,
   MAX_INTAKE_OBJECT_BYTES,
   parseIntakeJsonObject,
 } from "../intakeGuard.js";
 
-// Pulls pending provider submissions and attestations from the intake bucket
+// Pulls pending provider submissions from the intake bucket
 // (written by the intake service, apps/intake) and ingests them into
 // data/providers. A dapp-kind document is skipped: dapps are curated by the
 // Bifrost team, the same as tokens and contracts.
 //
 // Object names and document shapes are allowlisted before any write. Crypto and
-// on-chain checks in ingest* are the second line of defense.
+// on-chain checks in ingestProviderSubmission are the second line of defense.
 //
 // Read-only: this repository never writes to or deletes from a bucket. An
 // object that was already ingested is reported as up to date.
@@ -99,46 +97,27 @@ async function pullSubmissions(): Promise<void> {
         continue;
       }
 
-      let status: "ingested" | "unchanged";
-      if (file.name.startsWith("attestations/")) {
-        const sanitized = assertAttestationIntakeDocument(doc);
-        // Object path must match the document: attestations/<chain>/<target>/<attester>.json
-        const [, pathChain, pathTarget, pathAttesterFile] = file.name.split("/");
-        if (pathChain !== sanitized.chainPath) {
-          throw new Error("Object path chain does not match document chainPath");
-        }
-        if (pathTarget !== sanitized.targetIdentityAddress) {
-          throw new Error("Object path target does not match document target");
-        }
-        if (pathAttesterFile?.replace(/\.json$/, "") !== sanitized.attestation.signerAddress) {
-          throw new Error("Object path attester does not match document signer");
-        }
-        const result = await ingestProviderAttestation(sanitized);
-        status = result.status;
-      } else {
-        const sanitized = assertProviderIntakeDocument(doc);
-        const pathIdentity = file.name.split("/")[1]?.replace(/\.json$/, "");
-        const identity = String(sanitized.info.identityAddress).toLowerCase();
-        if (pathIdentity !== identity) {
-          throw new Error("Object path identity does not match document identity");
-        }
-        if (file.name.split("/")[0] !== sanitized.chainPath) {
-          throw new Error("Object path chain does not match document chainPath");
-        }
-        const providerSubmission: IntakeSubmission = {
-          version: 1,
-          chainPath: sanitized.chainPath,
-          info: sanitized.info as unknown as IntakeSubmission["info"],
-          signatures: sanitized.signatures as unknown as IntakeSubmission["signatures"],
-          logoBase64: sanitized.logoBase64,
-          submittedAt: sanitized.submittedAt,
-        };
-        const sourceDir = intakeSubmissionToDir(providerSubmission);
-        const result = await ingestProviderSubmission(sourceDir, {
-          chainPath: providerSubmission.chainPath,
-        });
-        status = result.status;
+      const sanitized = assertProviderIntakeDocument(doc);
+      const pathIdentity = file.name.split("/")[1]?.replace(/\.json$/, "");
+      const identity = String(sanitized.info.identityAddress).toLowerCase();
+      if (pathIdentity !== identity) {
+        throw new Error("Object path identity does not match document identity");
       }
+      if (file.name.split("/")[0] !== sanitized.chainPath) {
+        throw new Error("Object path chain does not match document chainPath");
+      }
+      const providerSubmission: IntakeSubmission = {
+        version: 1,
+        chainPath: sanitized.chainPath,
+        info: sanitized.info as unknown as IntakeSubmission["info"],
+        signatures: sanitized.signatures as unknown as IntakeSubmission["signatures"],
+        logoBase64: sanitized.logoBase64,
+        submittedAt: sanitized.submittedAt,
+      };
+      const sourceDir = intakeSubmissionToDir(providerSubmission);
+      const { status } = await ingestProviderSubmission(sourceDir, {
+        chainPath: providerSubmission.chainPath,
+      });
 
       if (status === "ingested") {
         ingested++;

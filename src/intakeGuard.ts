@@ -60,26 +60,14 @@ const PROVIDER_DOC_KEYS = new Set([
   "logoBase64",
   "submittedAt",
 ]);
-const ATTESTATION_DOC_KEYS = new Set([
-  "version",
-  "kind",
-  "chainPath",
-  "targetIdentityAddress",
-  "attestation",
-  "submittedAt",
-]);
 const SIGNATURES_ROOT_KEYS = new Set(["identityAddress", "verificationInstructions", "signatures"]);
-/** Attestations (co-signatures) are version 1 entries. */
-const SIGNATURE_ENTRY_KEYS = new Set([
+/** A listing's self-signature from intake is a version 2 entry. */
+const LISTING_SIGNATURE_ENTRY_KEYS = new Set([
   "signerName",
   "signerAddress",
   "messageHash",
   "signature",
   "date",
-]);
-/** Listing self-signatures from intake are version 2 entries. */
-const LISTING_SIGNATURE_ENTRY_KEYS = new Set([
-  ...SIGNATURE_ENTRY_KEYS,
   "version",
   "nonce",
   "sealedHash",
@@ -90,12 +78,7 @@ export function isAllowedIntakeObjectName(name: string): boolean {
   if (name.includes("..") || name.includes("\\") || name.startsWith("/")) return false;
   // Sealed forensics live in a separate bucket; never pull *.sealed from intake.
   if (name.endsWith(".sealed")) return false;
-  if (/^eip155-(14|19)\/0x[0-9a-f]{40}\.json$/.test(name)) return true;
-  // Attestations: attestations/<chain>/<target identity>/<attester identity>.json
-  if (/^attestations\/eip155-(14|19)\/0x[0-9a-f]{40}\/0x[0-9a-f]{40}\.json$/.test(name)) {
-    return true;
-  }
-  return false;
+  return /^eip155-(14|19)\/0x[0-9a-f]{40}\.json$/.test(name);
 }
 
 export function parseIntakeJsonObject(raw: string): Record<string, unknown> {
@@ -331,79 +314,6 @@ export function assertProviderIntakeDocument(
     info,
     signatures,
     logoBase64: assertString(doc.logoBase64, "logoBase64"),
-    submittedAt,
-  };
-}
-
-/**
- * Validate + normalize an attestation intake document from GCS: one provider
- * signing another provider's current entry through the web app. Self-signatures
- * must go through the listing submission flow instead.
- */
-export function assertAttestationIntakeDocument(
-  doc: Record<string, unknown>,
-  now = Date.now(),
-): {
-  chainPath: string;
-  targetIdentityAddress: string;
-  attestation: {
-    signerName: string;
-    signerAddress: string;
-    messageHash: string;
-    signature: string;
-    date: string;
-  };
-  submittedAt: string;
-} {
-  assertOnlyKeys(doc, ATTESTATION_DOC_KEYS, "attestation document");
-  if (doc.version !== 1) throw new Error(`Unsupported version: ${doc.version}`);
-  if (doc.kind !== "attestation") throw new Error("kind must be attestation");
-  const chainPath = assertString(doc.chainPath, "chainPath");
-  if (chainPath !== "eip155-14" && chainPath !== "eip155-19") {
-    throw new Error(`Unsupported chainPath: ${chainPath}`);
-  }
-  const submittedAt = assertString(doc.submittedAt, "submittedAt");
-  if (!ISO_DATE_RE.test(submittedAt)) throw new Error("Invalid submittedAt");
-  assertSubmittedAtNotInFuture(submittedAt, now);
-
-  const target = assertString(doc.targetIdentityAddress, "targetIdentityAddress").toLowerCase();
-  if (!isValidEvmAddress(target)) throw new Error("Invalid targetIdentityAddress");
-
-  if (
-    doc.attestation === null ||
-    typeof doc.attestation !== "object" ||
-    Array.isArray(doc.attestation)
-  ) {
-    throw new Error("attestation must be an object");
-  }
-  const row = doc.attestation as Record<string, unknown>;
-  assertOnlyKeys(row, SIGNATURE_ENTRY_KEYS, "attestation entry");
-  if (!isValidName(assertString(row.signerName, "signerName"))) {
-    throw new Error("Invalid signerName");
-  }
-  const signer = assertString(row.signerAddress, "signerAddress").toLowerCase();
-  if (!isValidEvmAddress(signer)) throw new Error("Invalid signerAddress");
-  if (signer === target) {
-    throw new Error("Self-signatures must go through the listing submission flow");
-  }
-  const messageHash = assertString(row.messageHash, "messageHash").toLowerCase();
-  if (!MESSAGE_HASH_RE.test(messageHash)) throw new Error("Invalid messageHash");
-  const signature = assertString(row.signature, "signature");
-  if (!SIG_HEX_RE.test(signature)) throw new Error("Invalid signature");
-  const date = assertString(row.date, "date");
-  if (!ISO_DATE_RE.test(date)) throw new Error("Invalid signature date");
-  assertSignatureDate(date, submittedAt);
-
-  return {
-    chainPath,
-    targetIdentityAddress: target,
-    attestation: {
-      signerName: assertString(row.signerName, "signerName"),
-      signerAddress: signer,
-      messageHash,
-      signature,
-      date,
-    },
     submittedAt,
   };
 }
