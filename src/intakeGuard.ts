@@ -20,6 +20,44 @@ const MESSAGE_HASH_RE = /^0x[0-9a-f]{64}$/;
 const SIG_HEX_RE = /^0x[0-9a-fA-F]{130}$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
+/**
+ * A signature `date` comes from the signer's device clock, `submittedAt` from
+ * intake's. Allow this much drift (matches assets-intake), then clamp so a
+ * published signature is never dated after its submission.
+ */
+export const MAX_SIGNATURE_CLOCK_SKEW_MS = 2 * 60 * 1000;
+/**
+ * Intake nonces are valid for 1 h and the app fetches one before the wallet
+ * prompt, so a listing self-signature is never older than this at submission.
+ */
+export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 60 * 60 * 1000;
+
+function assertSubmittedAtNotInFuture(submittedAt: string, now: number): void {
+  if (Date.parse(submittedAt) > now + MAX_SIGNATURE_CLOCK_SKEW_MS) {
+    throw new Error("submittedAt is in the future");
+  }
+}
+
+/**
+ * Refuses a signature date later than submittedAt (beyond clock drift) or, when
+ * maxAgeMs is given, older than that before submittedAt. Returns the date to
+ * store: at most submittedAt.
+ */
+function boundSignatureDate(date: string, submittedAt: string, maxAgeMs?: number): string {
+  const signedAt = Date.parse(date);
+  const submitted = Date.parse(submittedAt);
+  if (!Number.isFinite(signedAt) || !Number.isFinite(submitted)) {
+    throw new Error("Invalid signature date");
+  }
+  if (signedAt > submitted + MAX_SIGNATURE_CLOCK_SKEW_MS) {
+    throw new Error(`Signature date ${date} is after submittedAt ${submittedAt}`);
+  }
+  if (maxAgeMs !== undefined && signedAt < submitted - maxAgeMs - MAX_SIGNATURE_CLOCK_SKEW_MS) {
+    throw new Error(`Signature date ${date} is too long before submittedAt ${submittedAt}`);
+  }
+  return signedAt > submitted ? submittedAt : date;
+}
+
 const PROVIDER_DOC_KEYS = new Set([
   "version",
   "kind",
@@ -127,7 +165,10 @@ function decodeStrictWebpBase64(logoBase64: unknown): { bytes: Buffer; logoHash:
 }
 
 /** Validate + normalize a provider intake document from GCS (clear listing only). */
-export function assertProviderIntakeDocument(doc: Record<string, unknown>): {
+export function assertProviderIntakeDocument(
+  doc: Record<string, unknown>,
+  now = Date.now(),
+): {
   chainPath: string;
   info: Record<string, unknown>;
   signatures: Record<string, unknown>;
@@ -145,6 +186,7 @@ export function assertProviderIntakeDocument(doc: Record<string, unknown>): {
   }
   const submittedAt = assertString(doc.submittedAt, "submittedAt");
   if (!ISO_DATE_RE.test(submittedAt)) throw new Error("Invalid submittedAt");
+  assertSubmittedAtNotInFuture(submittedAt, now);
 
   if (doc.info === null || typeof doc.info !== "object" || Array.isArray(doc.info)) {
     throw new Error("info must be an object");
@@ -256,9 +298,11 @@ export function assertProviderIntakeDocument(doc: Record<string, unknown>): {
     if (!SIG_HEX_RE.test(assertString(row.signature, "signature"))) {
       throw new Error("Invalid signature");
     }
-    if (!ISO_DATE_RE.test(assertString(row.date, "date"))) {
+    const date = assertString(row.date, "date");
+    if (!ISO_DATE_RE.test(date)) {
       throw new Error("Invalid signature date");
     }
+    row.date = boundSignatureDate(date, submittedAt, MAX_SIGNATURE_AGE_AT_SUBMISSION_MS);
   }
 
   info.identityAddress = identity;
@@ -283,7 +327,10 @@ export function assertProviderIntakeDocument(doc: Record<string, unknown>): {
  * signing another provider's current entry through the web app. Self-signatures
  * must go through the listing submission flow instead.
  */
-export function assertAttestationIntakeDocument(doc: Record<string, unknown>): {
+export function assertAttestationIntakeDocument(
+  doc: Record<string, unknown>,
+  now = Date.now(),
+): {
   chainPath: string;
   targetIdentityAddress: string;
   attestation: {
@@ -304,6 +351,7 @@ export function assertAttestationIntakeDocument(doc: Record<string, unknown>): {
   }
   const submittedAt = assertString(doc.submittedAt, "submittedAt");
   if (!ISO_DATE_RE.test(submittedAt)) throw new Error("Invalid submittedAt");
+  assertSubmittedAtNotInFuture(submittedAt, now);
 
   const target = assertString(doc.targetIdentityAddress, "targetIdentityAddress").toLowerCase();
   if (!isValidEvmAddress(target)) throw new Error("Invalid targetIdentityAddress");
@@ -329,8 +377,9 @@ export function assertAttestationIntakeDocument(doc: Record<string, unknown>): {
   if (!MESSAGE_HASH_RE.test(messageHash)) throw new Error("Invalid messageHash");
   const signature = assertString(row.signature, "signature");
   if (!SIG_HEX_RE.test(signature)) throw new Error("Invalid signature");
-  const date = assertString(row.date, "date");
-  if (!ISO_DATE_RE.test(date)) throw new Error("Invalid signature date");
+  const rawDate = assertString(row.date, "date");
+  if (!ISO_DATE_RE.test(rawDate)) throw new Error("Invalid signature date");
+  const date = boundSignatureDate(rawDate, submittedAt);
 
   return {
     chainPath,
