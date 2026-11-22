@@ -47,12 +47,14 @@
     "security:yarn-binary:upgrade": "./scripts/security/yarn-binary.sh upgrade",
     "security:require-verified-yarn": "./scripts/security/require-verified-yarn.sh",
     "security:block-ide-hooks": "./scripts/security/block-ide-autostart-hooks.sh",
+    "security:verify-attestations": "./scripts/security/verify-attestations.sh",
+    "security:verify-attestations:update": "./scripts/security/verify-attestations.sh update",
     "security:audit-deps": "./yarn npm audit --recursive"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
+    "@scure/base": "2.4.0",
     "@types/node": "22.20.5",
-    "bs58": "6.0.0",
     "typescript": "5.9.3",
     "viem": "2.57.7"
   },

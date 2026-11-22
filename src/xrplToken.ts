@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import bs58 from "bs58";
+import { base58xrp } from "@scure/base";
 
 /** Mainnet only. CAIP-2 `xrpl:0`, repo path `xrpl-0`. */
 export const XRPL_MAINNET_CHAIN_PATH = "xrpl-0";
@@ -11,9 +11,6 @@ export const XRPL_MAINNET_CHAIN_PATH = "xrpl-0";
  * it sits beside the issuer folders and is not an issued token.
  */
 export const NATIVE_TOKEN_DIR = "native";
-
-const BITCOIN_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-const RIPPLE_ALPHABET = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz";
 
 /** 3-character XRPL currency, excluding the reserved code `XRP`. */
 const STANDARD_CURRENCY = /^[A-Za-z0-9?!@#$%^&*<>(){}[\]|]{3}$/;
@@ -75,16 +72,8 @@ export type XrplTokenDir = {
  */
 export function isValidXrplAccountAddress(address: string): boolean {
   if (address.length < 25 || address.length > 35) return false;
-  let mapped = "";
-  for (const char of address) {
-    const index = RIPPLE_ALPHABET.indexOf(char);
-    if (index < 0) return false;
-    const bitcoinChar = BITCOIN_ALPHABET[index];
-    if (bitcoinChar === undefined) return false;
-    mapped += bitcoinChar;
-  }
   try {
-    const decoded = Buffer.from(bs58.decode(mapped));
+    const decoded = Buffer.from(base58xrp.decode(address));
     if (decoded.length !== 25 || decoded[0] !== 0x00) return false;
     const payload = decoded.subarray(0, 21);
     const checksum = decoded.subarray(21);

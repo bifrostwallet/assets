@@ -30,8 +30,8 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@bifrostwallet/assets", "workspace:."],\
           ["@biomejs/biome", "npm:2.5.15"],\
+          ["@scure/base", "npm:2.4.0"],\
           ["@types/node", "npm:22.20.5"],\
-          ["bs58", "npm:6.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["viem", "virtual:dd0e2814c7261a4a63eacac954c493371d7c980ce168272c3937f5f981ccb87f6cad7808e975849c81b23cd2e69318b3e98e5a02f4539f8c0dc5a782112d1823#npm:2.57.7"]\
         ],\
@@ -53,8 +53,8 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@bifrostwallet/assets", "workspace:."],\
           ["@biomejs/biome", "npm:2.5.15"],\
+          ["@scure/base", "npm:2.4.0"],\
           ["@types/node", "npm:22.20.5"],\
-          ["bs58", "npm:6.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["viem", "virtual:dd0e2814c7261a4a63eacac954c493371d7c980ce168272c3937f5f981ccb87f6cad7808e975849c81b23cd2e69318b3e98e5a02f4539f8c0dc5a782112d1823#npm:2.57.7"]\
         ],\
@@ -185,6 +185,13 @@ const RAW_RUNTIME_STATE =
           ["@scure/base", "npm:1.2.5"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.4.0", {\
+        "packageLocation": "./.yarn/cache/@scure-base-npm-2.4.0-a45e841171-985a4bdcaf.zip/node_modules/@scure/base/",\
+        "packageDependencies": [\
+          ["@scure/base", "npm:2.4.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@scure/bip32", [\
@@ -266,25 +273,6 @@ const RAW_RUNTIME_STATE =
           "@types/zod",\
           "typescript",\
           "zod"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["base-x", [\
-      ["npm:5.0.1", {\
-        "packageLocation": "./.yarn/cache/base-x-npm-5.0.1-6bc62b5139-4ab6b02262.zip/node_modules/base-x/",\
-        "packageDependencies": [\
-          ["base-x", "npm:5.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["bs58", [\
-      ["npm:6.0.0", {\
-        "packageLocation": "./.yarn/cache/bs58-npm-6.0.0-cefe3ba27b-6191083974.zip/node_modules/bs58/",\
-        "packageDependencies": [\
-          ["base-x", "npm:5.0.1"],\
-          ["bs58", "npm:6.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
