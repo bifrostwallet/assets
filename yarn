@@ -61,8 +61,10 @@ export YARN_CACHE_FOLDER="$ROOT/.yarn/cache"
 # plain install accepts that. --check-cache refetches every package and fails
 # the install (YN0018) when a committed archive is not what the registry
 # serves. Added to `install` where the cache is the project's
-# (enableGlobalCache: false). Not in CI: the gates are local installs and the
-# image build. Tested by scripts/security/yarn-launcher-fixtures.sh.
+# (enableGlobalCache: false). Local installs only: not in CI, and image builds
+# set CI=true so they do not download every package again. Pull requests are
+# checked by the required Yarn cache workflow. Tested by
+# scripts/security/yarn-launcher-fixtures.sh.
 if [ "${CI:-}" != "true" ] && [ "${GITHUB_ACTIONS:-}" != "true" ] &&
   grep -q '^enableGlobalCache:[[:space:]]*false[[:space:]]*$' "$YARNRC"; then
   # Install is Yarn's default command: ./yarn and ./yarn --immutable both
