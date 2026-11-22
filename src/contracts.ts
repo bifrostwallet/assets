@@ -4,6 +4,7 @@ import { ASSET_LOGO_REQUIREMENTS } from "./config.js";
 import { sha256Hex } from "./convert.js";
 import { isValidEvmAddress, isValidImage, isValidName } from "./validate.js";
 import { isWebpMagic } from "./webp.js";
+import { isValidXrplAccountAddress, XRPL_MAINNET_CHAIN_PATH } from "./xrplToken.js";
 
 /**
  * Curated contract names for Bifrost Wallet transaction review.
@@ -12,6 +13,7 @@ import { isWebpMagic } from "./webp.js";
  *
  * Git layout (path-safe CAIP-2):
  *   data/contracts/eip155-14/<address>.json
+ *   data/contracts/xrpl-0/<r-address>.json      XRPL accounts, exact case
  *       address, optional project slug, contractName, category
  *   data/contracts/projects/<slug>/info.json    display name only
  *   data/contracts/projects/<slug>/logo.webp    shared mark
@@ -61,7 +63,10 @@ export const CONTRACT_CATEGORY_LABELS: Record<ContractCategory, string> = {
 };
 
 export type ContractInfo = {
-  /** Lowercase 0x address. Matches the JSON filename. */
+  /**
+   * Lowercase 0x address on EVM chains. On XRPL (`xrpl:*`), the classic
+   * r-address in its exact case. Matches the JSON filename.
+   */
   address: string;
   /** CAIP-2 chain id, e.g. "eip155:14". Injected from the chain directory. */
   chain: string;
@@ -89,6 +94,8 @@ const CONTRACT_REQUIRED_KEYS = ["address", "contractName", "category"] as const;
 const CAIP2_RE = /^[-a-z0-9]{3,8}:[-_a-zA-Z0-9]{1,32}$/;
 const ADDRESS_FILE_RE = /^0x[0-9a-f]{40}\.json$/;
 const ADDRESS_DIR_RE = /^0x[0-9a-f]{40}$/;
+/** Shape of a classic r-address. The checksum is checked separately. */
+const XRPL_ADDRESS_RE = /^r[1-9A-HJ-NP-Za-km-z]{24,34}$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PROJECTS_DIR = "projects";
 const PROJECT_INFO_KEYS = ["name"] as const;
@@ -108,6 +115,29 @@ type ResolvedLogo = {
 
 export function isCaip2(value: string): boolean {
   return CAIP2_RE.test(value);
+}
+
+/**
+ * XRPL mainnet (`xrpl-0`) lists accounts by classic r-address. Those are
+ * case-sensitive, so they are stored, named and looked up in their exact case.
+ * Every other chain is EVM: lowercase 0x addresses.
+ */
+function isXrplContractChain(chainPath: string): boolean {
+  return chainPath === XRPL_MAINNET_CHAIN_PATH;
+}
+
+function isAddressFileName(chainPath: string, name: string): boolean {
+  if (!isXrplContractChain(chainPath)) return ADDRESS_FILE_RE.test(name);
+  return name.endsWith(".json") && XRPL_ADDRESS_RE.test(name.slice(0, -".json".length));
+}
+
+function isAddressDirName(chainPath: string, name: string): boolean {
+  return isXrplContractChain(chainPath) ? XRPL_ADDRESS_RE.test(name) : ADDRESS_DIR_RE.test(name);
+}
+
+/** The lookup key for an address on a chain: exact on XRPL, lowercase on EVM. */
+function contractAddressKey(chainPath: string, address: string): string {
+  return isXrplContractChain(chainPath) ? address : address.toLowerCase();
 }
 
 /** `eip155-14` → `eip155:14` (first hyphen only, same as the package helper). */
@@ -283,16 +313,25 @@ export function validateContractRecord(
   const category = record.category;
   const project = record.project;
 
-  if (typeof address !== "string" || !isValidEvmAddress(address)) {
+  const xrpl = isXrplContractChain(ctx.chainPath);
+  if (xrpl) {
+    if (typeof address !== "string" || !isValidXrplAccountAddress(address)) {
+      errors.push(`${label}: address must be an exact-case classic r-address`);
+    }
+  } else if (typeof address !== "string" || !isValidEvmAddress(address)) {
     errors.push(`${label}: address must be a valid EVM address`);
   } else if (address !== address.toLowerCase()) {
     errors.push(`${label}: address must be lowercase (checksum-agnostic)`);
   }
 
   if (ctx.fileName) {
-    const expectedFile = `${typeof address === "string" ? address.toLowerCase() : ""}.json`;
-    if (!ADDRESS_FILE_RE.test(ctx.fileName)) {
-      errors.push(`${label}: filename must be a lowercase 0x address`);
+    const expectedFile = `${typeof address === "string" ? contractAddressKey(ctx.chainPath, address) : ""}.json`;
+    if (!isAddressFileName(ctx.chainPath, ctx.fileName)) {
+      errors.push(
+        xrpl
+          ? `${label}: filename must be a classic r-address`
+          : `${label}: filename must be a lowercase 0x address`,
+      );
     } else if (typeof address === "string" && ctx.fileName !== expectedFile) {
       errors.push(`${label}: filename does not match address`);
     }
@@ -336,7 +375,7 @@ export function listContractFiles(chainPath: string): string[] {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && ADDRESS_FILE_RE.test(entry.name))
+    .filter((entry) => entry.isFile() && isAddressFileName(chainPath, entry.name))
     .map((entry) => entry.name)
     .sort();
 }
@@ -488,14 +527,14 @@ export function validateContractCatalog(): string[] {
         continue;
       }
       if (child.isDirectory()) {
-        if (!ADDRESS_DIR_RE.test(child.name)) {
+        if (!isAddressDirName(chainPath, child.name)) {
           errors.push(`${chainPath}/${child.name}: unexpected directory`);
           continue;
         }
         errors.push(...validateOwnLogoDir(chainPath, child.name));
         continue;
       }
-      if (!ADDRESS_FILE_RE.test(child.name)) {
+      if (!isAddressFileName(chainPath, child.name)) {
         errors.push(`${chainPath}/${child.name}: unexpected file`);
         continue;
       }
@@ -541,10 +580,15 @@ export function getContracts(chainId?: string): ContractInfo[] {
   return loadContractChain(chainPath);
 }
 
-/** One contract by address. Lookup is case-insensitive. Unknown address returns null. */
+/**
+ * One contract by address. Unknown address returns null. EVM lookup is
+ * case-insensitive. XRPL lookup is exact, because r-addresses are case-sensitive.
+ */
 export function getContract(chainId: string, address: string): ContractInfo | null {
-  const target = address.toLowerCase();
+  const contracts = getContracts(chainId);
+  const chainPath = caip2ToChainPath(chainId);
+  const target = contractAddressKey(chainPath, address);
   return (
-    getContracts(chainId).find((contract) => contract.address.toLowerCase() === target) ?? null
+    contracts.find((contract) => contractAddressKey(chainPath, contract.address) === target) ?? null
   );
 }

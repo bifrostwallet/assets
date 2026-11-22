@@ -148,9 +148,11 @@ Browser chips are hand-edited in `data/dapps/categories.json`, an ordered array 
 
 ## Contracts
 
-Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns a hex address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [Using the package](README.md#other-lookups).
+Contract names are shown in Bifrost Wallet transaction-review modals. This catalog is the fallback that turns an address into a readable name such as `Bifrost Wallet: Collateral Pool`. Package lookups are in [Using the package](README.md#other-lookups).
 
-Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` (Flare) is CAIP-2 `eip155:14`. The filename is the address. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
+Entries live at `data/contracts/eip155-<id>/<lowercase-address>.json` (path-safe CAIP-2). The directory is the chain: `eip155-14` (Flare) is CAIP-2 `eip155:14`. The filename is the address.
+
+Named XRPL accounts use the same record under `data/contracts/xrpl-0/` (XRPL mainnet, CAIP-2 `xrpl:0`). XRPL testnet is not curated. The address and the filename are the classic r-address in its exact case, because XRPL addresses are case-sensitive. `getContract` looks them up exactly, while EVM addresses match in any case. An example is an FAssets Core Vault, which FXRP mints pay into. The file stores `address`, `contractName`, `category`, and an optional `project` slug. It leaves out `chain`, `dapp`, `projectName`, `logoURL`, and `logoHash`. Contracts have no aggregate `all.json`, no `listed` flag, and no provider link. Token contracts live in `tokens/`.
 
 `project` names a folder `data/contracts/projects/<slug>/` with `info.json` (`name` only) and `logo.webp`. Several contracts can share one project. The package build adds `project`, `projectName`, `logoURL`, and `logoHash` to each published contract, so `getContract` returns them in one lookup. `projectName` is the project `name`. `category` is a `CONTRACT_CATEGORIES` id. Display the label from `CONTRACT_CATEGORY_LABELS`.
 
@@ -177,7 +179,7 @@ A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>
 - `predictions`: prediction markets
 - `nft-marketplace`: NFT trading venues
 - `governance`: voting, DAO and governance contracts
-- `fassets`: FAssets system contracts (asset managers, agent vaults, collateral pools)
+- `fassets`: FAssets system contracts (asset managers, agent vaults, collateral pools) and the XRPL Core Vaults
 - `rewards`: protocol-level reward, airdrop and claim managers
 - `other`: deliberate rare fallback
 

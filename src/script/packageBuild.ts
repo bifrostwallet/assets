@@ -1023,10 +1023,19 @@ function getContracts(chainId) {
   return contractsWithChain(chainPath, contracts);
 }
 
+// XRPL mainnet r-addresses are case-sensitive and match exactly. EVM addresses
+// match case-insensitively.
+function contractAddressKey(chainId, address) {
+  const text = String(address);
+  return String(chainId) === "xrpl:0" ? text : text.toLowerCase();
+}
+
 function getContract(chainId, address) {
-  const target = String(address).toLowerCase();
+  const target = contractAddressKey(chainId, address);
   return (
-    getContracts(chainId).find((contract) => contract.address.toLowerCase() === target) ?? null
+    getContracts(chainId).find(
+      (contract) => contractAddressKey(chainId, contract.address) === target
+    ) ?? null
   );
 }
 
@@ -1328,9 +1337,9 @@ export interface Dapp {
 }
 
 export interface ContractInfo {
-  /** Lowercase 0x address */
+  /** Lowercase 0x address on EVM chains; the exact-case classic r-address on XRPL */
   address: string;
-  /** CAIP-2 chain id, e.g. "eip155:14" */
+  /** CAIP-2 chain id, e.g. "eip155:14" or "xrpl:0" */
   chain: string;
   /**
    * Project slug. Omitted only when the contract has its own logo and no project.
@@ -1435,7 +1444,10 @@ export interface Assets {
    * Each record already includes project, projectName, logoURL, and logoHash.
    */
   getContracts(chainId?: ChainId): ContractInfo[];
-  /** One contract by address (case-insensitive), or null */
+  /**
+   * One contract by address, or null. EVM addresses match case-insensitively.
+   * XRPL ("xrpl:0") r-addresses match exactly.
+   */
   getContract(chainId: ChainId, address: string): ContractInfo | null;
   /** Every curated dapp, in slug order. Show each logo with logoURL. */
   getDapps(): Dapp[];
