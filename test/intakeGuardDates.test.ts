@@ -8,7 +8,6 @@ import {
   assertAttestationIntakeDocument,
   assertProviderIntakeDocument,
   MAX_SIGNATURE_AGE_AT_SUBMISSION_MS,
-  MAX_SIGNATURE_CLOCK_SKEW_MS,
 } from "../src/intakeGuard.js";
 
 const logo = fs.readFileSync(path.join(process.cwd(), "data/dapps/kinetic-market/logo.webp"));
@@ -97,22 +96,13 @@ describe("intake guard signature dates", () => {
     );
   });
 
-  test("refuses a signature dated after submittedAt beyond the clock drift", () => {
-    const late = iso(SUBMITTED_MS + MAX_SIGNATURE_CLOCK_SKEW_MS + 1);
+  test("refuses a signature dated even 1 ms after submittedAt", () => {
+    const late = iso(SUBMITTED_MS + 1);
     assert.throws(() => assertProviderIntakeDocument(providerDoc(late), NOW), /after submittedAt/);
     assert.throws(
       () => assertAttestationIntakeDocument(attestationDoc(late), NOW),
       /after submittedAt/,
     );
-  });
-
-  test("clamps small clock drift to submittedAt", () => {
-    assert.equal(storedProviderDate(providerDoc(iso(SUBMITTED_MS + 542))), SUBMITTED_AT);
-    const attestation = assertAttestationIntakeDocument(
-      attestationDoc(iso(SUBMITTED_MS + 542)),
-      NOW,
-    );
-    assert.equal(attestation.attestation.date, SUBMITTED_AT);
   });
 
   test("keeps a date at or before submittedAt as submitted", () => {
@@ -130,9 +120,7 @@ describe("intake guard signature dates", () => {
         ),
       /too long before submittedAt/,
     );
-    const tooOld = iso(
-      SUBMITTED_MS - MAX_SIGNATURE_AGE_AT_SUBMISSION_MS - MAX_SIGNATURE_CLOCK_SKEW_MS - 1,
-    );
+    const tooOld = iso(SUBMITTED_MS - MAX_SIGNATURE_AGE_AT_SUBMISSION_MS - 1);
     assert.throws(
       () => assertProviderIntakeDocument(providerDoc(tooOld), NOW),
       /too long before submittedAt/,
@@ -142,7 +130,7 @@ describe("intake guard signature dates", () => {
   });
 
   test("refuses a submittedAt in the future", () => {
-    const future = iso(NOW + MAX_SIGNATURE_CLOCK_SKEW_MS + 1);
+    const future = iso(NOW + 1);
     assert.throws(
       () => assertProviderIntakeDocument(providerDoc(future, future), NOW),
       /submittedAt is in the future/,

@@ -21,38 +21,34 @@ const SIG_HEX_RE = /^0x[0-9a-fA-F]{130}$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
 /**
- * A signature `date` comes from the signer's device clock, `submittedAt` from
- * intake's. Allow this much drift, then clamp so a published signature is
- * never dated after its submission.
+ * A listing self-signature is made right before submission. The signer's
+ * device clock may run a little behind intake's, hence the extra margin.
  */
-export const MAX_SIGNATURE_CLOCK_SKEW_MS = 2 * 60 * 1000;
-/** A listing self-signature is made right before submission; older ones are refused. */
-export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 60 * 60 * 1000;
+export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 62 * 60 * 1000;
 
 function assertSubmittedAtNotInFuture(submittedAt: string, now: number): void {
-  if (Date.parse(submittedAt) > now + MAX_SIGNATURE_CLOCK_SKEW_MS) {
+  if (Date.parse(submittedAt) > now) {
     throw new Error("submittedAt is in the future");
   }
 }
 
 /**
- * Refuses a signature date later than submittedAt (beyond clock drift) or, when
- * maxAgeMs is given, older than that before submittedAt. Returns the date to
- * store: at most submittedAt.
+ * A signature cannot be made after the submission that carries it: refuses a
+ * date later than submittedAt and, when maxAgeMs is given, one older than that
+ * before submittedAt.
  */
-function boundSignatureDate(date: string, submittedAt: string, maxAgeMs?: number): string {
+function assertSignatureDate(date: string, submittedAt: string, maxAgeMs?: number): void {
   const signedAt = Date.parse(date);
   const submitted = Date.parse(submittedAt);
   if (!Number.isFinite(signedAt) || !Number.isFinite(submitted)) {
     throw new Error("Invalid signature date");
   }
-  if (signedAt > submitted + MAX_SIGNATURE_CLOCK_SKEW_MS) {
+  if (signedAt > submitted) {
     throw new Error(`Signature date ${date} is after submittedAt ${submittedAt}`);
   }
-  if (maxAgeMs !== undefined && signedAt < submitted - maxAgeMs - MAX_SIGNATURE_CLOCK_SKEW_MS) {
+  if (maxAgeMs !== undefined && signedAt < submitted - maxAgeMs) {
     throw new Error(`Signature date ${date} is too long before submittedAt ${submittedAt}`);
   }
-  return signedAt > submitted ? submittedAt : date;
 }
 
 const PROVIDER_DOC_KEYS = new Set([
@@ -299,7 +295,7 @@ export function assertProviderIntakeDocument(
     if (!ISO_DATE_RE.test(date)) {
       throw new Error("Invalid signature date");
     }
-    row.date = boundSignatureDate(date, submittedAt, MAX_SIGNATURE_AGE_AT_SUBMISSION_MS);
+    assertSignatureDate(date, submittedAt, MAX_SIGNATURE_AGE_AT_SUBMISSION_MS);
   }
 
   info.identityAddress = identity;
@@ -374,9 +370,9 @@ export function assertAttestationIntakeDocument(
   if (!MESSAGE_HASH_RE.test(messageHash)) throw new Error("Invalid messageHash");
   const signature = assertString(row.signature, "signature");
   if (!SIG_HEX_RE.test(signature)) throw new Error("Invalid signature");
-  const rawDate = assertString(row.date, "date");
-  if (!ISO_DATE_RE.test(rawDate)) throw new Error("Invalid signature date");
-  const date = boundSignatureDate(rawDate, submittedAt);
+  const date = assertString(row.date, "date");
+  if (!ISO_DATE_RE.test(date)) throw new Error("Invalid signature date");
+  assertSignatureDate(date, submittedAt);
 
   return {
     chainPath,
