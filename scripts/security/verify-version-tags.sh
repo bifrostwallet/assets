@@ -11,8 +11,9 @@
 # A run: value is checked as a whole, so an expression split across lines
 # (${{ on one line, github.head_ref }} on the next) is still caught.
 #
-# Tag values belong in step env (see README.md, Security: Repository rules
-# checked in CI).
+# Tag values belong in step env and are read as quoted shell variables:
+# a tag name is attacker-controlled text, and Actions expands ${{ }} before
+# the shell starts.
 # Line-oriented POSIX sh + grep -E. Standard workflow layout only.
 # Unrecognized tags values, `{` flow mappings under on:, and unfiltered
 # push/create triggers fail closed, whether on: is a scalar, a flow sequence,
