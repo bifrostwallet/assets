@@ -9,12 +9,14 @@ import { providerLogoPath, sha256Hex } from "../src/convert.js";
 import {
   PROVIDER_VERIFICATION_INSTRUCTIONS,
   providerListingTypedDataFromInfo,
+  providerListingV2TypedDataFromInfo,
 } from "../src/eip712.js";
 import {
   type IntakeSubmission,
   ingestProviderSubmission,
   intakeSubmissionToDir,
 } from "../src/ingest.js";
+import { assertProviderIntakeDocument } from "../src/intakeGuard.js";
 import type { SignatureEntry, SignaturesData } from "../src/verify.js";
 
 const ORIGINAL_SUBMITTED_AT = "2026-10-18T00:26:11.817Z";
@@ -69,6 +71,7 @@ function entityFields(
 async function providerSignature(
   info: Partial<ProviderInfo>,
   account: ReturnType<typeof privateKeyToAccount>,
+  date = ORIGINAL_SUBMITTED_AT,
 ): Promise<SignatureEntry> {
   const typed = providerListingTypedDataFromInfo(info, 14);
   const signature = await account.signTypedData({
@@ -82,7 +85,36 @@ async function providerSignature(
     signerAddress: account.address,
     messageHash: typed.contentHash,
     signature,
-    date: ORIGINAL_SUBMITTED_AT,
+    date,
+  };
+}
+
+async function providerSignatureV2(
+  info: Partial<ProviderInfo>,
+  account: ReturnType<typeof privateKeyToAccount>,
+  date: string,
+): Promise<SignatureEntry> {
+  const fields = {
+    signedAt: date,
+    nonce: `bwn1.${Date.parse(date) + 3_600_000}.${"A".repeat(22)}.${"B".repeat(43)}`,
+    sealedHash: `0x${"cd".repeat(32)}`,
+  };
+  const typed = providerListingV2TypedDataFromInfo(info, 14, fields);
+  const signature = await account.signTypedData({
+    domain: typed.domain,
+    types: typed.types,
+    primaryType: typed.primaryType,
+    message: typed.message,
+  });
+  return {
+    signerName: String(info.name),
+    signerAddress: account.address,
+    messageHash: typed.contentHash,
+    signature,
+    date,
+    version: 2,
+    nonce: fields.nonce,
+    sealedHash: fields.sealedHash,
   };
 }
 
@@ -133,6 +165,43 @@ async function ingestProvider(
   return ingestProviderSubmission(sourceDir, {
     chainPath: "eip155-14",
     readEntityData: async () => entityFields(identity, managementGroup),
+  });
+}
+
+/** The pull:submissions path: intake document -> guard -> staging dir -> ingest. */
+async function pullProvider(
+  identity: string,
+  description: string,
+  entry: SignatureEntry,
+  submittedAt: string,
+) {
+  const sanitized = assertProviderIntakeDocument(
+    {
+      version: 1,
+      kind: "provider",
+      chainPath: "eip155-14",
+      info: providerInfo(identity, description),
+      signatures: {
+        identityAddress: identity,
+        verificationInstructions: PROVIDER_VERIFICATION_INSTRUCTIONS,
+        signatures: [entry],
+      },
+      logoBase64: logo.toString("base64"),
+      submittedAt,
+    },
+    Date.parse(submittedAt) + 60_000,
+  );
+  const sourceDir = intakeSubmissionToDir({
+    version: 1,
+    chainPath: sanitized.chainPath,
+    info: sanitized.info as unknown as IntakeSubmission["info"],
+    signatures: sanitized.signatures as unknown as IntakeSubmission["signatures"],
+    logoBase64: sanitized.logoBase64,
+    submittedAt: sanitized.submittedAt,
+  });
+  return ingestProviderSubmission(sourceDir, {
+    chainPath: "eip155-14",
+    readEntityData: async () => entityFields(identity),
   });
 }
 
@@ -222,7 +291,11 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     const first = await ingestProvider(identity, original, [firstSignature], ORIGINAL_SUBMITTED_AT);
     assert.equal(first.status, "ingested");
 
-    const secondSignature = await providerSignature(providerInfo(identity, updated), account);
+    const secondSignature = await providerSignature(
+      providerInfo(identity, updated),
+      account,
+      RESUBMITTED_AT,
+    );
     const second = await ingestProvider(identity, updated, [secondSignature], RESUBMITTED_AT);
     assert.equal(second.status, "ingested");
 
@@ -306,5 +379,161 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
       fs.existsSync(path.join(root, "data", "providers", "eip155-14", identity, "info.json")),
       false,
     );
+  });
+
+  test("ingests a version 2 self-signature and writes its signed fields", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider signing with signature version 2.";
+    const entry = await providerSignatureV2(
+      providerInfo(identity, description),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    const result = await ingestProvider(identity, description, [entry], ORIGINAL_SUBMITTED_AT);
+    assert.equal(result.status, "ingested");
+    const written = JSON.parse(
+      fs.readFileSync(
+        path.join(root, "data", "providers", "eip155-14", identity, "signatures.json"),
+        "utf8",
+      ),
+    ) as SignaturesData;
+    assert.deepEqual(written.signatures, [entry]);
+  });
+
+  test("refuses an edited date on a version 2 signature", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose signed date was edited.";
+    const entry = await providerSignatureV2(
+      providerInfo(identity, description),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    await assert.rejects(
+      ingestProvider(
+        identity,
+        description,
+        [{ ...entry, date: "2031-05-01T00:00:00.000Z" }],
+        ORIGINAL_SUBMITTED_AT,
+      ),
+      /No valid self-signature by the identity address/,
+    );
+  });
+
+  test("refuses a rollback to an older signed version", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const older = "The older listing that was replaced later.";
+    const newer = "The current listing that replaced the older one.";
+    const olderSignature = await providerSignatureV2(
+      providerInfo(identity, older),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    const newerSignature = await providerSignatureV2(
+      providerInfo(identity, newer),
+      account,
+      RESUBMITTED_AT,
+    );
+    assert.equal(
+      (await ingestProvider(identity, older, [olderSignature], ORIGINAL_SUBMITTED_AT)).status,
+      "ingested",
+    );
+    assert.equal(
+      (await ingestProvider(identity, newer, [newerSignature], RESUBMITTED_AT)).status,
+      "ingested",
+    );
+
+    const chainDir = path.join(root, "data", "providers", "eip155-14");
+    const beforeSnapshot = snapshotFiles(chainDir);
+    await assert.rejects(
+      ingestProvider(identity, older, [olderSignature], "2026-11-22T10:46:12.951Z"),
+      /not newer than the published one .*refusing a rollback/,
+    );
+    assertSnapshotUnchanged(chainDir, beforeSnapshot);
+  });
+
+  describe("published co-signatures on a guarded resubmission", () => {
+    async function listedWithCoSignature(description: string) {
+      const account = privateKeyToAccount(generatePrivateKey());
+      const cosigner = privateKeyToAccount(generatePrivateKey());
+      const identity = account.address.toLowerCase();
+      const info = providerInfo(identity, description);
+      const first = await providerSignatureV2(info, account, ORIGINAL_SUBMITTED_AT);
+      assert.equal(
+        (await pullProvider(identity, description, first, ORIGINAL_SUBMITTED_AT)).status,
+        "ingested",
+      );
+      // A co-signature merged later, as ingestProviderAttestation does.
+      const signaturesPath = path.join(
+        root,
+        "data",
+        "providers",
+        "eip155-14",
+        identity,
+        "signatures.json",
+      );
+      const cosignature = await providerSignature(info, cosigner, "2026-10-20T00:00:00.000Z");
+      const published = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
+      published.signatures.push(cosignature);
+      fs.writeFileSync(signaturesPath, JSON.stringify(published, null, 2));
+      return { account, identity, info, cosignature, signaturesPath };
+    }
+
+    test("re-signing an unchanged listing keeps a co-signature that still verifies", async () => {
+      const description = "A listed provider with a co-signature on main.";
+      const { account, identity, info, cosignature, signaturesPath } =
+        await listedWithCoSignature(description);
+      const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
+      assert.equal(
+        (await pullProvider(identity, description, resigned, RESUBMITTED_AT)).status,
+        "ingested",
+      );
+      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
+      assert.deepEqual(
+        written.signatures.map((entry) => entry.signature),
+        [resigned.signature, cosignature.signature],
+      );
+    });
+
+    test("a content change drops the co-signature, whose message hash is now stale", async () => {
+      const description = "A listed provider whose description is about to change.";
+      const { account, identity, signaturesPath } = await listedWithCoSignature(description);
+      const updated = "The same provider after changing its description.";
+      const resigned = await providerSignatureV2(
+        providerInfo(identity, updated),
+        account,
+        RESUBMITTED_AT,
+      );
+      assert.equal(
+        (await pullProvider(identity, updated, resigned, RESUBMITTED_AT)).status,
+        "ingested",
+      );
+      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
+      assert.deepEqual(
+        written.signatures.map((entry) => entry.signature),
+        [resigned.signature],
+      );
+    });
+
+    test("a published co-signature that no longer verifies is not carried over", async () => {
+      const description = "A listed provider with a broken co-signature on main.";
+      const { account, identity, info, signaturesPath } = await listedWithCoSignature(description);
+      const published = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
+      const broken = published.signatures[1];
+      assert.ok(broken);
+      broken.signerName = "Tampered";
+      broken.signature = `0x${"11".repeat(65)}` as SignatureEntry["signature"];
+      fs.writeFileSync(signaturesPath, JSON.stringify(published, null, 2));
+
+      const resigned = await providerSignatureV2(info, account, RESUBMITTED_AT);
+      await pullProvider(identity, description, resigned, RESUBMITTED_AT);
+      const written = JSON.parse(fs.readFileSync(signaturesPath, "utf8")) as SignaturesData;
+      assert.deepEqual(
+        written.signatures.map((entry) => entry.signature),
+        [resigned.signature],
+      );
+    });
   });
 });

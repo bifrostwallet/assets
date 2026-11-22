@@ -28,8 +28,11 @@ import {
   EIP712_DOMAIN_NAME,
   EIP712_DOMAIN_SALT,
   EIP712_DOMAIN_VERSION,
+  EIP712_DOMAIN_VERSION_2,
   PROVIDER_LISTING_PRIMARY_TYPE,
   PROVIDER_LISTING_TYPES,
+  PROVIDER_LISTING_V2_TYPES,
+  PROVIDER_SIGNATURE_VERSION_2,
 } from "../eip712.js";
 import { isMain } from "../isMain.js";
 import { assertJsDelivrReleaseBase, releaseTagForVersion } from "../releaseTag.js";
@@ -165,6 +168,8 @@ ${providerRequires}
 const EIP712_DOMAIN_SALT = ${JSON.stringify(EIP712_DOMAIN_SALT)};
 const PROVIDER_LISTING_PRIMARY_TYPE = ${JSON.stringify(PROVIDER_LISTING_PRIMARY_TYPE)};
 const PROVIDER_LISTING_TYPES = ${JSON.stringify(PROVIDER_LISTING_TYPES)};
+const PROVIDER_LISTING_V2_TYPES = ${JSON.stringify(PROVIDER_LISTING_V2_TYPES)};
+const PROVIDER_SIGNATURE_VERSION_2 = ${JSON.stringify(PROVIDER_SIGNATURE_VERSION_2)};
 const LINK_KEYS = ${JSON.stringify([...ALLOWED_LINKS])};
 const LISTING_CHAIN_IDS = { "eip155:14": 14, "eip155:19": 19 };
 
@@ -235,19 +240,30 @@ function getProviderListingVerification(chainId, identityAddress) {
   const record = getProviderSignatures(chain, identityAddress);
   const entries = record && Array.isArray(record.signatures) ? record.signatures : [];
   if (!provider || entries.length === 0) return [];
-  return entries.map((entry) => ({
-    address: entry.signerAddress,
-    domain: {
-      name: ${JSON.stringify(EIP712_DOMAIN_NAME)},
-      version: ${JSON.stringify(EIP712_DOMAIN_VERSION)},
-      chainId: LISTING_CHAIN_IDS[chain],
-      salt: EIP712_DOMAIN_SALT,
-    },
-    types: PROVIDER_LISTING_TYPES,
-    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
-    message: listingMessage(provider, entry.messageHash),
-    signature: entry.signature,
-  }));
+  return entries.map((entry) => {
+    // Version 2 entries also sign their date (as signedAt), nonce and sealedHash.
+    const v2 = entry.version === PROVIDER_SIGNATURE_VERSION_2;
+    const message = listingMessage(provider, entry.messageHash);
+    return {
+      address: entry.signerAddress,
+      domain: {
+        name: ${JSON.stringify(EIP712_DOMAIN_NAME)},
+        version: v2 ? ${JSON.stringify(EIP712_DOMAIN_VERSION_2)} : ${JSON.stringify(EIP712_DOMAIN_VERSION)},
+        chainId: LISTING_CHAIN_IDS[chain],
+        salt: EIP712_DOMAIN_SALT,
+      },
+      types: v2 ? PROVIDER_LISTING_V2_TYPES : PROVIDER_LISTING_TYPES,
+      primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+      message: v2
+        ? Object.assign(message, {
+            signedAt: String(entry.date),
+            nonce: String(entry.nonce),
+            sealedHash: asBytes32(entry.sealedHash),
+          })
+        : message,
+      signature: entry.signature,
+    };
+  });
 }
 
 module.exports = { getProviderSignatures, getProviderListingVerification };
@@ -255,11 +271,17 @@ module.exports = { getProviderSignatures, getProviderListingVerification };
 }
 
 function signaturesDeclarations(): string {
-  const fields = PROVIDER_LISTING_TYPES.ProviderListing.map((field) => {
-    const name = JSON.stringify(field.name);
-    const type = JSON.stringify(field.type);
-    return `      { readonly name: ${name}; readonly type: ${type} },`;
-  }).join("\n");
+  const fieldLines = (list: readonly { name: string; type: string }[]) =>
+    list
+      .map((field) => {
+        const name = JSON.stringify(field.name);
+        const type = JSON.stringify(field.type);
+        return `      { readonly name: ${name}; readonly type: ${type} },`;
+      })
+      .join("\n");
+  const fields = fieldLines(PROVIDER_LISTING_TYPES.ProviderListing);
+  const fieldsV2 = fieldLines(PROVIDER_LISTING_V2_TYPES.ProviderListing);
+  const domainVersion2 = JSON.stringify(EIP712_DOMAIN_VERSION_2);
   const salt = JSON.stringify(EIP712_DOMAIN_SALT);
   const domainName = JSON.stringify(EIP712_DOMAIN_NAME);
   const domainVersion = JSON.stringify(EIP712_DOMAIN_VERSION);
@@ -272,7 +294,14 @@ export interface ProviderSignature {
   signerAddress: string;
   messageHash: string;
   signature: string;
+  /** Signed (as signedAt) when version is 2; not signed otherwise. */
   date: string;
+  /** 2 for version 2 typed data; absent for version 1. */
+  version?: 2;
+  /** Version 2 only. */
+  nonce?: string;
+  /** Version 2 only. */
+  sealedHash?: string;
 }
 
 export interface ProviderSignatures {
@@ -287,7 +316,7 @@ export declare function getProviderSignatures(
   identityAddress: string,
 ): ProviderSignatures | null;
 
-export interface ProviderListingVerification {
+export interface ProviderListingVerificationV1 {
   address: \`0x\${string}\`;
   domain: {
     name: ${domainName};
@@ -313,6 +342,33 @@ ${fields}
   };
   signature: \`0x\${string}\`;
 }
+
+/** Version 2 entries also sign their date (as signedAt), nonce and sealedHash. */
+export interface ProviderListingVerificationV2 {
+  address: \`0x\${string}\`;
+  domain: {
+    name: ${domainName};
+    version: ${domainVersion2};
+    chainId: number;
+    salt: ${salt};
+  };
+  types: {
+    readonly ProviderListing: readonly [
+${fieldsV2}
+    ];
+  };
+  primaryType: ${primaryType};
+  message: ProviderListingVerificationV1["message"] & {
+    signedAt: string;
+    nonce: string;
+    sealedHash: \`0x\${string}\`;
+  };
+  signature: \`0x\${string}\`;
+}
+
+export type ProviderListingVerification =
+  | ProviderListingVerificationV1
+  | ProviderListingVerificationV2;
 
 /**
  * One viem verifyTypedData / recoverTypedDataAddress argument per signature.
