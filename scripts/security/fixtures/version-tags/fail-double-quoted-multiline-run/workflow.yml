@@ -1,0 +1,10 @@
+name: Double-quoted multi-line run
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: "./deploy
+          ${{ github.head_ref }}"
