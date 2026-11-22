@@ -1,8 +1,0 @@
-name: Alias hyphen
-trigger: &-cmd push
-on: *-cmd
-jobs:
-  v:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: echo ok

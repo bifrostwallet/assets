@@ -3,8 +3,8 @@
 # Fail when a GitHub Actions workflow under .github/workflows:
 #   - filters push tags with anything other than [0-9]+.[0-9]+.[0-9]+,
 #   - lets a push or create trigger run for every tag,
-#   - hides a tag filter inside a flow mapping the line scanner cannot read, or
-#   - uses a YAML alias (*name) as a value, or
+#   - hides a tag filter inside a flow mapping the line scanner cannot read,
+#   - uses a YAML anchor, alias, merge key, tag, or document marker, or
 #   - inlines a ref/tag expression inside a run: block, or
 #   - continues an inline run: value onto more lines, or starts it on the
 #     next line without | or > (plain or quoted scalars fold, so those
@@ -16,9 +16,15 @@
 # a tag name is attacker-controlled text, and Actions expands ${{ }} before
 # the shell starts.
 # Line-oriented POSIX sh + grep -E. Standard workflow layout only.
-# Unrecognized tags values, `{` flow mappings under on:, YAML aliases (*name),
-# and unfiltered push/create triggers fail closed, whether on: is a scalar, a flow sequence,
+# Unrecognized tags values, `{` flow mappings under on:, and unfiltered
+# push/create triggers fail closed, whether on: is a scalar, a flow sequence,
 # a block sequence (- push), or a mapping (including push: ~ / push: null).
+# Anchors (&), aliases (*), merge keys (<<), tags (! / !!), and document
+# markers (--- / ...) are banned at node start (line start, or after ":",
+# "- ", "[", "{", or ","). There is no alias-name grammar and no quote
+# parser: a quoted value that starts with one of these fails too. Comments
+# are stripped first. | / > block-scalar bodies (run scripts, if:, prompt:,
+# group:) are literal, so shell globs and !contains stay legal there.
 # VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
 set -eu
@@ -239,71 +245,26 @@ split_flow() {
   fi
 }
 
-# Record an error when $1 contains an unquoted YAML alias (*name). That
-# includes a value after a key, a list item (- *name), and a line that
-# starts with *name. The name may be any non-space character other than a
-# flow indicator (,[]{}). A star inside quotes, a comment, or a glob
-# ('v*', "**") is not an alias.
-note_yaml_alias() {
-  _s=$(strip_yaml_comment "$1")
-  _q=
-  # A line may open with an alias (*name, or *name: as a key).
-  _at=1
-  _tok=1
-  _rest=$_s
-  while [ -n "$_rest" ]; do
-    _c=${_rest%"${_rest#?}"}
-    _rest=${_rest#?}
-    if [ -n "$_q" ]; then
-      if [ "$_q" = "$_c" ]; then
-        _q=
-      fi
-      continue
-    fi
-    case "$_c" in
-      "'" | '"')
-        _q=$_c
-        _at=0
-        _tok=0
-        continue
-        ;;
-      ' ' | '	')
-        continue
-        ;;
-    esac
-    if [ "$_at" -eq 1 ] && [ "$_c" = '*' ]; then
-      _n=${_rest%"${_rest#?}"}
-      case "$_n" in
-        '' | ' ' | '	' | ',' | '[' | ']' | '{' | '}')
-          ;;
-        *)
-          record "$lineno" "YAML aliases are not supported in workflows"
-          return
-          ;;
-      esac
-    fi
-    if [ "$_tok" -eq 1 ] && [ "$_c" = '-' ]; then
-      _n=${_rest%"${_rest#?}"}
-      case "$_n" in
-        '' | ' ' | '	') _at=1 ;;
-        *) _at=0 ;;
-      esac
-    else
-      case "$_c" in
-        ':' | '[' | ',' | '{' | '?') _at=1 ;;
-        *) _at=0 ;;
-      esac
-    fi
-    _tok=0
-  done
-}
-
 # YAML null: empty, ~, or null in any case.
 is_null_value() {
   case "$1" in
     '' | '~') return 0 ;;
   esac
   [ "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" = "null" ]
+}
+
+# 0 when a structural line uses a YAML anchor, alias, merge key, tag, or
+# document marker. Callers skip | / > bodies. Quotes are not parsed: a
+# quoted value that starts with one of these at a node start fails too.
+# && is not an anchor. *, &, !, and << must sit at line start or after
+# `:`, `- `, `[`, `{`, or `,` (optional whitespace, then an optional quote).
+line_has_banned_yaml() {
+  _doc=$(strip_yaml_comment "$1")
+  case "$_doc" in
+    --- | ...) return 0 ;;
+  esac
+  printf '%s\n' "$_doc" | grep -Eq \
+    '(^|:[[:space:]]*|(^|[[:space:]])-[[:space:]]+|(^|[[:space:]:,-])[[{][[:space:]]*|,[[:space:]]*)['"'"'"]?(\*|!|<<|&([^&]|$))'
 }
 
 is_block_scalar() {
@@ -337,28 +298,30 @@ scan_file() {
   in_tags=0
   tags_count=0
   tags_at=0
+  in_yaml_block=0
+  yaml_block_indent=0
   lineno=0
 
   while IFS= read -r line || [ -n "$line" ]; do
     lineno=$((lineno + 1))
+    # Anchors, aliases, merge keys, tags, and document markers are YAML
+    # structure. | / > bodies are literal (shell, if: expressions, prompts).
+    _skip_banned=0
+    if [ "$in_yaml_block" -eq 1 ]; then
+      _lead=${line%%[![:space:]]*}
+      _body=$(trim "$line")
+      if [ -z "$_body" ] || [ "${#_lead}" -gt "$yaml_block_indent" ]; then
+        _skip_banned=1
+      else
+        in_yaml_block=0
+      fi
+    fi
+    if [ "$_skip_banned" -eq 0 ] && line_has_banned_yaml "$line"; then
+      record "$lineno" "YAML anchors, aliases, merge keys, tags, and document markers are not supported"
+    fi
     trimmed=$(trim "$line")
     if [ -z "$trimmed" ]; then
       continue
-    fi
-
-    # | and > run text is the command, not a YAML alias node.
-    _check_alias=1
-    case "$trimmed" in
-      \#*) _check_alias=0 ;;
-    esac
-    if [ "$_check_alias" -eq 1 ] && [ "$in_run" -eq 1 ] && [ "$run_inline" -eq 0 ]; then
-      _lead=${line%%[![:space:]]*}
-      if [ "${#_lead}" -gt "$run_indent" ]; then
-        _check_alias=0
-      fi
-    fi
-    if [ "$_check_alias" -eq 1 ]; then
-      note_yaml_alias "$line"
     fi
 
     if [ "$in_run" -eq 1 ]; then
@@ -493,6 +456,16 @@ ${trimmed}"
       esac
     fi
 
+    # A | or > value owns the deeper lines that follow. An empty value does not
+    # (jobs: and steps: are mappings, not block scalars).
+    if [ -n "$rest" ] && is_block_scalar "$rest"; then
+      in_yaml_block=1
+      yaml_block_indent=$_indent
+      case "$trimmed" in
+        -*) yaml_block_indent=$((_indent + 2)) ;;
+      esac
+    fi
+
     if [ "$key" = "run" ]; then
       # Block scalars and inline values both own the more-indented lines that
       # follow: a plain, single- or double-quoted value can continue there.
@@ -585,7 +558,7 @@ if [ -n "$cleaned" ]; then
   echo
   printf '%s\n' "$matches"
   echo
-  printf '%b\n' "${YELLOW}Tag filters must be [0-9]+.[0-9]+.[0-9]+. Bind ref and tag expressions to step env; do not inline them in run.${NC}"
+  printf '%b\n' "${YELLOW}Tag filters must be [0-9]+.[0-9]+.[0-9]+. Bind ref and tag expressions to step env; do not inline them in run. YAML anchors, aliases, merge keys, tags, and document markers are not supported.${NC}"
   exit 1
 fi
 
