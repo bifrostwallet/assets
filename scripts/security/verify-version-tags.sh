@@ -21,10 +21,13 @@
 # a block sequence (- push), or a mapping (including push: ~ / push: null).
 # Anchors (&), aliases (*), merge keys (<<), tags (! / !!), and document
 # markers (--- / ...) are banned at node start (line start, or after ":",
-# "- ", "[", "{", or ","). There is no alias-name grammar and no quote
-# parser: a quoted value that starts with one of these fails too. Comments
-# are stripped first. | / > block-scalar bodies (run scripts, if:, prompt:,
-# group:) are literal, so shell globs and !contains stay legal there.
+# "? ", "- ", "[", "{", or ","). There is no alias-name grammar and no quote
+# parser: a quoted value that starts with one of these fails too. Only a
+# full-line # comment is skipped, so a trailing comment cannot hide an
+# alias. A line that starts with --- or ... (then whitespace or the end of
+# the line) is a document marker. | / > block-scalar bodies (run scripts,
+# if:, prompt:, group:) are literal, so shell globs and !contains stay
+# legal there.
 # VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
 set -eu
@@ -254,17 +257,20 @@ is_null_value() {
 }
 
 # 0 when a structural line uses a YAML anchor, alias, merge key, tag, or
-# document marker. Callers skip | / > bodies. Quotes are not parsed: a
-# quoted value that starts with one of these at a node start fails too.
-# && is not an anchor. *, &, !, and << must sit at line start or after
-# `:`, `- `, `[`, `{`, or `,` (optional whitespace, then an optional quote).
+# document marker. Callers skip | / > bodies. The raw line is scanned; only
+# a full-line # comment is ignored. Trailing comments are not stripped, so
+# an escaped quote cannot hide an alias. A line that starts with --- or ...
+# (then whitespace or the end of the line) is a document marker. && is not
+# an anchor. *, &, !, and << must sit at line start or after `:`, `? `,
+# `- `, `[`, `{`, or `,` (optional whitespace, then an optional quote).
 line_has_banned_yaml() {
-  _doc=$(strip_yaml_comment "$1")
+  _doc=$(trim "$1")
   case "$_doc" in
-    --- | ...) return 0 ;;
+    \#*) return 1 ;;
+    --- | ---[[:space:]]* | ... | ...[[:space:]]*) return 0 ;;
   esac
   printf '%s\n' "$_doc" | grep -Eq \
-    '(^|:[[:space:]]*|(^|[[:space:]])-[[:space:]]+|(^|[[:space:]:,-])[[{][[:space:]]*|,[[:space:]]*)['"'"'"]?(\*|!|<<|&([^&]|$))'
+    '(^|:[[:space:]]*|(^|[[:space:]])[?-][[:space:]]+|(^|[[:space:]:,-])[[{][[:space:]]*|,[[:space:]]*)['"'"'"]?(\*|!|<<|&([^&]|$))'
 }
 
 is_block_scalar() {
