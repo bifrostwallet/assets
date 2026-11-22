@@ -4,6 +4,7 @@
 #   - filters push tags with anything other than [0-9]+.[0-9]+.[0-9]+,
 #   - lets a push or create trigger run for every tag,
 #   - hides a tag filter inside a flow mapping the line scanner cannot read, or
+#   - uses a YAML alias (*name) as a value, or
 #   - inlines a ref/tag expression inside a run: block, or
 #   - continues an inline run: value onto more lines, or starts it on the
 #     next line without | or > (plain or quoted scalars fold, so those
@@ -15,8 +16,8 @@
 # a tag name is attacker-controlled text, and Actions expands ${{ }} before
 # the shell starts.
 # Line-oriented POSIX sh + grep -E. Standard workflow layout only.
-# Unrecognized tags values, `{` flow mappings under on:, and unfiltered
-# push/create triggers fail closed, whether on: is a scalar, a flow sequence,
+# Unrecognized tags values, `{` flow mappings under on:, YAML aliases (*name),
+# and unfiltered push/create triggers fail closed, whether on: is a scalar, a flow sequence,
 # a block sequence (- push), or a mapping (including push: ~ / push: null).
 # VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
@@ -238,6 +239,71 @@ split_flow() {
   fi
 }
 
+# Record an error when $1 contains an unquoted YAML alias value (*name),
+# including after a key and as a list item (- *name). A star inside quotes,
+# a comment, or a glob ('v*', "**") is not an alias.
+note_yaml_alias() {
+  _s=$(strip_yaml_comment "$1")
+  _q=
+  _at=0
+  _tok=1
+  _rest=$_s
+  while [ -n "$_rest" ]; do
+    _c=${_rest%"${_rest#?}"}
+    _rest=${_rest#?}
+    if [ -n "$_q" ]; then
+      if [ "$_q" = "$_c" ]; then
+        _q=
+      fi
+      continue
+    fi
+    case "$_c" in
+      "'" | '"')
+        _q=$_c
+        _at=0
+        _tok=0
+        continue
+        ;;
+      ' ' | '	')
+        continue
+        ;;
+    esac
+    if [ "$_at" -eq 1 ] && [ "$_c" = '*' ]; then
+      _n=${_rest%"${_rest#?}"}
+      case "$_n" in
+        [A-Za-z0-9_]*)
+          record "$lineno" "YAML aliases are not supported in workflows"
+          return
+          ;;
+      esac
+    fi
+    if [ "$_tok" -eq 1 ] && [ "$_c" = '-' ]; then
+      _n=${_rest%"${_rest#?}"}
+      case "$_n" in
+        '' | ' ' | '	') _at=1 ;;
+        *) _at=0 ;;
+      esac
+    else
+      case "$_c" in
+        ':' | '[' | ',' | '{') _at=1 ;;
+        *) _at=0 ;;
+      esac
+    fi
+    _tok=0
+  done
+
+  _s=$(trim "$_s")
+  case "$_s" in
+    \*[A-Za-z0-9_]*)
+      _name=${_s#\*}
+      case "$_name" in
+        *[!A-Za-z0-9_-]*) ;;
+        *) record "$lineno" "YAML aliases are not supported in workflows" ;;
+      esac
+      ;;
+  esac
+}
+
 # YAML null: empty, ~, or null in any case.
 is_null_value() {
   case "$1" in
@@ -285,6 +351,11 @@ scan_file() {
     if [ -z "$trimmed" ]; then
       continue
     fi
+
+    case "$trimmed" in
+      \#*) ;;
+      *) note_yaml_alias "$line" ;;
+    esac
 
     if [ "$in_run" -eq 1 ]; then
       _lead=${line%%[![:space:]]*}

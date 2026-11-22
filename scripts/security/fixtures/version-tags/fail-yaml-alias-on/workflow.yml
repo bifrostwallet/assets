@@ -1,0 +1,8 @@
+name: Alias on
+trigger: &trig push
+on: *trig
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
