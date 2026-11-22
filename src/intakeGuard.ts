@@ -22,14 +22,11 @@ const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
 /**
  * A signature `date` comes from the signer's device clock, `submittedAt` from
- * intake's. Allow this much drift (matches assets-intake), then clamp so a
- * published signature is never dated after its submission.
+ * intake's. Allow this much drift, then clamp so a published signature is
+ * never dated after its submission.
  */
 export const MAX_SIGNATURE_CLOCK_SKEW_MS = 2 * 60 * 1000;
-/**
- * Intake nonces are valid for 1 h and the app fetches one before the wallet
- * prompt, so a listing self-signature is never older than this at submission.
- */
+/** A listing self-signature is made right before submission; older ones are refused. */
 export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 60 * 60 * 1000;
 
 function assertSubmittedAtNotInFuture(submittedAt: string, now: number): void {

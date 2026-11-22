@@ -90,7 +90,7 @@ function storedProviderDate(doc: Record<string, unknown>): string {
 }
 
 describe("intake guard signature dates", () => {
-  test("refuses the PR #146 document: signed 2031, submitted 2026", () => {
+  test("refuses a signature dated years after submission", () => {
     assert.throws(
       () => assertProviderIntakeDocument(providerDoc("2031-05-01T00:00:00.000Z"), NOW),
       /after submittedAt/,
@@ -106,7 +106,7 @@ describe("intake guard signature dates", () => {
     );
   });
 
-  test("clamps small drift (Atlas, Nov 18: +0.5 s) to submittedAt", () => {
+  test("clamps small clock drift to submittedAt", () => {
     assert.equal(storedProviderDate(providerDoc(iso(SUBMITTED_MS + 542))), SUBMITTED_AT);
     const attestation = assertAttestationIntakeDocument(
       attestationDoc(iso(SUBMITTED_MS + 542)),
@@ -121,8 +121,7 @@ describe("intake guard signature dates", () => {
     assert.equal(storedProviderDate(providerDoc(SUBMITTED_AT)), SUBMITTED_AT);
   });
 
-  test("refuses a listing signature older than the nonce lifetime before submission", () => {
-    // The Seraphim pattern: an Oct 18 signature in a Nov 5 submission.
+  test("refuses a listing signature made long before submission", () => {
     assert.throws(
       () =>
         assertProviderIntakeDocument(
