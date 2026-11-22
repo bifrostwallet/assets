@@ -1446,7 +1446,7 @@ export interface Assets {
   getContracts(chainId?: ChainId): ContractInfo[];
   /**
    * One contract by address, or null. EVM addresses match case-insensitively.
-   * XRPL ("xrpl:0", "xrpl:1") r-addresses match exactly.
+   * XRPL ("xrpl:0") r-addresses match exactly.
    */
   getContract(chainId: ChainId, address: string): ContractInfo | null;
   /** Every curated dapp, in slug order. Show each logo with logoURL. */

@@ -22,7 +22,7 @@ import type { XrplToken } from "../src/xrplToken.js";
 
 const BIFROST_POOL = "0x3a06584a47972ff7005301b5a44c7d2214a4d3b4";
 const FLARE_CORE_VAULT = "rfkXSaCZKTg1EZzec2rLDyrWHxRVJdtVXj";
-const COSTON2_CORE_VAULT = "rDhpmiPq4BVBDWMVdSrmkgt8thKyRzGV1p";
+const SONGBIRD_CORE_VAULT = "rpWpGbeMQSQLhitEHVtfTrArByj3xh5Rt1";
 const BIFROST_DAPP = "bifrostwallet-com";
 const PACKAGE_BASE = "https://cdn.example.com/assets/";
 
@@ -61,10 +61,10 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("predictions"), 0);
     assert.equal(count("nft-marketplace"), 0);
     assert.equal(count("governance"), 0);
-    assert.equal(count("fassets"), 25);
+    assert.equal(count("fassets"), 24);
     assert.equal(count("rewards"), 7);
     assert.equal(count("other"), 2);
-    assert.equal(all.length, 77);
+    assert.equal(all.length, 76);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
       assert.equal(typeof contract.project, "string");
@@ -240,21 +240,15 @@ describe("contract catalog", { concurrency: false }, () => {
       logoHash: vault?.logoHash,
     });
     assert.equal(
-      getContract("xrpl:0", "rpWpGbeMQSQLhitEHVtfTrArByj3xh5Rt1")?.contractName,
+      getContract("xrpl:0", SONGBIRD_CORE_VAULT)?.contractName,
       "Songbird FXRP Core Vault",
-    );
-    assert.equal(
-      getContract("xrpl:1", COSTON2_CORE_VAULT)?.contractName,
-      "Coston2 FXRP Core Vault",
     );
     // r-addresses are case-sensitive: another case is another (or no) account.
     assert.equal(getContract("xrpl:0", FLARE_CORE_VAULT.toLowerCase()), null);
     assert.equal(getContract("xrpl:0", FLARE_CORE_VAULT.toUpperCase()), null);
-    // Each network keeps its own accounts.
-    assert.equal(getContract("xrpl:1", FLARE_CORE_VAULT), null);
-    assert.equal(getContract("xrpl:0", COSTON2_CORE_VAULT), null);
     assert.equal(getContracts("xrpl:0").length, 2);
-    assert.equal(getContracts("xrpl:1").length, 1);
+    // XRPL testnet is not curated.
+    assert.throws(() => getContracts("xrpl:1"), /Unknown contract chain xrpl:1/);
   });
 
   test("rejects an XRPL account that is not an exact-case classic address", () => {
@@ -288,7 +282,7 @@ describe("contract catalog", { concurrency: false }, () => {
     );
     // The filename must be the address in the same case.
     assert.ok(
-      validateContractRecord(base, { ...ctx, fileName: `${COSTON2_CORE_VAULT}.json` }).some(
+      validateContractRecord(base, { ...ctx, fileName: `${SONGBIRD_CORE_VAULT}.json` }).some(
         (error) => error.includes("filename does not match address"),
       ),
     );
@@ -410,16 +404,12 @@ describe("published package lookups", { concurrency: false }, () => {
     assert.equal(assets.getContracts().length, getContracts().length);
     assert.ok(published.CONTRACT_CHAIN_IDS.includes("eip155:14"));
     assert.ok(published.CONTRACT_CHAIN_IDS.includes("xrpl:0"));
-    assert.ok(published.CONTRACT_CHAIN_IDS.includes("xrpl:1"));
+    assert.ok(!published.CONTRACT_CHAIN_IDS.includes("xrpl:1"));
     const vault = assets.getContract("xrpl:0", FLARE_CORE_VAULT);
     assert.equal(vault?.address, FLARE_CORE_VAULT);
     assert.equal(vault?.contractName, "FXRP Core Vault");
     assert.equal(vault?.logoURL, `${PACKAGE_BASE}contracts/projects/flare-network/logo.webp`);
     assert.equal(assets.getContract("xrpl:0", FLARE_CORE_VAULT.toLowerCase()), null);
-    assert.equal(
-      assets.getContract("xrpl:1", COSTON2_CORE_VAULT)?.contractName,
-      "Coston2 FXRP Core Vault",
-    );
     assert.deepEqual(published.CONTRACT_CATEGORIES, [...CONTRACT_CATEGORIES]);
     assert.deepEqual(published.CONTRACT_CATEGORY_LABELS, CONTRACT_CATEGORY_LABELS);
     const packaged = {

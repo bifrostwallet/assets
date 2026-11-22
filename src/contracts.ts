@@ -119,7 +119,7 @@ export function isCaip2(value: string): boolean {
 }
 
 /**
- * XRPL chains (`xrpl-0` mainnet, `xrpl-1` testnet) list accounts by classic
+ * XRPL chains (`xrpl-0`, mainnet) list accounts by classic
  * r-address. Those are case-sensitive, so they are stored, named and looked up
  * in their exact case. Every other chain is EVM: lowercase 0x addresses.
  */
