@@ -3,7 +3,7 @@ import * as path from "node:path";
 import { recoverTypedDataAddress } from "viem";
 import type { ProviderInfo } from "./config.js";
 import { providerInfoMessageHash } from "./convert.js";
-import { chainIdFromProviderPath, providerListingTypedDataFromInfo } from "./eip712.js";
+import { chainIdFromProviderPath, providerListingTypedDataForEntry } from "./eip712.js";
 import type { HexString } from "./validate.js";
 
 export interface SignatureEntry {
@@ -11,7 +11,14 @@ export interface SignatureEntry {
   signerAddress: HexString;
   messageHash: string;
   signature: HexString;
+  /** Signed in version 2 (as signedAt); not signed in version 1. */
   date: string;
+  /** 2 for version 2 typed data; absent for version 1. */
+  version?: 2;
+  /** Version 2 only. */
+  nonce?: string;
+  /** Version 2 only. */
+  sealedHash?: string;
 }
 
 export interface SignaturesData {
@@ -44,7 +51,8 @@ export interface ProviderSignatureVerification {
  * - its messageHash equals the SHA-256 contentHash of the current signed info.json
  *   payload (curator fields like listed/managementGroup/domainLinked and logoURL
  *   are excluded), and
- * - recovering the signer via EIP-712 ProviderListing typed data yields signerAddress.
+ * - recovering the signer via EIP-712 ProviderListing typed data yields signerAddress,
+ *   using the entry's version: version 2 also signs its date, nonce and sealedHash.
  *
  * A valid signature from the provider's own identity address is a self-signature
  * and is what satisfies the repository's signature requirement. Any other valid
@@ -69,7 +77,6 @@ export async function verifyProviderSignatures(
 
   const info = JSON.parse(fs.readFileSync(infoPath, "utf8")) as ProviderInfo;
   const expectedMessageHash = providerInfoMessageHash(info);
-  const typed = providerListingTypedDataFromInfo(info, chainId);
 
   const result: ProviderSignatureVerification = {
     providerDir,
@@ -94,6 +101,17 @@ export async function verifyProviderSignatures(
       result.invalidSignatures.push({
         entry,
         reason: `Stale message hash: expected ${expectedMessageHash}, got ${entry.messageHash}`,
+      });
+      continue;
+    }
+
+    let typed: ReturnType<typeof providerListingTypedDataForEntry>;
+    try {
+      typed = providerListingTypedDataForEntry(info, chainId, entry);
+    } catch (error) {
+      result.invalidSignatures.push({
+        entry,
+        reason: error instanceof Error ? error.message : "Unsupported signature entry",
       });
       continue;
     }

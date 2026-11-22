@@ -9,6 +9,7 @@ import { providerLogoPath, sha256Hex } from "../src/convert.js";
 import {
   PROVIDER_VERIFICATION_INSTRUCTIONS,
   providerListingTypedDataFromInfo,
+  providerListingV2TypedDataFromInfo,
 } from "../src/eip712.js";
 import {
   type IntakeSubmission,
@@ -69,6 +70,7 @@ function entityFields(
 async function providerSignature(
   info: Partial<ProviderInfo>,
   account: ReturnType<typeof privateKeyToAccount>,
+  date = ORIGINAL_SUBMITTED_AT,
 ): Promise<SignatureEntry> {
   const typed = providerListingTypedDataFromInfo(info, 14);
   const signature = await account.signTypedData({
@@ -82,7 +84,36 @@ async function providerSignature(
     signerAddress: account.address,
     messageHash: typed.contentHash,
     signature,
-    date: ORIGINAL_SUBMITTED_AT,
+    date,
+  };
+}
+
+async function providerSignatureV2(
+  info: Partial<ProviderInfo>,
+  account: ReturnType<typeof privateKeyToAccount>,
+  date: string,
+): Promise<SignatureEntry> {
+  const fields = {
+    signedAt: date,
+    nonce: `bwn1.${Date.parse(date) + 3_600_000}.${"A".repeat(22)}.${"B".repeat(43)}`,
+    sealedHash: `0x${"cd".repeat(32)}`,
+  };
+  const typed = providerListingV2TypedDataFromInfo(info, 14, fields);
+  const signature = await account.signTypedData({
+    domain: typed.domain,
+    types: typed.types,
+    primaryType: typed.primaryType,
+    message: typed.message,
+  });
+  return {
+    signerName: String(info.name),
+    signerAddress: account.address,
+    messageHash: typed.contentHash,
+    signature,
+    date,
+    version: 2,
+    nonce: fields.nonce,
+    sealedHash: fields.sealedHash,
   };
 }
 
@@ -222,7 +253,11 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
     const first = await ingestProvider(identity, original, [firstSignature], ORIGINAL_SUBMITTED_AT);
     assert.equal(first.status, "ingested");
 
-    const secondSignature = await providerSignature(providerInfo(identity, updated), account);
+    const secondSignature = await providerSignature(
+      providerInfo(identity, updated),
+      account,
+      RESUBMITTED_AT,
+    );
     const second = await ingestProvider(identity, updated, [secondSignature], RESUBMITTED_AT);
     assert.equal(second.status, "ingested");
 
@@ -306,5 +341,78 @@ describe("Intake resubmission provenance", { concurrency: false }, () => {
       fs.existsSync(path.join(root, "data", "providers", "eip155-14", identity, "info.json")),
       false,
     );
+  });
+
+  test("ingests a version 2 self-signature and writes its signed fields", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider signing with signature version 2.";
+    const entry = await providerSignatureV2(
+      providerInfo(identity, description),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    const result = await ingestProvider(identity, description, [entry], ORIGINAL_SUBMITTED_AT);
+    assert.equal(result.status, "ingested");
+    const written = JSON.parse(
+      fs.readFileSync(
+        path.join(root, "data", "providers", "eip155-14", identity, "signatures.json"),
+        "utf8",
+      ),
+    ) as SignaturesData;
+    assert.deepEqual(written.signatures, [entry]);
+  });
+
+  test("refuses an edited date on a version 2 signature", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const description = "A provider whose signed date was edited.";
+    const entry = await providerSignatureV2(
+      providerInfo(identity, description),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    await assert.rejects(
+      ingestProvider(
+        identity,
+        description,
+        [{ ...entry, date: "2031-05-01T00:00:00.000Z" }],
+        ORIGINAL_SUBMITTED_AT,
+      ),
+      /No valid self-signature by the identity address/,
+    );
+  });
+
+  test("refuses a rollback to an older signed version", async () => {
+    const account = privateKeyToAccount(generatePrivateKey());
+    const identity = account.address.toLowerCase();
+    const older = "The older listing that was replaced later.";
+    const newer = "The current listing that replaced the older one.";
+    const olderSignature = await providerSignatureV2(
+      providerInfo(identity, older),
+      account,
+      ORIGINAL_SUBMITTED_AT,
+    );
+    const newerSignature = await providerSignatureV2(
+      providerInfo(identity, newer),
+      account,
+      RESUBMITTED_AT,
+    );
+    assert.equal(
+      (await ingestProvider(identity, older, [olderSignature], ORIGINAL_SUBMITTED_AT)).status,
+      "ingested",
+    );
+    assert.equal(
+      (await ingestProvider(identity, newer, [newerSignature], RESUBMITTED_AT)).status,
+      "ingested",
+    );
+
+    const chainDir = path.join(root, "data", "providers", "eip155-14");
+    const beforeSnapshot = snapshotFiles(chainDir);
+    await assert.rejects(
+      ingestProvider(identity, older, [olderSignature], "2026-11-22T10:46:12.951Z"),
+      /not newer than the published one .*refusing a rollback/,
+    );
+    assertSnapshotUnchanged(chainDir, beforeSnapshot);
   });
 });

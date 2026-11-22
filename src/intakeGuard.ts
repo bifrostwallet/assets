@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { ALLOWED_LINKS, PROVIDER_INFO_KEYS, PROVIDER_LOGO_REQUIREMENTS } from "./config.js";
-import { PROVIDER_VERIFICATION_INSTRUCTIONS } from "./eip712.js";
+import { PROVIDER_SIGNATURE_VERSION_2, PROVIDER_VERIFICATION_INSTRUCTIONS } from "./eip712.js";
 import {
   isValidDescription,
   isValidEvmAddress,
@@ -21,10 +21,10 @@ const SIG_HEX_RE = /^0x[0-9a-fA-F]{130}$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
 /**
- * A listing self-signature is made right before submission. The signer's
- * device clock may run a little behind intake's, hence the extra margin.
+ * A listing self-signature is made after the intake challenge, which is valid
+ * for an hour, and dated on intake's clock.
  */
-export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 62 * 60 * 1000;
+export const MAX_SIGNATURE_AGE_AT_SUBMISSION_MS = 60 * 60 * 1000;
 
 function assertSubmittedAtNotInFuture(submittedAt: string, now: number): void {
   if (Date.parse(submittedAt) > now) {
@@ -69,6 +69,7 @@ const ATTESTATION_DOC_KEYS = new Set([
   "submittedAt",
 ]);
 const SIGNATURES_ROOT_KEYS = new Set(["identityAddress", "verificationInstructions", "signatures"]);
+/** Attestations (co-signatures) are version 1 entries. */
 const SIGNATURE_ENTRY_KEYS = new Set([
   "signerName",
   "signerAddress",
@@ -76,6 +77,14 @@ const SIGNATURE_ENTRY_KEYS = new Set([
   "signature",
   "date",
 ]);
+/** Listing self-signatures from intake are version 2 entries. */
+const LISTING_SIGNATURE_ENTRY_KEYS = new Set([
+  ...SIGNATURE_ENTRY_KEYS,
+  "version",
+  "nonce",
+  "sealedHash",
+]);
+const NONCE_TEXT_RE = /^[\x21-\x7e]{1,200}$/;
 
 export function isAllowedIntakeObjectName(name: string): boolean {
   if (name.includes("..") || name.includes("\\") || name.startsWith("/")) return false;
@@ -269,16 +278,27 @@ export function assertProviderIntakeDocument(
   if (signatures.verificationInstructions !== PROVIDER_VERIFICATION_INSTRUCTIONS) {
     throw new Error("Unexpected verificationInstructions");
   }
-  if (!Array.isArray(signatures.signatures) || signatures.signatures.length === 0) {
-    throw new Error("signatures.signatures must be non-empty");
+  if (!Array.isArray(signatures.signatures) || signatures.signatures.length !== 1) {
+    throw new Error("A listing submission carries exactly one self-signature");
   }
-  if (signatures.signatures.length > 8) throw new Error("Too many signatures");
   for (const entry of signatures.signatures) {
     if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
       throw new Error("Invalid signature entry");
     }
     const row = entry as Record<string, unknown>;
-    assertOnlyKeys(row, SIGNATURE_ENTRY_KEYS, "signature entry");
+    assertOnlyKeys(row, LISTING_SIGNATURE_ENTRY_KEYS, "signature entry");
+    if (row.version !== PROVIDER_SIGNATURE_VERSION_2) {
+      throw new Error("Listing submissions must use signature version 2");
+    }
+    if (!NONCE_TEXT_RE.test(assertString(row.nonce, "nonce"))) {
+      throw new Error("Invalid nonce");
+    }
+    if (!MESSAGE_HASH_RE.test(assertString(row.sealedHash, "sealedHash"))) {
+      throw new Error("Invalid sealedHash");
+    }
+    if (assertString(row.signerAddress, "signerAddress").toLowerCase() !== identity) {
+      throw new Error("The listing signature must be from the identity address");
+    }
     if (!isValidName(assertString(row.signerName, "signerName"))) {
       throw new Error("Invalid signerName");
     }

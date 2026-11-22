@@ -1,5 +1,11 @@
 // EIP-712 typed data for listing signatures (eth_signTypedData_v4).
 // Must stay in sync with the listing form and intake service.
+//
+// Two versions, selected by a signatures.json entry's `version` field:
+// - 1 (no field): the listing fields. The entry's date is not signed.
+// - 2: the listing fields plus signedAt (the entry's date), nonce and sealedHash.
+//   Listing submissions must use version 2; version 1 entries stay verifiable.
+// The package's main entry keeps exporting the version 1 constants unchanged.
 // The package build copies these constants into the package entry and the signatures entry.
 // The salt is precomputed so verifiers do not hash it or take a hashing dependency.
 
@@ -9,6 +15,9 @@ import type { HexString } from "./validate.js";
 
 export const EIP712_DOMAIN_NAME = "Bifrost Assets";
 export const EIP712_DOMAIN_VERSION = "1";
+export const EIP712_DOMAIN_VERSION_2 = "2";
+/** signatures.json entry `version` for version 2 typed data. */
+export const PROVIDER_SIGNATURE_VERSION_2 = 2;
 
 const LISTING_CHAIN_IDS = {
   "eip155:14": 14,
@@ -26,9 +35,11 @@ export const EIP712_DOMAIN_SALT =
 
 export const PROVIDER_VERIFICATION_INSTRUCTIONS = [
   "To verify, recover the signer with eth_signTypedData_v4.",
-  'Domain: name "Bifrost Assets", version "1", chainId of the provider network, and salt keccak256 of the UTF-8 string "https://bifrostwallet.com".',
+  "An entry's version field selects the typed data; an entry without it is version 1.",
+  'Domain: name "Bifrost Assets", version "1" or "2" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string "https://bifrostwallet.com".',
   "primaryType: ProviderListing.",
-  "Fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32).",
+  "Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32).",
+  "Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash.",
   "logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix.",
   "messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities.",
   "links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok.",
@@ -51,6 +62,23 @@ export const PROVIDER_LISTING_TYPES = {
     { name: "contentHash", type: "bytes32" },
   ],
 } as const;
+
+export const PROVIDER_LISTING_V2_TYPES = {
+  ProviderListing: [
+    ...PROVIDER_LISTING_TYPES.ProviderListing,
+    { name: "signedAt", type: "string" },
+    { name: "nonce", type: "string" },
+    { name: "sealedHash", type: "bytes32" },
+  ],
+} as const;
+
+/** The version 2 fields that come from the signature entry, not from info.json. */
+export type ListingSignatureFields = {
+  /** The entry's date (UTC ISO-8601). */
+  signedAt: string;
+  nonce: string;
+  sealedHash: string;
+};
 
 export type ProviderListingMessage = {
   name: string;
@@ -150,4 +178,60 @@ export function buildProviderListingTypedData(
 export function providerListingTypedDataFromInfo(info: Partial<ProviderInfo>, chainId: number) {
   const contentHash = providerInfoMessageHash(info);
   return { ...buildProviderListingTypedData(info, chainId, contentHash), contentHash };
+}
+
+/** Version 2 typed data: the version 1 message plus the entry's signed fields. */
+export function providerListingV2TypedDataFromInfo(
+  info: Partial<ProviderInfo>,
+  chainId: number,
+  fields: ListingSignatureFields,
+) {
+  const v1 = providerListingTypedDataFromInfo(info, chainId);
+  return {
+    domain: { ...v1.domain, version: EIP712_DOMAIN_VERSION_2 },
+    types: PROVIDER_LISTING_V2_TYPES,
+    primaryType: PROVIDER_LISTING_PRIMARY_TYPE,
+    message: {
+      ...v1.message,
+      signedAt: fields.signedAt,
+      nonce: fields.nonce,
+      sealedHash: asBytes32(fields.sealedHash),
+    },
+    contentHash: v1.contentHash,
+  };
+}
+
+/** The signature-entry fields that select and complete the typed data. */
+export type SignatureEntryVersionFields = {
+  date: string;
+  version?: unknown;
+  nonce?: unknown;
+  sealedHash?: unknown;
+};
+
+/**
+ * Typed data a signatures.json entry was signed over: version 1 when the entry
+ * has no `version`, version 2 when it is 2. Throws for anything else or for a
+ * version 2 entry without its signed fields.
+ */
+export function providerListingTypedDataForEntry(
+  info: Partial<ProviderInfo>,
+  chainId: number,
+  entry: SignatureEntryVersionFields,
+) {
+  if (entry.version === undefined) return providerListingTypedDataFromInfo(info, chainId);
+  if (entry.version !== PROVIDER_SIGNATURE_VERSION_2) {
+    throw new Error(`Unsupported signature version: ${JSON.stringify(entry.version)}`);
+  }
+  if (typeof entry.nonce !== "string" || entry.nonce === "") {
+    throw new Error("Version 2 signature is missing its nonce");
+  }
+  if (typeof entry.sealedHash !== "string") {
+    throw new Error("Version 2 signature is missing its sealedHash");
+  }
+  return providerListingV2TypedDataFromInfo(info, chainId, {
+    signedAt: entry.date,
+    nonce: entry.nonce,
+    sealedHash: entry.sealedHash,
+  });
 }

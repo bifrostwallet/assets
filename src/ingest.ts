@@ -81,6 +81,44 @@ function listingContentUnchanged(
   return fileBytesEqual(infoPath, Buffer.from(infoJson)) && fileBytesEqual(logoPath, logo);
 }
 
+function newestSelfSignatureMs(
+  entries: readonly SignatureEntry[],
+  identity: string,
+): number | null {
+  let newest: number | null = null;
+  for (const entry of entries) {
+    if (entry.signerAddress.toLowerCase() !== identity) continue;
+    const ms = Date.parse(entry.date);
+    if (Number.isFinite(ms) && (newest === null || ms > newest)) newest = ms;
+  }
+  return newest;
+}
+
+/**
+ * Refuses a new self-signature (one not already on main) that is not dated
+ * after the newest published self-signature. Re-sending the published
+ * self-signature, for example next to a new co-signature, is not a rollback.
+ */
+export function assertNewerSelfSignature(
+  identity: string,
+  submitted: readonly SignatureEntry[],
+  publishedSignaturesPath: string,
+): void {
+  if (!fs.existsSync(publishedSignaturesPath)) return;
+  const published = JSON.parse(fs.readFileSync(publishedSignaturesPath, "utf8")) as SignaturesData;
+  const publishedEntries = published.signatures ?? [];
+  const publishedHexes = new Set(publishedEntries.map((entry) => entry.signature.toLowerCase()));
+  const fresh = submitted.filter((entry) => !publishedHexes.has(entry.signature.toLowerCase()));
+  const publishedMs = newestSelfSignatureMs(publishedEntries, identity.toLowerCase());
+  const submittedMs = newestSelfSignatureMs(fresh, identity.toLowerCase());
+  if (publishedMs === null || submittedMs === null) return;
+  if (submittedMs <= publishedMs) {
+    throw new Error(
+      `Self-signature dated ${new Date(submittedMs).toISOString()} is not newer than the published one (${new Date(publishedMs).toISOString()}); refusing a rollback.`,
+    );
+  }
+}
+
 /**
  * Ingests a provider submission directory containing info.json, logo.webp and
  * signatures.json (as produced by the web signing app).
@@ -277,6 +315,16 @@ export async function ingestProviderSubmission(
       };
     }
   }
+
+  // Rollback guard: a new self-signature must be dated after the newest one on
+  // main. Version 2 signs the date, so an old signature cannot pass by editing
+  // it, and no git history is needed. Re-pulling an already ingested object is
+  // handled above as unchanged.
+  assertNewerSelfSignature(
+    identity,
+    submittedSignatures.signatures,
+    path.join(existingDir, "signatures.json"),
+  );
 
   // Write files and rebuild the chain aggregate
   fs.mkdirSync(existingDir, { recursive: true });

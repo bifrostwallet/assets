@@ -269,12 +269,14 @@ Operator signatures ship from `@bifrostwallet/assets/signatures`, so a normal im
 
 The signature is EIP-712 (`eth_signTypedData_v4`) over `ProviderListing`, self-signed by the identity address. Changing any signed field needs a new signature. `logoHash` is the SHA-256 of `logo.webp`: 64 lowercase hex characters, with no `0x` prefix.
 
+New listings are signed with version 2. It adds three fields to the signed message: `signedAt` (the entry's `date`), `nonce` (a single-use value issued by the listing service) and `sealedHash`. They are stored on the signature entry, so the date of a version 2 signature cannot be changed without breaking it, and an older signature cannot be submitted again. Version 1 entries (no `version` field) remain valid. `getProviderListingVerification` returns the right typed data for each entry.
+
 **Domain**
 
 | Field | Value |
 | --- | --- |
 | `name` | `"Bifrost Assets"` |
-| `version` | `"1"` |
+| `version` | `"2"` for entries with `"version": 2`, otherwise `"1"` |
 | `chainId` | The id in `eip155-<id>`. Flare is 14. Songbird is 19. |
 | `salt` | `EIP712_DOMAIN_SALT`, the precomputed `keccak256` of the UTF-8 string `https://bifrostwallet.com` |
 
@@ -289,7 +291,7 @@ const [entry] = getProviderListingVerification(
 await verifyTypedData(entry); // true
 ```
 
-`EIP712_DOMAIN_SALT`, `PROVIDER_LISTING_TYPES`, `PROVIDER_LISTING_PRIMARY_TYPE`, and `providerListingTypedData({ message, chain })` are exported from `@bifrostwallet/assets` for anyone building the typed data themselves.
+`EIP712_DOMAIN_SALT`, `PROVIDER_LISTING_TYPES`, `PROVIDER_LISTING_PRIMARY_TYPE`, and `providerListingTypedData({ message, chain })` are exported from `@bifrostwallet/assets` for anyone building version 1 typed data themselves. For version 2, add `signedAt` (string), `nonce` (string) and `sealedHash` (bytes32) after `contentHash` and use domain version `"2"`, or use `getProviderListingVerification`.
 
 ## jsDelivr all.json (Legacy)
 

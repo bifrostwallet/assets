@@ -5,7 +5,10 @@ import path from "node:path";
 import { describe, test } from "node:test";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import type { ProviderInfo } from "../src/config.js";
-import { providerListingTypedDataFromInfo } from "../src/eip712.js";
+import {
+  providerListingTypedDataFromInfo,
+  providerListingV2TypedDataFromInfo,
+} from "../src/eip712.js";
 import { findProviderDirs, verifyProviderSignatures } from "../src/verify.js";
 
 /**
@@ -75,6 +78,97 @@ describe("Signature round-trip", () => {
     );
     return dir;
   }
+
+  async function writeV2Provider(
+    info: Partial<ProviderInfo>,
+    edit: Record<string, unknown> = {},
+    extraEntries: unknown[] = [],
+  ): Promise<string> {
+    const dir = await writeSignedProvider(info);
+    const fields = {
+      signedAt: "2026-11-23T09:00:00.123Z",
+      nonce: `bwn1.1763891999999.${"A".repeat(22)}.${"B".repeat(43)}`,
+      sealedHash: `0x${"ef".repeat(32)}`,
+    };
+    const typed = providerListingV2TypedDataFromInfo(info, 14, fields);
+    const signature = await account.signTypedData({
+      domain: typed.domain,
+      types: typed.types,
+      primaryType: typed.primaryType,
+      message: typed.message,
+    });
+    fs.writeFileSync(
+      path.join(dir, "signatures.json"),
+      JSON.stringify({
+        identityAddress: info.identityAddress,
+        verificationInstructions: "",
+        signatures: [
+          {
+            signerName: info.name,
+            signerAddress: account.address,
+            messageHash: typed.contentHash,
+            signature,
+            date: fields.signedAt,
+            version: 2,
+            nonce: fields.nonce,
+            sealedHash: fields.sealedHash,
+            ...edit,
+          },
+          ...extraEntries,
+        ],
+      }),
+    );
+    return dir;
+  }
+
+  test("a version 2 self-signature verifies", async () => {
+    const result = await verifyProviderSignatures(await writeV2Provider(baseInfo));
+    assert.equal(result.hasValidSelfSignature, true);
+    assert.deepEqual(result.invalidSignatures, []);
+  });
+
+  test("a version 2 signature breaks when its date, nonce or sealedHash is edited", async () => {
+    for (const edit of [
+      { date: "2031-05-01T00:00:00.000Z" },
+      { nonce: "bwn1.another" },
+      { sealedHash: `0x${"00".repeat(32)}` },
+    ]) {
+      const result = await verifyProviderSignatures(await writeV2Provider(baseInfo, edit));
+      assert.equal(result.hasValidSelfSignature, false, JSON.stringify(edit));
+      assert.match(result.invalidSignatures[0]?.reason ?? "", /does not match declared/);
+    }
+  });
+
+  test("an unknown version or a version 2 entry without its fields is invalid, not skipped", async () => {
+    const unknown = await verifyProviderSignatures(await writeV2Provider(baseInfo, { version: 3 }));
+    assert.match(unknown.invalidSignatures[0]?.reason ?? "", /Unsupported signature version/);
+    const missing = await verifyProviderSignatures(
+      await writeV2Provider(baseInfo, { nonce: undefined }),
+    );
+    assert.match(missing.invalidSignatures[0]?.reason ?? "", /missing its nonce/);
+  });
+
+  test("a version 2 self-signature and a version 1 co-signature verify side by side", async () => {
+    const cosigner = privateKeyToAccount(generatePrivateKey());
+    const v1 = providerListingTypedDataFromInfo(baseInfo, 14);
+    const cosignature = {
+      signerName: "Co-signer",
+      signerAddress: cosigner.address,
+      messageHash: v1.contentHash,
+      signature: await cosigner.signTypedData({
+        domain: v1.domain,
+        types: v1.types,
+        primaryType: v1.primaryType,
+        message: v1.message,
+      }),
+      date: "2026-11-23T09:05:00.000Z",
+    };
+    const result = await verifyProviderSignatures(
+      await writeV2Provider(baseInfo, {}, [cosignature]),
+    );
+    assert.equal(result.validSignatures.length, 2);
+    assert.equal(result.hasValidSelfSignature, true);
+  });
 
   test("a signed provider verifies with a valid self-signature", async () => {
     const dir = await writeSignedProvider(baseInfo);

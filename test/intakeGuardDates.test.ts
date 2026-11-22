@@ -56,6 +56,9 @@ function providerDoc(date: string, submittedAt = SUBMITTED_AT): Record<string, u
           messageHash: `0x${"12".repeat(32)}`,
           signature: `0x${"34".repeat(65)}`,
           date,
+          version: 2,
+          nonce: `bwn1.1763811972951.${"A".repeat(22)}.${"B".repeat(43)}`,
+          sealedHash: `0x${"56".repeat(32)}`,
         },
       ],
     },
@@ -87,6 +90,45 @@ function storedProviderDate(doc: Record<string, unknown>): string {
   assert.equal(rows.length, 1);
   return String(rows[0]?.date);
 }
+
+function listingEntry(doc: Record<string, unknown>): Record<string, unknown> {
+  const root = doc.signatures as { signatures: Record<string, unknown>[] };
+  return root.signatures[0] as Record<string, unknown>;
+}
+
+describe("intake guard listing signature shape", () => {
+  test("accepts one version 2 self-signature", () => {
+    assert.equal(storedProviderDate(providerDoc(SUBMITTED_AT)), SUBMITTED_AT);
+  });
+
+  test("refuses a version 1 entry (no version, nonce or sealedHash)", () => {
+    const doc = providerDoc(SUBMITTED_AT);
+    const entry = listingEntry(doc);
+    delete entry.version;
+    delete entry.nonce;
+    delete entry.sealedHash;
+    assert.throws(() => assertProviderIntakeDocument(doc, NOW), /signature version 2/);
+  });
+
+  test("refuses a missing nonce or a malformed sealedHash", () => {
+    const noNonce = providerDoc(SUBMITTED_AT);
+    delete listingEntry(noNonce).nonce;
+    assert.throws(() => assertProviderIntakeDocument(noNonce, NOW), /nonce/);
+    const badHash = providerDoc(SUBMITTED_AT);
+    listingEntry(badHash).sealedHash = "0x12";
+    assert.throws(() => assertProviderIntakeDocument(badHash, NOW), /Invalid sealedHash/);
+  });
+
+  test("refuses a second entry and a signature from another address", () => {
+    const two = providerDoc(SUBMITTED_AT);
+    const root = two.signatures as { signatures: Record<string, unknown>[] };
+    root.signatures.push({ ...listingEntry(two), signerAddress: attester });
+    assert.throws(() => assertProviderIntakeDocument(two, NOW), /exactly one self-signature/);
+    const stranger = providerDoc(SUBMITTED_AT);
+    listingEntry(stranger).signerAddress = attester;
+    assert.throws(() => assertProviderIntakeDocument(stranger, NOW), /from the identity address/);
+  });
+});
 
 describe("intake guard signature dates", () => {
   test("refuses a signature dated years after submission", () => {
