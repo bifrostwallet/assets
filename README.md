@@ -330,5 +330,6 @@ Report vulnerabilities as described in [SECURITY.md](SECURITY.md).
 
 ### Repository rules checked in CI
 
-- **Committed archives:** nobody reviews a zip, so a commit can swap an archive in `.yarn/cache` together with its `yarn.lock` checksum. The **Yarn cache** workflow runs on every pull request and, when the lockfile, the cache or the Yarn settings change, compares every committed archive with what the registry serves. It is a required check and fails with a DO NOT MERGE message. Local installs run the same check. Checked by `.github/workflows/yarn-cache.yml`.
+- **Build origin:** `package-attestations.json` records the source repository of every package that publishes provenance. The required **Supply chain** check verifies registry signatures and build attestations on every pull request and fails with a DO NOT MERGE message. Checked by `scripts/security/verify-attestations.sh` in `.github/workflows/supply-chain.yml`.
+- **Committed archives:** nobody reviews a zip, so a commit can swap an archive in `.yarn/cache` together with its `yarn.lock` checksum. The required **Supply chain** check compares every committed archive with what the registry serves on every pull request and fails with a DO NOT MERGE message. Local installs run the same check. Checked by `./yarn install --immutable --check-cache` in `.github/workflows/supply-chain.yml`.
 

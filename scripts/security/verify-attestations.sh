@@ -7,8 +7,8 @@
 #   ./yarn security:verify-attestations:update   record new packages in the baseline
 #
 # Needs the network (registry.npmjs.org and the Sigstore TUF repository), so it
-# is NOT part of security-checks.sh. CI runs it when yarn.lock changes
-# (.github/workflows/attestations.yml). Its rules are tested offline by
+# is NOT part of security-checks.sh. CI runs it on every pull request
+# (.github/workflows/supply-chain.yml). Its rules are tested offline by
 # verify-attestations-fixtures.sh.
 #
 # The cryptographic verification is not written here. It is done by the
