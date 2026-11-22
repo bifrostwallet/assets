@@ -2,6 +2,10 @@
 
 # Run verify-version-tags.sh against committed pass/fail workflow fixtures.
 # POSIX sh. VERSION_TAG_SCAN_DIR points the scanner at one fixture directory.
+#
+# A pass-* fixture must exit 0. A fail-* fixture must exit 1, print the policy
+# failure, and print every line of its expected-error file, so a scanner crash
+# or a rejection for the wrong reason does not count as a pass.
 
 set -eu
 
@@ -16,6 +20,21 @@ SCANNER=./scripts/security/verify-version-tags.sh
 FIXTURES=scripts/security/fixtures/version-tags
 FAILED=0
 
+# $1 fixture directory, $2 scanner output. Every line of expected-error must
+# appear in the output, after the policy failure header.
+fail_output_matches() {
+  grep -q 'version-tag policy failed' "$2" || return 1
+  if [ ! -s "$1/expected-error" ]; then
+    printf '%b\n' "${RED}Fixture $1 has no expected-error file${NC}" >&2
+    return 1
+  fi
+  while IFS= read -r _want || [ -n "$_want" ]; do
+    [ -n "$_want" ] || continue
+    grep -qF -- "$_want" "$2" || return 1
+  done <"$1/expected-error"
+  return 0
+}
+
 run_case() {
   expect=$1
   dir=$2
@@ -27,7 +46,7 @@ run_case() {
   fi
   if [ "$expect" = pass ] && [ "$status" -eq 0 ]; then
     printf 'pass %s\n' "$dir"
-  elif [ "$expect" = fail ] && [ "$status" -ne 0 ]; then
+  elif [ "$expect" = fail ] && [ "$status" -eq 1 ] && fail_output_matches "$dir" "$out"; then
     printf 'fail %s\n' "$dir"
   else
     printf '%b\n' "${RED}Fixture ${dir} expected ${expect} (exit ${status})${NC}" >&2

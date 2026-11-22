@@ -10,7 +10,8 @@
 # checked in CI).
 # Line-oriented POSIX sh + grep -E. Standard workflow layout only.
 # Unrecognized tags values, `{` flow mappings under on:, and unfiltered
-# push/create triggers fail closed.
+# push/create triggers fail closed, whether on: is a scalar, a flow sequence,
+# a block sequence (- push), or a mapping (including push: ~ / push: null).
 # VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
 set -eu
@@ -202,6 +203,14 @@ split_flow() {
   fi
 }
 
+# YAML null: empty, ~, or null in any case.
+is_null_value() {
+  case "$1" in
+    '' | '~') return 0 ;;
+  esac
+  [ "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" = "null" ]
+}
+
 is_block_scalar() {
   _ind=$(trim "$1")
   case "$_ind" in
@@ -221,6 +230,7 @@ scan_file() {
   run_indent=0
   in_on=0
   on_indent=0
+  on_child_indent=-1
   in_push=0
   push_indent=0
   push_filtered=0
@@ -268,6 +278,14 @@ scan_file() {
       esac
     fi
 
+    _lead=${line%%[![:space:]]*}
+    _indent=${#_lead}
+
+    # The first line inside on: sets the indent of its event entries.
+    if [ "$in_on" -eq 1 ] && [ "$on_child_indent" -lt 0 ] && [ "$_indent" -gt "$on_indent" ]; then
+      on_child_indent=$_indent
+    fi
+
     content=$trimmed
     case "$content" in
       -*)
@@ -278,15 +296,21 @@ scan_file() {
 
     case "$content" in
       *:*) ;;
-      *) continue ;;
+      *)
+        # A block-sequence event list (on: / - push / - create) means the same
+        # as on: [push, create]. Its entries are dash items with no colon.
+        if [ "$in_on" -eq 1 ] && [ "$_indent" -eq "$on_child_indent" ]; then
+          case "$trimmed" in
+            -*) note_unfiltered_event "$(unquote "$(strip_yaml_comment "$content")")" "$lineno" ;;
+          esac
+        fi
+        continue
+        ;;
     esac
 
     key=${content%%:*}
     key=$(unquote "$key")
     rest=$(strip_yaml_comment "$(trim "${content#*:}")")
-
-    _lead=${line%%[![:space:]]*}
-    _indent=${#_lead}
 
     if [ "$in_push" -eq 1 ] && [ "$_indent" -le "$push_indent" ]; then
       close_push
@@ -299,6 +323,7 @@ scan_file() {
     if [ "$key" = "on" ]; then
       in_on=1
       on_indent=$_indent
+      on_child_indent=-1
     fi
 
     if [ "$in_on" -eq 1 ]; then
@@ -333,7 +358,8 @@ scan_file() {
       note_unfiltered_event create "$lineno"
     fi
 
-    if [ "$in_on" -eq 1 ] && [ "$key" = "push" ] && [ -z "$rest" ]; then
+    # push: ~ and push: null are an unfiltered push, the same as an empty push:.
+    if [ "$in_on" -eq 1 ] && [ "$key" = "push" ] && is_null_value "$rest"; then
       in_push=1
       push_indent=$_indent
       push_filtered=0

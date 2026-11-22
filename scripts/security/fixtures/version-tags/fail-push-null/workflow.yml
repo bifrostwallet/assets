@@ -1,0 +1,10 @@
+name: Null push
+on:
+  push: null
+  pull_request:
+    branches: [main]
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
