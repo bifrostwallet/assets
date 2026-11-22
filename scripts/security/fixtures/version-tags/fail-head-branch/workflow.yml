@@ -1,0 +1,10 @@
+name: workflow_run head branch
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: ./deploy "${{ github.event.workflow_run.head_branch }}"

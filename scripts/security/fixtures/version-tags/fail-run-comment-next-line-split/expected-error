@@ -1,0 +1,2 @@
+ref or tag expression inline in run: (bind it to env)
+run: value starts on the next line without | or > (use run: |)

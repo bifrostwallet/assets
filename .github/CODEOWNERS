@@ -14,3 +14,10 @@
 /scripts/security/ @RareData
 /.github/dependabot.yml @RareData
 /patches/ @RareData
+
+# Stay aligned: workflows, all scripts and repo-level config (base-repository CODEOWNERS).
+/.github/ @RareData
+/scripts/ @RareData
+/.gitattributes @RareData
+/.gitignore @RareData
+/biome.jsonc @RareData

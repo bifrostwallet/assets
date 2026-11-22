@@ -30,7 +30,9 @@ cd "$ROOT"
 found=0
 for rel in \
   ".claude/settings.json" \
+  ".claude/settings.local.json" \
   ".vscode/tasks.json" \
+  ".vscode/extensions.json" \
   ".cursor/hooks.json" \
   ".cursor/hooks/" \
   ".husky/"

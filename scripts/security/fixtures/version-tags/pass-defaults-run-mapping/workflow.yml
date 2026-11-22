@@ -1,0 +1,19 @@
+name: defaults run mapping and env-bound refs
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+defaults:
+  run:
+    shell: bash
+    working-directory: app
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          echo "${{ env.A }}"
+          printf '%s\n' "$GITHUB_HEAD_REF" "$GITHUB_REF_NAME"
+        env:
+          A: x
+      - run: "echo plain # not a comment inside quotes"
+      - run: ./x # trailing comment

@@ -1,0 +1,11 @@
+name: run with a comment, value split on the next lines
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: # note
+          ./deploy ${{
+          github.head_ref }}
