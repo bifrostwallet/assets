@@ -1,0 +1,20 @@
+name: Banned YAML syntax
+x-base: &base
+  runs-on: ubuntu-24.04
+x-on: &-trig push
+x-cmd: &cmd echo ok
+on: *-trig
+jobs:
+  v:
+    <<: *base
+    steps:
+      - run: *cmd
+      - run: !!str echo plain
+---
+name: second document
+on: push
+jobs:
+  w:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok

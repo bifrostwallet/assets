@@ -1,0 +1,24 @@
+name: Shell globs are not YAML aliases
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+'] # *note
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    if: >-
+      github.event_name != 'pull_request'
+      && !contains(github.event.pull_request.labels.*.name, 'skip')
+    steps:
+      - name: single-line expression
+        if: github.ref != 'refs/heads/main'
+        run: echo 'v*' "**"
+      - run: |
+          case "$RUNNER_OS" in
+            *nux) echo linux ;;
+          esac
+          ls *_test
+          case "$author" in
+            *dependabot* | *)
+              echo skip
+              ;;
+          esac

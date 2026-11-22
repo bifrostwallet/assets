@@ -3,7 +3,8 @@
 # Fail when a GitHub Actions workflow under .github/workflows:
 #   - filters push tags with anything other than [0-9]+.[0-9]+.[0-9]+,
 #   - lets a push or create trigger run for every tag,
-#   - hides a tag filter inside a flow mapping the line scanner cannot read, or
+#   - hides a tag filter inside a flow mapping the line scanner cannot read,
+#   - uses a YAML anchor, alias, merge key, tag, or document marker, or
 #   - inlines a ref/tag expression inside a run: block, or
 #   - continues an inline run: value onto more lines, or starts it on the
 #     next line without | or > (plain or quoted scalars fold, so those
@@ -18,6 +19,15 @@
 # Unrecognized tags values, `{` flow mappings under on:, and unfiltered
 # push/create triggers fail closed, whether on: is a scalar, a flow sequence,
 # a block sequence (- push), or a mapping (including push: ~ / push: null).
+# Anchors (&), aliases (*), merge keys (<<), tags (! / !!), and document
+# markers (--- / ...) are banned at node start (line start, or after ":",
+# "? ", "- ", "[", "{", or ","). There is no alias-name grammar and no quote
+# parser: a quoted value that starts with one of these fails too. Only a
+# full-line # comment is skipped, so a trailing comment cannot hide an
+# alias. A line that starts with --- or ... (then whitespace or the end of
+# the line) is a document marker. | / > block-scalar bodies (run scripts,
+# if:, prompt:, group:) are literal, so shell globs and !contains stay
+# legal there.
 # VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
 set -eu
@@ -246,6 +256,23 @@ is_null_value() {
   [ "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" = "null" ]
 }
 
+# 0 when a structural line uses a YAML anchor, alias, merge key, tag, or
+# document marker. Callers skip | / > bodies. The raw line is scanned; only
+# a full-line # comment is ignored. Trailing comments are not stripped, so
+# an escaped quote cannot hide an alias. A line that starts with --- or ...
+# (then whitespace or the end of the line) is a document marker. && is not
+# an anchor. *, &, !, and << must sit at line start or after `:`, `? `,
+# `- `, `[`, `{`, or `,` (optional whitespace, then an optional quote).
+line_has_banned_yaml() {
+  _doc=$(trim "$1")
+  case "$_doc" in
+    \#*) return 1 ;;
+    --- | ---[[:space:]]* | ... | ...[[:space:]]*) return 0 ;;
+  esac
+  printf '%s\n' "$_doc" | grep -Eq \
+    '(^|:[[:space:]]*|(^|[[:space:]])[?-][[:space:]]+|(^|[[:space:]:,-])[[{][[:space:]]*|,[[:space:]]*)['"'"'"]?(\*|!|<<|&([^&]|$))'
+}
+
 is_block_scalar() {
   _ind=$(trim "$1")
   case "$_ind" in
@@ -277,10 +304,27 @@ scan_file() {
   in_tags=0
   tags_count=0
   tags_at=0
+  in_yaml_block=0
+  yaml_block_indent=0
   lineno=0
 
   while IFS= read -r line || [ -n "$line" ]; do
     lineno=$((lineno + 1))
+    # Anchors, aliases, merge keys, tags, and document markers are YAML
+    # structure. | / > bodies are literal (shell, if: expressions, prompts).
+    _skip_banned=0
+    if [ "$in_yaml_block" -eq 1 ]; then
+      _lead=${line%%[![:space:]]*}
+      _body=$(trim "$line")
+      if [ -z "$_body" ] || [ "${#_lead}" -gt "$yaml_block_indent" ]; then
+        _skip_banned=1
+      else
+        in_yaml_block=0
+      fi
+    fi
+    if [ "$_skip_banned" -eq 0 ] && line_has_banned_yaml "$line"; then
+      record "$lineno" "YAML anchors, aliases, merge keys, tags, and document markers are not supported"
+    fi
     trimmed=$(trim "$line")
     if [ -z "$trimmed" ]; then
       continue
@@ -418,6 +462,16 @@ ${trimmed}"
       esac
     fi
 
+    # A | or > value owns the deeper lines that follow. An empty value does not
+    # (jobs: and steps: are mappings, not block scalars).
+    if [ -n "$rest" ] && is_block_scalar "$rest"; then
+      in_yaml_block=1
+      yaml_block_indent=$_indent
+      case "$trimmed" in
+        -*) yaml_block_indent=$((_indent + 2)) ;;
+      esac
+    fi
+
     if [ "$key" = "run" ]; then
       # Block scalars and inline values both own the more-indented lines that
       # follow: a plain, single- or double-quoted value can continue there.
@@ -510,7 +564,7 @@ if [ -n "$cleaned" ]; then
   echo
   printf '%s\n' "$matches"
   echo
-  printf '%b\n' "${YELLOW}Tag filters must be [0-9]+.[0-9]+.[0-9]+. Bind ref and tag expressions to step env; do not inline them in run.${NC}"
+  printf '%b\n' "${YELLOW}Tag filters must be [0-9]+.[0-9]+.[0-9]+. Bind ref and tag expressions to step env; do not inline them in run. YAML anchors, aliases, merge keys, tags, and document markers are not supported.${NC}"
   exit 1
 fi
 
