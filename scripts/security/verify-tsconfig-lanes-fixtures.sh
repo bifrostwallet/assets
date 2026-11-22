@@ -111,6 +111,32 @@ put fail-nested apps/api/tsconfig.json "$NODENEXT"
 put fail-nested scripts/tsconfig.scripts.json '{ "compilerOptions": { "module": "ES2022", "moduleResolution": "node" } }'
 check fail fail-nested scripts/tsconfig.scripts.json
 
+put fail-extends-node-modules tsconfig.json '{ "extends": "./node_modules/expo/tsconfig.base" }'
+put fail-extends-node-modules node_modules/expo/tsconfig.base.json '{ "compilerOptions": { "module": "ESNext" } }'
+check fail fail-extends-node-modules tsconfig.json
+
+put fail-extends-unscanned-name tsconfig.json '{ "extends": "./tsconfig-base.json" }'
+put fail-extends-unscanned-name tsconfig-base.json '{ "compilerOptions": { "module": "commonjs" } }'
+check fail fail-extends-unscanned-name tsconfig.json
+
+put fail-extends-config-dir tsconfig.json '{ "extends": "./config/base.json" }'
+put fail-extends-config-dir config/base.json '{ "compilerOptions": { "module": "ESNext", "moduleResolution": "bundler" } }'
+check fail fail-extends-config-dir tsconfig.json
+
+put fail-extends-missing tsconfig.json '{ "extends": "./tsconfig.base.json" }'
+check fail fail-extends-missing tsconfig.json
+
+put fail-extends-outside apps/web/tsconfig.json '{ "extends": "../../../shared/tsconfig.json" }'
+check fail fail-extends-outside apps/web/tsconfig.json
+
+put pass-extends-no-suffix tsconfig.base.json "$NODENEXT"
+put pass-extends-no-suffix tsconfig.json '{ "extends": "./tsconfig.base" }'
+check pass pass-extends-no-suffix
+
+put fail-extends-chain-off-lane tsconfig.base.json '{ "compilerOptions": { "module": "commonjs" } }'
+put fail-extends-chain-off-lane tsconfig.json '{ "extends": "./tsconfig.base.json" }'
+check fail fail-extends-chain-off-lane tsconfig.base.json
+
 if [ "$FAILED" -ne 0 ]; then
   exit 1
 fi

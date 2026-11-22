@@ -12,9 +12,12 @@
 #             UI that a bundler emits: Vite web apps, Expo/Metro.
 #
 # A config that sets neither key passes only if it extends a local tsconfig
-# ("./" or "../"), whose own lane is checked here too. Extending a package
-# config (e.g. expo/tsconfig.base) is not enough: restate the lane. Casing is
-# ignored (tsc accepts nodenext / NodeNext).
+# ("./" or "../") that this scan also checks: the target must resolve (".json"
+# added as tsc does) to a scanned tsconfig*.json outside node_modules/.yarn,
+# so its own lane is checked here too. Extending a package config (e.g.
+# expo/tsconfig.base, or ./node_modules/...) or a file the scan skips (e.g.
+# ./config/base.json) is not enough: restate the lane. Casing is ignored (tsc
+# accepts nodenext / NodeNext).
 #
 # Scans tracked and untracked (not ignored) tsconfig*.json files. Runs before
 # install: POSIX sh entrypoint, embedded Node stdlib program, no packages.
@@ -49,6 +52,7 @@ fi
 
 cat >"$LANES_JS" <<'EOF'
 const fs = require("node:fs");
+const path = require("node:path");
 
 // tsconfig is JSONC: drop comments and trailing commas outside strings.
 function parseJsonc(text) {
@@ -89,6 +93,20 @@ const files = fs
   .filter((f) => !/(^|\/)(node_modules|\.yarn)\//.test(f))
   .filter((f) => fs.existsSync(f));
 
+const scanned = new Set(files.map((f) => path.normalize(f)));
+
+// Resolve a local extends the way tsc does (".json" added when the path has
+// no such file). Returns the normalized path, or null if it is not a scanned
+// tsconfig (missing, outside the repo, under node_modules/.yarn, or a name
+// the scan skips).
+function localTarget(file, ext) {
+  let target = path.normalize(path.join(path.dirname(file), ext));
+  if (!fs.existsSync(target) && fs.existsSync(target + ".json")) target += ".json";
+  if (target.startsWith("..") || path.isAbsolute(target)) return null;
+  if (/(^|\/)(node_modules|\.yarn)\//.test(target)) return null;
+  return scanned.has(target) ? target : null;
+}
+
 const failures = [];
 for (const file of files) {
   let config;
@@ -107,7 +125,16 @@ for (const file of files) {
   const ext = typeof config.extends === "string" ? config.extends : undefined;
 
   if (mod === undefined && res === undefined) {
-    if (ext && (ext.startsWith("./") || ext.startsWith("../"))) continue;
+    if (ext && (ext.startsWith("./") || ext.startsWith("../"))) {
+      if (localTarget(file, ext)) continue;
+      failures.push(
+        file +
+          ": no module/moduleResolution (extends " +
+          ext +
+          ", which is not a tsconfig*.json this check scans: restate the lane)",
+      );
+      continue;
+    }
     failures.push(
       file +
         ": no module/moduleResolution" +

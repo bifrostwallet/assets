@@ -3,6 +3,8 @@
 # Tests when the ./yarn launcher adds --check-cache to an install. Offline:
 # the launcher is copied next to a stand-in Yarn binary that prints the
 # arguments it was given. POSIX sh.
+# YARN_LAUNCHER tests another launcher instead of ./yarn (a nested Yarn
+# project with its own committed cache, e.g. a sidecar).
 
 set -eu
 
@@ -11,6 +13,7 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
+LAUNCHER=${YARN_LAUNCHER:-$ROOT/yarn}
 WORK_DIR=$(mktemp -d)
 # EXIT cleans the temp repositories. INT/TERM must exit explicitly under POSIX.
 trap 'rm -rf "$WORK_DIR"' EXIT
@@ -23,7 +26,7 @@ FAILED=0
 make_repo() {
   repo="$WORK_DIR/$1"
   mkdir -p "$repo/.yarn/releases" "$repo/scripts/security"
-  cp "$ROOT/yarn" "$repo/yarn"
+  cp "$LAUNCHER" "$repo/yarn"
   printf '%s\n' 'process.stdout.write(process.argv.slice(2).join(" "));' \
     >"$repo/.yarn/releases/yarn-stand-in.cjs"
   printf 'yarnPath: .yarn/releases/yarn-stand-in.cjs\n%s\n' "$2" >"$repo/.yarnrc.yml"

@@ -25,7 +25,7 @@ SECURITY_STAGED_FILES=$(git diff --cached --name-only -- \
   '.gitignore' \
   '.gitattributes' \
   '.env*' \
-  'tsconfig.json' \
+  '*tsconfig*.json' \
   'scripts/security/**')
 
 if [ -n "$SECURITY_STAGED_FILES" ]; then

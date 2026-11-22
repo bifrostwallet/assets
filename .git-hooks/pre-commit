@@ -10,11 +10,11 @@ fi
 
 # Block IDE/agent/git-hook autostart persistence (Shai-Hulud-style worms).
 BLOCKED_IDE=$(git diff --cached --name-only --diff-filter=ACMR \
-  | grep -E '^(\.claude/settings\.json|\.vscode/tasks\.json|\.cursor/hooks\.json|\.cursor/hooks/|\.husky/)' || true)
+  | grep -E '^(\.claude/settings\.json|\.claude/settings\.local\.json|\.vscode/tasks\.json|\.vscode/extensions\.json|\.cursor/hooks\.json|\.cursor/hooks/|\.husky/)' || true)
 if [ -n "$BLOCKED_IDE" ]; then
   echo "Refusing to commit IDE/agent autostart files:"
   echo "$BLOCKED_IDE"
-  echo "These paths are used as malware persistence (Claude/Cursor hooks, VS Code folderOpen, nested git-hook installers)."
+  echo "These paths are used as malware persistence (Claude/Cursor hooks, VS Code folderOpen/extensions, nested git-hook installers)."
   exit 1
 fi
 ./scripts/security/block-ide-autostart-hooks.sh || exit 1
