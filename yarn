@@ -63,7 +63,7 @@ export YARN_CACHE_FOLDER="$ROOT/.yarn/cache"
 # serves. Added to `install` where the cache is the project's
 # (enableGlobalCache: false). Local installs only: not in CI, and image builds
 # set CI=true so they do not download every package again. Pull requests are
-# checked by the required Yarn cache workflow. Tested by
+# checked by the required Supply chain workflow. Tested by
 # scripts/security/yarn-launcher-fixtures.sh.
 if [ "${CI:-}" != "true" ] && [ "${GITHUB_ACTIONS:-}" != "true" ] &&
   grep -q '^enableGlobalCache:[[:space:]]*false[[:space:]]*$' "$YARNRC"; then

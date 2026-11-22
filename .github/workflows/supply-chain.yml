@@ -1,0 +1,99 @@
+# Supply chain checks that need the network, so they are not part of
+# security-checks.sh. One job, so one required status check: "Supply chain".
+#
+# - Build origin: registry signatures and build attestations (npm provenance)
+#   of every package in yarn.lock, against package-attestations.json.
+# - Committed archives: nobody reviews a zip, so a commit can swap an archive in
+#   .yarn/cache together with its yarn.lock checksum, and a plain install
+#   accepts that. --check-cache downloads every package again and fails the
+#   install (YN0018) when a committed archive is not what the registry serves.
+#
+# Both run on every pull request: a required check must report on every pull
+# request, and the job fits in the one minute GitHub bills a job for anyway.
+# Image builds install from the committed cache without --check-cache (CI=true
+# in Dockerfiles), so this job is the gate: release tags are cut from main, and
+# main only changes through pull requests. A repository with a second Yarn
+# project (its own yarn.lock and .yarn/cache) adds it to both checks, as
+# image-proxy does for svg-puppeteer. See README.md, Security: Repository rules
+# checked in CI.
+
+name: Supply chain
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  COREPACK_ENABLE: "0"
+
+jobs:
+  supply-chain:
+    name: Supply chain
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      # The pinned Node and the Yarn binary hash, before anything runs from them.
+      - name: Run security checks
+        id: security
+        run: ./scripts/security/security-checks.sh
+
+      # Nothing is installed: the verifier is the npm inside the pinned Node.
+      - name: Verify registry signatures and build attestations
+        id: attestations
+        run: ./scripts/security/verify-attestations.sh
+
+      # Runs even when the attestation check failed, so one run reports both.
+      # CI=true here, so the launcher does not add the flag: it is spelled out.
+      - name: Check committed archives against the registry
+        id: cache
+        if: ${{ !cancelled() && steps.security.outcome == 'success' }}
+        run: ./yarn install --immutable --check-cache
+
+      - name: Report a failed supply chain check
+        if: failure()
+        env:
+          ATTESTATIONS: ${{ steps.attestations.outcome }}
+          CACHE: ${{ steps.cache.outcome }}
+        run: |
+          {
+            echo "## 🚨 DO NOT MERGE: supply chain check failed"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$ATTESTATIONS" = "failure" ]; then
+            MSG="Package attestations do not match package-attestations.json."
+            MSG="$MSG If this pull request adds or upgrades packages on purpose, run"
+            MSG="$MSG ./yarn security:verify-attestations:update, review the source repository"
+            MSG="$MSG of every new entry, and commit the file. If a package lost its provenance"
+            MSG="$MSG or its source repository changed, treat it as a possible supply-chain"
+            MSG="$MSG attack. Details are in the attestation step above."
+            echo "::error title=DO NOT MERGE: attestations do not match the baseline::$MSG"
+            printf '%s\n\n' "**Build origin:** $MSG" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "$CACHE" = "failure" ]; then
+            MSG="A committed package archive in .yarn/cache does not match what the npm"
+            MSG="$MSG registry serves, or the registry check could not finish. Treat this as"
+            MSG="$MSG a possible supply-chain attack: do not merge, do not install this branch"
+            MSG="$MSG locally, and find out which commit changed the archive (see the YN0018"
+            MSG="$MSG lines above)."
+            echo "::error title=DO NOT MERGE: Yarn cache does not match the registry::$MSG"
+            printf '%s\n\n' "**Committed archives:** $MSG" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "$ATTESTATIONS" != "failure" ] && [ "$CACHE" != "failure" ]; then
+            MSG="The pinned Node, the Yarn binary or another security check failed"
+            MSG="$MSG before the network checks ran. See the security checks step above."
+            echo "::error title=DO NOT MERGE: security checks failed::$MSG"
+            printf '%s\n' "**Security checks** failed before the network checks ran. See the job log." >> "$GITHUB_STEP_SUMMARY"
+          fi
