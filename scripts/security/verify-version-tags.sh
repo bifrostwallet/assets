@@ -239,13 +239,16 @@ split_flow() {
   fi
 }
 
-# Record an error when $1 contains an unquoted YAML alias value (*name),
-# including after a key and as a list item (- *name). A star inside quotes,
-# a comment, or a glob ('v*', "**") is not an alias.
+# Record an error when $1 contains an unquoted YAML alias (*name). That
+# includes a value after a key, a list item (- *name), and a line that
+# starts with *name. The name may be any non-space character other than a
+# flow indicator (,[]{}). A star inside quotes, a comment, or a glob
+# ('v*', "**") is not an alias.
 note_yaml_alias() {
   _s=$(strip_yaml_comment "$1")
   _q=
-  _at=0
+  # A line may open with an alias (*name, or *name: as a key).
+  _at=1
   _tok=1
   _rest=$_s
   while [ -n "$_rest" ]; do
@@ -271,7 +274,9 @@ note_yaml_alias() {
     if [ "$_at" -eq 1 ] && [ "$_c" = '*' ]; then
       _n=${_rest%"${_rest#?}"}
       case "$_n" in
-        [A-Za-z0-9_]*)
+        '' | ' ' | '	' | ',' | '[' | ']' | '{' | '}')
+          ;;
+        *)
           record "$lineno" "YAML aliases are not supported in workflows"
           return
           ;;
@@ -285,23 +290,12 @@ note_yaml_alias() {
       esac
     else
       case "$_c" in
-        ':' | '[' | ',' | '{') _at=1 ;;
+        ':' | '[' | ',' | '{' | '?') _at=1 ;;
         *) _at=0 ;;
       esac
     fi
     _tok=0
   done
-
-  _s=$(trim "$_s")
-  case "$_s" in
-    \*[A-Za-z0-9_]*)
-      _name=${_s#\*}
-      case "$_name" in
-        *[!A-Za-z0-9_-]*) ;;
-        *) record "$lineno" "YAML aliases are not supported in workflows" ;;
-      esac
-      ;;
-  esac
 }
 
 # YAML null: empty, ~, or null in any case.
@@ -352,10 +346,20 @@ scan_file() {
       continue
     fi
 
+    # | and > run text is the command, not a YAML alias node.
+    _check_alias=1
     case "$trimmed" in
-      \#*) ;;
-      *) note_yaml_alias "$line" ;;
+      \#*) _check_alias=0 ;;
     esac
+    if [ "$_check_alias" -eq 1 ] && [ "$in_run" -eq 1 ] && [ "$run_inline" -eq 0 ]; then
+      _lead=${line%%[![:space:]]*}
+      if [ "${#_lead}" -gt "$run_indent" ]; then
+        _check_alias=0
+      fi
+    fi
+    if [ "$_check_alias" -eq 1 ]; then
+      note_yaml_alias "$line"
+    fi
 
     if [ "$in_run" -eq 1 ]; then
       _lead=${line%%[![:space:]]*}

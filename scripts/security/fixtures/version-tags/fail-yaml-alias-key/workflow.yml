@@ -1,0 +1,9 @@
+name: Alias key
+trigger: &p push
+on:
+  *p : ~
+jobs:
+  v:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo ok
