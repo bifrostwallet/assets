@@ -71,7 +71,9 @@ jobs:
       && (github.event.comment.author_association == 'OWNER'
       || github.event.comment.author_association == 'MEMBER'
       || github.event.comment.author_association == 'COLLABORATOR'))
-    runs-on: ubuntu-latest
+    # Pinned image, the same as the other workflows. Not ubuntu-latest, which
+    # moves to a new image without a change in this repository.
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: read
@@ -248,7 +250,7 @@ jobs:
 
             ----- REPO CONTEXT (edit this paragraph when copying this workflow) -----
             This repository follows the Stay aligned baseline (Node TypeScript, Yarn, Biome, and POSIX sh).
-            Conventions live in the README and .cursor/rules, plus AGENTS.md or CLAUDE.md when present.
+            Conventions live in CLAUDE.md and the README.
             Biome, typecheck, ShellCheck, and yamllint stay clean, and Yarn, hook, and integrity pins stay intact.
             Cursor Bugbot already reviews every pull request. Linked issues use DEV-xxxx ids in the title,
             branch, or body when the change tracks a Linear issue. Give extra scrutiny to supply-chain pins,
@@ -366,6 +368,20 @@ jobs:
         run: |
           set -eu
           if [ -z "${STRUCTURED:-}" ]; then
+            # The action skips, and exits 0, when this file differs from the
+            # default branch. That skip is expected on a pull request that
+            # edits the workflow; review runs after the edit is on the base.
+            base=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json baseRefOid --jq .baseRefOid)
+            head=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefOid --jq .headRefOid)
+            printf '%s' "$base" | grep -Eq '^[0-9a-f]{40}$'
+            printf '%s' "$head" | grep -Eq '^[0-9a-f]{40}$'
+            base_blob=$(gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/claude-code-review.yml?ref=${base}" --jq .sha)
+            head_blob=$(gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/claude-code-review.yml?ref=${head}" --jq .sha)
+            if [ "$base_blob" != "$head_blob" ]; then
+              echo "Claude skipped review because claude-code-review.yml differs from the pull request base."
+              echo "The action requires that file to match the default branch. Review runs after this change is merged."
+              exit 0
+            fi
             echo "Claude did not return structured review output, so no summary comment was posted." >&2
             exit 1
           fi
