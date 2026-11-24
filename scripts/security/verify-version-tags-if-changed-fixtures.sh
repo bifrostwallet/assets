@@ -27,6 +27,13 @@ FAILED=0
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT INT HUP TERM
 
+# TMPDIR can be inside a checkout. Without a ceiling, git in a temporary
+# directory that has no repository of its own would find that checkout, and
+# the "no git repository" cases would test it instead.
+WORK=$(CDPATH='' cd -- "$WORK" && pwd -P)
+GIT_CEILING_DIRECTORIES=$WORK
+export GIT_CEILING_DIRECTORIES
+
 git_q() {
   git -c user.name=fixture -c user.email=fixture@example.invalid \
     -c commit.gpgsign=false -c core.hooksPath=/dev/null "$@" >/dev/null 2>&1
