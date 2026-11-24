@@ -69,9 +69,15 @@ tags
 TAGS
 cscope.out
 
-# Claude Code — keep project settings out of the tree; .claude/settings.json
-# is a known SessionStart persistence surface in Shai-Hulud-style npm worms.
-.claude/
+# Settings stay out (and are also blocked by
+# scripts/security/block-ide-autostart-hooks.sh). Skills are NOT gitignored:
+# an agent loads them, so an unexpected one should show as untracked. They are
+# committed only with their hashes in .claude/skills.sha256
+# (scripts/security/verify-agent-skills.sh).
+.claude/*
+!.claude/skills/
+!.claude/skills.sha256
+!.claude/skills-allowlist.txt
 
 # Cursor project hooks — sessionStart-style autostart (rules/commands/mcp stay allowed).
 .cursor/hooks.json

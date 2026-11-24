@@ -19,6 +19,7 @@ SECURITY_STAGED_FILES=$(git diff --cached --name-only -- \
   '.pnp.loader.mjs' \
   '.github/**' \
   '.git-hooks/**' \
+  '.claude/**' \
   'scripts/install-git-hooks.sh' \
   '.node-version' \
   '.nvmrc' \

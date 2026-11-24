@@ -12,6 +12,7 @@ echo
 
 printf '%b\n' "${YELLOW}1 of 6: Blocking IDE/agent autostart persistence files...${NC}"
 ./scripts/security/block-ide-autostart-hooks.sh
+./scripts/security/verify-agent-skills.sh
 echo
 
 printf '%b\n' "${YELLOW}2 of 6: Verifying Node.js version...${NC}"

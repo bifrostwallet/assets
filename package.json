@@ -37,6 +37,7 @@
     "lint:fix": "biome check --write",
     "lint:shell": "./scripts/lint-shell.sh",
     "lint:yaml": "./scripts/lint-yaml.sh",
+    "lint:comments": "./scripts/lint-comments.sh",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json --noEmit",
     "test": "tsc && node --test \"build/test/**/*.test.js\"",
     "security:check": "./scripts/security/security-checks.sh",

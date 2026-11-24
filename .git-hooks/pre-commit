@@ -24,6 +24,10 @@ if ./scripts/security/check-core-changes.sh; then
   # Run security checks directly (not through yarn) for security reasons
   # to ensure we're not relying on potentially compromised tools
   ./scripts/security/security-checks.sh || exit 1
+  # Workflow policy is the Security / Workflows job, not part of
+  # security-checks.sh. Running it here keeps a commit failing on the same
+  # workflow mistakes.
+  ./scripts/security/verify-gha-workflows.sh || exit 1
 fi
 
 # Workflow tag rules, only when a file under .github/ or the check is staged.
@@ -52,7 +56,14 @@ STAGED_SHELL=$(git diff --cached --name-only --diff-filter=ACMR \
 STAGED_YAML=$(git diff --cached --name-only --diff-filter=ACMR \
   | grep -E '\.ya?ml$' || true)
 
-if [ -z "$STAGED_FILES" ] && [ -z "$STAGED_SHELL" ] && [ -z "$STAGED_YAML" ]; then
+# Comment ban: any staged JS/TS change, deletions included (a deleted file can
+# leave the baseline out of date), and any change to the baseline itself.
+STAGED_COMMENTS=$(git diff --cached --name-only --diff-filter=ACMRD -- \
+  '*.ts' '*.tsx' '*.mts' '*.cts' '*.js' '*.jsx' '*.mjs' '*.cjs' \
+  scripts/comments-baseline.txt \
+  | grep -vE '(^|/)\.pnp(\.|$)|(^|/)\.yarn/' || true)
+
+if [ -z "$STAGED_FILES" ] && [ -z "$STAGED_SHELL" ] && [ -z "$STAGED_YAML" ] && [ -z "$STAGED_COMMENTS" ]; then
   echo "No TS/JS/JSON, shell, or YAML files staged. Skipping quality gates."
   exit 0
 fi
@@ -101,4 +112,12 @@ if [ -n "$STAGED_YAML" ]; then
   elif [ -x ./scripts/lint-yaml.sh ]; then
     YAML_LINT_LABEL=staged ./scripts/lint-yaml.sh || exit 1
   fi
+fi
+
+# Comment ban: every tracked file, because the baseline is one list for the
+# repo. --staged reads the index (not untracked files or unstaged edits) and
+# compares the baseline's line count with HEAD. A new hash is allowed only
+# when that count does not grow.
+if [ -n "$STAGED_COMMENTS" ] && [ -x ./scripts/lint-comments.sh ]; then
+  ./scripts/lint-comments.sh check --staged || exit 1
 fi

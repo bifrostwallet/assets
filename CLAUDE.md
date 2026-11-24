@@ -7,6 +7,7 @@ Public catalog of providers, validators, tokens, contracts, and dapps for Bifros
 - Node is pinned at 24.22.3 in `.node-version` and `.nvmrc`. Run commands with `./yarn` (Yarn 4.18.1). Do not use Corepack or a global Yarn.
 - Yarn and hook pins stay intact: the `packageManager` checksum, `.yarn/releases`, `yarn.lock`, `.yarnrc.yml`, the committed PnP files, and `.git-hooks`. Do not add a dependency, another package manager, or another hook installer. `enableScripts` stays false. Do not hand-edit `.yarn/cache` archives or `package-attestations.json`.
 - Biome and TypeScript stay clean. Run `./yarn lint` and `./yarn typecheck`. ShellCheck and yamllint stay clean too (`./yarn lint:shell`, `./yarn lint:yaml`). Tests are `./yarn test`. Scripts are POSIX `sh`.
+- Do not write comments in JS or TS. `./yarn lint:comments` fails on any comment that is not in `scripts/comments-baseline.txt`, and that list can only shrink. Put a decision the code cannot show in `docs/adr/`. Tool directives and comments that start with "Backwards compatibility" are allowed.
 - Do not commit `.env` files or outreach data. `./yarn verify:no-contact-pii` must pass.
 
 ## Listings
