@@ -54,6 +54,11 @@ jobs:
         with:
           persist-credentials: false
 
+      # Always runs the check on a release, and on a manual run (no parent
+      # commit in this checkout).
+      - name: Check workflow tag rules
+        run: ./scripts/security/verify-version-tags-if-changed.sh
+
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:

@@ -26,6 +26,9 @@ if ./scripts/security/check-core-changes.sh; then
   ./scripts/security/security-checks.sh || exit 1
 fi
 
+# Workflow tag rules, only when a file under .github/ or the check is staged.
+./scripts/security/verify-version-tags-if-changed.sh --staged || exit 1
+
 # --- Quality gates (Biome / typecheck / ShellCheck / yamllint) ---
 # Keep this block aligned with base-repository .git-hooks/pre-commit.
 
