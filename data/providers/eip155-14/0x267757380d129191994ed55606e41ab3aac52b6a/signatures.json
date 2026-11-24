@@ -1,0 +1,16 @@
+{
+  "identityAddress": "0x267757380d129191994ed55606e41ab3aac52b6a",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. An entry's version field selects the typed data; an entry without it is version 1. Domain: name \"Bifrost Assets\", version \"1\" or \"2\" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash. logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "signatures": [
+    {
+      "signerName": "FTSO EU",
+      "signerAddress": "0x267757380d129191994ed55606e41ab3aac52b6a",
+      "messageHash": "0x2de16c8deba54faffac18b6af97e3eef0099efded9ea907eb6e45a12d892f7e4",
+      "signature": "0xd6af0429bd60bc0d9e2bdd15d2113119a7827e671f4a5b7504ed5cdf2a4669da241760b39c8d2772b0c5c5d4755fe5cdc73bcba8e75931af230192bcde17025f1c",
+      "date": "2026-11-22T16:21:37.496Z",
+      "version": 2,
+      "nonce": "bwn1.1795368097496.KQHwj9zfsQ5RqF_olq1p3w.9oXbtDXGnBX6-kqni5qabRuxph1IOWwEBLfTqEx8Xsc",
+      "sealedHash": "0xdfaf910f4d44540ddeb3bb135711bc31b9067692898e9b5fb6b04a06b058a154"
+    }
+  ]
+}
