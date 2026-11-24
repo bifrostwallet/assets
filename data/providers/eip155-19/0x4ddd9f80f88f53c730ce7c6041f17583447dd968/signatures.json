@@ -1,0 +1,16 @@
+{
+  "identityAddress": "0x4ddd9f80f88f53c730ce7c6041f17583447dd968",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. An entry's version field selects the typed data; an entry without it is version 1. Domain: name \"Bifrost Assets\", version \"1\" or \"2\" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash. logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "signatures": [
+    {
+      "signerName": "HEWG",
+      "signerAddress": "0x4ddd9f80f88f53c730ce7c6041f17583447dd968",
+      "messageHash": "0xa5726b5e85c7302c1dbb9331c155f97ec242ab9e734b1f89446650d8aad578ab",
+      "signature": "0x6a557fe4ffce9dfae50c9c1bfac9e659db12438dfe699d41d4837fba85f7b3c057b99223c1499f9b523ea98b553047662d74210f3ff6d774cc9ff7f7d96b19811b",
+      "date": "2026-11-22T20:48:11.834Z",
+      "version": 2,
+      "nonce": "bwn1.1795384091834.WiOTwsYYCd-eScwi9aBKFw.K78Ci-KnNLqheItG69JS5PMOS76TDrgAHw-Zl0KT3Kg",
+      "sealedHash": "0x72938087e94023a17986586b0b27ea34d342226e0bc8a4e9de86ee063fef41d5"
+    }
+  ]
+}
