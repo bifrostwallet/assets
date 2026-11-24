@@ -4,7 +4,11 @@
   "logoURL": "providers/eip155-19/0xbb99dda7b6dce88908dcd684ab7bf1a90f084401/logo.webp",
   "logoHash": "8bec77912a0dc419ad246def99a62e6f4648247fe2499b2127b40ba6cb304d5a",
   "websiteURL": "https://www.ftso.eu",
-  "links": {},
+  "links": {
+    "github": "https://github.com/ftsoeu",
+    "x": "https://x.com/ftso_eu",
+    "telegram": "https://t.me/ftso_eu"
+  },
   "identityAddress": "0xbb99dda7b6dce88908dcd684ab7bf1a90f084401",
   "delegationAddress": "0x010a16c53f33e4d93892f00897965578b55a8cfc",
   "signingPolicyAddress": "0x8481da9fb718e36121d67be580531fac1ef1349f",
@@ -12,6 +16,7 @@
   "submitSignaturesAddress": "0x9be9e883fdaa4cf0353bd5677e2d27973e9cee82",
   "publicKey": "0x22206bab9c235f82ad230aa2a69cb3aac02507fe40e8c8451f918dd8175f6ba12f0a19f8fc166486c0edda4ba51ac9ad8f31917a2522a2c4737ca3edaa743995",
   "validators": [],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": true,
