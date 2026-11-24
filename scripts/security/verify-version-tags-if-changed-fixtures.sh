@@ -11,8 +11,16 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+# The pre-commit hook runs this script, and git gives a hook its own
+# variables (GIT_INDEX_FILE, sometimes GIT_DIR and GIT_WORK_TREE). With them
+# set, the git commands below would act on the repository being committed to
+# instead of the temporary ones.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY \
+  GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_COMMON_DIR GIT_PREFIX
+
 ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
 SCRIPT="$ROOT/scripts/security/verify-version-tags-if-changed.sh"
+SELF="$ROOT/scripts/security/verify-version-tags-if-changed-fixtures.sh"
 MARK='stand-in check ran'
 FAILED=0
 
@@ -137,6 +145,23 @@ new_repo not-a-repository
 rm -rf "$repo/.git"
 expect 'no git repository' ran "$repo"
 expect 'no git repository, staged' ran "$repo" --staged
+
+# Every case again as the pre-commit hook would run them: git's hook
+# variables set, here pointing at a decoy that must stay empty.
+if [ -z "${VERSION_TAGS_FIXTURES_NESTED:-}" ]; then
+  decoy="$WORK/decoy"
+  mkdir -p "$decoy"
+  if VERSION_TAGS_FIXTURES_NESTED=1 GIT_DIR="$decoy/.git" GIT_WORK_TREE="$decoy" \
+    GIT_INDEX_FILE="$decoy/index" "$SELF" >"$WORK/nested.out" 2>&1 \
+    && [ -z "$(ls -A "$decoy")" ]; then
+    printf 'ran every case again with git hook variables set\n'
+  else
+    printf '%b\n' "${RED}The cases fail, or touch the outer repository, when git hook variables are set${NC}" >&2
+    cat "$WORK/nested.out" >&2
+    ls -A "$decoy" >&2
+    FAILED=1
+  fi
+fi
 
 if [ "$FAILED" -ne 0 ]; then
   exit 1
