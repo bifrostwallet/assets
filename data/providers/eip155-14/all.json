@@ -582,7 +582,9 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-14/0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94/logo.webp",
     "logoHash": "38cd71e542dbf4082e0b94c12f08b4a6e91af326707c9bd58569fa962a6e21f5",
     "websiteURL": "https://hewg.org",
-    "links": {},
+    "links": {
+      "github": "https://github.com/hewg-org"
+    },
     "identityAddress": "0x631c6ed44e4dfc461c9fbb583651aba06a8e2f94",
     "delegationAddress": "0xb6d68ea6c4de734ec481f92afd1c35f712441b73",
     "signingPolicyAddress": "0x3f587672c6a33c975f7efa2183e93e442c8fe88c",
@@ -593,6 +595,7 @@
       "NodeID-2hCHs6H4Vde8mdGGKidMvT4Fjit7goCBT",
       "NodeID-BrxkEdpK8FvkL79H1hNkv1bbu6T7fhxAd"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
@@ -955,6 +958,7 @@
       "NodeID-B9o4BTqdc1qkrAn5BxLHL7pimWf9UwBkd",
       "NodeID-G7tmLU1k7vzv24kUhNi3KMJuiK8GLYcDq"
     ],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": false,
