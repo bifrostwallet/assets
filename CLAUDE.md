@@ -27,4 +27,24 @@ Never edit a signed provider `logo.webp`. `logoHash` is the SHA-256 of those byt
 
 CoinGecko ids are added here. Every token `info.json` includes `coingeckoId` (`string` or `null`). `./yarn add:token` records the id. On-chain name, symbol, and decimals stay as curated. Do not point logo URLs at raw GitHub file hosts. The package uses jsDelivr for a release tag, or a caller-supplied `baseURL`.
 
+## Approval
+
+Branch protection on `main` blocks a direct push to `main`.
+
+No approval is needed for:
+
+- `git commit`
+- a non-force `git push` of the current feature branch
+- amending or fixing up commits that have not been pushed
+- `gh pr create`
+- `gh pr edit`, `gh pr comment`, and review-thread replies on the pull request opened for this work
+
+Approval is still required for:
+
+- pushing to or creating `main`, or a release or tag ref
+- creating a tag, `git push --tags`, or deleting a remote branch
+- amending or rewriting commits that have already been pushed
+- writing git config, using sudo, docker, or Kubernetes, and non-read-only gcloud
+- any other mutating `gh` or `gh api` call
+
 Report vulnerabilities as described in [SECURITY.md](SECURITY.md).
