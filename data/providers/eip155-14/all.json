@@ -961,7 +961,7 @@
     "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
-    "domainLinked": false,
+    "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
       "hash": "0x70df251921e269c519f813a72d237f3da2c02373039e3c22f86a47ee1f33ae07",
@@ -2511,7 +2511,10 @@
     "submitAddress": "0xf4c512f2871af4c8dcd11cd255f1e2b1b51801b1",
     "submitSignaturesAddress": "0x45cf4a2673b8a97dc6667f8b928f9d1e2ac34754",
     "publicKey": "0x1e75d8a857c18d8780691b1b149f5fbaa81febe6cdf44f55af9e2ca81973c5bb1605355d3cd71a561ceadfe8645632bd058884bbb48546b49f6b0295bc6bc128",
-    "validators": ["NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec"],
+    "validators": [
+      "NodeID-5QSNDaUU8Poxr84GErxKsX8mfYMYaoCKS",
+      "NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec"
+    ],
     "acknowledgedResponsibilities": true,
     "listed": false,
     "managementGroup": false,
