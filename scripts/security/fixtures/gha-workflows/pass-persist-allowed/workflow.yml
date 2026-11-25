@@ -1,0 +1,18 @@
+name: t
+on: push
+permissions:
+  contents: read
+jobs:
+  release:
+    # workflow-lint: allow-persist-credentials: pushes the release tag
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+  later:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      # workflow-lint: allow-persist-credentials: this job pushes a tag after the steps
+

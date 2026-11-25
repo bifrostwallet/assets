@@ -28,6 +28,7 @@ if ./scripts/security/check-core-changes.sh; then
   # security-checks.sh. Running it here keeps a commit failing on the same
   # workflow mistakes.
   ./scripts/security/verify-gha-workflows.sh || exit 1
+  ./scripts/security/verify-gha-workflows-fixtures.sh || exit 1
 fi
 
 # Workflow tag rules, only when a file under .github/ or the check is staged.

@@ -1,0 +1,11 @@
+name: sample
+description: sample
+runs:
+  using: composite
+  steps:
+    - shell: sh
+      run: echo "${{ inputs.name }}"
+    - uses: actions/github-script@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        script: |
+          console.log(`${{ github.head_ref }}`)

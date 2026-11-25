@@ -1,0 +1,10 @@
+name: t
+on: push
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: [self-hosted, ubuntu-latest]
+    steps:
+      - run: echo hi
+

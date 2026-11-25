@@ -562,22 +562,28 @@ if (require.main === module) {
 }
 EOF
 
+# The program prints the counts and lists on stdout and every failure on
+# stderr, always after its stdout. Only the verdict is coloured: the failure
+# lines in red, or the success line in green, so what to fix stands out.
 set +e
-node "$WORK_DIR/verify.cjs" "$MODE" "$WORK_DIR" >"$WORK_DIR/output" 2>&1
+node "$WORK_DIR/verify.cjs" "$MODE" "$WORK_DIR" >"$WORK_DIR/output" 2>"$WORK_DIR/errors"
 STATUS=$?
 set -e
 
+cat "$WORK_DIR/output"
+
 if [ "$STATUS" -ne 0 ]; then
   while IFS= read -r line || [ -n "$line" ]; do
-    printf '%b\n' "${RED}${line}${NC}"
-  done <"$WORK_DIR/output"
+    printf '%b%s%b\n' "$RED" "$line" "$NC"
+  done <"$WORK_DIR/errors" >&2
   if [ "$STATUS" -eq 2 ]; then
-    printf '%b\n' "${YELLOW}This check needs network access to registry.npmjs.org and tuf-repo-cdn.sigstore.dev.${NC}"
+    printf '%b\n' "${YELLOW}This check needs network access to registry.npmjs.org and tuf-repo-cdn.sigstore.dev.${NC}" >&2
   fi
   exit "$STATUS"
 fi
 
-cat "$WORK_DIR/output"
+# Warnings Node itself prints (deprecations) on a passing run, uncoloured.
+cat "$WORK_DIR/errors" >&2
 printf '%b\n' "${GREEN}Registry signatures and build attestations are valid and match package-attestations.json${NC}"
 
 exit 0

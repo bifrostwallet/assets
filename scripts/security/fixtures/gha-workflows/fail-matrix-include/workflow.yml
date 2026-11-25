@@ -1,0 +1,15 @@
+name: t
+on: push
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-24.04
+          - os: ubuntu-latest
+    steps:
+      - run: echo hi
+

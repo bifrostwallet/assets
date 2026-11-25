@@ -1,0 +1,14 @@
+name: t
+on: push
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo hi
+  arm:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - run: echo hi
+

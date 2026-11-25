@@ -1,0 +1,11 @@
+name: t
+on: push
+permissions:
+  contents: read
+jobs:
+  a:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e
+        with:
+          persist-credentials: false

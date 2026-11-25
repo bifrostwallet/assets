@@ -1,0 +1,8 @@
+name: sample
+description: sample
+# workflow-lint: allow-persist-credentials: composite action publishes a tag
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      shell: sh
