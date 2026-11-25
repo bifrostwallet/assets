@@ -1,13 +1,16 @@
 {
   "identityAddress": "0xe9c9930d6704f1e24c153dbaabca687ea27c960d",
-  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. Domain: name \"Bifrost Assets\", version \"1\", chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. An entry's version field selects the typed data; an entry without it is version 1. Domain: name \"Bifrost Assets\", version \"1\" or \"2\" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash. logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
   "signatures": [
     {
       "signerName": "Aternety",
       "signerAddress": "0xe9c9930d6704f1e24c153dbaabca687ea27c960d",
-      "messageHash": "0xf5914d5e7baecc41a671b1cef07fbda8f28590c85699db1bd3be458be5da336e",
-      "signature": "0x953ad2b2fb99cd78f717dec58cfd2b81eb3e805173e5d446ebcfde8783b55a9a7e499d4a9693f68fe45ad5702b7629370cc2aac95afcc48bbf42a9e524b570a01b",
-      "date": "2026-11-07T16:51:11.602Z"
+      "messageHash": "0x81fc953328a087f535bf47617c157f94346f4f4cdb7876f100bf7a8c928a98aa",
+      "signature": "0x87601361456968fbb3afe641b901d4a76beb9ffbc3050ec6eae8e77f338434ea67b0b85eeffa6efb1de6534d71267ac09e35b52884dcf741cdcf63405627e5e81c",
+      "date": "2026-11-25T15:36:42.012Z",
+      "version": 2,
+      "nonce": "bwn1.1795624602012.2-robLyABuavdJFB-2oEIA.6JMhsrrruLyqwgVdwUl7w8A_7wHSBkhzGoDS2t1w8-I",
+      "sealedHash": "0xcbeaae3e0647fc5d960cd5cba65998d9efaafaf74a757f3ef19c3d2edc089cec"
     }
   ]
 }
