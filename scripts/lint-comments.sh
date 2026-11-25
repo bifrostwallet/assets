@@ -126,10 +126,14 @@ if [ "$MODE" = check ] && [ -z "$BASE_REV" ]; then
           printf '%b\n' "${RED}Comment ratchet: base commit ${PR_BASE_SHA} is not in this checkout, and there is no token to fetch it.${NC}" >&2
           exit 1
         fi
+        # GitHub's git endpoint takes the job token as basic auth with the
+        # user x-access-token, the form actions/checkout sends. It answers a
+        # bearer header with 401.
+        FETCH_AUTH=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 | tr -d '\n')
         if ! GIT_TERMINAL_PROMPT=0 \
           GIT_CONFIG_COUNT=1 \
           GIT_CONFIG_KEY_0=http.extraheader \
-          GIT_CONFIG_VALUE_0="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
+          GIT_CONFIG_VALUE_0="AUTHORIZATION: basic ${FETCH_AUTH}" \
           git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
         then
           printf '%b\n' "${RED}Comment ratchet: could not fetch base commit ${PR_BASE_SHA}.${NC}" >&2
