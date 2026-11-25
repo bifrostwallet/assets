@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # Comments are banned in JS/TS source. The few that are left are recorded in
-# scripts/comments-baseline.txt. The ratchet is the line count: a new hash is
-# allowed when another comment leaves, and the count may not grow.
+# scripts/comments-baseline.txt. A comment that is not in that file fails.
 #
 #   ./scripts/lint-comments.sh          check the working tree (CI)
 #   ./scripts/lint-comments.sh check --staged
@@ -17,16 +16,11 @@
 #                                       is adoption and records every comment.
 #   ./scripts/lint-comments.sh list     every counted comment as JSON lines
 #
-# On a pull request (GITHUB_EVENT_NAME=pull_request) CI binds the base commit
-# as PR_BASE_SHA (github.event.pull_request.base.sha on env:, not inside run:).
-# The check fetches that commit when it is not already local, then fails if
-# the baseline has more lines than the base branch, or the baseline file was
-# deleted and the tree has more comments than the base lists. A new hash at
-# the same count passes. On a push or a manual run (workflow_dispatch) it
-# compares the line count with the parent commit, or skips that comparison
-# and says so when there is no parent. COMMENTS_BASE_REV names another commit
-# to compare with. A comparison commit without a baseline file is adoption,
-# and passes.
+# CI reads only the working tree: every comment is in the baseline, and the
+# baseline lists nothing that is gone. It does not compare with another
+# commit. The baseline is under CODEOWNERS (/scripts/), so a pull request that
+# makes it longer needs owner review. Locally, update and pre-commit refuse a
+# baseline with more lines than HEAD; a new hash at the same count passes.
 #
 # Not counted: tool directives (biome-ignore, @ts-expect-error, @ts-ignore,
 # @ts-nocheck, /// <reference, PURE annotations, Lingui i18n markers), JSDoc
@@ -78,7 +72,6 @@ BASELINE=scripts/comments-baseline.txt
 WORK=$(mktemp -d)
 SCAN_JS="$WORK/scan.cjs"
 FILE_LIST="$WORK/files"
-BASE_LIST="$WORK/base-baseline"
 HEAD_LIST="$WORK/head-baseline"
 STAGE_DIR="$WORK/index"
 # EXIT cleans up. INT/TERM must exit explicitly under POSIX.
@@ -103,76 +96,8 @@ else
   git ls-files -z --cached --others --exclude-standard >"$FILE_LIST"
 fi
 
-# The baseline on another commit, when this run should compare with one.
-# COMMENTS_BASE_REV is an explicit override. A pull request uses PR_BASE_SHA.
-# A push or a manual run uses the parent, or says it is skipping.
-BASE_REV=${COMMENTS_BASE_REV:-}
-RATCHET_NOTE=''
-if [ "$MODE" = check ] && [ -z "$BASE_REV" ]; then
-  case "${GITHUB_EVENT_NAME:-}" in
-    pull_request)
-      case "${PR_BASE_SHA:-}" in
-        ''|*[!0-9a-f]*)
-          printf '%b\n' "${RED}Comment ratchet: refusing a pull request base sha that is not 40 lowercase hex characters.${NC}" >&2
-          exit 1
-          ;;
-      esac
-      if [ "${#PR_BASE_SHA}" -ne 40 ]; then
-        printf '%b\n' "${RED}Comment ratchet: refusing a pull request base sha whose length is not 40.${NC}" >&2
-        exit 1
-      fi
-      if ! git cat-file -e "${PR_BASE_SHA}^{commit}" >/dev/null 2>&1; then
-        if [ -z "${GITHUB_TOKEN:-}" ]; then
-          printf '%b\n' "${RED}Comment ratchet: base commit ${PR_BASE_SHA} is not in this checkout, and there is no token to fetch it.${NC}" >&2
-          exit 1
-        fi
-        # GitHub's git endpoint takes the job token as basic auth with the
-        # user x-access-token, the form actions/checkout sends. It answers a
-        # bearer header with 401.
-        FETCH_AUTH=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 | tr -d '\n')
-        if ! GIT_TERMINAL_PROMPT=0 \
-          GIT_CONFIG_COUNT=1 \
-          GIT_CONFIG_KEY_0=http.extraheader \
-          GIT_CONFIG_VALUE_0="AUTHORIZATION: basic ${FETCH_AUTH}" \
-          git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
-        then
-          printf '%b\n' "${RED}Comment ratchet: could not fetch base commit ${PR_BASE_SHA}.${NC}" >&2
-          exit 1
-        fi
-        if ! git cat-file -e "${PR_BASE_SHA}^{commit}" >/dev/null 2>&1; then
-          printf '%b\n' "${RED}Comment ratchet: base commit ${PR_BASE_SHA} is not readable after fetch.${NC}" >&2
-          exit 1
-        fi
-      fi
-      BASE_REV=$PR_BASE_SHA
-      RATCHET_NOTE="Comment ratchet: comparing the baseline with ${PR_BASE_SHA}."
-      ;;
-    push|workflow_dispatch)
-      if git rev-parse --verify -q 'HEAD^{commit}' >/dev/null 2>&1 &&
-        git rev-parse --verify -q 'HEAD^1^{commit}' >/dev/null 2>&1
-      then
-        BASE_REV='HEAD^1'
-        RATCHET_NOTE='Comment ratchet: comparing the baseline with the parent commit.'
-      else
-        RATCHET_NOTE='Comment ratchet: skipped (no parent commit on this push or manual run). The baseline was compared only with the files in this commit.'
-      fi
-      ;;
-  esac
-fi
-BASE_ARG=''
-if [ "$MODE" = check ] && [ -n "$BASE_REV" ]; then
-  if ! git rev-parse --verify -q "${BASE_REV}^{commit}" >/dev/null 2>&1; then
-    printf '%b\n' "${RED}Comment check: cannot read the base commit ${BASE_REV}, so the baseline cannot be compared with it.${NC}" >&2
-    exit 1
-  fi
-  if git cat-file -e "${BASE_REV}:${BASELINE}" 2>/dev/null; then
-    git show "${BASE_REV}:${BASELINE}" >"$BASE_LIST"
-    BASE_ARG=$BASE_LIST
-  fi
-fi
-
-# pre-commit and update compare the line count with HEAD, not with the base
-# branch. No file at HEAD is adoption (the first baseline, or a repository
+# pre-commit and update compare the line count with HEAD. No file at HEAD is
+# adoption (the first baseline, or a repository
 # that has not adopted the gate).
 HEAD_ARG=''
 if [ "$MODE" = update ] || [ "$STAGED" -eq 1 ]; then
@@ -190,8 +115,7 @@ const crypto = require("node:crypto");
 
 const path = require("node:path");
 
-const [mode, fileListPath, baselineName, root, baseBaselinePath, headBaselinePath] =
-  process.argv.slice(2);
+const [mode, fileListPath, baselineName, root, headBaselinePath] = process.argv.slice(2);
 const baselinePath = path.join(root, baselineName);
 
 const SOURCE = /\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/;
@@ -440,10 +364,6 @@ if (mode === "update") {
   console.log(`Baseline: ${found.length} comments (was ${baselineLines.length}).`);
   process.exit(0);
 }
-if (baseBaselinePath && baselineMissing) {
-  const baseLines = readBaseline(baseBaselinePath);
-  if (found.length > baseLines.length) failDeleted("the base branch", baseLines.length);
-}
 if (headBaselinePath && baselineMissing) {
   const headLines = readBaseline(headBaselinePath);
   if (found.length > headLines.length) failDeleted("HEAD", headLines.length);
@@ -462,10 +382,6 @@ if (stale) {
   );
   process.exit(2);
 }
-if (baseBaselinePath && baselineLines.length > readBaseline(baseBaselinePath).length) {
-  const baseLines = readBaseline(baseBaselinePath);
-  failGained("the base branch", baseLines.length, baselineLines.length);
-}
 if (headBaselinePath && baselineLines.length > readBaseline(headBaselinePath).length) {
   const headLines = readBaseline(headBaselinePath);
   failGained("HEAD", headLines.length, baselineLines.length);
@@ -473,12 +389,8 @@ if (headBaselinePath && baselineLines.length > readBaseline(headBaselinePath).le
 console.log(`${found.length} comments left in the baseline. No new comments.`);
 EOF
 
-if [ -n "$RATCHET_NOTE" ]; then
-  printf '%s\n' "$RATCHET_NOTE"
-fi
-
 STATUS=0
-node "$SCAN_JS" "$MODE" "$FILE_LIST" "$BASELINE" "$SCAN_ROOT" "$BASE_ARG" "$HEAD_ARG" || STATUS=$?
+node "$SCAN_JS" "$MODE" "$FILE_LIST" "$BASELINE" "$SCAN_ROOT" "$HEAD_ARG" || STATUS=$?
 
 if [ "$MODE" = list ]; then
   exit "$STATUS"

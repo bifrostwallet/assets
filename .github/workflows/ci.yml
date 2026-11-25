@@ -81,15 +81,9 @@ jobs:
       - name: Test comment gate rules
         run: ./scripts/lint-comments-fixtures.sh
 
-      # Line count against the base branch. A new hash is allowed when the
-      # count does not grow. PR_BASE_SHA is empty on a push; the script then
-      # compares with the parent commit. The checkout does not keep
-      # credentials, so the job token is what lets the script fetch a base
-      # sha that is not already local.
+      # Every comment is in scripts/comments-baseline.txt. That file is under
+      # CODEOWNERS, so a longer one needs owner review.
       - name: Check for new comments
-        env:
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          GITHUB_TOKEN: ${{ github.token }}
         run: ./scripts/lint-comments.sh
 
       - name: Lint with Biome

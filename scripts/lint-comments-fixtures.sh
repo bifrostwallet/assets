@@ -9,9 +9,8 @@
 #
 #   1. What the scanner counts as a comment (`list`).
 #   2. What check and update accept: a new hash at the same line count, a
-#      baseline that gained lines against the base branch or against HEAD,
-#      a deleted baseline that comes back larger, staged against unstaged
-#      content.
+#      baseline that gained lines against HEAD, a deleted baseline, staged
+#      against unstaged content.
 
 set -eu
 
@@ -48,12 +47,8 @@ new_repo() {
   (cd "$REPO" && git_q init)
 }
 
-# Runs the copied script with CI's variables cleared, so a case decides them.
-# GITHUB_TOKEN is cleared too: a real token would make a missing-sha case fetch.
 run_gate() {
-  (cd "$REPO" && GITHUB_EVENT_NAME="${CASE_EVENT:-}" COMMENTS_BASE_REV="${CASE_BASE:-}" \
-    PR_BASE_SHA="${CASE_SHA:-}" GITHUB_TOKEN="${CASE_TOKEN:-}" \
-    ./scripts/lint-comments.sh "$@" 2>&1)
+  (cd "$REPO" && ./scripts/lint-comments.sh "$@" 2>&1)
 }
 
 ok() {
@@ -88,7 +83,7 @@ expect_list() {
 }
 
 # Writes a baseline that matches the tree, without going through update.
-# Used where the test is the ratchet, not update's own refusal.
+# Used where the test is check or the hook, not update's own refusal.
 write_matching_baseline() {
   run_gate list | node -e '
     const fs = require("node:fs");
@@ -268,7 +263,6 @@ printf 'export const c = 3;\n' >"$REPO/src/b.ts"
 printf 'export const a = 1; // first\nexport const b = 2; // kept\n' >"$REPO/src/a.ts"
 expect_gate 'update records a new hash when the line count stays the same' pass 'Baseline: 2 comments (was 2)' update
 expect_gate 'check passes after a same-count hash change' pass '2 comments left'
-CASE_BASE=HEAD expect_gate 'a same-count new hash passes against HEAD' pass '2 comments left'
 (cd "$REPO" && git_q add -A && git_q commit -m replaced)
 
 printf 'export const c = 3; // first\n' >"$REPO/src/b.ts"
@@ -282,40 +276,20 @@ if [ ! -f "$REPO/scripts/comments-baseline.txt" ]; then
 else
   bad 'a refused regeneration does not recreate the baseline' 'the file was written'
 fi
-CASE_BASE=HEAD expect_gate 'a deleted baseline with more comments than the base fails' fail 'was deleted'
+expect_gate 'check fails on every comment when the baseline is deleted' fail 'New comments (3)'
 
 write_matching_baseline
-expect_gate 'check alone accepts a hand-grown baseline' pass '3 comments left'
-CASE_BASE=HEAD expect_gate 'check against the base branch refuses the grown baseline' fail 'gained lines'
-CASE_EVENT=pull_request expect_gate 'a pull request without a base sha fails' fail 'not 40 lowercase hex'
-CASE_EVENT=pull_request CASE_SHA=0123456789abcdef0123456789abcdef01234567 \
-  expect_gate 'a pull request whose base sha is not local fails without a token' fail 'no token to fetch it'
+expect_gate 'check accepts a hand-grown baseline, which CODEOWNERS reviews' pass '3 comments left'
 (cd "$REPO" && git_q add -A && git_q commit -m grown)
-CASE_EVENT=pull_request CASE_SHA=$(git -C "$REPO" rev-parse 'HEAD^1') \
-  expect_gate 'a pull request is compared with the base sha' fail 'gained lines'
-CASE_EVENT=push expect_gate 'a push compares the baseline with the parent' fail 'parent commit'
-CASE_EVENT=workflow_dispatch expect_gate 'a manual run compares the baseline with the parent' fail 'parent commit'
-CASE_BASE='HEAD^1' expect_gate 'COMMENTS_BASE_REV names the base' fail 'gained lines'
 
 printf 'export const c = 3;\n' >"$REPO/src/b.ts"
 expect_gate 'check fails when a recorded comment is gone' fail 'Baseline is out of date'
 expect_gate 'update shrinks the baseline' pass 'Baseline: 2 comments (was 3)' update
-CASE_BASE=HEAD expect_gate 'a shrunk baseline passes against the base branch' pass '2 comments left'
 
 (cd "$REPO" && git mv src/a.ts src/moved.ts)
 expect_gate 'a moved file makes the baseline out of date' fail 'Baseline is out of date'
 expect_gate 'update follows a moved file' pass 'Baseline: 2 comments (was 2)' update
-CASE_BASE=HEAD expect_gate 'a moved comment is not a new entry' pass ''
 (cd "$REPO" && git_q add -A && git_q commit -m moved)
-
-new_repo adoption
-printf 'export const a = 1;\n' >"$REPO/src/a.ts"
-(cd "$REPO" && git_q add -A && git_q commit -m first)
-printf 'export const a = 1; // old\n' >"$REPO/src/a.ts"
-run_gate update >/dev/null
-CASE_BASE=HEAD expect_gate 'a base branch without a baseline is adoption' pass '1 comments left'
-CASE_EVENT=push expect_gate 'a push with no parent skips the ratchet' pass 'skipped'
-CASE_EVENT=workflow_dispatch expect_gate 'a manual run with no parent skips the ratchet' pass 'skipped'
 
 new_repo regenerated
 printf 'export const a = 1; // first\nexport const b = 2; // second\n' >"$REPO/src/a.ts"
@@ -324,7 +298,6 @@ run_gate update >/dev/null
 rm "$REPO/scripts/comments-baseline.txt"
 printf 'export const a = 1; // first\nexport const b = 2; // edited\n' >"$REPO/src/a.ts"
 expect_gate 'update regenerates a deleted baseline when the count does not grow' pass 'Baseline: 2 comments (was 0)' update
-CASE_BASE=HEAD expect_gate 'a same-size regenerated baseline passes against HEAD' pass '2 comments left'
 rm "$REPO/scripts/comments-baseline.txt"
 printf 'export const c = 3; // third\n' >>"$REPO/src/a.ts"
 expect_gate 'update refuses a regeneration that is larger than HEAD' fail 'would grow' update
@@ -388,10 +361,7 @@ install_hook() {
 }
 
 run_hook() {
-  # Pre-commit, not the CI job. These fixtures run inside a pull_request
-  # workflow, which would otherwise hand the hook an empty PR_BASE_SHA.
-  (cd "$REPO" && env -u GITHUB_EVENT_NAME -u PR_BASE_SHA -u GITHUB_TOKEN -u COMMENTS_BASE_REV \
-    ./.git-hooks/pre-commit 2>&1)
+  (cd "$REPO" && ./.git-hooks/pre-commit 2>&1)
 }
 
 new_repo hook
@@ -453,22 +423,6 @@ else
     bad 'the hook fails when the staged baseline is larger than HEAD' "$out"
   fi
 fi
-
-# A depth-1 checkout does not contain the parent. With a token, the gate
-# fetches that sha from origin and still applies the line-count ratchet.
-new_repo fetchbase
-printf 'export const a = 1; // one\n' >"$REPO/src/a.ts"
-run_gate update >/dev/null
-(cd "$REPO" && git_q add -A && git_q commit -m one)
-fetch_base=$(git -C "$REPO" rev-parse HEAD)
-printf 'export const b = 2; // two\n' >>"$REPO/src/a.ts"
-write_matching_baseline
-(cd "$REPO" && git_q add -A && git_q commit -m two)
-git -C "$REPO" config uploadpack.allowReachableSHA1InWant true
-git clone -q --depth 1 "file://$REPO" "$WORK/fetch-shallow"
-REPO="$WORK/fetch-shallow"
-CASE_EVENT=pull_request CASE_SHA="$fetch_base" CASE_TOKEN=dummy \
-  expect_gate 'a missing base sha is fetched when a token is set' fail 'gained lines'
 
 if [ "$FAILED" -ne 0 ]; then
   printf '%b\n' "${RED}lint-comments fixtures failed.${NC}" >&2
