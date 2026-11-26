@@ -1,0 +1,16 @@
+{
+  "identityAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. An entry's version field selects the typed data; an entry without it is version 1. Domain: name \"Bifrost Assets\", version \"1\" or \"2\" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash. logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "signatures": [
+    {
+      "signerName": "PRICEKRAKEN",
+      "signerAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",
+      "messageHash": "0xe3721a662d588adf90c8edaa720c39837bbb446c43b2e7e72ba522e528da4e14",
+      "signature": "0x4e72aa54b3c5cdaf1ac68b4b6512b67fdd10c639c670f8d4756e8f46a9aeee034e6a861e915f8d2a4d232b18261029c0d80c6f8279c3434893df8795c347a9831b",
+      "date": "2026-11-25T22:29:31.772Z",
+      "version": 2,
+      "nonce": "bwn1.1795649371772.HsEnrH25UQis5Z7_wwbPJw.aote6mdze0rGoH81xXcGuh-tk8XgZuPZqHTd0B_fIEE",
+      "sealedHash": "0x9a5d330a28ec363070343638dc6a225965a22969f5ab91dd016f9121c2031689"
+    }
+  ]
+}
