@@ -369,7 +369,7 @@ if (headBaselinePath && baselineMissing) {
   if (found.length > headLines.length) failDeleted("HEAD", headLines.length);
 }
 if (added.length > 0) {
-  console.error(`New comments (${added.length}). Comments are banned: say it in code, or in an ADR.`);
+  console.error(`New comments (${added.length}). Comments are banned: make it code (a name, type, check, test or lint rule).`);
   for (const c of added) {
     console.error(`  ${c.file}:${c.line}  ${c.text.split("\n")[0].slice(0, 90)}`);
   }
