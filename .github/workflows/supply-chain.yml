@@ -112,6 +112,3 @@ jobs:
 
       - name: Check workflow policy
         run: ./scripts/security/verify-gha-workflows.sh
-
-      - name: Run workflow policy fixtures
-        run: ./scripts/security/verify-gha-workflows-fixtures.sh

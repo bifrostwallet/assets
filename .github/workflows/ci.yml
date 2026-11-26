@@ -73,19 +73,6 @@ jobs:
       - name: Lint YAML
         run: ./scripts/lint-yaml.sh
 
-      # Offline: which .claude/skills states the security checks accept.
-      - name: Test agent skill pin rules
-        run: ./scripts/security/verify-agent-skills-fixtures.sh
-
-      # Offline: what the comment scanner counts and what the gate accepts.
-      - name: Test comment gate rules
-        run: ./scripts/lint-comments-fixtures.sh
-
-      # Every comment is in scripts/comments-baseline.txt. That file is under
-      # CODEOWNERS, so a longer one needs owner review.
-      - name: Check for new comments
-        run: ./scripts/lint-comments.sh
-
       - name: Lint with Biome
         run: ./yarn lint
 

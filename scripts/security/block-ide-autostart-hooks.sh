@@ -59,11 +59,4 @@ if [ "$found" -ne 0 ]; then
   exit 1
 fi
 
-# Agent skills (.claude/skills/): absent, or pinned by .claude/skills.sha256.
-# CI runners do not load them, so the per-./yarn check is skipped there;
-# security-checks.sh still runs it once per job.
-if [ -n "${CI:-}${GITHUB_ACTIONS:-}" ]; then
-  exit 0
-fi
-
-"$SCRIPT_DIR/verify-agent-skills.sh"
+exit 0

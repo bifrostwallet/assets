@@ -20,7 +20,7 @@
 #     and github.event.check_suite.head_sha.
 #     github.head_ref, inputs, and needs.<job>.outputs stay untrusted.
 #
-# GHA_LINT_SCAN_DIR overrides discovery (fixture runner). POSIX sh + awk.
+# POSIX sh + awk.
 
 set -eu
 
@@ -36,19 +36,14 @@ FILE_LIST=$(mktemp)
 OUT_LIST=$(mktemp)
 trap 'rm -f "$FILE_LIST" "$OUT_LIST"' EXIT INT TERM
 
-if [ -n "${GHA_LINT_SCAN_DIR:-}" ]; then
-  find "$GHA_LINT_SCAN_DIR" -type f \( -name '*.yml' -o -name '*.yaml' \) | sort >"$FILE_LIST"
-else
-  : >"$FILE_LIST"
-  if [ -d .github/workflows ]; then
-    find .github/workflows -maxdepth 1 -type f \( -name '*.yml' -o -name '*.yaml' \) >>"$FILE_LIST"
-  fi
-  # Composite and JS actions. Skip the fixture tree so a failing example
-  # is not also a failure of this repository.
-  find . \
-    \( -path './.git' -o -path './.yarn' -o -path './node_modules' -o -path './vendor' -o -path './scripts/security/fixtures' \) -prune \
-    -o -type f \( -name 'action.yml' -o -name 'action.yaml' \) -print >>"$FILE_LIST"
+: >"$FILE_LIST"
+if [ -d .github/workflows ]; then
+  find .github/workflows -maxdepth 1 -type f \( -name '*.yml' -o -name '*.yaml' \) >>"$FILE_LIST"
 fi
+# Composite and JS actions.
+find . \
+  \( -path './.git' -o -path './.yarn' -o -path './node_modules' -o -path './vendor' \) -prune \
+  -o -type f \( -name 'action.yml' -o -name 'action.yaml' \) -print >>"$FILE_LIST"
 
 scan_file() {
   awk '

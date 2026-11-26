@@ -1,7 +1,0 @@
-name: sample
-description: sample
-runs:
-  using: composite
-  steps:
-    - shell: sh
-      run: echo "${{ github.sha }}"
