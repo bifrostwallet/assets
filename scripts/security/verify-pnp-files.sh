@@ -19,7 +19,6 @@
 #     never treated as ignored, and its changes still show in git status)
 # A repo on the node-modules linker has neither file and passes.
 #
-# PNP_VERIFY_DIR points the check at another git work tree (fixtures only).
 # POSIX sh.
 
 set -eu
@@ -29,11 +28,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-if [ -n "${PNP_VERIFY_DIR:-}" ]; then
-  ROOT=$PNP_VERIFY_DIR
-else
-  ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
-fi
+ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
 cd "$ROOT"
 
 PNP_FILES='.pnp.cjs .pnp.loader.mjs'

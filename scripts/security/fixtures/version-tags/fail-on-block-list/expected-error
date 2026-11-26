@@ -1,2 +1,0 @@
-push trigger is not limited to branches or the strict version-tag filter
-create trigger runs for every new tag

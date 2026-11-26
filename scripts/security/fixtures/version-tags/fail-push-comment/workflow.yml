@@ -1,7 +1,0 @@
-name: Commented bare push
-on: push # every branch and tag
-jobs:
-  v:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: echo ok

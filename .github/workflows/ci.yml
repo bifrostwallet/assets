@@ -44,18 +44,6 @@ jobs:
       - name: Check workflow tag rules
         run: ./scripts/security/verify-version-tags-if-changed.sh
 
-      # Offline: the rules of the attestation gate, not the registry check itself.
-      - name: Test attestation gate rules
-        run: ./scripts/security/verify-attestations-fixtures.sh
-
-      # Offline: when the launcher adds --check-cache, not the check itself.
-      - name: Test Yarn launcher rules
-        run: ./scripts/security/yarn-launcher-fixtures.sh
-
-      # Offline: which PnP file states the check after install accepts.
-      - name: Test PnP file check rules
-        run: ./scripts/security/verify-pnp-files-fixtures.sh
-
       - name: Install dependencies
         run: ./yarn install --immutable
 

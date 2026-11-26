@@ -1,5 +1,5 @@
 # Supply chain checks that need the network, so they are not part of
-# security-checks.sh. One job, so one required status check: "Supply chain".
+# security-checks.sh. The Supply chain job is one required status check.
 #
 # - Build origin: registry signatures and build attestations (npm provenance)
 #   of every package in yarn.lock, against package-attestations.json.
@@ -17,7 +17,7 @@
 # image-proxy does for svg-puppeteer. See README.md, Security: Repository rules
 # checked in CI.
 
-name: Supply chain
+name: Security
 
 on:
   pull_request:
@@ -97,3 +97,18 @@ jobs:
             echo "::error title=DO NOT MERGE: security checks failed::$MSG"
             printf '%s\n' "**Security checks** failed before the network checks ran. See the job log." >> "$GITHUB_STEP_SUMMARY"
           fi
+
+  # A second required status check, "Security / Workflows": the policy for files
+  # under .github/ (pinned runners and actions, permissions, checkout
+  # credentials, untrusted expressions in run).
+  workflows:
+    name: Workflows
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check workflow policy
+        run: ./scripts/security/verify-gha-workflows.sh

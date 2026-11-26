@@ -28,6 +28,7 @@ env:
 
 jobs:
   refresh:
+    # workflow-lint: allow-persist-credentials: pushes the catalog update branch and opens its pull request
     name: Update catalog
     runs-on: ubuntu-24.04
     timeout-minutes: 20

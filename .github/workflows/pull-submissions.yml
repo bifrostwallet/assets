@@ -20,6 +20,7 @@ env:
 
 jobs:
   pull:
+    # workflow-lint: allow-persist-credentials: pushes the submissions branch and opens its pull request
     name: Pull and ingest submissions
     runs-on: ubuntu-24.04
     timeout-minutes: 15

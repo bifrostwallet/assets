@@ -24,6 +24,10 @@ if ./scripts/security/check-core-changes.sh; then
   # Run security checks directly (not through yarn) for security reasons
   # to ensure we're not relying on potentially compromised tools
   ./scripts/security/security-checks.sh || exit 1
+  # Workflow policy is the Security / Workflows job, not part of
+  # security-checks.sh. Running it here keeps a commit failing on the same
+  # workflow mistakes.
+  ./scripts/security/verify-gha-workflows.sh || exit 1
 fi
 
 # Workflow tag rules, only when a file under .github/ or the check is staged.

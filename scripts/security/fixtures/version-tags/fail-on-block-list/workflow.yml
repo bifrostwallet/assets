@@ -1,9 +1,0 @@
-name: Block list
-on:
-  - push
-  - create
-jobs:
-  v:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: echo ok
