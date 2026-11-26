@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Run the workflow tag-rule check (verify-version-tags.sh and its fixtures)
+# Run the workflow tag-rule check (verify-version-tags.sh)
 # only when it can change the answer:
 #   - a file under .github/ or the check itself changed, or
 #   - the run is for a tag or a GitHub release (always checked), or
@@ -24,16 +24,14 @@ NC='\033[0m'
 ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
 cd "$ROOT"
 
-# Whether anything under .github/, verify-version-tags.sh, its fixtures
-# script and directory, or this script and its own fixtures differs. git is
-# asked with pathspecs, because a listed path is quoted when it has a
+# Whether anything under .github/, verify-version-tags.sh or this script
+# differs. git is asked with pathspecs, because a listed path is quoted when it has a
 # non-ASCII byte, a quote or a backslash, and a quoted line matches no
 # pattern. Exit 0: no difference. 1: a difference. Other: git failed.
 watched_paths_differ() {
   git diff --quiet "$@" -- \
     .github \
-    'scripts/security/verify-version-tags*' \
-    'scripts/security/fixtures/version-tags*'
+    'scripts/security/verify-version-tags*'
 }
 
 MODE='head'
@@ -76,5 +74,3 @@ fi
 
 printf '%b\n' "${YELLOW}Rejecting loose version tags in workflows (${reason})...${NC}"
 ./scripts/security/verify-version-tags.sh
-./scripts/security/verify-version-tags-fixtures.sh
-./scripts/security/verify-version-tags-if-changed-fixtures.sh

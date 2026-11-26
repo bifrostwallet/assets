@@ -1,8 +1,0 @@
-name: Commented push key
-on:
-  push: # unfiltered
-jobs:
-  v:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: echo ok

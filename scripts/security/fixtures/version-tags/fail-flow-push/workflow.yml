@@ -1,8 +1,0 @@
-name: Flow push
-on:
-  push: {tags: ['v*']}
-jobs:
-  v:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: echo ok

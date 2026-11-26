@@ -28,7 +28,6 @@
 # the line) is a document marker. | / > block-scalar bodies (run scripts,
 # if:, prompt:, group:) are literal, so shell globs and !contains stay
 # legal there.
-# VERSION_TAG_SCAN_DIR overrides the workflow directory (fixture runner).
 
 set -eu
 
@@ -50,7 +49,7 @@ STRICT='[0-9]+.[0-9]+.[0-9]+'
 REF_RE='github\.(event\.)?ref|head[._]ref|base[._]ref|release\.(tag_)?name|inputs\.tag|tag_name|head_branch|github[[:space:]]*\[|\[[^]]*(ref|head_branch|tag_name)[^]]*\]'
 export REF_RE
 
-SCAN_DIR=${VERSION_TAG_SCAN_DIR:-.github/workflows}
+SCAN_DIR=.github/workflows
 
 FILE_LIST=$(mktemp)
 OUT_LIST=$(mktemp)

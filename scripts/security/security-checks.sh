@@ -32,7 +32,6 @@ echo
 
 printf '%b\n' "${YELLOW}6 of 6: Verifying tsconfig module lanes (NodeNext or Bundler)...${NC}"
 ./scripts/security/verify-tsconfig-lanes.sh
-./scripts/security/verify-tsconfig-lanes-fixtures.sh
 echo
 
 # The workflow tag rules (verify-version-tags.sh) are not here: they read

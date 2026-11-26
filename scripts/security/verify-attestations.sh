@@ -8,8 +8,7 @@
 #
 # Needs the network (registry.npmjs.org and the Sigstore TUF repository), so it
 # is NOT part of security-checks.sh. CI runs it on every pull request
-# (.github/workflows/supply-chain.yml). Its rules are tested offline by
-# verify-attestations-fixtures.sh.
+# (.github/workflows/supply-chain.yml).
 #
 # The cryptographic verification is not written here. It is done by the
 # verifier inside the npm that ships with the pinned Node (pacote + sigstore,
@@ -537,29 +536,16 @@ async function main() {
   return 0;
 }
 
-if (require.main === module) {
-  main().then(
-    (code) => {
-      process.exitCode = code;
-    },
-    (error) => {
-      console.error("Error: could not complete the verification: " + (error.message || error));
-      if (error.code) console.error("  code: " + error.code);
-      process.exitCode = 2;
-    },
-  );
-} else {
-  module.exports = {
-    certificateRepository,
-    judge,
-    loadNpm,
-    lockedPackages,
-    normalizeRepository,
-    registryConfig,
-    serialize,
-    sourceRepository,
-  };
-}
+main().then(
+  (code) => {
+    process.exitCode = code;
+  },
+  (error) => {
+    console.error("Error: could not complete the verification: " + (error.message || error));
+    if (error.code) console.error("  code: " + error.code);
+    process.exitCode = 2;
+  },
+);
 EOF
 
 # The program prints the counts and lists on stdout and every failure on

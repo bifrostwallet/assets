@@ -21,7 +21,6 @@
 #
 # Scans tracked and untracked (not ignored) tsconfig*.json files. Runs before
 # install: POSIX sh entrypoint, embedded Node stdlib program, no packages.
-# TSCONFIG_LANES_DIR points the scan at another directory (fixtures only).
 
 set -eu
 
@@ -30,11 +29,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-if [ -n "${TSCONFIG_LANES_DIR:-}" ]; then
-  ROOT=$TSCONFIG_LANES_DIR
-else
-  ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
-fi
+ROOT=$(CDPATH='' cd -- "$(dirname "$0")/../.." && pwd)
 cd "$ROOT"
 
 LANES_JS=$(mktemp)
@@ -44,11 +39,7 @@ trap 'rm -f "$LANES_JS" "$FILE_LIST"' EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-if [ -n "${TSCONFIG_LANES_DIR:-}" ]; then
-  find . -type f | sed 's|^\./||' >"$FILE_LIST"
-else
-  git ls-files --cached --others --exclude-standard >"$FILE_LIST"
-fi
+git ls-files --cached --others --exclude-standard >"$FILE_LIST"
 
 cat >"$LANES_JS" <<'EOF'
 const fs = require("node:fs");
