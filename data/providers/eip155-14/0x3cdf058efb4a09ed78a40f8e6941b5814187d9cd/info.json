@@ -1,10 +1,12 @@
 {
   "name": "PRICEKRAKEN",
-  "description": "Germany based FTSO data provider with passion for improvements",
+  "description": "German FTSO provider and validator. Delegate, stake and track every reward in our open portal.",
   "logoURL": "providers/eip155-14/0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd/logo.webp",
   "logoHash": "048dec9559138afce48ad142fb5e7566b04c68646a1009aaef8aa40e7f9beacf",
   "websiteURL": "https://www.pricekraken.de",
-  "links": {},
+  "links": {
+    "x": "https://x.com/PriceKraken"
+  },
   "identityAddress": "0x3cdf058efb4a09ed78a40f8e6941b5814187d9cd",
   "delegationAddress": "0xb95f930711da83226416ffaab084249b2e01e1f2",
   "signingPolicyAddress": "0x4dfcbc3a1529fb3c07245095fba7830063d71c34",
@@ -17,6 +19,7 @@
     "NodeID-Mvr4Mv2qL4xgHsuaASvRyDQD4JsgrohgZ",
     "NodeID-VpU9ehka7wy9C3KBjajfTop1vgkyXtzR"
   ],
+  "acknowledgedResponsibilities": true,
   "listed": true,
   "managementGroup": true,
   "domainLinked": false,
