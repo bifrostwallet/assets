@@ -42,7 +42,8 @@ describe("contract catalog", { concurrency: false }, () => {
       "bridge",
       "lending",
       "staking",
-      "yield",
+      "vault",
+      "yield-trading",
       "perpetuals",
       "predictions",
       "nft-marketplace",
@@ -54,9 +55,10 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("dex"), 13);
     assert.equal(count("aggregator"), 4);
     assert.equal(count("bridge"), 10);
-    assert.equal(count("lending"), 6);
-    assert.equal(count("staking"), 2);
-    assert.equal(count("yield"), 5);
+    assert.equal(count("lending"), 7);
+    assert.equal(count("staking"), 1);
+    assert.equal(count("vault"), 3);
+    assert.equal(count("yield-trading"), 3);
     assert.equal(count("perpetuals"), 3);
     assert.equal(count("predictions"), 0);
     assert.equal(count("nft-marketplace"), 0);
@@ -64,7 +66,7 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("fassets"), 24);
     assert.equal(count("rewards"), 7);
     assert.equal(count("other"), 2);
-    assert.equal(all.length, 76);
+    assert.equal(all.length, 77);
     const logoByProject = new Map<string, string>();
     for (const contract of all) {
       assert.equal(typeof contract.project, "string");
@@ -127,14 +129,19 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(auPool?.project, "au-cc");
     assert.equal(auPool?.logoURL, "contracts/projects/au-cc/logo.webp");
 
+    const stxrpVault = getContract("eip155:14", "0x4C18Ff3C89632c3Dd62E796c0aFA5c07c4c1B2b3");
+    assert.equal(stxrpVault?.projectName, "Firelight");
+    assert.equal(stxrpVault?.contractName, "stXRP Vault");
+    assert.equal(stxrpVault?.category, "vault");
+
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
-    assert.equal(firelight?.category, "staking");
+    assert.equal(firelight?.category, "vault");
     assert.equal(firelight?.project, "firelight-finance");
     assert.equal(firelight?.logoURL, "contracts/projects/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
-    assert.equal(getContracts("eip155:14").length, 49);
+    assert.equal(getContracts("eip155:14").length, 50);
     assert.equal(getContracts("eip155:19").length, 19);
     assert.equal(getContracts("eip155:114").length, 1);
 
