@@ -272,7 +272,7 @@ cmd_upgrade() {
   "$SCRIPT_DIR/verify-yarn-hash.sh"
 
   if [ -n "${OLD_VERSION:-}" ] && [ "$OLD_VERSION" != "$YARN_VERSION" ]; then
-    for doc in README.md AGENTS.md cloudbuild.yaml; do
+    for doc in README.md CLAUDE.md cloudbuild.yaml; do
       if [ -f "$doc" ] && grep -q "$OLD_VERSION" "$doc"; then
         printf '%b\n' "${YELLOW}Updating $OLD_VERSION → $YARN_VERSION in $doc${NC}"
         sed -i.bak "s/$OLD_VERSION/$YARN_VERSION/g" "$doc"
