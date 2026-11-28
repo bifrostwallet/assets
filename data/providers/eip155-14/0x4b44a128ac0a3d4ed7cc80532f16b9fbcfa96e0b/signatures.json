@@ -1,0 +1,16 @@
+{
+  "identityAddress": "0x4b44a128ac0a3d4ed7cc80532f16b9fbcfa96e0b",
+  "verificationInstructions": "To verify, recover the signer with eth_signTypedData_v4. An entry's version field selects the typed data; an entry without it is version 1. Domain: name \"Bifrost Assets\", version \"1\" or \"2\" to match the entry, chainId of the provider network, and salt keccak256 of the UTF-8 string \"https://bifrostwallet.com\". primaryType: ProviderListing. Version 1 fields in order: name (string), description (string), websiteURL (string), logoHash (bytes32), identityAddress (address), linksJson (string), acknowledgedResponsibilities (bool), contentHash (bytes32). Version 2 fields are the version 1 fields followed by signedAt (string), nonce (string), sealedHash (bytes32), taken from the entry's date, nonce and sealedHash. logoHash is the SHA-256 of logo.webp as 64 lowercase hex characters; the typed-data field is that digest with a 0x prefix. messageHash in signatures.json and contentHash are 0x plus the SHA-256 of JSON.stringify of an object whose keys, in order, are name, description, logoHash (that unprefixed hex), websiteURL, links, identityAddress, and acknowledgedResponsibilities. links includes only the keys that are set, in order github, x, discord, telegram, youtube, reddit, linkedin, tiktok. linksJson is JSON.stringify of that links object. contentHash must equal messageHash. Anything not listed is not signed and can change without a new signature.",
+  "signatures": [
+    {
+      "signerName": "uGaenn",
+      "signerAddress": "0x4b44a128ac0a3d4ed7cc80532f16b9fbcfa96e0b",
+      "messageHash": "0x36c77c0c1aefcc814f09cdad95a4f5a67554a55321a763323d19bfcd3d237e1d",
+      "signature": "0x531f65ca82fe2d9a52ccdc3fa84cce4b8dbb5c42c6b5555b7d154be426bcccfa064a6dee170a8aa196d7915d682a11ff9cecf6eeed05ad97701c54ce69b031571c",
+      "date": "2026-11-27T01:30:55.772Z",
+      "version": 2,
+      "nonce": "bwn1.1795746655772.ti5_a7v7TNB1qD1U9jNzjA.bPFJXLR5dRvYpFnnKjaJ4nMOvLcw9Rhs-GHZhYQBmAE",
+      "sealedHash": "0x38b0bdee37e148648d24ed385cbc6495cb1604c85e85c1dd2f3346bc64e14d31"
+    }
+  ]
+}
