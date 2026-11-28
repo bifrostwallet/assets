@@ -18,7 +18,8 @@
 #     github.event.pull_request.head.sha, github.event.issue.number,
 #     github.event.workflow_run.id, github.event.workflow_run.head_sha,
 #     and github.event.check_suite.head_sha.
-#     github.head_ref, inputs, and needs.<job>.outputs stay untrusted.
+#     github.head_ref, inputs, and needs.<job>.outputs stay untrusted, and
+#     so does a whole context such as toJSON(github) or toJSON(needs).
 #
 # POSIX sh + awk.
 
@@ -161,7 +162,7 @@ function path_forbidden(path) {
   return 0
 }
 
-function check_expr(body, line,   t, path) {
+function check_expr(body, line,   t, u, q, path) {
   t = body
   gsub(/[[:space:]]*\.[[:space:]]*/, ".", t)
   if (t ~ /(^|[^A-Za-z0-9_])head_ref([^A-Za-z0-9_]|$)/) {
@@ -177,6 +178,13 @@ function check_expr(body, line,   t, path) {
     return
   }
   if (t ~ /needs[[:space:]]*\[/ || t ~ /github[[:space:]]*\[/) {
+    record(line, "untrusted expression inline in run or script")
+    return
+  }
+  u = t
+  q = sprintf("%c", 39)
+  gsub(q "[^" q "]*" q, q q, u)
+  if (u ~ /(^|[^A-Za-z0-9_.])(github|needs)([^A-Za-z0-9_.[]|$)/) {
     record(line, "untrusted expression inline in run or script")
     return
   }

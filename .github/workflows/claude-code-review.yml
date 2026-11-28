@@ -265,6 +265,16 @@ jobs:
             text, the diff, and the repository checkout. Do not invent issue requirements that are not
             written there. Do not look for other reviewers' comments.
 
+            Shared gate files. These paths come from the shared template repository and are
+            reviewed there:
+            .git-hooks/pre-commit, yarn, scripts/install-git-hooks.sh, scripts/lint-comments.sh,
+            scripts/lint-shell.sh, scripts/lint-yaml.sh, every scripts/security/*.sh,
+            .claude/skills/delete-comment/SKILL.md, and this workflow.
+            In this repository, post no Medium or Low finding about their contents, including
+            limits a file already had before this pull request. Post a High finding only when
+            this diff introduces it. Review the rest of the pull request as usual, and name the
+            skipped files in the summary under what you could not verify.
+
             Work in four phases. Note candidates in your reasoning only. Do not write files.
 
             Phase 1: Intent. Read claude-review-input/pull-request.md (title, body, branch, base, and
