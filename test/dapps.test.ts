@@ -31,8 +31,10 @@ const VALID_CAIP2 = new Set<string>(DAPP_CHAIN_IDS);
 /** Chains confirmed from each project's own docs, kept to DAPP_CHAINS. */
 const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   "app-flamix-trade": ["eip155:14"],
+  "app-mysticfinance-xyz": ["eip155:14"],
   "app-upshift-finance": ["eip155:14"],
   "au-cc": ["eip155:14", "eip155:19"],
+  "bithomp-com": ["xrpl:0"],
   "bridge-usdc-com": [
     "eip155:1",
     "eip155:10",
@@ -110,6 +112,9 @@ const CONFIRMED_CHAINS: Record<string, readonly string[]> = {
   ],
   "tsoatlas-xyz": ["eip155:14", "eip155:19"],
   "usdt0-to": ["eip155:1", "eip155:10", "eip155:137", "eip155:14", "eip155:42161", "eip155:999"],
+  "vaults-clearpool-finance": ["eip155:1", "eip155:14"],
+  "xmagnetic-org": ["xrpl:0"],
+  "xpmarket-com": ["xrpl:0"],
 };
 
 function getDappSlugs(): string[] {
@@ -193,9 +198,16 @@ describe("curated dapps", () => {
       categories.map((group) => group.dapps),
       [
         [],
-        ["sparkdex-ai", "blazeswap-xyz", "enosys-global", "app-flamix-trade"],
-        ["kinetic-market", "morpho-org", "enosys-global"],
-        ["spectra-finance", "enosys-global", "app-upshift-finance"],
+        [
+          "sparkdex-ai",
+          "blazeswap-xyz",
+          "enosys-global",
+          "app-flamix-trade",
+          "xpmarket-com",
+          "xmagnetic-org",
+        ],
+        ["kinetic-market", "morpho-org", "enosys-global", "app-mysticfinance-xyz"],
+        ["spectra-finance", "enosys-global", "app-upshift-finance", "vaults-clearpool-finance"],
         ["firelight-finance", "au-cc", "portal-flare-network", "sceptre-fi"],
         ["layerzero-network", "stargate-finance", "usdt0-to", "bridge-usdc-com"],
         [],
@@ -209,6 +221,7 @@ describe("curated dapps", () => {
           "bifrostwallet-com",
           "flare-network",
           "fsa-flare-network",
+          "bithomp-com",
         ],
       ],
     );

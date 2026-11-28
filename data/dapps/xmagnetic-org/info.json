@@ -1,0 +1,8 @@
+{
+  "title": "Magnetic",
+  "description": "Magnetic is an XRP Ledger DEX interface for swapping tokens, providing liquidity to AMM pools, farming and trading NFTs.",
+  "url": "https://xmagnetic.org",
+  "logoURL": "dapps/xmagnetic-org/logo.webp",
+  "logoHash": "391a4d4f2e059aa5461008aeffb47301b04aad94be4718b392e2139404122277",
+  "chains": ["xrpl:0"]
+}
