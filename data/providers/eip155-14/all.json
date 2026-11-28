@@ -887,7 +887,7 @@
     "publicKey": "0x19cf4133a0fca2b7fd108446d699ffa3a5c698ba39a3da0b133005f40bdbdd2816444f52cc73026cc180b7722e2a98682ab0040f133dde1cd216e3cb212ba082",
     "validators": ["NodeID-FLPF99Gi1c79NGHw7GYyhttWPVxpCq713"],
     "listed": true,
-    "managementGroup": true,
+    "managementGroup": false,
     "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
@@ -1277,7 +1277,7 @@
     "validators": ["NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5"],
     "acknowledgedResponsibilities": true,
     "listed": true,
-    "managementGroup": true,
+    "managementGroup": false,
     "domainLinked": true,
     "dualNetwork": true,
     "firstTransaction": {
@@ -1491,7 +1491,7 @@
       "NodeID-7joNh7X4xsHBSXCpLQig22nSqU6xp41k8"
     ],
     "listed": true,
-    "managementGroup": true,
+    "managementGroup": false,
     "domainLinked": false,
     "dualNetwork": true,
     "firstTransaction": {
@@ -2281,7 +2281,7 @@
     "publicKey": "0x15ede83d4533c01ee367c447a788d70b79d3a51c510970eb553a0bcd0bcad97d24dbe39c2d3fcf314a52d99cd7858716a89a12039c9a97e6bdc2157aedaab345",
     "validators": ["NodeID-NHdoCbjV2qnAqdFFw6ZesXcGG9CWjxt77"],
     "listed": false,
-    "managementGroup": false,
+    "managementGroup": true,
     "domainLinked": false,
     "dualNetwork": false,
     "firstTransaction": {

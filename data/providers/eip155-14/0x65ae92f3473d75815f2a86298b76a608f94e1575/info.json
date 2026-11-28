@@ -14,7 +14,7 @@
   "validators": ["NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5"],
   "acknowledgedResponsibilities": true,
   "listed": true,
-  "managementGroup": true,
+  "managementGroup": false,
   "domainLinked": true,
   "dualNetwork": true,
   "firstTransaction": {
