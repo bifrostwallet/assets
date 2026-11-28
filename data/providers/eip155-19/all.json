@@ -246,7 +246,9 @@
     "logoURL": "https://cdn.jsdelivr.net/gh/bifrostwallet/assets@main/data/providers/eip155-19/0xd249c7e0bdb6f407604260350ed56e7dd5254e51/logo.webp",
     "logoHash": "1cd96d4b4a0dadeefa381dc65e3226c31f54630f53fbe99b6ef7b0960b3798e0",
     "websiteURL": "https://ugaenn.io",
-    "links": {},
+    "links": {
+      "x": "https://x.com/uGaenn"
+    },
     "identityAddress": "0xd249c7e0bdb6f407604260350ed56e7dd5254e51",
     "delegationAddress": "0xb53d69b2519ac9f6d65cff8e7824bf09f7064d61",
     "signingPolicyAddress": "0x31e412e114629702281533cc657be76ad928283b",
@@ -254,6 +256,7 @@
     "submitSignaturesAddress": "0xbb654271f2a2debfdb3e702067fe9aaa484a3981",
     "publicKey": "0x1c45b94cfc6175b40338b6155bc5a0c72b5c514ef7cdab54812edf61a26396960298fe3014b702cb1c7c61c6be071b6d229d7d40ec32b7f6426947887851a3f0",
     "validators": [],
+    "acknowledgedResponsibilities": true,
     "listed": true,
     "managementGroup": true,
     "domainLinked": true,
