@@ -1,0 +1,8 @@
+{
+  "title": "Clearpool",
+  "description": "Clearpool offers real-world yield vaults on Flare and Ethereum, including the USDX T-Pool on Flare, where staked USDX earns yield and returns cUSDX.",
+  "url": "https://vaults.clearpool.finance",
+  "logoURL": "dapps/vaults-clearpool-finance/logo.webp",
+  "logoHash": "6627d27ec0ea77da1f67be27e2f727730d02d494b957a77227d8093198950705",
+  "chains": ["eip155:1", "eip155:14"]
+}

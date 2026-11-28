@@ -1,0 +1,8 @@
+{
+  "title": "XPMarket",
+  "description": "XPMarket is an XRP Ledger app for trading tokens on the XRPL DEX and AMM pools, trading NFTs and joining token launches.",
+  "url": "https://xpmarket.com",
+  "logoURL": "dapps/xpmarket-com/logo.webp",
+  "logoHash": "61e5b62df6f2412da5e3bed18ac13a3575a8cc08c7c4a94ae6bbd55bf0642ac5",
+  "chains": ["xrpl:0"]
+}

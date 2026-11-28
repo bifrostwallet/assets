@@ -1,0 +1,8 @@
+{
+  "title": "Mystic",
+  "description": "Mystic is a lending app built on Morpho. On Flare it offers curated vaults for earning yield on FXRP, FLR and USDT0, and borrowing against FXRP and other collateral.",
+  "url": "https://app.mysticfinance.xyz",
+  "logoURL": "dapps/app-mysticfinance-xyz/logo.webp",
+  "logoHash": "58b16a5517707e79444edf619a0f7cb733502aabc78c719d911e1185f3b8eb01",
+  "chains": ["eip155:14"]
+}

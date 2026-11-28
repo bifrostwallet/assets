@@ -7,17 +7,24 @@
   {
     "id": "dex",
     "label": "DEX",
-    "dapps": ["sparkdex-ai", "blazeswap-xyz", "enosys-global", "app-flamix-trade"]
+    "dapps": [
+      "sparkdex-ai",
+      "blazeswap-xyz",
+      "enosys-global",
+      "app-flamix-trade",
+      "xpmarket-com",
+      "xmagnetic-org"
+    ]
   },
   {
     "id": "lending",
     "label": "Lending",
-    "dapps": ["kinetic-market", "morpho-org", "enosys-global"]
+    "dapps": ["kinetic-market", "morpho-org", "enosys-global", "app-mysticfinance-xyz"]
   },
   {
     "id": "yield",
     "label": "Yield",
-    "dapps": ["spectra-finance", "enosys-global", "app-upshift-finance"]
+    "dapps": ["spectra-finance", "enosys-global", "app-upshift-finance", "vaults-clearpool-finance"]
   },
   {
     "id": "staking",
@@ -54,7 +61,8 @@
       "au-cc",
       "bifrostwallet-com",
       "flare-network",
-      "fsa-flare-network"
+      "fsa-flare-network",
+      "bithomp-com"
     ]
   }
 ]

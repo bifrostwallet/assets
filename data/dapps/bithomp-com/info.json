@@ -1,0 +1,8 @@
+{
+  "title": "Bithomp",
+  "description": "Bithomp is an XRP Ledger explorer for looking up accounts, transactions, tokens and NFTs.",
+  "url": "https://bithomp.com",
+  "logoURL": "dapps/bithomp-com/logo.webp",
+  "logoHash": "be5560f391e07f8be41e4072eaa5280eb1f4f4cfbe97a26e2351e880145c1908",
+  "chains": ["xrpl:0"]
+}
