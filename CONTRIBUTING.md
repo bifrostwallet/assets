@@ -174,7 +174,8 @@ A contract may keep its own `logo.webp` in `data/contracts/eip155-<id>/<address>
 - `bridge`: cross-chain messaging and token transfers
 - `lending`: money markets (supply, borrow, liquidation)
 - `staking`: delegating or restaking for rewards
-- `yield`: vaults and strategies that earn a return on deposits
+- `earn`: curated vaults shown as Earn opportunities in Bifrost Wallet. Only add a vault here when it should be offered to users
+- `yield-trading`: yield tokenization and trading of principal and yield tokens
 - `perpetuals`: perpetual futures and leveraged trading
 - `predictions`: prediction markets
 - `nft-marketplace`: NFT trading venues
