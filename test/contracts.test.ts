@@ -42,7 +42,7 @@ describe("contract catalog", { concurrency: false }, () => {
       "bridge",
       "lending",
       "staking",
-      "earn",
+      "vault",
       "yield-trading",
       "perpetuals",
       "predictions",
@@ -56,8 +56,8 @@ describe("contract catalog", { concurrency: false }, () => {
     assert.equal(count("aggregator"), 4);
     assert.equal(count("bridge"), 10);
     assert.equal(count("lending"), 7);
-    assert.equal(count("staking"), 2);
-    assert.equal(count("earn"), 2);
+    assert.equal(count("staking"), 1);
+    assert.equal(count("vault"), 3);
     assert.equal(count("yield-trading"), 3);
     assert.equal(count("perpetuals"), 3);
     assert.equal(count("predictions"), 0);
@@ -132,12 +132,12 @@ describe("contract catalog", { concurrency: false }, () => {
     const stxrpVault = getContract("eip155:14", "0x4C18Ff3C89632c3Dd62E796c0aFA5c07c4c1B2b3");
     assert.equal(stxrpVault?.projectName, "Firelight");
     assert.equal(stxrpVault?.contractName, "stXRP Vault");
-    assert.equal(stxrpVault?.category, "earn");
+    assert.equal(stxrpVault?.category, "vault");
 
     const firelight = getContract("eip155:114", "0x8371172AB47A594592625C8e8FfFEF956a9acC1a");
     assert.equal(firelight?.projectName, "Firelight");
     assert.equal(firelight?.contractName, "Vault");
-    assert.equal(firelight?.category, "staking");
+    assert.equal(firelight?.category, "vault");
     assert.equal(firelight?.project, "firelight-finance");
     assert.equal(firelight?.logoURL, "contracts/projects/firelight-finance/logo.webp");
     assert.equal(getContract("eip155:114", "0xc90d6847747b85d1fa2e07859869fb9fb72c0361"), null);
